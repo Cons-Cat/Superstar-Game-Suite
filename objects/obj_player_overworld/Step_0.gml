@@ -1,0 +1,370 @@
+///@description Movement
+phy_acceleration_imp = phy_acceleration
+phy_deceleration_imp = phy_deceleration
+
+// Momentum
+if canMove && (jumpDelay = jumpDelayMax || !onGround) {
+	if keyboard_check(_left) && !keyboard_check(_right) {
+		c_hspeed = max(c_hspeed-phy_acceleration_imp, -max_speed)
+	}
+	if keyboard_check(_right) && !keyboard_check(_left) {
+		c_hspeed = min(c_hspeed+phy_acceleration_imp, max_speed)
+	}
+	if keyboard_check(_up) && !keyboard_check(_down) {
+		c_vspeed = min(c_vspeed-phy_acceleration_imp, max_speed)
+	}
+	if keyboard_check(_down) && !keyboard_check(_up) {
+		c_vspeed = min(c_vspeed+phy_acceleration_imp, max_speed)
+	}
+}
+	
+// Stopping
+if jumpDelay = jumpDelayMax {
+	if (!keyboard_check(_left) && !keyboard_check(_right)) && abs(c_hspeed) != 0 {
+		if c_hspeed < 0 {
+			c_hspeed = min(c_hspeed+phy_deceleration_imp,0);
+		}
+		if c_hspeed > 0 {
+			c_hspeed = max(c_hspeed-phy_deceleration_imp,0);
+		}
+		jumpTempHspd = 0;
+	}
+
+	if (!keyboard_check(_up) && !keyboard_check(_down)) && abs(c_vspeed) != 0 {
+		if c_vspeed < 0 {
+			c_vspeed = min(c_vspeed+phy_deceleration_imp,0);
+		}
+		if c_vspeed > 0 {
+			c_vspeed = max(c_vspeed-phy_deceleration_imp,0);
+		}
+		jumpTempVspd = 0;
+	}
+} else {
+	// Decelerate while preparing to jump
+	if onGround {
+		if c_hspeed < 0 {
+			c_hspeed = min(c_hspeed+phy_deceleration_imp/jumpPrepDecel,0);
+		}
+		if c_hspeed > 0 {
+			c_hspeed = max(c_hspeed-phy_deceleration_imp/jumpPrepDecel,0);
+		}
+		if c_vspeed < 0 {
+			c_vspeed = min(c_vspeed+phy_deceleration_imp/jumpPrepDecel,0);
+		}
+		if c_vspeed > 0 {
+			c_vspeed = max(c_vspeed-phy_deceleration_imp/jumpPrepDecel,0);
+		}
+	}
+}
+
+if (keyboard_check(_up) || keyboard_check(_down)) && (keyboard_check(_left) || keyboard_check(_right)) {
+	max_speed = phy_walkspeed - 0.03;
+} else {
+	max_speed = phy_walkspeed;
+}
+
+// Maximum speed thresholds
+if c_hspeed > max_speed {
+	c_hspeed = max_speed;
+}
+if c_hspeed < -max_speed {
+	c_hspeed = -max_speed;
+}
+if c_vspeed > max_speed {
+	c_vspeed = max_speed;
+}
+if c_vspeed < -max_speed {
+	c_vspeed = -max_speed;
+}
+
+// Point towards input direction
+if moving {
+	if keyboard_check(_up) && !keyboard_check(_right) && !keyboard_check(_down) && !keyboard_check(_left) {
+		jumpTempHspd = 0;
+		jumpTempVspd = -max_speed-0.16;
+		rotationInputDirection = 90;
+	}
+	if keyboard_check(_up) && keyboard_check(_right) && !keyboard_check(_down) && !keyboard_check(_left) {
+		jumpTempHspd = max_speed+0.16;
+		jumpTempVspd = -max_speed-0.16;
+		rotationInputDirection = 45;
+	}
+	if !keyboard_check(_up) && keyboard_check(_right) && !keyboard_check(_down) && !keyboard_check(_left) {
+		jumpTempHspd = max_speed+0.16;
+		jumpTempVspd = 0;
+		rotationInputDirection = 0;
+	}
+	if !keyboard_check(_up) && keyboard_check(_right) && keyboard_check(_down) && !keyboard_check(_left) {
+		jumpTempHspd = max_speed+0.16;
+		jumpTempVspd = max_speed+0.16;
+		rotationInputDirection = 315;
+	}
+	if !keyboard_check(_up) && !keyboard_check(_right) && keyboard_check(_down) && !keyboard_check(_left) {
+		jumpTempHspd = 0;
+		jumpTempVspd = max_speed+0.16;
+		rotationInputDirection = 270;
+	}
+	if !keyboard_check(_up) && !keyboard_check(_right) && keyboard_check(_down) && keyboard_check(_left) {
+		jumpTempHspd = -max_speed-0.16;
+		jumpTempVspd = max_speed+0.16;
+		rotationInputDirection = 225;
+	}
+	if !keyboard_check(_up) && !keyboard_check(_right) && !keyboard_check(_down) && keyboard_check(_left) {
+		jumpTempHspd = -max_speed-0.16;
+		jumpTempVspd = 0;
+		rotationInputDirection = 180;
+	}
+	if keyboard_check(_up) && !keyboard_check(_right) && !keyboard_check(_down) && keyboard_check(_left) {
+		jumpTempHspd = -max_speed-0.16;
+		jumpTempVspd = -max_speed-0.16;
+		rotationInputDirection = 135;
+	}
+}
+
+// Select the sprite
+rotFin = scr_rotateAngle(rotationInputDirection);
+rotDir = scr_rotateDirection(rotationInputDirection,dirIso,rotFin);
+
+if dirIso != rotFin {
+	dirIso = scr_spriteRotateTowards(rotFin,rotDir,dirIso); // Update the angle towards the direction
+}
+spr = scr_spriteDir(dirIso);
+
+if (abs(c_hspeed) + abs(c_vspeed))/2 != 0 && !jumping {
+	// Walk animation
+	/*if c_hspeed	= 0 && c_vspeed != 0 {
+		image_index += abs(c_vspeed)/imgSpd;
+	} else if c_hspeed != 0 && c_vspeed = 0 {
+		image_index += abs(c_hspeed)/imgSpd;
+	} else {
+		image_index += (abs(c_hspeed) + abs(c_vspeed))/(imgSpd*2);
+	}*/
+	moving = true;
+} else if jumping {
+	if !jumpAnim {
+		if image_index < 5 {
+			image_index += 1;
+		} else {
+			jumpAnim = true;
+		}
+	} else {
+		image_index = 5;
+	}
+} else {
+	//Idle animation
+	moving = false;
+	image_speed = 0;
+	image_index = 0;
+}
+
+// Jumping
+if canMove {
+	if keyboard_check_pressed(_A ) {
+		// Initiating jump
+		if jumpHeight = platOn {
+			jumpDelay = jumpDelayMax;
+			jumpBoost = platOn;
+			glideDelay = glideDelayMax;
+			jumping = true;
+			onGround = false;
+			
+			image_index = 0;
+		}
+	}
+	if jumping {
+		if jumpDelay > 0 {
+			if !fallSearch {
+				// Pre-jump timer
+				jumpDelay -= 1;
+			} else {
+				// Cancel pre-jump if moved off a platform
+				jumping = false;
+			}
+		} else {
+			if jumpDelay != -1 {
+				// Boost forward in the direction set leaping
+				onGround = false;
+				c_hspeed = jumpTempHspd;
+				c_vspeed = jumpTempVspd;
+				//jumpDelay = -1;
+			}
+			
+			// Rising skyward
+			if jumpHeight < maxJumpHeight + jumpBoost {
+				jumpHeight += jumpSpeed;
+				jumpGrav = 1;
+			} else {
+				jumpHeight += jumpSpeed / jumpGrav;
+		
+				if floor(jumpSpeed / jumpGrav) = 0 {
+					jumping = false;
+				}
+		
+				if jumpGrav < jumpGravMax {
+					jumpGrav += jumpGravVal;
+				} else {
+					jumpGrav = 0;
+					jumpGrav = jumpGravMax;
+				}
+			}
+		}
+	}
+}
+if !jumping {
+	jumpDelay = jumpDelayMax;
+	// Earth-bound gravity
+	if !keyboard_check(_A) || glideDelay = 0 {
+		if !boosting {
+			if jumpHeight > platOn + jumpGrav/2 {
+				jumpHeight -= 0.5 + jumpGrav/2;
+
+				if jumpGrav < jumpGravMax {
+					jumpGrav += jumpGravVal;
+				} else {
+					jumpGrav = jumpGravMax;
+				}
+			} else {
+				jumpHeight = platOn;
+				jumpAnim = false;
+			}
+		}
+	} else {
+		if !boosting {
+			glideDelay -= 1;
+		}
+	}
+}
+
+// Boosting mid-air
+if boosting = false {
+	debugCol = c_white;
+	if keyboard_check_pressed(_B) {
+		if jumping = false {
+			if onGround = false {
+				boosting = true;
+				jumpDelay = jumpDelayMax;
+				jumpHeightBoostTemp = jumpHeight;
+				xBoostTemp = x;
+				yBoostTemp = y;
+				
+				// Boost skyward
+				if !keyboard_check(_left) && !keyboard_check(_up) && !keyboard_check(_right) && !keyboard_check(_down) {
+					boostDir = -1;
+				}
+				// Boost northward
+				if !keyboard_check(_left) && keyboard_check(_up) && !keyboard_check(_right) && !keyboard_check(_down) {
+					boostDir = 0;
+				}
+				// Boost eastward
+				if !keyboard_check(_left) && !keyboard_check(_up) && keyboard_check(_right) && !keyboard_check(_down) {
+					boostDir = 2;
+				}
+				// Boost southward
+				if !keyboard_check(_left) && !keyboard_check(_up) && !keyboard_check(_right) && keyboard_check(_down) {
+					boostDir = 4;
+				}
+				// Boost westward
+				if keyboard_check(_left) && !keyboard_check(_up) && !keyboard_check(_right) && !keyboard_check(_down) {
+					boostDir = 6;
+				}
+			}
+		}
+	}
+}
+if boosting = true {
+	debugCol = c_orange;
+	// Boost skyward
+	if boostDir = -1 {
+		if jumpHeight < self.jumpHeightBoostTemp + boostDistance - boostSpeed {
+			jumpHeight += boostSpeed;
+		} else {
+			jumpHeight = jumpHeightBoostTemp + boostDistance;
+			boosting = false;
+		}
+	}
+	// Boost eastward
+	if boostDir = 2 {
+		if x < self.xBoostTemp + boostDistance - boostSpeed {
+			c_hspeed = boostSpeed;
+		} else {
+			x = xBoostTemp + boostDistance;
+			c_hspeed = 0;
+			boosting = false;
+		}
+	}
+	// Boost westward
+	if boostDir = 6 {
+		if x > self.xBoostTemp - boostDistance + boostSpeed {
+			c_hspeed = -boostSpeed;
+		} else {
+			x = xBoostTemp - boostDistance;
+			c_hspeed = 0;
+			boosting = false;
+		}
+	}
+	// Boost northward
+	if boostDir = 0 {
+		if y > self.yBoostTemp - boostDistance + boostSpeed {
+			c_vspeed = -boostSpeed;
+		} else {
+			y = yBoostTemp - boostDistance;
+			c_vspeed = 0;
+			boosting = false;
+		}
+	}
+	// Boost southward
+	if boostDir = 4 {
+		if y < self.yBoostTemp + boostDistance - boostSpeed {
+			c_vspeed = boostSpeed;
+		} else {
+			y = yBoostTemp + boostDistance;
+			c_vspeed = 0;
+			boosting = false;
+		}
+	}
+}
+
+zplace = floor((jumpHeight/20));
+//Depth
+//depth = -y - jumpHeight*20 - platOn;
+
+// Checking to fall off of platforms
+fallSearch = true; // Fall down by default
+
+// Find relevant floor object
+trgFinalTemp = 0;
+for (i = 0; i < instance_number(obj_floor); i += 1) {
+	trgScr = instance_find(obj_floor,i).id;
+	if trgScr.zplace*20 <= self.jumpHeight {
+		if collision_point(x,y,trgScr,true,true) {
+			trgLayer[i] = trgScr.zplace;
+			for (a = 0; a <= i; a += 1) {
+				if trgLayer[a] >= trgFinalTemp {
+					trgFinal = trgScr;
+					trgFinalTemp = trgLayer[a];
+				}
+			}
+			platOn = trgFinal.zplace*20;
+		}
+	}
+}
+
+if trgFinal.zplace = self.zplace {
+	fallSearch = false; // Cancel fall if standing on a platform
+	onGround = true;
+	//depth = - (trgFinal.y + trgFinal.image_yscale*20 + (trgFinal.zplace - trgFinal.zcieling)*20) - self.platOn - 1;
+	if collision_rectangle(bbox_left+c_hspeed,bbox_top-1,bbox_right+c_hspeed,bbox_bottom-1,par_slope_bot,false,false) {
+		depth = - (trgFinal.y + trgFinal.image_yscale*20 + (trgFinal.zplace)*20) - 1 - abs(self.y - trgFinal.y+trgFinal.image_yscale*20)+trgFinal.zplace*20;
+	} else {
+		depth = - (trgFinal.y + trgFinal.image_yscale*20 + (trgFinal.zplace)*20) - 1;
+	}
+}
+
+if fallSearch = true {
+	jumpAnim = false;
+}
+
+image_speed = 2.7;
+
+// Update x,y coordinates
+scr_cmove_step(1,0);
