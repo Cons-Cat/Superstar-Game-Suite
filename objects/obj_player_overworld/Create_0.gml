@@ -37,7 +37,7 @@ sprR = spr_lucy_right;
 sprURR = spr_lucy_rupright;
 sprUR = spr_lucy_upright;
 sprUUR = spr_lucy_uupright;
-sprU = spr_lucy_up;
+sprU = spr_lucy_up2;
 
 sprDJ = spr_lucy_down_jump;
 sprDRJ = spr_lucy_downright_jump;
@@ -48,7 +48,7 @@ sprUJ = spr_lucy_up_jump;
 sprDWalk = spr_lucy_walk_down;
 sprDDRWalk = spr_lucy_walk_ddownright;
 sprDRWalk = spr_lucy_walk_downright;
-sprDRRWalk = spr_lucy_walk_rdownright;
+sprDRRWalk = spr_lucy_walk_rdownright2;
 sprRWalk = spr_lucy_walk_right;
 sprURRWalk = spr_lucy_walk_rupright;
 sprURWalk = spr_lucy_walk_upright;

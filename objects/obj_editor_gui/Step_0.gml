@@ -91,7 +91,7 @@ if mode = 2 {
 	if spawnedCollisions {
 		spawnedCollisions = false;
 		
-		with obj_solid_parent{
+		with obj_solid_parent {
 			instance_destroy();
 		}
 		with obj_floor {

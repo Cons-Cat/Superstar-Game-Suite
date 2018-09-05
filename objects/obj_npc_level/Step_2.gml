@@ -2,9 +2,14 @@
 if instance_exists(obj_editor_gui) {
 	if obj_editor_gui.mode != 2 {
 		// Not in play mode
-		x = trg.x + 10;
-		y = trg.y + 10;
-		depth = trg.depth - 1;
+		if instance_exists(trg) {
+			x = trg.x + 10;
+			y = trg.y + 10;
+			depth = trg.depth - 1;
+		} else {
+			instance_destroy();
+		}
+		
 		direction = 270;
 		speed = 0;
 		

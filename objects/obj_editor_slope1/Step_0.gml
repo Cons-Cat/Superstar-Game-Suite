@@ -134,7 +134,7 @@ if mouse_check_button_released(mb_left) {
 		lastX = x;
 		lastY = y;
 		
-		obj_tile_button_parent.select = 0;
+		obj_tile_button_parent2.select = 0;
 	}
 }
 
