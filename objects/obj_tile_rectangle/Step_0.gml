@@ -7,7 +7,7 @@ if select = 1 {
 				select = 0;
 				col = c_white;
 			}
-		
+			
 			// Place tile in grid area
 			if mouse_x < camera_get_view_x(obj_editor_gui.camera) + 342 {
 				if obj_editor_gui.mode = 0 || obj_editor_gui.mode = 1 {
