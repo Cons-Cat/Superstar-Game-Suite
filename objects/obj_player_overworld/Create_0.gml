@@ -17,6 +17,9 @@ floorTrg = 0;
 trgFinal = obj_floor;
 trgFinalTemp = -1;
 
+imgSpd = 4;
+imgIndex = 0;
+
 if room != room_leveleditor {
 	if !instance_exists(obj_camera) {
 		instance_create_layer(x,y,"Hud",obj_camera);

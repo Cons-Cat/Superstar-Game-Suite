@@ -1,9 +1,9 @@
 /// @description Arrow buttons
 
 // Click arrow buttons
-if mouse_x >= self.x + 15 && mouse_x <= self.x + 35 {
+if mouse_x >= self.x + 15 && mouse_x <= self.x + 25 {
 	// Top arrow
-	if mouse_y >= self.y - 10 && mouse_y <= self.y {
+	if mouse_y >= self.y - 9 && mouse_y <= self.y {
 		if mouse_check_button_pressed(mb_left) {
 			z += 1;
 			col1 = c_orange;
@@ -14,7 +14,7 @@ if mouse_x >= self.x + 15 && mouse_x <= self.x + 35 {
 		}
 	}
 	// Bottom arrow
-	if mouse_y >= self.y + 22 && mouse_y <= self.y + 40 {
+	if mouse_y >= self.y + 22 && mouse_y <= self.y + 29 {
 		if mouse_check_button_pressed(mb_left) {
 			if z > -1 {
 				z -= 1;

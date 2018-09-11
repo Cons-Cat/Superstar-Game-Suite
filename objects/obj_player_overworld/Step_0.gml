@@ -132,34 +132,36 @@ spr = scr_spriteDir(dirIso);
 
 if (abs(c_hspeed) + abs(c_vspeed))/2 != 0 && !jumping {
 	// Walk animation
-	/*if c_hspeed	= 0 && c_vspeed != 0 {
-		image_index += abs(c_vspeed)/imgSpd;
+	if c_hspeed	= 0 && c_vspeed != 0 {
+		imgIndex += abs(c_vspeed)/imgSpd;
 	} else if c_hspeed != 0 && c_vspeed = 0 {
-		image_index += abs(c_hspeed)/imgSpd;
+		imgIndex += abs(c_hspeed)/imgSpd;
 	} else {
-		image_index += (abs(c_hspeed) + abs(c_vspeed))/(imgSpd*2);
-	}*/
+		imgIndex += (abs(c_hspeed) + abs(c_vspeed))/(imgSpd*2); // Average of absolute hspeed and vspeed
+	}
+	
+	show_debug_message(image_speed);
+	
 	moving = true;
 } else if jumping {
 	if !jumpAnim {
-		if image_index < 5 {
-			image_index += 1;
+		if imgIndex < 5 {
+			imgIndex += 1;
 		} else {
 			jumpAnim = true;
 		}
 	} else {
-		image_index = 5;
+		imgIndex = 5;
 	}
 } else {
 	//Idle animation
 	moving = false;
-	image_speed = 0;
-	image_index = 0;
+	imgIndex = 0;
 }
 
 // Jumping
 if canMove {
-	if keyboard_check_pressed(_A ) {
+	if keyboard_check_pressed(_A) {
 		// Initiating jump
 		if jumpHeight = platOn {
 			jumpDelay = jumpDelayMax;
@@ -168,7 +170,7 @@ if canMove {
 			jumping = true;
 			onGround = false;
 			
-			image_index = 0;
+			imgIndex = 0;
 		}
 	}
 	if jumping {
@@ -236,7 +238,7 @@ if !jumping {
 }
 
 // Boosting mid-air
-if boosting = false {
+/*if boosting = false {
 	debugCol = c_white;
 	if keyboard_check_pressed(_B) {
 		if jumping = false {
@@ -322,11 +324,9 @@ if boosting = true {
 			boosting = false;
 		}
 	}
-}
+}*/
 
 zplace = floor((jumpHeight/20));
-//Depth
-//depth = -y - jumpHeight*20 - platOn;
 
 // Checking to fall off of platforms
 fallSearch = true; // Fall down by default
@@ -352,7 +352,7 @@ for (i = 0; i < instance_number(obj_floor); i += 1) {
 if trgFinal.zplace = self.zplace {
 	fallSearch = false; // Cancel fall if standing on a platform
 	onGround = true;
-	//depth = - (trgFinal.y + trgFinal.image_yscale*20 + (trgFinal.zplace - trgFinal.zcieling)*20) - self.platOn - 1;
+	
 	if collision_rectangle(bbox_left+c_hspeed,bbox_top-1,bbox_right+c_hspeed,bbox_bottom-1,par_slope_bot,false,false) {
 		depth = - (trgFinal.y + trgFinal.image_yscale*20 + (trgFinal.zplace)*20) - 1 - abs(self.y - trgFinal.y+trgFinal.image_yscale*20)+trgFinal.zplace*20;
 	} else {
@@ -364,7 +364,7 @@ if fallSearch = true {
 	jumpAnim = false;
 }
 
-image_speed = 2.7;
+//image_speed = 2.7;
 
 // Update x,y coordinates
 scr_cmove_step(1,0);
