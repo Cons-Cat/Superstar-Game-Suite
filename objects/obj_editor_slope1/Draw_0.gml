@@ -127,7 +127,7 @@ if obj_editor_gui.mode = 0 {
 	if zcieling >= 0 {
 		// Draw Shadow
 		gpu_set_blendmode(bm_inv_src_color);
-	
+		
 		for (i = 0; i < width; i += 1) {
 			for (j = 0; j < height; j += 1) {
 				for (z = 0; z < y+(zfloor+height)*20; z += 20) {
@@ -177,17 +177,61 @@ if obj_editor_gui.mode = 1 {
 	
 	// Bottom surface
 	draw_set_alpha(0.35);
-	draw_rectangle(x,y+(zfloor-zcieling)*20,x+width*20,y+height*20+(zfloor-zcieling)*20,false);
+	for (i = 0; i < width; i += 1) {
+		if !mirror {
+			draw_triangle(x+i*20,y-i*20+zfloor*20+20,x+i*20,y-i*20+zfloor*20,x+i*20+20,y-i*20+zfloor*20,false);
+		} else {
+			draw_triangle(x+width*20-i*20,y-i*20+zfloor*20+20,x+width*20-i*20-20,y-i*20+zfloor*20,x+width*20-i*20,y-i*20+zfloor*20,false);
+		}
+	}
+	
 	draw_set_alpha(1);
 	draw_set_color(layerColorLine);
+	
 	// Top surface
-	draw_rectangle(x,y,x+width*20,y+height*20,true);
-	draw_rectangle(x+1,y+1,x+width*20-1,y+height*20-1,true);
-	draw_rectangle(x+2,y+2,x+width*20-2,y+height*20-2,true);
-	// Front surface
-	draw_rectangle(x,y+height*20,x+width*20,y+height*20+(zfloor-zcieling)*20,true);
-	draw_rectangle(x+1,y+height*20+1,x+width*20-1,y+height*20+(zfloor-zcieling)*20-1,true);
-	draw_rectangle(x+2,y+height*20+2,x+width*20-2,y+height*20+(zfloor-zcieling)*20-2,true);
+	if !mirror {
+		draw_line(x,y+height*20+zfloor*20,x+width*20,y+zfloor*20-width*20+20)
+		draw_line(x,y+height*20+zfloor*20-1,x+width*20,y+zfloor*20-width*20+19)
+			
+		draw_line(x,y+height*20,x+width*20,y-width*20+20)
+		draw_line(x,y+height*20-1,x+width*20,y-width*20+19)
+	} else {
+		draw_line(x,y+height*20+zfloor*20-width*20,x+width*20,y+zfloor*20+20)
+		draw_line(x,y+height*20+zfloor*20-width*20-1,x+width*20,y+zfloor*20+19)
+			
+		draw_line(x,y+height*20-width*20,x+width*20,y+20)
+		draw_line(x,y+height*20-width*20-1,x+width*20,y+19)
+	}
+	
+	for (i = 0; i < width; i += 1) {
+		if !mirror {
+			draw_line(x+i*20,y-i*20,x+i*20,y-i*20+20);
+			draw_line(x+i*20+1,y-i*20,x+i*20+1,y-i*20+20);
+			
+			draw_line(x+i*20,y-i*20,x+i*20+20,y-i*20);
+			draw_line(x+i*20,y-i*20+1,x+i*20+20,y-i*20+1);
+		} else {
+			draw_line(x+i*20+20,y+i*20-width*20+20,x+i*20+20,y+i*20+40-width*20);
+			draw_line(x+i*20+19,y+i*20-width*20+20,x+i*20+20,y+i*20+39-width*20);
+			
+			draw_line(x+i*20,y+i*20-width*20+20,x+i*20+20,y+i*20-width*20+20);
+			draw_line(x+i*20,y+i*20-width*20+21,x+i*20+20,y+i*20-width*20+21);
+		}
+	}
+	
+	if !mirror {
+		draw_line(x,y+height*20,x,y+height*20+zfloor*20);
+		draw_line(x+1,y+height*20,x+1,y+height*20+zfloor*20);
+	
+		draw_line(x+width*20,y+height*20-width*20,x+width*20,y+zfloor*20+height*20-width*20);
+		draw_line(x+width*20-1,y+height*20-width*20,x+width*20-1,y+zfloor*20+height*20-width*20);
+	} else {
+		draw_line(x+width*20,y+height*20,x+width*20,y+height*20+zfloor*20);
+		draw_line(x+width*20-1,y+height*20,x+width*20-1,y+height*20+zfloor*20);
+	
+		draw_line(x,y+height*20-width*20,x,y+zfloor*20+height*20-width*20);
+		draw_line(x+1,y+height*20-width*20,x+1,y+zfloor*20+height*20-width*20);
+	}
 }
 
 // Tile painting mode / Play testing mode

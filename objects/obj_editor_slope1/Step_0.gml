@@ -55,13 +55,13 @@ if placed = 1 {
 					if collision_point(mouse_x,mouse_y,self.id,false,false) {
 						sprMaterialDirectory = "";
 						sprMaterialDirectory = get_open_filename_ext("Material Image File|*.png", "", working_directory + "\Room Saves\ ", "Import Material Tileset");
-					
+						
 						if sprMaterialDirectory != "" {
 							global.pieceSelected = self.id;
 						}
 						
 						obj_editor_gui.hasMaterials = true;
-					
+						
 						for (i = 0; i <= obj_editor_gui.materialsImported; i += 1) {
 							if obj_editor_gui.sprMaterialDirectoryList[i] = self.sprMaterialDirectory {
 								global.sprMaterial = obj_editor_gui.materialDirectorySprite[i];
