@@ -31,14 +31,6 @@
     },
     "resources": [
         {
-            "Key": "00e5937d-b751-4da1-8978-853efc4770cd",
-            "Value": {
-                "id": "59f53e92-6715-4900-baee-65a6ffb8d04c",
-                "resourcePath": "objects\\obj_wireframe_editor\\obj_wireframe_editor.yy",
-                "resourceType": "GMObject"
-            }
-        },
-        {
             "Key": "0b823086-0d47-4c64-b834-3413cb07f20b",
             "Value": {
                 "id": "27e89764-e142-4c8d-9bf6-e98358954b83",

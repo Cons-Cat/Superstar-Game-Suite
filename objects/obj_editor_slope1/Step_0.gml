@@ -48,6 +48,11 @@ if placed = 1 {
 					}
 					with instance_create_layer(x-20,y+20,"Instances",obj_info_editor) {
 						trg = other.id;
+						str2 = "mirror";
+					}
+					with instance_create_layer(x,y+20,"Instances",obj_info_editor) {
+						trg = other.id;
+						str2 = "flip";
 					}
 				}
 			} else if obj_editor_gui.mode = 3 {
