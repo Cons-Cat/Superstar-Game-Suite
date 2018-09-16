@@ -25,67 +25,83 @@ if obj_editor_gui.mode = 0 {
 			}
 			
 			if !mirror {
-				if width > 1 {
-					if i < 1 {
-						// Left edge
-						if j < zfloor-zcieling {
-							draw_sprite_ext(spr_walls_slope1_editor,4,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,1);
+				if !flip {
+					if width > 1 {
+						if i < 1 {
+							// Left edge
+							if j < zfloor-zcieling {
+								draw_sprite_ext(spr_walls_slope1_editor,4,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,1);
+							} else {
+								draw_sprite_ext(spr_walls_slope1_editor,2,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,1);
+							}
+						} else if i = width - 1 {
+							// Right edge
+							if j < zfloor-zcieling {
+								draw_sprite_ext(spr_walls_slope1_editor,10,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,1);
+							} else {
+								draw_sprite_ext(spr_walls_slope1_editor,12,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,1);
+							}
 						} else {
-							draw_sprite_ext(spr_walls_slope1_editor,2,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,1);
-						}
-					} else if i = width - 1 {
-						// Right edge
-						if j < zfloor-zcieling {
-							draw_sprite_ext(spr_walls_slope1_editor,10,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,1);
-						} else {
-							draw_sprite_ext(spr_walls_slope1_editor,12,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,1);
+							// Center fill
+							if j < zfloor-zcieling  {
+								draw_sprite_ext(spr_walls_slope1_editor,6,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,1);
+							} else {
+								draw_sprite_ext(spr_walls_slope1_editor,0,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,1);
+							}
 						}
 					} else {
-						// Center fill
-						if j < zfloor-zcieling  {
-							draw_sprite_ext(spr_walls_slope1_editor,6,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,1);
+						// Column
+						if j < zfloor-zcieling {
+							draw_sprite_ext(spr_walls_slope1_editor,14,x+i*20,y+j*20+(height-1)*20,1,1,0,layerColor,1);
 						} else {
-							draw_sprite_ext(spr_walls_slope1_editor,0,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,1);
+							draw_sprite_ext(spr_walls_slope1_editor,8,x+i*20,y+j*20+(height-1)*20,1,1,0,layerColor,1);
 						}
 					}
 				} else {
-					// Column
 					if j < zfloor-zcieling {
-						draw_sprite_ext(spr_walls_slope1_editor,14,x+i*20,y+j*20+(height-1)*20,1,1,0,layerColor,1);
+						draw_sprite_ext(spr_walls_editor,6,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,1);
 					} else {
-						draw_sprite_ext(spr_walls_slope1_editor,8,x+i*20,y+j*20+(height-1)*20,1,1,0,layerColor,1);
+						draw_sprite_ext(spr_walls_editor,7,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,1);
 					}
 				}
 			} else {
-				if width > 1 {
-					if i < 1 {
-						// Left edge
-						if j < zfloor-zcieling {
-							draw_sprite_ext(spr_walls_slope1_editor,11,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,1);
+				if !flip {
+					if width > 1 {
+						if i < 1 {
+							// Left edge
+							if j < zfloor-zcieling {
+								draw_sprite_ext(spr_walls_slope1_editor,11,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,1);
+							} else {
+								draw_sprite_ext(spr_walls_slope1_editor,13,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,1);
+							}
+						} else if i = width - 1 {
+							// Right edge
+							if j < zfloor-zcieling {
+								draw_sprite_ext(spr_walls_slope1_editor,5,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,1);
+							} else {
+								draw_sprite_ext(spr_walls_slope1_editor,3,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,1);
+							}
 						} else {
-							draw_sprite_ext(spr_walls_slope1_editor,13,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,1);
-						}
-					} else if i = width - 1 {
-						// Right edge
-						if j < zfloor-zcieling {
-							draw_sprite_ext(spr_walls_slope1_editor,5,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,1);
-						} else {
-							draw_sprite_ext(spr_walls_slope1_editor,3,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,1);
+							// Center fill
+							if j < zfloor-zcieling  {
+								draw_sprite_ext(spr_walls_slope1_editor,7,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,1);
+							} else {
+								draw_sprite_ext(spr_walls_slope1_editor,1,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,1);
+							}
 						}
 					} else {
-						// Center fill
-						if j < zfloor-zcieling  {
-							draw_sprite_ext(spr_walls_slope1_editor,7,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,1);
+						// Column
+						if j < zfloor-zcieling {
+							draw_sprite_ext(spr_walls_slope1_editor,15,x+i*20,y+j*20+(height-1)*20,1,1,0,layerColor,1);
 						} else {
-							draw_sprite_ext(spr_walls_slope1_editor,1,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,1);
+							draw_sprite_ext(spr_walls_slope1_editor,9,x+i*20,y+j*20+(height-1)*20,1,1,0,layerColor,1);
 						}
 					}
 				} else {
-					// Column
 					if j < zfloor-zcieling {
-						draw_sprite_ext(spr_walls_slope1_editor,15,x+i*20,y+j*20+(height-1)*20,1,1,0,layerColor,1);
+						draw_sprite_ext(spr_walls_editor,6,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,1);
 					} else {
-						draw_sprite_ext(spr_walls_slope1_editor,9,x+i*20,y+j*20+(height-1)*20,1,1,0,layerColor,1);
+						draw_sprite_ext(spr_walls_editor,7,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,1);
 					}
 				}
 			}
@@ -110,10 +126,18 @@ if obj_editor_gui.mode = 0 {
 	}
 	
 	for (i = 0; i < width; i += 1) {
-		if !mirror {
-			draw_sprite_ext(spr_terrain_slope1_editor,0,x+i*20,y-i*20,1,1,0,layerColor,1);
+		if !flip {
+			if !mirror {
+				draw_sprite_ext(spr_terrain_slope1_editor,0,x+i*20,y-i*20,1,1,0,layerColor,1);
+			} else {
+				draw_sprite_ext(spr_terrain_slope1_editor,1,x+(width-i-1)*20,y-i*20,1,1,0,layerColor,1);
+			}
 		} else {
-			draw_sprite_ext(spr_terrain_slope1_editor,1,x+(width-i-1)*20,y-i*20,1,1,0,layerColor,1);
+			if !mirror {
+				draw_sprite_ext(spr_terrain_slope1_editor,3,x+i*20,y-i*20,1,1,0,layerColor,1);
+			} else {
+				draw_sprite_ext(spr_terrain_slope1_editor,2,x+(width-i-1)*20,y-i*20,1,1,0,layerColor,1);
+			}
 		}
 	}
 	

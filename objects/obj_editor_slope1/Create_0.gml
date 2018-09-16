@@ -2,6 +2,7 @@
 width = 1;
 height = 1;
 mirror = false;
+flip = false;
 str = "slope1";
 
 if obj_tile_z.z >= 0 {

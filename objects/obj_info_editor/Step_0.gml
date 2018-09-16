@@ -12,9 +12,14 @@ if select = 1 {
 				if str = "actor" {
 				}
 				if str = "slope1" {
-					mirror = !mirror;
-					resetArray = true;
+					if other.str2 = "mirror" {
+						mirror = !mirror;
+					}
+					if other.str2 = "flip" {
+						flip = !flip;
+					}
 					
+					resetArray = true;
 					other.select = 0;
 					other.col = c_white;
 				}
@@ -28,7 +33,7 @@ if select = 1 {
 						obj_dialogue_region_interface.selectNumCol[j] = self.selectNumCol[j];
 						obj_dialogue_region_interface.selectButTimelineCol[j] = self.selectButTimelineCol[j];
 						obj_dialogue_region_interface.rowSetting[j] = self.rowSetting[j];
-					
+						
 						if j > 0 {
 							if rowSetting[j] = 1 {
 								obj_dialogue_region_interface.str[j] = self.str[j];
