@@ -60,8 +60,9 @@ repeat(2) {
 		c_vspeed = 0;
 	}
    
-    if collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom,currentsolid_down,false,true)
-    y -= 1;
+    if collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom,currentsolid_down,false,true) {
+	    y -= 1;
+	}
   }
    
   if currentsolid_left
@@ -71,7 +72,7 @@ repeat(2) {
     if c_hspeed <= 0
     c_hspeed = 0
    
-    if collision_rectangle(bbox_left,bbox_top,bbox_left,bbox_bottom,currentsolid_left,false,true){
+    if collision_rectangle(bbox_left,bbox_top,bbox_left,bbox_bottom,currentsolid_left,false,true) {
         x += 1;
     }
   }
@@ -83,7 +84,7 @@ repeat(2) {
     if c_hspeed >= 0
     c_hspeed = 0
    
-    if collision_rectangle(bbox_right,bbox_top,bbox_right,bbox_bottom,currentsolid_right,false,true){
+    if collision_rectangle(bbox_right,bbox_top,bbox_right,bbox_bottom,currentsolid_right,false,true) {
         x -= 1;
     }
   }
@@ -92,26 +93,34 @@ repeat(2) {
 	repeat(abs(c_hspeed)) {
 		// Vertical slopes displacement
 		if collision_rectangle(bbox_left,bbox_top,bbox_right-1,bbox_bottom-1,obj_slopeL_1x_bot,true,false) {
-			if c_hspeed < 0 {
-				y -= c_hspeed;
+			if collision_rectangle(bbox_left,bbox_top,bbox_right-1,bbox_bottom-1,obj_slopeL_1x_bot,true,false).zplace*20 > self.jumpHeight {
+				if c_hspeed < 0 {
+					y -= c_hspeed;
+				}
 			}
 		}
 		if collision_rectangle(bbox_left-1,bbox_top,bbox_right,bbox_bottom-1,obj_slopeR_1x_bot,true,false) {
-			if c_hspeed > 0 {
-				y += c_hspeed;
+			if collision_rectangle(bbox_left-1,bbox_top,bbox_right,bbox_bottom-1,obj_slopeR_1x_bot,true,false).zplace*20 > self.jumpHeight {
+				if c_hspeed > 0 {
+					y += c_hspeed;
+				}
 			}
 		}
 	}
 	repeat(abs(c_vspeed)) {
 		// Horizontal slopes displacement
 		if collision_rectangle(bbox_left,bbox_top,bbox_right-1,bbox_bottom-1,obj_slopeL_1x_bot,true,false) {
-			if c_vspeed < 0 {
-				x -= c_vspeed;
+			if collision_rectangle(bbox_left,bbox_top,bbox_right-1,bbox_bottom-1,obj_slopeL_1x_bot,true,false).zplace*20 > self.jumpHeight {
+				if c_vspeed < 0 {
+					x -= c_vspeed;
+				}
 			}
 		}
 		if collision_rectangle(bbox_left-1,bbox_top,bbox_right,bbox_bottom-1,obj_slopeR_1x_bot,true,false) {
-			if c_vspeed < 0 {
-				x += c_vspeed;
+			if collision_rectangle(bbox_left-1,bbox_top,bbox_right,bbox_bottom-1,obj_slopeR_1x_bot,true,false).zplace*20 > self.jumpHeight {
+				if c_vspeed < 0 {
+					x += c_vspeed;
+				}
 			}
 		}
 	}

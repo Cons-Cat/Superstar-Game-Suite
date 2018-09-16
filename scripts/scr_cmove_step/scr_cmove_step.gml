@@ -51,11 +51,10 @@ else
  subpix_timer_v = subpix_cap_v;
  }
 
-//---
-
-//Negative zero is stupid and causes bugs, let's make sure that doesn't happen
-if c_hspeed == -0
-c_hspeed = 0;
+// Fix potential -0 bugs
+if c_hspeed == -0 {
+	c_hspeed = 0;
+}
 
 //Determines the number of pixels to move
 add_x = c_hspeed+c_hspeed_misc+subpix_move_h+c_hspeed_slope;

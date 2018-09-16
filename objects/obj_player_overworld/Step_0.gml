@@ -237,95 +237,6 @@ if !jumping {
 	}
 }
 
-// Boosting mid-air
-/*if boosting = false {
-	debugCol = c_white;
-	if keyboard_check_pressed(_B) {
-		if jumping = false {
-			if onGround = false {
-				boosting = true;
-				jumpDelay = jumpDelayMax;
-				jumpHeightBoostTemp = jumpHeight;
-				xBoostTemp = x;
-				yBoostTemp = y;
-				
-				// Boost skyward
-				if !keyboard_check(_left) && !keyboard_check(_up) && !keyboard_check(_right) && !keyboard_check(_down) {
-					boostDir = -1;
-				}
-				// Boost northward
-				if !keyboard_check(_left) && keyboard_check(_up) && !keyboard_check(_right) && !keyboard_check(_down) {
-					boostDir = 0;
-				}
-				// Boost eastward
-				if !keyboard_check(_left) && !keyboard_check(_up) && keyboard_check(_right) && !keyboard_check(_down) {
-					boostDir = 2;
-				}
-				// Boost southward
-				if !keyboard_check(_left) && !keyboard_check(_up) && !keyboard_check(_right) && keyboard_check(_down) {
-					boostDir = 4;
-				}
-				// Boost westward
-				if keyboard_check(_left) && !keyboard_check(_up) && !keyboard_check(_right) && !keyboard_check(_down) {
-					boostDir = 6;
-				}
-			}
-		}
-	}
-}
-if boosting = true {
-	debugCol = c_orange;
-	// Boost skyward
-	if boostDir = -1 {
-		if jumpHeight < self.jumpHeightBoostTemp + boostDistance - boostSpeed {
-			jumpHeight += boostSpeed;
-		} else {
-			jumpHeight = jumpHeightBoostTemp + boostDistance;
-			boosting = false;
-		}
-	}
-	// Boost eastward
-	if boostDir = 2 {
-		if x < self.xBoostTemp + boostDistance - boostSpeed {
-			c_hspeed = boostSpeed;
-		} else {
-			x = xBoostTemp + boostDistance;
-			c_hspeed = 0;
-			boosting = false;
-		}
-	}
-	// Boost westward
-	if boostDir = 6 {
-		if x > self.xBoostTemp - boostDistance + boostSpeed {
-			c_hspeed = -boostSpeed;
-		} else {
-			x = xBoostTemp - boostDistance;
-			c_hspeed = 0;
-			boosting = false;
-		}
-	}
-	// Boost northward
-	if boostDir = 0 {
-		if y > self.yBoostTemp - boostDistance + boostSpeed {
-			c_vspeed = -boostSpeed;
-		} else {
-			y = yBoostTemp - boostDistance;
-			c_vspeed = 0;
-			boosting = false;
-		}
-	}
-	// Boost southward
-	if boostDir = 4 {
-		if y < self.yBoostTemp + boostDistance - boostSpeed {
-			c_vspeed = boostSpeed;
-		} else {
-			y = yBoostTemp + boostDistance;
-			c_vspeed = 0;
-			boosting = false;
-		}
-	}
-}*/
-
 zplace = floor((jumpHeight/20));
 
 // Checking to fall off of platforms
@@ -363,8 +274,6 @@ if trgFinal.zplace = self.zplace {
 if fallSearch = true {
 	jumpAnim = false;
 }
-
-//image_speed = 2.7;
 
 // Update x,y coordinates
 scr_cmove_step(1,0);
