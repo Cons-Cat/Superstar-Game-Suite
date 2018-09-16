@@ -163,229 +163,234 @@ if resetArray {
 			tileArrayDrawX[i,j] = 0;
 			tileArrayDrawY[i,j] = 120;
 			
-			if !mirror {
-				if i = 1 {
-					if j = 0 {
-						// Left edge
-						tileArrayDrawX[i-0,j] = 100;
-						tileArrayDrawY[i-0,j] = 140;
-					
-						// Empty space
-						tileArrayDrawX[i+1,j] = 0;
-						tileArrayDrawY[i+1,j] = 120;
-					}
-					if j = 1 {
-						// Left edge
-						tileArrayDrawX[i-0,j] = 100;
-						tileArrayDrawY[i-0,j] = 120;
-					}
-					if j > 1 && j < zfloor {
-						// Left edge
-						tileArrayDrawX[i-0,j] = 20;
-						tileArrayDrawY[i-0,j] = 100;
-					}
-					if j = zfloor {
-						if zfloor > 0 {
+			if !flip {
+				// Assign unflipped tiles
+				if !mirror {
+					if i = 1 {
+						if j = 0 {
 							// Left edge
-							tileArrayDrawX[i-0,j] = 120;
-							tileArrayDrawY[i-0,j] = 180;
-						} else {
-							// Left edge
-							tileArrayDrawX[i-0,j] = 120;
+							tileArrayDrawX[i-0,j] = 100;
 							tileArrayDrawY[i-0,j] = 140;
+					
+							// Empty space
+							tileArrayDrawX[i+1,j] = 0;
+							tileArrayDrawY[i+1,j] = 120;
+						}
+						if j = 1 {
+							// Left edge
+							tileArrayDrawX[i-0,j] = 100;
+							tileArrayDrawY[i-0,j] = 120;
+						}
+						if j > 1 && j < zfloor {
+							// Left edge
+							tileArrayDrawX[i-0,j] = 20;
+							tileArrayDrawY[i-0,j] = 100;
+						}
+						if j = zfloor {
+							if zfloor > 0 {
+								// Left edge
+								tileArrayDrawX[i-0,j] = 120;
+								tileArrayDrawY[i-0,j] = 180;
+							} else {
+								// Left edge
+								tileArrayDrawX[i-0,j] = 120;
+								tileArrayDrawY[i-0,j] = 140;
+							}
 						}
 					}
-				}
 			
-				if i > 1 && i < width {
-					if j = 0 {
-						// Left edge
-						tileArrayDrawX[i-0,j] = 120;
-						tileArrayDrawY[i-0,j] = 120;
-					
-						// Empty space
-						tileArrayDrawX[i+1,j] = 0;
-						tileArrayDrawY[i+1,j] = 120;
-					}
-					if j = 1 {
-						// Left edge
-						tileArrayDrawX[i-0,j] = 100;
-						tileArrayDrawY[i-0,j] = 160;
-					}
-					if j > 1 && j < zfloor {
-						// Left edge
-						tileArrayDrawX[i-0,j] = 40;
-						tileArrayDrawY[i-0,j] = 100;
-					}
-					if j = zfloor {
-						if zfloor > 0 {
+					if i > 1 && i < width {
+						if j = 0 {
 							// Left edge
 							tileArrayDrawX[i-0,j] = 120;
+							tileArrayDrawY[i-0,j] = 120;
+					
+							// Empty space
+							tileArrayDrawX[i+1,j] = 0;
+							tileArrayDrawY[i+1,j] = 120;
+						}
+						if j = 1 {
+							// Left edge
+							tileArrayDrawX[i-0,j] = 100;
 							tileArrayDrawY[i-0,j] = 160;
-						} else {
+						}
+						if j > 1 && j < zfloor {
 							// Left edge
-							tileArrayDrawX[i-0,j] = 120;
-							tileArrayDrawY[i-0,j] = 140;
+							tileArrayDrawX[i-0,j] = 40;
+							tileArrayDrawY[i-0,j] = 100;
+						}
+						if j = zfloor {
+							if zfloor > 0 {
+								// Left edge
+								tileArrayDrawX[i-0,j] = 120;
+								tileArrayDrawY[i-0,j] = 160;
+							} else {
+								// Left edge
+								tileArrayDrawX[i-0,j] = 120;
+								tileArrayDrawY[i-0,j] = 140;
+							}
 						}
 					}
-				}
 			
-				if i = width {
-					if j = 0 {
-						// Left edge
-						tileArrayDrawX[i-0,j] = 120;
-						tileArrayDrawY[i-0,j] = 120;
-					
-						// Empty space
-						tileArrayDrawX[i+1,j] = 0;
-						tileArrayDrawY[i+1,j] = 120;
-					}
-					if j = 1 {
-						// Left edge
-						tileArrayDrawX[i-0,j] = 60;
-						tileArrayDrawY[i-0,j] = 100;
-					
-						// Empty space
-						tileArrayDrawX[i+1,j] = 0;
-						tileArrayDrawY[i+1,j] = 120;
-					}
-					if j > 1 && j < zfloor {
-						// Left edge
-						tileArrayDrawX[i-0,j] = 60;
-						tileArrayDrawY[i-0,j] = 100;
-					
-						// Empty space
-						tileArrayDrawX[i+1,j] = 0;
-						tileArrayDrawY[i+1,j] = 120;
-					}
-					if j = zfloor {
-						if zfloor > 0 {
+					if i = width {
+						if j = 0 {
 							// Left edge
 							tileArrayDrawX[i-0,j] = 120;
-							tileArrayDrawY[i-0,j] = 200;
-						} else {
-							// Left edge
-							tileArrayDrawX[i-0,j] = 120;
-							tileArrayDrawY[i-0,j] = 140;
+							tileArrayDrawY[i-0,j] = 120;
+					
+							// Empty space
+							tileArrayDrawX[i+1,j] = 0;
+							tileArrayDrawY[i+1,j] = 120;
 						}
+						if j = 1 {
+							// Left edge
+							tileArrayDrawX[i-0,j] = 60;
+							tileArrayDrawY[i-0,j] = 100;
 					
-						// Empty space
-						tileArrayDrawX[i+1,j] = 0;
-						tileArrayDrawY[i+1,j] = 120;
-					}
-				}
-			}
-			if mirror {
-				if i = 1 {
-					if j = 0 {
-						// Right edge
-						tileArrayDrawX[i-0,j] = 140;
-						tileArrayDrawY[i-0,j] = 120;
+							// Empty space
+							tileArrayDrawX[i+1,j] = 0;
+							tileArrayDrawY[i+1,j] = 120;
+						}
+						if j > 1 && j < zfloor {
+							// Left edge
+							tileArrayDrawX[i-0,j] = 60;
+							tileArrayDrawY[i-0,j] = 100;
 					
-						// Empty space
-						tileArrayDrawX[i+1,j] = 0;
-						tileArrayDrawY[i+1,j] = 120;
-					}
-					if j = 1 {
-						// Right edge
-						tileArrayDrawX[i-0,j] = 20;
-						tileArrayDrawY[i-0,j] = 100;
-					}
-					if j > 1 && j < zfloor {
-						// Right edge
-						tileArrayDrawX[i-0,j] = 20;
-						tileArrayDrawY[i-0,j] = 100;
-					}
-					if j = zfloor {
-						if zfloor > 0 {
-							// Right edge
-							tileArrayDrawX[i-0,j] = 140;
-							tileArrayDrawY[i-0,j] = 200;
-						} else {
-							// Right edge
-							tileArrayDrawX[i-0,j] = 140;
-							tileArrayDrawY[i-0,j] = 140;
+							// Empty space
+							tileArrayDrawX[i+1,j] = 0;
+							tileArrayDrawY[i+1,j] = 120;
+						}
+						if j = zfloor {
+							if zfloor > 0 {
+								// Left edge
+								tileArrayDrawX[i-0,j] = 120;
+								tileArrayDrawY[i-0,j] = 200;
+							} else {
+								// Left edge
+								tileArrayDrawX[i-0,j] = 120;
+								tileArrayDrawY[i-0,j] = 140;
+							}
+					
+							// Empty space
+							tileArrayDrawX[i+1,j] = 0;
+							tileArrayDrawY[i+1,j] = 120;
 						}
 					}
 				}
+				if mirror {
+					if i = 1 {
+						if j = 0 {
+							// Right edge
+							tileArrayDrawX[i-0,j] = 140;
+							tileArrayDrawY[i-0,j] = 120;
+					
+							// Empty space
+							tileArrayDrawX[i+1,j] = 0;
+							tileArrayDrawY[i+1,j] = 120;
+						}
+						if j = 1 {
+							// Right edge
+							tileArrayDrawX[i-0,j] = 20;
+							tileArrayDrawY[i-0,j] = 100;
+						}
+						if j > 1 && j < zfloor {
+							// Right edge
+							tileArrayDrawX[i-0,j] = 20;
+							tileArrayDrawY[i-0,j] = 100;
+						}
+						if j = zfloor {
+							if zfloor > 0 {
+								// Right edge
+								tileArrayDrawX[i-0,j] = 140;
+								tileArrayDrawY[i-0,j] = 200;
+							} else {
+								// Right edge
+								tileArrayDrawX[i-0,j] = 140;
+								tileArrayDrawY[i-0,j] = 140;
+							}
+						}
+					}
 			
-				if i > 1 && i < width {
-					if j = 0 {
-						// Right edge
-						tileArrayDrawX[i-0,j] = 140;
-						tileArrayDrawY[i-0,j] = 120;
-					
-						// Empty space
-						tileArrayDrawX[i+1,j] = 0;
-						tileArrayDrawY[i+1,j] = 120;
-					}
-					if j = 1 {
-						// Right edge
-						tileArrayDrawX[i-0,j] = 160;
-						tileArrayDrawY[i-0,j] = 160;
-					}
-					if j > 1 && j < zfloor {
-						// Right edge
-						tileArrayDrawX[i-0,j] = 40;
-						tileArrayDrawY[i-0,j] = 100;
-					}
-					if j = zfloor {
-						if zfloor > 0 {
+					if i > 1 && i < width {
+						if j = 0 {
 							// Right edge
 							tileArrayDrawX[i-0,j] = 140;
+							tileArrayDrawY[i-0,j] = 120;
+					
+							// Empty space
+							tileArrayDrawX[i+1,j] = 0;
+							tileArrayDrawY[i+1,j] = 120;
+						}
+						if j = 1 {
+							// Right edge
+							tileArrayDrawX[i-0,j] = 160;
 							tileArrayDrawY[i-0,j] = 160;
-						} else {
+						}
+						if j > 1 && j < zfloor {
 							// Right edge
-							tileArrayDrawX[i-0,j] = 140;
-							tileArrayDrawY[i-0,j] = 140;
+							tileArrayDrawX[i-0,j] = 40;
+							tileArrayDrawY[i-0,j] = 100;
+						}
+						if j = zfloor {
+							if zfloor > 0 {
+								// Right edge
+								tileArrayDrawX[i-0,j] = 140;
+								tileArrayDrawY[i-0,j] = 160;
+							} else {
+								// Right edge
+								tileArrayDrawX[i-0,j] = 140;
+								tileArrayDrawY[i-0,j] = 140;
+							}
 						}
 					}
-				}
 			
-				if i = width {
-					if j = 0 {
-						// Right edge
-						tileArrayDrawX[i-0,j] = 160;
-						tileArrayDrawY[i-0,j] = 140;
-					
-						// Empty space
-						tileArrayDrawX[i+1,j] = 0;
-						tileArrayDrawY[i+1,j] = 120;
-					}
-					if j = 1 {
-						// Right edge
-						tileArrayDrawX[i-0,j] = 160;
-						tileArrayDrawY[i-0,j] = 120;
-					
-						// Empty space
-						tileArrayDrawX[i+1,j] = 0;
-						tileArrayDrawY[i+1,j] = 120;
-					}
-					if j > 1 && j < zfloor {
-						// Right edge
-						tileArrayDrawX[i-0,j] = 60;
-						tileArrayDrawY[i-0,j] = 100;
-					
-						// Empty space
-						tileArrayDrawX[i+1,j] = 0;
-						tileArrayDrawY[i+1,j] = 120;
-					}
-					if j = zfloor {
-						if zfloor > 0 {
+					if i = width {
+						if j = 0 {
 							// Right edge
-							tileArrayDrawX[i-0,j] = 140;
-							tileArrayDrawY[i-0,j] = 180;
-						} else {
-							// Right edge
-							tileArrayDrawX[i-0,j] = 140;
+							tileArrayDrawX[i-0,j] = 160;
 							tileArrayDrawY[i-0,j] = 140;
-						}
 					
-						// Empty space
-						tileArrayDrawX[i+1,j] = 0;
-						tileArrayDrawY[i+1,j] = 120;
+							// Empty space
+							tileArrayDrawX[i+1,j] = 0;
+							tileArrayDrawY[i+1,j] = 120;
+						}
+						if j = 1 {
+							// Right edge
+							tileArrayDrawX[i-0,j] = 160;
+							tileArrayDrawY[i-0,j] = 120;
+					
+							// Empty space
+							tileArrayDrawX[i+1,j] = 0;
+							tileArrayDrawY[i+1,j] = 120;
+						}
+						if j > 1 && j < zfloor {
+							// Right edge
+							tileArrayDrawX[i-0,j] = 60;
+							tileArrayDrawY[i-0,j] = 100;
+					
+							// Empty space
+							tileArrayDrawX[i+1,j] = 0;
+							tileArrayDrawY[i+1,j] = 120;
+						}
+						if j = zfloor {
+							if zfloor > 0 {
+								// Right edge
+								tileArrayDrawX[i-0,j] = 140;
+								tileArrayDrawY[i-0,j] = 180;
+							} else {
+								// Right edge
+								tileArrayDrawX[i-0,j] = 140;
+								tileArrayDrawY[i-0,j] = 140;
+							}
+					
+							// Empty space
+							tileArrayDrawX[i+1,j] = 0;
+							tileArrayDrawY[i+1,j] = 120;
+						}
 					}
 				}
+			} else {
+				// Assign flipped tiles
 			}
 		}
 	}

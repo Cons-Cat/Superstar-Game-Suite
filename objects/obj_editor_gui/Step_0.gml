@@ -107,7 +107,7 @@ if mode = 2 {
 					} else {
 						if !mirror {
 							// Sloped wall collision
-							with instance_create_layer(x,y,"Instances",obj_slopeL_1x) {
+							with instance_create_layer(x,y,"Instances",obj_slopeR_1x) {
 								y = other.y+(other.zfloor)*20+(other.height-1)*20-(other.i)*20;
 								x = other.x+other.i*20;
 								zplace = other.zfloor;
@@ -118,14 +118,14 @@ if mode = 2 {
 							with instance_create_layer(x,y+zfloor*20+i*20-width*20,"Instances",obj_floor) {
 								y = other.y - other.i*20;
 								x = other.x + other.i*20;
-								sprite_index = spr_slopeL_1x;
+								sprite_index = spr_slopeR_1x;
 								zplace = other.zfloor;
 								zcieling = other.zcieling;
 							}
 						}
 						if mirror {
 							// Sloped wall collision
-							with instance_create_layer(x,y,"Instances",obj_slopeR_1x) {
+							with instance_create_layer(x,y,"Instances",obj_slopeL_1x) {
 								y = other.y+(other.zfloor)*20+(other.i)*20-other.width*20+20;
 								x = other.x+other.i*20;
 								zplace = other.zfloor;
@@ -136,7 +136,7 @@ if mode = 2 {
 							with instance_create_layer(x,y-i*20,"Instances",obj_floor) {
 								y = other.y+(other.zfloor)*20+(other.i)*20-other.width*20+20;
 								x = other.x+other.i*20;
-								sprite_index = spr_slopeR_1x;
+								sprite_index = spr_slopeL_1x;
 								zplace = other.zfloor;
 								zcieling = other.zcieling;
 							}
