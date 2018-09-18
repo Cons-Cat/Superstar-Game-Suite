@@ -162,7 +162,7 @@ if resetArray {
 		for (j = zfloor + 1; j >= zcieling; j -= 1) {
 			tileArrayDrawX[i,j] = 0;
 			tileArrayDrawY[i,j] = 120;
-				
+			
 			// Assign unflipped tiles
 			if !flip {
 				if !mirror {
@@ -237,7 +237,7 @@ if resetArray {
 							// Left edge
 							tileArrayDrawX[i-0,j] = 120;
 							tileArrayDrawY[i-0,j] = 120;
-					
+							
 							// Empty space
 							tileArrayDrawX[i+1,j] = 0;
 							tileArrayDrawY[i+1,j] = 120;
@@ -246,7 +246,7 @@ if resetArray {
 							// Left edge
 							tileArrayDrawX[i-0,j] = 60;
 							tileArrayDrawY[i-0,j] = 100;
-					
+							
 							// Empty space
 							tileArrayDrawX[i+1,j] = 0;
 							tileArrayDrawY[i+1,j] = 120;
@@ -255,7 +255,7 @@ if resetArray {
 							// Left edge
 							tileArrayDrawX[i-0,j] = 60;
 							tileArrayDrawY[i-0,j] = 100;
-					
+							
 							// Empty space
 							tileArrayDrawX[i+1,j] = 0;
 							tileArrayDrawY[i+1,j] = 120;
@@ -537,13 +537,13 @@ if resetArray {
 							}
 						}
 					}
-			
+					
 					if i = width {
 						if j = 0 {
 							// Right edge
 							tileArrayDrawX[i-0,j] = 80;
 							tileArrayDrawY[i-0,j] = 120;
-					
+							
 							// Empty space
 							tileArrayDrawX[i+1,j] = 0;
 							tileArrayDrawY[i+1,j] = 120;
@@ -567,15 +567,9 @@ if resetArray {
 							tileArrayDrawY[i+1,j] = 120;
 						}
 						if j = zfloor {
-							if zfloor > 0 {
-								// Right edge
-								tileArrayDrawX[i-0,j] = 120;
-								tileArrayDrawY[i-0,j] = 220;
-							} else {
-								// Right edge
-								tileArrayDrawX[i-0,j] = 120;
-								tileArrayDrawY[i-0,j] = 220;
-							}
+							// Right edge
+							tileArrayDrawX[i-0,j] = 120;
+							tileArrayDrawY[i-0,j] = 220;
 					
 							// Empty space
 							tileArrayDrawX[i+1,j] = 0;

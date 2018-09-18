@@ -1,6 +1,8 @@
 /// @description 
 width = 1;
 height = 1;
+mirror = false;
+flip = false;
 str = "rectangle";
 
 if obj_tile_z.z >= 0 {
@@ -10,6 +12,7 @@ if obj_tile_z.z >= 0 {
 	zfloor = 0;
 	zcieling = 0;
 }
+
 select = 0;
 placed = 0;
 buttonSelected = 0;
