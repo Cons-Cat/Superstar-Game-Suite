@@ -113,12 +113,11 @@ if mode = 2 {
 								zplace = other.zfloor;
 								zcieling = other.zcieling;
 							}
-						
+							
 							// Floor collision
-							with instance_create_layer(x,y+zfloor*20+i*20-width*20,"Instances",obj_floor) {
-								y = other.y - other.i*20;
+							with instance_create_layer(x,y-i*20,"Instances",obj_floor) {
 								x = other.x + other.i*20;
-								sprite_index = spr_slopeR_1x;
+								//sprite_index = spr_slopeR_1x;
 								zplace = other.zfloor;
 								zcieling = other.zcieling;
 							}
@@ -131,10 +130,9 @@ if mode = 2 {
 								zplace = other.zfloor;
 								zcieling = other.zcieling;
 							}
-						
+							
 							// Floor collision
-							with instance_create_layer(x,y-i*20,"Instances",obj_floor) {
-								y = other.y+(other.zfloor)*20+(other.i)*20-other.width*20+20;
+							with instance_create_layer(x,y-(width-i)*20+20,"Instances",obj_floor) {
 								x = other.x+other.i*20;
 								sprite_index = spr_slopeL_1x;
 								zplace = other.zfloor;
