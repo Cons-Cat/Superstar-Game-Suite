@@ -143,6 +143,42 @@ if mode = 2 {
 				}
 			}
 		}
+		with obj_editor_infinite {
+			// Front collision
+			with instance_create_layer(x,y,"Instances",obj_solid) {
+				y = other.y+(other.zfloor+other.height-1)*20;
+				x = other.x;
+				image_xscale = other.width;
+				zplace = 20000;
+				zcieling = other.zcieling;
+			}
+			// Back collision
+			with instance_create_layer(x,y,"Instances",obj_solid) {
+				y = other.y+(other.zfloor)*20;
+				x = other.x;
+				image_xscale = other.width;
+				zplace = 20000;
+				zcieling = other.zcieling;
+			}
+			// Left collision
+			with instance_create_layer(x,y,"Instances",obj_solid_side) {
+				y = other.y+(other.zfloor)*20
+				x = other.x;
+				image_yscale = other.height;
+				zplace = other.zfloor + 20000;
+				zcieling = other.zcieling;
+				height = other.height;
+			}
+			// Right collision
+			with instance_create_layer(x,y,"Instances",obj_solid_side) {
+				y = other.y+(other.zfloor)*20
+				x = other.x+(other.width-1)*20;
+				image_yscale = other.height;
+				zplace = other.zfloor + 20000;
+				zcieling = other.zcieling;
+				height = other.height;
+			}
+		}
 	}
 } else {
 	if spawnedCollisions {

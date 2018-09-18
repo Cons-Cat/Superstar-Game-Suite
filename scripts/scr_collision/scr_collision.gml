@@ -33,7 +33,6 @@ repeat(2) {
 				if collision_rectangle(bbox_right+1,bbox_top,bbox_right+1,bbox_bottom-4,trgScr,false,true) {
 					currentsolid_right = collision_rectangle(bbox_right+1,bbox_top,bbox_right+1,bbox_bottom-4,trgScr,false,true);
 				}
-				
 			}
 		}
 	}

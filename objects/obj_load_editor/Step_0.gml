@@ -99,6 +99,16 @@ if select = 1 {
 					}
 				}
 			}
+			
+			if str = "infinite" {
+				with instance_create_layer(xx,yy,"Instances",obj_editor_infinite) {
+					placed = 1;
+					width = other.width;
+					height = other.height;
+					zfloor = other.zfloor;
+					zcieling = other.zcieling;
+				}
+			}
 		}
 		
 		file_text_close(export);

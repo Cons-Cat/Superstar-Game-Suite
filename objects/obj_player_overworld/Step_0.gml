@@ -140,8 +140,6 @@ if (abs(c_hspeed) + abs(c_vspeed))/2 != 0 && !jumping {
 		imgIndex += (abs(c_hspeed) + abs(c_vspeed))/(imgSpd*2); // Average of absolute hspeed and vspeed
 	}
 	
-	show_debug_message(image_speed);
-	
 	moving = true;
 } else if jumping {
 	if !jumpAnim {

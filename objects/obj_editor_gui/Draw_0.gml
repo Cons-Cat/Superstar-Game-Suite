@@ -1,5 +1,6 @@
 /// @description Draw interface
 draw_set_color(c_dkgray)
+draw_set_alpha(1);
 draw_rectangle(camera_get_view_x(camera)+camera_get_view_width(camera)-48,camera_get_view_y(camera),camera_get_view_x(camera)+camera_get_view_width(camera),camera_get_view_y(camera)+camera_get_view_height(camera),false);
 
 // Draw tile GUI
