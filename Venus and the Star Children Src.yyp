@@ -1911,6 +1911,14 @@
             }
         },
         {
+            "Key": "e6b8f3d3-4dc5-436a-932d-aab847ce84c3",
+            "Value": {
+                "id": "7cfc28a2-b741-43d6-b92d-3328b6535b11",
+                "resourcePath": "objects\\obj_trigger_door\\obj_trigger_door.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "e7c1f8c8-1638-4782-9e58-16cf1b1f4fc4",
             "Value": {
                 "id": "2a3cbfe9-591b-4a58-a0b6-c32f4b20fc80",
