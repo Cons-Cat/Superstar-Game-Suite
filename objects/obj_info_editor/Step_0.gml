@@ -11,6 +11,9 @@ if select = 1 {
 			with trg {
 				if str = "actor" {
 				}
+				if str = "door" {
+					roomStr = get_string("What is the room name?",string(roomStr));
+				}
 				if str = "slope1" {
 					if other.str2 = "mirror" {
 						mirror = !mirror;

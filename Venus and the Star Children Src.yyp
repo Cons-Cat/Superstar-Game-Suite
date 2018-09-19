@@ -335,6 +335,14 @@
             }
         },
         {
+            "Key": "30e8d03b-6871-4baf-b046-f6fe9d28f9c1",
+            "Value": {
+                "id": "f9fc92c2-9013-4abb-b821-dedcaff6a219",
+                "resourcePath": "sprites\\spr_infinite_wall\\spr_infinite_wall.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "32987a6f-3ff5-4ea7-b969-d8d5d9d2b13a",
             "Value": {
                 "id": "6070d62b-4db7-494b-b462-22f6187273fa",
@@ -1055,6 +1063,14 @@
             }
         },
         {
+            "Key": "871e0b97-36fe-4613-8c3b-7224a824cf68",
+            "Value": {
+                "id": "d03a6140-41db-4503-bb20-e35ecb823d82",
+                "resourcePath": "sprites\\spr_infinite_editor\\spr_infinite_editor.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "87a750de-74d3-46e6-97d1-4662510aab71",
             "Value": {
                 "id": "3675a0a8-2afe-4e45-98d7-383a8b69236f",
@@ -1631,6 +1647,14 @@
             }
         },
         {
+            "Key": "cc1246c0-64b1-4046-8076-292f2045ba5a",
+            "Value": {
+                "id": "2b68e8f2-06a3-4a74-8b5c-f9bd251b666c",
+                "resourcePath": "objects\\obj_tile_infinite\\obj_tile_infinite.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "cc98d028-7bdd-4680-85f3-c87a7baa481e",
             "Value": {
                 "id": "2bff5cee-3a0e-4ea9-b601-3f2f7b054e86",
@@ -1747,6 +1771,14 @@
             "Value": {
                 "id": "28d8aef0-53f9-4dce-ba3b-526d21e16088",
                 "resourcePath": "sprites\\spr_chat_outline_dark\\spr_chat_outline_dark.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "da86ce92-0384-4bed-bd7f-9df2f18d62c8",
+            "Value": {
+                "id": "e14051ca-3c46-4528-b664-20cc436b0ff8",
+                "resourcePath": "sprites\\spr_infinite_floor\\spr_infinite_floor.yy",
                 "resourceType": "GMSprite"
             }
         },
@@ -1879,6 +1911,14 @@
             }
         },
         {
+            "Key": "e6b8f3d3-4dc5-436a-932d-aab847ce84c3",
+            "Value": {
+                "id": "7cfc28a2-b741-43d6-b92d-3328b6535b11",
+                "resourcePath": "objects\\obj_trigger_door\\obj_trigger_door.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "e7c1f8c8-1638-4782-9e58-16cf1b1f4fc4",
             "Value": {
                 "id": "2a3cbfe9-591b-4a58-a0b6-c32f4b20fc80",
@@ -1972,6 +2012,14 @@
                 "id": "3a6e3aa6-ea96-4667-8883-3f3130bf695a",
                 "resourcePath": "sprites\\spr_lucy_ddownright\\spr_lucy_ddownright.yy",
                 "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "f50969b2-2234-4e0a-aed4-08cef3669038",
+            "Value": {
+                "id": "7b44392e-9f99-4780-882f-5fbe7708263c",
+                "resourcePath": "objects\\obj_editor_infinite\\obj_editor_infinite.yy",
+                "resourceType": "GMObject"
             }
         },
         {

@@ -54,5 +54,5 @@
     "properties": null,
     "solid": false,
     "spriteId": "3503bf54-c1b4-4e41-a87b-472f55319582",
-    "visible": true
+    "visible": false
 }

@@ -229,7 +229,7 @@ if resetArray = true {
 					tileArrayDrawY[1,j] = 200;
 				}
 			}
-			if height = 1 && width > 2 {	
+			if height = 1 && width >= 2 {
 				// Right horizontal beam edge index
 				tileArrayDrawX[width,1] = 40;
 				tileArrayDrawY[width,1] = 220;

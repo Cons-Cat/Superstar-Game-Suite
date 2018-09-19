@@ -1,8 +1,7 @@
 /// @description Initialization
-zheight = zplace//abs(image_yscale)// + zplace;
+zheight = zplace;
 if room != room_leveleditor {
-	y = ystart//+(height)*20;
+	y = ystart;
 }
-//image_yscale = 1;
 
 depth = -850;
