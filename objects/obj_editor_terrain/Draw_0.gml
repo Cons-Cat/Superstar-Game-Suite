@@ -194,13 +194,7 @@ if obj_editor_gui.mode = 1 {
 }
 
 // Tile painting mode / Play testing mode
-if obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4 {
-	if canSelect = false {
-		layerColor = c_white;
-	} else {
-		layerColor = c_orange;
-	}
-	
+if obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4 {	
 	// Draw walls
 	if width > 1 {
 		for (i = 2; i < width; i += 1) {

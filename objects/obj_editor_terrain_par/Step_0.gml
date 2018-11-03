@@ -25,6 +25,7 @@ if placed = 1 {
 	if mouse_check_button_pressed(mb_left) && mouse_x < camera_get_view_x(obj_editor_gui.camera)+camera_get_view_width(obj_editor_gui.camera)-48 {
 		if canSelect = true {
 			if (obj_editor_gui.mode = 0 && mouse_x >= x && mouse_x <= x+width*20 && mouse_y >= y && mouse_y <= y+height*20+(zfloor-zcieling)*20) || (obj_editor_gui.mode = 1 && mouse_x >= x && mouse_x <= x+width*20 && mouse_y >= y+(zfloor-zcieling)*20 && mouse_y <= y+height*20+(zfloor-zcieling)*20) {
+				// Dimension manipulation
 				if select = 0 && !instance_exists(obj_editor_button_parent) {
 					select = 1;
 					
@@ -65,6 +66,7 @@ if placed = 1 {
 					}
 				}
 			} else if obj_editor_gui.mode = 3 {
+				// Tiling
 				if global.pieceSelected = -1 {
 					if collision_point(mouse_x,mouse_y,self.id,false,false) {
 						sprMaterialDirectory = "";
@@ -139,6 +141,22 @@ if placed = 1 {
 								}
 							}
 							
+							// Spawn tiles GUI (slope 3)
+							if str = "slope3" {
+								for (i = 0; i <= width+1; i += 1) {
+									for (j = (zfloor) + 2; j >= zcieling; j -= 1) {
+										with instance_create_layer(i*20+i,600-j*20-j+(zfloor-zcieling)*20+40,"Instances",obj_tiles_grid) {
+											trgId = other.id;
+											i = other.i;
+											j = other.j;
+											tempMaterial = other.sprMaterial;
+											xVal = other.tileArrayDrawX[i,j];
+											yVal = other.tileArrayDrawY[i,j];
+										}
+									}
+								}
+							}
+							
 							if !instance_exists(obj_tiles_sheet) {
 								instance_create_layer(600,600,"Instances",obj_tiles_sheet);
 								
@@ -189,3 +207,11 @@ if mouse_check_button_released(mb_left) {
 
 image_xscale = width;
 image_yscale = height+zfloor-zcieling;
+
+if (obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4) {
+	if canSelect = false {
+		layerColor = c_white;
+	} else {
+		layerColor = c_orange;
+	}
+}

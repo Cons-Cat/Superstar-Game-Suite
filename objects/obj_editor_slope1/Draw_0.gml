@@ -260,12 +260,6 @@ if obj_editor_gui.mode = 1 {
 
 // Tile painting mode / Play testing mode
 if obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4 {
-	if canSelect = false {
-		layerColor = c_white;
-	} else {
-		layerColor = c_orange;
-	}
-	
 	// Draw walls
 	for (j = zfloor + 1; j >= zcieling; j -= 1) {
 		// Iterate across the z height

@@ -118,7 +118,7 @@ repeat(2) {
 				slopeOffset = collision_rectangle(bbox_left,bbox_top,bbox_right-1,bbox_bottom-1,obj_slopeL_bot,true,false).slopeOffset;
 				
 				if c_vspeed < 0 {
-					x -= c_vspeed / slopeOffset;
+					x -= c_vspeed * slopeOffset;
 				}
 			}
 		}
@@ -127,7 +127,7 @@ repeat(2) {
 				slopeOffset = collision_rectangle(bbox_left-1,bbox_top,bbox_right,bbox_bottom-1,obj_slopeR_bot,true,false).slopeOffset;
 				
 				if c_vspeed < 0 {
-					x += c_vspeed / slopeOffset;
+					x += c_vspeed * slopeOffset;
 				}
 			}
 		}
@@ -162,7 +162,7 @@ repeat(2) {
 				slopeOffset = collision_rectangle(bbox_left,bbox_top,bbox_right-1,bbox_bottom-1,obj_slopeL_top,true,false).slopeOffset;
 				
 				if c_vspeed > 0 {
-					x += c_vspeed / slopeOffset;
+					x += c_vspeed * slopeOffset;
 				}
 			}
 		}
@@ -171,7 +171,7 @@ repeat(2) {
 				slopeOffset = collision_rectangle(bbox_left-1,bbox_top,bbox_right,bbox_bottom-1,obj_slopeR_top,true,false).slopeOffset;
 				
 				if c_vspeed > 0 {
-					x -= c_vspeed / slopeOffset;
+					x -= c_vspeed * slopeOffset;
 				}
 			}
 		}

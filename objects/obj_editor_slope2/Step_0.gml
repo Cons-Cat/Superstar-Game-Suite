@@ -203,7 +203,6 @@ if resetArray {
 							tileArrayDrawY[i,j] = 120;
 						}
 					}
-					
 				}
 			}
 		}

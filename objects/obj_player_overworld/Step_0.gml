@@ -29,7 +29,7 @@ if jumpDelay = jumpDelayMax {
 		}
 		jumpTempHspd = 0;
 	}
-
+	
 	if (!keyboard_check(_up) && !keyboard_check(_down)) && abs(c_vspeed) != 0 {
 		if c_vspeed < 0 {
 			c_vspeed = min(c_vspeed+phy_deceleration_imp,0);

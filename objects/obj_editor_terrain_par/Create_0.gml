@@ -3,7 +3,10 @@ width = 1;
 height = 1;
 mirror = false;
 flip = false;
-slopeBot = false;
+depthOffset = false;
+depthYOffset = 0;
+
+layerColor = c_white;
 
 col[0] = make_color_rgb(210,74,84); // Red
 col[1] = make_color_rgb(212,106,55); // Dark orange

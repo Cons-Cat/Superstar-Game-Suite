@@ -20,7 +20,12 @@ if select = 1 {
 					}
 					if other.str2 = "flip" {
 						flip = !flip;
-						slopeBot = !slopeBot;
+						
+						if depthOffset = 1 {
+							depthOffset = 0;
+						} else {
+							depthOffset = 1;
+						}
 					}
 					
 					resetArray = true;

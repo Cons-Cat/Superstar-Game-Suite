@@ -39,6 +39,7 @@ if close = true {
 	trgId.sprMaterial = global.sprMaterial;
 	trgId.tileArrayDrawX[i,j] = xVal;
 	trgId.tileArrayDrawY[i,j] = yVal;
+	trgId.slope3MustUpdate = true;
 	
 	instance_destroy();
 }
