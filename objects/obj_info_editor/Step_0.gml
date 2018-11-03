@@ -14,12 +14,13 @@ if select = 1 {
 				if str = "door" {
 					roomStr = get_string("What is the room name?",string(roomStr));
 				}
-				if str = "slope1" {
+				if str = "slope1" || str = "slope2" || str = "slope3" {
 					if other.str2 = "mirror" {
 						mirror = !mirror;
 					}
 					if other.str2 = "flip" {
 						flip = !flip;
+						slopeBot = !slopeBot;
 					}
 					
 					resetArray = true;

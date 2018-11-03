@@ -4,11 +4,20 @@
     "mvc": "1.0",
     "name": "obj_slopeR_1x_bot",
     "eventList": [
-        
+        {
+            "id": "58f300a6-04e5-46ee-8a71-466ac648bdaa",
+            "modelName": "GMEvent",
+            "mvc": "1.0",
+            "IsDnD": false,
+            "collisionObjectId": "00000000-0000-0000-0000-000000000000",
+            "enumb": 0,
+            "eventtype": 0,
+            "m_owner": "ad658cc2-9d31-4aeb-8959-58ed57c5bed1"
+        }
     ],
     "maskSpriteId": "00000000-0000-0000-0000-000000000000",
     "overriddenProperties": null,
-    "parentObjectId": "f9ab6acd-33d1-41e8-a74f-5356f4c560b9",
+    "parentObjectId": "b9b3c8d8-77d1-4822-82e0-02ea0845910f",
     "persistent": false,
     "physicsAngularDamping": 0.1,
     "physicsDensity": 0.5,

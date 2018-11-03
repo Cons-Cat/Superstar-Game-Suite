@@ -1,3 +1,4 @@
 /// @description 
 event_inherited();
-side = 0;
+
+slopeOffset = 2;

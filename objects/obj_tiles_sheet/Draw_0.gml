@@ -1,4 +1,10 @@
 /// @description 
+draw_set_color(make_color_rgb(149,134,210));
+// Draw pink backdrop right
+draw_rectangle(x,y,x+sprite_get_width(global.sprMaterial),y+sprite_get_height(global.sprMaterial),false);
+// Draw pink backdrop left
+draw_rectangle(obj_tiles_grid.x,obj_tiles_grid.y,obj_tiles_grid.x+sprite_get_width(global.sprMaterial),obj_tiles_grid.y+sprite_get_height(global.sprMaterial),false);
+
 draw_sprite(global.sprMaterial,0,x+scrollX,y+scrollY);
 
 // Select box horizontal edges

@@ -217,7 +217,7 @@ if !jumping {
 		if !boosting {
 			if jumpHeight > platOn + jumpGrav/2 {
 				jumpHeight -= 0.5 + jumpGrav/2;
-
+				
 				if jumpGrav < jumpGravMax {
 					jumpGrav += jumpGravVal;
 				} else {
@@ -244,29 +244,25 @@ fallSearch = true; // Fall down by default
 trgFinalTemp = 0;
 for (i = 0; i < instance_number(obj_floor); i += 1) {
 	trgScr = instance_find(obj_floor,i).id;
-	if trgScr.zplace*20 <= self.jumpHeight {
+	if trgScr.zfloor*20 <= self.jumpHeight {
 		if collision_point(x,y,trgScr,true,true) {
-			trgLayer[i] = trgScr.zplace;
+			trgLayer[i] = trgScr.zfloor;
 			for (a = 0; a <= i; a += 1) {
 				if trgLayer[a] >= trgFinalTemp {
 					trgFinal = trgScr;
 					trgFinalTemp = trgLayer[a];
 				}
 			}
-			platOn = trgFinal.zplace*20;
+			platOn = trgFinal.zfloor*20;
 		}
 	}
 }
 
-if trgFinal.zplace = self.zplace {
+if trgFinal.zfloor = self.zplace {
 	fallSearch = false; // Cancel fall if standing on a platform
 	onGround = true;
 	
-	if collision_rectangle(bbox_left+c_hspeed,bbox_top-1,bbox_right+c_hspeed,bbox_bottom-1,par_slope_bot,false,false) {
-		depth = - (trgFinal.y + trgFinal.image_yscale*20 + (trgFinal.zplace)*20) - 1 - abs(self.y - trgFinal.y+trgFinal.image_yscale*20)+trgFinal.zplace*20;
-	} else {
-		depth = - (trgFinal.y + trgFinal.image_yscale*20 + (trgFinal.zplace)*20) - 1;
-	}
+	depth = -(trgFinal.y + (image_yscale)*20 + (trgFinal.zfloor-1)*20) - 1;
 }
 
 if fallSearch = true {

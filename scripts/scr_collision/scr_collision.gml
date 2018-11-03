@@ -3,6 +3,7 @@ var currentsolid_down = false;
 var currentsolid_left = false;
 var currentsolid_right = false;
 var trgScr;
+var slopeOffset;
 
 repeat(2) {
 	for (var i = 0; i < instance_number(obj_solid); i += 1) {
@@ -91,34 +92,42 @@ repeat(2) {
 	// Unflipped Slopes
 	repeat(abs(c_hspeed)) {
 		// Vertical slopes displacement
-		if collision_rectangle(bbox_left,bbox_top,bbox_right-1,bbox_bottom-1,obj_slopeL_1x_bot,true,false) {
-			if collision_rectangle(bbox_left,bbox_top,bbox_right-1,bbox_bottom-1,obj_slopeL_1x_bot,true,false).zplace*20 > self.jumpHeight {
+		if collision_rectangle(bbox_left,bbox_top,bbox_right-1,bbox_bottom-1,obj_slopeL_bot,true,false) {
+			if collision_rectangle(bbox_left,bbox_top,bbox_right-1,bbox_bottom-1,obj_slopeL_bot,true,false).zplace*20 > self.jumpHeight {
+				slopeOffset = collision_rectangle(bbox_left,bbox_top,bbox_right-1,bbox_bottom-1,obj_slopeL_bot,true,false).slopeOffset;
+				
 				if c_hspeed < 0 {
-					y -= c_hspeed;
+					y -= c_hspeed / slopeOffset;
 				}
 			}
 		}
-		if collision_rectangle(bbox_left-1,bbox_top,bbox_right,bbox_bottom-1,obj_slopeR_1x_bot,true,false) {
-			if collision_rectangle(bbox_left-1,bbox_top,bbox_right,bbox_bottom-1,obj_slopeR_1x_bot,true,false).zplace*20 > self.jumpHeight {
+		if collision_rectangle(bbox_left-1,bbox_top,bbox_right,bbox_bottom-1,obj_slopeR_bot,true,false) {
+			if collision_rectangle(bbox_left-1,bbox_top,bbox_right,bbox_bottom-1,obj_slopeR_bot,true,false).zplace*20 > self.jumpHeight {
+				slopeOffset = collision_rectangle(bbox_left-1,bbox_top,bbox_right,bbox_bottom-1,obj_slopeR_bot,true,false).slopeOffset;
+				
 				if c_hspeed > 0 {
-					y += c_hspeed;
+					y += c_hspeed / slopeOffset;
 				}
 			}
 		}
 	}
 	repeat(abs(c_vspeed)) {
 		// Horizontal slopes displacement
-		if collision_rectangle(bbox_left,bbox_top,bbox_right-1,bbox_bottom-1,obj_slopeL_1x_bot,true,false) {
-			if collision_rectangle(bbox_left,bbox_top,bbox_right-1,bbox_bottom-1,obj_slopeL_1x_bot,true,false).zplace*20 > self.jumpHeight {
+		if collision_rectangle(bbox_left,bbox_top,bbox_right-1,bbox_bottom-1,obj_slopeL_bot,true,false) {
+			if collision_rectangle(bbox_left,bbox_top,bbox_right-1,bbox_bottom-1,obj_slopeL_bot,true,false).zplace*20 > self.jumpHeight {
+				slopeOffset = collision_rectangle(bbox_left,bbox_top,bbox_right-1,bbox_bottom-1,obj_slopeL_bot,true,false).slopeOffset;
+				
 				if c_vspeed < 0 {
-					x -= c_vspeed;
+					x -= c_vspeed / slopeOffset;
 				}
 			}
 		}
-		if collision_rectangle(bbox_left-1,bbox_top,bbox_right,bbox_bottom-1,obj_slopeR_1x_bot,true,false) {
-			if collision_rectangle(bbox_left-1,bbox_top,bbox_right,bbox_bottom-1,obj_slopeR_1x_bot,true,false).zplace*20 > self.jumpHeight {
+		if collision_rectangle(bbox_left-1,bbox_top,bbox_right,bbox_bottom-1,obj_slopeR_bot,true,false) {
+			if collision_rectangle(bbox_left-1,bbox_top,bbox_right,bbox_bottom-1,obj_slopeR_bot,true,false).zplace*20 > self.jumpHeight {
+				slopeOffset = collision_rectangle(bbox_left-1,bbox_top,bbox_right,bbox_bottom-1,obj_slopeR_bot,true,false).slopeOffset;
+				
 				if c_vspeed < 0 {
-					x += c_vspeed;
+					x += c_vspeed / slopeOffset;
 				}
 			}
 		}
@@ -127,34 +136,42 @@ repeat(2) {
 	// Flipped Slopes
 	repeat(abs(c_hspeed)) {
 		// Vertical slopes displacement
-		if collision_rectangle(bbox_left,bbox_top,bbox_right-1,bbox_bottom-1,obj_slopeL_1x,true,false) {
-			if collision_rectangle(bbox_left,bbox_top,bbox_right-1,bbox_bottom-1,obj_slopeL_1x,true,false).zplace*20 > self.jumpHeight {
+		if collision_rectangle(bbox_left,bbox_top,bbox_right-1,bbox_bottom-1,obj_slopeL_top,true,false) {
+			if collision_rectangle(bbox_left,bbox_top,bbox_right-1,bbox_bottom-1,obj_slopeL_top,true,false).zplace*20 > self.jumpHeight {
+				slopeOffset = collision_rectangle(bbox_left,bbox_top,bbox_right-1,bbox_bottom-1,obj_slopeL_top,true,false).slopeOffset;
+				
 				if c_hspeed < 0 {
-					y += c_hspeed;
+					y += c_hspeed / slopeOffset;
 				}
 			}
 		}
-		if collision_rectangle(bbox_left-1,bbox_top,bbox_right,bbox_bottom-1,obj_slopeR_1x,true,false) {
-			if collision_rectangle(bbox_left-1,bbox_top,bbox_right,bbox_bottom-1,obj_slopeR_1x,true,false).zplace*20 > self.jumpHeight {
+		if collision_rectangle(bbox_left-1,bbox_top,bbox_right,bbox_bottom-1,obj_slopeR_top,true,false) {
+			if collision_rectangle(bbox_left-1,bbox_top,bbox_right,bbox_bottom-1,obj_slopeR_top,true,false).zplace*20 > self.jumpHeight {
+				slopeOffset = collision_rectangle(bbox_left-1,bbox_top,bbox_right,bbox_bottom-1,obj_slopeR_top,true,false).slopeOffset;
+				
 				if c_hspeed > 0 {
-					y -= c_hspeed;
+					y -= c_hspeed / slopeOffset;
 				}
 			}
 		}
 	}
 	repeat(abs(c_vspeed)) {
 		// Horizontal slopes displacement
-		if collision_rectangle(bbox_left,bbox_top,bbox_right-1,bbox_bottom-1,obj_slopeL_1x,true,false) {
-			if collision_rectangle(bbox_left,bbox_top,bbox_right-1,bbox_bottom-1,obj_slopeL_1x,true,false).zplace*20 > self.jumpHeight {
+		if collision_rectangle(bbox_left,bbox_top,bbox_right-1,bbox_bottom-1,obj_slopeL_top,true,false) {
+			if collision_rectangle(bbox_left,bbox_top,bbox_right-1,bbox_bottom-1,obj_slopeL_top,true,false).zplace*20 > self.jumpHeight {
+				slopeOffset = collision_rectangle(bbox_left,bbox_top,bbox_right-1,bbox_bottom-1,obj_slopeL_top,true,false).slopeOffset;
+				
 				if c_vspeed > 0 {
-					x += c_vspeed;
+					x += c_vspeed / slopeOffset;
 				}
 			}
 		}
-		if collision_rectangle(bbox_left-1,bbox_top,bbox_right,bbox_bottom-1,obj_slopeR_1x,true,false) {
-			if collision_rectangle(bbox_left-1,bbox_top,bbox_right,bbox_bottom-1,obj_slopeR_1x,true,false).zplace*20 > self.jumpHeight {
+		if collision_rectangle(bbox_left-1,bbox_top,bbox_right,bbox_bottom-1,obj_slopeR_top,true,false) {
+			if collision_rectangle(bbox_left-1,bbox_top,bbox_right,bbox_bottom-1,obj_slopeR_top,true,false).zplace*20 > self.jumpHeight {
+				slopeOffset = collision_rectangle(bbox_left-1,bbox_top,bbox_right,bbox_bottom-1,obj_slopeR_top,true,false).slopeOffset;
+				
 				if c_vspeed > 0 {
-					x -= c_vspeed;
+					x -= c_vspeed / slopeOffset;
 				}
 			}
 		}

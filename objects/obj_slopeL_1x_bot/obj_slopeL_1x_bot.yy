@@ -4,7 +4,16 @@
     "mvc": "1.0",
     "name": "obj_slopeL_1x_bot",
     "eventList": [
-        
+        {
+            "id": "0254e891-f144-4eec-b27c-57745890c5b0",
+            "modelName": "GMEvent",
+            "mvc": "1.0",
+            "IsDnD": false,
+            "collisionObjectId": "00000000-0000-0000-0000-000000000000",
+            "enumb": 0,
+            "eventtype": 0,
+            "m_owner": "55e098f7-b28f-429a-80bd-0ae6b7d79cf4"
+        }
     ],
     "maskSpriteId": "00000000-0000-0000-0000-000000000000",
     "overriddenProperties": null,

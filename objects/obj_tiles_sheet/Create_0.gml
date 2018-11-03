@@ -1,9 +1,10 @@
 /// @description 
 depth = -room_height - 900;
+
 scrollY = 0;
 scrollX = 0;
-xVal[0,0] = 600;
-yVal[0,0] = 600;
+xVal[0,0] = x;
+yVal[0,0] = y;
 selecting = false;
 draggingSelection = false;
 
