@@ -9,7 +9,7 @@ if select = 1 {
 			}
 			
 			// Place tile in grid area
-			if mouse_x < camera_get_view_x(obj_editor_gui.camera) + 342 {
+			if mouse_x < camera_get_view_x(obj_editor_gui.camera) + 412 {
 				if obj_editor_gui.mode = 0 || obj_editor_gui.mode = 1 {
 					instance_create_layer(mouse_x,mouse_y,"Instances",obj_editor_terrain);
 				}
