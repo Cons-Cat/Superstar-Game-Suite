@@ -3,8 +3,9 @@ width = 1;
 height = 1;
 mirror = false;
 flip = false;
-depthOffset = false;
-depthYOffset = 0;
+finite = true;
+depthOffset = 0;
+alpha = 1;
 
 layerColor = c_white;
 

@@ -52,7 +52,7 @@ if resetArray {
 								tileArrayDrawY[i,j] = 40;
 							}
 						}
-					} else {
+					} else if zfloor > zcieling {
 						if j = zfloor {
 							if i = 1 {
 								tileArrayDrawX[i,j] = 100;
@@ -71,6 +71,17 @@ if resetArray {
 							if i = 2 {
 								tileArrayDrawX[i,j] = 120;
 								tileArrayDrawY[i,j] = 40;
+							}
+						}
+					} else {
+						if j = zfloor {
+							if i = 1 {
+								tileArrayDrawX[i,j] = 180;
+								tileArrayDrawY[i,j] = 220;
+							}
+							if i = 2 {
+								tileArrayDrawX[i,j] = 200;
+								tileArrayDrawY[i,j] = 220;
 							}
 						}
 					}
@@ -111,7 +122,7 @@ if resetArray {
 								tileArrayDrawY[i,j] = 100;
 							}
 						}
-					} else {
+					} else if zfloor > zcieling {
 						if j = zfloor {
 							if i = 1 {
 								tileArrayDrawX[i,j] = 140;
@@ -130,6 +141,17 @@ if resetArray {
 							if i = 2 {
 								tileArrayDrawX[i,j] = 160;
 								tileArrayDrawY[i,j] = 100;
+							}
+						}
+					} else {
+						if j = zfloor {
+							if i = 1 {
+								tileArrayDrawX[i,j] = 180;
+								tileArrayDrawY[i,j] = 200;
+							}
+							if i = 2 {
+								tileArrayDrawX[i,j] = 200;
+								tileArrayDrawY[i,j] = 200;
 							}
 						}
 					}
@@ -158,15 +180,37 @@ if resetArray {
 								tileArrayDrawY[i,j] = 100;
 							}
 						}
-					}
-					if j = zcieling {
-						if i = 1 {
-							tileArrayDrawX[i,j] = 20;
-							tileArrayDrawY[i,j] = 120;
+						if j = zcieling {
+							if i = 1 {
+								tileArrayDrawX[i,j] = 20;
+								tileArrayDrawY[i,j] = 120;
+							}
+							if i = 2 {
+								tileArrayDrawX[i,j] = 60;
+								tileArrayDrawY[i,j] = 120;
+							}
 						}
-						if i = 2 {
-							tileArrayDrawX[i,j] = 60;
-							tileArrayDrawY[i,j] = 120;
+					} else if zfloor > zcieling {
+						if j = zcieling {
+							if i = 1 {
+								tileArrayDrawX[i,j] = 20;
+								tileArrayDrawY[i,j] = 120;
+							}
+							if i = 2 {
+								tileArrayDrawX[i,j] = 60;
+								tileArrayDrawY[i,j] = 120;
+							}
+						}
+					} else {
+						if j = zfloor {
+							if i = 1 {
+								tileArrayDrawX[i,j] = 180;
+								tileArrayDrawY[i,j] = 160;
+							}
+							if i = 2 {
+								tileArrayDrawX[i,j] = 200;
+								tileArrayDrawY[i,j] = 160;
+							}
 						}
 					}
 				} else {
@@ -192,15 +236,37 @@ if resetArray {
 								tileArrayDrawY[i,j] = 100;
 							}
 						}
-					}
-					if j = zcieling {
-						if i = 1 {
-							tileArrayDrawX[i,j] = 20;
-							tileArrayDrawY[i,j] = 120;
+						if j = zcieling {
+							if i = 1 {
+								tileArrayDrawX[i,j] = 20;
+								tileArrayDrawY[i,j] = 120;
+							}
+							if i = 2 {
+								tileArrayDrawX[i,j] = 60;
+								tileArrayDrawY[i,j] = 120;
+							}
 						}
-						if i = 2 {
-							tileArrayDrawX[i,j] = 60;
-							tileArrayDrawY[i,j] = 120;
+					} else if zfloor > zcieling {
+						if j = zcieling {
+							if i = 1 {
+								tileArrayDrawX[i,j] = 20;
+								tileArrayDrawY[i,j] = 120;
+							}
+							if i = 2 {
+								tileArrayDrawX[i,j] = 60;
+								tileArrayDrawY[i,j] = 120;
+							}
+						}
+					} else {
+						if j = zfloor {
+							if i = 1 {
+								tileArrayDrawX[i,j] = 180;
+								tileArrayDrawY[i,j] = 180;
+							}
+							if i = 2 {
+								tileArrayDrawX[i,j] = 200;
+								tileArrayDrawY[i,j] = 180;
+							}
 						}
 					}
 				}

@@ -245,7 +245,7 @@ trgFinalTemp = 0;
 for (i = 0; i < instance_number(obj_floor); i += 1) {
 	trgScr = instance_find(obj_floor,i).id;
 	if trgScr.zfloor*20 <= self.jumpHeight {
-		if collision_point(x,y,trgScr,true,true) {
+		if collision_rectangle(bbox_left,bbox_top,bbox_right,bbox_bottom,trgScr,true,true) {
 			trgLayer[i] = trgScr.zfloor;
 			for (a = 0; a <= i; a += 1) {
 				if trgLayer[a] >= trgFinalTemp {
@@ -261,8 +261,9 @@ for (i = 0; i < instance_number(obj_floor); i += 1) {
 if trgFinal.zfloor = self.zplace {
 	fallSearch = false; // Cancel fall if standing on a platform
 	onGround = true;
+	floorA = trgFinal.zfloor;
 	
-	depth = -(trgFinal.y + (image_yscale)*20 + (trgFinal.zfloor-1)*20) - 1;
+	depth = -(trgFinal.y + 20) - trgFinal.zfloor - 3 - trgFinal.depthOffset/3;
 }
 
 if fallSearch = true {

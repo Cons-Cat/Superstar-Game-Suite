@@ -41,6 +41,9 @@ if placed = 1 {
 					with instance_create_layer(x,y+20,"Instances",obj_x_editor) {
 						trg = other.id;
 					}
+					with instance_create_layer(x,y+20,"Instances",obj_finite_editor) {
+						trg = other.id;
+					}
 					if str = "rectangle" || str = "invisible" {
 						with instance_create_layer(x,y,"Instances",obj_arrow_editor_up) {
 							trg = other.id;
@@ -208,9 +211,22 @@ if mouse_check_button_released(mb_left) {
 image_xscale = width;
 image_yscale = height+zfloor-zcieling;
 
+// Terrain collision height and alpha
+if finite {
+	zplace = zfloor;
+	alpha = 1;
+} else {
+	zplace = 20000;
+	alpha = 0.25;
+}
+
 if (obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4) {
-	if canSelect = false {
-		layerColor = c_white;
+	if !canSelect {
+		if finite {
+			layerColor = c_white;
+		} else {
+			layerColor = c_dkgray;
+		}
 	} else {
 		layerColor = c_orange;
 	}

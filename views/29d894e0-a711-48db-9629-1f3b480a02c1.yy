@@ -6,6 +6,8 @@
     "children": [
         "5c1b7114-818d-419b-8e68-cd74d883e3a0",
         "0ef2e58b-7a44-4c75-91fe-1a6b5b4e0041",
+        "da86ce92-0384-4bed-bd7f-9df2f18d62c8",
+        "30e8d03b-6871-4baf-b046-f6fe9d28f9c1",
         "b2e4cc43-68e1-4369-918f-9929e1ac4a85",
         "1edaafef-bcc3-4039-a102-3928e9a9f00f",
         "032c5de5-24e5-4aca-b575-d98a62b0c2db",
@@ -29,6 +31,7 @@
         "f89081a0-b3e9-45a7-b9aa-1aead914c51c",
         "fd639036-ab95-4820-ad15-b5376ce888a4",
         "1ebb5645-139b-41a9-817a-43d68219b393",
+        "d15fe40d-dafc-4a94-b5dc-4e3b5260affd",
         "dcab5403-f66b-4917-8f4d-9badf50082c5",
         "daf1f454-64c3-449b-9360-8c6fe0b4bba6",
         "49c2ea28-3ede-4bb0-9005-92605cf196fc",
@@ -46,6 +49,7 @@
         "a47e5a7d-9312-47d4-bc58-d6019ec8dac2",
         "37bd6d5f-39fa-417f-a490-01efa228a91b",
         "3eb95e94-4c60-4df1-88d0-cd10af8cec9f",
+        "ab2616cd-0c18-40d5-bd38-8db118ee6299",
         "a505946b-d654-4f2a-b240-06611d7da9cc",
         "0eae55df-d0fc-4b41-befd-31d148b7ef05",
         "624990a8-c1c1-49b4-b21b-d5159fc81d12",
@@ -54,10 +58,7 @@
         "dbac09db-e030-42c4-af4a-2e9fe760e641",
         "2c2a24d6-0a01-4192-9bb6-e298040d2c0c",
         "e46cecbb-e4fc-4bec-b414-c42bdd6e25ed",
-        "ab2616cd-0c18-40d5-bd38-8db118ee6299",
-        "ab0ab1a7-9383-4c48-8483-16dc16f2f8d6",
-        "30e8d03b-6871-4baf-b046-f6fe9d28f9c1",
-        "da86ce92-0384-4bed-bd7f-9df2f18d62c8"
+        "ab0ab1a7-9383-4c48-8483-16dc16f2f8d6"
     ],
     "filterType": "GMSprite",
     "folderName": "Level Editor",

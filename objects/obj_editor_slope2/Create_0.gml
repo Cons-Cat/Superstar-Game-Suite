@@ -2,7 +2,6 @@
 event_inherited();
 
 str = "slope2";
-depthOffset = 1;
 
 // Graphics IDs
 instId1[0] = "inst_"; // Graphics

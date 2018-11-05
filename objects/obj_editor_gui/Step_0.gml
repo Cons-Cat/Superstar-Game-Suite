@@ -17,13 +17,13 @@ if mode = 2 {
 		alarm[0] = 2;
 		
 		with obj_editor_terrain {
-			if zfloor > 0 {
+			if zfloor > 0 || !finite {
 				// Front collision
 				with instance_create_layer(x,y,"Instances",obj_solid) {
 					y = other.y+(other.zfloor+other.height-1)*20;
 					x = other.x;
 					image_xscale = other.width;
-					zplace = other.zfloor;
+					zplace = other.zplace;
 					zcieling = other.zcieling;
 				}
 				// Back collision
@@ -31,12 +31,12 @@ if mode = 2 {
 					y = other.y+(other.zfloor)*20;
 					x = other.x;
 					image_xscale = other.width;
-					zplace = other.zfloor;
+					zplace = other.zplace;
 					zcieling = other.zcieling;
 				}
 				// Left collision
 				with instance_create_layer(x,y,"Instances",obj_solid_side) {
-					zplace = other.zfloor;
+					zplace = other.zplace;
 					zcieling = other.zcieling;
 					height = other.height;
 					image_yscale = other.height;
@@ -45,7 +45,7 @@ if mode = 2 {
 				}
 				// Right collision
 				with instance_create_layer(x,y,"Instances",obj_solid_side) {
-					zplace = other.zfloor;
+					zplace = other.zplace;
 					zcieling = other.zcieling;
 					height = other.height;
 					image_yscale = other.height;
@@ -53,18 +53,21 @@ if mode = 2 {
 					x = other.x+(other.width-1)*20;
 				}
 			}
-			// Floor collision
-			with instance_create_layer(x,y,"Instances",obj_floor) {
-				y = other.y;
-				x = other.x;
-				image_xscale = other.width;
-				image_yscale = other.height;
-				zfloor = other.zfloor;
-				zcieling = other.zcieling;
+			if finite {
+				// Floor collision
+				with instance_create_layer(x,y,"Instances",obj_floor) {
+					y = other.y;
+					x = other.x;
+					image_xscale = other.width;
+					image_yscale = other.height;
+					zfloor = other.zfloor;
+					zcieling = other.zcieling;
+					depthOffset = other.depthOffset;
+				}
 			}
 		}
 		with obj_editor_slope1 {
-			if zfloor > 0 {
+			if zfloor > 0 || !finite {
 				for (i = 0; i < width; i += 1) {
 					// Right slopes collision
 					if !flip {
@@ -73,16 +76,7 @@ if mode = 2 {
 							with instance_create_layer(x,y,"Instances",obj_slopeL_1x_bot) {
 								y = other.y+(other.zfloor)*20+(other.height-1)*20-(other.i)*20;
 								x = other.x+other.i*20;
-								zplace = other.zfloor;
-								zcieling = other.zcieling;
-							}
-						
-							// Floor collision
-							with instance_create_layer(x,y-i*20,"Instances",obj_floor) {
-								y = other.y - other.i*20;
-								x = other.x + other.i*20;
-								sprite_index = spr_slopeL_1x_bot;
-								zfloor = other.zfloor;
+								zplace = other.zplace;
 								zcieling = other.zcieling;
 							}
 						}
@@ -91,16 +85,7 @@ if mode = 2 {
 							with instance_create_layer(x,y,"Instances",obj_slopeR_1x_bot) {
 								y = other.y+(other.zfloor)*20+(other.i)*20-other.width*20+20;
 								x = other.x+other.i*20;
-								zplace = other.zfloor;
-								zcieling = other.zcieling;
-							}
-						
-							// Floor collision
-							with instance_create_layer(x,y+zfloor*20+i*20-width*20,"Instances",obj_floor) {
-								y = other.y+(other.zfloor)*20+(other.i)*20-other.width*20+20;
-								x = other.x+other.i*20;
-								sprite_index = spr_slopeR_1x_bot;
-								zfloor = other.zfloor;
+								zplace = other.zplace;
 								zcieling = other.zcieling;
 							}
 						}
@@ -110,15 +95,7 @@ if mode = 2 {
 							with instance_create_layer(x,y,"Instances",obj_slopeR_1x) {
 								y = other.y+(other.zfloor)*20+(other.height-1)*20-(other.i)*20;
 								x = other.x+other.i*20;
-								zplace = other.zfloor;
-								zcieling = other.zcieling;
-							}
-							
-							// Floor collision
-							with instance_create_layer(x,y-i*20,"Instances",obj_floor) {
-								x = other.x + other.i*20;
-								sprite_index = spr_slopeR_1x;
-								zfloor = other.zfloor;
+								zplace = other.zplace;
 								zcieling = other.zcieling;
 							}
 						}
@@ -127,24 +104,38 @@ if mode = 2 {
 							with instance_create_layer(x,y,"Instances",obj_slopeL_1x) {
 								y = other.y+(other.zfloor)*20+(other.i)*20-other.width*20+20;
 								x = other.x+other.i*20;
-								zplace = other.zfloor;
-								zcieling = other.zcieling;
-							}
-							
-							// Floor collision
-							with instance_create_layer(x,y-(width-i)*20+20,"Instances",obj_floor) {
-								x = other.x+other.i*20;
-								sprite_index = spr_slopeL_1x;
-								zfloor = other.zfloor;
+								zplace = other.zplace;
 								zcieling = other.zcieling;
 							}
 						}
 					}
 				}
 			}
+			if finite {
+				with instance_create_layer(x,y,"Instances",obj_floor) {
+					// Floor collision
+					zfloor = other.zfloor;
+					zcieling = other.zcieling;
+					depthOffset = other.depthOffset;
+					
+					if other.mirror {
+						if other.flip {
+							sprite_index = spr_slopeL_1x;
+						} else {
+							sprite_index = spr_slopeR_1x_bot;
+						}
+					} else {
+						if other.flip {
+							sprite_index = spr_slopeR_1x;
+						} else {
+							sprite_index = spr_slopeL_1x_bot;
+						}
+					}
+				}
+			}
 		}
 		with obj_editor_slope2 {
-			if zfloor > 0 {
+			if zfloor > 0 || !finite {
 				for (i = 0; i < width; i += 1) {
 					// Right slopes collision
 					if !flip {
@@ -153,16 +144,7 @@ if mode = 2 {
 							with instance_create_layer(x,y,"Instances",obj_slopeL_2x_bot) {
 								y = other.y+(other.zfloor)*20+(other.height-1)*20-(other.i)*20;
 								x = other.x+other.i*20;
-								zplace = other.zfloor;
-								zcieling = other.zcieling;
-							}
-						
-							// Floor collision
-							with instance_create_layer(x,y-i*20,"Instances",obj_floor) {
-								y = other.y - other.i*20;
-								x = other.x + other.i*20;
-								sprite_index = spr_slopeL_2x_bot;
-								zfloor = other.zfloor;
+								zplace = other.zplace;
 								zcieling = other.zcieling;
 							}
 						}
@@ -171,16 +153,7 @@ if mode = 2 {
 							with instance_create_layer(x,y,"Instances",obj_slopeR_2x_bot) {
 								y = other.y+(other.zfloor)*20+(other.i)*20-other.width*20+20;
 								x = other.x+other.i*20;
-								zplace = other.zfloor;
-								zcieling = other.zcieling;
-							}
-							
-							// Floor collision
-							with instance_create_layer(x,y+zfloor*20+i*20-width*20,"Instances",obj_floor) {
-								y = other.y+(other.zfloor)*20+(other.i)*20-other.width*20+20;
-								x = other.x+other.i*20;
-								sprite_index = spr_slopeR_2x_bot;
-								zfloor = other.zfloor;
+								zplace = other.zplace;
 								zcieling = other.zcieling;
 							}
 						}
@@ -190,15 +163,7 @@ if mode = 2 {
 							with instance_create_layer(x,y,"Instances",obj_slopeR_2x) {
 								y = other.y+(other.zfloor)*20+(other.height-1)*20-(other.i)*20;
 								x = other.x+other.i*20;
-								zplace = other.zfloor;
-								zcieling = other.zcieling;
-							}
-							
-							// Floor collision
-							with instance_create_layer(x,y-i*20,"Instances",obj_floor) {
-								x = other.x + other.i*20;
-								sprite_index = spr_slopeR_2x;
-								zfloor = other.zfloor;
+								zplace = other.zplace;
 								zcieling = other.zcieling;
 							}
 						}
@@ -207,23 +172,38 @@ if mode = 2 {
 							with instance_create_layer(x,y,"Instances",obj_slopeL_2x) {
 								y = other.y+(other.zfloor)*20+(other.i)*20-other.width*20+20;
 								x = other.x+other.i*20;
-								zplace = other.zfloor;
-								zcieling = other.zcieling;
-							}
-							
-							// Floor collision
-							with instance_create_layer(x,y-(width-i)*20+20,"Instances",obj_floor) {
-								x = other.x+other.i*20;
-								sprite_index = spr_slopeL_2x;
-								zfloor = other.zfloor;
+								zplace = other.zplace;
 								zcieling = other.zcieling;
 							}
 						}
 					}
 				}
 			}
-		}with obj_editor_slope3 {
-			if zfloor > 0 {
+			if finite {
+				with instance_create_layer(x,y,"Instances",obj_floor) {
+					// Floor collision
+					zfloor = other.zfloor;
+					zcieling = other.zcieling;
+					depthOffset = other.depthOffset;
+					
+					if other.mirror {
+						if other.flip {
+							sprite_index = spr_slopeL_2x;
+						} else {
+							sprite_index = spr_slopeR_2x_bot;
+						}
+					} else {
+						if other.flip {
+							sprite_index = spr_slopeR_2x;
+						} else {
+							sprite_index = spr_slopeL_2x_bot;
+						}
+					}
+				}
+			}
+		}
+		with obj_editor_slope3 {
+			if zfloor > 0 || !finite {
 				for (i = 0; i < width; i += 1) {
 					// Right slopes collision
 					if !flip {
@@ -232,16 +212,7 @@ if mode = 2 {
 							with instance_create_layer(x,y,"Instances",obj_slopeL_05x_bot) {
 								y = other.y+(other.zfloor)*20+(other.height-1)*20-(other.i)*20;
 								x = other.x+other.i*20;
-								zplace = other.zfloor;
-								zcieling = other.zcieling;
-							}
-						
-							// Floor collision
-							with instance_create_layer(x,y-i*20,"Instances",obj_floor) {
-								y = other.y - other.i*20;
-								x = other.x + other.i*20;
-								sprite_index = spr_slopeL_05x_bot;
-								zfloor = other.zfloor;
+								zplace = other.zplace;
 								zcieling = other.zcieling;
 							}
 						}
@@ -250,16 +221,7 @@ if mode = 2 {
 							with instance_create_layer(x,y,"Instances",obj_slopeR_05x_bot) {
 								y = other.y+(other.zfloor)*20+(other.i)*20-other.width*20+20;
 								x = other.x+other.i*20;
-								zplace = other.zfloor;
-								zcieling = other.zcieling;
-							}
-							
-							// Floor collision
-							with instance_create_layer(x,y+zfloor*20+i*20-width*20,"Instances",obj_floor) {
-								y = other.y+(other.zfloor)*20+(other.i)*20-other.width*20+20;
-								x = other.x+other.i*20;
-								sprite_index = spr_slopeR_05x_bot;
-								zfloor = other.zfloor;
+								zplace = other.zplace;
 								zcieling = other.zcieling;
 							}
 						}
@@ -269,15 +231,7 @@ if mode = 2 {
 							with instance_create_layer(x,y,"Instances",obj_slopeR_05x) {
 								y = other.y+(other.zfloor)*20+(other.height-1)*20-(other.i)*20;
 								x = other.x+other.i*20;
-								zplace = other.zfloor;
-								zcieling = other.zcieling;
-							}
-							
-							// Floor collision
-							with instance_create_layer(x,y-i*20,"Instances",obj_floor) {
-								x = other.x + other.i*20;
-								sprite_index = spr_slopeR_05x;
-								zfloor = other.zfloor;
+								zplace = other.zplace;
 								zcieling = other.zcieling;
 							}
 						}
@@ -286,56 +240,34 @@ if mode = 2 {
 							with instance_create_layer(x,y,"Instances",obj_slopeL_05x) {
 								y = other.y+(other.zfloor)*20+(other.i)*20-other.width*20+20;
 								x = other.x+other.i*20;
-								zplace = other.zfloor;
-								zcieling = other.zcieling;
-							}
-							
-							// Floor collision
-							with instance_create_layer(x,y-(width-i)*20+20,"Instances",obj_floor) {
-								x = other.x+other.i*20;
-								sprite_index = spr_slopeL_05x;
-								zfloor = other.zfloor;
+								zplace = other.zplace;
 								zcieling = other.zcieling;
 							}
 						}
 					}
 				}
 			}
-		}
-		with obj_editor_infinite {
-			// Front collision
-			with instance_create_layer(x,y,"Instances",obj_solid) {
-				y = other.y+(other.zfloor+other.height-1)*20;
-				x = other.x;
-				image_xscale = other.width;
-				zplace = 20000;
-				zcieling = other.zcieling;
-			}
-			// Back collision
-			with instance_create_layer(x,y,"Instances",obj_solid) {
-				y = other.y+(other.zfloor)*20;
-				x = other.x;
-				image_xscale = other.width;
-				zplace = 20000;
-				zcieling = other.zcieling;
-			}
-			// Left collision
-			with instance_create_layer(x,y,"Instances",obj_solid_side) {
-				y = other.y+(other.zfloor)*20
-				x = other.x;
-				image_yscale = other.height;
-				zplace = other.zfloor + 20000;
-				zcieling = other.zcieling;
-				height = other.height;
-			}
-			// Right collision
-			with instance_create_layer(x,y,"Instances",obj_solid_side) {
-				y = other.y+(other.zfloor)*20
-				x = other.x+(other.width-1)*20;
-				image_yscale = other.height;
-				zplace = other.zfloor + 20000;
-				zcieling = other.zcieling;
-				height = other.height;
+			if finite {
+				with instance_create_layer(x,y,"Instances",obj_floor) {
+					// Floor collision
+					zfloor = other.zfloor;
+					zcieling = other.zcieling;
+					depthOffset = other.depthOffset;
+					
+					if other.mirror {
+						if other.flip {
+							sprite_index = spr_slopeL_05x;
+						} else {
+							sprite_index = spr_slopeR_05x_bot;
+						}
+					} else {
+						if other.flip {
+							sprite_index = spr_slopeR_05x;
+						} else {
+							sprite_index = spr_slopeL_05x_bot;
+						}
+					}
+				}
 			}
 		}
 	}

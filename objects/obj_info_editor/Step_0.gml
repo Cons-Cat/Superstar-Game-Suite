@@ -21,10 +21,10 @@ if select = 1 {
 					if other.str2 = "flip" {
 						flip = !flip;
 						
-						if depthOffset = 1 {
-							depthOffset = 0;
+						if flip {
+							depthOffset = 3;
 						} else {
-							depthOffset = 1;
+							depthOffset = 0;
 						}
 					}
 					

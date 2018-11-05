@@ -8,9 +8,8 @@ if instance_exists(trg) {
 	zfloor = trg.zfloor;
 	zcieling = trg.zcieling;
 	sprMaterial = trg.sprMaterial;
-	depthOffset = trg.depthOffset;
-
-	depth = -(y + zfloor*20) - zfloor + depthOffset;
+	
+	depth = -(y + zfloor*20 + 20) - zfloor - 1;
 } else {
 	instance_destroy();
 }

@@ -27,33 +27,33 @@ if obj_editor_gui.mode = 0 {
 			if !mirror {
 				if !flip {
 					if j < zfloor-zcieling {
-						draw_sprite_ext(spr_walls_slope2_editor_alt,0,x,y+j*20+(height-1)*20,1,1,0,layerColor,1);
+						draw_sprite_ext(spr_walls_slope2_editor_alt,0,x,y+j*20+(height-1)*20,1,1,0,layerColor,alpha);
 					} else {
-						draw_sprite_ext(spr_walls_slope2_editor_alt,1,x,y+j*20+(height-1)*20,1,1,0,layerColor,1);
+						draw_sprite_ext(spr_walls_slope2_editor_alt,1,x,y+j*20+(height-1)*20,1,1,0,layerColor,alpha);
 					}
 				} else {
 					if j < zfloor-zcieling {
-						draw_sprite_ext(spr_walls_editor,0,x,y+j*20+(height-1)*20,1,1,0,layerColor,1);
-						draw_sprite_ext(spr_walls_editor,2,x+20,y+j*20+(height-1)*20,1,1,0,layerColor,1);
+						draw_sprite_ext(spr_walls_editor,0,x,y+j*20+(height-1)*20,1,1,0,layerColor,alpha);
+						draw_sprite_ext(spr_walls_editor,2,x+20,y+j*20+(height-1)*20,1,1,0,layerColor,alpha);
 					} else {
-						draw_sprite_ext(spr_walls_editor,3,x,y+j*20+(height-1)*20,1,1,0,layerColor,1);
-						draw_sprite_ext(spr_walls_editor,5,x+20,y+j*20+(height-1)*20,1,1,0,layerColor,1);
+						draw_sprite_ext(spr_walls_editor,3,x,y+j*20+(height-1)*20,1,1,0,layerColor,alpha);
+						draw_sprite_ext(spr_walls_editor,5,x+20,y+j*20+(height-1)*20,1,1,0,layerColor,alpha);
 					}
 				}
 			} else {
 				if !flip {
 					if j < zfloor-zcieling {
-						draw_sprite_ext(spr_walls_slope2_editor_alt,2,x,y+j*20+(height-1)*20,1,1,0,layerColor,1);
+						draw_sprite_ext(spr_walls_slope2_editor_alt,2,x,y+j*20+(height-1)*20,1,1,0,layerColor,alpha);
 					} else {
-						draw_sprite_ext(spr_walls_slope2_editor_alt,3,x,y+j*20+(height-1)*20,1,1,0,layerColor,1);
+						draw_sprite_ext(spr_walls_slope2_editor_alt,3,x,y+j*20+(height-1)*20,1,1,0,layerColor,alpha);
 					}
 				} else {
 					if j < zfloor-zcieling {
-						draw_sprite_ext(spr_walls_editor,0,x,y+j*20+(height-1)*20,1,1,0,layerColor,1);
-						draw_sprite_ext(spr_walls_editor,2,x+20,y+j*20+(height-1)*20,1,1,0,layerColor,1);
+						draw_sprite_ext(spr_walls_editor,0,x,y+j*20+(height-1)*20,1,1,0,layerColor,alpha);
+						draw_sprite_ext(spr_walls_editor,2,x+20,y+j*20+(height-1)*20,1,1,0,layerColor,alpha);
 					} else {
-						draw_sprite_ext(spr_walls_editor,3,x,y+j*20+(height-1)*20,1,1,0,layerColor,1);
-						draw_sprite_ext(spr_walls_editor,5,x+20,y+j*20+(height-1)*20,1,1,0,layerColor,1);
+						draw_sprite_ext(spr_walls_editor,3,x,y+j*20+(height-1)*20,1,1,0,layerColor,alpha);
+						draw_sprite_ext(spr_walls_editor,5,x+20,y+j*20+(height-1)*20,1,1,0,layerColor,alpha);
 					}
 				}
 			}
@@ -80,15 +80,15 @@ if obj_editor_gui.mode = 0 {
 	for (i = 0; i < width; i += 1) {
 		if !flip {
 			if !mirror {
-				draw_sprite_ext(spr_terrain_slope2_editor,0,x+i*20,y-i*20,1,1,0,layerColor,1);
+				draw_sprite_ext(spr_terrain_slope2_editor,0,x+i*20,y-i*20,1,1,0,layerColor,alpha);
 			} else {
-				draw_sprite_ext(spr_terrain_slope2_editor,1,x+(width-i-1)*20,y-i*20,1,1,0,layerColor,1);
+				draw_sprite_ext(spr_terrain_slope2_editor,1,x+(width-i-1)*20,y-i*20,1,1,0,layerColor,alpha);
 			}
 		} else {
 			if !mirror {
-				draw_sprite_ext(spr_terrain_slope2_editor,3,x+i*20,y-i*20,1,1,0,layerColor,1);
+				draw_sprite_ext(spr_terrain_slope2_editor,3,x+i*20,y-i*20,1,1,0,layerColor,alpha);
 			} else {
-				draw_sprite_ext(spr_terrain_slope2_editor,2,x+(width-i-1)*20,y-i*20,1,1,0,layerColor,1);
+				draw_sprite_ext(spr_terrain_slope2_editor,2,x+(width-i-1)*20,y-i*20,1,1,0,layerColor,alpha);
 			}
 		}
 	}
@@ -215,9 +215,9 @@ if obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4
 	// Draw walls
 	for (j = zfloor + 1; j >= zcieling; j -= 1) {
 		// Iterate across the z height
-		for (i = 0; i <= width + 1; i += 1) {
+		for (i = 0; i <= width + 2; i += 1) {
 			// Iterate across the width diagonally
-			draw_sprite_part_ext(sprMaterial,0,tileArrayDrawX[i,j],tileArrayDrawY[i,j],20,20,x+(i-1)*20,y+(zfloor-zcieling)*20-(j)*20,1,1,layerColor,1);
+			draw_sprite_part_ext(sprMaterial,0,tileArrayDrawX[i,j],tileArrayDrawY[i,j],20,20,x+(i-1)*20,y+(zfloor-zcieling)*20-(j)*20,1,1,layerColor,alpha);
 		}
 	}
 }

@@ -2,8 +2,7 @@
 event_inherited();
 
 str = "slope3";
-depthOffset = 1;
-depthYOffset = 0;
+
 dummyTop = instance_create_layer(x,y,layer,obj_editor_slope3_dummy_top);
 dummyBot = instance_create_layer(x,y,layer,obj_editor_slope3_dummy_bot);
 dummyTop.trg = self.id;

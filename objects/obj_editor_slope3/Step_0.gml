@@ -38,7 +38,7 @@ if resetArray {
 								tileArrayDrawX[i,j] = 180;
 								tileArrayDrawY[i,j] = 20;
 							}
-						} else {
+						} else if zfloor > zcieling {
 							if j = zfloor + 1 {
 								tileArrayDrawX[i,j] = 200;
 								tileArrayDrawY[i,j] = 80;
@@ -50,6 +50,15 @@ if resetArray {
 							if j = zcieling {
 								tileArrayDrawX[i,j] = 180;
 								tileArrayDrawY[i,j] = 20;
+							}
+						} else {
+							if j = zfloor + 1 {
+								tileArrayDrawX[i,j] = 160;
+								tileArrayDrawY[i,j] = 200;
+							}
+							if j = zfloor {
+								tileArrayDrawX[i,j] = 160;
+								tileArrayDrawY[i,j] = 220;
 							}
 						}
 					} else {
@@ -74,7 +83,7 @@ if resetArray {
 								tileArrayDrawX[i,j] = 200;
 								tileArrayDrawY[i,j] = 20;
 							}
-						} else {
+						} else if zfloor > zcieling {
 							if j = zfloor + 1 {
 								tileArrayDrawX[i,j] = 180;
 								tileArrayDrawY[i,j] = 80;
@@ -87,44 +96,75 @@ if resetArray {
 								tileArrayDrawX[i,j] = 200;
 								tileArrayDrawY[i,j] = 20;
 							}
+						} else {
+							if j = zfloor + 1 {
+								tileArrayDrawX[i,j] = 100;
+								tileArrayDrawY[i,j] = 200;
+							}
+							if j = zfloor {
+								tileArrayDrawX[i,j] = 100;
+								tileArrayDrawY[i,j] = 220;
+							}
 						}
 					}
 				} else {
 					if !mirror {
-						// Assign flipped tiles
-						if j = zfloor + 1 {
+						if zfloor > zcieling {
+							// Assign flipped tiles
+							if j = zfloor + 1 {
+									tileArrayDrawX[i,j] = 180;
+									tileArrayDrawY[i,j] = 120;
+							}
+							if j = zfloor {
+									tileArrayDrawX[i,j] = 180;
+									tileArrayDrawY[i,j] = 140;
+							}
+							if j < zfloor {
+									tileArrayDrawX[i,j] = 80;
+									tileArrayDrawY[i,j] = 100;
+							}
+							if j = zcieling {
+									tileArrayDrawX[i,j] = 80;
+									tileArrayDrawY[i,j] = 120;
+							}
+						} else {
+							if j = zfloor + 1 {
 								tileArrayDrawX[i,j] = 180;
 								tileArrayDrawY[i,j] = 120;
-						}
-						if j = zfloor {
+							}
+							if j = zfloor {
 								tileArrayDrawX[i,j] = 180;
 								tileArrayDrawY[i,j] = 140;
-						}
-						if j < zfloor {
-								tileArrayDrawX[i,j] = 80;
-								tileArrayDrawY[i,j] = 100;
-						}
-						if j = zcieling {
-								tileArrayDrawX[i,j] = 80;
-								tileArrayDrawY[i,j] = 120;
+							}
 						}
 					} else {
 						// Assign flipped tiles
-						if j = zfloor + 1 {
+						if zfloor > zcieling {
+							if j = zfloor + 1 {
+									tileArrayDrawX[i,j] = 200;
+									tileArrayDrawY[i,j] = 120;
+							}
+							if j = zfloor {
+									tileArrayDrawX[i,j] = 200;
+									tileArrayDrawY[i,j] = 140;
+							}
+							if j < zfloor {
+									tileArrayDrawX[i,j] = 80;
+									tileArrayDrawY[i,j] = 100;
+							}
+							if j = zcieling {
+									tileArrayDrawX[i,j] = 80;
+									tileArrayDrawY[i,j] = 120;
+							}
+						} else {
+							if j = zfloor + 1 {
 								tileArrayDrawX[i,j] = 200;
 								tileArrayDrawY[i,j] = 120;
-						}
-						if j = zfloor {
+							}
+							if j = zfloor {
 								tileArrayDrawX[i,j] = 200;
 								tileArrayDrawY[i,j] = 140;
-						}
-						if j < zfloor {
-								tileArrayDrawX[i,j] = 80;
-								tileArrayDrawY[i,j] = 100;
-						}
-						if j = zcieling {
-								tileArrayDrawX[i,j] = 80;
-								tileArrayDrawY[i,j] = 120;
+							}
 						}
 					}
 				}

@@ -298,7 +298,6 @@ if instance_exists(obj_editor_terrain) {
 			file_text_close(file);
 		}
 	}
-	show_message(string_hash_to_newline("Transfer every *.gml file from %AppData%/local/Venus_and_the_Star_Children_Src too, please.#Clear that directory afterward."));
 }
 }
 }

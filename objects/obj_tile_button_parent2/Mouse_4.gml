@@ -11,9 +11,6 @@ obj_tile_slope2.col = c_white;
 obj_tile_slope3.select = 0;
 obj_tile_slope3.col = c_white;
 
-obj_tile_infinite.select = 0;
-obj_tile_infinite.col = c_white;
-
 if select = 0 {
 	select = 1;
 	col = c_orange;

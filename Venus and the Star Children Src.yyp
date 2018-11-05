@@ -1074,7 +1074,7 @@
             "Key": "871e0b97-36fe-4613-8c3b-7224a824cf68",
             "Value": {
                 "id": "d03a6140-41db-4503-bb20-e35ecb823d82",
-                "resourcePath": "sprites\\spr_infinite_editor\\spr_infinite_editor.yy",
+                "resourcePath": "sprites\\spr_infinite_editor_asf\\spr_infinite_editor_asf.yy",
                 "resourceType": "GMSprite"
             }
         },
@@ -1727,6 +1727,14 @@
             }
         },
         {
+            "Key": "d15fe40d-dafc-4a94-b5dc-4e3b5260affd",
+            "Value": {
+                "id": "eab35739-3007-4bae-a9a2-fd714b6c8203",
+                "resourcePath": "sprites\\spr_infinite_editor\\spr_infinite_editor.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "d187328b-86ab-4e1b-aeaf-a3cf347a1fa4",
             "Value": {
                 "id": "d676e9fd-35d1-46cc-84e7-226f5273fd2d",
@@ -2132,6 +2140,14 @@
                 "id": "e3dc9e49-6cae-4dcd-b4b5-eaad8644868a",
                 "resourcePath": "sprites\\spr_slopeR_1x\\spr_slopeR_1x.yy",
                 "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "fbc9a22d-d748-4fd4-868b-d4e1402041bb",
+            "Value": {
+                "id": "b8b96ec5-5a05-468b-9f17-89cbab7e97f6",
+                "resourcePath": "objects\\obj_finite_editor\\obj_finite_editor.yy",
+                "resourceType": "GMObject"
             }
         },
         {

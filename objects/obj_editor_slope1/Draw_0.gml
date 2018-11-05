@@ -30,38 +30,38 @@ if obj_editor_gui.mode = 0 {
 						if i < 1 {
 							// Left edge
 							if j < zfloor-zcieling {
-								draw_sprite_ext(spr_walls_slope1_editor,4,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,1);
+								draw_sprite_ext(spr_walls_slope1_editor,4,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,alpha);
 							} else {
-								draw_sprite_ext(spr_walls_slope1_editor,2,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,1);
+								draw_sprite_ext(spr_walls_slope1_editor,2,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,alpha);
 							}
 						} else if i = width - 1 {
 							// Right edge
 							if j < zfloor-zcieling {
-								draw_sprite_ext(spr_walls_slope1_editor,10,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,1);
+								draw_sprite_ext(spr_walls_slope1_editor,10,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,alpha);
 							} else {
-								draw_sprite_ext(spr_walls_slope1_editor,12,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,1);
+								draw_sprite_ext(spr_walls_slope1_editor,12,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,alpha);
 							}
 						} else {
 							// Center fill
 							if j < zfloor-zcieling  {
-								draw_sprite_ext(spr_walls_slope1_editor,6,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,1);
+								draw_sprite_ext(spr_walls_slope1_editor,6,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,alpha);
 							} else {
-								draw_sprite_ext(spr_walls_slope1_editor,0,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,1);
+								draw_sprite_ext(spr_walls_slope1_editor,0,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,alpha);
 							}
 						}
 					} else {
 						// Column
 						if j < zfloor-zcieling {
-							draw_sprite_ext(spr_walls_slope1_editor,14,x+i*20,y+j*20+(height-1)*20,1,1,0,layerColor,1);
+							draw_sprite_ext(spr_walls_slope1_editor,14,x+i*20,y+j*20+(height-1)*20,1,1,0,layerColor,alpha);
 						} else {
-							draw_sprite_ext(spr_walls_slope1_editor,8,x+i*20,y+j*20+(height-1)*20,1,1,0,layerColor,1);
+							draw_sprite_ext(spr_walls_slope1_editor,8,x+i*20,y+j*20+(height-1)*20,1,1,0,layerColor,alpha);
 						}
 					}
 				} else {
 					if j < zfloor-zcieling {
-						draw_sprite_ext(spr_walls_editor,6,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,1);
+						draw_sprite_ext(spr_walls_editor,6,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,alpha);
 					} else {
-						draw_sprite_ext(spr_walls_editor,7,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,1);
+						draw_sprite_ext(spr_walls_editor,7,x+i*20,y+j*20+(height-1)*20-(i)*20,1,1,0,layerColor,alpha);
 					}
 				}
 			} else {
@@ -70,38 +70,38 @@ if obj_editor_gui.mode = 0 {
 						if i < 1 {
 							// Left edge
 							if j < zfloor-zcieling {
-								draw_sprite_ext(spr_walls_slope1_editor,11,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,1);
+								draw_sprite_ext(spr_walls_slope1_editor,11,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,alpha);
 							} else {
-								draw_sprite_ext(spr_walls_slope1_editor,13,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,1);
+								draw_sprite_ext(spr_walls_slope1_editor,13,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,alpha);
 							}
 						} else if i = width - 1 {
 							// Right edge
 							if j < zfloor-zcieling {
-								draw_sprite_ext(spr_walls_slope1_editor,5,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,1);
+								draw_sprite_ext(spr_walls_slope1_editor,5,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,alpha);
 							} else {
-								draw_sprite_ext(spr_walls_slope1_editor,3,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,1);
+								draw_sprite_ext(spr_walls_slope1_editor,3,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,alpha);
 							}
 						} else {
 							// Center fill
 							if j < zfloor-zcieling  {
-								draw_sprite_ext(spr_walls_slope1_editor,7,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,1);
+								draw_sprite_ext(spr_walls_slope1_editor,7,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,alpha);
 							} else {
-								draw_sprite_ext(spr_walls_slope1_editor,1,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,1);
+								draw_sprite_ext(spr_walls_slope1_editor,1,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,alpha);
 							}
 						}
 					} else {
 						// Column
 						if j < zfloor-zcieling {
-							draw_sprite_ext(spr_walls_slope1_editor,15,x+i*20,y+j*20+(height-1)*20,1,1,0,layerColor,1);
+							draw_sprite_ext(spr_walls_slope1_editor,15,x+i*20,y+j*20+(height-1)*20,1,1,0,layerColor,alpha);
 						} else {
-							draw_sprite_ext(spr_walls_slope1_editor,9,x+i*20,y+j*20+(height-1)*20,1,1,0,layerColor,1);
+							draw_sprite_ext(spr_walls_slope1_editor,9,x+i*20,y+j*20+(height-1)*20,1,1,0,layerColor,alpha);
 						}
 					}
 				} else {
 					if j < zfloor-zcieling {
-						draw_sprite_ext(spr_walls_editor,6,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,1);
+						draw_sprite_ext(spr_walls_editor,6,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,alpha);
 					} else {
-						draw_sprite_ext(spr_walls_editor,7,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,1);
+						draw_sprite_ext(spr_walls_editor,7,x+i*20,y+j*20+(height)*20-(width-i)*20,1,1,0,layerColor,alpha);
 					}
 				}
 			}
@@ -128,15 +128,15 @@ if obj_editor_gui.mode = 0 {
 	for (i = 0; i < width; i += 1) {
 		if !flip {
 			if !mirror {
-				draw_sprite_ext(spr_terrain_slope1_editor,0,x+i*20,y-i*20,1,1,0,layerColor,1);
+				draw_sprite_ext(spr_terrain_slope1_editor,0,x+i*20,y-i*20,1,1,0,layerColor,alpha);
 			} else {
-				draw_sprite_ext(spr_terrain_slope1_editor,1,x+(width-i-1)*20,y-i*20,1,1,0,layerColor,1);
+				draw_sprite_ext(spr_terrain_slope1_editor,1,x+(width-i-1)*20,y-i*20,1,1,0,layerColor,alpha);
 			}
 		} else {
 			if !mirror {
-				draw_sprite_ext(spr_terrain_slope1_editor,3,x+i*20,y-i*20,1,1,0,layerColor,1);
+				draw_sprite_ext(spr_terrain_slope1_editor,3,x+i*20,y-i*20,1,1,0,layerColor,alpha);
 			} else {
-				draw_sprite_ext(spr_terrain_slope1_editor,2,x+(width-i-1)*20,y-i*20,1,1,0,layerColor,1);
+				draw_sprite_ext(spr_terrain_slope1_editor,2,x+(width-i-1)*20,y-i*20,1,1,0,layerColor,alpha);
 			}
 		}
 	}
@@ -267,11 +267,11 @@ if obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4
 			// Iterate across the width diagonally
 			if !mirror {
 				if !(j = 0 && i = 0) && !(j = zfloor + 1 && i = width + 1) {
-					draw_sprite_part_ext(sprMaterial,0,tileArrayDrawX[i,j],tileArrayDrawY[i,j],20,20,x+(i-1)*20,y+(zfloor-zcieling)*20-(i)*20-(j)*20+20,1,1,layerColor,1);
+					draw_sprite_part_ext(sprMaterial,0,tileArrayDrawX[i,j],tileArrayDrawY[i,j],20,20,x+(i-1)*20,y+(zfloor-zcieling)*20-(i)*20-(j)*20+20,1,1,layerColor,alpha);
 				}
 			}
 			if mirror {
-				draw_sprite_part_ext(sprMaterial,0,tileArrayDrawX[i,j],tileArrayDrawY[i,j],20,20,x+(i-1)*20,y+(zfloor-zcieling)*20+(i)*20-(j)*20-width*20,1,1,layerColor,1);
+				draw_sprite_part_ext(sprMaterial,0,tileArrayDrawX[i,j],tileArrayDrawY[i,j],20,20,x+(i-1)*20,y+(zfloor-zcieling)*20+(i)*20-(j)*20-width*20,1,1,layerColor,alpha);
 			}
 		}
 	}
