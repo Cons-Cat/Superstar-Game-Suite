@@ -1,0 +1,549 @@
+/// @description Manipulating dimensions
+event_inherited();
+
+// Tile array
+if resetArray {
+	resetArray = false;
+	sprMaterial = spr_tls_staircase_default // Reset material
+	
+	if staircaseType = 0 {
+		if staircaseRotation = 0 || staircaseRotation = 2 {
+			widthIterate = 3;
+			heightIterate = width + 1;
+		}
+		if staircaseRotation = 1 {
+			widthIterate = width + 2;
+			heightIterate = width + 1;
+		}
+	}
+	if staircaseType = 1 {
+		if staircaseRotation = 0 || staircaseRotation = 2 {
+			widthIterate = 4;
+			heightIterate = width + 1;
+		}
+		if staircaseRotation = 1 {
+			widthIterate = width + 2;
+			heightIterate = 1;
+		}
+		if staircaseRotation = 3 {
+			widthIterate = round(width/2) + 4;
+			heightIterate = width + 2;
+		}
+		if staircaseRotation = 4 {
+			widthIterate = width + 4;
+			heightIterate = width + 3;
+		}
+		if staircaseRotation = 5 || staircaseRotation = 7 {
+			widthIterate = width + 2;
+			heightIterate = floor(width/2) + 3;
+		}
+		if staircaseRotation = 6 {
+			widthIterate = width + 2;
+			heightIterate = 3;
+		}
+	}
+	if staircaseType = 2 {
+		zIterate = 3;
+	} else {
+		zIterate = 2;
+	}
+	
+	// Iterate across the width diagonally
+	for (i = 0; i < widthIterate; i += 1) {
+		// Iterate across the z height
+		for (j = heightIterate; j >= zfloor; j -= 1) {
+			tileArrayDrawX[i,j] = 40;
+			tileArrayDrawY[i,j] = 40;
+			
+			// Assign unflipped tiles
+			if staircaseType = 0 {
+				if staircaseRotation = 0 {
+					if i = 1 {
+						if j = width {
+							tileArrayDrawX[i,j] = 680;
+							tileArrayDrawY[i,j] = 0;
+						}
+						if j < width {
+							tileArrayDrawX[i,j] = 680;
+							tileArrayDrawY[i,j] = 20;
+						}
+					}
+				}
+				if staircaseRotation = 1 {
+					if i > 0 && i <= width {
+						if j = 0 {
+							tileArrayDrawX[i,j] = 40;
+							tileArrayDrawY[i,j] = 0;
+						}
+					}
+				}
+				if staircaseRotation = 2 {
+					if i = 1 {
+						if j = width {
+							tileArrayDrawX[i,j] = 20;
+							tileArrayDrawY[i,j] = 0;
+						}
+						if j < width {
+							tileArrayDrawX[i,j] = 20;
+							tileArrayDrawY[i,j] = 20;
+						}
+					}
+				}
+				if staircaseRotation = 6 {
+					if i = 1 {
+						if j = 0 {
+							tileArrayDrawX[i,j] = 0;
+							tileArrayDrawY[i,j] = 20;
+						}
+						if j = 1 {
+							tileArrayDrawX[i,j] = 0;
+							tileArrayDrawY[i,j] = 0;
+						}
+					}
+				}
+			}
+			if staircaseType = 1 {
+				if staircaseRotation = 0 {
+					if i = 1 {
+						if j < width {
+							tileArrayDrawX[i,j] = 660;
+							tileArrayDrawY[i,j] = 80;
+						}
+						if j = width {
+							tileArrayDrawX[i,j] = 660;
+							tileArrayDrawY[i,j] = 60;
+						}
+					}
+					if i = 2 {
+						if j < width {
+							tileArrayDrawX[i,j] = 680;
+							tileArrayDrawY[i,j] = 80;
+						}
+						if j = width {
+							tileArrayDrawX[i,j] = 680;
+							tileArrayDrawY[i,j] = 60;
+						}
+					}
+				}
+				if staircaseRotation = 1 {
+					if i > 0 && i < width + 1 && j = 0 {
+						tileArrayDrawX[i,j] = 40;
+						tileArrayDrawY[i,j] = 0;
+					}
+				}
+				if staircaseRotation = 2 {
+					if i = 1 {
+						if j < width {
+							tileArrayDrawX[i,j] = 20;
+							tileArrayDrawY[i,j] = 80;
+						}
+						if j = width {
+							tileArrayDrawX[i,j] = 20;
+							tileArrayDrawY[i,j] = 60;
+						}
+					}
+					if i = 2 {
+						if j < width {
+							tileArrayDrawX[i,j] = 40;
+							tileArrayDrawY[i,j] = 80;
+						}
+						if j = width {
+							tileArrayDrawX[i,j] = 40;
+							tileArrayDrawY[i,j] = 60;
+						}
+					}
+				}
+				if staircaseRotation = 3 {
+					if i = 1 {
+						if j = 3 {
+							tileArrayDrawX[i,j] = 280;
+							tileArrayDrawY[i,j] = 40;
+						}
+						if j = 2 {
+							tileArrayDrawX[i,j] = 280;
+							tileArrayDrawY[i,j] = 60;
+						}
+						if j = 1 {
+							tileArrayDrawX[i,j] = 280;
+							tileArrayDrawY[i,j] = 80;
+						}
+					}
+					if i = 2 {
+						if j = 1 {
+							tileArrayDrawX[i,j] = 300;
+							tileArrayDrawY[i,j] = 80;
+						}
+						if j = 0 {
+							tileArrayDrawX[i,j] = 300;
+							tileArrayDrawY[i,j] = 100;
+						}
+					}
+					if i > 1 && i < width {
+						if i = 2 && j > 1 {
+							if j = (i - 2)*2 + 5 {
+								tileArrayDrawX[i,j] = 280;
+								tileArrayDrawY[i,j] = 40;
+							}
+							if j = (i - 2)*2 + 4 {
+								tileArrayDrawX[i,j] = 280;
+								tileArrayDrawY[i,j] = 60;
+							}
+							if j = (i - 2)*2 + 3 {
+								tileArrayDrawX[i,j] = 300;
+								tileArrayDrawY[i,j] = 40;
+							}
+						}
+						if i > 1 && j > 0 {
+							if j = (i - 2)*2 + 5 && j < ceil(width) {
+								tileArrayDrawX[i,j] = 280;
+								tileArrayDrawY[i,j] = 40;
+							}
+							if j = (i - 2)*2 + 4 && j < ceil(width) + 1 {
+								tileArrayDrawX[i,j] = 280;
+								tileArrayDrawY[i,j] = 60;
+							}
+							if j = (i - 2)*2 + 3 && j < ceil(width) {
+								tileArrayDrawX[i,j] = 300;
+								tileArrayDrawY[i,j] = 40;
+							}
+							if j = (i - 2)*2 + 2 && j < ceil(width) {
+								tileArrayDrawX[i,j] = 300;
+								tileArrayDrawY[i,j] = 60;
+							}
+							if j = (i - 2)*2 + 1 && j > 1 && j < ceil(width) {
+								tileArrayDrawX[i,j] = 320;
+								tileArrayDrawY[i,j] = 40;
+							}
+							if j = (i - 2)*2 && j < ceil(width) {
+								tileArrayDrawX[i,j] = 320;
+								tileArrayDrawY[i,j] = 60;
+							}
+						}
+						if i > 2 {
+							if j = (i - 2)*2 - 1 {
+								tileArrayDrawX[i,j] = 320;
+								tileArrayDrawY[i,j] = 80;
+							}
+							if j = (i - 2)*2 - 2 {
+								tileArrayDrawX[i,j] = 340;
+								tileArrayDrawY[i,j] = 60;
+							}
+						}
+					}
+					if i = (width/2) {
+						if j = round(width) + 1 {
+							tileArrayDrawX[i,j] = 300;
+							tileArrayDrawY[i,j] = 0;
+						}
+					}
+					if i = round(width/2) + 1 {
+						if j = round(width) + 1 {
+							tileArrayDrawX[i,j] = 320;
+							tileArrayDrawY[i,j] = 0;
+						}
+						if j = round(width) {
+							tileArrayDrawX[i,j] = 320;
+							tileArrayDrawY[i,j] = 20;
+						}
+					}
+					if i = round(width/2) + 2 {
+						if j = round(width) {
+							tileArrayDrawX[i,j] = 340;
+							tileArrayDrawY[i,j] = 20;
+						}
+						if j = round(width) - 1 {
+							tileArrayDrawX[i,j] = 340;
+							tileArrayDrawY[i,j] = 40;
+						}
+						if j = round(width) - 2 {
+							tileArrayDrawX[i,j] = 340;
+							tileArrayDrawY[i,j] = 60;
+						}
+					}
+				}
+				if staircaseRotation = 4 {
+					if i < width + 3 {
+						if i = 1 {
+							if j = 2 {
+								tileArrayDrawX[i,j-1] = 80;
+								tileArrayDrawY[i,j-1] = 80;
+								tileArrayDrawX[i,j] = 80;
+								tileArrayDrawY[i,j] = 60;
+								tileArrayDrawX[i,j+1] = 80;
+								tileArrayDrawY[i,j+1] = 40;
+							}
+						}
+						if i = 2 {
+							if j = 1 {
+								tileArrayDrawX[i,j-1] = 100;
+								tileArrayDrawY[i,j-1] = 100;
+								tileArrayDrawX[i,j] = 100;
+								tileArrayDrawY[i,j] = 80;
+								tileArrayDrawX[i,j+1] = 100;
+								tileArrayDrawY[i,j+1] = 60;
+								tileArrayDrawX[i,j+2] = 120;
+								tileArrayDrawY[i,j+2] = 60;
+								tileArrayDrawX[i,j+3] = 80;
+								tileArrayDrawY[i,j+3] = 40;
+							}
+						}
+						if i = j + 3 {
+							if j < i - 2 {
+								if i < (width - (j - width - 1)) + 1 {
+									tileArrayDrawX[i,j] = 120;
+									tileArrayDrawY[i,j] = 100;
+								}
+								if i < (width - (j - width)) + 1 {
+									tileArrayDrawX[i,j+1] = 120;
+									tileArrayDrawY[i,j+1] = 80;
+								}
+								if i < (width - (j - width + 1)) + 1 {
+									tileArrayDrawX[i,j+2] = 120;
+									tileArrayDrawY[i,j+2] = 60;
+								}
+								if i < (width - (j - width + 2)) + 1 {
+									tileArrayDrawX[i,j+3] = 100;
+									tileArrayDrawY[i,j+3] = 60;
+								}
+								if i < (width - (j - width + 3)) + 1 {
+									tileArrayDrawX[i,j+4] = 120;
+									tileArrayDrawY[i,j+4] = 60;
+								}
+								if i < (width - (j - width + 4)) + 1 {
+									tileArrayDrawX[i,j+5] = 80;
+									tileArrayDrawY[i,j+5] = 40;
+								}
+							}
+						}
+					}
+					if i = width - (j - width - 1) + 2 && i < width + 3 {
+						if i = width + 1 {
+							tileArrayDrawX[i-1,j] = 100;
+							tileArrayDrawY[i-1,j] = 20;
+							tileArrayDrawX[i,j] = 120;
+							tileArrayDrawY[i,j] = 20;
+						}
+					}
+					if i = width - (j - width) + 2 && i < width + 3 {
+						if i = width + 1 {
+							tileArrayDrawX[i,j] = 120;
+							tileArrayDrawY[i,j] = 40;
+						}
+					}
+					if i = width - (j - width + 1) + 3 && i < width + 3 {
+						if i = width + 2 {
+							tileArrayDrawX[i,j-1] = 140;
+							tileArrayDrawY[i,j-1] = 40;
+							tileArrayDrawX[i,j] = 140;
+							tileArrayDrawY[i,j] = 60;
+						}
+					}
+				}
+				if staircaseRotation = 5 {
+					if i = 1 {
+						if j = 0 {
+							tileArrayDrawX[i,j] = 180;
+							tileArrayDrawY[i,j] = 100;
+						}
+						if j = 1 {
+							tileArrayDrawX[i,j] = 180;
+							tileArrayDrawY[i,j] = 80;
+						}
+						if j = 2 {
+							tileArrayDrawX[i,j] = 180;
+							tileArrayDrawY[i,j] = 60;
+						}
+						if j = 3 {
+							tileArrayDrawX[i,j] = 180;
+							tileArrayDrawY[i,j] = 40;
+						}
+					}
+					if i > 1 && i < width {
+						if i % 2 = 0 {
+							if j = i div 2 - 1 {
+								tileArrayDrawX[i,j] = 200;
+								tileArrayDrawY[i,j] = 100;
+							}
+							if j = i div 2 {
+								tileArrayDrawX[i,j] = 200;
+								tileArrayDrawY[i,j] = 80;
+							}
+							if j = i div 2 + 1 {
+								tileArrayDrawX[i,j] = 200;
+								tileArrayDrawY[i,j] = 60;
+							}
+							if j = i div 2 + 2 {
+								tileArrayDrawX[i,j] = 200;
+								tileArrayDrawY[i,j] = 40;
+							}
+						} else {
+							if j = i div 2 - 1 {
+								tileArrayDrawX[i,j] = 220;
+								tileArrayDrawY[i,j] = 100;
+							}
+							if j = i div 2 {
+								tileArrayDrawX[i,j] = 240;
+								tileArrayDrawY[i,j] = 40;
+							}
+							if j = i div 2 + 1 {
+								tileArrayDrawX[i,j] = 240;
+								tileArrayDrawY[i,j] = 20;
+							}
+							if j = i div 2 + 2 {
+								tileArrayDrawX[i,j] = 240;
+								tileArrayDrawY[i,j] = 0;
+							}
+							if j = i div 2 + 3 {
+								tileArrayDrawX[i,j] = 180;
+								tileArrayDrawY[i,j] = 40;
+							}
+						}
+					}
+					if i = width {
+						if j = i div 2 - 1 {
+							tileArrayDrawX[i,j] = 220;
+							tileArrayDrawY[i,j] = 100;
+						}
+						if j = i div 2 {
+							tileArrayDrawX[i,j] = 220;
+							tileArrayDrawY[i,j] = 80;
+						}
+						if j = i div 2 + 1 {
+							tileArrayDrawX[i,j] = 220;
+							tileArrayDrawY[i,j] = 60;
+						}
+						if j = i div 2 + 2 {
+							tileArrayDrawX[i,j] = 220;
+							tileArrayDrawY[i,j] = 40;
+						}
+					}
+				}
+				if staircaseRotation = 6 {
+					if i > 0 && i <= width {
+						if j = 2 {
+							tileArrayDrawX[i,j] = 0;
+							tileArrayDrawY[i,j] = 60;
+						}
+						if j = 1 {
+							tileArrayDrawX[i,j] = 0;
+							tileArrayDrawY[i,j] = 80;
+						}
+						if j = 0 {
+							tileArrayDrawX[i,j] = 0;
+							tileArrayDrawY[i,j] = 100;
+						}
+					}
+				}
+				
+				if staircaseRotation = 7 {
+					if i = 1 {
+						if j = floor(width/2) - 1 {
+							tileArrayDrawX[i,j] = 480;
+							tileArrayDrawY[i,j] = 100;
+						}
+						if j = floor(width/2) {
+							tileArrayDrawX[i,j] = 480;
+							tileArrayDrawY[i,j] = 80;
+						}
+						if j = floor(width/2) + 1 {
+							tileArrayDrawX[i,j] = 480;
+							tileArrayDrawY[i,j] = 60;
+						}
+						if j = floor(width/2) + 2 {
+							tileArrayDrawX[i,j] = 480;
+							tileArrayDrawY[i,j] = 40;
+						}
+					}
+					if i > 1 && i < width {
+						if i % 2 = 0 {
+							if j = floor(width/2) - ceil(i/2) {
+								tileArrayDrawX[i,j] = 500;
+								tileArrayDrawY[i,j] = 100;
+							}
+							if j = floor(width/2) - ceil(i/2) + 1 {
+								tileArrayDrawX[i,j] = 500;
+								tileArrayDrawY[i,j] = 80;
+							}
+							if j = floor(width/2) - ceil(i/2) + 2 {
+								tileArrayDrawX[i,j] = 500;
+								tileArrayDrawY[i,j] = 60;
+							}
+							if j = floor(width/2) - ceil(i/2) + 3 {
+								tileArrayDrawX[i,j] = 500;
+								tileArrayDrawY[i,j] = 40;
+							}
+						} else {
+							if j = floor(width/2) - ceil(i/2) {
+								tileArrayDrawX[i,j] = 480;
+								tileArrayDrawY[i,j] = 100;
+							}
+							if j = floor(width/2) - ceil(i/2) + 1 {
+								tileArrayDrawX[i,j] = 460;
+								tileArrayDrawY[i,j] = 40;
+							}
+							if j = floor(width/2) - ceil(i/2) + 2 {
+								tileArrayDrawX[i,j] = 460;
+								tileArrayDrawY[i,j] = 20;
+							}
+							if j = floor(width/2) - ceil(i/2) + 3 {
+								tileArrayDrawX[i,j] = 460;
+								tileArrayDrawY[i,j] = 0;
+							}
+							if j = floor(width/2) - ceil(i/2) + 4 {
+								tileArrayDrawX[i,j] = 520;
+								tileArrayDrawY[i,j] = 40;
+							}
+						}
+					}
+					if i = width {
+						if j = 0 {
+							tileArrayDrawX[i,j] = 520;
+							tileArrayDrawY[i,j] = 100;
+						}
+						if j = 1 {
+							tileArrayDrawX[i,j] = 520;
+							tileArrayDrawY[i,j] = 80;
+						}
+						if j = 2 {
+							tileArrayDrawX[i,j] = 520;
+							tileArrayDrawY[i,j] = 60;
+						}
+						if j = 3 {
+							tileArrayDrawX[i,j] = 520;
+							tileArrayDrawY[i,j] = 40;
+						}
+					}
+				}
+			}
+			
+			/*
+			dummyTop.tileArrayDrawX[i,j] = self.tileArrayDrawX[i,j];
+			dummyTop.tileArrayDrawY[i,j] = self.tileArrayDrawY[i,j];
+			
+			dummyBot.tileArrayDrawX[i,j] = self.tileArrayDrawX[i,j];
+			dummyBot.tileArrayDrawY[i,j] = self.tileArrayDrawY[i,j];
+			*/
+		}
+	}
+}
+
+/*if slope3MustUpdate {
+	// Pass in updated tiles to dummies
+	for (i = 0; i <= width + 2; i += 1) {
+		for (j = zfloor + 2; j >= zcieling; j -= 1) {
+			dummyTop.tileArrayDrawX[i,j] = self.tileArrayDrawX[i,j];
+			dummyTop.tileArrayDrawY[i,j] = self.tileArrayDrawY[i,j];
+		
+			dummyBot.tileArrayDrawX[i,j] = self.tileArrayDrawX[i,j];
+			dummyBot.tileArrayDrawY[i,j] = self.tileArrayDrawY[i,j];
+		}
+	}
+}
+
+if (obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4) && !flip {
+	visible = false;
+} else {
+	visible = true;
+}*/
+
+zcieling = zfloor;

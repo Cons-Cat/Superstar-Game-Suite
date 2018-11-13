@@ -32,6 +32,30 @@ if select = 1 {
 					other.select = 0;
 					other.col = c_white;
 				}
+				if str = "staircase" {
+					if other.str2 = "mirror" {
+						staircaseType += 1;
+						
+						if staircaseType > 2 {
+							staircaseType = 0;
+						}
+						
+						show_debug_message(staircaseType);
+					}
+					if other.str2 = "flip" {
+						staircaseRotation += 1;
+						
+						if staircaseRotation > 9 {
+							staircaseRotation = 0;
+						}
+						
+						show_debug_message(staircaseRotation);
+					}
+					
+					resetArray = true;
+					other.select = 0;
+					other.col = c_white;
+				}
 				if str = "moveScene" {
 					instance_create_layer(x,y,"Instances",obj_dialogue_region_interface);
 					obj_dialogue_region_interface.trg = other.trg;
