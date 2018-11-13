@@ -195,7 +195,7 @@ if obj_editor_gui.mode = 1 {
 
 // Tile painting mode / Play testing mode
 if obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4 {
-	for (i = 0; i < width + 1; i += 1) {
+	for (i = 0; i < width + 2; i += 1) {
 		for (j = 0; j <= image_yscale; j += 1) {
 			draw_sprite_part_ext(sprMaterial,0,tileArrayDrawX[i,j],tileArrayDrawY[i,j],20,20,x+(i)*20-20,y+(j)*20-20,1,1,layerColor,alpha);
 		}

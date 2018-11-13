@@ -33,11 +33,13 @@ if select = 1 {
 			file_text_readln(export);
 			sprMaterialDirectory = file_text_read_string(export);
 			file_text_readln(export);
-			mirror = file_text_read_string(export);
+			mirror = bool(file_text_read_string(export));
 			file_text_readln(export);
-			flip = file_text_read_string(export);
+			flip = bool(file_text_read_string(export));
 			file_text_readln(export);
 			str = file_text_read_string(export);
+			file_text_readln(export);
+			finite = bool(file_text_read_string(export));
 			file_text_readln(export);
 			
 			if str = "rectangle" {
@@ -59,7 +61,8 @@ if select = 1 {
 					height = other.height;
 					zfloor = other.zfloor;
 					zcieling = other.zcieling;
-				
+					finite = other.finite;
+					
 					for (a = 0; a <= width + 2; a += 1) {
 						for (b = 0; b <= height+(zfloor-zcieling) + 1; b += 1) {
 							tileArrayDrawX[a,b] = other.tileArrayDrawX[a,b];
@@ -88,8 +91,8 @@ if select = 1 {
 					height = other.height;
 					zfloor = other.zfloor;
 					zcieling = other.zcieling;
-					mirror = bool(other.mirror);
-					flip = bool(other.flip);
+					mirror = other.mirror;
+					flip = other.flip;
 					
 					for (a = 0; a < width + 2; a += 1) {
 						for (b = zfloor + 1; b >= zcieling; b -= 1) {
@@ -99,14 +102,64 @@ if select = 1 {
 					}
 				}
 			}
-			
-			if str = "infinite" {
-				with instance_create_layer(xx,yy,"Instances",obj_editor_infinite) {
+			if str = "slope2" {
+				for (a = 0; a <= width + 2; a += 1) {
+					for (b = zfloor + 1; b >= zcieling; b -= 1) {
+						tileArrayDrawX[a,b] = file_text_read_real(export); // tileArrayDrawX
+						file_text_readln(export);
+						tileArrayDrawY[a,b] = file_text_read_real(export); // tileArrayDrawY
+						file_text_readln(export);
+					}
+				}
+				
+				with instance_create_layer(xx,yy,"Instances",obj_editor_slope2) {
 					placed = 1;
+					resetArray = false;
+					sprMaterialDirectoryLoad = other.hasMaterials;
+					sprMaterialDirectory = other.sprMaterialDirectory;
 					width = other.width;
 					height = other.height;
 					zfloor = other.zfloor;
 					zcieling = other.zcieling;
+					mirror = other.mirror;
+					flip = other.flip;
+					
+					for (a = 0; a <= width + 2; a += 1) {
+						for (b = zfloor + 1; b >= zcieling; b -= 1) {
+							tileArrayDrawX[a,b] = other.tileArrayDrawX[a,b];
+							tileArrayDrawY[a,b] = other.tileArrayDrawY[a,b];
+						}
+					}
+				}
+			}
+			if str = "slope3" {
+				for (a = 0; a < width + 2; a += 1) {
+					for (b = zfloor + 2; b >= zcieling; b -= 1) {
+						tileArrayDrawX[a,b] = file_text_read_real(export); // tileArrayDrawX
+						file_text_readln(export);
+						tileArrayDrawY[a,b] = file_text_read_real(export); // tileArrayDrawY
+						file_text_readln(export);
+					}
+				}
+				
+				with instance_create_layer(xx,yy,"Instances",obj_editor_slope3) {
+					placed = 1;
+					resetArray = false;
+					sprMaterialDirectoryLoad = other.hasMaterials;
+					sprMaterialDirectory = other.sprMaterialDirectory;
+					width = other.width;
+					height = other.height;
+					zfloor = other.zfloor;
+					zcieling = other.zcieling;
+					mirror = other.mirror;
+					flip = other.flip;
+					
+					for (a = 0; a < width + 2; a += 1) {
+						for (b = zfloor + 2; b >= zcieling; b -= 1) {
+							tileArrayDrawX[a,b] = other.tileArrayDrawX[a,b];
+							tileArrayDrawY[a,b] = other.tileArrayDrawY[a,b];
+						}
+					}
 				}
 			}
 		}

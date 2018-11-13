@@ -22,10 +22,11 @@ if select = 1 {
 			str = str + string_hash_to_newline("#"+string(trg.mirror));
 			str = str + string_hash_to_newline("#"+string(trg.flip));
 			str = str + string_hash_to_newline("#"+string(trg.str));
+			str = str + string_hash_to_newline("#"+string(trg.finite));
 			
 			if trg.str = "rectangle" {
 				for (a = 0; a <= trg.width + 2; a += 1) {
-					for (b = 0; b <= trg.width+(trg.zfloor-trg.zcieling) + 1; b += 1) {
+					for (b = 0; b <= trg.image_yscale + 1; b += 1) {
 						str = str + string_hash_to_newline("#"+string(trg.tileArrayDrawX[a,b]));
 						str = str + string_hash_to_newline("#"+string(trg.tileArrayDrawY[a,b]));
 					}
@@ -34,6 +35,22 @@ if select = 1 {
 			if trg.str = "slope1" {
 				for (a = 0; a < trg.width + 2; a += 1) {
 					for (b = trg.zfloor + 1; b >= trg.zcieling; b -= 1) {
+						str = str + string_hash_to_newline("#"+string(trg.tileArrayDrawX[a,b]));
+						str = str + string_hash_to_newline("#"+string(trg.tileArrayDrawY[a,b]));
+					}
+				}
+			}
+			if trg.str = "slope2" {
+				for (a = 0; a <= trg.width + 2; a += 1) {
+					for (b = trg.zfloor + 1; b >= trg.zcieling; b -= 1) {
+						str = str + string_hash_to_newline("#"+string(trg.tileArrayDrawX[a,b]));
+						str = str + string_hash_to_newline("#"+string(trg.tileArrayDrawY[a,b]));
+					}
+				}
+			}
+			if trg.str = "slope3" {
+				for (a = 0; a < trg.width + 2; a += 1) {
+					for (b = trg.zfloor + 2; b >= trg.zcieling; b -= 1) {
 						str = str + string_hash_to_newline("#"+string(trg.tileArrayDrawX[a,b]));
 						str = str + string_hash_to_newline("#"+string(trg.tileArrayDrawY[a,b]));
 					}

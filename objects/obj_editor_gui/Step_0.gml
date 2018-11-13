@@ -25,32 +25,40 @@ if mode = 2 {
 					image_xscale = other.width;
 					zplace = other.zplace;
 					zcieling = other.zcieling;
+					finite = other.finite;
 				}
-				// Back collision
-				with instance_create_layer(x,y,"Instances",obj_solid) {
-					y = other.y+(other.zfloor)*20;
-					x = other.x;
-					image_xscale = other.width;
-					zplace = other.zplace;
-					zcieling = other.zcieling;
+				if height > 1 {
+					// Back collision
+					with instance_create_layer(x,y,"Instances",obj_solid) {
+						y = other.y+(other.zfloor)*20;
+						x = other.x;
+						image_xscale = other.width;
+						zplace = other.zplace;
+						zcieling = other.zcieling;
+						finite = other.finite;
+					}
 				}
 				// Left collision
 				with instance_create_layer(x,y,"Instances",obj_solid_side) {
 					zplace = other.zplace;
 					zcieling = other.zcieling;
 					height = other.height;
+					finite = other.finite;
+					
 					image_yscale = other.height;
-					y = other.y+(zplace)*20
-					x = other.x;
+					y = other.y+(other.zfloor)*20
 				}
-				// Right collision
-				with instance_create_layer(x,y,"Instances",obj_solid_side) {
-					zplace = other.zplace;
-					zcieling = other.zcieling;
-					height = other.height;
-					image_yscale = other.height;
-					y = other.y+(zplace)*20
-					x = other.x+(other.width-1)*20;
+				if width > 1 {
+					// Right collision
+					with instance_create_layer(x,y,"Instances",obj_solid_side) {
+						zplace = other.zplace;
+						zcieling = other.zcieling;
+						height = other.height;
+						finite = other.finite;
+						
+						image_yscale = other.height;
+						y = other.y+(other.zfloor)*20
+					}
 				}
 			}
 			if finite {
@@ -63,6 +71,7 @@ if mode = 2 {
 					zfloor = other.zfloor;
 					zcieling = other.zcieling;
 					depthOffset = other.depthOffset;
+					finite = other.finite;
 				}
 			}
 		}
@@ -78,6 +87,7 @@ if mode = 2 {
 								x = other.x+other.i*20;
 								zplace = other.zplace;
 								zcieling = other.zcieling;
+								finite = other.finite;
 							}
 						}
 						if mirror {
@@ -87,6 +97,7 @@ if mode = 2 {
 								x = other.x+other.i*20;
 								zplace = other.zplace;
 								zcieling = other.zcieling;
+								finite = other.finite;
 							}
 						}
 					} else {
@@ -97,6 +108,7 @@ if mode = 2 {
 								x = other.x+other.i*20;
 								zplace = other.zplace;
 								zcieling = other.zcieling;
+								finite = other.finite;
 							}
 						}
 						if mirror {
@@ -106,6 +118,7 @@ if mode = 2 {
 								x = other.x+other.i*20;
 								zplace = other.zplace;
 								zcieling = other.zcieling;
+								finite = other.finite;
 							}
 						}
 					}
@@ -117,6 +130,7 @@ if mode = 2 {
 					zfloor = other.zfloor;
 					zcieling = other.zcieling;
 					depthOffset = other.depthOffset;
+					finite = other.finite;
 					
 					if other.mirror {
 						if other.flip {
@@ -146,6 +160,7 @@ if mode = 2 {
 								x = other.x+other.i*20;
 								zplace = other.zplace;
 								zcieling = other.zcieling;
+								finite = other.finite;
 							}
 						}
 						if mirror {
@@ -155,6 +170,7 @@ if mode = 2 {
 								x = other.x+other.i*20;
 								zplace = other.zplace;
 								zcieling = other.zcieling;
+								finite = other.finite;
 							}
 						}
 					} else {
@@ -165,6 +181,7 @@ if mode = 2 {
 								x = other.x+other.i*20;
 								zplace = other.zplace;
 								zcieling = other.zcieling;
+								finite = other.finite;
 							}
 						}
 						if mirror {
@@ -174,6 +191,7 @@ if mode = 2 {
 								x = other.x+other.i*20;
 								zplace = other.zplace;
 								zcieling = other.zcieling;
+								finite = other.finite;
 							}
 						}
 					}
@@ -185,6 +203,7 @@ if mode = 2 {
 					zfloor = other.zfloor;
 					zcieling = other.zcieling;
 					depthOffset = other.depthOffset;
+					finite = other.finite;
 					
 					if other.mirror {
 						if other.flip {
@@ -214,6 +233,7 @@ if mode = 2 {
 								x = other.x+other.i*20;
 								zplace = other.zplace;
 								zcieling = other.zcieling;
+								finite = other.finite;
 							}
 						}
 						if mirror {
@@ -223,6 +243,7 @@ if mode = 2 {
 								x = other.x+other.i*20;
 								zplace = other.zplace;
 								zcieling = other.zcieling;
+								finite = other.finite;
 							}
 						}
 					} else {
@@ -233,6 +254,7 @@ if mode = 2 {
 								x = other.x+other.i*20;
 								zplace = other.zplace;
 								zcieling = other.zcieling;
+								finite = other.finite;
 							}
 						}
 						if mirror {
@@ -242,6 +264,7 @@ if mode = 2 {
 								x = other.x+other.i*20;
 								zplace = other.zplace;
 								zcieling = other.zcieling;
+								finite = other.finite;
 							}
 						}
 					}
@@ -253,6 +276,7 @@ if mode = 2 {
 					zfloor = other.zfloor;
 					zcieling = other.zcieling;
 					depthOffset = other.depthOffset;
+					finite = other.finite;
 					
 					if other.mirror {
 						if other.flip {

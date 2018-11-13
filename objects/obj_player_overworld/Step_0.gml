@@ -17,7 +17,7 @@ if canMove && (jumpDelay = jumpDelayMax || !onGround) {
 		c_vspeed = min(c_vspeed+phy_acceleration_imp, max_speed)
 	}
 }
-	
+
 // Stopping
 if jumpDelay = jumpDelayMax {
 	if (!keyboard_check(_left) && !keyboard_check(_right)) && abs(c_hspeed) != 0 {
@@ -195,11 +195,11 @@ if canMove {
 				jumpGrav = 1;
 			} else {
 				jumpHeight += jumpSpeed / jumpGrav;
-		
+				
 				if floor(jumpSpeed / jumpGrav) = 0 {
 					jumping = false;
 				}
-		
+				
 				if jumpGrav < jumpGravMax {
 					jumpGrav += jumpGravVal;
 				} else {
@@ -242,6 +242,7 @@ fallSearch = true; // Fall down by default
 
 // Find relevant floor object
 trgFinalTemp = 0;
+
 for (i = 0; i < instance_number(obj_floor); i += 1) {
 	trgScr = instance_find(obj_floor,i).id;
 	if trgScr.zfloor*20 <= self.jumpHeight {
@@ -258,12 +259,36 @@ for (i = 0; i < instance_number(obj_floor); i += 1) {
 	}
 }
 
-if trgFinal.zfloor = self.zplace {
-	fallSearch = false; // Cancel fall if standing on a platform
-	onGround = true;
-	floorA = trgFinal.zfloor;
+/*trgCount = 0;
+trgZfloorMax = 0;
+trgFinal = obj_floor;
+
+with obj_floor {
+	if zfloor <= other.zplace {
+		if other.x >= self.x && other.x <= self.x + image_xscale*20 && other.y >= self.y && other.y <= self.y + image_yscale*20 {
+			other.trgCount += 1;
+			other.trgZfloorVal[other.trgCount] = self.zfloor;
+			other.trgFloor[other.trgCount] = self.id;
+		}
+	}
+}
+
+for (i = 0; i < trgCount; i += 1) {
+	if trgZfloorVal[i] > trgZfloorMax {
+		trgZfloorMax = trgZfloorVal[i];
+		trgFinal = trgFloor[i];
+	}
+}*/
+
+platOn = trgFinal.zfloor*20;
+
+if instance_exists(trgFinal) {
+	if trgFinal.zfloor = self.zplace {
+		fallSearch = false; // Cancel fall if standing on a platform
+		onGround = true;
 	
-	depth = -(trgFinal.y + 20) - trgFinal.zfloor - 3 - trgFinal.depthOffset/3;
+		depth = -(trgFinal.y + 20) - trgFinal.zfloor - 3 - trgFinal.depthOffset/3;
+	}
 }
 
 if fallSearch = true {

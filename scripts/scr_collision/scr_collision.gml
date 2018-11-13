@@ -8,32 +8,28 @@ var slopeOffset;
 repeat(2) {
 	for (var i = 0; i < instance_number(obj_solid); i += 1) {
 		trgScr = instance_find(obj_solid,i).id;
-		if trgScr.zheight*20 > self.jumpHeight {
-			if trgScr.zcieling*20 <= self.jumpHeight {
-				// Checking for negative y collision at current z coordinate
-				if collision_rectangle(bbox_left,bbox_top-1,bbox_right,bbox_top-1,trgScr,false,true) {
-					currentsolid_up = collision_rectangle(bbox_left,bbox_top-1,bbox_right,bbox_top-1,trgScr,false,true);
-				}
-				// Checking for positive y collision at current z coordinate
-				if collision_rectangle(bbox_left,bbox_bottom+1,bbox_right,bbox_bottom+1,trgScr,false,true) {
-					currentsolid_down = collision_rectangle(bbox_left,bbox_bottom+1,bbox_right,bbox_bottom+1,trgScr,false,true);
-				}
+		if (trgScr.zheight*20 > self.jumpHeight && trgScr.zcieling*20 <= self.jumpHeight) || !(trgScr.finite) {
+			// Checking for negative y collision at current z coordinate
+			if collision_rectangle(bbox_left,bbox_top-1,bbox_right,bbox_top-1,trgScr,false,true) {
+				currentsolid_up = collision_rectangle(bbox_left,bbox_top-1,bbox_right,bbox_top-1,trgScr,false,true);
+			}
+			// Checking for positive y collision at current z coordinate
+			if collision_rectangle(bbox_left,bbox_bottom+1,bbox_right,bbox_bottom+1,trgScr,false,true) {
+				currentsolid_down = collision_rectangle(bbox_left,bbox_bottom+1,bbox_right,bbox_bottom+1,trgScr,false,true);
 			}
 		}
 	}
 	for (var i = 0; i < instance_number(obj_solid_side); i += 1) {
 		trgScr = instance_find(obj_solid_side,i).id;
-		if trgScr.zheight*20 > self.jumpHeight {
-			if trgScr.zcieling*20 <= self.jumpHeight {
-				// Checking for negative x collision at current z coordinate
-				if collision_rectangle(bbox_left-1,bbox_top,bbox_left-1,bbox_bottom-4,trgScr,false,true) {
-					currentsolid_left = collision_rectangle(bbox_left-1,bbox_top,bbox_left-1,bbox_bottom-4,trgScr,false,true);
-				}
-				
-				// Checking for positive x collision at current z coordinate
-				if collision_rectangle(bbox_right+1,bbox_top,bbox_right+1,bbox_bottom-4,trgScr,false,true) {
-					currentsolid_right = collision_rectangle(bbox_right+1,bbox_top,bbox_right+1,bbox_bottom-4,trgScr,false,true);
-				}
+		if (trgScr.zheight*20 > self.jumpHeight && trgScr.zcieling*20 <= self.jumpHeight) || !(trgScr.finite) {
+			// Checking for negative x collision at current z coordinate
+			if collision_rectangle(bbox_left-1,bbox_top,bbox_left-1,bbox_bottom-4,trgScr,false,true) {
+				currentsolid_left = collision_rectangle(bbox_left-1,bbox_top,bbox_left,bbox_bottom-4,trgScr,false,true);
+			}
+			
+			// Checking for positive x collision at current z coordinate
+			if collision_rectangle(bbox_right+1,bbox_top,bbox_right+1,bbox_bottom-4,trgScr,false,true) {
+				currentsolid_right = collision_rectangle(bbox_right+1,bbox_top,bbox_right,bbox_bottom-4,trgScr,false,true);
 			}
 		}
 	}
