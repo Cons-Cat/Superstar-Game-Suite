@@ -6,7 +6,7 @@ if mouse_check_button_pressed(mb_left) {
 }
 
 if select = 1 {
-	if mouse_x > self.x && mouse_x < self.x + sprite_width && mouse_y > self.y && mouse_y < self.y+sprite_height {
+	if mouse_x >= self.x + 3 && mouse_x < self.x + 3 + sprite_width && mouse_y >= self.y + 3 && mouse_y < self.y+sprite_height + 3 {
 		if mouse_check_button_released(mb_left) {
 			with trg {
 				if str = "actor" {
