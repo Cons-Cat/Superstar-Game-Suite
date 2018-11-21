@@ -7,6 +7,9 @@ if resetArray {
 	sprMaterial = spr_tls_staircase_default // Reset material
 	
 	if staircaseType = 0 {
+		#region
+		zIterate = 2;
+		
 		if staircaseRotation = 0 || staircaseRotation = 2 {
 			widthIterate = 3;
 			heightIterate = width + 1;
@@ -15,8 +18,12 @@ if resetArray {
 			widthIterate = width + 2;
 			heightIterate = width + 1;
 		}
+		#endregion
 	}
 	if staircaseType = 1 {
+		#region
+		zIterate = 2;
+		
 		if staircaseRotation = 0 || staircaseRotation = 2 {
 			widthIterate = 4;
 			heightIterate = width + 1;
@@ -41,11 +48,26 @@ if resetArray {
 			widthIterate = width + 2;
 			heightIterate = 3;
 		}
+		#endregion
 	}
 	if staircaseType = 2 {
+		#region
 		zIterate = 3;
-	} else {
-		zIterate = 2;
+		
+		if staircaseRotation = 0 || staircaseRotation = 2 {
+			widthIterate = 3;
+			heightIterate = width + 2;
+		}
+		if staircaseRotation = 1 || staircaseRotation = 6 {
+			widthIterate = width + 2;
+			heightIterate = 2;
+		}
+		if staircaseRotation = 3 || staircaseRotation = 9 {
+			widthIterate = round(width/2) + 2;
+			heightIterate = floor(width/2) * 2 + 1;
+		}
+		
+		#endregion
 	}
 	
 	// Iterate across the width diagonally
@@ -55,8 +77,9 @@ if resetArray {
 			tileArrayDrawX[i,j] = 40;
 			tileArrayDrawY[i,j] = 40;
 			
-			// Assign unflipped tiles
+			// 1x1x1 staircase
 			if staircaseType = 0 {
+				#region
 				if staircaseRotation = 0 {
 					if i = 1 {
 						if j = width {
@@ -101,8 +124,11 @@ if resetArray {
 						}
 					}
 				}
+				#endregion
 			}
+			// 1x2x1 staircase
 			if staircaseType = 1 {
+				#region
 				if staircaseRotation = 0 {
 					if i = 1 {
 						if j < width {
@@ -592,32 +618,7 @@ if resetArray {
 					}
 				}
 				if staircaseRotation = 9 {
-					/*if i = 1 {
-						if j = 3 {
-							tileArrayDrawX[i,j] = 280;
-							tileArrayDrawY[i,j] = 40;
-						}
-						if j = 2 {
-							tileArrayDrawX[i,j] = 280;
-							tileArrayDrawY[i,j] = 60;
-						}
-						if j = 1 {
-							tileArrayDrawX[i,j] = 280;
-							tileArrayDrawY[i,j] = 80;
-						}
-					}
-					if i = 2 {
-						if j = 1 {
-							tileArrayDrawX[i,j] = 300;
-							tileArrayDrawY[i,j] = 80;
-						}
-						if j = 0 {
-							tileArrayDrawX[i,j] = 300;
-							tileArrayDrawY[i,j] = 100;
-						}
-					}*/
 					if i > 0 && (i < round(width/2) + 1 || j > 1) {
-						//if j > 1 {
 						if j = round(width) - i*2 {
 							tileArrayDrawX[i,j] = 360;
 							tileArrayDrawY[i,j] = 60;
@@ -694,6 +695,145 @@ if resetArray {
 						}
 					}
 				}
+				#endregion
+			}
+			//1x1x2 staircase
+			if staircaseType = 2 {
+				#region
+				if staircaseRotation = 0 {
+					if i = 1 {
+						if j = width + 1 {
+							tileArrayDrawX[i,j] = 680;
+							tileArrayDrawY[i,j] = 120;
+						}
+						if j = width {
+							tileArrayDrawX[i,j] = 680;
+							tileArrayDrawY[i,j] = 140;
+						}
+						if j < width {
+							tileArrayDrawX[i,j] = 680;
+							tileArrayDrawY[i,j] = 160;
+						}
+					}
+				}
+				if staircaseRotation = 1 {
+					if i > 0 && i <= width {
+						if j = 0 {
+							tileArrayDrawX[i,j] = 40;
+							tileArrayDrawY[i,j] = 20;
+						}
+						if j = 1 {
+							tileArrayDrawX[i,j] = 40;
+							tileArrayDrawY[i,j] = 0;
+						}
+					}
+				}
+				if staircaseRotation = 2 {
+					if i = 1 {
+						if j = width + 1 {
+							tileArrayDrawX[i,j] = 20;
+							tileArrayDrawY[i,j] = 120;
+						}
+						if j = width {
+							tileArrayDrawX[i,j] = 20;
+							tileArrayDrawY[i,j] = 140;
+						}
+						if j < width {
+							tileArrayDrawX[i,j] = 20;
+							tileArrayDrawY[i,j] = 160;
+						}
+					}
+				}
+				if staircaseRotation = 3 {
+					if i > 0 && i < round(width/2) {
+						if j = (i - 2)*2 + 0 {
+							tileArrayDrawX[i,j] = 320;
+							tileArrayDrawY[i,j] = 220;
+						}
+						if j = (i - 2)*2 + 1 {
+							tileArrayDrawX[i,j] = 320;
+							tileArrayDrawY[i,j] = 200;
+						}
+						if j = (i - 2)*2 + 2 {
+							tileArrayDrawX[i,j] = 320;
+							tileArrayDrawY[i,j] = 180;
+						}
+						if j = (i - 2)*2 + 3 {
+							tileArrayDrawX[i,j] = 320;
+							tileArrayDrawY[i,j] = 160;
+						}
+						if j = (i - 2)*2 + 4 {
+							tileArrayDrawX[i,j] = 320;
+							tileArrayDrawY[i,j] = 140;
+						}
+						if j = (i - 2)*2 + 5 {
+							tileArrayDrawX[i,j] = 300;
+							tileArrayDrawY[i,j] = 160;
+						}
+						if j = (i - 2)*2 + 6 {
+							if i < round(width/2) - 1 {
+								tileArrayDrawX[i,j] = 300;
+								tileArrayDrawY[i,j] = 140;
+							} else {
+								tileArrayDrawX[i,j] = 320;
+								tileArrayDrawY[i,j] = 100;
+							}
+						}
+					}
+					if i = 1 {
+						if j = 0 {
+							tileArrayDrawX[i,j] = 300;
+							tileArrayDrawY[i,j] = 220;
+						}
+						if j = 1 {
+							tileArrayDrawX[i,j] = 300;
+							tileArrayDrawY[i,j] = 200;
+						}
+						if j = 2 {
+							tileArrayDrawX[i,j] = 300;
+							tileArrayDrawY[i,j] = 180;
+						}
+					}
+					if i = round(width/2) {
+						if j = (i - 2)*2 + 0 {
+							tileArrayDrawX[i,j] = 320;
+							tileArrayDrawY[i,j] = 220;
+						}
+						if j = (i - 2)*2 + 1 {
+							tileArrayDrawX[i,j] = 320;
+							tileArrayDrawY[i,j] = 200;
+						}
+						if j = (i - 2)*2 + 2 {
+							tileArrayDrawX[i,j] = 340;
+							tileArrayDrawY[i,j] = 140;
+						}
+						if j = (i - 2)*2 + 3 {
+							tileArrayDrawX[i,j] = 340;
+							tileArrayDrawY[i,j] = 120;
+						}
+						if j = (i - 2)*2 + 4 {
+							tileArrayDrawX[i,j] = 340;
+							tileArrayDrawY[i,j] = 100;
+						}
+					}
+				}
+				if staircaseRotation = 6 {
+					if i > 0 && i <= width {
+						if j = 0 {
+							tileArrayDrawX[i,j] = 0;
+							tileArrayDrawY[i,j] = 160;
+						}
+						if j = 1 {
+							tileArrayDrawX[i,j] = 0;
+							tileArrayDrawY[i,j] = 140;
+						}
+						if j = 2 {
+							tileArrayDrawX[i,j] = 0;
+							tileArrayDrawY[i,j] = 120;
+						}
+					}
+				}
+				#endregion
 			}
 			/*
 			dummyTop.tileArrayDrawX[i,j] = self.tileArrayDrawX[i,j];

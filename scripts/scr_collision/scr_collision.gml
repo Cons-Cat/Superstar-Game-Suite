@@ -49,10 +49,10 @@ repeat(2) {
    
   if currentsolid_down
   {
-    if add_y >= 0{
+    if add_y >= 0 {
 	    add_y = 0;
 	}
-    if c_vspeed >= 0{
+    if c_vspeed >= 0 {
 		c_vspeed = 0;
 	}
    

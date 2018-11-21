@@ -8,13 +8,13 @@ zIterate = 0;
 widthIterate = 0;
 heightIterate = 0;
 
-staircaseType = 1;
+staircaseType = 2;
 /*
 0 = 1x1x1 staircase
 1 = 2x1x1 staircase
 2 = 1x1x2 staircase
 */
-staircaseRotation = 9;
+staircaseRotation = 3;
 /*
 0 = face left
 1 = face up
