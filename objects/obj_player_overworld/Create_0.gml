@@ -103,10 +103,13 @@ jumpTempHspd = 0;
 jumpTempVspd = 0;
 jumpPrepDecel = 4;
 
+staircaseHeight = 0;
+onStaircase = false;
+
 glideDelayMax = 25;
 glideDelay = glideDelayMax;
-boosting = false;
+/*boosting = false;
 boostSpeed = 3.5;
-boostDistance = 40;
+boostDistance = 40;*/
 
 debugCol = c_white;

@@ -213,7 +213,11 @@ if (obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 
 		// Iterate across the z height
 		for (i = 0; i < widthIterate; i += 1) {
 			// Iterate across the width diagonally
+			alpha = 0.2;
 			draw_sprite_part_ext(sprMaterial,0,tileArrayDrawX[i,j],tileArrayDrawY[i,j],20,20,x+(i-1)*20,y+(zfloor-zcieling)*20-(j)*20,1,1,layerColor,alpha);
 		}
 	}
 }
+
+draw_set_color(c_red);
+draw_rectangle(xOrigin,yOrigin,xOrigin,yOrigin,false);

@@ -18,6 +18,13 @@ if resetArray {
 			widthIterate = width + 2;
 			heightIterate = width + 1;
 		}
+		if staircaseRotation = 4 {
+			widthIterate = width + 2;
+			heightIterate = width + 2;
+			
+			xOrigin = x + width*10 + 10;
+			yOrigin = y - width*10 + 30;
+		}
 		#endregion
 	}
 	if staircaseType = 1 {
@@ -74,7 +81,7 @@ if resetArray {
 	for (i = 0; i < widthIterate; i += 1) {
 		// Iterate across the z height
 		for (j = heightIterate; j >= zfloor; j -= 1) {
-			tileArrayDrawX[i,j] = 40;
+			tileArrayDrawX[i,j] = 0;
 			tileArrayDrawY[i,j] = 40;
 			
 			// 1x1x1 staircase
@@ -109,6 +116,58 @@ if resetArray {
 						if j < width {
 							tileArrayDrawX[i,j] = 20;
 							tileArrayDrawY[i,j] = 20;
+						}
+					}
+				}
+				if staircaseRotation = 4 {
+					if i = 1 {
+						if j = 0 {
+							tileArrayDrawX[i,j] = 0;
+							tileArrayDrawY[i,j] = 320;
+						}
+						if j = 1 {
+							tileArrayDrawX[i,j] = 0;
+							tileArrayDrawY[i,j] = 300;
+						}
+						if j = 2 {
+							tileArrayDrawX[i,j] = 20;
+							tileArrayDrawY[i,j] = 260;
+						}
+					}
+					if i > 1 && i < width {
+						if j = i - 2 {
+							tileArrayDrawX[i,j] = 20;
+							tileArrayDrawY[i,j] = 320;
+						}
+						if j = i - 1 {
+							tileArrayDrawX[i,j] = 20;
+							tileArrayDrawY[i,j] = 300;
+						}
+						if j = i {
+							tileArrayDrawX[i,j] = 20;
+							tileArrayDrawY[i,j] = 280;
+						}
+						if j = i + 1 {
+							tileArrayDrawX[i,j] = 20;
+							tileArrayDrawY[i,j] = 260;
+						}
+					}
+					if i = width {
+						if j = i - 2 {
+							tileArrayDrawX[i,j] = 40;
+							tileArrayDrawY[i,j] = 300;
+						}
+						if j = i - 1 {
+							tileArrayDrawX[i,j] = 40;
+							tileArrayDrawY[i,j] = 280;
+						}
+						if j = i {
+							tileArrayDrawX[i,j] = 40;
+							tileArrayDrawY[i,j] = 260;
+						}
+						if j = i + 1 {
+							tileArrayDrawX[i,j] = 40;
+							tileArrayDrawY[i,j] = 240;
 						}
 					}
 				}

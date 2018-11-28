@@ -294,6 +294,50 @@ if mode = 2 {
 				}
 			}
 		}
+		with obj_editor_staircase {
+			if staircaseType = 0 {
+				if staircaseRotation = 4 {
+					for (i = 2; i < widthIterate - 1; i += 1) {
+						with instance_create_layer(x+(i-1)*20,y-(i-2)*20,"Instances",obj_staircase_collision) {
+							zfloor = other.zfloor;
+							staircaseType = other.staircaseType;
+							staircaseRotation = other.staircaseRotation;
+							xOrigin = other.xOrigin;
+							yOrigin = other.yOrigin;
+							
+							sprite_index = spr_slopeL_1x_bot;
+						}
+						with instance_create_layer(x+(i-1)*20-20,y-(i-2)*20,"Instances",obj_staircase_collision) {
+							zfloor = other.zfloor;
+							staircaseType = other.staircaseType;
+							staircaseRotation = other.staircaseRotation;
+							xOrigin = other.xOrigin;
+							yOrigin = other.yOrigin;
+							
+							sprite_index = spr_slopeR_1x_bot;
+						}
+						with instance_create_layer(x+(i-1)*20-20,y-(i-2)*20-20,"Instances",obj_staircase_collision) {
+							zfloor = other.zfloor;
+							staircaseType = other.staircaseType;
+							staircaseRotation = other.staircaseRotation;
+							xOrigin = other.xOrigin;
+							yOrigin = other.yOrigin;
+							
+							sprite_index = spr_slopeR_1x;
+						}
+						with instance_create_layer(x+(i-1)*20,y-(i-2)*20-20,"Instances",obj_staircase_collision) {
+							zfloor = other.zfloor;
+							staircaseType = other.staircaseType;
+							staircaseRotation = other.staircaseRotation;
+							xOrigin = other.xOrigin;
+							yOrigin = other.yOrigin;
+							
+							sprite_index = spr_slopeL_1x;
+						}
+					}
+				}
+			}
+		}
 	}
 } else {
 	if spawnedCollisions {
@@ -303,6 +347,9 @@ if mode = 2 {
 			instance_destroy();
 		}
 		with obj_floor {
+			instance_destroy();
+		}
+		with obj_staircase_collision {
 			instance_destroy();
 		}
 		with obj_trigger_dialogue_region_level {

@@ -214,24 +214,20 @@ if !jumping {
 	jumpDelay = jumpDelayMax;
 	// Earth-bound gravity
 	if !keyboard_check(_A) || glideDelay = 0 {
-		if !boosting {
-			if jumpHeight > platOn + jumpGrav/2 {
-				jumpHeight -= 0.5 + jumpGrav/2;
+		if jumpHeight > platOn + jumpGrav/2 {
+			jumpHeight -= 0.5 + jumpGrav/2;
 				
-				if jumpGrav < jumpGravMax {
-					jumpGrav += jumpGravVal;
-				} else {
-					jumpGrav = jumpGravMax;
-				}
+			if jumpGrav < jumpGravMax {
+				jumpGrav += jumpGravVal;
 			} else {
-				jumpHeight = platOn;
-				jumpAnim = false;
+				jumpGrav = jumpGravMax;
 			}
+		} else {
+			jumpHeight = platOn;
+			jumpAnim = false;
 		}
 	} else {
-		if !boosting {
-			glideDelay -= 1;
-		}
+		glideDelay -= 1;
 	}
 }
 
@@ -286,9 +282,14 @@ if instance_exists(trgFinal) {
 	if trgFinal.zfloor = self.zplace {
 		fallSearch = false; // Cancel fall if standing on a platform
 		onGround = true;
-	
+		
 		depth = -(trgFinal.y + 20) - trgFinal.zfloor - 3 - trgFinal.depthOffset/3;
 	}
+}
+
+if onStaircase {
+	// Over ride depth algorithm
+	depth = staircaseId.depth - 1;
 }
 
 if fallSearch = true {

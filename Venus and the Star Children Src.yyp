@@ -567,6 +567,14 @@
             }
         },
         {
+            "Key": "4e8737ae-1054-438d-a33b-bb652ed86dc5",
+            "Value": {
+                "id": "a1c95826-6823-4f43-9587-3b805abbb7a8",
+                "resourcePath": "objects\\obj_staircase_collision\\obj_staircase_collision.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "4ed6df29-2175-424a-b351-d5ae413a33ee",
             "Value": {
                 "id": "8dc9f147-fbd5-444f-a07c-c11aebb0dc62",

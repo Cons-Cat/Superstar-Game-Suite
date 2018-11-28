@@ -173,3 +173,25 @@ repeat(2) {
 		}
 	}
 }
+
+// Staircase collision
+if collision_point(x,y,obj_staircase_collision,false,false) {
+	if !onStaircase {
+		onStaircase = true; // Used to over ride depth algorithm
+		staircaseXOrigin = x;
+		staircaseYOrigin = y;
+	}
+} else {
+	onStaircase = false;
+	staircaseHeight = 0;
+}
+
+if onStaircase {
+	staircaseId = collision_point(x,y,obj_staircase_collision,false,false);
+	
+	if staircaseId.staircaseType = 0 {
+		if staircaseId.staircaseRotation = 4 {
+			staircaseHeight = (staircaseXOrigin - self.x)/2 + (staircaseYOrigin - self.y)/2;
+		}
+	}
+}
