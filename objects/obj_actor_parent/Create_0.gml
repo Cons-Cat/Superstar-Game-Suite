@@ -33,3 +33,8 @@ sprUURWalk = spr_ph_uupright;
 sprUWalk = spr_ph_up;
 
 spr = sprD;
+
+with instance_create_layer(x,y,"Instances",obj_staircasecollision_mask) {
+	trg = other.id;
+	other.staircaseMaskObjectIndex = self.id;
+}

@@ -9,6 +9,7 @@ if resetArray {
 	if staircaseType = 0 {
 		#region
 		zIterate = 2;
+		staircaseSlope = 2;
 		
 		if staircaseRotation = 0 || staircaseRotation = 2 {
 			widthIterate = 3;
@@ -30,6 +31,7 @@ if resetArray {
 	if staircaseType = 1 {
 		#region
 		zIterate = 2;
+		staircaseSlope = 4;
 		
 		if staircaseRotation = 0 || staircaseRotation = 2 {
 			widthIterate = 4;
@@ -60,6 +62,7 @@ if resetArray {
 	if staircaseType = 2 {
 		#region
 		zIterate = 3;
+		staircaseSlope = 0.5;
 		
 		if staircaseRotation = 0 || staircaseRotation = 2 {
 			widthIterate = 3;

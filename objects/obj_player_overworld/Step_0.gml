@@ -211,25 +211,28 @@ if canMove {
 	}
 }
 if !jumping {
-	jumpDelay = jumpDelayMax;
-	// Earth-bound gravity
-	if !keyboard_check(_A) || glideDelay = 0 {
-		if jumpHeight > platOn + jumpGrav/2 {
-			jumpHeight -= 0.5 + jumpGrav/2;
-				
-			if jumpGrav < jumpGravMax {
-				jumpGrav += jumpGravVal;
+	if !onStaircase {
+		jumpDelay = jumpDelayMax;
+		// Earth-bound gravity
+		if !keyboard_check(_A) || glideDelay = 0 {
+			if jumpHeight > platOn + jumpGrav/2 {
+				jumpHeight -= 0.5 + jumpGrav/2; // Comment out to disable gravity
+			
+				if jumpGrav < jumpGravMax {
+					jumpGrav += jumpGravVal;
+				} else {
+					jumpGrav = jumpGravMax;
+				}
 			} else {
-				jumpGrav = jumpGravMax;
+				jumpHeight = platOn;
+				jumpAnim = false;
 			}
 		} else {
-			jumpHeight = platOn;
-			jumpAnim = false;
+			glideDelay -= 1;
 		}
-	} else {
-		glideDelay -= 1;
 	}
 }
+show_debug_message(jumpHeight);
 
 zplace = floor((jumpHeight/20));
 

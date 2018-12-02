@@ -220,4 +220,4 @@ if (obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 
 }
 
 draw_set_color(c_red);
-draw_rectangle(xOrigin,yOrigin,xOrigin,yOrigin,false);
+draw_rectangle(x+20,y+19,x+20,y+19,false);

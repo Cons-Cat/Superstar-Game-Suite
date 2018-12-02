@@ -302,6 +302,7 @@ if mode = 2 {
 							zfloor = other.zfloor;
 							staircaseType = other.staircaseType;
 							staircaseRotation = other.staircaseRotation;
+							staircaseSlope = other.staircaseSlope;
 							xOrigin = other.xOrigin;
 							yOrigin = other.yOrigin;
 							
@@ -311,6 +312,7 @@ if mode = 2 {
 							zfloor = other.zfloor;
 							staircaseType = other.staircaseType;
 							staircaseRotation = other.staircaseRotation;
+							staircaseSlope = other.staircaseSlope;
 							xOrigin = other.xOrigin;
 							yOrigin = other.yOrigin;
 							
@@ -320,6 +322,7 @@ if mode = 2 {
 							zfloor = other.zfloor;
 							staircaseType = other.staircaseType;
 							staircaseRotation = other.staircaseRotation;
+							staircaseSlope = other.staircaseSlope;
 							xOrigin = other.xOrigin;
 							yOrigin = other.yOrigin;
 							
@@ -329,6 +332,7 @@ if mode = 2 {
 							zfloor = other.zfloor;
 							staircaseType = other.staircaseType;
 							staircaseRotation = other.staircaseRotation;
+							staircaseSlope = other.staircaseSlope;
 							xOrigin = other.xOrigin;
 							yOrigin = other.yOrigin;
 							

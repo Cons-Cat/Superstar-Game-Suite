@@ -1,5 +1,8 @@
 ///@description Initialize variables
+event_inherited();
+
 scr_cmove_init();
+
 phy_walkspeed = 2;
 phy_runspeed = 2.5;
 phy_acceleration = 0.75;
@@ -104,6 +107,8 @@ jumpTempVspd = 0;
 jumpPrepDecel = 4;
 
 staircaseHeight = 0;
+staircaseXOrigin = 0;
+staircaseYOrigin = 0;
 onStaircase = false;
 
 glideDelayMax = 25;

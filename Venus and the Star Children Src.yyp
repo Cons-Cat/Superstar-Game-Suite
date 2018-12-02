@@ -39,6 +39,14 @@
             }
         },
         {
+            "Key": "035dadd8-2031-4f65-b019-9e04f2b76437",
+            "Value": {
+                "id": "28484726-3bf2-454a-82ab-ea22ce41260c",
+                "resourcePath": "objects\\obj_staircasecollision_mask\\obj_staircasecollision_mask.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "0b823086-0d47-4c64-b834-3413cb07f20b",
             "Value": {
                 "id": "27e89764-e142-4c8d-9bf6-e98358954b83",
@@ -1947,6 +1955,14 @@
             "Value": {
                 "id": "903bd5d3-eef3-4e25-840c-7ed99abd7adc",
                 "resourcePath": "sprites\\spr_lucy_downright_jump\\spr_lucy_downright_jump.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "dda2c594-032e-4491-ac47-a225f99059f3",
+            "Value": {
+                "id": "e456a593-3411-418a-8366-b36d3a379f90",
+                "resourcePath": "sprites\\spr_staircasecollision_mask\\spr_staircasecollision_mask.yy",
                 "resourceType": "GMSprite"
             }
         },
