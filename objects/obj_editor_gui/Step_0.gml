@@ -295,49 +295,68 @@ if mode = 2 {
 			}
 		}
 		with obj_editor_staircase {
-			if staircaseType = 0 {
-				if staircaseRotation = 4 {
-					for (i = 2; i < widthIterate - 1; i += 1) {
-						with instance_create_layer(x+(i-1)*20,y-(i-2)*20,"Instances",obj_staircase_collision) {
-							zfloor = other.zfloor;
-							staircaseType = other.staircaseType;
-							staircaseRotation = other.staircaseRotation;
-							staircaseSlope = other.staircaseSlope;
-							xOrigin = other.xOrigin;
-							yOrigin = other.yOrigin;
-							
-							sprite_index = spr_slopeL_1x_bot;
+			for (j = 0; j <= 3; j += 1) {
+				if j = 0 {
+					// Bottom right
+					xCreateOff = 0;
+					yCreateOff = 0;
+				}
+				if j = 1 {
+					// Bottom left
+					xCreateOff = 20;
+					yCreateOff = 0;
+				}
+				if j = 2 {
+					// Top left
+					xCreateOff = 20;
+					yCreateOff = 20;
+				}
+				if j = 3 {
+					// Top right
+					xCreateOff = 0;
+					yCreateOff = 20;
+				}
+				
+				for (i = 2; i < widthIterate - widthIterateCollisionOff; i += 1) {
+					if staircaseType = 0 {
+						#region
+						if staircaseRotation = 4 {
+							#region
+							with instance_create_layer(x+(i-1)*20-xCreateOff,y-(i-2)*20-yCreateOff,"Instances",obj_staircase_collision) {
+								zfloor = other.zfloor;
+								staircaseType = other.staircaseType;
+								staircaseRotation = other.staircaseRotation;
+								staircaseSlope = other.staircaseSlope;
+								
+								sprite_index = other.sprCreate[other.j];
+							}
+							#endregion
 						}
-						with instance_create_layer(x+(i-1)*20-20,y-(i-2)*20,"Instances",obj_staircase_collision) {
-							zfloor = other.zfloor;
-							staircaseType = other.staircaseType;
-							staircaseRotation = other.staircaseRotation;
-							staircaseSlope = other.staircaseSlope;
-							xOrigin = other.xOrigin;
-							yOrigin = other.yOrigin;
-							
-							sprite_index = spr_slopeR_1x_bot;
+						#endregion
+					}
+					if staircaseType = 1 {
+						#region
+						if staircaseRotation = 4 {
+							#region
+							with instance_create_layer(x+(i-1)*20-xCreateOff+20,y-(i-2)*20-yCreateOff,"Instances",obj_staircase_collision) {
+								zfloor = other.zfloor;
+								staircaseType = other.staircaseType;
+								staircaseRotation = other.staircaseRotation;
+								staircaseSlope = other.staircaseSlope;
+								
+								sprite_index = other.sprCreate[other.j];
+							}
+							with instance_create_layer(x+(i-1)*20-xCreateOff,y-(i-2)*20-yCreateOff-20,"Instances",obj_staircase_collision) {
+								zfloor = other.zfloor;
+								staircaseType = other.staircaseType;
+								staircaseRotation = other.staircaseRotation;
+								staircaseSlope = other.staircaseSlope;
+								
+								sprite_index = other.sprCreate[other.j];
+							}
+							#endregion
 						}
-						with instance_create_layer(x+(i-1)*20-20,y-(i-2)*20-20,"Instances",obj_staircase_collision) {
-							zfloor = other.zfloor;
-							staircaseType = other.staircaseType;
-							staircaseRotation = other.staircaseRotation;
-							staircaseSlope = other.staircaseSlope;
-							xOrigin = other.xOrigin;
-							yOrigin = other.yOrigin;
-							
-							sprite_index = spr_slopeR_1x;
-						}
-						with instance_create_layer(x+(i-1)*20,y-(i-2)*20-20,"Instances",obj_staircase_collision) {
-							zfloor = other.zfloor;
-							staircaseType = other.staircaseType;
-							staircaseRotation = other.staircaseRotation;
-							staircaseSlope = other.staircaseSlope;
-							xOrigin = other.xOrigin;
-							yOrigin = other.yOrigin;
-							
-							sprite_index = spr_slopeL_1x;
-						}
+						#endregion
 					}
 				}
 			}

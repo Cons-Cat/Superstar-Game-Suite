@@ -1,7 +1,7 @@
 /// @description Draw terrain
 
 // Solid mode
-if obj_editor_gui.mode = 0 {
+/*if obj_editor_gui.mode = 0 {
 	if zcieling > 0 {
 		// Draw Shadow
 		gpu_set_blendmode(bm_inv_src_color);
@@ -123,7 +123,7 @@ if obj_editor_gui.mode = 0 {
 		
 		gpu_set_blendmode(bm_normal);
 	}
-}
+}*/
 
 // Wireframe mode
 if obj_editor_gui.mode = 1 {
@@ -207,13 +207,28 @@ if obj_editor_gui.mode = 1 {
 }
 
 // Tile painting mode / Play testing mode
-if (obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4) {
+if (obj_editor_gui.mode = 0 || obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4) {
 	// Draw walls
 	for (j = heightIterate; j >= zfloor; j -= 1) {
 		// Iterate across the z height
 		for (i = 0; i < widthIterate; i += 1) {
 			// Iterate across the width diagonally
-			alpha = 0.2;
+			if obj_editor_gui.mode = 0 {
+				alpha = 1;
+				
+				if canSelect = false {
+					if zfloor > 0 {
+						layerColor = col[ abs( (zfloor-1) % 8 ) ];
+					} else {
+						layerColor = c_white;
+					}
+				} else {
+					layerColor = c_orange;
+				}
+			} else {
+				alpha = 0.2;
+				layerColor = c_white;
+			}
 			draw_sprite_part_ext(sprMaterial,0,tileArrayDrawX[i,j],tileArrayDrawY[i,j],20,20,x+(i-1)*20,y+(zfloor-zcieling)*20-(j)*20,1,1,layerColor,alpha);
 		}
 	}

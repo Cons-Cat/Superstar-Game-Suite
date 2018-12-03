@@ -7,6 +7,8 @@ if resetArray {
 	sprMaterial = spr_tls_staircase_default // Reset material
 	
 	if staircaseType = 0 {
+		widthIterateCollisionOff = 1;
+		
 		#region
 		zIterate = 2;
 		staircaseSlope = 2;
@@ -20,6 +22,11 @@ if resetArray {
 			heightIterate = width + 1;
 		}
 		if staircaseRotation = 4 {
+			sprCreate[0] = spr_slopeL_1x_bot;
+			sprCreate[1] = spr_slopeR_1x_bot;
+			sprCreate[2] = spr_slopeR_1x;
+			sprCreate[3] = spr_slopeL_1x;
+					
 			widthIterate = width + 2;
 			heightIterate = width + 2;
 			
@@ -29,6 +36,8 @@ if resetArray {
 		#endregion
 	}
 	if staircaseType = 1 {
+		widthIterateCollisionOff = 2;
+		
 		#region
 		zIterate = 2;
 		staircaseSlope = 4;
@@ -46,6 +55,11 @@ if resetArray {
 			heightIterate = width + 2;
 		}
 		if staircaseRotation = 4 || staircaseRotation = 8 {
+			sprCreate[0] = spr_slopeL_1x_bot;
+			sprCreate[1] = spr_slopeR_1x_bot;
+			sprCreate[2] = spr_slopeR_1x;
+			sprCreate[3] = spr_slopeL_1x;
+			
 			widthIterate = width + 4;
 			heightIterate = width + 3;
 		}
@@ -60,6 +74,8 @@ if resetArray {
 		#endregion
 	}
 	if staircaseType = 2 {
+		widthIterateCollisionOff = 0;
+		
 		#region
 		zIterate = 3;
 		staircaseSlope = 0.5;
@@ -76,7 +92,12 @@ if resetArray {
 			widthIterate = round(width/2) + 2;
 			heightIterate = floor(width/2) * 2 + 1;
 		}
-		
+		if staircaseRotation = 4 {
+			sprCreate[0] = spr_slopeL_1x_bot;
+			sprCreate[1] = spr_slopeR_1x_bot;
+			sprCreate[2] = spr_slopeR_1x;
+			sprCreate[3] = spr_slopeL_1x;
+		}
 		#endregion
 	}
 	
@@ -91,6 +112,7 @@ if resetArray {
 			if staircaseType = 0 {
 				#region
 				if staircaseRotation = 0 {
+					#region
 					if i = 1 {
 						if j = width {
 							tileArrayDrawX[i,j] = 680;
@@ -101,16 +123,20 @@ if resetArray {
 							tileArrayDrawY[i,j] = 20;
 						}
 					}
+					#endregion
 				}
 				if staircaseRotation = 1 {
+					#region
 					if i > 0 && i <= width {
 						if j = 0 {
 							tileArrayDrawX[i,j] = 40;
 							tileArrayDrawY[i,j] = 0;
 						}
 					}
+					#endregion
 				}
 				if staircaseRotation = 2 {
+					#region
 					if i = 1 {
 						if j = width {
 							tileArrayDrawX[i,j] = 20;
@@ -121,8 +147,10 @@ if resetArray {
 							tileArrayDrawY[i,j] = 20;
 						}
 					}
+					#endregion
 				}
 				if staircaseRotation = 4 {
+					#region
 					if i = 1 {
 						if j = 0 {
 							tileArrayDrawX[i,j] = 0;
@@ -173,8 +201,10 @@ if resetArray {
 							tileArrayDrawY[i,j] = 240;
 						}
 					}
+					#endregion
 				}
 				if staircaseRotation = 6 {
+					#region
 					if i = 1 {
 						if j = 0 {
 							tileArrayDrawX[i,j] = 0;
@@ -185,6 +215,7 @@ if resetArray {
 							tileArrayDrawY[i,j] = 0;
 						}
 					}
+					#endregion
 				}
 				#endregion
 			}
@@ -192,6 +223,7 @@ if resetArray {
 			if staircaseType = 1 {
 				#region
 				if staircaseRotation = 0 {
+					#region
 					if i = 1 {
 						if j < width {
 							tileArrayDrawX[i,j] = 660;
@@ -212,14 +244,18 @@ if resetArray {
 							tileArrayDrawY[i,j] = 60;
 						}
 					}
+					#endregion
 				}
 				if staircaseRotation = 1 {
+					#region
 					if i > 0 && i < width + 1 && j = 0 {
 						tileArrayDrawX[i,j] = 40;
 						tileArrayDrawY[i,j] = 0;
 					}
+					#endregion
 				}
 				if staircaseRotation = 2 {
+					#region
 					if i = 1 {
 						if j < width {
 							tileArrayDrawX[i,j] = 20;
@@ -240,8 +276,10 @@ if resetArray {
 							tileArrayDrawY[i,j] = 60;
 						}
 					}
+					#endregion
 				}
 				if staircaseRotation = 3 {
+					#region
 					if i = 1 {
 						if j = 3 {
 							tileArrayDrawX[i,j] = 280;
@@ -348,8 +386,10 @@ if resetArray {
 							tileArrayDrawY[i,j] = 60;
 						}
 					}
+					#endregion
 				}
 				if staircaseRotation = 4 {
+					#region
 					if i < width + 3 {
 						if i = 1 {
 							if j = 1 {
@@ -426,8 +466,10 @@ if resetArray {
 							tileArrayDrawY[i,j+2] = 40;
 						}
 					}
+					#endregion
 				}
 				if staircaseRotation = 5 {
+					#region
 					if i = 1 {
 						if j = 0 {
 							tileArrayDrawX[i,j] = 180;
@@ -505,8 +547,10 @@ if resetArray {
 							tileArrayDrawY[i,j] = 40;
 						}
 					}
+					#endregion
 				}
 				if staircaseRotation = 6 {
+					#region
 					if i > 0 && i <= width {
 						if j = 2 {
 							tileArrayDrawX[i,j] = 0;
@@ -521,8 +565,10 @@ if resetArray {
 							tileArrayDrawY[i,j] = 100;
 						}
 					}
+					#endregion
 				}
 				if staircaseRotation = 7 {
+					#region
 					if i = 1 {
 						if j = floor(width/2) - 1 {
 							tileArrayDrawX[i,j] = 480;
@@ -600,8 +646,10 @@ if resetArray {
 							tileArrayDrawY[i,j] = 40;
 						}
 					}
+					#endregion
 				}
 				if staircaseRotation = 8 {
+					#region
 					if j = i + width - 2 {
 						if i = 1 {
 							tileArrayDrawX[i,j] = 560;
@@ -756,6 +804,7 @@ if resetArray {
 							tileArrayDrawY[i,j] = 80;
 						}
 					}
+					#endregion
 				}
 				#endregion
 			}
@@ -763,6 +812,7 @@ if resetArray {
 			if staircaseType = 2 {
 				#region
 				if staircaseRotation = 0 {
+					#region
 					if i = 1 {
 						if j = width + 1 {
 							tileArrayDrawX[i,j] = 680;
@@ -777,8 +827,10 @@ if resetArray {
 							tileArrayDrawY[i,j] = 160;
 						}
 					}
+					#endregion
 				}
 				if staircaseRotation = 1 {
+					#region
 					if i > 0 && i <= width {
 						if j = 0 {
 							tileArrayDrawX[i,j] = 40;
@@ -789,8 +841,10 @@ if resetArray {
 							tileArrayDrawY[i,j] = 0;
 						}
 					}
+					#endregion
 				}
 				if staircaseRotation = 2 {
+					#region
 					if i = 1 {
 						if j = width + 1 {
 							tileArrayDrawX[i,j] = 20;
@@ -805,8 +859,10 @@ if resetArray {
 							tileArrayDrawY[i,j] = 160;
 						}
 					}
+					#endregion
 				}
 				if staircaseRotation = 3 {
+					#region
 					if i > 0 && i < round(width/2) {
 						if j = (i - 2)*2 + 0 {
 							tileArrayDrawX[i,j] = 320;
@@ -878,8 +934,10 @@ if resetArray {
 							tileArrayDrawY[i,j] = 100;
 						}
 					}
+					#endregion
 				}
 				if staircaseRotation = 6 {
+					#region
 					if i > 0 && i <= width {
 						if j = 0 {
 							tileArrayDrawX[i,j] = 0;
@@ -894,6 +952,7 @@ if resetArray {
 							tileArrayDrawY[i,j] = 120;
 						}
 					}
+					#endregion
 				}
 				#endregion
 			}

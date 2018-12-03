@@ -29,6 +29,10 @@ staircaseRotation = 4;
 */
 xOrigin = 0;
 yOrigin = 0;
+sprCreate[0] = spr_slopeL_1x_bot;
+sprCreate[1] = spr_slopeR_1x_bot;
+sprCreate[2] = spr_slopeR_1x;
+sprCreate[3] = spr_slopeL_1x;
 
 /*dummyTop = instance_create_layer(x,y,layer,obj_editor_slope3_dummy_top);
 dummyBot = instance_create_layer(x,y,layer,obj_editor_slope3_dummy_bot);

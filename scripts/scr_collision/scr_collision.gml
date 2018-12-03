@@ -33,6 +33,11 @@ repeat(2) {
 				jumpHeight = staircaseId.zfloor*20 + (staircaseXOrigin - self.x)/2 + (staircaseYOrigin - self.y)/2;
 			}
 		}
+		if staircaseId.staircaseType = 1 {
+			if staircaseId.staircaseRotation = 4 {
+				jumpHeight = staircaseId.zfloor*20 + (staircaseXOrigin - self.x)/4 + (staircaseYOrigin - self.y)/4;
+			}
+		}
 	} else {
 		for (var i = 0; i < instance_number(obj_solid); i += 1) {
 			trgScr = instance_find(obj_solid,i).id;
