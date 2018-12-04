@@ -295,29 +295,73 @@ if mode = 2 {
 			}
 		}
 		with obj_editor_staircase {
-			for (j = 0; j <= 3; j += 1) {
-				if j = 0 {
-					// Bottom right
-					xCreateOff = 0;
-					yCreateOff = 0;
-				}
-				if j = 1 {
-					// Bottom left
-					xCreateOff = 20;
-					yCreateOff = 0;
-				}
-				if j = 2 {
-					// Top left
-					xCreateOff = 20;
-					yCreateOff = 20;
-				}
-				if j = 3 {
-					// Top right
-					xCreateOff = 0;
-					yCreateOff = 20;
+			for (j = 0; j <= 4; j += 1) {
+				if j = 4 {
+					if sprCreate[j] = -1 {
+						// Not all staircase sets use this iteration
+						break;
+					}
 				}
 				
-				for (i = 2; i < widthIterate - widthIterateCollisionOff; i += 1) {
+				if staircaseRotation = 3 {
+					#region
+					iIncrement = 1;
+					
+					if j = 0 {
+						// Bottom right
+						xCreateOff = 0;
+						yCreateOff = 0;
+					}
+					if j = 1 {
+						// Bottom left
+						xCreateOff = 40;
+						yCreateOff = 0;
+					}
+					if j = 2 {
+						// Top left
+						xCreateOff = 40;
+						yCreateOff = 20;
+					}
+					if j = 3 {
+						// Top right
+						xCreateOff = 20;
+						yCreateOff = 40;
+					}
+					if j = 4 {
+						// Top right
+						xCreateOff = 20;
+						yCreateOff = 20;
+					}
+					#endregion
+				}
+				if staircaseRotation = 4 {
+					#region
+					iIncrement = 1;
+					
+					if j = 0 {
+						// Bottom right
+						xCreateOff = 0;
+						yCreateOff = 0;
+					}
+					if j = 1 {
+						// Bottom left
+						xCreateOff = 20;
+						yCreateOff = 0;
+					}
+					if j = 2 {
+						// Top left
+						xCreateOff = 20;
+						yCreateOff = 20;
+					}
+					if j = 3 {
+						// Top right
+						xCreateOff = 0;
+						yCreateOff = 20;
+					}
+					#endregion
+				}
+				
+				for (i = 2; i < widthIterate - widthIterateCollisionOff; i += iIncrement) {
 					if staircaseType = 0 {
 						#region
 						if staircaseRotation = 4 {
@@ -326,7 +370,8 @@ if mode = 2 {
 								zfloor = other.zfloor;
 								staircaseType = other.staircaseType;
 								staircaseRotation = other.staircaseRotation;
-								staircaseSlope = other.staircaseSlope;
+								staircaseRun = other.staircaseRun;
+								staircaseRise = other.staircaseRise;
 								
 								sprite_index = other.sprCreate[other.j];
 							}
@@ -336,13 +381,27 @@ if mode = 2 {
 					}
 					if staircaseType = 1 {
 						#region
+						if staircaseRotation = 3 {
+							#region
+							with instance_create_layer(x+(i-1)*20-xCreateOff+20,y-(i-2)*40-yCreateOff,"Instances",obj_staircase_collision) {
+								zfloor = other.zfloor;
+								staircaseType = other.staircaseType;
+								staircaseRotation = other.staircaseRotation;
+								staircaseRun = other.staircaseRun;
+								staircaseRise = other.staircaseRise;
+								
+								sprite_index = other.sprCreate[other.j];
+							}
+							#endregion
+						}
 						if staircaseRotation = 4 {
 							#region
 							with instance_create_layer(x+(i-1)*20-xCreateOff+20,y-(i-2)*20-yCreateOff,"Instances",obj_staircase_collision) {
 								zfloor = other.zfloor;
 								staircaseType = other.staircaseType;
 								staircaseRotation = other.staircaseRotation;
-								staircaseSlope = other.staircaseSlope;
+								staircaseRun = other.staircaseRun;
+								staircaseRise = other.staircaseRise;
 								
 								sprite_index = other.sprCreate[other.j];
 							}
@@ -350,7 +409,25 @@ if mode = 2 {
 								zfloor = other.zfloor;
 								staircaseType = other.staircaseType;
 								staircaseRotation = other.staircaseRotation;
-								staircaseSlope = other.staircaseSlope;
+								staircaseRun = other.staircaseRun;
+								staircaseRise = other.staircaseRise;
+								
+								sprite_index = other.sprCreate[other.j];
+							}
+							#endregion
+						}
+						#endregion
+					}
+					if staircaseType = 2 {
+						#region
+						if staircaseRotation = 4 {
+							#region
+							with instance_create_layer(x+(i-1)*20-xCreateOff,y-(i-2)*20-yCreateOff,"Instances",obj_staircase_collision) {
+								zfloor = other.zfloor;
+								staircaseType = other.staircaseType;
+								staircaseRotation = other.staircaseRotation;
+								staircaseRun = other.staircaseRun;
+								staircaseRise = other.staircaseRise;
 								
 								sprite_index = other.sprCreate[other.j];
 							}

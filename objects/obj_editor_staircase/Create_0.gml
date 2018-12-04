@@ -8,13 +8,13 @@ zIterate = 0;
 widthIterate = 0;
 heightIterate = 0;
 
-staircaseType = 0;
+staircaseType = 1;
 /*
 0 = 1x1x1 staircase
 1 = 2x1x1 staircase
 2 = 1x1x2 staircase
 */
-staircaseRotation = 4;
+staircaseRotation = 3;
 /*
 0 = face left
 1 = face up
@@ -33,6 +33,9 @@ sprCreate[0] = spr_slopeL_1x_bot;
 sprCreate[1] = spr_slopeR_1x_bot;
 sprCreate[2] = spr_slopeR_1x;
 sprCreate[3] = spr_slopeL_1x;
+
+staircaseXDivisor = 1;
+staircaseYDivisor = 1;
 
 /*dummyTop = instance_create_layer(x,y,layer,obj_editor_slope3_dummy_top);
 dummyBot = instance_create_layer(x,y,layer,obj_editor_slope3_dummy_bot);

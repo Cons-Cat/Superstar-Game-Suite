@@ -4,7 +4,6 @@ var currentsolid_left = false;
 var currentsolid_right = false;
 var trgScr;
 var slopeOffset;
-var staircaseSlope;
 
 repeat(2) {
 	// Staircase collision
@@ -12,7 +11,6 @@ repeat(2) {
 		if !onStaircase {
 			onStaircase = true; // Used to over ride depth algorithm
 			staircaseId = collision_rectangle(floor(x),floor(y),floor(x+1),floor(y+1),obj_staircase_collision,true,false);
-			staircaseSlope = staircaseId.staircaseSlope;
 			
 			for (var i = 0; i < 20; i += 1) {
 				if collision_line(x+20+i,y+19-i,x+i,y-i,staircaseMaskObjectIndex,true,false) {
@@ -26,18 +24,9 @@ repeat(2) {
 	} else {
 		onStaircase = false;
 	}
-
+	
 	if onStaircase {
-		if staircaseId.staircaseType = 0 {
-			if staircaseId.staircaseRotation = 4 {
-				jumpHeight = staircaseId.zfloor*20 + (staircaseXOrigin - self.x)/2 + (staircaseYOrigin - self.y)/2;
-			}
-		}
-		if staircaseId.staircaseType = 1 {
-			if staircaseId.staircaseRotation = 4 {
-				jumpHeight = staircaseId.zfloor*20 + (staircaseXOrigin - self.x)/4 + (staircaseYOrigin - self.y)/4;
-			}
-		}
+		jumpHeight = staircaseId.zfloor*20 + (staircaseXOrigin - self.x)*staircaseId.staircaseRun + (staircaseYOrigin - self.y)*staircaseId.staircaseRise;
 	} else {
 		for (var i = 0; i < instance_number(obj_solid); i += 1) {
 			trgScr = instance_find(obj_solid,i).id;
