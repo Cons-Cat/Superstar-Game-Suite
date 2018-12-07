@@ -232,7 +232,6 @@ if !jumping {
 		}
 	}
 }
-show_debug_message(jumpHeight);
 
 zplace = floor((jumpHeight/20));
 
@@ -247,6 +246,7 @@ for (i = 0; i < instance_number(obj_floor); i += 1) {
 	if trgScr.zfloor*20 <= self.jumpHeight {
 		if collision_rectangle(bbox_left,bbox_top,bbox_right,bbox_bottom,trgScr,true,true) {
 			trgLayer[i] = trgScr.zfloor;
+			
 			for (a = 0; a <= i; a += 1) {
 				if trgLayer[a] >= trgFinalTemp {
 					trgFinal = trgScr;

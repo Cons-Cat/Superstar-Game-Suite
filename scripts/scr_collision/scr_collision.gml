@@ -4,6 +4,7 @@ var currentsolid_left = false;
 var currentsolid_right = false;
 var trgScr;
 var slopeOffset;
+var j;
 
 repeat(2) {
 	// Staircase collision
@@ -13,9 +14,18 @@ repeat(2) {
 			staircaseId = collision_rectangle(floor(x),floor(y),floor(x+1),floor(y+1),obj_staircase_collision,true,false);
 			
 			for (var i = 0; i < 20; i += 1) {
-				if collision_line(x+20+i,y+19-i,x+i,y-i,staircaseMaskObjectIndex,true,false) {
+				if collision_line(x,y-i,x+20,y+20-i,staircaseMaskObjectIndex,true,false) {
+					// Collision between a ray, iterated across the staircase's entire collision mask, and the actor calling this script
 					staircaseXOrigin = staircaseMaskObjectIndex.x;
 					staircaseYOrigin = staircaseMaskObjectIndex.y;
+					
+					// Unique exception case for staircaseRotation = 1
+					if staircaseId.staircaseRotation = 1 {
+						// If the actor approaches this staircase south-side
+						if staircaseYOrigin > staircaseId.y + 10 {
+							staircaseYOrigin = staircaseMaskObjectIndex.y - 20;
+						}
+					}
 					
 					break;
 				}

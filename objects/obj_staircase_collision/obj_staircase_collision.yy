@@ -5,7 +5,7 @@
     "name": "obj_staircase_collision",
     "eventList": [
         {
-            "id": "05020d5f-4d28-4f4a-a46f-dc7d755c3d2d",
+            "id": "f823dc55-67a5-447b-acd8-678f87f7bdaf",
             "modelName": "GMEvent",
             "mvc": "1.0",
             "IsDnD": false,

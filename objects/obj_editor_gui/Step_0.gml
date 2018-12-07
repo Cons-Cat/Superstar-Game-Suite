@@ -296,13 +296,23 @@ if mode = 2 {
 		}
 		with obj_editor_staircase {
 			for (j = 0; j <= 4; j += 1) {
-				if j = 4 {
-					if sprCreate[j] = -1 {
-						// Not all staircase sets use this iteration
-						break;
-					}
+				if sprCreate[j] = -1 {
+					// Not all staircase sets use all iterations
+					break;
 				}
 				
+				if staircaseRotation = 1 {
+					#region
+					iIncrement = 1;
+					
+					if j = 0 {
+						// Center
+						xCreateOff = 0;
+						yCreateOff = 0;
+					}
+					
+					#endregion
+				}
 				if staircaseRotation = 3 {
 					#region
 					iIncrement = 1;
@@ -361,29 +371,34 @@ if mode = 2 {
 					#endregion
 				}
 				
-				for (i = 2; i < widthIterate - widthIterateCollisionOff; i += iIncrement) {
+				for (i = 0; i < widthIterate - widthIterateCollisionOff; i += iIncrement) {
 					if staircaseType = 0 {
 						#region
+						
 						if staircaseRotation = 4 {
 							#region
-							with instance_create_layer(x+(i-1)*20-xCreateOff,y-(i-2)*20-yCreateOff,"Instances",obj_staircase_collision) {
-								zfloor = other.zfloor;
-								staircaseType = other.staircaseType;
-								staircaseRotation = other.staircaseRotation;
-								staircaseRun = other.staircaseRun;
-								staircaseRise = other.staircaseRise;
+							if i > 1 {
+								with instance_create_layer(x+(i)*20-xCreateOff-20,y-(i-2)*20-yCreateOff,"Instances",obj_staircase_collision) {
+									zfloor = other.zfloor;
+									staircaseType = other.staircaseType;
+									staircaseRotation = other.staircaseRotation;
+									staircaseRun = other.staircaseRun;
+									staircaseRise = other.staircaseRise;
 								
-								sprite_index = other.sprCreate[other.j];
+									sprite_index = other.sprCreate[other.j];
+								}
 							}
 							#endregion
 						}
+						
 						#endregion
 					}
 					if staircaseType = 1 {
 						#region
-						if staircaseRotation = 3 {
+						
+						if staircaseRotation = 1 {
 							#region
-							with instance_create_layer(x+(i-1)*20-xCreateOff+20,y-(i-2)*40-yCreateOff,"Instances",obj_staircase_collision) {
+							with instance_create_layer(x+i*20,y,"Instances",obj_staircase_collision) {
 								zfloor = other.zfloor;
 								staircaseType = other.staircaseType;
 								staircaseRotation = other.staircaseRotation;
@@ -391,48 +406,70 @@ if mode = 2 {
 								staircaseRise = other.staircaseRise;
 								
 								sprite_index = other.sprCreate[other.j];
+							}
+							#endregion
+						}
+						if staircaseRotation = 3 {
+							#region
+							if i > 1 {
+								with instance_create_layer(x+(i)*20-xCreateOff,y-(i-2)*40-yCreateOff,"Instances",obj_staircase_collision) {
+									zfloor = other.zfloor;
+									staircaseType = other.staircaseType;
+									staircaseRotation = other.staircaseRotation;
+									staircaseRun = other.staircaseRun;
+									staircaseRise = other.staircaseRise;
+									
+									sprite_index = other.sprCreate[other.j];
+								}
 							}
 							#endregion
 						}
 						if staircaseRotation = 4 {
 							#region
-							with instance_create_layer(x+(i-1)*20-xCreateOff+20,y-(i-2)*20-yCreateOff,"Instances",obj_staircase_collision) {
-								zfloor = other.zfloor;
-								staircaseType = other.staircaseType;
-								staircaseRotation = other.staircaseRotation;
-								staircaseRun = other.staircaseRun;
-								staircaseRise = other.staircaseRise;
+							if i > 1 {
+								with instance_create_layer(x+(i)*20-xCreateOff,y-(i-2)*20-yCreateOff,"Instances",obj_staircase_collision) {
+									zfloor = other.zfloor;
+									staircaseType = other.staircaseType;
+									staircaseRotation = other.staircaseRotation;
+									staircaseRun = other.staircaseRun;
+									staircaseRise = other.staircaseRise;
 								
-								sprite_index = other.sprCreate[other.j];
-							}
-							with instance_create_layer(x+(i-1)*20-xCreateOff,y-(i-2)*20-yCreateOff-20,"Instances",obj_staircase_collision) {
-								zfloor = other.zfloor;
-								staircaseType = other.staircaseType;
-								staircaseRotation = other.staircaseRotation;
-								staircaseRun = other.staircaseRun;
-								staircaseRise = other.staircaseRise;
+									sprite_index = other.sprCreate[other.j];
+								}
+								with instance_create_layer(x+(i-1)*20-xCreateOff,y-(i-2)*20-yCreateOff-20,"Instances",obj_staircase_collision) {
+									zfloor = other.zfloor;
+									staircaseType = other.staircaseType;
+									staircaseRotation = other.staircaseRotation;
+									staircaseRun = other.staircaseRun;
+									staircaseRise = other.staircaseRise;
 								
-								sprite_index = other.sprCreate[other.j];
+									sprite_index = other.sprCreate[other.j];
+								}
 							}
 							#endregion
 						}
+						
 						#endregion
 					}
 					if staircaseType = 2 {
 						#region
+						
 						if staircaseRotation = 4 {
 							#region
-							with instance_create_layer(x+(i-1)*20-xCreateOff,y-(i-2)*20-yCreateOff,"Instances",obj_staircase_collision) {
-								zfloor = other.zfloor;
-								staircaseType = other.staircaseType;
-								staircaseRotation = other.staircaseRotation;
-								staircaseRun = other.staircaseRun;
-								staircaseRise = other.staircaseRise;
+							if i > 1 {
+								with instance_create_layer(x+(i)*20-xCreateOff-20,y-(i-2)*20-yCreateOff,"Instances",obj_staircase_collision) {
+									zfloor = other.zfloor;
+									staircaseType = other.staircaseType;
+									staircaseRotation = other.staircaseRotation;
+									staircaseRun = other.staircaseRun;
+									staircaseRise = other.staircaseRise;
 								
-								sprite_index = other.sprCreate[other.j];
+									sprite_index = other.sprCreate[other.j];
+								}
 							}
 							#endregion
 						}
+						
 						#endregion
 					}
 				}

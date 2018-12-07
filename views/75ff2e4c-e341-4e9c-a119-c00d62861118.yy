@@ -27,7 +27,8 @@
         "6d7e77db-5313-454d-a1f3-c3f9f576deef",
         "6fd95e9e-977c-46cb-89d2-4a6a4cb9e447",
         "9b247a2b-47c5-4f10-a61d-03774d3dbb2f",
-        "4e8737ae-1054-438d-a33b-bb652ed86dc5"
+        "4e8737ae-1054-438d-a33b-bb652ed86dc5",
+        "035dadd8-2031-4f65-b019-9e04f2b76437"
     ],
     "filterType": "GMObject",
     "folderName": "Collisions",

@@ -45,14 +45,28 @@ if resetArray {
 		zIterate = 2;
 		
 		if staircaseRotation = 0 || staircaseRotation = 2 {
+			#region
 			widthIterate = 4;
 			heightIterate = width + 1;
+			#endregion
 		}
 		if staircaseRotation = 1 {
+			#region
+			sprCreate[0] = spr_solid;
+			sprCreate[1] = -1;
+			sprCreate[2] = -1;
+			sprCreate[3] = -1;
+			sprCreate[4] = -1;
+			
 			widthIterate = width + 2;
 			heightIterate = 1;
+			
+			staircaseRun = 0;
+			staircaseRise = -1;
+			#endregion
 		}
 		if staircaseRotation = 3 || staircaseRotation = 9 {
+			#region
 			sprCreate[0] = spr_slopeL_05x_bot;
 			sprCreate[1] = spr_slopeR_2x_bot;
 			sprCreate[2] = spr_slopeR_05x;
@@ -68,8 +82,10 @@ if resetArray {
 				staircaseRun = -0.125;
 			}
 			staircaseRise = 0.25;
+			#endregion
 		}
 		if staircaseRotation = 4 || staircaseRotation = 8 {
+			#region
 			sprCreate[0] = spr_slopeL_1x_bot;
 			sprCreate[1] = spr_slopeR_1x_bot;
 			sprCreate[2] = spr_slopeR_1x;
@@ -85,14 +101,19 @@ if resetArray {
 				staircaseRun = -0.25;
 			}
 			staircaseRise = 0.25;
+			#endregion
 		}
 		if staircaseRotation = 5 || staircaseRotation = 7 {
+			#region
 			widthIterate = width + 2;
 			heightIterate = floor(width/2) + 3;
+			#endregion
 		}
 		if staircaseRotation = 6 {
+			#region
 			widthIterate = width + 2;
 			heightIterate = 3;
+			#endregion
 		}
 		#endregion
 	}
