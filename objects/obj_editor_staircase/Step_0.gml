@@ -13,17 +13,33 @@ if resetArray {
 		zIterate = 2;
 		
 		if staircaseRotation = 0 || staircaseRotation = 2 {
+			#region
+			
 			widthIterate = 3;
 			heightIterate = width + 1;
+			
+			#endregion
 		}
 		if staircaseRotation = 1 {
+			#region
+			
+			sprCreate[0] = spr_solid;
+			sprCreate[1] = -1;
+			sprCreate[2] = -1;
+			sprCreate[3] = -1;
+			sprCreate[4] = -1;
+			
 			widthIterate = width + 2;
 			heightIterate = width + 1;
 			
 			staircaseRun = 0;
-			staircaseRise = 0.5;
+			staircaseRise = -1;
+			
+			#endregion
 		}
 		if staircaseRotation = 4 {
+			#region
+			
 			sprCreate[0] = spr_slopeL_1x_bot;
 			sprCreate[1] = spr_slopeR_1x_bot;
 			sprCreate[2] = spr_slopeR_1x;
@@ -33,8 +49,17 @@ if resetArray {
 			widthIterate = width + 2;
 			heightIterate = width + 2;
 			
+			// Origin varies for every staircase variant
+			slopeOriginOffsetX = x;
+			slopeOriginOffsetY = y;
+			
 			staircaseRun = 0.5;
 			staircaseRise = 0.5;
+			
+			rayXComponent = 21;
+			rayYComponent = 21;
+			
+			#endregion
 		}
 		#endregion
 	}
@@ -46,12 +71,15 @@ if resetArray {
 		
 		if staircaseRotation = 0 || staircaseRotation = 2 {
 			#region
+			
 			widthIterate = 4;
 			heightIterate = width + 1;
+			
 			#endregion
 		}
 		if staircaseRotation = 1 {
 			#region
+			
 			sprCreate[0] = spr_solid;
 			sprCreate[1] = -1;
 			sprCreate[2] = -1;
@@ -62,11 +90,13 @@ if resetArray {
 			heightIterate = 1;
 			
 			staircaseRun = 0;
-			staircaseRise = -1;
+			staircaseRise = -0.5;
+			
 			#endregion
 		}
 		if staircaseRotation = 3 || staircaseRotation = 9 {
 			#region
+			
 			sprCreate[0] = spr_slopeL_05x_bot;
 			sprCreate[1] = spr_slopeR_2x_bot;
 			sprCreate[2] = spr_slopeR_05x;
@@ -77,15 +107,27 @@ if resetArray {
 			heightIterate = width + 2;
 			
 			if staircaseRotation = 3 {
-				staircaseRun = 0.375;
+				staircaseRun = 0.4;
 			} else {
-				staircaseRun = -0.125;
+				staircaseRun = -0.4;
 			}
-			staircaseRise = 0.25;
+			staircaseRise = 0.2;
+			
+			collisionMaskRun = 1;
+			collisionMaskRise = 2;
+			
+			// Origin varies for every staircase variant
+			slopeOriginOffsetX = x;
+			slopeOriginOffsetY = y;
+			
+			rayXComponent = 41;
+			rayYComponent = 21;
+			
 			#endregion
 		}
 		if staircaseRotation = 4 || staircaseRotation = 8 {
 			#region
+			
 			sprCreate[0] = spr_slopeL_1x_bot;
 			sprCreate[1] = spr_slopeR_1x_bot;
 			sprCreate[2] = spr_slopeR_1x;
@@ -101,20 +143,53 @@ if resetArray {
 				staircaseRun = -0.25;
 			}
 			staircaseRise = 0.25;
+			
+			// Origin varies for every staircase variant
+			slopeOriginOffsetX = x;
+			slopeOriginOffsetY = y - 20;
+			
+			rayXComponent = 41;
+			rayYComponent = 41;
+			
 			#endregion
 		}
 		if staircaseRotation = 5 || staircaseRotation = 7 {
 			#region
-			widthIterate = width + 2;
+			
+			sprCreate[0] = spr_slopeL_2x_bot;
+			sprCreate[1] = spr_slopeR_05x_bot;
+			sprCreate[2] = spr_slopeR_2x;
+			sprCreate[3] = spr_slopeL_05x;
+			sprCreate[4] = spr_solid;
+			
+			widthIterate = width + 3;
 			heightIterate = floor(width/2) + 3;
+			
+			if staircaseRotation = 5 {
+				staircaseRun = 0.25;
+			} else {
+				staircaseRun = -0.25;
+			}
+			staircaseRise = 0.3755;
+			
 			#endregion
 		}
 		if staircaseRotation = 6 {
 			#region
+			
 			widthIterate = width + 2;
 			heightIterate = 3;
+			
+			if staircaseRotation = 3 {
+				staircaseRun = 0.25;
+			} else {
+				staircaseRun = -0.25;
+			}
+			staircaseRise = 0.25;
+			
 			#endregion
 		}
+		
 		#endregion
 	}
 	if staircaseType = 2 {
@@ -148,6 +223,7 @@ if resetArray {
 			staircaseRun = 1;
 			staircaseRise = 1;
 		}
+		
 		#endregion
 	}
 	
@@ -163,6 +239,7 @@ if resetArray {
 				#region
 				if staircaseRotation = 0 {
 					#region
+					
 					if i = 1 {
 						if j = width {
 							tileArrayDrawX[i,j] = 680;
@@ -177,6 +254,9 @@ if resetArray {
 				}
 				if staircaseRotation = 1 {
 					#region
+					slopeOriginOffsetX = 0;
+					slopeOriginOffsetY = -20;
+					
 					if i > 0 && i <= width {
 						if j = 0 {
 							tileArrayDrawX[i,j] = 40;
@@ -187,6 +267,7 @@ if resetArray {
 				}
 				if staircaseRotation = 2 {
 					#region
+					
 					if i = 1 {
 						if j = width {
 							tileArrayDrawX[i,j] = 20;
@@ -201,6 +282,7 @@ if resetArray {
 				}
 				if staircaseRotation = 4 {
 					#region
+					
 					if i = 1 {
 						if j = 0 {
 							tileArrayDrawX[i,j] = 0;
@@ -538,7 +620,7 @@ if resetArray {
 							tileArrayDrawY[i,j] = 40;
 						}
 					}
-					if i > 1 && i < width {
+					if i > 1 && i < width + 1 {
 						if i % 2 = 0 {
 							if j = i div 2 - 1 {
 								tileArrayDrawX[i,j] = 200;
@@ -579,7 +661,7 @@ if resetArray {
 							}
 						}
 					}
-					if i = width {
+					if i = width + 1 {
 						if j = i div 2 - 1 {
 							tileArrayDrawX[i,j] = 220;
 							tileArrayDrawY[i,j] = 100;
@@ -637,7 +719,7 @@ if resetArray {
 							tileArrayDrawY[i,j] = 40;
 						}
 					}
-					if i > 1 && i < width {
+					if i > 1 && i < width + 1 {
 						if i % 2 = 0 {
 							if j = floor(width/2) - ceil(i/2) {
 								tileArrayDrawX[i,j] = 500;
@@ -678,7 +760,7 @@ if resetArray {
 							}
 						}
 					}
-					if i = width {
+					if i = width + 1 {
 						if j = 0 {
 							tileArrayDrawX[i,j] = 520;
 							tileArrayDrawY[i,j] = 100;

@@ -1,10 +1,13 @@
-var currentsolid_up = false;
-var currentsolid_down = false;
-var currentsolid_left = false;
-var currentsolid_right = false;
+var colNorth = false;
+var colSouth = false;
+var colWest = false;
+var colEast = false;
 var trgScr;
+
 var slopeOffset;
 var j;
+var run;
+var rise;
 
 repeat(2) {
 	// Staircase collision
@@ -12,22 +15,27 @@ repeat(2) {
 		if !onStaircase {
 			onStaircase = true; // Used to over ride depth algorithm
 			staircaseId = collision_rectangle(floor(x),floor(y),floor(x+1),floor(y+1),obj_staircase_collision,true,false);
+			widthIterate = staircaseId.widthIterate;
+			widthIterateCollisionOff = staircaseId.widthIterateCollisionOff;
+			slopeOriginOffsetX = staircaseId.slopeOriginOffsetX;
+			slopeOriginOffsetY = staircaseId.slopeOriginOffsetY;
 			
-			for (var i = 0; i < 20; i += 1) {
-				if collision_line(x,y-i,x+20,y+20-i,staircaseMaskObjectIndex,true,false) {
-					// Collision between a ray, iterated across the staircase's entire collision mask, and the actor calling this script
-					staircaseXOrigin = staircaseMaskObjectIndex.x;
-					staircaseYOrigin = staircaseMaskObjectIndex.y;
-					
-					// Unique exception case for staircaseRotation = 1
-					if staircaseId.staircaseRotation = 1 {
-						// If the actor approaches this staircase south-side
-						if staircaseYOrigin > staircaseId.y + 10 {
-							staircaseYOrigin = staircaseMaskObjectIndex.y - 20;
+			for (var i = -1; i <= (widthIterate - widthIterateCollisionOff - 2) * 20; i += 1) {
+				rise = staircaseId.collisionMaskRise;
+				run  = staircaseId.collisionMaskRun;
+				j = i*rise + 3;
+				
+				for (var ii = 0; ii <= 1; ii += 1) {
+					for (var jj = 0; jj <= 1; jj += 1) {
+						// There must be four horizontally and/or vertically adjacent rays to precisely encompass the entire area
+						if collision_line(slopeOriginOffsetX + i*run - ii,slopeOriginOffsetY - j + jj,slopeOriginOffsetX + i*run + - ii + 1 + staircaseId.rayXComponent,slopeOriginOffsetY - j + staircaseId.rayYComponent + jj,obj_staircasecollision_mask,true,false) {
+							// Iterating, across the tall edge of the staircase, a raycast aiming down the staircase
+							staircaseXOrigin = staircaseId.slopeOriginOffsetX + i*run + staircaseId.rayXComponent - ii;
+							staircaseYOrigin = staircaseId.slopeOriginOffsetY - i*rise + staircaseId.rayYComponent;
+						
+							break;
 						}
 					}
-					
-					break;
 				}
 			}
 		}
@@ -43,11 +51,11 @@ repeat(2) {
 			if (trgScr.zheight*20 > self.jumpHeight && trgScr.zcieling*20 <= self.jumpHeight) || !(trgScr.finite) {
 				// Checking for negative y collision at current z coordinate
 				if collision_rectangle(bbox_left,bbox_top-1,bbox_right,bbox_top-1,trgScr,false,true) {
-					currentsolid_up = collision_rectangle(bbox_left,bbox_top-1,bbox_right,bbox_top-1,trgScr,false,true);
+					colNorth = collision_rectangle(bbox_left,bbox_top-1,bbox_right,bbox_top-1,trgScr,false,true);
 				}
 				// Checking for positive y collision at current z coordinate
 				if collision_rectangle(bbox_left,bbox_bottom+1,bbox_right,bbox_bottom+1,trgScr,false,true) {
-					currentsolid_down = collision_rectangle(bbox_left,bbox_bottom+1,bbox_right,bbox_bottom+1,trgScr,false,true);
+					colSouth = collision_rectangle(bbox_left,bbox_bottom+1,bbox_right,bbox_bottom+1,trgScr,false,true);
 				}
 			}
 		}
@@ -56,30 +64,30 @@ repeat(2) {
 			if (trgScr.zheight*20 > self.jumpHeight && trgScr.zcieling*20 <= self.jumpHeight) || !(trgScr.finite) {
 				// Checking for negative x collision at current z coordinate
 				if collision_rectangle(bbox_left-1,bbox_top,bbox_left-1,bbox_bottom-4,trgScr,false,true) {
-					currentsolid_left = collision_rectangle(bbox_left-1,bbox_top,bbox_left,bbox_bottom-4,trgScr,false,true);
+					colWest = collision_rectangle(bbox_left-1,bbox_top,bbox_left,bbox_bottom-4,trgScr,false,true);
 				}
 			
 				// Checking for positive x collision at current z coordinate
 				if collision_rectangle(bbox_right+1,bbox_top,bbox_right+1,bbox_bottom-4,trgScr,false,true) {
-					currentsolid_right = collision_rectangle(bbox_right+1,bbox_top,bbox_right,bbox_bottom-4,trgScr,false,true);
+					colEast = collision_rectangle(bbox_right+1,bbox_top,bbox_right,bbox_bottom-4,trgScr,false,true);
 				}
 			}
 		}
 	
 	  //---Solids---
-	  if currentsolid_up
+	  if colNorth
 	  {
 	    if add_y <= 0
 	    add_y = 0;
 	    if c_vspeed <= 0
 	    c_vspeed = 0
    
-	    if collision_rectangle(bbox_left,bbox_top,bbox_right,bbox_top,currentsolid_up,false,true) {
+	    if collision_rectangle(bbox_left,bbox_top,bbox_right,bbox_top,colNorth,false,true) {
 	        y += 1;
 	    }
 	  }
    
-	  if currentsolid_down
+	  if colSouth
 	  {
 	    if add_y >= 0 {
 		    add_y = 0;
@@ -88,31 +96,31 @@ repeat(2) {
 			c_vspeed = 0;
 		}
    
-	    if collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom,currentsolid_down,false,true) {
+	    if collision_rectangle(bbox_left,bbox_bottom,bbox_right,bbox_bottom,colSouth,false,true) {
 		    y -= 1;
 		}
 	  }
    
-	  if currentsolid_left
+	  if colWest
 	  {
 	    if add_x <= 0
 	    add_x = 0;
 	    if c_hspeed <= 0
 	    c_hspeed = 0
    
-	    if collision_rectangle(bbox_left,bbox_top,bbox_left,bbox_bottom,currentsolid_left,false,true) {
+	    if collision_rectangle(bbox_left,bbox_top,bbox_left,bbox_bottom,colWest,false,true) {
 	        x += 1;
 	    }
 	  }
    
-	  if currentsolid_right
+	  if colEast
 	  {
 	    if add_x >= 0
 	    add_x = 0;
 	    if c_hspeed >= 0
 	    c_hspeed = 0
    
-	    if collision_rectangle(bbox_right,bbox_top,bbox_right,bbox_bottom,currentsolid_right,false,true) {
+	    if collision_rectangle(bbox_right,bbox_top,bbox_right,bbox_bottom,colEast,false,true) {
 	        x -= 1;
 	    }
 	  }

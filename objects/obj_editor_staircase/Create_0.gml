@@ -34,8 +34,8 @@ sprCreate[1] = spr_slopeR_1x_bot;
 sprCreate[2] = spr_slopeR_1x;
 sprCreate[3] = spr_slopeL_1x;
 
-staircaseXDivisor = 1;
-staircaseYDivisor = 1;
+slopeOriginOffsetX = 0;
+slopeOriginOffsetY = 0;
 
 /*dummyTop = instance_create_layer(x,y,layer,obj_editor_slope3_dummy_top);
 dummyBot = instance_create_layer(x,y,layer,obj_editor_slope3_dummy_bot);

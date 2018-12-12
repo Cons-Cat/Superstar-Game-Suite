@@ -295,6 +295,11 @@ if mode = 2 {
 			}
 		}
 		with obj_editor_staircase {
+			// Initialize variables
+			trgCreated[0] = 0;
+			trgCreated[1] = 0;
+			doubledUp = false;
+			
 			for (j = 0; j <= 4; j += 1) {
 				if sprCreate[j] = -1 {
 					// Not all staircase sets use all iterations
@@ -303,7 +308,6 @@ if mode = 2 {
 				
 				if staircaseRotation = 1 {
 					#region
-					iIncrement = 1;
 					
 					if j = 0 {
 						// Center
@@ -315,7 +319,6 @@ if mode = 2 {
 				}
 				if staircaseRotation = 3 {
 					#region
-					iIncrement = 1;
 					
 					if j = 0 {
 						// Bottom right
@@ -338,7 +341,7 @@ if mode = 2 {
 						yCreateOff = 40;
 					}
 					if j = 4 {
-						// Top right
+						// Center
 						xCreateOff = 20;
 						yCreateOff = 20;
 					}
@@ -346,7 +349,8 @@ if mode = 2 {
 				}
 				if staircaseRotation = 4 {
 					#region
-					iIncrement = 1;
+					
+					doubledUp = true;
 					
 					if j = 0 {
 						// Bottom right
@@ -370,24 +374,61 @@ if mode = 2 {
 					}
 					#endregion
 				}
+				if staircaseRotation = 5 {
+					#region
+					
+					if j = 0 {
+						// Bottom right
+						xCreateOff = 20;
+						yCreateOff = 0;
+					}
+					if j = 1 {
+						// Bottom left
+						xCreateOff = 40;
+						yCreateOff = 0;
+					}
+					if j = 2 {
+						// Top left
+						xCreateOff = 40;
+						yCreateOff = 40;
+					}
+					if j = 3 {
+						// Top right
+						xCreateOff = 0;
+						yCreateOff = 20;
+					}
+					if j = 4 {
+						// Center
+						xCreateOff = 20;
+						yCreateOff = 20;
+					}
+					
+					#endregion
+				}
 				
-				for (i = 0; i < widthIterate - widthIterateCollisionOff; i += iIncrement) {
+				for (i = 0; i < widthIterate - widthIterateCollisionOff; i += 1) {
 					if staircaseType = 0 {
 						#region
 						
+						staircaseCollisionRows = 0;
+						
+						if staircaseRotation = 1 {
+							#region
+							
+							staircaseCollisionRows = 0;
+							trgCreated[0] = instance_create_layer(x+i*20,y,"Instances",obj_staircase_collision);
+							
+							#endregion
+						}
 						if staircaseRotation = 4 {
 							#region
+							
+							staircaseCollisionRows = 0;
+							
 							if i > 1 {
-								with instance_create_layer(x+(i)*20-xCreateOff-20,y-(i-2)*20-yCreateOff,"Instances",obj_staircase_collision) {
-									zfloor = other.zfloor;
-									staircaseType = other.staircaseType;
-									staircaseRotation = other.staircaseRotation;
-									staircaseRun = other.staircaseRun;
-									staircaseRise = other.staircaseRise;
-								
-									sprite_index = other.sprCreate[other.j];
-								}
+								trgCreated[0] = instance_create_layer(x+i*20-xCreateOff-20,y-(i-2)*20-yCreateOff,"Instances",obj_staircase_collision);
 							}
+							
 							#endregion
 						}
 						
@@ -396,56 +437,43 @@ if mode = 2 {
 					if staircaseType = 1 {
 						#region
 						
-						if staircaseRotation = 1 {
-							#region
-							with instance_create_layer(x+i*20,y,"Instances",obj_staircase_collision) {
-								zfloor = other.zfloor;
-								staircaseType = other.staircaseType;
-								staircaseRotation = other.staircaseRotation;
-								staircaseRun = other.staircaseRun;
-								staircaseRise = other.staircaseRise;
-								
-								sprite_index = other.sprCreate[other.j];
-							}
-							#endregion
-						}
 						if staircaseRotation = 3 {
 							#region
+							
+							staircaseCollisionRows = 0;
+							
 							if i > 1 {
-								with instance_create_layer(x+(i)*20-xCreateOff,y-(i-2)*40-yCreateOff,"Instances",obj_staircase_collision) {
-									zfloor = other.zfloor;
-									staircaseType = other.staircaseType;
-									staircaseRotation = other.staircaseRotation;
-									staircaseRun = other.staircaseRun;
-									staircaseRise = other.staircaseRise;
+								with instance_create_layer(x+i*20-xCreateOff,y-(i-2)*40-yCreateOff,"Instances",obj_staircase_collision) {
+									// Don't question it. For the sake of your own sanity, DO NOT QUESTION IT !!!
 									
+									other.trgCreated[0] = self.id;
 									sprite_index = other.sprCreate[other.j];
 								}
 							}
+							
 							#endregion
 						}
 						if staircaseRotation = 4 {
 							#region
+							
+							staircaseCollisionRows = 1;
+							
 							if i > 1 {
-								with instance_create_layer(x+(i)*20-xCreateOff,y-(i-2)*20-yCreateOff,"Instances",obj_staircase_collision) {
-									zfloor = other.zfloor;
-									staircaseType = other.staircaseType;
-									staircaseRotation = other.staircaseRotation;
-									staircaseRun = other.staircaseRun;
-									staircaseRise = other.staircaseRise;
-								
-									sprite_index = other.sprCreate[other.j];
-								}
-								with instance_create_layer(x+(i-1)*20-xCreateOff,y-(i-2)*20-yCreateOff-20,"Instances",obj_staircase_collision) {
-									zfloor = other.zfloor;
-									staircaseType = other.staircaseType;
-									staircaseRotation = other.staircaseRotation;
-									staircaseRun = other.staircaseRun;
-									staircaseRise = other.staircaseRise;
-								
-									sprite_index = other.sprCreate[other.j];
-								}
+								trgCreated[0] = instance_create_layer(x+i*20-xCreateOff,y-(i-2)*20-yCreateOff,"Instances",obj_staircase_collision);
+								trgCreated[1] = instance_create_layer(x+(i-1)*20-xCreateOff,y-(i-2)*20-yCreateOff-20,"Instances",obj_staircase_collision);
 							}
+							
+							#endregion
+						}
+						if staircaseRotation = 5 {
+							#region
+							
+							staircaseCollisionRows = 0;
+							
+							if i > 1 {
+								trgCreated[0] = instance_create_layer(x+i*20-xCreateOff,y-(i-2)*20-yCreateOff,"Instances",obj_staircase_collision);
+							}
+							
 							#endregion
 						}
 						
@@ -456,21 +484,43 @@ if mode = 2 {
 						
 						if staircaseRotation = 4 {
 							#region
+							
+							staircaseCollisionRows = 0;
+							
 							if i > 1 {
-								with instance_create_layer(x+(i)*20-xCreateOff-20,y-(i-2)*20-yCreateOff,"Instances",obj_staircase_collision) {
-									zfloor = other.zfloor;
-									staircaseType = other.staircaseType;
-									staircaseRotation = other.staircaseRotation;
-									staircaseRun = other.staircaseRun;
-									staircaseRise = other.staircaseRise;
-								
-									sprite_index = other.sprCreate[other.j];
-								}
+								trgCreated[0] = instance_create_layer(x+i*20-xCreateOff-20,y-(i-2)*20-yCreateOff,"Instances",obj_staircase_collision);
 							}
+							
 							#endregion
 						}
 						
 						#endregion
+					}
+					
+					for(a = 0; a <= staircaseCollisionRows; a += 1) {
+						if (doubledUp && i > 1) || (!doubledUp) {
+							if trgCreated[a] != 0 {
+								// Pass in specifications
+								trgCreated[a].zfloor = self.zfloor;
+								trgCreated[a].staircaseRun = self.staircaseRun;
+								trgCreated[a].staircaseRise = self.staircaseRise;
+								trgCreated[a].collisionMaskRun = self.collisionMaskRun;
+								trgCreated[a].collisionMaskRise = self.collisionMaskRise;
+								trgCreated[a].widthIterate = self.widthIterate;
+								trgCreated[a].widthIterateCollisionOff = self.widthIterateCollisionOff;
+								trgCreated[a].slopeOriginOffsetX = self.slopeOriginOffsetX;
+								trgCreated[a].slopeOriginOffsetY = self.slopeOriginOffsetY;
+								trgCreated[a].rayXComponent = self.rayXComponent;
+								trgCreated[a].rayYComponent = self.rayYComponent;
+								
+								if self.staircaseType != 1 || self.staircaseRotation != 3 {
+									// There is no explicable reason why this if-statement makes the game work, but it does.
+									// I spent hours trying to comprehend this. Seriously, take my word for it.
+									
+									trgCreated[a].sprite_index = self.sprCreate[self.j];
+								}
+							}
+						}
 					}
 				}
 			}
