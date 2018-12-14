@@ -309,6 +309,21 @@ if mode = 2 {
 				if staircaseRotation = 1 {
 					#region
 					
+					iterateLength = widthIterate - widthIterateCollisionOff;
+					
+					if j = 0 {
+						// Center
+						xCreateOff = 0;
+						yCreateOff = 0;
+					}
+					
+					#endregion
+				}
+				if staircaseRotation = 2 {
+					#region
+					
+					iterateLength = heightIterate - widthIterateCollisionOff;
+					
 					if j = 0 {
 						// Center
 						xCreateOff = 0;
@@ -319,6 +334,8 @@ if mode = 2 {
 				}
 				if staircaseRotation = 3 {
 					#region
+					
+					iterateLength = widthIterate - widthIterateCollisionOff;
 					
 					if j = 0 {
 						// Bottom right
@@ -345,12 +362,13 @@ if mode = 2 {
 						xCreateOff = 20;
 						yCreateOff = 20;
 					}
+					
 					#endregion
 				}
 				if staircaseRotation = 4 {
 					#region
 					
-					doubledUp = true;
+					iterateLength = widthIterate - widthIterateCollisionOff;
 					
 					if j = 0 {
 						// Bottom right
@@ -372,10 +390,13 @@ if mode = 2 {
 						xCreateOff = 0;
 						yCreateOff = 20;
 					}
+					
 					#endregion
 				}
 				if staircaseRotation = 5 {
 					#region
+					
+					iterateLength = widthIterate - widthIterateCollisionOff;
 					
 					if j = 0 {
 						// Bottom right
@@ -406,7 +427,7 @@ if mode = 2 {
 					#endregion
 				}
 				
-				for (i = 0; i < widthIterate - widthIterateCollisionOff; i += 1) {
+				for (i = 0; i < iterateLength; i += 1) {
 					if staircaseType = 0 {
 						#region
 						
@@ -437,6 +458,15 @@ if mode = 2 {
 					if staircaseType = 1 {
 						#region
 						
+						if staircaseRotation = 2 {
+							#region
+							
+							staircaseCollisionRows = 1;
+							trgCreated[0] = instance_create_layer(x,y-i*20,"Instances",obj_staircase_collision);
+							trgCreated[1] = instance_create_layer(x+20,y-i*20,"Instances",obj_staircase_collision);
+							
+							#endregion
+						}
 						if staircaseRotation = 3 {
 							#region
 							
@@ -456,6 +486,7 @@ if mode = 2 {
 						if staircaseRotation = 4 {
 							#region
 							
+							doubledUp = true;
 							staircaseCollisionRows = 1;
 							
 							if i > 1 {
@@ -471,7 +502,12 @@ if mode = 2 {
 							staircaseCollisionRows = 0;
 							
 							if i > 1 {
-								trgCreated[0] = instance_create_layer(x+i*20-xCreateOff,y-(i-2)*20-yCreateOff,"Instances",obj_staircase_collision);
+								with instance_create_layer(x+(i)*20-xCreateOff,y-(i-2)*10-yCreateOff,"Instances",obj_staircase_collision) {
+									// Don't question it. For the sake of your own sanity, DO NOT QUESTION IT !!!
+									
+									other.trgCreated[0] = self.id;
+									sprite_index = other.sprCreate[other.j];
+								}
 							}
 							
 							#endregion
@@ -508,12 +544,14 @@ if mode = 2 {
 								trgCreated[a].collisionMaskRise = self.collisionMaskRise;
 								trgCreated[a].widthIterate = self.widthIterate;
 								trgCreated[a].widthIterateCollisionOff = self.widthIterateCollisionOff;
+								trgCreated[a].iterateLength = self.iterateLength;
 								trgCreated[a].slopeOriginOffsetX = self.slopeOriginOffsetX;
 								trgCreated[a].slopeOriginOffsetY = self.slopeOriginOffsetY;
-								trgCreated[a].rayXComponent = self.rayXComponent;
-								trgCreated[a].rayYComponent = self.rayYComponent;
+								trgCreated[a].rayXComponent = self.rayXComponent; // The horizontal length component of the collision ray
+								trgCreated[a].rayYComponent = self.rayYComponent; // The vertical length component of the collision ray
+								trgCreated[a].staircaseRotation = self.staircaseRotation; // Used to check if the rotation is 0 or 2, which need collision exception cases
 								
-								if self.staircaseType != 1 || self.staircaseRotation != 3 {
+								if self.staircaseType != 1 || (self.staircaseRotation != 3 && self.staircaseRotation != 5) {
 									// There is no explicable reason why this if-statement makes the game work, but it does.
 									// I spent hours trying to comprehend this. Seriously, take my word for it.
 									

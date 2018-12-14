@@ -15,25 +15,47 @@ repeat(2) {
 		if !onStaircase {
 			onStaircase = true; // Used to over ride depth algorithm
 			staircaseId = collision_rectangle(floor(x),floor(y),floor(x+1),floor(y+1),obj_staircase_collision,true,false);
-			widthIterate = staircaseId.widthIterate;
-			widthIterateCollisionOff = staircaseId.widthIterateCollisionOff;
 			slopeOriginOffsetX = staircaseId.slopeOriginOffsetX;
 			slopeOriginOffsetY = staircaseId.slopeOriginOffsetY;
 			
-			for (var i = -1; i <= (widthIterate - widthIterateCollisionOff - 2) * 20; i += 1) {
-				rise = staircaseId.collisionMaskRise;
+			if staircaseId.staircaseRotation != 0 && staircaseId.staircaseRotation != 2 {
+				iterateLengthTemp =staircaseId. iterateLength - staircaseId.widthIterateCollisionOff;
+			} else {
+				// Sideways staircase
+				iterateLengthTemp = staircaseId.iterateLength - staircaseId.widthIterateCollisionOff + 1;
+			}
+			
+			for (var i = -1; i <= iterateLengthTemp * 20; i += 1) {
 				run  = staircaseId.collisionMaskRun;
+				rise = staircaseId.collisionMaskRise;
 				j = i*rise + 3;
+				
+				if staircaseId.staircaseRotation != 0 && staircaseId.staircaseRotation != 2 {
+					var j = i*rise + 3;
+				} else {
+					// Sideways staircase
+					var j = 1;
+				}
 				
 				for (var ii = 0; ii <= 1; ii += 1) {
 					for (var jj = 0; jj <= 1; jj += 1) {
 						// There must be four horizontally and/or vertically adjacent rays to precisely encompass the entire area
-						if collision_line(slopeOriginOffsetX + i*run - ii,slopeOriginOffsetY - j + jj,slopeOriginOffsetX + i*run + - ii + 1 + staircaseId.rayXComponent,slopeOriginOffsetY - j + staircaseId.rayYComponent + jj,obj_staircasecollision_mask,true,false) {
-							// Iterating, across the tall edge of the staircase, a raycast aiming down the staircase
-							staircaseXOrigin = staircaseId.slopeOriginOffsetX + i*run + staircaseId.rayXComponent - ii;
-							staircaseYOrigin = staircaseId.slopeOriginOffsetY - i*rise + staircaseId.rayYComponent;
-						
-							break;
+						if staircaseId.staircaseRotation != 0 && staircaseId.staircaseRotation != 2 {
+							if collision_line(slopeOriginOffsetX + i*run - ii,slopeOriginOffsetY - j + jj,slopeOriginOffsetX + i*run + 1 + staircaseId.rayXComponent - ii,slopeOriginOffsetY - j + staircaseId.rayYComponent + jj,obj_staircasecollision_mask,true,false) {
+								// Iterating, across the tall edge of the staircase, a raycast aiming down the staircase
+								actorXOrigin = staircaseId.slopeOriginOffsetX + i*run  + staircaseId.rayXComponent - ii;
+								actorYOrigin = staircaseId.slopeOriginOffsetY - i*rise + staircaseId.rayYComponent - jj;
+								
+								break;
+							}
+						} else {
+							if collision_line(slopeOriginOffsetX - ii,slopeOriginOffsetY - j - i*rise + jj,slopeOriginOffsetX + 1 + staircaseId.rayXComponent - ii,slopeOriginOffsetY - j - i*rise + jj,obj_staircasecollision_mask,true,false) {
+								// Iterating, across the tall edge of the staircase, a raycast aiming down the staircase
+								actorXOrigin = staircaseId.slopeOriginOffsetX + staircaseId.rayXComponent - ii;
+								actorYOrigin = self.y;
+								
+								break;
+							}
 						}
 					}
 				}
@@ -44,7 +66,7 @@ repeat(2) {
 	}
 	
 	if onStaircase {
-		jumpHeight = staircaseId.zfloor*20 + (staircaseXOrigin - self.x)*staircaseId.staircaseRun + (staircaseYOrigin - self.y)*staircaseId.staircaseRise;
+		jumpHeight = staircaseId.zfloor*20 + (actorXOrigin - self.x)*staircaseId.staircaseRun + (actorYOrigin - self.y)*staircaseId.staircaseRise;
 	} else {
 		for (var i = 0; i < instance_number(obj_solid); i += 1) {
 			trgScr = instance_find(obj_solid,i).id;

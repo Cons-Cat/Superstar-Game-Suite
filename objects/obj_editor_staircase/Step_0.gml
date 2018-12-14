@@ -72,8 +72,33 @@ if resetArray {
 		if staircaseRotation = 0 || staircaseRotation = 2 {
 			#region
 			
+			sprCreate[0] = spr_solid;
+			sprCreate[1] = -1;
+			sprCreate[2] = -1;
+			sprCreate[3] = -1;
+			sprCreate[4] = -1;
+			
 			widthIterate = 4;
 			heightIterate = width + 1;
+			
+			if staircaseRotation = 2 {
+				staircaseRun = 0.5;
+			} else {
+				staircaseRun = -0.5;
+			}
+			staircaseRise = 0;
+			
+			collisionMaskRun = 1;
+			collisionMaskRise = 1;
+			
+			// Origin varies for every staircase variant
+			slopeOriginOffsetX = x;
+			slopeOriginOffsetY = y+20;
+			
+			rayXComponent = 41;
+			rayYComponent = 0;
+			
+			widthIterateCollisionOff = 1;
 			
 			#endregion
 		}
@@ -144,6 +169,9 @@ if resetArray {
 			}
 			staircaseRise = 0.25;
 			
+			collisionMaskRun = 1;
+			collisionMaskRise = 1;
+			
 			// Origin varies for every staircase variant
 			slopeOriginOffsetX = x;
 			slopeOriginOffsetY = y - 20;
@@ -166,11 +194,21 @@ if resetArray {
 			heightIterate = floor(width/2) + 3;
 			
 			if staircaseRotation = 5 {
-				staircaseRun = 0.25;
+				staircaseRun = 0.2;
 			} else {
-				staircaseRun = -0.25;
+				staircaseRun = -0.2;
 			}
-			staircaseRise = 0.3755;
+			staircaseRise = 0.4;
+			
+			collisionMaskRun = 2;
+			collisionMaskRise = 1;
+			
+			// Origin varies for every staircase variant
+			slopeOriginOffsetX = x;
+			slopeOriginOffsetY = y - 20;
+			
+			rayXComponent = 21;
+			rayYComponent = 41;
 			
 			#endregion
 		}
