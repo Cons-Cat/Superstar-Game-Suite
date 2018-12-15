@@ -1,11 +1,9 @@
 /// @description Manipulating dimensions
 event_inherited();
 
-// Tile array
-if resetArray {
-	resetArray = false;
-	sprMaterial = spr_tls_staircase_default // Reset material
-	
+// Initialize and update dimensional variables
+if obj_editor_gui.mode != 2 {
+	// See obj_editor_gui (Step) for comments on what these variables do
 	if staircaseType = 0 {
 		widthIterateCollisionOff = 1;
 		
@@ -134,36 +132,43 @@ if resetArray {
 		if staircaseRotation = 3 || staircaseRotation = 9 {
 			#region
 			
-			sprCreate[0] = spr_slopeL_05x_bot;
-			sprCreate[1] = spr_slopeR_2x_bot;
-			sprCreate[2] = spr_slopeR_05x;
-			sprCreate[3] = spr_slopeL_2x;
-			sprCreate[4] = spr_solid;
-			
 			widthIterate = round(width/2) + 4;
 			heightIterate = width + 2;
 			
 			if staircaseRotation = 3 {
+				sprCreate[0] = spr_slopeL_05x_bot;
+				sprCreate[1] = spr_slopeR_2x_bot;
+				sprCreate[2] = spr_slopeR_05x;
+				sprCreate[3] = spr_slopeL_2x;
+				sprCreate[4] = spr_solid;
 				staircaseRun = 0.4;
+				collisionMaskRun = 1;
+				rayXComponent = 45;
+				slopeOriginOffsetX = x;
 			} else {
+				sprCreate[0] = spr_slopeL_2x_bot;
+				sprCreate[1] = spr_slopeR_05x_bot;
+				sprCreate[2] = spr_slopeR_2x;
+				sprCreate[3] = spr_slopeL_05x;
+				sprCreate[4] = spr_solid;
 				staircaseRun = -0.4;
+				collisionMaskRun = -1;
+				rayXComponent = -45;
+				slopeOriginOffsetX = x + width * 10 + 40;
 			}
+			
 			staircaseRise = 0.2;
-			
-			collisionMaskRun = 1;
 			collisionMaskRise = 2;
-			
-			// Origin varies for every staircase variant
-			slopeOriginOffsetX = x;
+			rayYComponent = 25;
 			slopeOriginOffsetY = y;
-			
-			rayXComponent = 41;
-			rayYComponent = 21;
 			
 			#endregion
 		}
 		if staircaseRotation = 4 || staircaseRotation = 8 {
 			#region
+			
+			widthIterate = width + 4;
+			heightIterate = width + 3;
 			
 			sprCreate[0] = spr_slopeL_1x_bot;
 			sprCreate[1] = spr_slopeR_1x_bot;
@@ -171,71 +176,84 @@ if resetArray {
 			sprCreate[3] = spr_slopeL_1x;
 			sprCreate[4] = -1;
 			
-			widthIterate = width + 4;
-			heightIterate = width + 3;
-			
 			if staircaseRotation = 4 {
 				staircaseRun = 0.25;
+				collisionMaskRun = 1;
+				slopeOriginOffsetX = x;
+				rayXComponent = 42;
 			} else {
 				staircaseRun = -0.25;
+				collisionMaskRun = -1;
+				slopeOriginOffsetX = x + width * 20 + 40;
+				rayXComponent = -42;
 			}
+			
 			staircaseRise = 0.25;
-			
-			collisionMaskRun = 1;
 			collisionMaskRise = 1;
-			
-			// Origin varies for every staircase variant
-			slopeOriginOffsetX = x;
 			slopeOriginOffsetY = y - 20;
-			
-			rayXComponent = 41;
-			rayYComponent = 41;
+			rayYComponent = 42;
 			
 			#endregion
 		}
 		if staircaseRotation = 5 || staircaseRotation = 7 {
 			#region
 			
-			sprCreate[0] = spr_slopeL_2x_bot;
-			sprCreate[1] = spr_slopeR_05x_bot;
-			sprCreate[2] = spr_slopeR_2x;
-			sprCreate[3] = spr_slopeL_05x;
 			sprCreate[4] = spr_solid;
 			
 			widthIterate = width + 3;
 			heightIterate = floor(width/2) + 3;
 			
 			if staircaseRotation = 5 {
+				sprCreate[0] = spr_slopeL_2x_bot;
+				sprCreate[1] = spr_slopeR_05x_bot;
+				sprCreate[2] = spr_slopeR_2x;
+				sprCreate[3] = spr_slopeL_05x;
+				sprCreate[4] = spr_solid;
 				staircaseRun = 0.2;
+				rayXComponent = 25;
+				collisionMaskRun = 2;
+				slopeOriginOffsetX = x;
 			} else {
+				sprCreate[0] = spr_slopeL_05x_bot;
+				sprCreate[1] = spr_slopeR_2x_bot;
+				sprCreate[2] = spr_slopeR_05x;
+				sprCreate[3] = spr_slopeL_2x;
 				staircaseRun = -0.2;
+				rayXComponent = -25;
+				collisionMaskRun = -2;
+				slopeOriginOffsetX = x + width * 20 + 20;
 			}
+			
 			staircaseRise = 0.4;
-			
-			collisionMaskRun = 2;
-			collisionMaskRise = 1;
-			
-			// Origin varies for every staircase variant
-			slopeOriginOffsetX = x;
-			slopeOriginOffsetY = y - 20;
-			
-			rayXComponent = 25;
 			rayYComponent = 45;
+			collisionMaskRise = 1;
+			slopeOriginOffsetY = y - 20;
 			
 			#endregion
 		}
 		if staircaseRotation = 6 {
 			#region
 			
+			sprCreate[0] = spr_solid;
+			sprCreate[1] = -1;
+			
 			widthIterate = width + 2;
 			heightIterate = 3;
 			
-			if staircaseRotation = 3 {
-				staircaseRun = 0.25;
-			} else {
-				staircaseRun = -0.25;
-			}
-			staircaseRise = 0.25;
+			staircaseRun = 0;
+			staircaseRise = 0.5;
+			
+			collisionMaskRun = 1;
+			collisionMaskRise = 0;
+			
+			// Origin varies for every staircase variant
+			slopeOriginOffsetX = x;
+			slopeOriginOffsetY = y - 26;
+			
+			rayXComponent = 0;
+			rayYComponent = 45;
+			
+			widthIterateCollisionOff = 2;
 			
 			#endregion
 		}
@@ -276,6 +294,12 @@ if resetArray {
 		
 		#endregion
 	}
+}
+
+// Assign default tile array
+if resetArray {
+	resetArray = false;
+	sprMaterial = spr_tls_staircase_default // Reset material
 	
 	// Iterate across the width diagonally
 	for (i = 0; i < widthIterate; i += 1) {

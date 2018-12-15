@@ -14,7 +14,7 @@ staircaseType = 1;
 1 = 2x1x1 staircase
 2 = 1x1x2 staircase
 */
-staircaseRotation = 1;
+staircaseRotation = 9;
 /*
 0 = face left
 1 = face up

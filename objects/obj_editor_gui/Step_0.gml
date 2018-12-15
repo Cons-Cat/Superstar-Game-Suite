@@ -426,6 +426,113 @@ if mode = 2 {
 					
 					#endregion
 				}
+				if staircaseRotation = 6 {
+					#region
+					
+					iterateLength = widthIterate - widthIterateCollisionOff;
+					
+					if j = 0 {
+						// Center
+						xCreateOff = 0;
+						yCreateOff = 0;
+					}
+					
+					#endregion
+				}
+				if staircaseRotation = 7 {
+					#region
+					
+					iterateLength = widthIterate - widthIterateCollisionOff;
+					
+					if j = 0 {
+						// Bottom right
+						xCreateOff = -40;
+						yCreateOff = 0;
+					}
+					if j = 1 {
+						// Bottom left
+						xCreateOff = 0;
+						yCreateOff = 0;
+					}
+					if j = 2 {
+						// Top left
+						xCreateOff = 0;
+						yCreateOff = 20;
+					}
+					if j = 3 {
+						// Top right
+						xCreateOff = -20;
+						yCreateOff = 40;
+					}
+					if j = 4 {
+						// Center
+						xCreateOff = -20;
+						yCreateOff = 20;
+					}
+					
+					#endregion
+				}
+				if staircaseRotation = 8 {
+					#region
+					
+					iterateLength = widthIterate - widthIterateCollisionOff;
+					
+					if j = 0 {
+						// Bottom right
+						xCreateOff = -40;
+						yCreateOff = 0;
+					}
+					if j = 1 {
+						// Bottom left
+						xCreateOff = -20;
+						yCreateOff = 0;
+					}
+					if j = 2 {
+						// Top left
+						xCreateOff = -20;
+						yCreateOff = 20;
+					}
+					if j = 3 {
+						// Top right
+						xCreateOff = -40;
+						yCreateOff = 20;
+					}
+					
+					#endregion
+				}
+				if staircaseRotation = 9 {
+					#region
+					
+					iterateLength = widthIterate - widthIterateCollisionOff;
+					
+					if j = 0 {
+						// Bottom right
+						xCreateOff = -20;
+						yCreateOff = 0;
+					}
+					if j = 1 {
+						// Bottom left
+						xCreateOff = 0;
+						yCreateOff = 0;
+					}
+					if j = 2 {
+						// Top left
+						xCreateOff = 0;
+						yCreateOff = 40;
+					}
+					if j = 3 {
+						// Top right
+						xCreateOff = -40;
+						yCreateOff = 20;
+					}
+					if j = 4 {
+						// Center
+						xCreateOff = -20;
+						yCreateOff = 20;
+					}
+					
+					#endregion
+				}
 				
 				for (i = 0; i < iterateLength; i += 1) {
 					if staircaseType = 0 {
@@ -458,7 +565,7 @@ if mode = 2 {
 					if staircaseType = 1 {
 						#region
 						
-						if staircaseRotation = 1 {
+						if staircaseRotation = 1 || staircaseRotation = 6 {
 							#region
 							
 							staircaseCollisionRows = 1;
@@ -521,6 +628,51 @@ if mode = 2 {
 							
 							#endregion
 						}
+						if staircaseRotation = 7 {
+							#region
+							
+							staircaseCollisionRows = 0;
+							
+							if i > 1 {
+								with instance_create_layer(x+width*20-i*20-xCreateOff,y-(i-2)*10-yCreateOff,"Instances",obj_staircase_collision) {
+									// Don't question it. For the sake of your own sanity, DO NOT QUESTION IT !!!
+									
+									other.trgCreated[0] = self.id;
+									sprite_index = other.sprCreate[other.j];
+								}
+							}
+							
+							#endregion
+						}
+						if staircaseRotation = 8 {
+							#region
+							
+							doubledUp = true;
+							staircaseCollisionRows = 1;
+							
+							if i > 1 {
+								trgCreated[0] = instance_create_layer(x+width*20-i*20-xCreateOff,y-(i-2)*20-yCreateOff,"Instances",obj_staircase_collision);
+								trgCreated[1] = instance_create_layer(x+width*20-(i-1)*20-xCreateOff,y-(i-2)*20-yCreateOff-20,"Instances",obj_staircase_collision);
+							}
+							
+							#endregion
+						}
+						if staircaseRotation = 9 {
+							#region
+							
+							staircaseCollisionRows = 0;
+							
+							if i > 1 {
+								with instance_create_layer(x+width*10+20-i*20-xCreateOff,y-(i-2)*40-yCreateOff,"Instances",obj_staircase_collision) {
+									// Don't question it. For the sake of your own sanity, DO NOT QUESTION IT !!!
+									
+									other.trgCreated[0] = self.id;
+									sprite_index = other.sprCreate[other.j];
+								}
+							}
+							
+							#endregion
+						}
 						
 						#endregion
 					}
@@ -547,24 +699,24 @@ if mode = 2 {
 							if trgCreated[a] != -1 {
 								// Pass in specifications
 								trgCreated[a].zfloor = self.zfloor;
-								trgCreated[a].staircaseRun = self.staircaseRun;
-								trgCreated[a].staircaseRise = self.staircaseRise;
-								trgCreated[a].collisionMaskRun = self.collisionMaskRun;
-								trgCreated[a].collisionMaskRise = self.collisionMaskRise;
+								trgCreated[a].staircaseRun = self.staircaseRun; // The run of the staircase's slope used to determine an actor's z position
+								trgCreated[a].staircaseRise = self.staircaseRise; // The rise of the staircase's slope used to determine an actor's z position
+								trgCreated[a].collisionMaskRun = self.collisionMaskRun; // The run of the sloped edge at which rays iterate from
+								trgCreated[a].collisionMaskRise = self.collisionMaskRise; // The rise of the sloped edge at which rays iterate from
 								trgCreated[a].widthIterate = self.widthIterate;
 								trgCreated[a].widthIterateCollisionOff = self.widthIterateCollisionOff;
-								trgCreated[a].iterateLength = self.iterateLength;
-								trgCreated[a].slopeOriginOffsetX = self.slopeOriginOffsetX;
-								trgCreated[a].slopeOriginOffsetY = self.slopeOriginOffsetY;
+								trgCreated[a].iterateLength = self.iterateLength; // How many iterations of rays there will be across the staircase edge
+								trgCreated[a].slopeOriginOffsetX = self.slopeOriginOffsetX; // The x coordinate at which the rays start from
+								trgCreated[a].slopeOriginOffsetY = self.slopeOriginOffsetY; // The y coordinate at which the rays start from
 								trgCreated[a].rayXComponent = self.rayXComponent; // The horizontal length component of the collision ray
 								trgCreated[a].rayYComponent = self.rayYComponent; // The vertical length component of the collision ray
 								trgCreated[a].staircaseRotation = self.staircaseRotation; // Used to check if the rotation is 0 or 2, which need collision exception cases
 								
-								if self.staircaseType != 1 || (self.staircaseRotation != 3 && self.staircaseRotation != 5) {
+								if self.staircaseType != 1 || (self.staircaseRotation != 3 && self.staircaseRotation != 5 && self.staircaseRotation != 7 && self.staircaseRotation != 9) {
 									// There is no explicable reason why this if-statement makes the game work, but it does.
 									// I spent hours trying to comprehend this. Seriously, take my word for it.
 									
-									trgCreated[a].sprite_index = self.sprCreate[self.j];
+									trgCreated[a].sprite_index = self.sprCreate[self.j]; // The collision mask of this instance
 								}
 							}
 						}

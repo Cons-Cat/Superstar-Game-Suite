@@ -24,7 +24,7 @@ repeat(2) {
 			} else if staircaseId.staircaseRotation = 1 || staircaseId.staircaseRotation = 6 {
 				// Vertical staircase exception
 				iterateLengthTemp = staircaseId.iterateLength - staircaseId.widthIterateCollisionOff + 2;
-			} else if staircaseId.staircaseRotation = 5 {
+			} else if staircaseId.staircaseRotation = 5 || staircaseId.staircaseRotation = 7 {
 				iterateLengthTemp = staircaseId.iterateLength - staircaseId.widthIterateCollisionOff - 1;
 			} else {
 				iterateLengthTemp = staircaseId.iterateLength - staircaseId.widthIterateCollisionOff;
@@ -33,12 +33,11 @@ repeat(2) {
 			for (var i = -1; i <= iterateLengthTemp * 20; i += 1) {
 				run  = staircaseId.collisionMaskRun;
 				rise = staircaseId.collisionMaskRise;
-				//j = i*rise + 3;
 				
 				if staircaseId.staircaseRotation = 0 || staircaseId.staircaseRotation = 2 {
 					// Sideways staircase
 					var j = 1;
-				} else if staircaseId.staircaseRotation = 1 {
+				} else if staircaseId.staircaseRotation = 1 || staircaseId.staircaseRotation = 6 {
 					// Vertical staircase
 					var j = 0;
 				} else {
