@@ -296,8 +296,8 @@ if mode = 2 {
 		}
 		with obj_editor_staircase {
 			// Initialize variables
-			trgCreated[0] = 0;
-			trgCreated[1] = 0;
+			trgCreated[0] = -1;
+			trgCreated[1] = -1;
 			doubledUp = false;
 			
 			for (j = 0; j <= 4; j += 1) {
@@ -458,6 +458,15 @@ if mode = 2 {
 					if staircaseType = 1 {
 						#region
 						
+						if staircaseRotation = 1 {
+							#region
+							
+							staircaseCollisionRows = 1;
+							trgCreated[0] = instance_create_layer(x+i*20,y,"Instances",obj_staircase_collision);
+							trgCreated[1] = instance_create_layer(x+i*20,y-20,"Instances",obj_staircase_collision);
+							
+							#endregion
+						}
 						if staircaseRotation = 2 {
 							#region
 							
@@ -535,7 +544,7 @@ if mode = 2 {
 					
 					for(a = 0; a <= staircaseCollisionRows; a += 1) {
 						if (doubledUp && i > 1) || (!doubledUp) {
-							if trgCreated[a] != 0 {
+							if trgCreated[a] != -1 {
 								// Pass in specifications
 								trgCreated[a].zfloor = self.zfloor;
 								trgCreated[a].staircaseRun = self.staircaseRun;

@@ -112,10 +112,22 @@ if resetArray {
 			sprCreate[4] = -1;
 			
 			widthIterate = width + 2;
-			heightIterate = 1;
+			heightIterate = 2;
 			
 			staircaseRun = 0;
 			staircaseRise = -0.5;
+			
+			collisionMaskRun = 1;
+			collisionMaskRise = 0;
+			
+			// Origin varies for every staircase variant
+			slopeOriginOffsetX = x;
+			slopeOriginOffsetY = y+20;
+			
+			rayXComponent = 0;
+			rayYComponent = -45;
+			
+			widthIterateCollisionOff = 2;
 			
 			#endregion
 		}
@@ -207,8 +219,8 @@ if resetArray {
 			slopeOriginOffsetX = x;
 			slopeOriginOffsetY = y - 20;
 			
-			rayXComponent = 21;
-			rayYComponent = 41;
+			rayXComponent = 25;
+			rayYComponent = 45;
 			
 			#endregion
 		}
@@ -420,6 +432,10 @@ if resetArray {
 					#region
 					if i > 0 && i < width + 1 && j = 0 {
 						tileArrayDrawX[i,j] = 40;
+						tileArrayDrawY[i,j] = 0;
+					}
+					if i > 0 && i < width + 1 && j = 1 {
+						tileArrayDrawX[i,j] = 60;
 						tileArrayDrawY[i,j] = 0;
 					}
 					#endregion
