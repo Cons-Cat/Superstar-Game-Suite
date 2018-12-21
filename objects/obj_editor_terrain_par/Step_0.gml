@@ -171,6 +171,21 @@ if placed = 1 {
 									}
 								}
 							}
+							// Spawn tiles GUI (slope 3)
+							if str = "staircase" {
+								for (i = 0; i < widthIterate; i += 1) {
+									for (j = heightIterate; j >= zfloor; j -= 1) {
+										with instance_create_layer(i*20+i,600-j*20-j-heightIterate*20+(zfloor-zcieling)*20+40,"Instances",obj_tiles_grid) {
+											trgId = other.id;
+											i = other.i;
+											j = other.j;
+											tempMaterial = other.sprMaterial;
+											xVal = other.tileArrayDrawX[i,j];
+											yVal = other.tileArrayDrawY[i,j];
+										}
+									}
+								}
+							}
 							
 							if !instance_exists(obj_tiles_sheet) {
 								instance_create_layer(600,600,"Instances",obj_tiles_sheet);

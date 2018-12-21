@@ -107,6 +107,3 @@ if (obj_editor_gui.mode = 0 || obj_editor_gui.mode = 2 || obj_editor_gui.mode = 
 		}
 	}
 }
-
-draw_set_color(c_red);
-draw_rectangle(x,y,x,y,false);

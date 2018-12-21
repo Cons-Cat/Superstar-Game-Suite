@@ -81,21 +81,20 @@ if obj_editor_gui.mode != 2 {
 			
 			if staircaseRotation = 2 {
 				staircaseRun = 0.5;
+				collisionMaskRun = 1;
+				rayXComponent = 45;
+				slopeOriginOffsetX = x - 2;
 			} else {
 				staircaseRun = -0.5;
+				collisionMaskRun = -1;
+				rayXComponent = -45;
+				slopeOriginOffsetX = x + 40;
 			}
+			
 			staircaseRise = 0;
-			
-			collisionMaskRun = 1;
 			collisionMaskRise = 1;
-			
-			// Origin varies for every staircase variant
-			slopeOriginOffsetX = x;
-			slopeOriginOffsetY = y+20;
-			
-			rayXComponent = 41;
 			rayYComponent = 0;
-			
+			slopeOriginOffsetY = y+20;
 			widthIterateCollisionOff = 1;
 			
 			#endregion
@@ -267,18 +266,105 @@ if obj_editor_gui.mode != 2 {
 		zIterate = 3;
 		
 		if staircaseRotation = 0 || staircaseRotation = 2 {
+			#region
+			sprCreate[0] = spr_solid;
+			sprCreate[1] = -1;
+			sprCreate[2] = -1;
+			sprCreate[3] = -1;
+			sprCreate[4] = -1;
+			
 			widthIterate = 3;
 			heightIterate = width + 2;
+			
+			if staircaseRotation = 0 {
+				// Cast westward
+				staircaseRun = -2;
+				collisionMaskRun = 0;
+				rayXComponent = -25;
+				slopeOriginOffsetX = x+22; // IDK it just works .. largely
+			} else {
+				// Cast eastward
+				staircaseRun = 2;
+				collisionMaskRun = 0;
+				rayXComponent = 22;
+				slopeOriginOffsetX = x-1;
+			}
+			
+			staircaseRise = 0;
+			collisionMaskRise = 1;
+			slopeOriginOffsetY = y+20;
+			rayYComponent = 0;
+			widthIterateCollisionOff = 1;
+			
+			#endregion
 		}
-		if staircaseRotation = 1 || staircaseRotation = 6 {
+		if staircaseRotation = 1 {
+			#region
+			
+			sprCreate[0] = spr_solid;
+			sprCreate[1] = -1;
+			sprCreate[2] = -1;
+			sprCreate[3] = -1;
+			sprCreate[4] = -1;
+			
 			widthIterate = width + 2;
 			heightIterate = 2;
+			
+			staircaseRun = 0;
+			staircaseRise = -2;
+			
+			collisionMaskRun = 1;
+			collisionMaskRise = 0;
+			
+			// Origin varies for every staircase variant
+			slopeOriginOffsetX = x;
+			slopeOriginOffsetY = y+20;
+			
+			rayXComponent = 0;
+			rayYComponent = -25;
+			
+			widthIterateCollisionOff = 2;
+			
+			#endregion
 		}
 		if staircaseRotation = 3 || staircaseRotation = 9 {
+			#region
+			
 			widthIterate = round(width/2) + 2;
 			heightIterate = floor(width/2) * 2 + 1;
+			
+			if staircaseRotation = 3 {
+				sprCreate[0] = spr_slopeL_05x_bot;
+				sprCreate[1] = spr_slopeR_2x_bot;
+				sprCreate[2] = spr_slopeR_05x;
+				sprCreate[3] = spr_slopeL_2x;
+				sprCreate[4] = spr_solid;
+				staircaseRun = 0.8;
+				collisionMaskRun = 1;
+				rayXComponent = 45;
+				slopeOriginOffsetX = x;
+			} else {
+				sprCreate[0] = spr_slopeL_2x_bot;
+				sprCreate[1] = spr_slopeR_05x_bot;
+				sprCreate[2] = spr_slopeR_2x;
+				sprCreate[3] = spr_slopeL_05x;
+				sprCreate[4] = spr_solid;
+				staircaseRun = -0.8;
+				collisionMaskRun = -1;
+				rayXComponent = -45;
+				slopeOriginOffsetX = x + width * 10 + 40;
+			}
+			
+			staircaseRise = 0.4;
+			collisionMaskRise = 2;
+			rayYComponent = 25;
+			slopeOriginOffsetY = y;
+			
+			#endregion
 		}
 		if staircaseRotation = 4 {
+			#region
+			
 			sprCreate[0] = spr_slopeL_1x_bot;
 			sprCreate[1] = spr_slopeR_1x_bot;
 			sprCreate[2] = spr_slopeR_1x;
@@ -290,6 +376,8 @@ if obj_editor_gui.mode != 2 {
 			
 			staircaseRun = 1;
 			staircaseRise = 1;
+			
+			#endregion
 		}
 		
 		#endregion

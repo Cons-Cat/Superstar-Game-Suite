@@ -2,6 +2,8 @@
 // You can write your code in this editor
 draw_self();
 
+draw_set_color(c_white);
+
 if staircaseRotation = 0 || staircaseRotation = 2 {
 	// Sideways staircase
 	iterateLengthTemp = iterateLength - widthIterateCollisionOff + 1;
@@ -40,4 +42,5 @@ for (var i = -1; i <= (iterateLengthTemp) * 20; i += 1) {
 	}
 }
 
+draw_set_color(c_blue);
 draw_rectangle(slopeOriginOffsetX,slopeOriginOffsetY,slopeOriginOffsetX,slopeOriginOffsetY,false);
