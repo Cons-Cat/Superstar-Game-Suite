@@ -3,6 +3,10 @@ event_inherited();
 
 y = obj_panel_top.y - 57;
 
+if !mouse_check_button(mb_left) {
+	imgIndex = 0;
+}
+
 if select {
 	// Slide side panels out
 	if obj_panel_left.moveToSpd = 0 && obj_panel_right.moveToSpd = 0 {

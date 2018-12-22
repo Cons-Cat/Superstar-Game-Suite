@@ -25,7 +25,7 @@ draw_surface_ext(surf2, _vx, _vy,1,1,0,c_white,1);
 // Draw room grid
 for(i = 0; i < room_width; i += 20) {
 	for(j = 576; j < room_height; j += 20) {
-		draw_sprite(spr_grid_editor,0,i,j);
+		draw_sprite(modeGridSpr,0,i,j);
 	}
 }
 

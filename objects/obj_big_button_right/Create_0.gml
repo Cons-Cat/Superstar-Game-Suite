@@ -7,3 +7,5 @@ sortIndex = 0;
 panelXPosition = 0;
 sprWidth = 160;
 sprHeight = 50;
+
+placing = false;

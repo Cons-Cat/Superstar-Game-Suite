@@ -1,6 +1,6 @@
 /// @description 
 cameraRealGame = camera_create_view(room_width,room_height,512,288,0,obj_camera_editor,-1,-1,512/2+20,288/2+20);
-//camera = camera_create_view(1024,576,1024,576,0,-1,-1,-1,1024/2+20,576/2+20);
+camera = camera_create_view(1024,576,1024,576,0,-1,-1,-1,1024/2+20,576/2+20);
 view_set_camera(0, cameraRealGame);
 //view_set_camera(1, camera);
 camera_set_view_pos(view_camera[0], 0, 580);
@@ -16,6 +16,7 @@ font = font_add_sprite_ext(spr_font,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQ
 draw_set_font(font);
 
 mode = 0;
+modeGridSpr = spr_grid_editor;
 sidePanelCtrl = -1;
 spawnedCollisions = false;
 iTemp = 0;
@@ -27,6 +28,10 @@ sprMaterialDirectoryList[1] = "";
 materialDirectorySprite[0] = "";
 materialDirectorySprite[1] = "";
 hasMaterials = false;
+
+selectInstance = -1;
+canChangeSelect = true;
+tempDepth = 0;
 
 global.pieceSelected = -1;
 global.sprMaterial = spr_tls_rectangle_default;

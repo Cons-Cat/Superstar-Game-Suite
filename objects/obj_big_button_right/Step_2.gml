@@ -1,8 +1,36 @@
 /// @description Insert description here
+if mouse_check_button_pressed(mb_left) {
+	if obj_panel_left.select = 0 && obj_panel_right.select = 0 && obj_panel_top.select = 0 {
+		imgIndex = 0;
+	}
+}
+
 event_inherited();
+
+if imgIndex = 0 {
+	select = false;
+}
 
 x = obj_panel_right.x + 6 + sortX;
 y = 78 + sortY;
+
+// Placing instances
+if select {
+	if mouse_x > obj_panel_left.x && mouse_x < obj_panel_right.x {
+		if mouse_y > obj_panel_top.y {
+			if !(mouse_x >= obj_panel_left.x - 1 && mouse_x < obj_panel_left.x + 21 && mouse_y >= obj_panel_left.y - 60 && mouse_y <= obj_panel_left.y + 60) && obj_panel_left.select = 0 {
+				if !(mouse_x > obj_panel_right.x - 21 && mouse_x <= obj_panel_right.x + 1 && mouse_y >= obj_panel_right.y - 60 && mouse_y <= obj_panel_right.y + 60) && obj_panel_right.select = 0 {
+					if !(mouse_x > obj_panel_top.x - 60 && mouse_x < obj_panel_top.x + 60 && mouse_y >= obj_panel_top.y && mouse_y <= obj_panel_top.y + 21) && obj_panel_top.select = 0 {
+						placing = true;
+						show_debug_message(floor((mouse_x + 192 - 20) / 40) * 20 - 180);
+						show_debug_message(floor((mouse_y + 576) / 40) * 20 - 320);
+						show_debug_message("-");
+					}
+				}
+			}
+		}
+	}
+}
 
 if obj_panel_right.select = 1 || obj_panel_left.select = 1 {
 	panelXPosition = obj_panel_right.x;

@@ -1015,6 +1015,14 @@
             }
         },
         {
+            "Key": "69f253b6-22a8-413c-b01c-4e503bda98a6",
+            "Value": {
+                "id": "d3e9ee7a-e6b0-4915-8152-05d5a040d77a",
+                "resourcePath": "objects\\obj_big_button_topleft\\obj_big_button_topleft.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "6b2cc8a3-dc29-4b60-8f7e-d70339fe210a",
             "Value": {
                 "id": "4d3f3611-7f24-4c9f-8f8d-4a83a66f4197",

@@ -14,8 +14,8 @@ if obj_editor_gui.mode = 0 {
 		}
 		gpu_set_blendmode(bm_normal);
 	}
-
-
+	
+	
 	// Draw walls
 	if width > 1 {
 		for (i = 1; i < width-1; i += 1) { // Center fill
@@ -28,7 +28,7 @@ if obj_editor_gui.mode = 0 {
 				draw_sprite_ext(spr_walls_editor,1,x+i*20,y+j*20+(height-1)*20,1,1,0,layerColor,alpha);
 			}
 		}
-
+		
 		for (j = 1; j < zfloor-zcieling; j += 1) { // Left and right edges
 			if canSelect = false {
 				layerColor = col[ abs( (zfloor - j) % 8) ];
@@ -59,14 +59,14 @@ if obj_editor_gui.mode = 0 {
 		for (i = 1; i < width-1; i += 1) { // Bottom edge
 			draw_sprite_ext(spr_walls_editor,4,x+i*20,y+(height-1)*20+(zfloor-zcieling)*20,1,1,0,layerColor,alpha);
 		}
-	
+		
 		draw_sprite_ext(spr_walls_editor,3,x,y+(height-1)*20+(zfloor-zcieling)*20,1,1,0,layerColor,alpha);
 		draw_sprite_ext(spr_walls_editor,5,x+(width-1)*20,y+(height-1)*20+(zfloor-zcieling)*20,1,1,0,layerColor,alpha);
-
+		
 	} else {
 		draw_sprite_ext(spr_walls_editor,7,x,y+(zfloor-zcieling)*20+(height-1)*20,1,1,0,layerColor,alpha);
 	}
-
+	
 	// Draw floor
 	if canSelect = false {
 		if zfloor > 0 {
@@ -77,7 +77,7 @@ if obj_editor_gui.mode = 0 {
 	} else {
 		layerColor = c_orange;
 	}
-
+	
 	if width > 1 && height > 1 {
 		draw_sprite_ext(spr_terrain_editor,0,x,y,1,1,0,layerColor,alpha);
 		draw_sprite_ext(spr_terrain_editor,2,x+(width-1)*20,y,1,1,0,layerColor,alpha);
@@ -119,14 +119,14 @@ if obj_editor_gui.mode = 0 {
 			}
 		}
 	}
-
+	
 	// Initialize shadow iteration
 	for (i = 0; i < width; i += 1) {
 		for (j = 0; j < height; j += 1) {
 			shadowed[i,j] = 0;
 		}
 	}
-
+	
 	if zcieling >= 0 {
 		// Draw Shadow
 		gpu_set_blendmode(bm_inv_src_color);

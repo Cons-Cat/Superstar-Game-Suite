@@ -40,6 +40,9 @@ sprMaterial = spr_tls_rectangle_default;
 tileArrayDrawX[0,0] = 0;
 tileArrayDrawY[0,0] = 0;
 paintSelected = false;
-canSelect = false;
 depthIterate = 0;
+
+canSelect = true;
+obj_editor_gui.canChangeSelect = false;
+
 alarm[0] = 2;

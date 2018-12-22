@@ -1,10 +1,20 @@
 /// @description 
 event_inherited();
 
+// Selecting
+if mouseCheckX >= self.x - sprite_width/2 && mouseCheckX <= self.x + sprite_width/2 && mouseCheckY >= self.y && mouseCheckY <= self.y + sprite_height {
+	if mouse_check_button_pressed(mb_left) {
+		select = true;
+	}
+}
+
 if instance_exists(trg) {
 	if select = 1 {
-		y = floor(mouse_y/20)*20;
-	
+		if selectYOff = 0 {
+			selectYOff = mouseCheckY - y;
+		}
+		y = floor((mouseCheckY - selectYOff)/20)*20 + 16;
+		
 		if y < trg.y + trg.height*20 {
 			y = trg.y + trg.height*20;
 		}
@@ -13,7 +23,7 @@ if instance_exists(trg) {
 				y = trg.y + trg.height*20 + (trg.zfloor - trg.zcieling)*20;
 			}
 		}
-	
+		
 		if self.y < trg.y + trg.height*20 + (trg.zfloor - trg.zcieling)*20 {
 			trg.zcieling += 1;
 		}

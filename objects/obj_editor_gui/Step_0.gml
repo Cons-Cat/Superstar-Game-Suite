@@ -4,10 +4,43 @@ var back_id = layer_background_get_id(lay_id);
 
 if mode = 1 {
 	// Dark grid
-	layer_background_sprite(back_id,spr_grid_dark_editor);
+	modeGridSpr = spr_grid_dark_editor;
 } else {
 	// Light grid
-	layer_background_sprite(back_id,spr_grid_editor);
+	modeGridSpr = spr_grid_editor;
+}
+
+mouseCheckX = floor(mouse_x/2) + camera_get_view_x(cameraRealGame);
+mouseCheckY = floor(mouse_y/2+596) + camera_get_view_y(cameraRealGame) - 596;
+
+// Selecting instances
+if canChangeSelect {
+	tempDepth = 0;
+	selectInstance = -1;
+	
+	for (i = 0; i < instance_number(obj_editor_terrain_par); i += 1) {
+		with instance_find(obj_editor_terrain_par,i) {
+			select = 0;
+			canSelect = false;
+			
+			other.tempSelectInstance = self.id;
+		}
+		
+		if mouseCheckX >= tempSelectInstance.x && mouseCheckX < tempSelectInstance.x + tempSelectInstance.width * 20 && mouseCheckY >= tempSelectInstance.y && mouseCheckY < tempSelectInstance.y + tempSelectInstance.image_yscale * 20 {
+			if obj_editor_gui.mode = 0 || obj_editor_gui.mode = 3 {
+				if tempSelectInstance.depth <= tempDepth {
+					tempDepth = tempSelectInstance.depth;
+					selectInstance = tempSelectInstance;
+				}
+			}
+		}
+	}
+	if selectInstance != -1 {
+		selectInstance.canSelect = true;
+	}
+}
+if !instance_exists(obj_editor_terrain_par) {
+	tempSelectInstance = -1;
 }
 
 // Spawn collisions

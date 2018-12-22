@@ -1,5 +1,5 @@
 /// @description 
-drawX = camera_get_view_x(obj_editor_gui.camera)+startX;
+/*drawX = camera_get_view_x(obj_editor_gui.camera)+startX;
 drawY = camera_get_view_y(obj_editor_gui.camera)+startY;
 
 if z >= 0 {
