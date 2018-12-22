@@ -54,21 +54,21 @@ if obj_editor_gui.mode != 2 && (obj_editor_gui.mode != 3 || global.pieceSelected
 }
 
 // Boundaries
-if x < 170 {
-	x = 170;
+if x < 260 {
+	x = 260;
 }
-if x > room_width - 170 {
-	x = room_width - 170;
+if x > room_width - 144 {
+	x = room_width - 144;
 }
-if y < 80 {
-	y = 80;
+if y < 576 + 174 {
+	y = 576 + 174;
 }
-if y > room_height - 168 - 80 {
+/*if y > room_height - 168 - 80 {
 	y = room_height - 168 - 80;
-}
+}*/
 
 // Debug viewports
-if keyboard_check_pressed(ord("1")) {
+/*if keyboard_check_pressed(ord("1")) {
 	room_set_viewport(roomVar,0,true,0,0,460,259);
 }
 if keyboard_check_pressed(ord("2")) {
@@ -76,6 +76,6 @@ if keyboard_check_pressed(ord("2")) {
 }
 if keyboard_check(vk_alt) && keyboard_check_pressed(vk_enter) {
 	window_set_fullscreen(!window_get_fullscreen());
-}
+}*/
 
 depth = -room_height - 200;

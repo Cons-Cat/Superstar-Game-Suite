@@ -10,5 +10,5 @@ spasmI = 0;
 
 roomVar = room;
 
-view_visible[1] = false;
-view_visible[2] = false;
+//view_visible[1] = false;
+//view_visible[2] = false;

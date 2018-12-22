@@ -802,11 +802,18 @@ if mode = 2 {
 if mode = 3 {
 	if keyboard_check_pressed(vk_enter) {
 		if instance_exists(obj_tiles_grid) {
-			view_visible[1] = false;
+			//view_visible[1] = false;
 			view_visible[2] = false;
 			
 			obj_tiles_grid.close = true;
 			global.pieceSelected = -1;
 		}
 	}
+}
+
+// Control side panel pushing
+if obj_panel_left.select = 0 && obj_panel_right.select = 0 {
+	//if obj_panel_left.moveToSpd = 0 && obj_panel_right.moveToSpd = 0 {
+		sidePanelCtrl = -1;
+	//}
 }
