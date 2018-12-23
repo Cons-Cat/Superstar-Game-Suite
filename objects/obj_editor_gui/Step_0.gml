@@ -26,8 +26,8 @@ if canChangeSelect {
 			other.tempSelectInstance = self.id;
 		}
 		
-		if mouseCheckX >= tempSelectInstance.x && mouseCheckX < tempSelectInstance.x + tempSelectInstance.width * 20 && mouseCheckY >= tempSelectInstance.y && mouseCheckY < tempSelectInstance.y + tempSelectInstance.image_yscale * 20 {
-			if obj_editor_gui.mode = 0 || obj_editor_gui.mode = 3 {
+		if (mouseCheckX >= tempSelectInstance.x && mouseCheckX < tempSelectInstance.x + tempSelectInstance.width * 20 && mouseCheckY >= tempSelectInstance.y && mouseCheckY < tempSelectInstance.y + tempSelectInstance.image_yscale * 20 && mode = 0) || (mouseCheckX >= tempSelectInstance.x && mouseCheckX < tempSelectInstance.x + tempSelectInstance.width * 20 && mouseCheckY >= tempSelectInstance.y + (tempSelectInstance.zfloor - tempSelectInstance.zcieling) * 20 && mouseCheckY < tempSelectInstance.y + (tempSelectInstance.zfloor - tempSelectInstance.zcieling + tempSelectInstance.height) * 20 && mode = 1) {
+			if obj_editor_gui.mode = 0 || obj_editor_gui.mode = 1 || obj_editor_gui.mode = 3 {
 				if tempSelectInstance.depth <= tempDepth {
 					tempDepth = tempSelectInstance.depth;
 					selectInstance = tempSelectInstance;
@@ -35,6 +35,7 @@ if canChangeSelect {
 			}
 		}
 	}
+	
 	if selectInstance != -1 {
 		selectInstance.canSelect = true;
 	}

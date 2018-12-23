@@ -1,6 +1,8 @@
 /// @description Slide side panels in
-with obj_big_button_right {
-	instance_destroy();
+if !(!instance_exists(obj_editor_terrain_par) && isPlayButton) {
+	with obj_big_button_right {
+		instance_destroy();
+	}
 }
 
 obj_panel_left.moveToX = global.tempXLeft;

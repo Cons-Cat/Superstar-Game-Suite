@@ -58,7 +58,7 @@ if jumpDelay = jumpDelayMax {
 }
 
 if (keyboard_check(_up) || keyboard_check(_down)) && (keyboard_check(_left) || keyboard_check(_right)) {
-	max_speed = phy_walkspeed - 0.03;
+	max_speed = phy_walkspeed - 0.015;
 } else {
 	max_speed = phy_walkspeed;
 }
@@ -81,42 +81,42 @@ if c_vspeed < -max_speed {
 if moving {
 	if keyboard_check(_up) && !keyboard_check(_right) && !keyboard_check(_down) && !keyboard_check(_left) {
 		jumpTempHspd = 0;
-		jumpTempVspd = -max_speed-0.16;
+		jumpTempVspd = -max_speed-0.8;
 		rotationInputDirection = 90;
 	}
 	if keyboard_check(_up) && keyboard_check(_right) && !keyboard_check(_down) && !keyboard_check(_left) {
-		jumpTempHspd = max_speed+0.16;
-		jumpTempVspd = -max_speed-0.16;
+		jumpTempHspd = max_speed+0.8;
+		jumpTempVspd = -max_speed-0.8;
 		rotationInputDirection = 45;
 	}
 	if !keyboard_check(_up) && keyboard_check(_right) && !keyboard_check(_down) && !keyboard_check(_left) {
-		jumpTempHspd = max_speed+0.16;
+		jumpTempHspd = max_speed+0.8;
 		jumpTempVspd = 0;
 		rotationInputDirection = 0;
 	}
 	if !keyboard_check(_up) && keyboard_check(_right) && keyboard_check(_down) && !keyboard_check(_left) {
-		jumpTempHspd = max_speed+0.16;
-		jumpTempVspd = max_speed+0.16;
+		jumpTempHspd = max_speed+0.8;
+		jumpTempVspd = max_speed+0.8;
 		rotationInputDirection = 315;
 	}
 	if !keyboard_check(_up) && !keyboard_check(_right) && keyboard_check(_down) && !keyboard_check(_left) {
 		jumpTempHspd = 0;
-		jumpTempVspd = max_speed+0.16;
+		jumpTempVspd = max_speed+0.8;
 		rotationInputDirection = 270;
 	}
 	if !keyboard_check(_up) && !keyboard_check(_right) && keyboard_check(_down) && keyboard_check(_left) {
-		jumpTempHspd = -max_speed-0.16;
-		jumpTempVspd = max_speed+0.16;
+		jumpTempHspd = -max_speed-0.8;
+		jumpTempVspd = max_speed+0.8;
 		rotationInputDirection = 225;
 	}
 	if !keyboard_check(_up) && !keyboard_check(_right) && !keyboard_check(_down) && keyboard_check(_left) {
-		jumpTempHspd = -max_speed-0.16;
+		jumpTempHspd = -max_speed-0.8;
 		jumpTempVspd = 0;
 		rotationInputDirection = 180;
 	}
 	if keyboard_check(_up) && !keyboard_check(_right) && !keyboard_check(_down) && keyboard_check(_left) {
-		jumpTempHspd = -max_speed-0.16;
-		jumpTempVspd = -max_speed-0.16;
+		jumpTempHspd = -max_speed-0.8;
+		jumpTempVspd = -max_speed-0.8;
 		rotationInputDirection = 135;
 	}
 }
@@ -144,7 +144,7 @@ if (abs(c_hspeed) + abs(c_vspeed))/2 != 0 && !jumping {
 } else if jumping {
 	if !jumpAnim {
 		if imgIndex < 5 {
-			imgIndex += 1;
+			imgIndex += 0.5;
 		} else {
 			jumpAnim = true;
 		}
@@ -175,7 +175,7 @@ if canMove {
 		if jumpDelay > 0 {
 			if !fallSearch {
 				// Pre-jump timer
-				jumpDelay -= 1;
+				jumpDelay -= 0.75;
 			} else {
 				// Cancel pre-jump if moved off a platform
 				jumping = false;
@@ -192,7 +192,7 @@ if canMove {
 			// Rising skyward
 			if jumpHeight < maxJumpHeight + jumpBoost {
 				jumpHeight += jumpSpeed;
-				jumpGrav = 1;
+				jumpGrav = 0.5;
 			} else {
 				jumpHeight += jumpSpeed / jumpGrav;
 				
@@ -216,8 +216,8 @@ if !jumping {
 		// Earth-bound gravity
 		if !keyboard_check(_A) || glideDelay = 0 {
 			if jumpHeight > platOn + jumpGrav/2 {
-				jumpHeight -= 0.5 + jumpGrav/2; // Comment out to disable gravity
-			
+				jumpHeight -= 0.25 + jumpGrav/2; // Comment out to disable gravity
+				
 				if jumpGrav < jumpGravMax {
 					jumpGrav += jumpGravVal;
 				} else {
@@ -286,7 +286,7 @@ if instance_exists(trgFinal) {
 		fallSearch = false; // Cancel fall if standing on a platform
 		onGround = true;
 		
-		depth = -(trgFinal.y + 20) - trgFinal.zfloor - 3 - trgFinal.depthOffset/3;
+		depth = obj_editor_gui.depth - (trgFinal.y + 20) - trgFinal.zfloor - 3 - trgFinal.depthOffset/3;
 	}
 }
 

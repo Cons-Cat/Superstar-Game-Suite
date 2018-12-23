@@ -8,10 +8,10 @@ var rotSpd;
 
 if abs(dirIso - argument[0]) > 1 && !(argument[0] = 0 && dirIso >= 7) {
 	// Rotate quickly across a wide arc
-	rotSpd = 0.5;
+	rotSpd = 0.25;
 } else {
 	// Rotate slowly across a short arc
-	rotSpd = 0.25;
+	rotSpd = 0.125;
 }
 
 if argument[1] = 0 { // Clockwise

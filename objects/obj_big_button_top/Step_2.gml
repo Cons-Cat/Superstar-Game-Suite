@@ -23,5 +23,6 @@ if select {
 	obj_panel_right.moveDirection = 1;
 	
 	select = false;
+	changeMode = true;
 	alarm[0] = 16;
 }

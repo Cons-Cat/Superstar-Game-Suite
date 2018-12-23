@@ -5,6 +5,23 @@ if mouse_check_button_pressed(mb_left) {
 	}
 }
 
+// Placing instances
+if select {
+	if mouse_x > obj_panel_left.x && mouse_x < obj_panel_right.x {
+		if mouse_y > obj_panel_top.y {
+			if !(mouse_x >= obj_panel_left.x - 1 && mouse_x < obj_panel_left.x + 21 && mouse_y >= obj_panel_left.y - 60 && mouse_y <= obj_panel_left.y + 60) && obj_panel_left.select = 0 {
+				if !(mouse_x > obj_panel_right.x - 21 && mouse_x <= obj_panel_right.x + 1 && mouse_y >= obj_panel_right.y - 60 && mouse_y <= obj_panel_right.y + 60) && obj_panel_right.select = 0 {
+					if !(mouse_x > obj_panel_top.x - 60 && mouse_x < obj_panel_top.x + 60 && mouse_y >= obj_panel_top.y && mouse_y <= obj_panel_top.y + 21) && obj_panel_top.select = 0 {
+						if mouse_check_button_pressed(mb_left) {
+							instance_create_layer(floor(mouse_x / 20) * 40 + camera_get_view_x(obj_editor_gui.cameraRealGame), floor(mouse_y / 20) * 40 + camera_get_view_y(obj_editor_gui.cameraRealGame), "Instances",objIndex);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 event_inherited();
 
 if imgIndex = 0 {
@@ -13,24 +30,6 @@ if imgIndex = 0 {
 
 x = obj_panel_right.x + 6 + sortX;
 y = 78 + sortY;
-
-// Placing instances
-if select {
-	if mouse_x > obj_panel_left.x && mouse_x < obj_panel_right.x {
-		if mouse_y > obj_panel_top.y {
-			if !(mouse_x >= obj_panel_left.x - 1 && mouse_x < obj_panel_left.x + 21 && mouse_y >= obj_panel_left.y - 60 && mouse_y <= obj_panel_left.y + 60) && obj_panel_left.select = 0 {
-				if !(mouse_x > obj_panel_right.x - 21 && mouse_x <= obj_panel_right.x + 1 && mouse_y >= obj_panel_right.y - 60 && mouse_y <= obj_panel_right.y + 60) && obj_panel_right.select = 0 {
-					if !(mouse_x > obj_panel_top.x - 60 && mouse_x < obj_panel_top.x + 60 && mouse_y >= obj_panel_top.y && mouse_y <= obj_panel_top.y + 21) && obj_panel_top.select = 0 {
-						placing = true;
-						show_debug_message(floor((mouse_x + 192 - 20) / 40) * 20 - 180);
-						show_debug_message(floor((mouse_y + 576) / 40) * 20 - 320);
-						show_debug_message("-");
-					}
-				}
-			}
-		}
-	}
-}
 
 if obj_panel_right.select = 1 || obj_panel_left.select = 1 {
 	panelXPosition = obj_panel_right.x;
@@ -42,13 +41,13 @@ if obj_panel_right.select = 1 || obj_panel_left.select = 1 {
 if 1024 - panelXPosition <= 340 {
 	sortX = 0;
 	
-	for(i = 0; i < 4; i += 1) {
+	for(i = 0; i <= 4; i += 1) {
 		if sortIndex = i {
 			sortY = i * 57;
 		}
 	}
 } else if 1024 - panelXPosition <= 500 {
-	for(i = 0; i < 4; i += 1) {
+	for(i = 0; i <= 4; i += 1) {
 		if sortIndex = i {
 			if i % 2 = 0 {
 				// Even
@@ -62,23 +61,19 @@ if 1024 - panelXPosition <= 340 {
 		}
 	}
 } else if 1024 - panelXPosition <= 662 {
-	for(i = 0; i < 4; i += 1) {
+	for(i = 0; i <= 4; i += 1) {
 		if sortIndex = i {
-			if i < 3 {
-				sortX = i * 162;
-			} else {
-				sortX = 0;
-			}
-			
+			sortX = (i % 3) * 162;
 			sortY = floor(i/3) * 57;
 		}
 	}
 } else {
 	sortY = 0;
 	
-	for(i = 0; i < 4; i += 1) {
+	for(i = 0; i <= 4; i += 1) {
 		if sortIndex = i {
-			sortX = i * 162;
+			sortX = (i % 4) * 162;
+			sortY = floor(i/4) * 57;
 		}
 	}
 }

@@ -2,7 +2,7 @@
 event_inherited();
 
 if changeMode {
-	obj_editor_gui.mode = 0;
+	obj_editor_gui.mode = 1;
 	changeMode = false;
 }
 

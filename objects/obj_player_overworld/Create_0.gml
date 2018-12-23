@@ -3,10 +3,10 @@ event_inherited();
 
 scr_cmove_init();
 
-phy_walkspeed = 2;
-phy_runspeed = 2.5;
-phy_acceleration = 0.75;
-phy_deceleration = 0.565;
+phy_walkspeed = 1;
+phy_runspeed = 1.25;
+phy_acceleration = 0.375;
+phy_deceleration = 0.2825;
 
 c_gravity = 0;
 dir1 = 1;
@@ -33,7 +33,7 @@ moving = false;
 jumpAnim = false;
 
 sprite_index = spr_point;
-image_speed = 0.3;
+image_speed = 0.15;
 
 sprD = spr_lucy_down;
 sprDDR = spr_lucy_ddownright;
@@ -90,28 +90,28 @@ check1 = 0;
 
 jumpHeight = 0;
 maxJumpHeight = 20;
-jumpSpeed = 4.2;
+jumpSpeed = 2.1;
 jumping = false;
 jumpGrav = 0;
-jumpGravVal = 0.7205;
-jumpGravMax = 12;
+jumpGravVal = 0.36025;
+jumpGravMax = 6;
 platOn = 0;
 platOnTemp = platOn;
 jumpBoost = 0;
 onGround = true;
 
-jumpDelayMax = 7;
+jumpDelayMax = 14;
 jumpDelay = jumpDelayMax;
 jumpTempHspd = 0;
 jumpTempVspd = 0;
-jumpPrepDecel = 4;
+jumpPrepDecel = 2;
 
 staircaseHeight = 0;
 staircaseXOrigin = 0;
 staircaseYOrigin = 0;
 onStaircase = false;
 
-glideDelayMax = 25;
+glideDelayMax = 12.5;
 glideDelay = glideDelayMax;
 /*boosting = false;
 boostSpeed = 3.5;

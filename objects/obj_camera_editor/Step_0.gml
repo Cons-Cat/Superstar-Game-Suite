@@ -57,15 +57,15 @@ if obj_editor_gui.mode != 2 && (obj_editor_gui.mode != 3 || global.pieceSelected
 if x < 260 {
 	x = 260;
 }
-if x > room_width - 144 {
-	x = room_width - 144;
+if x > room_width - 264 {
+	x = room_width - 264;
 }
 if y < 576 + 174 {
 	y = 576 + 174;
 }
-/*if y > room_height - 168 - 80 {
-	y = room_height - 168 - 80;
-}*/
+if y > room_height - 162 {
+	y = room_height - 162;
+}
 
 // Debug viewports
 /*if keyboard_check_pressed(ord("1")) {
@@ -78,4 +78,6 @@ if keyboard_check(vk_alt) && keyboard_check_pressed(vk_enter) {
 	window_set_fullscreen(!window_get_fullscreen());
 }*/
 
-depth = -room_height - 200;
+depth = obj_editor_gui.depth - 1;
+show_debug_message(x)
+show_debug_message(y)
