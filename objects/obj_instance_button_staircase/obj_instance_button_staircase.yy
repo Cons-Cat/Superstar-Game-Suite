@@ -5,16 +5,6 @@
     "name": "obj_instance_button_staircase",
     "eventList": [
         {
-            "id": "85f1da31-33b8-4a9e-a749-107f421a92fd",
-            "modelName": "GMEvent",
-            "mvc": "1.0",
-            "IsDnD": false,
-            "collisionObjectId": "00000000-0000-0000-0000-000000000000",
-            "enumb": 0,
-            "eventtype": 8,
-            "m_owner": "41b6206c-15f4-4164-996b-bc18a8ee9930"
-        },
-        {
             "id": "5b1edccc-c7bb-432f-b76e-3eaf60b6efb2",
             "modelName": "GMEvent",
             "mvc": "1.0",
@@ -22,6 +12,16 @@
             "collisionObjectId": "00000000-0000-0000-0000-000000000000",
             "enumb": 0,
             "eventtype": 0,
+            "m_owner": "41b6206c-15f4-4164-996b-bc18a8ee9930"
+        },
+        {
+            "id": "ec021024-dbf8-491c-a1e5-60c3042c2809",
+            "modelName": "GMEvent",
+            "mvc": "1.0",
+            "IsDnD": false,
+            "collisionObjectId": "00000000-0000-0000-0000-000000000000",
+            "enumb": 0,
+            "eventtype": 8,
             "m_owner": "41b6206c-15f4-4164-996b-bc18a8ee9930"
         }
     ],

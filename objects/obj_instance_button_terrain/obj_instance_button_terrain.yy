@@ -5,16 +5,6 @@
     "name": "obj_instance_button_terrain",
     "eventList": [
         {
-            "id": "d51afb09-930f-41be-9b9f-ac798c4a5655",
-            "modelName": "GMEvent",
-            "mvc": "1.0",
-            "IsDnD": false,
-            "collisionObjectId": "00000000-0000-0000-0000-000000000000",
-            "enumb": 0,
-            "eventtype": 8,
-            "m_owner": "f2964e36-1f2c-409d-a6aa-f3210364621a"
-        },
-        {
             "id": "ce0ebf69-c64d-4cd8-b567-0f5031239354",
             "modelName": "GMEvent",
             "mvc": "1.0",
@@ -22,6 +12,16 @@
             "collisionObjectId": "00000000-0000-0000-0000-000000000000",
             "enumb": 0,
             "eventtype": 0,
+            "m_owner": "f2964e36-1f2c-409d-a6aa-f3210364621a"
+        },
+        {
+            "id": "cc3a7e47-f449-4ef6-b0d8-3bb9410a3a10",
+            "modelName": "GMEvent",
+            "mvc": "1.0",
+            "IsDnD": false,
+            "collisionObjectId": "00000000-0000-0000-0000-000000000000",
+            "enumb": 0,
+            "eventtype": 8,
             "m_owner": "f2964e36-1f2c-409d-a6aa-f3210364621a"
         }
     ],

@@ -26,7 +26,7 @@ if canChangeSelect {
 			other.tempSelectInstance = self.id;
 		}
 		
-		if (mouseCheckX >= tempSelectInstance.x && mouseCheckX < tempSelectInstance.x + tempSelectInstance.width * 20 && mouseCheckY >= tempSelectInstance.y && mouseCheckY < tempSelectInstance.y + tempSelectInstance.image_yscale * 20 && mode = 0) || (mouseCheckX >= tempSelectInstance.x && mouseCheckX < tempSelectInstance.x + tempSelectInstance.width * 20 && mouseCheckY >= tempSelectInstance.y + (tempSelectInstance.zfloor - tempSelectInstance.zcieling) * 20 && mouseCheckY < tempSelectInstance.y + (tempSelectInstance.zfloor - tempSelectInstance.zcieling + tempSelectInstance.height) * 20 && mode = 1) {
+		if (mouseCheckX >= tempSelectInstance.x && mouseCheckX < tempSelectInstance.x + tempSelectInstance.width * 20 && mouseCheckY >= tempSelectInstance.y && mouseCheckY < tempSelectInstance.y + tempSelectInstance.image_yscale * 20 && (mode != 1 && mode != 4)) || (mouseCheckX >= tempSelectInstance.x && mouseCheckX < tempSelectInstance.x + tempSelectInstance.width * 20 && mouseCheckY >= tempSelectInstance.y + (tempSelectInstance.zfloor - tempSelectInstance.zcieling) * 20 && mouseCheckY < tempSelectInstance.y + (tempSelectInstance.zfloor - tempSelectInstance.zcieling + tempSelectInstance.height) * 20 && mode = 1) {
 			if obj_editor_gui.mode = 0 || obj_editor_gui.mode = 1 || obj_editor_gui.mode = 3 {
 				if tempSelectInstance.depth <= tempDepth {
 					tempDepth = tempSelectInstance.depth;
@@ -833,21 +833,7 @@ if mode = 2 {
 	}
 }
 
-if mode = 3 {
-	if keyboard_check_pressed(vk_enter) {
-		if instance_exists(obj_tiles_grid) {
-			//view_visible[1] = false;
-			view_visible[2] = false;
-			
-			obj_tiles_grid.close = true;
-			global.pieceSelected = -1;
-		}
-	}
-}
-
 // Control side panel pushing
 if obj_panel_left.select = 0 && obj_panel_right.select = 0 {
-	//if obj_panel_left.moveToSpd = 0 && obj_panel_right.moveToSpd = 0 {
-		sidePanelCtrl = -1;
-	//}
+	sidePanelCtrl = -1;
 }

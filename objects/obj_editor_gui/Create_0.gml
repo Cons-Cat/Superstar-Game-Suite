@@ -1,14 +1,19 @@
 /// @description 
 cameraRealGame = camera_create_view(room_width,room_height,512,288,0,obj_camera_editor,-1,-1,512/2+20,288/2+20);
 camera = camera_create_view(1024,576,1024,576,0,-1,-1,-1,1024/2+20,576/2+20);
+cameraLeftPanel = camera_create_view(1024,0,200,576,0,-1,-1,-1,-1,-1);
+cameraRightPanel = camera_create_view(1024,0,200,200,0,-1,-1,-1,-1,-1);
+
 view_set_camera(0, cameraRealGame);
-//view_set_camera(1, camera);
-camera_set_view_pos(view_camera[0], 0, 580);
-camera_set_view_size(view_camera[0], 512, 288);
-//camera_set_view_pos(view_camera[1], 0, 0);
-//camera_set_view_size(view_camera[1], 1024, 576);
-surf = 0;
-surf2 = 0;
+view_set_camera(2, cameraLeftPanel);
+view_set_camera(3, cameraRightPanel);
+
+camera_set_view_pos(cameraLeftPanel,15,86);
+camera_set_view_pos(cameraRightPanel,1008,86);
+
+view_set_xport(2,15);
+view_set_yport(2,86);
+view_set_yport(3,86);
 
 depth = -room_height - 200;
 

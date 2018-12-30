@@ -19,4 +19,4 @@ colZ[8] = make_color_rgb(225,86,204); // Pink
 x = 842;
 y = 21;
 
-depth = obj_editor_gui.depth - 1;
+depth = obj_editor_gui.depth - 3;

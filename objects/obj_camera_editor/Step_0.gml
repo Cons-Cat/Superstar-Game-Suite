@@ -79,5 +79,3 @@ if keyboard_check(vk_alt) && keyboard_check_pressed(vk_enter) {
 }*/
 
 depth = obj_editor_gui.depth - 1;
-show_debug_message(x)
-show_debug_message(y)

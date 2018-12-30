@@ -28,9 +28,6 @@ if imgIndex = 0 {
 	select = false;
 }
 
-x = obj_panel_right.x + 6 + sortX;
-y = 78 + sortY;
-
 if obj_panel_right.select = 1 || obj_panel_left.select = 1 {
 	panelXPosition = obj_panel_right.x;
 } else {
@@ -39,6 +36,7 @@ if obj_panel_right.select = 1 || obj_panel_left.select = 1 {
 
 // Sorting
 if 1024 - panelXPosition <= 340 {
+	obj_panel_right.panelHeight = 291;
 	sortX = 0;
 	
 	for(i = 0; i <= 4; i += 1) {
@@ -47,6 +45,8 @@ if 1024 - panelXPosition <= 340 {
 		}
 	}
 } else if 1024 - panelXPosition <= 500 {
+	obj_panel_right.panelHeight = 184;
+	
 	for(i = 0; i <= 4; i += 1) {
 		if sortIndex = i {
 			if i % 2 = 0 {
@@ -61,6 +61,8 @@ if 1024 - panelXPosition <= 340 {
 		}
 	}
 } else if 1024 - panelXPosition <= 662 {
+	obj_panel_right.panelHeight = 177;
+	
 	for(i = 0; i <= 4; i += 1) {
 		if sortIndex = i {
 			sortX = (i % 3) * 162;
@@ -68,6 +70,7 @@ if 1024 - panelXPosition <= 340 {
 		}
 	}
 } else {
+	obj_panel_right.panelHeight = 120;
 	sortY = 0;
 	
 	for(i = 0; i <= 4; i += 1) {
@@ -77,3 +80,6 @@ if 1024 - panelXPosition <= 340 {
 		}
 	}
 }
+
+x = 1030 + sortX;
+y = 93 + sortY;

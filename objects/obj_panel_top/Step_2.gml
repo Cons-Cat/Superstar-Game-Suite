@@ -1,5 +1,5 @@
 /// @description Insert description here
-baseY = 58;
+baseY = 59;
 x = 512;
 
 if mouse_x <= x + 60 && mouse_x >= x - 60 {
@@ -26,7 +26,7 @@ if !mouse_check_button(mb_left) {
 			moveToY = 0;
 		}
 		if moveToY >= 38 {
-			moveToY = 58;
+			moveToY = 59;
 		}
 		
 		if y > moveToY {
@@ -95,9 +95,10 @@ if select = 0 {
 	}
 }
 
-if select = 1 {
+if select {
 	dragY = mouse_y - mouseClickOff - 0;
 	dragYTemp = dragY;
+	
 	y = dragY;
 }
 
@@ -105,6 +106,6 @@ if select = 1 {
 if y < 0 {
 	y = 0;
 }
-if y > 58 {
-	y = 58;
+if y > 59 {
+	y = 59;
 }

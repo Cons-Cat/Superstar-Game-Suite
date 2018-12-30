@@ -16,7 +16,7 @@ if mouse_x >= self.x + 71 && mouse_x <= self.x + 95 {
 	}
 	
 	// Bottom arrow
-	if mouse_y >= 44 && mouse_y <= self.y + 65 {
+	if mouse_y >= 44 && mouse_y <= self.y + 45 {
 		if mouse_check_button_pressed(mb_left) {
 			if z > -1 {
 				z -= 1;

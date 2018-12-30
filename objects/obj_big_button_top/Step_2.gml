@@ -24,5 +24,6 @@ if select {
 	
 	select = false;
 	changeMode = true;
+	
 	alarm[0] = 16;
 }

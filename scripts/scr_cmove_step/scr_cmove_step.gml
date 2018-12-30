@@ -5,10 +5,10 @@ editing = argument1;
 
 //---
 //Fake subpixel system
-if scr_decconv(abs(frac(c_hspeed))) != 0{
+if scr_decconv(abs(frac(c_hspeed))) != 0 {
     subpix_cap_h = scr_spdosc_timer(0)/scr_decconv(abs(frac(c_hspeed)));
 }
-if scr_decconv(abs(frac(c_vspeed))) != 0{
+if scr_decconv(abs(frac(c_vspeed))) != 0 {
     subpix_cap_v = scr_spdosc_timer(1)/scr_decconv(abs(frac(c_vspeed)));
 }
 

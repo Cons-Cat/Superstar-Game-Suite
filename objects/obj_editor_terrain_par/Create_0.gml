@@ -40,6 +40,7 @@ sprMaterial = spr_tls_rectangle_default;
 tileArrayDrawX[0,0] = 0;
 tileArrayDrawY[0,0] = 0;
 paintSelected = false;
+spawnButtons = false;
 depthIterate = 0;
 
 canSelect = true;

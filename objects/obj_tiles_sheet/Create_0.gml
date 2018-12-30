@@ -1,8 +1,6 @@
 /// @description 
-depth = -room_height - 900;
+depth = -obj_panel_right.depth - 1;
 
-scrollY = 0;
-scrollX = 0;
 xVal[0,0] = x;
 yVal[0,0] = y;
 selecting = false;

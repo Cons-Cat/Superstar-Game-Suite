@@ -21,10 +21,10 @@ in_air = true; //If there is a surface below the player from which they can jump
 cmove_steps = 0; //Number of steps elapsed
 cmove_substeps = 0; //Number of "mini-steps" elapsed
 
-subpix_cap_h = 10;
-subpix_timer_h = 10;
+subpix_cap_h = 5;
+subpix_timer_h = 5;
 subpix_move_h = 0;
 
-subpix_cap_v = 10;
-subpix_timer_v = 10;
+subpix_cap_v = 5;
+subpix_timer_v = 5;
 subpix_move_v = 0;

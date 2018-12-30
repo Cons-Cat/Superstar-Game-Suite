@@ -24,4 +24,6 @@ if spawnButtons {
 	}
 	
 	spawnButtons = false;
+	obj_panel_left.scrollPanelDefined = false;
+	obj_panel_right.scrollPanelDefined = false
 }

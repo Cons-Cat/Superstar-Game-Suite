@@ -5,16 +5,6 @@
     "name": "obj_instance_button_slope1",
     "eventList": [
         {
-            "id": "1fab51d3-78b4-466b-bb36-9ec45b33b279",
-            "modelName": "GMEvent",
-            "mvc": "1.0",
-            "IsDnD": false,
-            "collisionObjectId": "00000000-0000-0000-0000-000000000000",
-            "enumb": 0,
-            "eventtype": 8,
-            "m_owner": "3e8a5a75-9aca-41de-96e7-594168059ec1"
-        },
-        {
             "id": "38fa74fe-044f-46db-acb9-690e77577c76",
             "modelName": "GMEvent",
             "mvc": "1.0",
@@ -22,6 +12,16 @@
             "collisionObjectId": "00000000-0000-0000-0000-000000000000",
             "enumb": 0,
             "eventtype": 0,
+            "m_owner": "3e8a5a75-9aca-41de-96e7-594168059ec1"
+        },
+        {
+            "id": "7226ed9f-e081-4da8-82d3-20cd8739e250",
+            "modelName": "GMEvent",
+            "mvc": "1.0",
+            "IsDnD": false,
+            "collisionObjectId": "00000000-0000-0000-0000-000000000000",
+            "enumb": 0,
+            "eventtype": 8,
             "m_owner": "3e8a5a75-9aca-41de-96e7-594168059ec1"
         }
     ],

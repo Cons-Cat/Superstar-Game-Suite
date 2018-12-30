@@ -23,5 +23,11 @@ if spawnButtons {
 		sortIndex = 4;
 	}
 	
+	obj_panel_right.panelHeight = 291;
+	
 	spawnButtons = false;
+	obj_panel_left.scrollPanelHorDefined = false;
+	obj_panel_left.scrollPanelVerDefined = false;
+	obj_panel_right.scrollPanelHorDefined = false;
+	obj_panel_right.scrollPanelVerDefined = false;
 }

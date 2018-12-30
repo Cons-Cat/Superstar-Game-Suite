@@ -159,6 +159,14 @@
             }
         },
         {
+            "Key": "1546dcf9-d8df-47c6-a796-3e57d00d7867",
+            "Value": {
+                "id": "a5601865-d222-4df7-94e0-440f039a25d3",
+                "resourcePath": "sprites\\spr_editor_gui_frame_outline\\spr_editor_gui_frame_outline.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "1584651d-3e0d-4efe-8b2e-96beeadbaa16",
             "Value": {
                 "id": "cb9c0a67-9308-4c15-a662-7b0c11ebeb4b",
@@ -1391,6 +1399,14 @@
             }
         },
         {
+            "Key": "8f17a0ce-fa6e-4226-872f-c9f405c896ca",
+            "Value": {
+                "id": "8502535f-9ed0-4a1e-a875-16e7cd6d595a",
+                "resourcePath": "sprites\\spr_editor_gui_bot\\spr_editor_gui_bot.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "8ff26f9e-6a2d-42df-9808-3b06ffb89df4",
             "Value": {
                 "id": "dc09180c-d6e6-4d42-9511-29f2a134506e",
@@ -2388,6 +2404,14 @@
                 "id": "2e5bcf21-8646-4d71-9453-d84f3f0fbd75",
                 "resourcePath": "sprites\\spr_tls_rectangle_whitebox\\spr_tls_rectangle_whitebox.yy",
                 "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "edfa94da-0ded-4768-8424-62a767dbffad",
+            "Value": {
+                "id": "e861ed08-3e5a-444f-9c65-20b08b232c88",
+                "resourcePath": "objects\\obj_panel_bot\\obj_panel_bot.yy",
+                "resourceType": "GMObject"
             }
         },
         {
