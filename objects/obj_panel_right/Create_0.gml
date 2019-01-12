@@ -1,4 +1,6 @@
 /// @description Insert description here
+event_inherited();
+
 baseX = 833;
 dragX = baseX;
 moveToX = baseX;
@@ -29,6 +31,16 @@ scrollHorWidth = panelWidth;
 scrollVerHeight = panelHeight;
 botPanelY = panelHeight;
 tilesSheetPlacement = 1024;
+
+scrollHorLeftBound = x;
+scrollHorRightBound = 1008;
+scrollHorTopBound = 70;
+scrollHorBotBound = 85;
+
+scrollVerLeftBound = 1009;
+scrollVerRightBound = 1023;
+scrollVerTopBound = 85;
+scrollVerBotBound = 419;
 
 image_speed = 0;
 depth = obj_editor_gui.depth - 1;

@@ -1,7 +1,7 @@
 /// @description Deselection
-
 mouseCheckX = obj_editor_gui.mouseCheckX;
 mouseCheckY = obj_editor_gui.mouseCheckY;
+fromTxt = trg.str;
 
 // Release mouse to deselect
 if !mouse_check_button(mb_left) && instance_exists(trg) {

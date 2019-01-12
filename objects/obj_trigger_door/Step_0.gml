@@ -23,7 +23,7 @@ if placed = 1 {
 	}
 	
 	if mouse_check_button_pressed(mb_left) && mouse_x < camera_get_view_x(obj_editor_gui.camera)+camera_get_view_width(obj_editor_gui.camera)-48 {
-		if canSelect = true {
+		if canSelect {
 			if (obj_editor_gui.mode = 4 && mouse_x >= x && mouse_x <= x+width*20 && mouse_y >= y && mouse_y <= y+height*20+(zfloor-zcieling)*20) {
 				if select = 0 && !instance_exists(obj_editor_button_parent) {
 					select = 1;

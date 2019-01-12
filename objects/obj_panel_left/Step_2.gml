@@ -1,5 +1,6 @@
 /// @description Insert description here
 baseX = 191;
+scrollHorRightBound = x;
 y = 242;
 
 relativeMouseX = mouse_x % 1024;
@@ -151,7 +152,7 @@ if scrollVerFactor > 1 {
 
 // Squish when panel offers less space than needed
 if x <= 16 {
-	scrollPanelSquish = (16 - x) * (2);
+	scrollPanelSquish = -(16 - x) * (2);
 } else {
 	scrollPanelSquish = 0;
 }
@@ -235,20 +236,20 @@ if scrollVerSelect {
 	if scrollPanelVerDefined {
 		// Drag vertical scroll bar
 		scrollVerY = mouse_y - scrollVerSelectOff;
-		scrollVerPartition = (scrollVerY - 86) / ((botPanelY) - scrollVerHeight) * 100;
+		scrollVerPartition = (scrollVerY - scrollVerTopBound) / ((botPanelY) - scrollVerHeight) * 100;
 		
-		if scrollVerY < 86 {
-			scrollVerY = 86;
+		if scrollVerY < scrollVerTopBound {
+			scrollVerY = scrollVerTopBound;
 			scrollVerPartition = 0;
 		}
-		if scrollVerY + scrollVerHeight > botPanelY + 86 {
-			scrollVerY = botPanelY + 86 - scrollVerHeight;
+		if scrollVerY + scrollVerHeight > botPanelY + scrollVerTopBound {
+			scrollVerY = botPanelY + scrollVerTopBound - scrollVerHeight;
 			scrollVerPartition = 100;
 		}
 	}
 } else {
 	// Adapt to moving panel
-	scrollVerY = 86 + (scrollVerPartition/100) * (botPanelY-scrollVerHeight);
+	scrollVerY = scrollVerTopBound + (scrollVerPartition/100) * (botPanelY-scrollVerHeight);
 }
 
 // Deselect scroll bars
@@ -280,3 +281,5 @@ if obj_editor_gui.mode = 3 {
 		instance_destroy();
 	}
 }
+
+scrollHorRightBound = x;

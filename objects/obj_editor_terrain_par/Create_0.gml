@@ -6,13 +6,17 @@ flip = false;
 finite = true;
 depthOffset = 0;
 alpha = 1;
+modeForSelect = false;
+modeForSelectVal = 0;
 
-layerColor = c_white;
+blankCol = c_white;
+blankColDark = c_dkgray
+layerColor = blankCol;
 
 col[0] = make_color_rgb(210,74,84); // Red
 col[1] = make_color_rgb(212,106,55); // Dark orange
 col[2] = make_color_rgb(209,160,75); // Light orange
-col[3] = make_color_rgb(148,175,65); // Dark green
+col[3] = make_color_rgb(149,175,61); // Dark green
 col[4] = make_color_rgb(177,209,75); // Light green
 col[5] = make_color_rgb(0,184,132); // Teal
 col[6] = make_color_rgb(64,139,209); // Blue
@@ -40,6 +44,7 @@ sprMaterial = spr_tls_rectangle_default;
 tileArrayDrawX[0,0] = 0;
 tileArrayDrawY[0,0] = 0;
 paintSelected = false;
+canSpawnButtons = false;
 spawnButtons = false;
 depthIterate = 0;
 

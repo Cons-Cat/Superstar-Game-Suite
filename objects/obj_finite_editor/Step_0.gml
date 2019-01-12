@@ -5,7 +5,6 @@ if select {
 			with trg {
 				finite = !finite;
 			}
-			select = false;
 			
 			image_index += 1;
 		}

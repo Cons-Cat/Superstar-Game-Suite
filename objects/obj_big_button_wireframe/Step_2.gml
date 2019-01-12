@@ -1,11 +1,6 @@
 /// @description Insert description here
 event_inherited();
 
-if changeMode {
-	obj_editor_gui.mode = 1;
-	changeMode = false;
-}
-
 if spawnButtons {
 	with instance_create_layer(obj_panel_right.x,78,"Instances",obj_instance_button_terrain) {
 		sortIndex = 0;

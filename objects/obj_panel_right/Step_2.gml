@@ -1,5 +1,6 @@
 /// @description Insert description here
 baseX = 833;
+scrollHorLeftBound = x;
 y = 242;
 
 if mouse_x <= x && mouse_x >= x - 21 {
@@ -266,8 +267,23 @@ switch obj_editor_gui.mode {
 			view_set_wport(3,1009-x)
 			view_set_hport(3,botPanelY)
 			view_set_xport(3,x);
+		} else {
+			view_set_visible(3,false);
+		}
+		
+		break;
+	
+	// Wireframe mode
+	case 1:
+		if x < 1008 {
+			view_set_visible(3,true);
 			
-			show_debug_message("A");
+			camera_set_view_pos(obj_editor_gui.cameraRightPanel,1024,86+(scrollVerY-86)/scrollVerFactor);
+			camera_set_view_size(view_camera[3], 1009-x, botPanelY);
+			
+			view_set_wport(3,1009-x)
+			view_set_hport(3,botPanelY)
+			view_set_xport(3,x);
 		} else {
 			view_set_visible(3,false);
 		}
@@ -291,9 +307,28 @@ switch obj_editor_gui.mode {
 		
 		break;
 	
+	// Trigger mode
+	case 4:
+		if x < 1008 {
+			view_set_visible(3,true);
+			
+			camera_set_view_pos(obj_editor_gui.cameraRightPanel,1024,86+(scrollVerY-86)/scrollVerFactor);
+			camera_set_view_size(view_camera[3], 1009-x, botPanelY);
+			
+			view_set_wport(3,1009-x)
+			view_set_hport(3,botPanelY)
+			view_set_xport(3,x);
+		} else {
+			view_set_visible(3,false);
+		}
+		
+		break;
+	
 	// Other mode
 	default:
 		view_set_visible(3,false);
 		
 		break;
 }
+
+scrollHorLeftBound = x;

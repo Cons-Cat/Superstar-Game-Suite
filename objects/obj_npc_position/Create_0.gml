@@ -1,4 +1,9 @@
 /// @description Initialize values
+event_inherited();
+
+str = "actor";
+modeForSelectVal = 4;
+
 width = 1;
 height = 1;
 
@@ -21,13 +26,18 @@ trgFinal = obj_editor_terrain;
 trgFinalTemp = -1;
 platOn = 0;
 
+blankCol = make_color_rgb(249,238,132);
+layerCol = blankCol;
+orangeAnyways = false;
+
 // Graphics IDs
-instId1 = "inst_"; // Instance object
+instId1[0] = "inst_"; // Instance object
 instId2 = "";
-instId3 = "XXXXXXXXXX"; // Object id
+instId3 = "4294967295";
+instId4[0] = "XXXXXXXXXX"; // Object id
 
 for (i = 0; i < 8; i += 1) {
-	instId1 = instId1 + string_upper(choose("a","b","c","d","e","f","0","1","2","3","4","5","6","7","8","9"));
+	instId1[0] = instId1[0] + string_upper(choose("a","b","c","d","e","f","0","1","2","3","4","5","6","7","8","9"));
 }
 for (i = 0; i < 36; i += 1) {
 	if i = 8 || i = 13 || i = 18 || i = 23 {

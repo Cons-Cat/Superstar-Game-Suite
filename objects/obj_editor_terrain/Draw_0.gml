@@ -8,23 +8,23 @@ if obj_editor_gui.mode = 0 {
 		for (i = 0; i < width; i += 1) {
 			for (j = 0; j < height; j += 1) {
 				if !collision_point(x+i*20,y+j*20+(zfloor)*20,obj_editor_terrain,false,true) {
-					draw_sprite_ext(spr_shadow_editor,0,x+i*20,y+j*20+zfloor*20,1,1,0,c_white,0.8);
+					draw_sprite_ext(spr_shadow_editor,0,x+i*20+10,y+j*20+10+zfloor*20,1,1,0,c_white,0.8);
 				}
 			}
 		}
+		
 		gpu_set_blendmode(bm_normal);
 	}
-	
 	
 	// Draw walls
 	if width > 1 {
 		for (i = 1; i < width-1; i += 1) { // Center fill
 			for (j = 1; j < zfloor-zcieling; j += 1) {
-					if canSelect = false {
-						layerColor = col[ abs( (zfloor - j) % 8) ];
-					} else {
-						layerColor = c_orange;
-					}
+				if canSelect = false {
+					layerColor = col[ abs( (zfloor - j) % 8) ];
+				} else {
+					layerColor = c_orange;
+				}
 				draw_sprite_ext(spr_walls_editor,1,x+i*20,y+j*20+(height-1)*20,1,1,0,layerColor,alpha);
 			}
 		}
@@ -130,7 +130,7 @@ if obj_editor_gui.mode = 0 {
 	if zcieling >= 0 {
 		// Draw Shadow
 		gpu_set_blendmode(bm_inv_src_color);
-	
+		
 		for (i = 0; i < width; i += 1) {
 			for (j = 0; j < height; j += 1) {
 				for (z = 0; z < y+(zfloor+height)*20; z += 20) {

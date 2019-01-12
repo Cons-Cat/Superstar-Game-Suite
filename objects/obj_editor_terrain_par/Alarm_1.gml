@@ -45,4 +45,4 @@ if collision_point(obj_editor_gui.mouseCheckX,obj_editor_gui.mouseCheckY,self.id
 	}
 }
 
-spawnButtons = true;
+canSpawnButtons = true;

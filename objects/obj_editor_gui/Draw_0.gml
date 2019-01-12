@@ -19,10 +19,3 @@ draw_rectangle(0+192,0+421,0+832,0+576,false);
 draw_set_alpha(1);
 gpu_set_blendmode(bm_normal)
 draw_sprite(spr_editor_gui_frame_outline,0,0,0);
-
-// Draw tile GUI
-if mode = 3 {
-	if global.pieceSelected != -1 {
-		//draw_rectangle(0+5,0+5,0+camera_get_view_width(camera)-5,0+camera_get_view_height(camera)-5,false);
-	}
-}

@@ -27,3 +27,8 @@ if select {
 	
 	alarm[0] = 16;
 }
+
+if changeMode {
+	obj_editor_gui.mode = self.mode;
+	changeMode = false;
+}

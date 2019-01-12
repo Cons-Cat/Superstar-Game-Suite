@@ -1,12 +1,6 @@
 /// @description Activate special
-
-// Deselect terrain
-if mouse_check_button_pressed(mb_left) {
-	alarm[0] = 2;
-}
-
-if select = 1 {
-	if mouse_x >= self.x + 3 && mouse_x < self.x + 3 + sprite_width && mouse_y >= self.y + 3 && mouse_y < self.y+sprite_height + 3 {
+if select {
+	if mouseCheckX >= self.x + 3 && mouseCheckX < self.x + 3 + sprite_width && mouseCheckY >= self.y + 3 && mouseCheckY < self.y+sprite_height + 3 {
 		if mouse_check_button_released(mb_left) {
 			with trg {
 				if str = "actor" {
@@ -40,7 +34,7 @@ if select = 1 {
 							staircaseType = 0;
 						}
 						
-						show_debug_message(staircaseType);
+						//show_debug_message(staircaseType);
 					}
 					if other.str2 = "flip" {
 						staircaseRotation += 1;
@@ -49,7 +43,7 @@ if select = 1 {
 							staircaseRotation = 0;
 						}
 						
-						show_debug_message(staircaseRotation);
+						//show_debug_message(staircaseRotation);
 					}
 					
 					resetArray = true;
@@ -61,7 +55,7 @@ if select = 1 {
 					obj_dialogue_region_interface.trg = other.trg;
 					obj_dialogue_region_interface.zfloor = self.zfloor;
 					obj_dialogue_region_interface.rows = self.rows;
-				
+					
 					for (j = 0; j <= rows; j += 1) {
 						obj_dialogue_region_interface.selectNumCol[j] = self.selectNumCol[j];
 						obj_dialogue_region_interface.selectButTimelineCol[j] = self.selectButTimelineCol[j];
@@ -85,8 +79,19 @@ if select = 1 {
 				}
 			}
 		}
-	} else {
-		select = 0;
-		col = c_white;
 	}
+}
+
+event_inherited();
+
+// Selecting
+if mouseCheckX >= self.x + 3 && mouseCheckX <= self.x + 3 + sprite_width && mouseCheckY >= self.y + 3 && mouseCheckY <= self.y + 3 + sprite_height {
+	if mouse_check_button_pressed(mb_left) {
+		select = true;
+	}
+}
+
+// Deselect terrain
+if mouse_check_button_pressed(mb_left) {
+	alarm[0] = 2;
 }
