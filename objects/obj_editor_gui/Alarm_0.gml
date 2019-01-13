@@ -9,22 +9,23 @@ with obj_trigger_dialogue_region_editor {
 		image_xscale = other.width;
 		image_yscale = other.height;
 		zfloor = other.zfloor;
-		rows = other.rows;
+		rows = instance_number(obj_actor_parent);
+		totalActions = other.totalActions;
+		longestRowLength = other.longestRowLength;
 		
-		for (i = 0; i < rows; i += 1) {
-			rowSetting[i] = other.rowSetting[i];
-			
-			if rowSetting[i] = 1 {
-				str[i] = other.str[i];
-				actor[i] = other.actor[i];
-				
-				if actor[i] = 0 {
-					actor[i] = obj_player_overworld.id;
-				}
+		// Initialize ticks
+		for (i = 0; i <= longestRowLength; i += 1) {
+			for (j = 0; j < rows; j += 1) {
+				actionInd[i,j] = -1; // Null action
 			}
+		}
+		
+		for (i = 1; i <= totalActions; i += 1) {
+			actionInd[other.actionTime[i],other.actionRowInd[i]] = other.actionInd[i]; // Action type
 			
-			if rowSetting[i] = 2 {
-				xNode[i] = other.xNode[i];
+			// Walk action
+			if actionInd[other.actionTime[i],other.actionRowInd[i]] = 0 {
+				/*xNode[i] = other.xNode[i];
 				yNode[i] = other.yNode[i];
 				actor[i] = other.actor[i];
 				
@@ -54,11 +55,17 @@ with obj_trigger_dialogue_region_editor {
 				
 				if actor[i] = 0 {
 					actor[i] = obj_player_overworld.id;
-				}
+				}*/
 			}
 			
-			if rowSetting[i] = 3 {
-				wait[i] = other.wait[i];
+			// Dialogue action
+			if actionInd[other.actionTime[i],other.actionRowInd[i]] = 2 {
+				/*str[i] = other.str[i];
+				actor[i] = other.actor[i];
+				
+				if actor[i] = 0 {
+					actor[i] = obj_player_overworld.id;
+				}*/
 			}
 		}
 	}

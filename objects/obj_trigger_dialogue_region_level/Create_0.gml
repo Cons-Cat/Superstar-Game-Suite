@@ -1,4 +1,5 @@
 /// @description Initialize variables
-timeIndex = 1;
-waitCounter = 0;
+timeIndex = 0;
+timeIndexCalc = timeIndex;
+
 activated = false;

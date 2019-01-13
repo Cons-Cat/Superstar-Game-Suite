@@ -109,8 +109,8 @@ if obj_editor_gui.mode = 4 {
 }
 
 // Cutscene editor
-if instance_number(obj_actor_parent) + 1 != rows {
-	rows = instance_number(obj_actor_parent) + 1; // Every actor, including the player character
+if instance_number(obj_npc_level) + 1 != rows {
+	rows = instance_number(obj_npc_level) + 1; // Every actor, including the player character
 	rowLength[rows] = 0;
 	selectRow[rows] = false;
 }
@@ -179,6 +179,7 @@ if addWalk {
 		}
 	}
 }
+
 if addRotate {
 	addRotate = false;
 	
@@ -198,6 +199,7 @@ if addRotate {
 		}
 	}
 }
+
 if addDialogue {
 	addDialogue = false;
 	

@@ -103,8 +103,3 @@ if resetArray {
 		}
 	}
 }
-
-if keyboard_check_pressed(ord("S")) {
-	show_message(string(depth));
-	show_message(string(obj_player_overworld.depth));
-}

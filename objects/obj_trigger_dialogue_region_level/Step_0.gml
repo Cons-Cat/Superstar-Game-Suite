@@ -3,36 +3,33 @@ if collision_rectangle(x,y,x+image_xscale*20,y+image_yscale*20,obj_player_overwo
 	// Activate interactive cutscene
 	activated = true;
 }
-	
+
 if activated {
-	if timeIndex < rows {
-		if waitCounter = 0 {
-			if rowSetting[timeIndex] = 1 {
-				// Talk trigger
-				with instance_create_layer(actor[timeIndex].x,actor[timeIndex].y,"Instances",obj_chat_bubble) {
-					canMove = true;
-					message[0] = other.str[other.timeIndex];
-					trg = other.actor[other.timeIndex];
-					outlineColor = red;
-					speakerHeightY = 24//trg.sprite_height;
-				}
-			}
-			if rowSetting[timeIndex] = 2 {
-				// Walk trigger
-				actor[timeIndex].xNode[timeIndex] = self.xNode[timeIndex];
-				actor[timeIndex].yNode[timeIndex] = self.yNode[timeIndex];
-				actor[timeIndex].endWalk[timeIndex] = self.endWalk[timeIndex];
-				actor[timeIndex].trgRegion = self.id;
-				actor[timeIndex].canIncrement = true;
-			}
-			if rowSetting[timeIndex] = 3 {
-				// Wait trigger
-				waitCounter = wait[timeIndex];
+	if timeIndexCalc <= longestRowLength {
+		for (i = 0; i < rows; i += 1) {
+			// Walk action
+			if actionInd[timeIndexCalc,i] = 0 {
+				show_message("Walk executed");
+				/*actor[timeIndexPrec,i].xNode[timeIndexPrec,i] = self.xNode[timeIndexPrec,i];
+				actor[timeIndexPrec,i].yNode[timeIndexPrec,i] = self.yNode[timeIndexPrec,i];
+				actor[timeIndexPrec,i].endWalk[timeIndexPrec,i] = self.endWalk[timeIndexPrec,i];
+				actor[timeIndexPrec,i].trgRegion = self.id;
+				actor[timeIndexPrec,i].canIncrement = true;*/
 			}
 			
-			timeIndex += 1;
-		} else {
-			waitCounter -= 1;
+			// Dialogue action
+			if actionInd[timeIndexCalc,i] = 2 {
+				/*with instance_create_layer(actor[timeIndexPrec,i].x,actor[timeIndexPrec,i].y,"Instances",obj_chat_bubble) {
+					canMove = true;
+					message[0] = other.str[other.timeIndexPrec,i];
+					trg = other.actor[other.timeIndexPrec,i];
+					outlineColor = red;
+					speakerHeightY = 24//trg.sprite_height;
+				}*/
+			}
 		}
-	}
+		
+		timeIndex += 1; // Increment time in steps 
+		timeIndexCalc = floor(timeIndex/6); // 1/6 second increments
+	} else { show_message("DONE");}
 }
