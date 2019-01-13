@@ -47,6 +47,8 @@ totalActions = 0;
 actionInd[0] = -1; // Null action
 actionRowInd[0] = 0;
 addWalk = false;
+addRotate = false;
+addDialogue = false;
 
 image_speed = 0;
 depth = obj_editor_gui.depth - 2;

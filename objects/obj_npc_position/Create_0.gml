@@ -30,6 +30,11 @@ blankCol = make_color_rgb(249,238,132);
 layerCol = blankCol;
 orangeAnyways = false;
 
+with obj_trigger_dialogue_region_editor {
+	rowLength[instance_number(obj_npc_position)] = 0;
+}
+npcIdVal = instance_number(obj_npc_position);
+
 // Graphics IDs
 instId1[0] = "inst_"; // Instance object
 instId2 = "";

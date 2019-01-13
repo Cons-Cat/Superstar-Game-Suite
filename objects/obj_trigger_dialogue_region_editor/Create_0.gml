@@ -32,6 +32,11 @@ selectNumCol[0] = c_white;
 selectNumCol[1] = c_white;
 selectButTimelineCol[0] = c_white;
 selectButTimelineCol[1] = c_white;
+totalActions = 0;
+
+for (i = 0; i < instance_number(obj_npc_position) + 1; i += 1) {
+	rowLength[i] = 0;
+}
 
 // Graphics IDs
 instId1[0] = "inst_"; // Instance object

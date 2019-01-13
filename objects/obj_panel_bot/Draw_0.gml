@@ -24,9 +24,12 @@ if rows > 0 {
 		draw_rectangle(192,y+33+i*14,832,y+33+i*14,false); // Timeline segment
 	}
 	
+	// Draw actions
 	for (i = 1; i <= totalActions; i += 1) {
 		if 193 + actionTime[i]*6 - scrollOffAction >= 187 && 193 + actionTime[i]*6 - scrollOffAction <= 832 {
-			draw_sprite_ext(spr_cutscene_action_second,0,193+actionTime[i]*6-scrollOffAction,y+35+actionRowInd[i]*14,1,1,0,actionColor[i],1);
+			if actionInd[i] != -1 {
+				draw_sprite_ext(spr_cutscene_action_second,0,193+actionTime[i]*6-scrollOffAction,y+35+actionRowInd[i]*14,1,1,0,actionColorDraw[i],1);
+			}
 		}
 	}
 }

@@ -1,6 +1,6 @@
 /// @description Move camera
 if obj_editor_gui.mode != 2 && (obj_editor_gui.mode != 3 || global.pieceSelected = -1) {
-	if mouse_check_button_pressed(mb_right) {
+	/*if mouse_check_button_pressed(mb_right) {
 		tempX = mouse_x;
 		tempY = mouse_y;
 		spasmFix = false;
@@ -30,7 +30,7 @@ if obj_editor_gui.mode != 2 && (obj_editor_gui.mode != 3 || global.pieceSelected
 			spasmFix = true;
 			alarm[0] = 20;
 		}
-	}
+	}*/
 
 	// Arrow key movement
 	if keyboard_check(vk_right) {
