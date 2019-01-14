@@ -160,14 +160,12 @@ for (i = 0; i < rows; i += 1) {
 }
 
 // Adding actions to timeline
-if addWalk {
-	addWalk = false;
-	
+if addWalk || addRotate || addDialogue {
 	totalActions += 1;
-	actionInd[totalActions] = 0; // Walk action
-	actionColor[totalActions] = make_color_rgb(113,45,95); // Violet
 	actionSelect[totalActions] = false;
 	actionDelete[totalActions] = false;
+	xNode[totalActions] = -1;
+	yNode[totalActions] = -1;
 	
 	for (i = 0; i < rows; i += 1) {
 		if selectRow[i] {
@@ -178,45 +176,30 @@ if addWalk {
 			break;
 		}
 	}
-}
-
-if addRotate {
-	addRotate = false;
 	
-	totalActions += 1;
-	actionInd[totalActions] = 1; // Rotate action
-	actionColor[totalActions] = make_color_rgb(57,113,43); // Violet
-	actionSelect[totalActions] = false;
-	actionDelete[totalActions] = false;
-	
-	for (i = 0; i < rows; i += 1) {
-		if selectRow[i] {
-			actionTime[totalActions] = rowLength[i]; // Number of 1/5 seconds on timeline
-			actionRowInd[totalActions] = i; // Which row it's placed on
-			actionRowId[totalActions] = actorTxt[i]; // The corresponding instance_id as a string
-			
-			break;
+	if addWalk {
+		actionInd[totalActions] = 0; // Walk action
+		actionColor[totalActions] = make_color_rgb(113,45,95); // Violet
+		
+		if !instance_exists(obj_cutscene_actor_getter_walk_target) {
+			with instance_create_layer(0,0,"Instances",obj_cutscene_actor_getter_walk_target) {
+				i = other.i;
+			}
 		}
+		
+		addWalk = false;
 	}
-}
-
-if addDialogue {
-	addDialogue = false;
 	
-	totalActions += 1;
-	actionInd[totalActions] = 2; // Dialogue action
-	actionColor[totalActions] = make_color_rgb(113,84,45); // Violet
-	actionSelect[totalActions] = false;
-	actionDelete[totalActions] = false;
+	if addRotate {
+		actionInd[totalActions] = 1; // Rotate action
+		actionColor[totalActions] = make_color_rgb(57,113,43); // Violet
+		addRotate = false;
+	}
 	
-	for (i = 0; i < rows; i += 1) {
-		if selectRow[i] {
-			actionTime[totalActions] = rowLength[i]; // Number of 1/5 seconds on timeline
-			actionRowInd[totalActions] = i; // Which row it's placed on
-			actionRowId[totalActions] = actorTxt[i]; // The corresponding instance_id as a string
-			
-			break;
-		}
+	if addDialogue {
+		actionInd[totalActions] = 2; // Dialogue action
+		actionColor[totalActions] = make_color_rgb(113,84,45); // Violet
+		addDialogue = false;
 	}
 }
 
@@ -265,6 +248,25 @@ for (i = 1; i <= totalActions; i += 1) {
 						if actionRowInd[i] = j {
 							if mouse_check_button_pressed(mb_left) {
 								actionSelect[i] = true;
+								actorId[j].orangeAnyways = true;
+								selectRow[j] = true;
+								
+								actionDoubleClick += 1;
+								alarm[1] = 12;
+								
+								if actionDoubleClick = 2 {
+									// Open action's interface
+									if actionInd[i] = 0 {
+										// Walk action
+										if !instance_exists(obj_cutscene_actor_getter_walk_target) {
+											with instance_create_layer(0,0,"Instances",obj_cutscene_actor_getter_walk_target) {
+												i = other.i;
+											}
+										}
+									}
+									
+									actionDoubleClick = 0;
+								}
 							}
 							if mouse_check_button(mb_right) {
 								actionDelete[i] = true;
@@ -339,6 +341,7 @@ if cutsceneInstanceId != -1 {
 		if !cutsceneInstanceId.select {
 			for (i = 0; i < rows; i += 1) {
 				cutsceneInstanceId.rowLength[i] = self.rowLength[i];
+				cutsceneInstanceId.actorTxt[i] = self.actorTxt[i];
 				rowLength[i] = 0;
 			}
 			for (j = 1; j <= self.totalActions; j += 1) {
@@ -350,6 +353,9 @@ if cutsceneInstanceId != -1 {
 				cutsceneInstanceId.actionTime[j] = self.actionTime[j];
 				cutsceneInstanceId.actionRowInd[j] = self.actionRowInd[j];
 				cutsceneInstanceId.actionRowId[j] = self.actionRowId[j];
+				cutsceneInstanceId.xNode[j] = self.xNode[j];
+				cutsceneInstanceId.yNode[j] = self.yNode[j];
+				
 				cutsceneInstanceId.longestRowLength = self.longestRowLength;
 				
 				actionInd[j] = -1;

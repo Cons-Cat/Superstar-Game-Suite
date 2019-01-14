@@ -41,5 +41,5 @@ scrollVerTopBound = 86;
 scrollVerBotBound = 419;
 
 image_speed = 0;
-depth = obj_editor_gui.depth - 1;
+depth = obj_editor_gui.depth - 2;
 x = baseX;

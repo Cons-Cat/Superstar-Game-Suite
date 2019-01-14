@@ -1,6 +1,10 @@
 /// @description Manipulating dimensions
 event_inherited();
 
+if obj_editor_gui.mode = 0 || obj_editor_gui.mode = 1 || obj_editor_gui.mode = 3 {
+	modeForSelectVal = obj_editor_gui.mode;
+}
+
 // Dimensional manipulation
 if spawnButtons {
 	spawnButtons = false;
@@ -29,7 +33,7 @@ if spawnButtons {
 }
 
 // Tile array
-if resetArray = true {
+if resetArray && obj_editor_gui.mode != 3 {
 	resetArray = false;
 	sprMaterial = spr_tls_rectangle_default // Reset material
 	

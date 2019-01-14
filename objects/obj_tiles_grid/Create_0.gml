@@ -1,6 +1,5 @@
 /// @description Draw above rectangle span
-depth = -room_height - 901;
-alarm[0] = 2;
+depth = obj_panel_right.depth - 1;
 
 tileDefaultSpr = -1;
 xVal = 0;

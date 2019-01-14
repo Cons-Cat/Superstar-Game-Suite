@@ -17,45 +17,33 @@ with obj_trigger_dialogue_region_editor {
 		for (i = 0; i <= longestRowLength; i += 1) {
 			for (j = 0; j < rows; j += 1) {
 				actionInd[i,j] = -1; // Null action
+				actorTxt[j] = other.actorTxt[j];
 			}
 		}
 		
 		for (i = 1; i <= totalActions; i += 1) {
 			actionInd[other.actionTime[i],other.actionRowInd[i]] = other.actionInd[i]; // Action type
+			actionTime[i] = other.actionTime[i]; // 1/5'th second tick
 			
 			// Walk action
 			if actionInd[other.actionTime[i],other.actionRowInd[i]] = 0 {
-				/*xNode[i] = other.xNode[i];
-				yNode[i] = other.yNode[i];
-				actor[i] = other.actor[i];
+				xNode[other.actionTime[i],other.actionRowInd[i]] = other.xNode[i];
+				yNode[other.actionTime[i],other.actionRowInd[i]] = other.yNode[i];
 				
-				with actor[i] {
-					// Dummy data
-					for (j = 1; j <= other.rows; j += 1) {
-						xNode[j] = -1;
-						yNode[j] = -1;
-					}
-				}
+				// Whether the actor continues walking afterwards
+				endWalk[other.actionTime[i]] = true;
 				
-				if i <= rows - 1 {
-					var iTemp = i + 1;
-					
-					if other.rowSetting[iTemp] = 2 {
-						if other.actor[iTemp] = actor[i] {
-							endWalk[i] = false;
+				for (j = 0; j <= i + 6; j += 1) {
+					if other.xNode[j] != -1 || other.yNode[j] != -1 {
+						if j <= longestRowLength {
+							endWalk[other.actionTime[i]] = false;
+							
+							break;
 						} else {
-							endWalk[i] = true;
+							break;
 						}
-					} else {
-						endWalk[i] = true;
 					}
-				} else {
-					endWalk[i] = true;
 				}
-				
-				if actor[i] = 0 {
-					actor[i] = obj_player_overworld.id;
-				}*/
 			}
 			
 			// Dialogue action

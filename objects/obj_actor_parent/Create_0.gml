@@ -1,12 +1,12 @@
 /// @description 
 str = "actor";
 
-xNode[1] = -1;
-yNode[1] = -1;
-i = 1;
+trgRegion = -1;
+i = 0;
+activated = false;
 
 spd = 0;
-maxSpd = 2;
+maxSpd = 1.25;
 dirIso = 4;
 
 moving = false;

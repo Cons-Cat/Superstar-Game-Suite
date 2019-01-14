@@ -12,34 +12,40 @@ if placed = 1 {
 				if !(mouse_x > obj_panel_right.x - 21 && mouse_x <= obj_panel_right.x + 1 && mouse_y >= obj_panel_right.y - 60 && mouse_y <= obj_panel_right.y + 60) && obj_panel_right.select = 0 {
 					if !(mouse_x > obj_panel_top.x - 60 && mouse_x < obj_panel_top.x + 60 && mouse_y >= obj_panel_top.y && mouse_y <= obj_panel_top.y + 21) && obj_panel_top.select = 0 {
 						if modeForSelect {
-							// Dimension manipulation
-							if mouse_check_button_pressed(mb_left) && !instance_exists(obj_editor_button_parent) {
-								spawnButtons = true; // Button instances are created from child objects
-								
-								select = 1;
-								buttonSelected = 1;
-								obj_editor_gui.canChangeSelect = false;
-							}
-						} else if obj_editor_gui.mode = 3 {
-							// Tiling for collisions instances
-							if modeForSelect = 0 || modeForSelect = 1 {
+							if obj_editor_gui.mode != 3 {
+								// Dimension manipulation
+								if mouse_check_button_pressed(mb_left) && !instance_exists(obj_editor_button_parent) {
+									spawnButtons = true; // Button instances are created from child objects
+									
+									select = 1;
+									buttonSelected = 1;
+									obj_editor_gui.canChangeSelect = false;
+								}
+							} else {
 								if mouse_check_button_pressed(mb_left) {
-									// Slide side panels out
-									if obj_panel_left.moveToSpd = 0 && obj_panel_right.moveToSpd = 0 {
-										global.tempXLeft = obj_panel_left.x;
-										global.tempXRight = obj_panel_right.x;
+									// Tiling for collisions instances
+									spawnTiles = true;
+								
+									if modeForSelect = 0 || modeForSelect = 1 {
+										if mouse_check_button_pressed(mb_left) {
+											// Slide side panels out
+											if obj_panel_left.moveToSpd = 0 && obj_panel_right.moveToSpd = 0 {
+												global.tempXLeft = obj_panel_left.x;
+												global.tempXRight = obj_panel_right.x;
+											}
+											
+											// Assign values to slide side panels in
+											obj_panel_left.moveToX = 0;
+											obj_panel_left.moveToSpd = global.tempXLeft/4;
+											obj_panel_left.moveDirection = -1;
+											
+											obj_panel_right.moveToX = 1024;
+											obj_panel_right.moveToSpd = (1024 - global.tempXRight)/4;
+											obj_panel_right.moveDirection = 1;
+											
+											alarm[1] = 16;
+										}
 									}
-									
-									// Assign values to slide side panels in
-									obj_panel_left.moveToX = 0;
-									obj_panel_left.moveToSpd = global.tempXLeft/4;
-									obj_panel_left.moveDirection = -1;
-									
-									obj_panel_right.moveToX = 1024;
-									obj_panel_right.moveToSpd = (1024 - global.tempXRight)/4;
-									obj_panel_right.moveDirection = 1;
-									
-									alarm[1] = 16;
 								}
 							}
 						}
@@ -64,8 +70,10 @@ if placed = 1 {
 }
 
 // Spawn tile buttons
-if spawnButtons {
+if spawnTiles {
 	if sprMaterialDirectory != "" {
+		spawnTiles = false;
+		
 		// Spawn tiles GUI
 		if str = "rectangle" {
 			for (i = 0; i < width+2; i += 1) {

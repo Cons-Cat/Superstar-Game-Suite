@@ -17,7 +17,6 @@ if obj_tile_z.z >= 0 {
 	zcieling = 0;
 }
 
-
 trgDraw = self.id;
 canSelect = false;
 select = 0;
@@ -33,6 +32,7 @@ selectNumCol[1] = c_white;
 selectButTimelineCol[0] = c_white;
 selectButTimelineCol[1] = c_white;
 totalActions = 0;
+longestRowLength = 0;
 
 for (i = 0; i < instance_number(obj_npc_position) + 1; i += 1) {
 	rowLength[i] = 0;

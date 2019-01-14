@@ -1,26 +1,32 @@
 /// @description Manipulating position
+relativeMouseX = floor((mouse_x + 195 - 23) / 10) * 5 - 80 + floor(camera_get_view_x(obj_editor_gui.cameraRealGame)/20)*20;
+relativeMouseY = floor((mouse_y + 576) / 10) * 5 - 320 + 41 + floor(camera_get_view_y(obj_editor_gui.cameraRealGame)/20)*20;
+
 if canDrag {
 	if canPlace {
 		if mouse_check_button(mb_left) {
-			x = mouse_x;
-			y = mouse_y;
+			x = relativeMouseX;
+			y = relativeMouseY;
 		}
 	}
 } else {
-	x = mouse_x;
-	y = mouse_y;
+	x = relativeMouseX;
+	y = relativeMouseY;
 }
-depth = -room - 230;
+
+depth = obj_editor_gui.depth - 100;
 
 if (mouse_check_button_pressed(mb_left) && !canDrag) || (mouse_check_button_released(mb_left) && canDrag && canPlace) {
-	obj_dialogue_region_interface.xNode[i] = self.x;
-	obj_dialogue_region_interface.yNode[i] = self.y + obj_dialogue_region_interface.zfloor*20;
-	obj_dialogue_region_interface.menuAlpha = 1;
+	if mouse_y > obj_panel_bot.y + (576 - obj_panel_bot.y) || mouse_y <= obj_panel_bot.y {
+		obj_panel_bot.xNode[i] = self.x;
+		obj_panel_bot.yNode[i] = self.y;
+		
+		with obj_cutscene_actor_dummy_lucy {
+			instance_destroy();
+		}
 	
-	with obj_cutscene_actor_dummy_lucy {
 		instance_destroy();
 	}
-	instance_destroy();
 }
 
 if mouse_check_button_released(mb_left) {

@@ -49,9 +49,10 @@ actionRowInd[0] = 0;
 addWalk = false;
 addRotate = false;
 addDialogue = false;
+actionDoubleClick = 0;
 
 image_speed = 0;
-depth = obj_editor_gui.depth - 2;
+depth = obj_editor_gui.depth - 3;
 image_angle = 90;
 y = baseY;
 
