@@ -1,6 +1,39 @@
 /// @description Manipulating dimensions
 event_inherited();
 
+if obj_editor_gui.mode = 0 || obj_editor_gui.mode = 1 || obj_editor_gui.mode = 3 {
+	modeForSelectVal = obj_editor_gui.mode;
+}
+
+// Dimensional manipulation
+if spawnButtons {
+	spawnButtons = false;
+	
+	with instance_create_layer(x,y,"Instances",obj_arrow_editor_drag) {
+		trg = other.id;
+	}
+	with instance_create_layer(x+width*10,y+height*10,"Instances",obj_arrow_editor_z) {
+		trg = other.id;
+	}
+	with instance_create_layer(x+width*10,y+height*10,"Instances",obj_arrow_editor_z2) {
+		trg = other.id;
+	}
+	with instance_create_layer(x,y+20,"Instances",obj_finite_editor) {
+		trg = other.id;
+	}
+	with instance_create_layer(x,y+20,"Instances",obj_x_editor) {
+		trg = other.id;
+	}
+	with instance_create_layer(x,y+20,"Instances",obj_info_editor) {
+		trg = other.id;
+		str2 = "mirror";
+	}
+	with instance_create_layer(x,y+20,"Instances",obj_info_editor) {
+		trg = other.id;
+		str2 = "flip";
+	}
+}
+
 // Tile array
 if resetArray {
 	resetArray = false;

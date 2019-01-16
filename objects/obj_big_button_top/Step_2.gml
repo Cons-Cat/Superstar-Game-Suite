@@ -25,7 +25,7 @@ if select {
 	select = false;
 	changeMode = true;
 	
-	alarm[0] = 16;
+	alarm[0] = 17;
 }
 
 if changeMode {

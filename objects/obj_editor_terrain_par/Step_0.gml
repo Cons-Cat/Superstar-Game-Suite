@@ -24,8 +24,6 @@ if placed = 1 {
 							} else {
 								if mouse_check_button_pressed(mb_left) {
 									// Tiling for collisions instances
-									spawnTiles = true;
-								
 									if modeForSelect = 0 || modeForSelect = 1 {
 										if mouse_check_button_pressed(mb_left) {
 											// Slide side panels out
@@ -43,7 +41,7 @@ if placed = 1 {
 											obj_panel_right.moveToSpd = (1024 - global.tempXRight)/4;
 											obj_panel_right.moveDirection = 1;
 											
-											alarm[1] = 16;
+											alarm[1] = 18;
 										}
 									}
 								}
@@ -76,9 +74,9 @@ if spawnTiles {
 		
 		// Spawn tiles GUI
 		if str = "rectangle" {
-			for (i = 0; i < width+2; i += 1) {
-				for (j = 0; j < image_yscale+1; j += 1) {
-					with instance_create_layer(1026 + i * 21,86 + j * 21,"Instances",obj_tiles_grid) {
+			for (i = 0; i < width + 2; i += 1) {
+				for (j = 0; j < image_yscale + 1; j += 1) {
+					with instance_create_layer(1026 + i*21,86 + j*21,"Instances",obj_tiles_grid) {
 						trgId = other.id;
 						i = other.i;
 						j = other.j;
@@ -91,38 +89,34 @@ if spawnTiles {
 			
 			obj_panel_left.panelWidth = i * 21;
 			obj_panel_left.panelHeight = j * 21;
-			obj_panel_right.panelWidth = sprite_get_width(global.sprMaterial);
-			
-			if sprite_get_height(global.sprMaterial) <= 334 {
-				obj_panel_right.scrollPanelVerDefined = false;
-				obj_panel_right.panelHeight = 0;
-			} else {
-				obj_panel_right.scrollPanelVerDefined = true;
-				obj_panel_right.panelHeight = sprite_get_height(global.sprMaterial);
-			}
 		}
 		
 		// Spawn tiles GUI (slope 1)
 		if str = "slope1" {
-			for (i = 0; i < width+2; i += 1) {
-				for (j = (zfloor) + 1; j >= zcieling; j -= 1) {
-					with instance_create_layer(i*20+i,600-j*20-j+(zfloor-zcieling)*20+20,"Instances",obj_tiles_grid) {
-						trgId = other.id;
-						i = other.i;
-						j = other.j;
-						tempMaterial = other.sprMaterial;
-						xVal = other.tileArrayDrawX[i,j];
-						yVal = other.tileArrayDrawY[i,j];
+			for (i = 0; i < width + 2; i += 1) {
+				for (j = zfloor + 1; j >= zcieling; j -= 1) {
+					if !(i = 0 && j = zcieling) && !(i = width + 1 && j = zfloor + 1) {
+						with instance_create_layer(1026 + i * 21,86 + (zfloor + 1)*21 - j*21,"Instances",obj_tiles_grid) {
+							trgId = other.id;
+							i = other.i;
+							j = other.j;
+							tempMaterial = other.sprMaterial;
+							xVal = other.tileArrayDrawX[i,j];
+							yVal = other.tileArrayDrawY[i,j];
+						}
 					}
 				}
 			}
+			
+			obj_panel_left.panelWidth = i * 21;
+			obj_panel_left.panelHeight = (zfloor + 1 - zcieling) * 21;
 		}
 		
 		// Spawn tiles GUI (slope 2)
 		if str = "slope2" {
-			for (i = 0; i <= width+2; i += 1) {
-				for (j = (zfloor) + 1; j >= zcieling; j -= 1) {
-					with instance_create_layer(i*20+i,600-j*20-j+(zfloor-zcieling)*20+20,"Instances",obj_tiles_grid) {
+			for (i = 0; i <= width + 2; i += 1) {
+				for (j = zfloor + 1; j >= zcieling; j -= 1) {
+					with instance_create_layer(1026 + i * 21,86 + (zfloor + 1)*21 - j*21,"Instances",obj_tiles_grid) {
 						trgId = other.id;
 						i = other.i;
 						j = other.j;
@@ -132,13 +126,16 @@ if spawnTiles {
 					}
 				}
 			}
+			
+			obj_panel_left.panelWidth = i * 21;
+			obj_panel_left.panelHeight = (zfloor + 1 - zcieling) * 21;
 		}
 		
 		// Spawn tiles GUI (slope 3)
 		if str = "slope3" {
-			for (i = 0; i <= width+1; i += 1) {
-				for (j = (zfloor) + 2; j >= zcieling; j -= 1) {
-					with instance_create_layer(i*20+i,600-j*20-j+(zfloor-zcieling)*20+40,"Instances",obj_tiles_grid) {
+			for (i = 0; i <= width + 1; i += 1) {
+				for (j = zfloor + 2; j >= zcieling; j -= 1) {
+					with instance_create_layer(1026 + i*21,86 + (zfloor + 2)*21 - j*21,"Instances",obj_tiles_grid) {
 						trgId = other.id;
 						i = other.i;
 						j = other.j;
@@ -148,13 +145,16 @@ if spawnTiles {
 					}
 				}
 			}
+			
+			obj_panel_left.panelWidth = i * 21;
+			obj_panel_left.panelHeight = (zfloor + 2 - zcieling) * 21;
 		}
 		
-		// Spawn tiles GUI (slope 3)
+		// Spawn tiles GUI (staircase)
 		if str = "staircase" {
 			for (i = 0; i < widthIterate; i += 1) {
 				for (j = heightIterate; j >= zfloor; j -= 1) {
-					with instance_create_layer(i*20+i,600-j*20-j-heightIterate*20+(zfloor-zcieling)*20+40,"Instances",obj_tiles_grid) {
+					with instance_create_layer(1026 + i*21,86 + heightIterate*21 - j*21,"Instances",obj_tiles_grid) {
 						trgId = other.id;
 						i = other.i;
 						j = other.j;
@@ -164,6 +164,19 @@ if spawnTiles {
 					}
 				}
 			}
+			
+			obj_panel_left.panelWidth = i * 21;
+			obj_panel_left.panelHeight = heightIterate * 21;
+		}
+		
+		obj_panel_right.panelWidth = sprite_get_width(global.sprMaterial);
+			
+		if sprite_get_height(global.sprMaterial) <= 334 {
+			obj_panel_right.scrollPanelVerDefined = false;
+			obj_panel_right.panelHeight = 0;
+		} else {
+			obj_panel_right.scrollPanelVerDefined = true;
+			obj_panel_right.panelHeight = sprite_get_height(global.sprMaterial);
 		}
 		
 		if !instance_exists(obj_tiles_sheet) {

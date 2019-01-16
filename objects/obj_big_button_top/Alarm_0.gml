@@ -1,5 +1,5 @@
 /// @description Slide side panels in
-if !(!instance_exists(obj_editor_terrain_par) && isPlayButton) {
+if instance_exists(obj_editor_terrain_par) && !isPlayButton {
 	with obj_big_button_right {
 		instance_destroy();
 	}
