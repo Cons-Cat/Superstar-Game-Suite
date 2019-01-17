@@ -23,16 +23,6 @@ if spawnButtons {
 	with instance_create_layer(x,y,"Instances",obj_rotate_editor) {
 		trg = other.id;
 	}
-	/*
-	with instance_create_layer(x,y,"Instances",obj_info_editor) {
-		trg = other.id;
-	}
-	with instance_create_layer(x,y,"Instances",obj_arrow_editor_up) {
-		trg = other.id;
-	}
-	with instance_create_layer(x,y,"Instances",obj_arrow_editor_down) {
-		trg = other.id;
-	}*/
 }
 
 zcieling = zfloor;

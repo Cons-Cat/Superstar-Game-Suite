@@ -100,7 +100,7 @@ if (obj_editor_gui.mode = 0 || obj_editor_gui.mode = 2 || obj_editor_gui.mode = 
 					layerColor = c_orange;
 				}
 			} else {
-				alpha = 0.2;
+				//alpha = 0.2;
 				layerColor = c_white;
 			}
 			draw_sprite_part_ext(sprMaterial,0,tileArrayDrawX[i,j],tileArrayDrawY[i,j],20,20,x+(i-1)*20,y+(zfloor-zcieling)*20-(j)*20,1,1,layerColor,alpha);

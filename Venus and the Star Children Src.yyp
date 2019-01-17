@@ -407,6 +407,14 @@
             }
         },
         {
+            "Key": "2e4a3fe1-c728-45d7-ab08-4831b8e3de09",
+            "Value": {
+                "id": "2e2a17c3-1c53-4b37-9db3-2e115e19158d",
+                "resourcePath": "sprites\\spr_dialogue_dragger_arrow\\spr_dialogue_dragger_arrow.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "2e727dd4-f8f1-4d93-8fd1-6202377ade2d",
             "Value": {
                 "id": "13025ec1-c429-47e6-a42a-f08d06d5372e",
@@ -1527,6 +1535,14 @@
             }
         },
         {
+            "Key": "938a2f84-61f7-439b-a070-74955efebd2c",
+            "Value": {
+                "id": "01e93a9b-f3bd-4eff-a818-6026b8ea9d55",
+                "resourcePath": "sprites\\spr_dialogue_dragger\\spr_dialogue_dragger.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "94b99e3a-f09e-4453-82be-a6ecf0478a04",
             "Value": {
                 "id": "5eaf2983-d4b4-42e9-89ec-e942bf480953",
@@ -1823,6 +1839,14 @@
             }
         },
         {
+            "Key": "ae4c65d7-30e9-48c5-87bd-ed34492fac95",
+            "Value": {
+                "id": "1c67d3e6-3375-4697-8fe1-4ab7e468b2ed",
+                "resourcePath": "sprites\\spr_dialogue_dragger_z_arrow\\spr_dialogue_dragger_z_arrow.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "af60fe1b-cb2a-45d4-982b-1bf5ddd0bd60",
             "Value": {
                 "id": "9e9d0821-f6ce-421d-9cf7-574b36b100ee",
@@ -2103,6 +2127,14 @@
             }
         },
         {
+            "Key": "c439b616-8f59-45b3-bb12-353ca4230ef2",
+            "Value": {
+                "id": "da175dc5-f64e-456d-90f5-ae61264a6967",
+                "resourcePath": "sprites\\spr_dialogue_dragger_z\\spr_dialogue_dragger_z.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "c5ecb085-814e-4560-8b87-16fb2ffa76ee",
             "Value": {
                 "id": "0b49c1c8-8490-4004-ba43-d0717966ee4a",
@@ -2324,6 +2356,14 @@
                 "id": "0909bc13-2de8-460f-b151-9b262cdc1726",
                 "resourcePath": "sprites\\spr_save2_editor\\spr_save2_editor.yy",
                 "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "db8eb03b-9eaa-4a07-88b9-3acd19fc4580",
+            "Value": {
+                "id": "feadd63b-ebcd-47dc-b900-62bca5993fc7",
+                "resourcePath": "scripts\\typeText\\typeText.yy",
+                "resourceType": "GMScript"
             }
         },
         {
@@ -2663,6 +2703,14 @@
             }
         },
         {
+            "Key": "f6095289-4648-469a-a6e5-8cd9d3b8f5ab",
+            "Value": {
+                "id": "d9593fb7-3f0d-4488-b32d-9cd3029c1059",
+                "resourcePath": "objects\\obj_cutscene_actor_getter_dialogue_target\\obj_cutscene_actor_getter_dialogue_target.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "f6190ba5-914d-4d59-b13a-bffade6fdf8b",
             "Value": {
                 "id": "58fba7bf-f702-442e-b0a6-8492c25f29c5",
@@ -2716,6 +2764,14 @@
                 "id": "a249feb6-9328-41c6-b9c7-d2294b02cbe1",
                 "resourcePath": "objects\\obj_big_button_parent\\obj_big_button_parent.yy",
                 "resourceType": "GMObject"
+            }
+        },
+        {
+            "Key": "f9fef588-86a4-41b3-9602-dc674b8ab907",
+            "Value": {
+                "id": "78fceb7b-1d46-45d7-b941-92a850745cfb",
+                "resourcePath": "sprites\\spr_dialogue_dragger_border\\spr_dialogue_dragger_border.yy",
+                "resourceType": "GMSprite"
             }
         },
         {
@@ -2778,6 +2834,7 @@
         "8a1d7b97-e673-44cd-8577-abb678899c65",
         "8ac73c4b-cd9d-4a64-aa7c-77fbddee6889",
         "c7f5cc64-679c-4d6e-9594-f8558906d58d",
+        "db8eb03b-9eaa-4a07-88b9-3acd19fc4580",
         "1b254f41-b5b7-4063-ab01-c1f02ed3b1ac",
         "0e0e322f-380e-448f-9530-42154abd02ad",
         "2bb57222-41cb-44de-9101-e2a546ff6ce1",

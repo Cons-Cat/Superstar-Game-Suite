@@ -13,12 +13,12 @@
 	draw_sprite(spr_chat_fill,0,placex+2,placey+height*10);
 	draw_sprite(spr_chat_fill,0,placex+width*10,placey+2);
 	draw_sprite(spr_chat_fill,0,placex+width*10,placey+height*10);
-
+	
 	//Top left corner
 	draw_sprite(spr_chat_outline_dark,0,placex,placey);
 	//Bottom left corner
 	draw_sprite(spr_chat_outline_dark,6,placex,placey+(height)*10);
-
+	
 	//Top
 	for(i = 1; i < width; i += 1) {
 		draw_sprite(spr_chat_outline_dark,1,placex+i*10,placey);
@@ -46,7 +46,7 @@
 	draw_sprite_ext(spr_chat_outline_white,0,placex,placey,1,1,0,outlineColor,1);
 	// Bottom left corner
 	draw_sprite_ext(spr_chat_outline_white,6,placex,placey+(height)*10,1,1,0,outlineColor,1);
-
+	
 	// Top
 	for(i = 1; i < width; i += 1) {
 		draw_sprite_ext(spr_chat_outline_white,1,placex+i*10,placey,1,1,0,outlineColor,1);
@@ -63,7 +63,7 @@
 	for(i = 1; i < height; i += 1) {
 		draw_sprite_ext(spr_chat_outline_white,5,placex+width*10,placey+i*10,1,1,0,outlineColor,1);
 	}
-
+	
 	// Top right corner
 	draw_sprite_ext(spr_chat_outline_white,2,placex+(width*10),placey,1,1,0,outlineColor,1);
 	// Bottom right corner

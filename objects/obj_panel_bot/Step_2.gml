@@ -115,6 +115,71 @@ if instance_number(obj_npc_level) + 1 != rows {
 	selectRow[rows] = false;
 }
 
+// Adding actions to timeline
+if addWalk || addRotate || addDialogue {
+	totalActions += 1;
+	actionSelect[totalActions] = false;
+	actionDelete[totalActions] = false;
+	xNode[totalActions] = -1;
+	yNode[totalActions] = -1;
+	
+	for (i = 0; i < rows; i += 1) {
+		if selectRow[i] {
+			actionTime[totalActions] = rowLength[i]; // Number of 1/5 seconds on timeline
+			actionRowInd[totalActions] = i; // Which row it's placed on
+			actionRowId[totalActions] = actorTxt[i]; // The corresponding instance_id as a string
+			
+			break;
+		}
+		
+		if i = rows - 1 {
+			addWalk = false;
+			addRotate = false;
+			addDialogue = false;
+			totalActions -= 1;
+		}
+	}
+	
+	if addWalk {
+		actionInd[totalActions] = 0; // Walk action
+		actionColor[totalActions] = make_color_rgb(113,45,95); // Violet
+		
+		if !instance_exists(obj_cutscene_actor_getter_walk_target) {
+			with instance_create_layer(0,0,"Instances",obj_cutscene_actor_getter_walk_target) {
+				i = other.i;
+				
+				with other.actorId[other.i] {
+					other.zfloor = self.zfloor;
+				}
+			}
+		}
+		
+		addWalk = false;
+	}
+	
+	if addRotate {
+		actionInd[totalActions] = 1; // Rotate action
+		actionColor[totalActions] = make_color_rgb(57,113,43); // Violet
+		addRotate = false;
+	}
+	
+	if addDialogue {
+		actionInd[totalActions] = 2; // Dialogue action
+		actionColor[totalActions] = make_color_rgb(113,84,45); // Violet
+		addDialogue = false;
+		
+		if !instance_exists(obj_cutscene_actor_getter_dialogue_target) {
+			with instance_create_layer(actorId[i].x,actorId[i].y-40,"Instances",obj_cutscene_actor_getter_dialogue_target) {
+				timeIndex = other.totalActions;
+				rowIndex = other.i;
+				trg = other.actorId[other.i];
+				zfloor = trg.zfloor;
+			}
+		}
+	}
+}
+
+// Managing selection
 for (i = 0; i < rows; i += 1) {
 	if i = 0 {
 		actorId[i] = -1;
@@ -131,7 +196,9 @@ for (i = 0; i < rows; i += 1) {
 	if mouse_check_button_pressed(mb_left) {
 		if !(mouse_x >= 0 && mouse_x <= 190 && mouse_y >= y+5 && mouse_y <= y+29) {
 			selectRow[i] = false;
-			actorId[i].orangeAnyways = false;
+			if !instance_exists(obj_cutscene_actor_getter_walk_target) && !instance_exists(obj_cutscene_actor_getter_dialogue_target) {
+				actorId[i].orangeAnyways = false;
+			}
 			
 			if mouse_x <= 189 && mouse_y >= y+5 {
 				with obj_editor_button_parent {
@@ -159,50 +226,6 @@ for (i = 0; i < rows; i += 1) {
 	}
 }
 
-// Adding actions to timeline
-if addWalk || addRotate || addDialogue {
-	totalActions += 1;
-	actionSelect[totalActions] = false;
-	actionDelete[totalActions] = false;
-	xNode[totalActions] = -1;
-	yNode[totalActions] = -1;
-	
-	for (i = 0; i < rows; i += 1) {
-		if selectRow[i] {
-			actionTime[totalActions] = rowLength[i]; // Number of 1/5 seconds on timeline
-			actionRowInd[totalActions] = i; // Which row it's placed on
-			actionRowId[totalActions] = actorTxt[i]; // The corresponding instance_id as a string
-			
-			break;
-		}
-	}
-	
-	if addWalk {
-		actionInd[totalActions] = 0; // Walk action
-		actionColor[totalActions] = make_color_rgb(113,45,95); // Violet
-		
-		if !instance_exists(obj_cutscene_actor_getter_walk_target) {
-			with instance_create_layer(0,0,"Instances",obj_cutscene_actor_getter_walk_target) {
-				i = other.i;
-			}
-		}
-		
-		addWalk = false;
-	}
-	
-	if addRotate {
-		actionInd[totalActions] = 1; // Rotate action
-		actionColor[totalActions] = make_color_rgb(57,113,43); // Violet
-		addRotate = false;
-	}
-	
-	if addDialogue {
-		actionInd[totalActions] = 2; // Dialogue action
-		actionColor[totalActions] = make_color_rgb(113,84,45); // Violet
-		addDialogue = false;
-	}
-}
-
 // Calculating length of timeline
 longestRowLength = 0;
 
@@ -217,7 +240,7 @@ if totalActions > 0 {
 					if actionTime[j] + 1 > rowLength[i] {
 						rowLength[i] = actionTime[j] + 1;
 					}
-				
+					
 					// Longest row
 					if rowLength[i] > longestRowLength {
 						longestRowLength = rowLength[i];
@@ -259,8 +282,34 @@ for (i = 1; i <= totalActions; i += 1) {
 									if actionInd[i] = 0 {
 										// Walk action
 										if !instance_exists(obj_cutscene_actor_getter_walk_target) {
-											with instance_create_layer(0,0,"Instances",obj_cutscene_actor_getter_walk_target) {
+											with instance_create_layer(xNode[i],yNode[i],"Instances",obj_cutscene_actor_getter_walk_target) {
 												i = other.i;
+												canDrag = true;
+												canPlace = false;
+												
+												with other.actorId[other.j] {
+													other.zfloor = self.zfloor;
+												}
+											}
+										}
+									}
+									if actionInd[i] = 2 {
+										// Dialogue action
+										if !instance_exists(obj_cutscene_actor_getter_dialogue_target) {
+											with instance_create_layer(actorId[i].x-xOffDialogue[i,j],actorId[i].y-yOffDialogue[i,j],"Instances",obj_cutscene_actor_getter_dialogue_target) {
+												timeIndex = other.i;
+												rowIndex = other.j;
+												trg = other.actorId[other.j];
+												zfloor = trg.zfloor;
+												width = other.strWidth[other.i,other.j];
+												height = other.strHeight[other.i,other.j];
+												textRows = other.textRows[other.i,other.j];
+												
+												for (i = 0; i < textRows; i += 1) {
+													str[i] = other.str[other.i,self.i];
+													selectTextRow[i] = false;
+													canSelectTextRow[i] = false;
+												}
 											}
 										}
 									}

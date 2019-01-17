@@ -34,6 +34,7 @@ if obj_tile_z.z >= 0 {
 select = 0;
 placed = 0;
 buttonSelected = 0;
+canDeSelect = true;
 
 // Tile array values
 resetArray = true;

@@ -208,7 +208,7 @@ if mouse_check_button_released(mb_left) {
 		lastY = y;
 		obj_editor_gui.canChangeSelect = true;
 		
-		placed = 1;
+		placed = 1
 	}
 }
 

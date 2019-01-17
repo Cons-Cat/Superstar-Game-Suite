@@ -15,6 +15,7 @@ if instance_exists(obj_editor_gui) {
 if !activated {
 	// Not in play mode
 	if instance_exists(trg) {
+		zfloor = trg.zfloor;
 		x = trg.x + 10;
 		y = trg.y + 10;
 		depth = trg.depth - 1;
