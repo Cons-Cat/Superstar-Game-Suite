@@ -1,12 +1,7 @@
 /// @description Initialize values
+isInit = false;
 canDrag = false;
 canClose = false;
-
-width = 6;
-height = 3;
-
-placex = xstart - width*5 + 10;
-placey = ystart - height*5;
 
 blue = make_color_rgb(54,70,128);
 orange = make_color_rgb(255,160,64);
@@ -26,6 +21,7 @@ select[4] = false;
 textRows = 0;
 canSelectTextRow[0] = false;
 selectTextRow[0] = false;
+canInputEnter = true;
 str[0] = "";
 
 font = font_add_sprite_ext(spr_font,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!?,'._ 1234567890|",true,1);

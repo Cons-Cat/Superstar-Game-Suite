@@ -23,7 +23,7 @@ with obj_trigger_dialogue_region_editor {
 		
 		for (i = 1; i <= totalActions; i += 1) {
 			actionInd[other.actionTime[i],other.actionRowInd[i]] = other.actionInd[i]; // Action type
-			actionTime[i] = other.actionTime[i]; // 1/5'th second tick
+			actionTime[i] = other.actionTime[i]; // 1/10'th second tick
 			
 			// Walk action
 			if actionInd[other.actionTime[i],other.actionRowInd[i]] = 0 {
@@ -37,23 +37,24 @@ with obj_trigger_dialogue_region_editor {
 					if other.xNode[j] != -1 || other.yNode[j] != -1 {
 						if j <= longestRowLength {
 							endWalk[other.actionTime[i]] = false;
-							
-							break;
-						} else {
-							break;
 						}
+						
+						break;
 					}
 				}
 			}
 			
 			// Dialogue action
 			if actionInd[other.actionTime[i],other.actionRowInd[i]] = 2 {
-				/*str[i] = other.str[i];
-				actor[i] = other.actor[i];
+				width[other.actionTime[i],other.actionRowInd[i]] = other.dialogueWidth[i];
+				height[other.actionTime[i],other.actionRowInd[i]] = other.dialogueHeight[i];
+				textRows[other.actionTime[i],other.actionRowInd[i]] = other.textRows[i];
+				xOffDialogue[other.actionTime[i],other.actionRowInd[i]] = other.xOffDialogue[i];
+				yOffDialogue[other.actionTime[i],other.actionRowInd[i]] = other.yOffDialogue[i];
 				
-				if actor[i] = 0 {
-					actor[i] = obj_player_overworld.id;
-				}*/
+				for (j = 0; j < textRows[other.actionTime[i],other.actionRowInd[i]]; j += 1) {
+					dialogueStr[other.actionTime[i],j] = other.dialogueStr[i,j];
+				}
 			}
 		}
 	}

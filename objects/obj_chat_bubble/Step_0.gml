@@ -1,17 +1,84 @@
 /// @description Flicker continue notification
-event_inherited();
-
-if trg = -1 {
-	// Center box at the x of speaker
-	placex = x-width*5;
-	// Place box at the y of the speaker, minus the box's height, minus the arrow's height, minus the speaker's height
-	placey = y-(height+1)*10-21-speakerHeightY;
-} else {
-	placex = trg.x-width*5;
-	placey = trg.y-(height+1)*10-21-speakerHeightY;
+if canScrawl {
+	event_inherited();
 }
 
-if characters >= message_length {
+if instance_exists(obj_editor_gui) {
+	if obj_editor_gui.mode != 2 {
+		instance_destroy();
+	}
+}
+
+placex = trg.x - xOffDialogue - 10;
+placey = trg.y - yOffDialogue - 5 - bounceYOff;
+
+// Top left corner
+lSide = placex + (width*5) - (width*5)*scale;
+rSide = placex + (width*10) - (width*5) + (width*5)*scale;
+tSide = placey + (height*10) - (height*10)*scale;
+bSide = placey + (height*10) - (height*10)*scale + (height*10)*scale;
+
+// Scaling effect
+if scaleState = 0 {
+	if scale < 1.07 {
+		scale += 0.062;
+	} else {
+		scale = 1.07;
+		scaleState = 1;
+	}
+}
+if scaleState = 1 {
+	if scale > 1 {
+		scale -= 0.018;
+	} else {
+		scale = 1;
+	}
+}
+if arrowScale < 1 {
+	arrowScale += 0.068;
+} else {
+	arrowScale = 1;
+}
+
+// Fading effect
+if outAlpha < 1 {
+	outAlpha += 0.45;
+} else {
+	outAlpha = 1;
+}
+if inAlpha < 1 {
+	inAlpha += 0.08;
+} else {
+	inAlpha = 1;
+}
+
+// Bouncing effect
+bounceYOff -= bounceYSpd;
+
+if bounceState = 0 {
+	bounceYSpd += 0.28;
+	
+	if bounceYOff < 0 {
+		bounceYOff = 0;
+		bounceYSpd = -0.88;
+		bounceState = 1;
+	}
+}
+if bounceState = 1 {
+	bounceYSpd += 0.12;
+	
+	if bounceYOff < 7 {
+		canScrawl = true;
+	}
+	
+	if bounceYOff < 0 {
+		bounceYOff = 0;
+		bounceYSpd = 0;
+		bounceState = 2;
+	}
+}
+
+/*if characters[i] >= message_length {
 	if time > 0 {
 		time -= 1;
 	} else {

@@ -34,6 +34,8 @@ if !activated {
 	spr = sprD;
 } else {
 	// In play mode
+	
+	// Walking
 	if (xNode[i] != -1 && yNode[i] != -1) {
 		if (x <= xNode[i]-speed || x >= xNode[i]+speed) || (y <= yNode[i]-speed || y >= yNode[i]+speed) {
 			if point_distance(x,y,xNode[i],yNode[i]) <= 3 {
@@ -90,7 +92,10 @@ if !activated {
 	// Increment along timeline
 	if trgRegion != -1 {
 		while xNode[i] = -1 && yNode[i] = -1 && i < trgRegion.timeIndexCalc {
-			i += 1; // Increment 1/10'th second
+			i += 1; // Increment 1/10'th second for walking
 		}
+		/*while dialogueStr[i2] = -1 && i2 < trgRegion.timeIndexCalc {
+			i2 += 1; // Increment 1/10'th second for talking
+		}*/
 	}
 }

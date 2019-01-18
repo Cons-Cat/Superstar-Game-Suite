@@ -30,8 +30,25 @@ for (i = 0; i <= textRows; i += 1) {
 	
 	if selectTextRow[i] {
 		select[4] = true;
-		if keyboard_check_pressed(vk_anykey) && !keyboard_check_pressed(vk_control) && !keyboard_check_pressed(vk_shift) && !keyboard_check_pressed(vk_alt) {
+		
+		if keyboard_check_pressed(vk_anykey) && !keyboard_check_pressed(vk_control) && !keyboard_check_pressed(vk_shift) && !keyboard_check_pressed(vk_alt) && !keyboard_check_pressed(vk_enter) {
 			str[i] = typeText(str[i]); // Custom script which adds keyboard characters to an string argument
+		}
+		if keyboard_check_pressed(vk_enter) {
+			// New line
+			if canInputEnter {
+				if i = textRows - 1 {
+					height += 1;
+					textRows += 1;
+				}
+				
+				selectTextRow[i] = false;
+				canSelectTextRow[i + 1] = true;
+				selectTextRow[i + 1] = true;
+				canInputEnter = false;
+				
+				alarm[1] = 2;
+			}
 		}
 	}
 }
@@ -114,8 +131,8 @@ if select[3] {
 	if relativeMouseY < placey+height*10+10 {
 		placey -= 5;
 	}
-	if relativeMouseY > placey+height*10+20 {
-		if placey < trg.y - height*10 - 10 {
+	if relativeMouseY > placey+height*10+25 {
+		if placey < trg.y - height*10 - 15 {
 			placey += 5;
 		}
 	}

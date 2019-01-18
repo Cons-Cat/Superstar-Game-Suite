@@ -17,10 +17,10 @@ if mouse_y < obj_panel_bot.y {
 }
 
 if (mouse_check_button_pressed(mb_left) && !canDrag) || (mouse_check_button_released(mb_left) && canDrag && canPlace) {
-	if mouse_y > obj_panel_bot.y + (576 - obj_panel_bot.y) || mouse_y <= obj_panel_bot.y {
-		obj_panel_bot.xNode[i] = self.x;
-		obj_panel_bot.yNode[i] = self.y;
-		//obj_trigger_dialogue_region_editor.alarm[2] = 2;
+	if mouse_y <= obj_panel_bot.y {
+		obj_panel_bot.xNode[rowIndex] = self.x;
+		obj_panel_bot.yNode[rowIndex] = self.y;
+		obj_trigger_dialogue_region_editor.alarm[2] = 2;
 		
 		with obj_cutscene_actor_dummy_lucy {
 			instance_destroy();
