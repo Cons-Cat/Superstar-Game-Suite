@@ -8,6 +8,7 @@ activated = false;
 spd = 0;
 maxSpd = 1.25;
 dirIso = 4;
+zfloor = 0;
 
 moving = false;
 jumping = false;

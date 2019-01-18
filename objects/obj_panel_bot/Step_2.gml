@@ -145,10 +145,12 @@ if addWalk || addRotate || addDialogue {
 		
 		if !instance_exists(obj_cutscene_actor_getter_walk_target) {
 			with instance_create_layer(0,0,"Instances",obj_cutscene_actor_getter_walk_target) {
-				rowIndex = other.totalActions;
+				timeIndex = other.totalActions;
 				
 				with other.actorId[other.i] {
 					other.zfloor = self.zfloor;
+					other.originX[0] = self.x + 10;
+					other.originY[0] = self.y + 10;
 				}
 			}
 		}
@@ -289,16 +291,19 @@ for (i = 1; i <= totalActions; i += 1) {
 										// Walk action
 										if !instance_exists(obj_cutscene_actor_getter_walk_target) {
 											with instance_create_layer(xNode[i],yNode[i],"Instances",obj_cutscene_actor_getter_walk_target) {
-												rowIndex = other.i
+												timeIndex = other.i
 												canDrag = true;
 												canPlace = false;
 												
 												with other.actorId[other.j] {
 													other.zfloor = self.zfloor;
+													other.originX[0] = self.x+10;
+													other.originY[0] = self.y+10;
 												}
 											}
 										}
 									}
+									
 									if actionInd[i] = 2 {
 										// Dialogue action
 										if !instance_exists(obj_cutscene_actor_getter_dialogue_target) {

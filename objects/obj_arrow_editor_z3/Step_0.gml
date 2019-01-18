@@ -20,13 +20,11 @@ if instance_exists(trg) {
 			y = trg.y + trg.height*10;
 		}
 		
-		if self.y < trg.y + trg.height*10 {
+		if self.y < trg.y + trg.height*10 - trg.zfloor*20 {
 			trg.zfloor += 1;
-			trg.y -= 20;
 		}
-		if self.y > trg.y + trg.height*10 && trg.zcieling > 0 {
+		if self.y > trg.y + trg.height*10 - trg.zfloor*20 && trg.zcieling > 0 {
 			trg.zfloor -= 1;
-			trg.y += 20;
 		}
 	}
 }

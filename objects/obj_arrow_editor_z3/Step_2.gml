@@ -6,6 +6,6 @@ if instance_exists(trg) {
 		selectYOff = 0
 		
 		x = trg.x+trg.width*10 + 20; // Halfway down width
-		y = trg.y+trg.height*10; // Halfway down height
+		y = trg.y+trg.height*10 - trg.zfloor*20; // Halfway down height
 	}
 }

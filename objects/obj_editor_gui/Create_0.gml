@@ -22,6 +22,13 @@ view_set_yport(4,453);
 depth = -room_height - 200;
 
 mode = 0;
+/*
+0 - Collision
+1 - Wireframe
+2 - Play
+3 - Tiling
+4 - Triggers
+*/
 modeGridSpr = spr_grid_editor;
 sidePanelCtrl = -1;
 spawnedCollisions = false;
