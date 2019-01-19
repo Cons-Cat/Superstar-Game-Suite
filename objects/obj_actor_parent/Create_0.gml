@@ -3,12 +3,16 @@ str = "actor";
 
 trgRegion = -1;
 i = 0;
+dir = -1;
 activated = false;
 
 spd = 0;
 maxSpd = 1.25;
 dirIso = 4;
 zfloor = 0;
+tempX = x;
+tempY = y;
+rotationInputDirection = 90;
 
 moving = false;
 jumping = false;

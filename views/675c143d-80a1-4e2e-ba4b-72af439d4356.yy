@@ -72,7 +72,10 @@
         "045af39e-82b4-484b-8bcb-34ae9bbb0a80",
         "9b7cfba1-30dc-4b54-97d8-267385126fa7",
         "42dd1ce7-6659-4b72-8d29-4097d8277b00",
-        "c5f3a696-f4fd-468d-80dc-8a01d2a51b2a"
+        "c5f3a696-f4fd-468d-80dc-8a01d2a51b2a",
+        "4145ecfc-98f0-4b20-a2c7-a6da29e73918",
+        "e7c1a781-0e53-4414-89a4-c01c8ab6bc29",
+        "b20c6364-0024-4d3d-b65b-bae276a9db9f"
     ],
     "filterType": "GMObject",
     "folderName": "Editor Essentials",

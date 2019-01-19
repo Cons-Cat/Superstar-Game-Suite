@@ -5,7 +5,7 @@ if instance_exists(trg) {
 	instance_destroy();
 }
 
-if instance_exists(obj_cutscene_actor_getter_dialogue_target) || instance_exists(obj_cutscene_actor_getter_walk_target) {
+if instance_exists(obj_cutscene_actor_getter_target_parent) {
 	select = false;
 	canSelect = false;
 }

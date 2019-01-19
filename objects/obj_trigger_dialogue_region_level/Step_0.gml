@@ -34,7 +34,7 @@ if activated {
 					// Expresses intent to the actor. The actual movement is handled by that instance.
 					actor[timeIndexCalc,i].xNode[timeIndexCalc] = self.xNode[timeIndexCalc,i];
 					actor[timeIndexCalc,i].yNode[timeIndexCalc] = self.yNode[timeIndexCalc,i];
-					actor[timeIndexCalc,i].endWalk[timeIndexCalc] = false; //self.endWalk[timeIndexCalc,i];
+					actor[timeIndexCalc,i].endWalk[timeIndexCalc] = self.endWalk[timeIndexCalc,i];
 				}
 				
 				// Dialogue action

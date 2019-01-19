@@ -31,7 +31,7 @@ if select {
 visible = true;
 
 if obj_editor_gui.mode = 4 { // Triggers mode
-	if instance_exists(obj_cutscene_actor_getter_dialogue_target) || instance_exists(obj_cutscene_actor_getter_walk_target) {
+	if instance_exists(obj_cutscene_actor_getter_target_parent) {
 		visible = false;
 	} else {
 		visible = true;

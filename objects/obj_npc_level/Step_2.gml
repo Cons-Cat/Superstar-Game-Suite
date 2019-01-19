@@ -37,6 +37,8 @@ if !activated {
 	
 	// Walking
 	if (xNode[i] != -1 && yNode[i] != -1) {
+		moving = true;
+		
 		if (x <= xNode[i]-speed || x >= xNode[i]+speed) || (y <= yNode[i]-speed || y >= yNode[i]+speed) {
 			if point_distance(x,y,xNode[i],yNode[i]) <= 3 {
 				// Decelerate
@@ -59,43 +61,57 @@ if !activated {
 				spd = 0.75;
 			}
 			
+			// Rotate towards direction
+			if dir != -1 {
+				if abs(angle_difference(dir,point_direction(x,y,xNode[i],yNode[i]))) > 20 {
+					dir -= angle_difference(dir,point_direction(x,y,xNode[i],yNode[i]))/4.82;
+				} else {
+					dir = point_direction(x,y,xNode[i],yNode[i]);
+				}
+			} else {
+				dir = point_direction(x,y,xNode[i],yNode[i]);
+			}
+			
 			// Move to coordinate
-			//move_towards_point(xNode[i],yNode[i],spd);
 			speed = spd;
-			direction = point_direction(x,y,xNode[i],yNode[i]);
+			direction = dir;
+			rotationInputDirection = floor(point_direction(x,y,xNode[i],yNode[i])/45)*45;
 		}
 		
 		if x > xNode[i]-speed && x < xNode[i]+speed && y > yNode[i]-speed && y < yNode[i]+speed {
 			// Stop at coordinate
 			x = xNode[i];
 			y = yNode[i];
+			tempX = x;
+			tempY = y;
+			moving = false;
 			
 			xNode[i] = -1;
 			yNode[i] = -1;
 			
-			//if endWalk[i] {
+			if endWalk[i] {
 				speed = 0; // move_towards_point() sets a speed value
 				spd = 0;
-			//}
+			}
 		}
 	}
 	
 	// Rotate sprite
-	/*rotFin = scr_rotateAngle(direction);
-	rotDir = scr_rotateDirection(direction,dirIso,rotFin);
-		
+	rotFin = scr_rotateAngle(rotationInputDirection);
+	rotDir = scr_rotateDirection(rotationInputDirection,dirIso,rotFin);
+	
 	if dirIso != rotFin {
 		dirIso = scr_spriteRotateTowards(rotFin,rotDir,dirIso); // Update the angle towards the direction
 	}
-	spr = scr_spriteDir(dirIso);*/
+	spr = scr_spriteDir(dirIso);
 	
 	// Increment along timeline
 	if trgRegion != -1 {
 		while xNode[i] = -1 && yNode[i] = -1 && i < trgRegion.timeIndexCalc {
 			i += 1; // Increment 1/10'th second for walking
 		}
-		/*while dialogueStr[i2] = -1 && i2 < trgRegion.timeIndexCalc {
-			i2 += 1; // Increment 1/10'th second for talking
-		}*/
+		if spd = 0 || point_distance(tempX,tempY,xNode[i],yNode[i]) <= 10 {
+			dir = -1;
+		}
 	}
 }

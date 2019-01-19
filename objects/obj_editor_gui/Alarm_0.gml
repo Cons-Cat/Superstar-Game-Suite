@@ -31,15 +31,19 @@ with obj_trigger_dialogue_region_editor {
 				yNode[other.actionTime[i],other.actionRowInd[i]] = other.yNode[i];
 				
 				// Whether the actor continues walking afterwards
-				endWalk[other.actionTime[i]] = true;
+				endWalk[other.actionTime[i],other.actionRowInd[i]] = true;
 				
-				for (j = 0; j <= i + 6; j += 1) {
-					if other.xNode[j] != -1 || other.yNode[j] != -1 {
-						if j <= longestRowLength {
-							endWalk[other.actionTime[i]] = false;
+				for (j = 0; j <= totalActions; j += 1) {
+					if other.actionRowInd[j] = other.actionRowInd[i] {
+						if other.actionInd[j] = 0 {
+							if other.actionTime[j] > other.actionTime[i] {
+								if abs(other.actionTime[i] - other.actionTime[j]) <= 4 {
+									endWalk[other.actionTime[i],other.actionRowInd[i]] = false;
+									
+									break;
+								}
+							}
 						}
-						
-						break;
 					}
 				}
 			}

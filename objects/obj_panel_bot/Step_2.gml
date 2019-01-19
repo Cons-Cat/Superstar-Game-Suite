@@ -146,6 +146,7 @@ if addWalk || addRotate || addDialogue {
 		if !instance_exists(obj_cutscene_actor_getter_walk_target) {
 			with instance_create_layer(0,0,"Instances",obj_cutscene_actor_getter_walk_target) {
 				timeIndex = other.totalActions;
+				canPlace = true;
 				
 				with other.actorId[other.i] {
 					other.zfloor = self.zfloor;
@@ -161,6 +162,24 @@ if addWalk || addRotate || addDialogue {
 	if addRotate {
 		actionInd[totalActions] = 1; // Rotate action
 		actionColor[totalActions] = make_color_rgb(57,113,43); // Violet
+		
+		if !instance_exists(obj_cutscene_actor_getter_rotate_target) {
+			with instance_create_layer(0,0,"Instances",obj_cutscene_actor_getter_rotate_target) {
+				timeIndex = other.totalActions;
+				canPlace = true;
+				angle = 0;
+				run = 0;
+				rise = 0;
+				mirror = 0;
+				flip = 0;
+				
+				with other.actorId[other.i] {
+					other.zfloor = self.zfloor;
+					other.originX[0] = self.x + 10;
+					other.originY[0] = self.y + 10;
+				}
+			}
+		}
 		
 		addRotate = false;
 	}
@@ -204,7 +223,7 @@ for (i = 0; i < rows; i += 1) {
 	if mouse_check_button_pressed(mb_left) {
 		if !(mouse_x >= 0 && mouse_x <= 190 && mouse_y >= y+5 && mouse_y <= y+29) {
 			selectRow[i] = false;
-			if !instance_exists(obj_cutscene_actor_getter_walk_target) && !instance_exists(obj_cutscene_actor_getter_dialogue_target) {
+			if !instance_exists(obj_cutscene_actor_getter_target_parent) {
 				actorId[i].orangeAnyways = false;
 			}
 			
@@ -294,6 +313,28 @@ for (i = 1; i <= totalActions; i += 1) {
 												timeIndex = other.i
 												canDrag = true;
 												canPlace = false;
+												
+												with other.actorId[other.j] {
+													other.zfloor = self.zfloor;
+													other.originX[0] = self.x+10;
+													other.originY[0] = self.y+10;
+												}
+											}
+										}
+									}
+									
+									if actionInd[i] = 1 {
+										// Rotate action
+										if !instance_exists(obj_cutscene_actor_getter_rotate_target) {
+											with instance_create_layer(actorId[j].x+10,actorId[j].y+10,"Instances",obj_cutscene_actor_getter_rotate_target) {
+												timeIndex = other.i
+												canDrag = true;
+												canPlace = false;
+												angleCalc = other.angleRot[other.i];
+												run = other.runRot[other.i];
+												rise = other.riseRot[other.i];
+												mirror = other.mirrorRot[other.i];
+												flip = other.flipRot[other.i];
 												
 												with other.actorId[other.j] {
 													other.zfloor = self.zfloor;
@@ -422,6 +463,15 @@ if cutsceneInstanceId != -1 {
 					cutsceneInstanceId.xNode[j] = self.xNode[j];
 					cutsceneInstanceId.yNode[j] = self.yNode[j];
 				}
+				
+				if actionInd[j] = 1 { // Rotation action
+					cutsceneInstanceId.angleRot[j] = self.angleRot[j];
+					cutsceneInstanceId.runRot[j] = self.runRot[j];
+					cutsceneInstanceId.riseRot[j] = self.riseRot[j];
+					cutsceneInstanceId.mirrorRot[j] = self.mirrorRot[j];
+					cutsceneInstanceId.flipRot[j] = self.flipRot[j];
+				}
+				
 				if actionInd[j] = 2 { // Dialogue action
 					cutsceneInstanceId.dialogueWidth[j] = self.dialogueWidth[j];
 					cutsceneInstanceId.dialogueHeight[j] = self.dialogueHeight[j];
@@ -475,6 +525,14 @@ if cutsceneInstanceId != -1 {
 				if actionInd[j] = 0 { // Walk action
 					xNode[j] = cutsceneInstanceId.xNode[j];
 					yNode[j] = cutsceneInstanceId.yNode[j];
+				}
+				
+				if actionInd[j] = 1 { // Rotation action
+					angleRot[j] = cutsceneInstanceId.angleRot[j];
+					runRot[j] = cutsceneInstanceId.runRot[j];
+					riseRot[j] = cutsceneInstanceId.riseRot[j];
+					mirrorRot[j] = cutsceneInstanceId.mirrorRot[j];
+					flipRot[j] = cutsceneInstanceId.flipRot[j];
 				}
 				
 				if actionInd[j] = 2 { // Dialogue action
