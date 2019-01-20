@@ -55,3 +55,5 @@ for (i = 0; i < 36; i += 1) {
 instance_create_layer(x+10,y+10,"Instances",obj_npc_level);
 trg = collision_point(x+10,y+10,obj_npc_level,false,false);
 trg.trg = self.id;
+spawnBool = true;
+spawnBool2 = true;

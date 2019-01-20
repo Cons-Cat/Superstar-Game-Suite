@@ -48,6 +48,11 @@ with obj_trigger_dialogue_region_editor {
 				}
 			}
 			
+			// Rotation action
+			if actionInd[other.actionTime[i],other.actionRowInd[i]] = 1 {
+				angleRot[other.actionTime[i],other.actionRowInd[i]] = other.angleRotExport[i];
+			}
+			
 			// Dialogue action
 			if actionInd[other.actionTime[i],other.actionRowInd[i]] = 2 {
 				width[other.actionTime[i],other.actionRowInd[i]] = other.dialogueWidth[i];

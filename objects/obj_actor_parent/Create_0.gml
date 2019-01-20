@@ -8,7 +8,8 @@ activated = false;
 
 spd = 0;
 maxSpd = 1.25;
-dirIso = 4;
+dirIso = 6;
+dirIsoDef = dirIso;
 zfloor = 0;
 tempX = x;
 tempY = y;

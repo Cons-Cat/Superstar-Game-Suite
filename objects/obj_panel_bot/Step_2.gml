@@ -146,6 +146,7 @@ if addWalk || addRotate || addDialogue {
 		if !instance_exists(obj_cutscene_actor_getter_walk_target) {
 			with instance_create_layer(0,0,"Instances",obj_cutscene_actor_getter_walk_target) {
 				timeIndex = other.totalActions;
+				rowIndex = other.i;
 				canPlace = true;
 				
 				with other.actorId[other.i] {
@@ -166,6 +167,7 @@ if addWalk || addRotate || addDialogue {
 		if !instance_exists(obj_cutscene_actor_getter_rotate_target) {
 			with instance_create_layer(0,0,"Instances",obj_cutscene_actor_getter_rotate_target) {
 				timeIndex = other.totalActions;
+				rowIndex = other.i;
 				canPlace = true;
 				angle = 0;
 				run = 0;
@@ -311,6 +313,7 @@ for (i = 1; i <= totalActions; i += 1) {
 										if !instance_exists(obj_cutscene_actor_getter_walk_target) {
 											with instance_create_layer(xNode[i],yNode[i],"Instances",obj_cutscene_actor_getter_walk_target) {
 												timeIndex = other.i
+												rowIndex = other.j;
 												canDrag = true;
 												canPlace = false;
 												
@@ -327,7 +330,8 @@ for (i = 1; i <= totalActions; i += 1) {
 										// Rotate action
 										if !instance_exists(obj_cutscene_actor_getter_rotate_target) {
 											with instance_create_layer(actorId[j].x+10,actorId[j].y+10,"Instances",obj_cutscene_actor_getter_rotate_target) {
-												timeIndex = other.i
+												timeIndex = other.i;
+												rowIndex = other.j;
 												canDrag = true;
 												canPlace = false;
 												angleCalc = other.angleRot[other.i];
@@ -335,6 +339,8 @@ for (i = 1; i <= totalActions; i += 1) {
 												rise = other.riseRot[other.i];
 												mirror = other.mirrorRot[other.i];
 												flip = other.flipRot[other.i];
+												
+												angleExport = angleFormConv(angleCalc,mirror,flip);
 												
 												with other.actorId[other.j] {
 													other.zfloor = self.zfloor;
@@ -466,6 +472,7 @@ if cutsceneInstanceId != -1 {
 				
 				if actionInd[j] = 1 { // Rotation action
 					cutsceneInstanceId.angleRot[j] = self.angleRot[j];
+					cutsceneInstanceId.angleRotExport[j] = self.angleRotExport[j];
 					cutsceneInstanceId.runRot[j] = self.runRot[j];
 					cutsceneInstanceId.riseRot[j] = self.riseRot[j];
 					cutsceneInstanceId.mirrorRot[j] = self.mirrorRot[j];
@@ -529,6 +536,7 @@ if cutsceneInstanceId != -1 {
 				
 				if actionInd[j] = 1 { // Rotation action
 					angleRot[j] = cutsceneInstanceId.angleRot[j];
+					angleRotExport[j] = cutsceneInstanceId.angleRotExport[j];
 					runRot[j] = cutsceneInstanceId.runRot[j];
 					riseRot[j] = cutsceneInstanceId.riseRot[j];
 					mirrorRot[j] = cutsceneInstanceId.mirrorRot[j];

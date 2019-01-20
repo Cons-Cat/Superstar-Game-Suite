@@ -28,22 +28,24 @@ originY[timeIndex] = originY[0];
 
 while tempActionTime < obj_panel_bot.longestRowLength {
 	for (i = 1; i <= obj_panel_bot.totalActions; i += 1) {
-		if obj_panel_bot.actionTime[i] = tempActionTime {
-			if obj_panel_bot.actionInd[i] = 0 {
-				originX[j] = obj_panel_bot.xNode[i];
-				originY[j] = obj_panel_bot.yNode[i];
+		if obj_panel_bot.actionRowInd[i] = rowIndex {
+			if obj_panel_bot.actionTime[i] = tempActionTime {
+				if obj_panel_bot.actionInd[i] = 0 {
+					originX[j] = obj_panel_bot.xNode[i];
+					originY[j] = obj_panel_bot.yNode[i];
+					
+					j += 1;
+					break;
+				}
 				
-				j += 1;
-				break;
-			}
-			
-			if obj_panel_bot.actionInd[i] = 1 {
-				originX[j] = originX[j-1];
-				originY[j] = originY[j-1];
-			
-				j += 1;
-				if i = timeIndex {
-					tempActionTime = obj_panel_bot.longestRowLength + 1;
+				if obj_panel_bot.actionInd[i] = 1 {
+					originX[j] = originX[j-1];
+					originY[j] = originY[j-1];
+					
+					j += 1;
+					if i = timeIndex {
+						tempActionTime = obj_panel_bot.longestRowLength + 1;
+					}
 				}
 			}
 		}
@@ -52,13 +54,13 @@ while tempActionTime < obj_panel_bot.longestRowLength {
 	tempActionTime += 1;
 }
 
+angle = point_direction(originX[j-1],originY[j-1],relativeMouseX,relativeMouseY);
+angleCalc = round(angle/22.5)*22.5;
+
 if canPlace {
 	image_index = 1;
 	
 	if mouse_y < obj_panel_bot.y {
-		angle = point_direction(originX[j-1],originY[j-1],relativeMouseX,relativeMouseY);
-		angleCalc = round(angle/22.5)*22.5;
-		
 		if angleCalc >= 0 && angleCalc <= 90 {
 			mirror = 1;
 			flip = 1;
@@ -106,6 +108,8 @@ if canPlace {
 			run = 0;
 			rise = 2;
 		}
+		
+		angleExport = angleFormConv(angleCalc,mirror,flip);
 	}
 } else {
 	image_index = 0;
@@ -117,16 +121,25 @@ gone = true;
 
 if (mouse_check_button_released(mb_left)) {
 	if canDel {
-		obj_panel_bot.angleRot[timeIndex] = self.angleCalc;
-		obj_panel_bot.runRot[timeIndex] = self.run;
-		obj_panel_bot.riseRot[timeIndex] = self.rise;
-		obj_panel_bot.mirrorRot[timeIndex] = self.mirror;
-		obj_panel_bot.flipRot[timeIndex] = self.flip;
+		if trg = -1 {
+			obj_panel_bot.angleRot[timeIndex] = self.angleCalc;
+			obj_panel_bot.angleRotExport[timeIndex] = self.angleExport;
+			obj_panel_bot.runRot[timeIndex] = self.run;
+			obj_panel_bot.riseRot[timeIndex] = self.rise;
+			obj_panel_bot.mirrorRot[timeIndex] = self.mirror;
+			obj_panel_bot.flipRot[timeIndex] = self.flip;
+		} else {
+			with trg {
+				trg.dirIsoDef = other.angleExport;
+			}
+		}
 		
-		obj_trigger_dialogue_region_editor.alarm[2] = 2;
+		if instance_exists(obj_trigger_dialogue_region_editor) {
+			obj_trigger_dialogue_region_editor.alarm[2] = 2;
 		
-		with obj_cutscene_actor_dummy_lucy {
-			instance_destroy();
+			with obj_cutscene_actor_dummy_lucy {
+				instance_destroy();
+			}
 		}
 		
 		instance_destroy();
@@ -136,3 +149,4 @@ if (mouse_check_button_released(mb_left)) {
 		alarm[0] = 18;
 	}
 }
+	

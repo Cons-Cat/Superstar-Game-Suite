@@ -519,6 +519,14 @@
             }
         },
         {
+            "Key": "3a1d28dc-d5c5-4d8b-91a6-6cabfdc6180a",
+            "Value": {
+                "id": "4be3ee0b-0920-4f2d-b452-e818cbbc38f6",
+                "resourcePath": "scripts\\angleFormConv\\angleFormConv.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "3acb440d-94b1-40a4-9cf9-b9805f525ef0",
             "Value": {
                 "id": "69f679d1-2ed5-4b9f-bb7e-80d7e505c2ba",
@@ -2859,6 +2867,7 @@
         "8ac73c4b-cd9d-4a64-aa7c-77fbddee6889",
         "c7f5cc64-679c-4d6e-9594-f8558906d58d",
         "db8eb03b-9eaa-4a07-88b9-3acd19fc4580",
+        "3a1d28dc-d5c5-4d8b-91a6-6cabfdc6180a",
         "1b254f41-b5b7-4063-ab01-c1f02ed3b1ac",
         "0e0e322f-380e-448f-9530-42154abd02ad",
         "2bb57222-41cb-44de-9101-e2a546ff6ce1",

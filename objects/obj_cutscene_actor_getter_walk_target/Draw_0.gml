@@ -11,19 +11,21 @@ i = 1;
 
 while tempActionTime < obj_panel_bot.longestRowLength {
 	for (i = 1; i <= obj_panel_bot.totalActions; i += 1) {
-		if obj_panel_bot.actionInd[i] = 0 {
-			if obj_panel_bot.actionTime[i] = tempActionTime {
-				if timeIndex != i {
-					originX[j] = obj_panel_bot.xNode[i];
-					originY[j] = obj_panel_bot.yNode[i];
-				} else {
-					originX[j] = self.x;
-					originY[j] = self.y;
-				}
-				
-				j += 1;
-				break;
-			} 
+		if obj_panel_bot.actionRowInd[i] = rowIndex {
+			if obj_panel_bot.actionInd[i] = 0 {
+				if obj_panel_bot.actionTime[i] = tempActionTime {
+					if timeIndex != i {
+						originX[j] = obj_panel_bot.xNode[i];
+						originY[j] = obj_panel_bot.yNode[i];
+					} else {
+						originX[j] = self.x;
+						originY[j] = self.y;
+					}
+					
+					j += 1;
+					break;
+				} 
+			}
 		}
 	}
 	

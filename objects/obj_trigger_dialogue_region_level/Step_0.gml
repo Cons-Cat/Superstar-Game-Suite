@@ -4,17 +4,18 @@ if collision_rectangle(x,y,x+image_xscale*20,y+image_yscale*20,obj_player_overwo
 	if !activated {
 		for (i = 1; i <= totalActions; i += 1) {
 			if i = 0 {
-				actor[actionTime[i],0] = obj_player_overworld.id; // 1/5'th second, 0'th Row
+				actor[actionTime[i],0] = obj_player_overworld.id; // 1/10'th second, 0'th Row
 			} else {
 				for (j = 1; j < instance_number(obj_npc_level) + 1; j += 1) { // Start at 1 to compensate for player
 					if instance_find(obj_npc_position,j-1).instId1[0] = self.actorTxt[j] {
-						actor[actionTime[i],j] = instance_find(obj_npc_position,j-1).trg; // 1/5'th second, Row
+						actor[actionTime[i],j] = instance_find(obj_npc_position,j-1).trg; // 1/10'th second, Row
 						actor[actionTime[i],j].trgRegion = self.id;
 						actor[actionTime[i],j].activated = true;
 						
 						for (a = 0; a <= longestRowLength; a += 1) {
 							actor[actionTime[i],j].xNode[a] = -1; // Initialize xNode
 							actor[actionTime[i],j].yNode[a] = -1; // Initialize xNode
+							actor[actionTime[i],j].angleRot[a] = -1; // Initialize angleRot
 						}
 					}
 				}
@@ -35,6 +36,11 @@ if activated {
 					actor[timeIndexCalc,i].xNode[timeIndexCalc] = self.xNode[timeIndexCalc,i];
 					actor[timeIndexCalc,i].yNode[timeIndexCalc] = self.yNode[timeIndexCalc,i];
 					actor[timeIndexCalc,i].endWalk[timeIndexCalc] = self.endWalk[timeIndexCalc,i];
+				}
+				
+				// Rotation action
+				if actionInd[timeIndexCalc,i] = 1 {
+					actor[timeIndexCalc,i].angleRot[timeIndexCalc] = self.angleRot[timeIndexCalc,i];
 				}
 				
 				// Dialogue action
