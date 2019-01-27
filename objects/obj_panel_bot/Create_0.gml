@@ -46,9 +46,7 @@ rowLength[0] = 120;
 totalActions = 0;
 actionInd[0] = -1; // Null action
 actionRowInd[0] = 0;
-addWalk = false;
-addRotate = false;
-addDialogue = false;
+addClick = -1;
 actionDoubleClick = 0;
 
 image_speed = 0;

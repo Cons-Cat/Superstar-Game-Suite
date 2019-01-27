@@ -116,7 +116,7 @@ if instance_number(obj_npc_level) + 1 != rows {
 }
 
 // Adding actions to timeline
-if addWalk || addRotate || addDialogue {
+if addClick != -1 {
 	totalActions += 1;
 	actionSelect[totalActions] = false;
 	actionDelete[totalActions] = false;
@@ -132,14 +132,12 @@ if addWalk || addRotate || addDialogue {
 		
 		if i = rows - 1 {
 			// Cancel button input if no row is selected
-			addWalk = false;
-			addRotate = false;
-			addDialogue = false;
 			totalActions -= 1;
+			addClick = -1;
 		}
 	}
 	
-	if addWalk {
+	if addClick = 0 {
 		actionInd[totalActions] = 0; // Walk action
 		actionColor[totalActions] = make_color_rgb(113,45,95); // Violet
 		
@@ -156,11 +154,9 @@ if addWalk || addRotate || addDialogue {
 				}
 			}
 		}
-		
-		addWalk = false;
 	}
 	
-	if addRotate {
+	if addClick = 1 {
 		actionInd[totalActions] = 1; // Rotate action
 		actionColor[totalActions] = make_color_rgb(57,113,43); // Violet
 		
@@ -182,11 +178,9 @@ if addWalk || addRotate || addDialogue {
 				}
 			}
 		}
-		
-		addRotate = false;
 	}
 	
-	if addDialogue {
+	if addClick = 2 {
 		actionInd[totalActions] = 2; // Dialogue action
 		actionColor[totalActions] = make_color_rgb(113,84,45); // Violet
 		
@@ -203,9 +197,44 @@ if addWalk || addRotate || addDialogue {
 				placey = ystart;
 			}
 		}
-		
-		addDialogue = false;
 	}
+	
+	if addClick = 3 {
+		actionInd[totalActions] = 3; // Camera pan action
+		actionColor[totalActions] = make_color_rgb(65,160,160); // Violet
+		
+		if !instance_exists(obj_cutscene_actor_getter_pan_target) {
+			with instance_create_layer(cutsceneInstanceId.x-10,cutsceneInstanceId.y-2,"Instances",obj_cutscene_actor_getter_pan_target) {
+				timeIndex = other.totalActions;
+				trg = other.cutsceneInstanceId;
+				selectState = 1;
+				pointX = trg.x + 10;
+				pointY = trg.y + 10;
+				zfloor = trg.zfloor;
+				panMagnitude = 10;
+				easeInVal = 10;
+				easeInSliderVal = easeInVal;
+				easeOutVal = 10;
+				easeOutSliderVal = easeOutVal;
+				
+				valPass[0] = panMagnitude;
+				valPass[1] = easeInVal;
+				valPass[2] = easeOutVal;
+				
+				for (j = 0; j <= 3; j += 1) {
+					for (i = 0; i <= 2; i += 1) {
+						if j = 0 {
+							val[j,i] = 1;
+						} else {
+							val[j,i] = 0;
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	addClick = -1;
 }
 
 // Managing selection
@@ -374,9 +403,55 @@ for (i = 1; i <= totalActions; i += 1) {
 										}
 									}
 									
+									if actionInd[i] = 3 {
+										// Camera pan action
+										if !instance_exists(obj_cutscene_actor_getter_pan_target) {
+											with instance_create_layer(cutsceneInstanceId.x-10,cutsceneInstanceId.y-2,"Instances",obj_cutscene_actor_getter_pan_target) {
+												timeIndex = other.i;
+												trg = other.cutsceneInstanceId;
+												panAngle = other.panAngle[timeIndex];
+												panMagnitude = other.panMagnitude[timeIndex];
+												easeInVal = other.easeInVal[timeIndex];
+												easeInSliderVal = easeInVal;
+												easeOutVal = other.easeOutVal[timeIndex];
+												easeOutSliderVal = easeOutVal;
+												
+												selectState = 0;
+												pointX = trg.x + 10;
+												pointY = trg.y + 10;
+												zfloor = trg.zfloor;
+												
+												valPass[0] = panMagnitude;
+												valPass[1] = easeInVal;
+												valPass[2] = easeOutVal;
+												
+												a = 0;
+												
+												for (i = 0; i <= 2; i += 1) {
+													for (j = 0; j <= 3; j += 1) {
+														if string_char_at(string_digits(string_digits(valPass[i])),i+1-a) != "" {
+															val[j,i] = real(string_char_at(string_digits(valPass[i]),j+1-a));
+														} else {
+															val[j,i] = 0;
+														}
+														
+														if j = 0 {
+															if valPass[i] < 10 {
+																// Insert a 0 if val[] is not a double-digit integer
+																val[0,i] = 0;
+																a = 1;
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+									
 									actionDoubleClick = 0;
 								}
 							}
+							
 							if mouse_check_button(mb_right) {
 								actionDelete[i] = true;
 							}
@@ -491,6 +566,13 @@ if cutsceneInstanceId != -1 {
 					}
 				}
 				
+				if actionInd[j] = 3 { // Camera pan action
+					cutsceneInstanceId.panAngle[j] = self.panAngle[j];
+					cutsceneInstanceId.panMagnitude[j] = self.panMagnitude[j];
+					cutsceneInstanceId.easeInVal[j] = self.easeInVal[j];
+					cutsceneInstanceId.easeOutVal[j] = self.easeOutVal[j];
+				}
+				
 				actionInd[j] = -1;
 			}
 			
@@ -544,7 +626,7 @@ if cutsceneInstanceId != -1 {
 				}
 				
 				if actionInd[j] = 2 { // Dialogue action
-					dialogueWidth[j] =cutsceneInstanceId.dialogueWidth[j];
+					dialogueWidth[j] = cutsceneInstanceId.dialogueWidth[j];
 					dialogueHeight[j] = cutsceneInstanceId.dialogueHeight[j];
 					textRows[j] = cutsceneInstanceId.textRows[j];
 					xOffDialogue[j] = cutsceneInstanceId.xOffDialogue[j];
@@ -553,6 +635,13 @@ if cutsceneInstanceId != -1 {
 					for (i = 0; i < textRows[j]; i += 1) {
 						str[j,i] = cutsceneInstanceId.dialogueStr[j,i];
 					}
+				}
+				
+				if actionInd[j] = 3 { // Camera pan action
+					panAngle[j] = cutsceneInstanceId.panAngle[j];
+					panMagnitude[j] = cutsceneInstanceId.panMagnitude[j];
+					easeInVal[j] = cutsceneInstanceId.easeInVal[j];
+					easeOutVal[j] = cutsceneInstanceId.easeOutVal[j];
 				}
 			}
 			

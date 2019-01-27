@@ -21,7 +21,8 @@
         "f6095289-4648-469a-a6e5-8cd9d3b8f5ab",
         "e6b8f3d3-4dc5-436a-932d-aab847ce84c3",
         "ef08e61b-f56f-46c8-9452-86fc307b3edf",
-        "f070fbd5-53ef-496f-90e8-0a52bdcc0265"
+        "f070fbd5-53ef-496f-90e8-0a52bdcc0265",
+        "255a7cd2-3e39-4fb9-8db4-a0e74d3639aa"
     ],
     "filterType": "GMObject",
     "folderName": "Cutscene",

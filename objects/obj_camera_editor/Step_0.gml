@@ -1,5 +1,12 @@
 /// @description Move camera
 if obj_editor_gui.mode != 2 {
+	x -= lengthdir_x(panMagnitudeTemp,panAngleTemp)*20;
+	y -= lengthdir_y(panMagnitudeTemp,panAngleTemp)*20;
+	
+	panMagnitudeTemp = 0;
+	panAngleTemp = 0;
+	i = 0;
+	
 	/*if mouse_check_button_pressed(mb_right) {
 		tempX = mouse_x;
 		tempY = mouse_y;
@@ -13,7 +20,7 @@ if obj_editor_gui.mode != 2 {
 			x += tempX - mouse_x;
 			tempX = mouse_x;
 			spasmX[spasmI] = x;
-		
+			
 			if spasmI < 2 {
 				spasmI += 1;
 			} else {
@@ -46,10 +53,39 @@ if obj_editor_gui.mode != 2 {
 		y -= 7;
 	}
 } else {
-	// Follow player
-	if instance_exists(obj_player_overworld) {
-		x = obj_player_overworld.x;
-		y = obj_player_overworld.y-obj_player_overworld.platOn;
+	// In play mode
+	if trgRegion != -1 {
+		if moving[i] {
+			// Follow player
+			if instance_exists(obj_player_overworld) {
+				x = obj_player_overworld.x + lengthdir_x(panMagnitudeTemp,panAngle[i])*20;
+				y = obj_player_overworld.y + lengthdir_y(panMagnitudeTemp,panAngle[i])*20 - obj_player_overworld.platOn;
+			}
+			panAngleTemp = panAngle[i];
+			
+			// Pan
+			if panMagnitudeTemp <= panMagnitude[i] - panMagnitudeSpd {
+				panMagnitudeTemp += panMagnitudeSpd;
+			} else {
+				panMagnitudeTemp = panMagnitude[i];
+			}
+			
+			// Accelerate / Decelerate
+			if panMagnitudeSpd < panMagnitudeSpdMax[i] && panMagnitudeSpdMax[i] != -1 {
+				panMagnitudeSpd += panEaseIn[i];
+			} else {
+				panMagnitudeSpd = panMagnitudeSpdMax[i];
+			}
+		} else {
+			if i < trgRegion.timeIndexCalc {
+				while i < trgRegion.timeIndexCalc {
+					moving[i] = false;
+					i += 1;
+				}
+			} else {
+				moving[i] = true;
+			}
+		}
 	}
 }
 
@@ -66,16 +102,5 @@ if y < 576 + 174 {
 if y > room_height - 162 {
 	y = room_height - 162;
 }
-
-// Debug viewports
-/*if keyboard_check_pressed(ord("1")) {
-	room_set_viewport(roomVar,0,true,0,0,460,259);
-}
-if keyboard_check_pressed(ord("2")) {
-	room_set_viewport(roomVar,0,true,0,0,920,518);
-}
-if keyboard_check(vk_alt) && keyboard_check_pressed(vk_enter) {
-	window_set_fullscreen(!window_get_fullscreen());
-}*/
 
 depth = obj_editor_gui.depth - 1;

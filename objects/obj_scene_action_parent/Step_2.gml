@@ -1,9 +1,10 @@
 /// @description Insert description here
+/// @description Insert description here
 if !mouse_check_button(mb_left) {
 	if select {
 		if mouse_x >= x && mouse_x <= x + sprWidth && mouse_y >= y && mouse_y <= y + sprHeight {
 			if obj_editor_gui.selectInstance != -1 {
-				obj_panel_bot.addRotate = true;
+				obj_panel_bot.addClick = value;
 			}
 		}
 	}

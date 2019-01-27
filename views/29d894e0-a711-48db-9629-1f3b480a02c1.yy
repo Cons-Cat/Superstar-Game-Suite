@@ -94,6 +94,8 @@
         "a60149a6-a8d3-470d-989a-1190ef7949b5",
         "dc69d6a4-5d30-4dcd-8a85-03c3f5a83dd3",
         "cb8a935a-e88e-4aa9-9e20-b70c9a59a17a",
+        "178420e9-8175-4762-836b-3d434850d9da",
+        "ae5dd087-b3e1-47dc-bd11-2cdb9569a3c6",
         "b4c66e12-2d74-4be5-9966-80bffe4f6d25",
         "9030c000-6926-43da-8fda-e492e37d84fd",
         "a2d33744-4d49-4e1d-976f-e98c3b93c65f",
@@ -101,7 +103,13 @@
         "f9fef588-86a4-41b3-9602-dc674b8ab907",
         "2e4a3fe1-c728-45d7-ab08-4831b8e3de09",
         "c439b616-8f59-45b3-bb12-353ca4230ef2",
-        "ae4c65d7-30e9-48c5-87bd-ed34492fac95"
+        "ae4c65d7-30e9-48c5-87bd-ed34492fac95",
+        "a7e25688-5ae0-4a19-8ae5-a4ff26afbd9d",
+        "55fc1e48-032b-4def-a1fd-c128a729880b",
+        "44c40eef-2418-4942-8f74-07dc8ba0c45c",
+        "3747c239-1847-4ec6-b993-fa8c5efabc8b",
+        "ab3872d4-79c8-49ac-b90c-982c54c808b1",
+        "7a8f8b08-8974-405d-acb4-21c3f8576cf6"
     ],
     "filterType": "GMSprite",
     "folderName": "Level Editor",

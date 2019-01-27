@@ -120,7 +120,7 @@ if !activated {
 	
 	// Increment along timeline
 	if trgRegion != -1 {
-		while xNode[i] = -1 && yNode[i] = -1 && angleRot[i] = -1 && i < trgRegion.timeIndexCalc {
+		while (xNode[i] = -1 && yNode[i] = -1 && angleRot[i] = -1 && i < trgRegion.timeIndexCalc) {
 			i += 1; // Increment 1/10'th second for walking
 		}
 		

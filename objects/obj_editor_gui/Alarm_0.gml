@@ -65,6 +65,24 @@ with obj_trigger_dialogue_region_editor {
 					dialogueStr[other.actionTime[i],j] = other.dialogueStr[i,j];
 				}
 			}
+			
+			// Camera pan action
+			if actionInd[other.actionTime[i],other.actionRowInd[i]] = 3 {
+				panAngle[other.actionTime[i],other.actionRowInd[i]] = other.panAngle[i];
+				panMagnitude[other.actionTime[i],other.actionRowInd[i]] = other.panMagnitude[i];
+				panMagnitudeSpdMax[other.actionTime[i],other.actionRowInd[i]] = other.panMagnitude[i] / 20;
+				
+				if other.easeInVal[i] != 0 {
+					panEaseIn[other.actionTime[i],other.actionRowInd[i]] = other.easeInVal[i] / 10;
+				} else {
+					panEaseIn[other.actionTime[i],other.actionRowInd[i]] = -1;
+				}
+				if other.easeOutVal[i] != 0 {
+					panEaseOut[other.actionTime[i],other.actionRowInd[i]] = other.easeOutVal[i] / 10;
+				} else {
+					panEaseOut[other.actionTime[i],other.actionRowInd[i]] = -1;
+				}
+			}
 		}
 	}
 }

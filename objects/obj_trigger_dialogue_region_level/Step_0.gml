@@ -8,6 +8,7 @@ if collision_rectangle(x,y,x+image_xscale*20,y+image_yscale*20,obj_player_overwo
 			} else {
 				for (j = 1; j < instance_number(obj_npc_level) + 1; j += 1) { // Start at 1 to compensate for player
 					if instance_find(obj_npc_position,j-1).instId1[0] = self.actorTxt[j] {
+						// Initialize actors
 						actor[actionTime[i],j] = instance_find(obj_npc_position,j-1).trg; // 1/10'th second, Row
 						actor[actionTime[i],j].trgRegion = self.id;
 						actor[actionTime[i],j].activated = true;
@@ -66,6 +67,25 @@ if activated {
 							message_draw[0,j] = "";
 							characters[j] = 0;
 						}
+					}
+				}
+				
+				// Camera pan action
+				if actionInd[timeIndexCalc,i] = 3 {
+					// Expresses intent to the camera. The actual movement is handled by that instance.
+					if instance_exists(obj_camera_editor) {
+						obj_camera_editor.trgRegion = self.id;
+						obj_camera_editor.panAngle[timeIndexCalc] = self.panAngle[timeIndexCalc,i];
+						obj_camera_editor.panMagnitude[timeIndexCalc] = self.panMagnitude[timeIndexCalc,i];
+						obj_camera_editor.panMagnitudeSpdMax[timeIndexCalc] = self.panMagnitudeSpdMax[timeIndexCalc,i];
+						
+						obj_camera_editor.panEaseIn[timeIndexCalc] = self.panEaseIn[timeIndexCalc,i];
+						obj_camera_editor.panEaseOut[timeIndexCalc] = self.panEaseOut[timeIndexCalc,i];
+					}
+					if instance_exists(obj_camera) {
+						obj_camera.trgRegion[timeIndexCalc] = self.id;
+						obj_camera.panAngle[timeIndexCalc] = self.panAngle[timeIndexCalc,i];
+						obj_camera.panMagnitude[timeIndexCalc] = self.panMagnitude[timeIndexCalc,i];
 					}
 				}
 			}
