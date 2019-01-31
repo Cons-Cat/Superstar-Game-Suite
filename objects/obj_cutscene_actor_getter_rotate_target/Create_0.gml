@@ -8,8 +8,8 @@ canDel = false;
 gone = false;
 trg = -1;
 
-if instance_exists(obj_trigger_dialogue_region_editor) {
-	obj_trigger_dialogue_region_editor.canDeSelect = false;
+if instance_exists(obj_trigger_region_parent) {
+	obj_trigger_region_parent.canDeSelect = false;
 }
 
 image_speed = 0;

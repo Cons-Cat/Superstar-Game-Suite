@@ -4,7 +4,6 @@ event_inherited();
 // Dimensional manipulation
 if spawnButtons {
 	spawnButtons = false;
-	//spawnBool = true;
 	
 	with instance_create_layer(x,y,"Instances",obj_arrow_editor_drag) {
 		trg = other.id;
@@ -29,20 +28,18 @@ if placed = 1 {
 					with instance_create_layer(x,y,"Instances",obj_cutscene_actor_getter_rotate_target) {
 						trg = other.id;
 						zfloor = other.zfloor;
+						
 						originX[0] = x + 10;
 						originY[0] = y + 10;
-						canPlace = true;
 						
-						//if other.spawnBool2 {
-							canDel = true;
-						//}
+						canPlace = true;
+						canDel = true;
 					}
 				}
 			}
 		}
 		
 		spawnBool = false;
-		//spawnBool2 = false;
 	}
 }
 

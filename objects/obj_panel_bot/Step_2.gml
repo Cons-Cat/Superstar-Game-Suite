@@ -254,6 +254,7 @@ for (i = 0; i < rows; i += 1) {
 	if mouse_check_button_pressed(mb_left) {
 		if !(mouse_x >= 0 && mouse_x <= 190 && mouse_y >= y+5 && mouse_y <= y+29) {
 			selectRow[i] = false;
+			
 			if !instance_exists(obj_cutscene_actor_getter_target_parent) {
 				actorId[i].orangeAnyways = false;
 			}
@@ -590,7 +591,7 @@ if cutsceneInstanceId != -1 {
 		
 		cutsceneInstanceId = -1;
 	}
-} else {
+}/* else {
 	for (i = 0; i < instance_number(obj_trigger_dialogue_region_editor); i += 1) {
 		if instance_find(obj_trigger_dialogue_region_editor,i).select {
 			// Import metadata
@@ -648,7 +649,7 @@ if cutsceneInstanceId != -1 {
 			break;
 		}
 	}
-}
+}*/
 
 // Scrollbars
 scrollHorFactor = (scrollHorRightBound - scrollHorLeftBound) / panelWidth;

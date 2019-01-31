@@ -25,12 +25,8 @@ buttonSelected = 0;
 depthIterate = 0;
 canSpawnButtons = false;
 
-rows = 1;
-rowSetting[1] = 0;
-selectNumCol[0] = c_white;
-selectNumCol[1] = c_white;
-selectButTimelineCol[0] = c_white;
-selectButTimelineCol[1] = c_white;
+// Cutscene values
+trgGone = false;
 totalActions = 0;
 longestRowLength = 0;
 

@@ -35,6 +35,7 @@ while tempActionTime < obj_panel_bot.longestRowLength {
 					originY[j] = obj_panel_bot.yNode[i];
 					
 					j += 1;
+					
 					break;
 				}
 				
@@ -134,8 +135,8 @@ if (mouse_check_button_released(mb_left)) {
 			}
 		}
 		
-		if instance_exists(obj_trigger_dialogue_region_editor) {
-			obj_trigger_dialogue_region_editor.alarm[2] = 2;
+		if instance_exists(obj_trigger_region_parent) {
+			obj_trigger_region_parent.alarm[2] = 2;
 		
 			with obj_cutscene_actor_dummy_lucy {
 				instance_destroy();
@@ -149,4 +150,3 @@ if (mouse_check_button_released(mb_left)) {
 		alarm[0] = 18;
 	}
 }
-	

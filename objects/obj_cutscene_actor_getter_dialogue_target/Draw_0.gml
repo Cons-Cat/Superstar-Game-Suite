@@ -105,10 +105,10 @@ for (i = 0; i < textRows; i += 1) {
 	if selectTextRow[i] || canSelectTextRow[i] {
 		draw_set_color(orange);
 		draw_rectangle(placex + 5,placey + 5 + i*10, placex + width*10 + 4,placey + 14 + i*10,false);
-		draw_set_color(c_black);
+		draw_set_color(c_gray);
 	} else {
 		draw_set_color(c_white);
 	}
 	
-	draw_text(placex + 6, placey + 6 + i*10,str[i]);
+	draw_text_ext(placex + 5, placey + 5 + i*10,str[i],0,200);
 }

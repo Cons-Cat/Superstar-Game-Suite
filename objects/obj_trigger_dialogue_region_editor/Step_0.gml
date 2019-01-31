@@ -26,3 +26,14 @@ if spawnButtons {
 }
 
 zcieling = zfloor;
+
+if select {
+	if !trgGone {
+		// Import metadata
+		importCutscene(obj_panel_bot,self.id);
+		
+		trgGone = true;
+	}
+} else {
+	trgGone = false;
+}

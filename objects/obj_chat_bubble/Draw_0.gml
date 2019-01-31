@@ -95,5 +95,5 @@ draw_set_color(c_white);
 draw_set_font(font);
 
 for (i = 0; i < textRows; i += 1) {
-	draw_text(placex+1,placey+1+i*10,message_draw[i]);
+	draw_text_ext(placex+1,placey+1+i*10,message_draw[i],0,200);
 }

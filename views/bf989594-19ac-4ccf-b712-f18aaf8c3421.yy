@@ -4,6 +4,7 @@
     "mvc": "1.1",
     "name": "bf989594-19ac-4ccf-b712-f18aaf8c3421",
     "children": [
+        "2b80eda2-ae8b-4a4c-b499-5fa62ccd9d8a",
         "69aa0c34-6c02-4426-bfaf-cea90017ce96",
         "21137ea2-0e5c-4cbd-a374-9d72f971baa5",
         "715fa64f-3edc-422e-be99-01a5f091a19c",
@@ -22,7 +23,8 @@
         "e6b8f3d3-4dc5-436a-932d-aab847ce84c3",
         "ef08e61b-f56f-46c8-9452-86fc307b3edf",
         "f070fbd5-53ef-496f-90e8-0a52bdcc0265",
-        "255a7cd2-3e39-4fb9-8db4-a0e74d3639aa"
+        "255a7cd2-3e39-4fb9-8db4-a0e74d3639aa",
+        "7b1d46db-6726-48d2-87aa-d3feb8f81571"
     ],
     "filterType": "GMObject",
     "folderName": "Cutscene",

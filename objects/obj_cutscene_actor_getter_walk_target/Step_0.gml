@@ -34,7 +34,7 @@ if (mouse_check_button_released(mb_left)) {
 	if canDel {
 		obj_panel_bot.xNode[timeIndex] = self.x;
 		obj_panel_bot.yNode[timeIndex] = self.y;
-		obj_trigger_dialogue_region_editor.alarm[2] = 2;
+		obj_trigger_region_parent.alarm[2] = 2;
 		
 		with obj_cutscene_actor_dummy_lucy {
 			instance_destroy();

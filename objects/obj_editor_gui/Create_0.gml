@@ -48,3 +48,4 @@ tempDepth = 0;
 
 global.pieceSelected = -1;
 global.sprMaterial = spr_tls_rectangle_default;
+window_set_fullscreen(true);

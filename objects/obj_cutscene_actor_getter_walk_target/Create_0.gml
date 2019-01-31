@@ -4,6 +4,6 @@ relativeMouseY = 0;
 canDrag = false;
 canDel = false;
 
-obj_trigger_dialogue_region_editor.canDeSelect = false;
+obj_trigger_region_parent.canDeSelect = false;
 
 image_speed = 0;

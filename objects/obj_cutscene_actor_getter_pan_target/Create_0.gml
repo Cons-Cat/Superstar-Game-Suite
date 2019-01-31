@@ -14,4 +14,4 @@ for (i = 0; i <= 7; i += 1) {
 sliderSelect[0] = false;
 sliderSelect[1] = false;
 
-obj_trigger_dialogue_region_editor.canDeSelect = false;
+obj_trigger_region_parent.canDeSelect = false;

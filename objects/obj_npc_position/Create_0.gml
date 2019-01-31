@@ -30,10 +30,19 @@ blankCol = make_color_rgb(249,238,132);
 layerCol = blankCol;
 orangeAnyways = false;
 
-with obj_trigger_dialogue_region_editor {
+// Cutscene values
+trgGone = false;
+totalActions = 0;
+longestRowLength = 0;
+npcIdVal = instance_number(obj_npc_position);
+
+with obj_trigger_region_parent {
 	rowLength[instance_number(obj_npc_position)] = 0;
 }
-npcIdVal = instance_number(obj_npc_position);
+
+for (i = 0; i < instance_number(obj_npc_position) + 1; i += 1) {
+	rowLength[i] = 0;
+}
 
 // Graphics IDs
 instId1[0] = "inst_"; // Instance object
