@@ -1,4 +1,12 @@
 /// @description 
-if collision_point(x,y,obj_trigger_parent,false,false) {
-	depth = collision_point(x,y,obj_trigger_parent,false,false).depth - 1;
+if !instance_exists(trg) {
+	instance_destroy();
+} else {
+	if trg.select {
+		depth = trg.depth - 1;
+	} else {
+		instance_destroy();
+	}
 }
+
+event_inherited();

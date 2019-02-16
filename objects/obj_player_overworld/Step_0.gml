@@ -1,11 +1,15 @@
 ///@description Movement
+event_inherited();
+
+if !activated {
+
 phy_acceleration_imp = phy_acceleration
 phy_deceleration_imp = phy_deceleration
 
 // Momentum
 if canMove && (jumpDelay = jumpDelayMax || !onGround) {
 	if keyboard_check(_left) && !keyboard_check(_right) {
-		c_hspeed = max(c_hspeed-phy_acceleration_imp, -max_speed)
+		c_hspeed = max(c_hspeed - phy_acceleration_imp, -max_speed)
 	}
 	if keyboard_check(_right) && !keyboard_check(_left) {
 		c_hspeed = min(c_hspeed+phy_acceleration_imp, max_speed)
@@ -27,6 +31,7 @@ if jumpDelay = jumpDelayMax {
 		if c_hspeed > 0 {
 			c_hspeed = max(c_hspeed-phy_deceleration_imp,0);
 		}
+		
 		jumpTempHspd = 0;
 	}
 	
@@ -37,6 +42,7 @@ if jumpDelay = jumpDelayMax {
 		if c_vspeed > 0 {
 			c_vspeed = max(c_vspeed-phy_deceleration_imp,0);
 		}
+		
 		jumpTempVspd = 0;
 	}
 } else {
@@ -301,3 +307,5 @@ if fallSearch = true {
 
 // Update x,y coordinates
 scr_cmove_step(1,0);
+
+}

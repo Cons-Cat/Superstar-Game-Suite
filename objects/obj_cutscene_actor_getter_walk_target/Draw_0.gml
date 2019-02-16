@@ -7,7 +7,6 @@ draw_rectangle(x,y - zfloor*20,x,y,false);
 tempActionTime = 0;
 originX[obj_panel_bot.totalActions] = -1;
 j = 1;
-i = 1;
 
 while tempActionTime < obj_panel_bot.longestRowLength {
 	for (i = 1; i <= obj_panel_bot.totalActions; i += 1) {
@@ -23,6 +22,7 @@ while tempActionTime < obj_panel_bot.longestRowLength {
 					}
 					
 					j += 1;
+					
 					break;
 				} 
 			}

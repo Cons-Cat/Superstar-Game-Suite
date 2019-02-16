@@ -43,7 +43,7 @@ if instance_exists(obj_editor_gui) {
 				
 				trgDraw = self.id;*/
 				if angleVal = 0 {
-					draw_sprite_ext(spr_trigger_region,0,x+10+i*20,y+10+j*20,1,1,0,layerColor,0.7);
+					draw_sprite_ext(spr_trigger_region,0,x+10+i*20,y+10+j*20-zfloor*20,1,1,0,layerColor,0.7);
 				}
 				if angleVal = 1 {
 					draw_sprite_ext(spr_trigger_region,0,x+14+i*17,y+7+j*20-i*11,1,1,33,layerColor,0.7);

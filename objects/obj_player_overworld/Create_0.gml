@@ -19,6 +19,7 @@ canMove = true;
 floorTrg = 0;
 trgFinal = obj_floor;
 trgFinalTemp = -1;
+trg = -1;
 
 imgSpd = 4;
 imgIndex = 0;
@@ -77,9 +78,9 @@ leftKey = 0;
 
 tempRotSpr = -1;
 keysPressed = 0;
-dirIso = 1;
+dirIso = 6; // South
 rotSpd = 0.5;
-rotFin = 0;
+rotFin = 0; // South
 rotDir = 1;
 rotationInputDirection = 270;
 

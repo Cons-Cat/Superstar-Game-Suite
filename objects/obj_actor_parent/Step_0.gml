@@ -1,4 +1,4 @@
-/// @description 
+/// @description Insert description here
 if instance_exists(obj_editor_gui) {
 	if obj_editor_gui.mode != 2 {
 		activated = false;
@@ -14,24 +14,26 @@ if instance_exists(obj_editor_gui) {
 
 if !activated {
 	// Not in play mode
-	if instance_exists(trg) {
-		zfloor = trg.zfloor;
-		x = trg.x + 10;
-		y = trg.y + 10;
-		depth = trg.depth - 1;
-	} else {
-		instance_destroy();
+	if object_index != obj_player_overworld {
+		if instance_exists(trg) {
+			zfloor = trg.zfloor;
+			x = trg.x + 10;
+			y = trg.y + 10;
+			depth = trg.depth - 1;
+		} else {
+			instance_destroy();
+		}
+		
+		direction = 270;
+		speed = 0;
+		spd = 0;
+		
+		i = 0;
+		moving = false;
+		trgRegion = -1;
+		dirIso = dirIsoDef;
+		spr = scr_spriteDir(dirIso);
 	}
-	
-	direction = 270;
-	speed = 0;
-	spd = 0;
-	
-	i = 0;
-	moving = false;
-	trgRegion = -1;
-	dirIso = dirIsoDef;
-	spr = scr_spriteDir(dirIso);
 } else {
 	// In play mode
 	

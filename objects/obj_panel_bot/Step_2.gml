@@ -126,14 +126,14 @@ if addClick != -1 {
 			actionTime[totalActions] = rowLength[i]; // Number of 1/10'th seconds on timeline
 			actionRowInd[totalActions] = i; // Which row it's placed on
 			actionRowId[totalActions] = actorTxt[i]; // The corresponding instance_id as a string
-			
+		
 			break;
 		}
 		
 		if i = rows - 1 {
 			// Cancel button input if no row is selected
 			totalActions -= 1;
-			addClick = -1;
+			addClickTemp = -1;
 		}
 	}
 	
@@ -240,11 +240,16 @@ if addClick != -1 {
 // Managing selection
 for (i = 0; i < rows; i += 1) {
 	if i = 0 {
-		actorId[i] = -1;
+		if instance_exists(obj_trigger_dialogue_region_editor) {
+			actorId[i] = obj_trigger_dialogue_region_editor.id;
+		} else {
+			actorId[i] = -1;
+		}
+		
 		actorTxt[i] = "obj_player";
 	} else {
 		if instance_number(obj_npc_position) = rows - 1 {
-			actorId[i] = instance_find(obj_npc_position,i-1);
+			actorId[i] = instance_find(obj_npc_position,i - 1);
 			actorTxt[i] = actorId[i].instId1[0];
 		}
 	}
@@ -289,7 +294,7 @@ for (i = 0; i < rows; i += 1) {
 longestRowLength = 0;
 
 if totalActions > 0 {
-	for (i = 1; i <= rows; i += 1) {
+	for (i = 0; i <= rows; i += 1) {
 		rowLength[i] = 0;
 		
 		for (j = 1; j <= totalActions; j += 1) {
@@ -384,7 +389,7 @@ for (i = 1; i <= totalActions; i += 1) {
 									if actionInd[i] = 2 {
 										// Dialogue action
 										if !instance_exists(obj_cutscene_actor_getter_dialogue_target) {
-											with instance_create_layer(actorId[j].x-xOffDialogue[i],actorId[i].y-yOffDialogue[i],"Instances",obj_cutscene_actor_getter_dialogue_target) {
+											with instance_create_layer(actorId[j].x-xOffDialogue[i],actorId[j].y-yOffDialogue[i],"Instances",obj_cutscene_actor_getter_dialogue_target) {
 												timeIndex = other.i;
 												rowIndex = other.j;
 												trg = other.actorId[other.j];
@@ -464,7 +469,9 @@ for (i = 1; i <= totalActions; i += 1) {
 					actionDelete[i] = false;
 				}
 			}
-		} else { actionDelete[i] = false; }
+		} else {
+			actionDelete[i] = false;
+		}
 		
 		actionColorDraw[i] = actionColor[i]; // Default color
 		
@@ -530,6 +537,7 @@ if cutsceneInstanceId != -1 {
 				cutsceneInstanceId.actorTxt[i] = self.actorTxt[i];
 				rowLength[i] = 0;
 			}
+			
 			for (j = 1; j <= self.totalActions; j += 1) {
 				cutsceneInstanceId.totalActions = self.totalActions;
 				cutsceneInstanceId.actionInd[j] = self.actionInd[j];
@@ -591,65 +599,7 @@ if cutsceneInstanceId != -1 {
 		
 		cutsceneInstanceId = -1;
 	}
-}/* else {
-	for (i = 0; i < instance_number(obj_trigger_dialogue_region_editor); i += 1) {
-		if instance_find(obj_trigger_dialogue_region_editor,i).select {
-			// Import metadata
-			cutsceneInstanceId = instance_find(obj_trigger_dialogue_region_editor,i).id;
-			
-			for (i = 0; i < rows; i += 1) {
-				rowLength[i] = cutsceneInstanceId.rowLength[i];
-			}
-			
-			for (j = 1; j <= cutsceneInstanceId.totalActions; j += 1) {
-				totalActions = cutsceneInstanceId.totalActions;
-				actionInd[j] = cutsceneInstanceId.actionInd[j];
-				actionColor[j] = cutsceneInstanceId.actionColor[j];
-				actionSelect[j] = cutsceneInstanceId.actionSelect[j];
-				actionDelete[j] = cutsceneInstanceId.actionDelete[j];
-				actionTime[j] = cutsceneInstanceId.actionTime[j];
-				actionRowInd[j] = cutsceneInstanceId.actionRowInd[j];
-				actionRowId[j] = cutsceneInstanceId.actionRowId[j];
-				longestRowLength = cutsceneInstanceId.longestRowLength;
-				
-				if actionInd[j] = 0 { // Walk action
-					xNode[j] = cutsceneInstanceId.xNode[j];
-					yNode[j] = cutsceneInstanceId.yNode[j];
-				}
-				
-				if actionInd[j] = 1 { // Rotation action
-					angleRot[j] = cutsceneInstanceId.angleRot[j];
-					angleRotExport[j] = cutsceneInstanceId.angleRotExport[j];
-					runRot[j] = cutsceneInstanceId.runRot[j];
-					riseRot[j] = cutsceneInstanceId.riseRot[j];
-					mirrorRot[j] = cutsceneInstanceId.mirrorRot[j];
-					flipRot[j] = cutsceneInstanceId.flipRot[j];
-				}
-				
-				if actionInd[j] = 2 { // Dialogue action
-					dialogueWidth[j] = cutsceneInstanceId.dialogueWidth[j];
-					dialogueHeight[j] = cutsceneInstanceId.dialogueHeight[j];
-					textRows[j] = cutsceneInstanceId.textRows[j];
-					xOffDialogue[j] = cutsceneInstanceId.xOffDialogue[j];
-					yOffDialogue[j] = cutsceneInstanceId.yOffDialogue[j];
-					
-					for (i = 0; i < textRows[j]; i += 1) {
-						str[j,i] = cutsceneInstanceId.dialogueStr[j,i];
-					}
-				}
-				
-				if actionInd[j] = 3 { // Camera pan action
-					panAngle[j] = cutsceneInstanceId.panAngle[j];
-					panMagnitude[j] = cutsceneInstanceId.panMagnitude[j];
-					easeInVal[j] = cutsceneInstanceId.easeInVal[j];
-					easeOutVal[j] = cutsceneInstanceId.easeOutVal[j];
-				}
-			}
-			
-			break;
-		}
-	}
-}*/
+}
 
 // Scrollbars
 scrollHorFactor = (scrollHorRightBound - scrollHorLeftBound) / panelWidth;

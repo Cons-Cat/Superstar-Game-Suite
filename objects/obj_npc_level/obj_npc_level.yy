@@ -5,16 +5,6 @@
     "name": "obj_npc_level",
     "eventList": [
         {
-            "id": "1f7b0efb-0d5a-4934-87ca-62f4fa970eca",
-            "modelName": "GMEvent",
-            "mvc": "1.0",
-            "IsDnD": false,
-            "collisionObjectId": "00000000-0000-0000-0000-000000000000",
-            "enumb": 0,
-            "eventtype": 3,
-            "m_owner": "c5ecb085-814e-4560-8b87-16fb2ffa76ee"
-        },
-        {
             "id": "a5953ded-c2df-4588-b428-4cac281db08d",
             "modelName": "GMEvent",
             "mvc": "1.0",

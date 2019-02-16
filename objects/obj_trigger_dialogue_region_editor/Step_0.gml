@@ -32,6 +32,14 @@ if select {
 		// Import metadata
 		importCutscene(obj_panel_bot,self.id);
 		
+		if !instance_exists(obj_cutscene_actor_dummy_lucy) {
+			// Generate stand-in for Minerva
+			with instance_create_layer(x+10,y+10,"Instances",obj_cutscene_actor_dummy_lucy) {
+				trg = other.id;
+				zfloor = other.zfloor;
+			}
+		}
+		
 		trgGone = true;
 	}
 } else {
