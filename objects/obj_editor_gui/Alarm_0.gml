@@ -68,19 +68,20 @@ with obj_trigger_dialogue_region_editor {
 			
 			// Camera pan action
 			if actionInd[other.actionTime[i],other.actionRowInd[i]] = 3 {
-				panAngle[other.actionTime[i],other.actionRowInd[i]] = other.panAngle[i];
-				panMagnitude[other.actionTime[i],other.actionRowInd[i]] = other.panMagnitude[i];
-				panMagnitudeSpdMax[other.actionTime[i],other.actionRowInd[i]] = other.panMagnitude[i] / 20;
+				panAngle[other.actionTime[i]] = other.panAngle[i];
+				panMagnitude[other.actionTime[i]] = other.panMagnitude[i];
+				// The maximum speed spans the length of the vector in 1.05 seconds
+				panMagnitudeSpdMax[other.actionTime[i]] = other.panMagnitude[i] / (60 * 1.05);
 				
 				if other.easeInVal[i] != 0 {
-					panEaseIn[other.actionTime[i],other.actionRowInd[i]] = other.easeInVal[i] / 10;
+					panEaseIn[other.actionTime[i]] = other.easeInVal[i] / 320;
 				} else {
-					panEaseIn[other.actionTime[i],other.actionRowInd[i]] = -1;
+					panEaseIn[other.actionTime[i]] = -1;
 				}
 				if other.easeOutVal[i] != 0 {
-					panEaseOut[other.actionTime[i],other.actionRowInd[i]] = other.easeOutVal[i] / 10;
+					panEaseOut[other.actionTime[i]] = other.easeOutVal[i] / 320;
 				} else {
-					panEaseOut[other.actionTime[i],other.actionRowInd[i]] = -1;
+					panEaseOut[other.actionTime[i]] = -1;
 				}
 			}
 		}

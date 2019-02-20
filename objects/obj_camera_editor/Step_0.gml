@@ -4,7 +4,9 @@ if obj_editor_gui.mode != 2 {
 	y -= lengthdir_y(panMagnitudeTemp,panAngleTemp)*20;
 	
 	panMagnitudeTemp = 0;
-	panAngleTemp = 0;
+	panMagnitudeSpd = 0;
+	panMagnitudeDecelDistance = 0;
+	panAngleTemp = 0
 	i = 0;
 	
 	/*if mouse_check_button_pressed(mb_right) {
@@ -61,20 +63,37 @@ if obj_editor_gui.mode != 2 {
 				x = obj_player_overworld.x + lengthdir_x(panMagnitudeTemp,panAngle[i])*20;
 				y = obj_player_overworld.y + lengthdir_y(panMagnitudeTemp,panAngle[i])*20 - obj_player_overworld.platOn;
 			}
+			
 			panAngleTemp = panAngle[i];
 			
 			// Pan
 			if panMagnitudeTemp <= panMagnitude[i] - panMagnitudeSpd {
 				panMagnitudeTemp += panMagnitudeSpd;
 			} else {
+				// Snap to end
 				panMagnitudeTemp = panMagnitude[i];
+				//show_debug_message("snapped");
 			}
 			
 			// Accelerate / Decelerate
-			if panMagnitudeSpd < panMagnitudeSpdMax[i] && panMagnitudeSpdMax[i] != -1 {
-				panMagnitudeSpd += panEaseIn[i];
+			panMagnitudeDecelDistance = (panMagnitudeSpdMax[i]^2) / (2*panEaseOut[i]) / 60;
+			
+			if panMagnitudeTemp < panMagnitude[i] - panMagnitudeDecelDistance {
+				// Accelerate
+				if panMagnitudeSpd < panMagnitudeSpdMax[i] && panEaseIn[i] != -1 {
+					panMagnitudeSpd += panEaseIn[i];
+				} else {
+					// Max speed
+					panMagnitudeSpd = panMagnitudeSpdMax[i];
+				}
 			} else {
-				panMagnitudeSpd = panMagnitudeSpdMax[i];
+				// Deccelerate
+				if panMagnitudeSpd > 0.0075 && panEaseOut[i] != -1 {
+					panMagnitudeSpd -= panEaseOut[i];
+				} else {
+					// Min speed
+					panMagnitudeSpd = 0.0075;
+				}
 			}
 		} else {
 			if i < trgRegion.timeIndexCalc {

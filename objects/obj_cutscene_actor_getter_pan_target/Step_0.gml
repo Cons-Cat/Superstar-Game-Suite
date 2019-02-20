@@ -32,15 +32,6 @@ if selectState = 0 {
 if selectState = 1 {
 	col1 = orange;
 	col2 = c_white;
-	
-	panAngle = point_direction(x,y-41,relativeMouseX,relativeMouseY);
-	
-	if mouse_check_button_pressed(mb_left) {
-		selectState = 2;
-	}
-}
-
-if selectState = 2 {
 	panAngle = point_direction(x,y-41,relativeMouseX,relativeMouseY);
 	
 	if keyboard_check(vk_shift) {
@@ -116,65 +107,64 @@ if mouse_check_button_pressed(mb_left) {
 	}
 }
 
-if mouse_check_button(mb_left) {
-	// Ease out slider
-	if sliderSelect[0] {
-		easeOutVal = floor((((relativeMouseX - x - 24 - mouseOff)/34)*20)/2.5)*2.5; // Rounded to nearest multiple of 5
-		
-		if easeOutVal < 0 {
-			easeOutVal = 0;
+// Ease out slider
+if sliderSelect[0] {
+	easeOutVal = floor((((relativeMouseX - x - 24 - mouseOff)/34)*20)/2.5)*2.5; // Rounded to nearest multiple of 5
+	
+	if easeOutVal < 0 {
+		easeOutVal = 0;
+	}
+	if easeOutVal > 20 {
+		easeOutVal = 20;
+	}
+	
+	j = 0;
+	
+	for (i = 0; i <= 3; i += 1) {
+		if string_char_at(string_digits(string_digits(easeOutVal)),i+1-j) != "" {
+			val[i,2] = real(string_char_at(string_digits(easeOutVal),i+1-j));
+		} else {
+			val[i,2] = 0;
 		}
-		if easeOutVal > 20 {
-			easeOutVal = 20;
-		}
 		
-		j = 0;
+		easeOutSliderVal = easeOutVal;
 		
-		for (i = 0; i <= 3; i += 1) {
-			if string_char_at(string_digits(string_digits(easeOutVal)),i+1-j) != "" {
-				val[i,2] = real(string_char_at(string_digits(easeOutVal),i+1-j));
-			} else {
-				val[i,2] = 0;
-			}
-			easeOutSliderVal = easeOutVal;
-			
-			if i = 0 {
-				if easeOutVal < 10 {
-					// Insert a 0 if easeOutVal is not a double-digit integer
-					val[0,2] = 0;
-					j = 1;
-				}
+		if i = 0 {
+			if easeOutVal < 10 {
+				// Insert a 0 if easeOutVal is not a double-digit integer
+				val[0,2] = 0;
+				j = 1;
 			}
 		}
 	}
+}
+
+// Ease in slider
+if sliderSelect[1] {
+	easeInVal = floor((((relativeMouseX - x - 24 - mouseOff)/34)*20)/2.5)*2.5; // Rounded to nearest multiple of 5
 	
-	// Ease in slider
-	if sliderSelect[1] {
-		easeInVal = floor((((relativeMouseX - x - 24 - mouseOff)/34)*20)/2.5)*2.5; // Rounded to nearest multiple of 5
-		
-		if easeInVal < 0 {
-			easeInVal = 0;
+	if easeInVal < 0 {
+		easeInVal = 0;
+	}
+	if easeInVal > 20 {
+		easeInVal = 20;
+	}
+	easeInSliderVal = easeInVal;
+	
+	j = 0;
+	
+	for (i = 0; i <= 3; i += 1) {
+		if string_char_at(string_digits(string_digits(easeInVal)),i+1-j) != "" {
+			val[i,1] = real(string_char_at(string_digits(easeInVal),i+1-j));
+		} else {
+			val[i,1] = 0;
 		}
-		if easeInVal > 20 {
-			easeInVal = 20;
-		}
-		easeInSliderVal = easeInVal;
 		
-		j = 0;
-		
-		for (i = 0; i <= 3; i += 1) {
-			if string_char_at(string_digits(string_digits(easeInVal)),i+1-j) != "" {
-				val[i,1] = real(string_char_at(string_digits(easeInVal),i+1-j));
-			} else {
-				val[i,1] = 0;
-			}
-			
-			if i = 0 {
-				if easeInVal < 10 {
-					// Insert a 0 if easeInVal is not a double-digit integer
-					val[0,1] = 0;
-					j = 1;
-				}
+		if i = 0 {
+			if easeInVal < 10 {
+				// Insert a 0 if easeInVal is not a double-digit integer
+				val[0,1] = 0;
+				j = 1;
 			}
 		}
 	}

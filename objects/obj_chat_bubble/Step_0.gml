@@ -9,8 +9,10 @@ if instance_exists(obj_editor_gui) {
 	}
 }
 
-placex = trg.x - xOffDialogue - 10;
-placey = trg.y - yOffDialogue - 5 - bounceYOff;
+if instance_exists(trg) {
+	placex = trg.x - xOffDialogue - 10;
+	placey = trg.y - yOffDialogue - 5 - bounceYOff;
+}
 
 // Top left corner
 lSide = placex + (width*5) - (width*5)*scale;

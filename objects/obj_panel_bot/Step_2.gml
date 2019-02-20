@@ -431,11 +431,11 @@ for (i = 1; i <= totalActions; i += 1) {
 												valPass[1] = easeInVal;
 												valPass[2] = easeOutVal;
 												
-												a = 0;
-												
 												for (i = 0; i <= 2; i += 1) {
+													a = 0;
+													
 													for (j = 0; j <= 3; j += 1) {
-														if string_char_at(string_digits(string_digits(valPass[i])),i+1-a) != "" {
+														if string_char_at(string_digits(string_digits(valPass[i])),j+1-a) != "" {
 															val[j,i] = real(string_char_at(string_digits(valPass[i]),j+1-a));
 														} else {
 															val[j,i] = 0;

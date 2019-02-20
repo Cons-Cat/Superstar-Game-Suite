@@ -41,7 +41,7 @@ rows = 0;
 selectRow[0] = false;
 rowDoubleClickCounter = 0;
 cutsceneInstanceId = -1;
-rowLength[0] = 120;
+rowLength[0] = 0;
 
 totalActions = 0;
 actionInd[0] = -1; // Null action
