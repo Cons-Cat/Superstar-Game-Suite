@@ -2,6 +2,7 @@
 baseX = 833;
 scrollHorLeftBound = x;
 y = 242;
+relativeMouseX = window_view_mouse_get_x(1);
 
 if mouse_x <= x && mouse_x >= x - 21 {
 	if mouse_y >= y - 60 && mouse_y <= y + 60 {
@@ -22,12 +23,12 @@ if !mouse_check_button(mb_left) {
 	if select = 1 {
 		select = 0;
 		
-		moveToX = round((mouse_x - mouseClickOff + 1) / 10) * 10 + 1;
-		if moveToX < 0 + 893 && moveToX >= 0 + 803 {
-			moveToX = 0 + 833;
+		moveToX = round((relativeMouseX - mouseClickOff + 1) / 10) * 10 + 1;
+		if moveToX < 893 && moveToX >= 803 {
+			moveToX = 833;
 		}
-		if moveToX >= 0 + 893 {
-			moveToX = 0 + 1024;
+		if moveToX >= 893 {
+			moveToX = 1024;
 		}
 		
 		if x > moveToX {
@@ -97,17 +98,17 @@ if select = 0 {
 }
 
 if select = 1 {
-	dragX = mouse_x - mouseClickOff - 0;
+	dragX = relativeMouseX - mouseClickOff;
 	dragXTemp = dragX;
-	x = 0 + dragX;
+	x = dragX;
 }
 
 // Boundaries
-if x < 0 + 235 {
-	x = 0 + 235;
+if x < 235 {
+	x = 235;
 }
-if x > 0 + 1024 {
-	x = 0 + 1024;
+if x > 1024 {
+	x = 1024;
 }
 
 // Pushing other panel
@@ -164,7 +165,7 @@ if (mouse_x >= self.x && mouse_x <= 1024) || (view_get_visible(view_camera[2]) &
 					scrollHorPartition = 100;
 				}
 			} else {
-				if scrollVerPartition > 0 + 100 / (panelHeight / botPanelY) {
+				if scrollVerPartition > 100 / (panelHeight / botPanelY) {
 					scrollVerPartition -= 100 / (panelHeight / botPanelY);
 				} else {
 					scrollVerPartition = 0;
@@ -198,6 +199,7 @@ if mouse_x >= scrollHorX && mouse_x <= scrollHorX + scrollHorWidth {
 		}
 	}
 }
+
 if mouse_x >= 1008 && mouse_x <= 1024 {
 	if mouse_y >= scrollVerY && mouse_y <= scrollVerY + scrollVerHeight {
 		if mouse_check_button_pressed(mb_left) && !select {
@@ -261,7 +263,7 @@ switch obj_editor_gui.mode {
 		if x < 1008 {
 			view_set_visible(3,true);
 			
-			camera_set_view_pos(obj_editor_gui.cameraRightPanel,1024,86+(scrollVerY-86)/scrollVerFactor);
+			camera_set_view_pos(obj_editor_gui.cameraRightPanel,1026,86+(scrollVerY-86)/scrollVerFactor);
 			camera_set_view_size(view_camera[3], 1009-x, botPanelY);
 			
 			view_set_wport(3,1009-x)

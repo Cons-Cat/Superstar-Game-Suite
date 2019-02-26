@@ -623,7 +623,7 @@ if relativeMouseX >= scrollHorLeftBound && relativeMouseX <= scrollHorRightBound
 					scrollHorPartition = 100;
 				}
 			} else {
-				if scrollVerPartition > 0 + 100 / (panelHeight / botPanelY) {
+				if scrollVerPartition > 100 / (panelHeight / botPanelY) {
 					scrollVerPartition -= 100 / (panelHeight / botPanelY);
 				} else {
 					scrollVerPartition = 0;

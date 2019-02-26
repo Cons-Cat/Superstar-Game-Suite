@@ -2,15 +2,14 @@
 baseX = 191;
 scrollHorRightBound = x;
 y = 242;
+relativeMouseX = window_view_mouse_get_x(1);
 
-relativeMouseX = mouse_x % 1024;
-
-if relativeMouseX >= x && relativeMouseX <= x + 21 {
+if mouse_x >= x && mouse_x <= x + 21 {
 	if mouse_y >= y - 60 && mouse_y <= y + 60 {
 		if mouse_check_button_pressed(mb_left) {
 			// Dragging
 			select = 1;
-			mouseClickOff = relativeMouseX - x;
+			mouseClickOff = mouse_x - x;
 			
 			// Double clicking
 			doubleClickCounter += 1;
@@ -28,10 +27,10 @@ if !mouse_check_button(mb_left) {
 		select = 0;
 		
 		moveToX = round((relativeMouseX - mouseClickOff - 1) / 10) * 10 - 1;
-		if moveToX <= 0 + 221 && moveToX > 0 + 131 {
-			moveToX = 0 + 191;
+		if moveToX <=  221 && moveToX > 131 {
+			moveToX = 191;
 		}
-		if moveToX <= 0 + 131 {
+		if moveToX <= 131 {
 			moveToX = 0;
 		}
 		
@@ -105,15 +104,15 @@ if select = 0 {
 if select = 1 {
 	dragX = relativeMouseX - mouseClickOff - 0;
 	dragXTemp = dragX;
-	x = 0 + dragX;
+	x = dragX;
 }
 
 // Boundaries
 if x < 0 {
 	x = 0;
 }
-if x > 0 + 790 {
-	x = 0 + 790;
+if x > 790 {
+	x = 790;
 }
 
 // Pushing other panel
@@ -170,7 +169,7 @@ if relativeMouseX <= self.x && relativeMouseX >= 16 {
 					scrollHorPartition = 100;
 				}
 			} else {
-				if scrollVerPartition > 0 + 100 / (panelHeight / botPanelY) {
+				if scrollVerPartition > 100 / (panelHeight / botPanelY) {
 					scrollVerPartition -= 100 / (panelHeight / botPanelY);
 				} else {
 					scrollVerPartition = 0;
@@ -196,7 +195,7 @@ if relativeMouseX <= self.x && relativeMouseX >= 16 {
 }
 
 // Select scroll bars
-if relativeMouseX >= scrollHorX && relativeMouseX <= scrollHorX + scrollHorWidth {
+if mouse_x >= scrollHorX && mouse_x <= scrollHorX + scrollHorWidth {
 	if mouse_y >= 69 && mouse_y <= 84 {
 		if mouse_check_button_pressed(mb_left) && !select {
 			scrollHorSelect = true;
@@ -204,7 +203,8 @@ if relativeMouseX >= scrollHorX && relativeMouseX <= scrollHorX + scrollHorWidth
 		}
 	}
 }
-if relativeMouseX >= 0 && relativeMouseX <= 15 {
+
+if mouse_x >= 0 && mouse_x <= 15 {
 	if mouse_y >= scrollVerY && mouse_y <= scrollVerY + scrollVerHeight {
 		if mouse_check_button_pressed(mb_left) && !select {
 			scrollVerSelect = true;
@@ -266,7 +266,7 @@ if obj_editor_gui.mode = 3 {
 	if x > 16 && obj_big_button_tiling.spawnButtons {
 		view_set_visible(2,true);
 		
-		camera_set_view_pos(obj_editor_gui.cameraLeftPanel,1024+(scrollHorX-16)/scrollHorFactor,0+(scrollVerY));
+		camera_set_view_pos(obj_editor_gui.cameraLeftPanel,1024+(scrollHorX-16)/scrollHorFactor,scrollVerY);
 		camera_set_view_size(view_camera[2], x-15, botPanelY);
 		
 		view_set_wport(2,x-15)

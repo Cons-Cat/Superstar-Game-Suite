@@ -46,3 +46,4 @@ image_speed = 0;
 depth = obj_editor_gui.depth - 1;
 image_xscale = -1;
 x = baseX;
+//relativeMouseX = 0;
