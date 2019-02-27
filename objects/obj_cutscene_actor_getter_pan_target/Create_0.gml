@@ -14,4 +14,5 @@ for (i = 0; i <= 7; i += 1) {
 sliderSelect[0] = false;
 sliderSelect[1] = false;
 
+font = obj_editor_gui.font;
 obj_trigger_region_parent.canDeSelect = false;

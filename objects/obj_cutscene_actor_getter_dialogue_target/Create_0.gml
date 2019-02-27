@@ -24,7 +24,6 @@ selectTextRow[0] = false;
 canInputEnter = true;
 str[0] = "";
 
-//font = font_add_sprite_ext(spr_font,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!?,'._ 1234567890|",true,1);
-font = font_add_sprite_ext(spr_font_new,"abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ!?,'._1234567890|",true,0);
+font = obj_editor_gui.font;
 alarm[0] = 10;
 obj_trigger_region_parent.canDeSelect = false;

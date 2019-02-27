@@ -1,6 +1,6 @@
 /// @description Insert description here
-relativeMouseX = floor((mouse_x + 195 - 23) / 10) * 5 - 80 + floor(camera_get_view_x(obj_editor_gui.cameraRealGame)/20)*20;
-relativeMouseY = floor((mouse_y + 576) / 10) * 5 - 320 + 41 + floor(camera_get_view_y(obj_editor_gui.cameraRealGame)/20)*20;
+mouseCheckX = obj_editor_gui.mouseCheckX;
+mouseCheckY = obj_editor_gui.mouseCheckY;
 
 if selectState = 0 {
 	col1 = gray;
@@ -8,14 +8,14 @@ if selectState = 0 {
 	
 	if mouse_check_button_pressed(mb_left) {
 		// Click inside circle
-		if relativeMouseX >= x - 11 && relativeMouseX <= x + 11 {
-			if relativeMouseY >= y - 41 - 11 && relativeMouseY <= y - 41 + 11 {
+		if mouseCheckX >= x - 11 && mouseCheckX <= x + 11 {
+			if mouseCheckY >= y - 41 - 11 && mouseCheckY <= y - 41 + 11 {
 				selectState = 1;
 			}
 		}
 		
 		// Click outside interface
-		if !collision_point(relativeMouseX,relativeMouseY,obj_cutscene_actor_getter_pan_target,true,false) {
+		if !collision_point(mouseCheckX,mouseCheckY,obj_cutscene_actor_getter_pan_target,true,false) {
 			// Pass all persistent values to obj_panel_bot
 			obj_panel_bot.panAngle[timeIndex] = self.panAngle;
 			obj_panel_bot.panMagnitude[timeIndex] = self.panMagnitude;
@@ -32,7 +32,7 @@ if selectState = 0 {
 if selectState = 1 {
 	col1 = orange;
 	col2 = c_white;
-	panAngle = point_direction(x,y-41,relativeMouseX,relativeMouseY);
+	panAngle = point_direction(x,y-41,mouseCheckX,mouseCheckY);
 	
 	if keyboard_check(vk_shift) {
 		// Round panAngle
@@ -57,31 +57,31 @@ if mouse_check_button_pressed(mb_left) {
 			yOffButtons = 25;
 		}
 		
-		if relativeMouseY >= y - 26 - yOffButtons && relativeMouseY <= y - 20 - yOffButtons {
-			if relativeMouseX >= x - 15 + xOffButtons && relativeMouseX <= x - 6 + xOffButtons {
+		if mouseCheckY >= y - 26 - yOffButtons && mouseCheckY <= y - 20 - yOffButtons {
+			if mouseCheckX >= x - 15 + xOffButtons && mouseCheckX <= x - 8 + xOffButtons {
 				arrowSelect[0,i] = true;
 			}
-			if relativeMouseX >= x - 6 + xOffButtons && relativeMouseX <= x + 1 + xOffButtons {
+			if mouseCheckX >= x - 6 + xOffButtons && mouseCheckX <= x + 1 + xOffButtons {
 				arrowSelect[1,i] = true;
 			}
-			if relativeMouseX >= x + 5 + xOffButtons && relativeMouseX <= x + 10 + xOffButtons {
+			if mouseCheckX >= x + 5 + xOffButtons && mouseCheckX <= x + 10 + xOffButtons {
 				arrowSelect[2,i] = true;
 			}
-			if relativeMouseX >= x + 11 + xOffButtons && relativeMouseX <= x + 20 + xOffButtons {
+			if mouseCheckX >= x + 11 + xOffButtons && mouseCheckX <= x + 20 + xOffButtons {
 				arrowSelect[3,i] = true;
 			}
 		}
-		if relativeMouseY >= y - 9 - yOffButtons && relativeMouseY <= y - 3 - yOffButtons {
-			if relativeMouseX >= x - 15 + xOffButtons && relativeMouseX <= x - 6 + xOffButtons {
+		if mouseCheckY >= y - 9 - yOffButtons && mouseCheckY <= y - 3 - yOffButtons {
+			if mouseCheckX >= x - 15 + xOffButtons && mouseCheckX <= x - 8 + xOffButtons {
 				arrowSelect[4,i] = true;
 			}
-			if relativeMouseX >= x - 6 + xOffButtons && relativeMouseX <= x + 1 + xOffButtons {
+			if mouseCheckX >= x - 6 + xOffButtons && mouseCheckX <= x + 1 + xOffButtons {
 				arrowSelect[5,i] = true;
 			}
-			if relativeMouseX >= x + 5 + xOffButtons && relativeMouseX <= x + 10 + xOffButtons {
+			if mouseCheckX >= x + 5 + xOffButtons && mouseCheckX <= x + 10 + xOffButtons {
 				arrowSelect[6,i] = true;
 			}
-			if relativeMouseX >= x + 11 + xOffButtons && relativeMouseX <= x + 20 + xOffButtons {
+			if mouseCheckX >= x + 11 + xOffButtons && mouseCheckX <= x + 20 + xOffButtons {
 				arrowSelect[7,i] = true;
 			}
 		}
@@ -90,26 +90,26 @@ if mouse_check_button_pressed(mb_left) {
 
 // Easing sliders
 if mouse_check_button_pressed(mb_left) {
-	if relativeMouseX >= x + 22 + (easeOutSliderVal/20)*34 && relativeMouseX <= x + 27 + (easeOutSliderVal/20)*34 {
+	if mouseCheckX >= x + 22 + (easeOutSliderVal/20)*34 && mouseCheckX <= x + 27 + (easeOutSliderVal/20)*34 {
 		// Ease out slider
-		if relativeMouseY >= y - 41 && relativeMouseY <= y - 32 {
+		if mouseCheckY >= y - 41 && mouseCheckY <= y - 32 {
 			sliderSelect[0] = true;
-			mouseOff = relativeMouseX - x - 24 - (easeOutSliderVal/20)*34;
+			mouseOff = mouseCheckX - x - 24 - (easeOutSliderVal/20)*34;
 		}
 	}
 	
-	if relativeMouseX >= x + 22 + (easeInSliderVal/20)*34 && relativeMouseX <= x + 27 + (easeInSliderVal/20)*34 {	
+	if mouseCheckX >= x + 22 + (easeInSliderVal/20)*34 && mouseCheckX <= x + 27 + (easeInSliderVal/20)*34 {	
 		// Ease in slider
-		if relativeMouseY >= y - 17 && relativeMouseY <= y - 8 {
+		if mouseCheckY >= y - 17 && mouseCheckY <= y - 8 {
 			sliderSelect[1] = true;
-			mouseOff = relativeMouseX - x - 24 - (easeInSliderVal/20)*34;
+			mouseOff = mouseCheckX - x - 24 - (easeInSliderVal/20)*34;
 		}
 	}
 }
 
 // Ease out slider
 if sliderSelect[0] {
-	easeOutVal = floor((((relativeMouseX - x - 24 - mouseOff)/34)*20)/2.5)*2.5; // Rounded to nearest multiple of 5
+	easeOutVal = floor((((mouseCheckX - x - 24 - mouseOff)/34)*20)/2.5)*2.5; // Rounded to nearest multiple of 5
 	
 	if easeOutVal < 0 {
 		easeOutVal = 0;
@@ -141,7 +141,7 @@ if sliderSelect[0] {
 
 // Ease in slider
 if sliderSelect[1] {
-	easeInVal = floor((((relativeMouseX - x - 24 - mouseOff)/34)*20)/2.5)*2.5; // Rounded to nearest multiple of 5
+	easeInVal = floor((((mouseCheckX - x - 24 - mouseOff)/34)*20)/2.5)*2.5; // Rounded to nearest multiple of 5
 	
 	if easeInVal < 0 {
 		easeInVal = 0;

@@ -9,7 +9,6 @@ current = 0;
 rowCurrent = 0;
 characters[rowCurrent] = 0;
 
-font = font_add_sprite_ext(spr_font_new,"abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ!?,'._1234567890|",true,0);
 _A = ord("Z");
 
 freeDecay = 0;

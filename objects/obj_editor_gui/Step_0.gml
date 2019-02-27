@@ -26,7 +26,7 @@ if canChangeSelect {
 			other.tempSelectInstance = self.id;
 		}
 		
-		if (mouseCheckX >= tempSelectInstance.x && mouseCheckX < tempSelectInstance.x + tempSelectInstance.width * 20 && mouseCheckY >= tempSelectInstance.y && mouseCheckY < tempSelectInstance.y + tempSelectInstance.image_yscale * 20 && (mode != 1 && tempSelectInstance.modeForSelect)) || (mouseCheckX >= tempSelectInstance.x && mouseCheckX < tempSelectInstance.x + tempSelectInstance.width * 20 && mouseCheckY >= tempSelectInstance.y + (tempSelectInstance.zfloor - tempSelectInstance.zcieling) * 20 && mouseCheckY < tempSelectInstance.y + (tempSelectInstance.zfloor - tempSelectInstance.zcieling + tempSelectInstance.height) * 20 && tempSelectInstance.modeForSelect) {
+		if (mouseCheckX >= tempSelectInstance.x && mouseCheckX < tempSelectInstance.x + tempSelectInstance.width * 20 && mouseCheckY >= tempSelectInstance.y - tempSelectInstance.zfloor*20 && mouseCheckY < tempSelectInstance.y + tempSelectInstance.image_yscale * 20 - tempSelectInstance.zfloor*20 && (mode != 1 && tempSelectInstance.modeForSelect)) || (mouseCheckX >= tempSelectInstance.x && mouseCheckX < tempSelectInstance.x + tempSelectInstance.width * 20 && mouseCheckY >= tempSelectInstance.y - (tempSelectInstance.zfloor - tempSelectInstance.zcieling) * 20 && mouseCheckY < tempSelectInstance.y - (tempSelectInstance.zfloor - tempSelectInstance.zcieling + tempSelectInstance.height) * 20 && tempSelectInstance.modeForSelect) {
 			if tempSelectInstance.modeForSelect {
 				if tempSelectInstance.depth <= tempDepth {
 					tempDepth = tempSelectInstance.depth;

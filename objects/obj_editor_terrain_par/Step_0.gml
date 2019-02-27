@@ -6,6 +6,7 @@ if obj_editor_gui.mode = modeForSelectVal {
 }
 
 if placed = 1 {
+	// canSelect defined by obj_editor_gui
 	if canSelect {
 		if mouse_y > obj_panel_top.y {
 			if !(mouse_x >= obj_panel_left.x - 1 && mouse_x < obj_panel_left.x + 21 && mouse_y >= obj_panel_left.y - 60 && mouse_y <= obj_panel_left.y + 60) && obj_panel_left.select = 0 {
@@ -198,8 +199,8 @@ if spawnTiles {
 
 // Placing in the level
 if placed = 0 {
-	x = floor((mouse_x + 192 - 23) / 40) * 20 - 80 + floor(camera_get_view_x(obj_editor_gui.cameraRealGame)/20)*20;
-	y = floor((mouse_y + 576) / 40) * 20 - 320 + 36 + floor(camera_get_view_y(obj_editor_gui.cameraRealGame)/20)*20 - zfloor * 20;
+	x = floor(obj_editor_gui.mouseCheckX/20)*20 //+ floor(camera_get_view_x(obj_editor_gui.cameraRealGame)/20)*20;
+	y = floor(obj_editor_gui.mouseCheckY/20)*20 - 4 //+ floor(camera_get_view_y(obj_editor_gui.cameraRealGame)/20)*20 - zfloor * 20;
 }
 
 if mouse_check_button_released(mb_left) {

@@ -7,21 +7,20 @@ if instance_exists(obj_editor_gui) {
 		for (i = 0; i < width; i += 1) {
 			for (j = 0; j < height; j += 1) {
 				if zfloor > 0 {
-					//draw_sprite_ext(spr_shadow_editor,0,x+i*20,y+j*20+zfloor*20,1,1,0,c_white,0.8);
 					if angleVal = 0 {
-						draw_sprite_ext(spr_shadow_editor,0,x+10+i*20,y+10+j*20+zfloor*20,1,1,0,c_white,0.8);
+						draw_sprite_ext(spr_shadow_editor,0,x+10+i*20,y+10+j*20,1,1,0,c_white,0.8);
 					}
 					if angleVal = 1 {
-						draw_sprite_ext(spr_shadow_editor,0,x+14+i*17,y+7+j*20-i*11+zfloor*20,1,1,33,c_white,0.8);
+						draw_sprite_ext(spr_shadow_editor,0,x+14+i*17,y+7+j*20-i*11,1,1,33,c_white,0.8);
 					}
 					if angleVal = 2 {
-						draw_sprite_ext(spr_shadow_editor,0,x+14+i*14,y+6+j*20-i*14+zfloor*20,1,1,45,c_white,0.8);
+						draw_sprite_ext(spr_shadow_editor,0,x+14+i*14,y+6+j*20-i*14,1,1,45,c_white,0.8);
 					}
 					if angleVal = 3 {
-						draw_sprite_ext(spr_shadow_editor,0,x+13+i*8,y+7+j*20-i*18+zfloor*20,1,1,66,c_white,0.8);
+						draw_sprite_ext(spr_shadow_editor,0,x+13+i*8,y+7+j*20-i*18,1,1,66,c_white,0.8);
 					}
 					if angleVal = 4 {
-						draw_sprite_ext(spr_shadow_editor,0,x+10,y+10+j*20-i*20+zfloor*20,1,1,0,c_white,0.8);
+						draw_sprite_ext(spr_shadow_editor,0,x+10,y+10+j*20-i*20,1,1,0,c_white,0.8);
 					}
 				}
 			}

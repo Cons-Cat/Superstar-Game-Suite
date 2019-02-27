@@ -1,4 +1,6 @@
 /// @description Insert description here
+draw_set_font(font);
+
 if gone {
 	// Draw backdrop
 	draw_set_color(col1);
@@ -61,10 +63,10 @@ if gone {
 			yOffButtons = 25;
 		}
 		
-		draw_text(x-14+xOffButtons,y-18-yOffButtons,val[0,i]);
-		draw_text(x-6+xOffButtons,y-18-yOffButtons,val[1,i]);
-		draw_text(x+5+xOffButtons,y-18-yOffButtons,val[2,i]);
-		draw_text(x+13+xOffButtons,y-18-yOffButtons,val[3,i]);
+		draw_text(x-15+xOffButtons,y-19-yOffButtons,val[0,i]);
+		draw_text(x-7+xOffButtons,y-19-yOffButtons,val[1,i]);
+		draw_text(x+4+xOffButtons,y-19-yOffButtons,val[2,i]);
+		draw_text(x+12+xOffButtons,y-19-yOffButtons,val[3,i]);
 	}
 	
 	// Draw easing values
