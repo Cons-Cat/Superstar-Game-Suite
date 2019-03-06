@@ -1,6 +1,22 @@
 ///@description Movement
 event_inherited();
 
+// Maximum speed
+if slowSpd { // Walking
+	//if max_speed > phy_walkspeed {
+	max_speed = phy_walkspeed; //-= 0.1;
+	/*} else {
+		max_speed = phy_walkspeed;
+		show_debug_message("walk");
+	}*/
+} else { // Running
+	max_speed = phy_runspeed;
+	/*
+	if c_hspeed = max_speed {
+		show_debug_message("run");
+	}*/
+}
+
 if !activated {
 
 phy_acceleration_imp = phy_acceleration

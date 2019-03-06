@@ -11,11 +11,11 @@ if collision_rectangle(x,y,x+image_xscale*20,y+image_yscale*20,obj_player_overwo
 				}
 				
 				actor[actionTime[i],j].trgRegion = self.id;
-				actor[actionTime[i],j].activated = true;
+				//actor[actionTime[i],j].activated = true;
 					
 				for (a = j; a <= longestRowLength; a += 1) {
 					actor[actionTime[i],j].xNode[a] = -1; // Initialize xNode
-					actor[actionTime[i],j].yNode[a] = -1; // Initialize xNode
+					actor[actionTime[i],j].yNode[a] = -1; // Initialize yNode
 					actor[actionTime[i],j].angleRot[a] = -1; // Initialize angleRot
 				}
 			}
@@ -89,6 +89,13 @@ if activated {
 						obj_camera.panAngle[timeIndexCalc] = self.panAngle[timeIndexCalc,i];
 						obj_camera.panMagnitude[timeIndexCalc] = self.panMagnitude[timeIndexCalc,i];
 					}
+				}
+				
+				// Walk speed action
+				if actionInd[timeIndexCalc,i] = 5 {
+					// Expresses intent to the actor. The actual movement is handled by that instance.
+					actor[timeIndexCalc,i].slowSpd = self.slowSpd[timeIndexCalc,i];
+					show_debug_message("gone");
 				}
 			}
 		}

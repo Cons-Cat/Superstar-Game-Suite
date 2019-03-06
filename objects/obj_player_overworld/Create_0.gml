@@ -7,10 +7,11 @@ phy_walkspeed = 1;
 phy_runspeed = 1.25;
 phy_acceleration = 0.375;
 phy_deceleration = 0.2825;
+slowSpd = false;
+max_speed = phy_runspeed;
 
 c_gravity = 0;
 dir1 = 1;
-max_speed = phy_walkspeed;
 raise_pixels = 0;
 slopeVOff = 0;
 dir = 0;

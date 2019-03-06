@@ -184,8 +184,8 @@ if addClick != -1 {
 		actionInd[totalActions] = 2; // Dialogue action
 		actionColor[totalActions] = make_color_rgb(113,84,45); // Violet
 		
-		if !instance_exists(obj_cutscene_actor_getter_dialogue_target) {
-			with instance_create_layer(actorId[i].x,actorId[i].y-42,"Instances",obj_cutscene_actor_getter_dialogue_target) {
+		if !instance_exists(obj_cutscene_actor_getter_dialogue) {
+			with instance_create_layer(actorId[i].x,actorId[i].y-42,"Instances",obj_cutscene_actor_getter_dialogue) {
 				timeIndex = other.totalActions;
 				rowIndex = other.i;
 				trg = other.actorId[other.i];
@@ -203,8 +203,8 @@ if addClick != -1 {
 		actionInd[totalActions] = 3; // Camera pan action
 		actionColor[totalActions] = make_color_rgb(65,160,160); // Violet
 		
-		if !instance_exists(obj_cutscene_actor_getter_pan_target) {
-			with instance_create_layer(cutsceneInstanceId.x-10,cutsceneInstanceId.y-2,"Instances",obj_cutscene_actor_getter_pan_target) {
+		if !instance_exists(obj_cutscene_actor_getter_pan) {
+			with instance_create_layer(cutsceneInstanceId.x-10,cutsceneInstanceId.y-2,"Instances",obj_cutscene_actor_getter_pan) {
 				timeIndex = other.totalActions;
 				trg = other.cutsceneInstanceId;
 				selectState = 1;
@@ -230,6 +230,24 @@ if addClick != -1 {
 						}
 					}
 				}
+			}
+		}
+	}
+	
+	if addClick = 5 {
+		actionInd[totalActions] = 5; // Walk speed action
+		actionColor[totalActions] = make_color_rgb(163,178,0); // Light green
+		
+		if !instance_exists(obj_cutscene_actor_getter_speed) {
+			with instance_create_layer(actorId[i].x+10,actorId[i].y-35,"Instances",obj_cutscene_actor_getter_speed) {
+				timeIndex = other.totalActions;
+				rowIndex = other.i;
+				canPlace = true;
+				
+				trg = other.cutsceneInstanceId;
+				zfloor = trg.zfloor;
+				
+				slowSpd = true; // Default to slow speed
 			}
 		}
 	}
@@ -388,8 +406,8 @@ for (i = 1; i <= totalActions; i += 1) {
 									
 									if actionInd[i] = 2 {
 										// Dialogue action
-										if !instance_exists(obj_cutscene_actor_getter_dialogue_target) {
-											with instance_create_layer(actorId[j].x-xOffDialogue[i],actorId[j].y-yOffDialogue[i],"Instances",obj_cutscene_actor_getter_dialogue_target) {
+										if !instance_exists(obj_cutscene_actor_getter_dialogue) {
+											with instance_create_layer(actorId[j].x-xOffDialogue[i],actorId[j].y-yOffDialogue[i],"Instances",obj_cutscene_actor_getter_dialogue) {
 												timeIndex = other.i;
 												rowIndex = other.j;
 												trg = other.actorId[other.j];
@@ -411,8 +429,8 @@ for (i = 1; i <= totalActions; i += 1) {
 									
 									if actionInd[i] = 3 {
 										// Camera pan action
-										if !instance_exists(obj_cutscene_actor_getter_pan_target) {
-											with instance_create_layer(cutsceneInstanceId.x-10,cutsceneInstanceId.y-2,"Instances",obj_cutscene_actor_getter_pan_target) {
+										if !instance_exists(obj_cutscene_actor_getter_pan) {
+											with instance_create_layer(cutsceneInstanceId.x-10,cutsceneInstanceId.y-2,"Instances",obj_cutscene_actor_getter_pan) {
 												timeIndex = other.i;
 												trg = other.cutsceneInstanceId;
 												panAngle = other.panAngle[timeIndex];
@@ -451,6 +469,16 @@ for (i = 1; i <= totalActions; i += 1) {
 													}
 												}
 											}
+										}
+									}
+									
+									if actionInd[i] = 5 {
+										with instance_create_layer(actorId[j].x+10,actorId[j].y-35,"Instances",obj_cutscene_actor_getter_speed) {
+											timeIndex = other.i;
+											slowSpd = other.slowSpd[timeIndex];
+											
+											trg = other.cutsceneInstanceId;
+											zfloor = trg.zfloor;
 										}
 									}
 									
@@ -582,11 +610,15 @@ if cutsceneInstanceId != -1 {
 					cutsceneInstanceId.easeOutVal[j] = self.easeOutVal[j];
 				}
 				
+				if actionInd[j] = 5 { // Walk speed action
+					cutsceneInstanceId.slowSpd[j] = self.slowSpd[j];
+				}
+				
 				actionInd[j] = -1;
 			}
 			
 			totalActions = 0;
-			cutsceneInstanceId = -1;
+			cutsceneInstanceId = -1; // Reset target instance
 		}
 	} else {
 		// Clear interface when trigger instance is deleted while selected

@@ -28,8 +28,9 @@ if !activated {
 		speed = 0;
 		spd = 0;
 		
-		i = 0;
+		sceneStep = 0;
 		moving = false;
+		slowSpd = false;
 		trgRegion = -1;
 		dirIso = dirIsoDef;
 		spr = scr_spriteDir(dirIso);
@@ -38,25 +39,25 @@ if !activated {
 	// In play mode
 	
 	// Walking
-	if xNode[i] != -1 && yNode[i] != -1 {
+	if xNode[sceneStep] != -1 && yNode[sceneStep] != -1 {
 		moving = true;
 		
-		if (x <= xNode[i]-speed || x >= xNode[i]+speed) || (y <= yNode[i]-speed || y >= yNode[i]+speed) {
-			if point_distance(x,y,xNode[i],yNode[i]) <= 3 {
+		if (x <= xNode[sceneStep]-speed || x >= xNode[sceneStep]+speed) || (y <= yNode[sceneStep]-speed || y >= yNode[sceneStep]+speed) {
+			if point_distance(x,y,xNode[sceneStep],yNode[sceneStep]) <= 3 {
 				// Decelerate
-				if endWalk[i] {
+				if endWalk[sceneStep] {
 					if spd > 0.1 {
 						spd -= 0.165;
 					} else {
 						spd = 0.1;
 					}
 				}
-			} else if point_distance(x,y,xNode[i],yNode[i]) > 3 {
+			} else if point_distance(x,y,xNode[sceneStep],yNode[sceneStep]) > 3 {
 				// Accelerate
-				if spd < maxSpd {
+				if spd < max_speed {
 					spd += 0.24;
 				} else {
-					spd = maxSpd;
+					spd = max_speed;
 				}
 			} else {
 				// Static speed for moving short distances
@@ -65,33 +66,33 @@ if !activated {
 			
 			// Rotate towards direction
 			if dir != -1 {
-				if abs(angle_difference(dir,point_direction(x,y,xNode[i],yNode[i]))) > 20 {
-					dir -= angle_difference(dir,point_direction(x,y,xNode[i],yNode[i]))/4.82;
+				if abs(angle_difference(dir,point_direction(x,y,xNode[sceneStep],yNode[sceneStep]))) > 20 {
+					dir -= angle_difference(dir,point_direction(x,y,xNode[sceneStep],yNode[sceneStep]))/4.82;
 				} else {
-					dir = point_direction(x,y,xNode[i],yNode[i]);
+					dir = point_direction(x,y,xNode[sceneStep],yNode[sceneStep]);
 				}
 			} else {
-				dir = point_direction(x,y,xNode[i],yNode[i]);
+				dir = point_direction(x,y,xNode[sceneStep],yNode[sceneStep]);
 			}
 			
 			// Move to coordinate
 			speed = spd;
 			direction = dir;
-			rotationInputDirection = floor(point_direction(x,y,xNode[i],yNode[i])/45)*45;
+			rotationInputDirection = floor(point_direction(x,y,xNode[sceneStep],yNode[sceneStep])/45)*45;
 		}
 		
-		if x > xNode[i]-speed && x < xNode[i]+speed && y > yNode[i]-speed && y < yNode[i]+speed {
+		if x > xNode[sceneStep]-speed && x < xNode[sceneStep]+speed && y > yNode[sceneStep]-speed && y < yNode[sceneStep]+speed {
 			// Stop at coordinate
-			x = xNode[i];
-			y = yNode[i];
+			x = xNode[sceneStep];
+			y = yNode[sceneStep];
 			tempX = x;
 			tempY = y;
 			moving = false;
 			
-			xNode[i] = -1;
-			yNode[i] = -1;
+			xNode[sceneStep] = -1;
+			yNode[sceneStep] = -1;
 			
-			if endWalk[i] {
+			if endWalk[sceneStep] {
 				speed = 0; // move_towards_point() sets a speed value
 				spd = 0;
 			}
@@ -107,12 +108,12 @@ if !activated {
 	}
 	
 	// Rotating
-	if angleRot[i] != -1 {
-		rotFin = angleRot[i];
-		rotDir = scr_rotateDirection(angleRot[i],dirIso,rotFin);
+	if angleRot[sceneStep] != -1 {
+		rotFin = angleRot[sceneStep];
+		rotDir = scr_rotateDirection(angleRot[sceneStep],dirIso,rotFin);
 		
 		if dirIso = rotFin {
-			angleRot[i] = -1;
+			angleRot[sceneStep] = -1;
 		} else {
 			dirIso = scr_spriteRotateTowards(rotFin,rotDir,dirIso); // Update the angle towards the direction
 		}
@@ -122,11 +123,11 @@ if !activated {
 	
 	// Increment along timeline
 	if trgRegion != -1 {
-		while (xNode[i] = -1 && yNode[i] = -1 && angleRot[i] = -1 && i < trgRegion.timeIndexCalc) {
-			i += 1; // Increment 1/10'th second for walking
+		while (xNode[sceneStep] = -1 && yNode[sceneStep] = -1 && angleRot[sceneStep] = -1 && sceneStep < trgRegion.timeIndexCalc) {
+			sceneStep += 1; // Increment 1/10'th second for walking
 		}
 		
-		if spd = 0 || point_distance(tempX,tempY,xNode[i],yNode[i]) <= 10 {
+		if spd = 0 || point_distance(tempX,tempY,xNode[sceneStep],yNode[sceneStep]) <= 10 {
 			dir = -1;
 		}
 	}

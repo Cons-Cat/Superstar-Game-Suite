@@ -322,7 +322,7 @@
             "Key": "255a7cd2-3e39-4fb9-8db4-a0e74d3639aa",
             "Value": {
                 "id": "b64e8587-4f54-4eb9-980e-de92b688bc7b",
-                "resourcePath": "objects\\obj_cutscene_actor_getter_pan_target\\obj_cutscene_actor_getter_pan_target.yy",
+                "resourcePath": "objects\\obj_cutscene_actor_getter_pan\\obj_cutscene_actor_getter_pan.yy",
                 "resourceType": "GMObject"
             }
         },
@@ -380,6 +380,14 @@
                 "id": "3e7c8628-246b-4426-9ac0-51c6d96d010c",
                 "resourcePath": "views\\29d894e0-a711-48db-9629-1f3b480a02c1.yy",
                 "resourceType": "GMFolder"
+            }
+        },
+        {
+            "Key": "2a43e3d5-38ff-4206-a1a2-8a8c45b50892",
+            "Value": {
+                "id": "a5bb3470-f7a2-485a-a146-b62a91bd7f36",
+                "resourcePath": "sprites\\spr_actor_speed_interface\\spr_actor_speed_interface.yy",
+                "resourceType": "GMSprite"
             }
         },
         {
@@ -1111,6 +1119,14 @@
             }
         },
         {
+            "Key": "64cacd56-66e7-44a9-ac36-9169e979c994",
+            "Value": {
+                "id": "2bd088ef-22f9-4e03-be48-3c39d5c510fa",
+                "resourcePath": "objects\\obj_cutscene_actor_getter_speed\\obj_cutscene_actor_getter_speed.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "64dbc17d-2744-4930-a4e1-05369d5b0f38",
             "Value": {
                 "id": "328177a0-f0eb-4b11-a40e-676542ff9146",
@@ -1219,6 +1235,14 @@
             "Value": {
                 "id": "c8616153-3e2c-46f6-94d8-282c85036c5a",
                 "resourcePath": "sprites\\spr_slope3_editor\\spr_slope3_editor.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "6c3e29f3-0c23-45a5-9621-a65af2c23286",
+            "Value": {
+                "id": "93b70fe8-fd5f-43e4-b139-21235b7d0c41",
+                "resourcePath": "sprites\\spr_scene_speed\\spr_scene_speed.yy",
                 "resourceType": "GMSprite"
             }
         },
@@ -2343,6 +2367,14 @@
             }
         },
         {
+            "Key": "ce6b032e-9d6c-43e8-8193-943ef077f0e2",
+            "Value": {
+                "id": "cab1a980-41d3-437a-a84b-be3b7d0c92e6",
+                "resourcePath": "objects\\obj_scene_speed\\obj_scene_speed.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "cf51da24-5d21-49bf-81e1-443487cbc0a0",
             "Value": {
                 "id": "5dfd5896-87c3-4d30-9305-32992bf6ec07",
@@ -2858,7 +2890,7 @@
             "Key": "f6095289-4648-469a-a6e5-8cd9d3b8f5ab",
             "Value": {
                 "id": "d9593fb7-3f0d-4488-b32d-9cd3029c1059",
-                "resourcePath": "objects\\obj_cutscene_actor_getter_dialogue_target\\obj_cutscene_actor_getter_dialogue_target.yy",
+                "resourcePath": "objects\\obj_cutscene_actor_getter_dialogue\\obj_cutscene_actor_getter_dialogue.yy",
                 "resourceType": "GMObject"
             }
         },

@@ -2,12 +2,11 @@
 str = "actor";
 
 trgRegion = -1;
-i = 0;
+sceneStep = 0;
 dir = -1;
 activated = false;
 
 spd = 0;
-maxSpd = 1.25;
 dirIso = 6;
 dirIsoDef = dirIso;
 zfloor = 0;

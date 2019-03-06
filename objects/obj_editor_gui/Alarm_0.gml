@@ -84,6 +84,11 @@ with obj_trigger_dialogue_region_editor {
 					panEaseOut[other.actionTime[i]] = -1;
 				}
 			}
+			
+			// Walk speed action
+			if actionInd[other.actionTime[i],other.actionRowInd[i]] = 5 {
+				slowSpd[other.actionTime[i],other.actionRowInd[i]] = other.slowSpd[i];
+			}
 		}
 	}
 }
