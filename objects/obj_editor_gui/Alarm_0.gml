@@ -4,8 +4,8 @@ instance_create_layer(obj_camera_editor.x,obj_camera_editor.y,"Instances",obj_pl
 with obj_trigger_dialogue_region_editor {
 	// Region collision
 	with instance_create_layer(x,y,"Instances",obj_trigger_dialogue_region_level) {
-		y = other.y;
 		x = other.x;
+		y = other.y;
 		image_xscale = other.width;
 		image_yscale = other.height;
 		zfloor = other.zfloor;
@@ -88,6 +88,11 @@ with obj_trigger_dialogue_region_editor {
 			// Walk speed action
 			if actionInd[other.actionTime[i],other.actionRowInd[i]] = 5 {
 				slowSpd[other.actionTime[i],other.actionRowInd[i]] = other.slowSpd[i];
+			}
+			
+			// Arbitrary action
+			if actionInd[other.actionTime[i],other.actionRowInd[i]] = 6 {
+				arbitraryInd[other.actionTime[i],other.actionRowInd[i]] = other.arbitraryInd[i];
 			}
 		}
 	}

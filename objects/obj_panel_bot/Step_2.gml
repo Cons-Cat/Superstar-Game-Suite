@@ -252,6 +252,24 @@ if addClick != -1 {
 		}
 	}
 	
+	if addClick = 6 {
+		actionInd[totalActions] = 6; // Arbitrary action
+		actionColor[totalActions] = make_color_rgb(194,94,152); // Cute magenta
+		
+		if !instance_exists(obj_cutscene_actor_getter_arbitrary) {
+			with instance_create_layer(actorId[i].x+10,actorId[i].y-35,"Instances",obj_cutscene_actor_getter_arbitrary) {
+				timeIndex = other.totalActions;
+				rowIndex = other.i;
+				
+				trg = other.cutsceneInstanceId;
+				zfloor = trg.zfloor;
+				
+				arbitraryInd = 0;
+				selected = false;
+			}
+		}
+	}
+	
 	addClick = -1;
 }
 
@@ -473,6 +491,7 @@ for (i = 1; i <= totalActions; i += 1) {
 									}
 									
 									if actionInd[i] = 5 {
+										// Actor speed action
 										with instance_create_layer(actorId[j].x+10,actorId[j].y-35,"Instances",obj_cutscene_actor_getter_speed) {
 											timeIndex = other.i;
 											slowSpd = other.slowSpd[timeIndex];
@@ -483,6 +502,19 @@ for (i = 1; i <= totalActions; i += 1) {
 									}
 									
 									actionDoubleClick = 0;
+									
+									if actionInd[i] = 6 {
+										// Arbitrary action
+										with instance_create_layer(actorId[j].x+10,actorId[j].y-35,"Instances",obj_cutscene_actor_getter_arbitrary) {
+											timeIndex = other.i;
+											arbitraryInd = other.arbitraryInd[timeIndex];
+											
+											trg = other.cutsceneInstanceId;
+											zfloor = trg.zfloor;
+											
+											selected = true;
+										}
+									}
 								}
 							}
 							
@@ -559,6 +591,8 @@ for (i = 1; i <= totalActions; i += 1) {
 if cutsceneInstanceId != -1 {
 	if instance_exists(cutsceneInstanceId) {
 		if !cutsceneInstanceId.select {
+			// Importing handled by the script importCutscene
+			
 			// Export metadata
 			for (i = 0; i < rows; i += 1) {
 				cutsceneInstanceId.rowLength[i] = self.rowLength[i];
@@ -612,6 +646,10 @@ if cutsceneInstanceId != -1 {
 				
 				if actionInd[j] = 5 { // Walk speed action
 					cutsceneInstanceId.slowSpd[j] = self.slowSpd[j];
+				}
+				
+				if actionInd[j] = 6 { // Arbitrary action
+					cutsceneInstanceId.arbitraryInd[j] = self.arbitraryInd[j];
 				}
 				
 				actionInd[j] = -1;

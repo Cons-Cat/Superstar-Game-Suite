@@ -1,5 +1,4 @@
 /// @description Insert description here
-/// @description Insert description here
 if !mouse_check_button(mb_left) {
 	if select {
 		if mouse_x >= x && mouse_x <= x + sprWidth && mouse_y >= y && mouse_y <= y + sprHeight {

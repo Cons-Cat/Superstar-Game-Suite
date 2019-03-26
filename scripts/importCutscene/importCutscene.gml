@@ -46,4 +46,12 @@ for (j = 1; j <= trgFrom.totalActions; j += 1) {
 		trgTo.easeInVal[j] = trgFrom.easeInVal[j];
 		trgTo.easeOutVal[j] = trgFrom.easeOutVal[j];
 	}
+	
+	if trgFrom.actionInd[j] = 5 { // Walk speed action
+		trgTo.slowSpd[j] = trgFrom.slowSpd[j];
+	}
+	
+	if trgFrom.actionInd[j] = 6 { // Arbitrary action
+		trgTo.arbitraryInd[j] = trgFrom.arbitraryInd[j];
+	}
 }

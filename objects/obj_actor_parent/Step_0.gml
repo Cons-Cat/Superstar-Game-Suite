@@ -101,7 +101,7 @@ if !activated {
 		// Rotate sprite
 		rotFin = scr_rotateAngle(rotationInputDirection);
 		rotDir = scr_rotateDirection(rotationInputDirection,dirIso,rotFin);
-	
+		
 		if dirIso != rotFin {
 			dirIso = scr_spriteRotateTowards(rotFin,rotDir,dirIso); // Update the angle towards the direction
 		}
@@ -121,9 +121,14 @@ if !activated {
 	
 	spr = scr_spriteDir(dirIso);
 	
+	// Arbitrary
+	if arbitraryInd[sceneStep] != -1 {
+		script_execute(scr_arbitrary,arbitraryInd[sceneStep]);
+	}
+	
 	// Increment along timeline
 	if trgRegion != -1 {
-		while (xNode[sceneStep] = -1 && yNode[sceneStep] = -1 && angleRot[sceneStep] = -1 && sceneStep < trgRegion.timeIndexCalc) {
+		while (xNode[sceneStep] = -1 && yNode[sceneStep] = -1 && angleRot[sceneStep] = -1 && arbitraryInd[sceneStep] = -1 && sceneStep < trgRegion.timeIndexCalc) {
 			sceneStep += 1; // Increment 1/10'th second for walking
 		}
 		
