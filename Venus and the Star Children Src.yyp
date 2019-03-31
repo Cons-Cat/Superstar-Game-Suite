@@ -223,6 +223,14 @@
             }
         },
         {
+            "Key": "17927366-4c32-487d-bbff-33d8f51d560a",
+            "Value": {
+                "id": "db5794aa-d16a-4e3a-a606-4ce4cd8d0a9a",
+                "resourcePath": "sprites\\spr_button_corner\\spr_button_corner.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "196648ca-7603-48c8-89f9-576f739e26cc",
             "Value": {
                 "id": "949de110-98f6-4d35-a054-5bdafe3d0a64",
@@ -530,7 +538,7 @@
             "Key": "3747c239-1847-4ec6-b993-fa8c5efabc8b",
             "Value": {
                 "id": "5574e397-e041-45cc-888f-e5df33f1ba69",
-                "resourcePath": "sprites\\spr_camera_pan_interface\\spr_camera_pan_interface.yy",
+                "resourcePath": "sprites\\spr_camera_pan_active_interface\\spr_camera_pan_active_interface.yy",
                 "resourceType": "GMSprite"
             }
         },
@@ -1103,6 +1111,14 @@
             }
         },
         {
+            "Key": "6233cfa3-64de-4c25-bc92-cdb3cbe7d12b",
+            "Value": {
+                "id": "57507d76-8b3f-407c-9b68-23edda420f39",
+                "resourcePath": "sprites\\spr_camera_pan_inactive_interface\\spr_camera_pan_inactive_interface.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "624990a8-c1c1-49b4-b21b-d5159fc81d12",
             "Value": {
                 "id": "06bab8ee-5394-4012-a002-b3aaf565bfb2",
@@ -1391,6 +1407,14 @@
             }
         },
         {
+            "Key": "78367e34-140b-4329-9599-a3deb3c31657",
+            "Value": {
+                "id": "8e33d25c-2658-4ca3-86fd-06b2a913925a",
+                "resourcePath": "objects\\obj_subpanel_left\\obj_subpanel_left.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "78b208a3-1c99-4cad-92f9-2a2d3e6d190d",
             "Value": {
                 "id": "c97022b7-a189-40a6-b572-47212d8f90c4",
@@ -1443,6 +1467,14 @@
             "Value": {
                 "id": "67cbdfd8-b1b0-4f1e-b33a-49a818cefa86",
                 "resourcePath": "sprites\\spr_editor_big_button\\spr_editor_big_button.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "7c7dd01a-2568-4857-85d7-473b54dda722",
+            "Value": {
+                "id": "f0103f2f-984f-44e7-bb57-26f999b6f552",
+                "resourcePath": "sprites\\spr_preview_corner\\spr_preview_corner.yy",
                 "resourceType": "GMSprite"
             }
         },

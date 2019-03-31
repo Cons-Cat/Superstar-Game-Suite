@@ -133,7 +133,6 @@ if addClick != -1 {
 		if i = rows - 1 {
 			// Cancel button input if no row is selected
 			totalActions -= 1;
-			addClickTemp = -1;
 		}
 	}
 	
@@ -733,17 +732,16 @@ scrollVerTopBound = y+34;
 botPanelY = scrollVerBotBound - scrollVerTopBound;
 
 // Select scroll bars
-if relativeMouseX >= scrollHorX && relativeMouseX <= scrollHorX + scrollHorWidth {
-	if mouse_y >= scrollHorTopBound && mouse_y <= scrollHorBotBound {
-		if mouse_check_button_pressed(mb_left) && !select {
+if mouse_check_button_pressed(mb_left) && !select {
+	if relativeMouseX >= scrollHorX && relativeMouseX <= scrollHorX + scrollHorWidth {
+		if mouse_y >= scrollHorTopBound && mouse_y <= scrollHorBotBound {
 			scrollHorSelect = true;
 			scrollHorSelectOff = relativeMouseX - scrollHorX;
 		}
 	}
-}
-if relativeMouseX >= scrollVerLeftBound && relativeMouseX <= scrollVerRightBound {
-	if mouse_y >= scrollVerY && mouse_y <= scrollVerY + scrollVerHeight {
-		if mouse_check_button_pressed(mb_left) && !select {
+	
+	if relativeMouseX >= scrollVerLeftBound && relativeMouseX <= scrollVerRightBound {
+		if mouse_y >= scrollVerY && mouse_y <= scrollVerY + scrollVerHeight {
 			scrollVerSelect = true;
 			scrollVerSelectOff = mouse_y - scrollVerY;
 		}

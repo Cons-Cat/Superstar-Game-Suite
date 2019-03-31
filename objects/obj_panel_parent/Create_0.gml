@@ -1,7 +1,4 @@
 /// @description Insert description here
-hasHorScrollbar = true;
-hasVerScrollbar = true;
-
 scrollHorLeftBound = 0;
 scrollHorRightBound = 0;
 scrollHorTopBound = 0;
@@ -27,5 +24,6 @@ scrollPanelHorDefined = false;
 scrollPanelVerDefined = false;
 scrollHorWidth = panelWidth;
 scrollVerHeight = panelHeight;
-botPanelY = panelHeight;
 tilesSheetPlacement = 1024;
+
+image_speed = 0;

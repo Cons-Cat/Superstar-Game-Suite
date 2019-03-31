@@ -1,11 +1,10 @@
 /// @description Insert description here
 baseX = 191;
-scrollHorRightBound = x;
-y = 242;
 relativeMouseX = window_view_mouse_get_x(1);
+y = 242;
 
 if mouse_x >= x && mouse_x <= x + 21 {
-	if mouse_y >= y - 60 && mouse_y <= y + 60 {
+	if mouse_y >= y - 62 && mouse_y <= y + 58 {
 		if mouse_check_button_pressed(mb_left) {
 			// Dragging
 			select = 1;
@@ -13,9 +12,6 @@ if mouse_x >= x && mouse_x <= x + 21 {
 			
 			// Double clicking
 			doubleClickCounter += 1;
-			
-			scrollHorXTemp = scrollHorX;
-			scrollHorFactorTemp = scrollHorFactor;
 			
 			image_index = 1;
 		}
@@ -60,7 +56,6 @@ if select = 0 {
 			moveToX = 0;
 			moveToSpd = 26;
 		}
-
 		
 		// Minimum speed
 		if moveToSpd < 13 {
@@ -138,9 +133,12 @@ if mouse_check_button_released(mb_left) {
 	}
 }
 
+scrollHorRightBound = x;
+obj_subpanel_left.scrollHorRightBound = self.scrollHorRightBound;
+
 // Scrollbars
 scrollHorFactor = (x - 16) / panelWidth;
-scrollVerFactor = botPanelY / panelHeight;
+scrollVerFactor = scrollVerBotBound / panelHeight;
 
 if scrollHorFactor > 1 {
 	scrollHorFactor = 1;
@@ -157,10 +155,8 @@ if x <= 16 {
 }
 
 // Scrolling
-botPanelY = obj_panel_bot.y - 86;
-
-if relativeMouseX <= self.x && relativeMouseX >= 16 {
-	if mouse_y >= 70 && mouse_y <= 419 {
+if relativeMouseX <= scrollHorRightBound && relativeMouseX >= scrollHorLeftBound {
+	if mouse_y >= scrollHorTopBound && mouse_y <= scrollVerBotBound {
 		if mouse_wheel_up() {
 			if keyboard_check(vk_shift) {
 				if scrollHorPartition < 100 - 100 / (panelWidth / (x - 16) * 2) {
@@ -169,13 +165,14 @@ if relativeMouseX <= self.x && relativeMouseX >= 16 {
 					scrollHorPartition = 100;
 				}
 			} else {
-				if scrollVerPartition > 100 / (panelHeight / botPanelY) {
-					scrollVerPartition -= 100 / (panelHeight / botPanelY);
+				if scrollVerPartition > 100 / (panelHeight / scrollVerBotBound) {
+					scrollVerPartition -= 100 / (panelHeight / scrollVerBotBound);
 				} else {
 					scrollVerPartition = 0;
 				}
 			}
 		}
+		
 		if mouse_wheel_down() {
 			if keyboard_check(vk_shift) {
 				if scrollHorPartition > 100 / (panelWidth / (x - 16) * 2) {
@@ -184,8 +181,8 @@ if relativeMouseX <= self.x && relativeMouseX >= 16 {
 					scrollHorPartition = 0;
 				}
 			} else {
-				if scrollVerPartition < 100 - 100 / (panelHeight / botPanelY) {
-					scrollVerPartition += 100 / (panelHeight / botPanelY);
+				if scrollVerPartition < 100 - 100 / (panelHeight / scrollVerBotBound) {
+					scrollVerPartition += 100 / (panelHeight / scrollVerBotBound);
 				} else {
 					scrollVerPartition = 100;
 				}
@@ -195,18 +192,16 @@ if relativeMouseX <= self.x && relativeMouseX >= 16 {
 }
 
 // Select scroll bars
-if mouse_x >= scrollHorX && mouse_x <= scrollHorX + scrollHorWidth {
-	if mouse_y >= 69 && mouse_y <= 84 {
-		if mouse_check_button_pressed(mb_left) && !select {
+if mouse_check_button_pressed(mb_left) && !select {
+	if mouse_x >= scrollHorX && mouse_x <= scrollHorX + scrollHorWidth {
+		if mouse_y >= 69 && mouse_y <= 84 {
 			scrollHorSelect = true;
 			scrollHorSelectOff = relativeMouseX - scrollHorX;
 		}
 	}
-}
 
-if mouse_x >= 0 && mouse_x <= 15 {
-	if mouse_y >= scrollVerY && mouse_y <= scrollVerY + scrollVerHeight {
-		if mouse_check_button_pressed(mb_left) && !select {
+	if mouse_x >= 0 && mouse_x <= 15 {
+		if mouse_y >= scrollVerY && mouse_y <= scrollVerY + scrollVerHeight {
 			scrollVerSelect = true;
 			scrollVerSelectOff = mouse_y - scrollVerY;
 		}
@@ -223,6 +218,7 @@ if scrollHorSelect {
 			scrollHorX = 16;
 			scrollHorPartition = 0;
 		}
+		
 		if scrollHorX + scrollHorWidth > x {
 			scrollHorX = x - scrollHorWidth;
 			scrollHorPartition = 100;
@@ -236,20 +232,21 @@ if scrollVerSelect {
 	if scrollPanelVerDefined {
 		// Drag vertical scroll bar
 		scrollVerY = mouse_y - scrollVerSelectOff;
-		scrollVerPartition = (scrollVerY - scrollVerTopBound) / ((botPanelY) - scrollVerHeight) * 100;
+		scrollVerPartition = (scrollVerY - scrollVerTopBound) / ((scrollVerBotBound) - scrollVerHeight) * 100;
 		
 		if scrollVerY < scrollVerTopBound {
 			scrollVerY = scrollVerTopBound;
 			scrollVerPartition = 0;
 		}
-		if scrollVerY + scrollVerHeight > botPanelY + scrollVerTopBound {
-			scrollVerY = botPanelY + scrollVerTopBound - scrollVerHeight;
+		
+		if scrollVerY + scrollVerHeight > scrollVerBotBound + scrollVerTopBound {
+			scrollVerY = scrollVerBotBound + scrollVerTopBound - scrollVerHeight;
 			scrollVerPartition = 100;
 		}
 	}
 } else {
 	// Adapt to moving panel
-	scrollVerY = scrollVerTopBound + (scrollVerPartition/100) * (botPanelY-scrollVerHeight);
+	scrollVerY = scrollVerTopBound + (scrollVerPartition/100) * (scrollVerBotBound-scrollVerHeight);
 }
 
 // Deselect scroll bars
@@ -258,8 +255,8 @@ if mouse_check_button_released(mb_left) {
 	scrollVerSelect = false;
 }
 
-scrollHorWidth = (scrollHorFactor) * (x - 16);
-scrollVerHeight = (scrollVerFactor) * botPanelY;
+scrollHorWidth = (scrollHorFactor) * (scrollHorRightBound - scrollHorLeftBound) - 1;
+scrollVerHeight = (scrollVerFactor) * scrollVerBotBound;
 
 // Tiling mode
 if obj_editor_gui.mode = 3 {
@@ -267,10 +264,10 @@ if obj_editor_gui.mode = 3 {
 		view_set_visible(2,true);
 		
 		camera_set_view_pos(obj_editor_gui.cameraLeftPanel,1024+(scrollHorX-16)/scrollHorFactor,scrollVerY);
-		camera_set_view_size(view_camera[2], x-15, botPanelY);
+		camera_set_view_size(view_camera[2], x-15, scrollVerBotBound);
 		
 		view_set_wport(2,x-15)
-		view_set_hport(2,botPanelY)
+		view_set_hport(2,scrollVerBotBound)
 	} else {
 		view_set_visible(2,false);
 	}
@@ -281,5 +278,3 @@ if obj_editor_gui.mode = 3 {
 		instance_destroy();
 	}
 }
-
-scrollHorRightBound = x;

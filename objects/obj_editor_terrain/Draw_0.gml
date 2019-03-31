@@ -142,7 +142,7 @@ if obj_editor_gui.mode = 0 {
 							if zfloor < trg.zcieling {
 								if (self.y+self.zfloor*20+j*20) = (trg.y+trg.zfloor*20+v*20) {
 									if shadowed[i,j] = 1 {
-										draw_sprite_ext(spr_shadow_editor,0,x+i*20,y+j*20,1,1,0,c_white,0.75);
+										draw_sprite_ext(spr_shadow_editor,0,x+i*20+10,y+j*20+10,1,1,0,c_white,0.75);
 									}
 								}
 							}
@@ -176,6 +176,7 @@ if obj_editor_gui.mode = 1 {
 			layerColorShadow = c_red;
 		}
 	}
+	
 	draw_set_color(layerColorShadow);
 	
 	// Bottom surface
@@ -200,5 +201,4 @@ if obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4
 			draw_sprite_part_ext(sprMaterial,0,tileArrayDrawX[i,j],tileArrayDrawY[i,j],20,20,x+(i)*20-20,y+(j)*20-20,1,1,layerColor,alpha);
 		}
 	}
-	//draw_rectangle(x,(y+zfloor*20 + 20),x+10,(y+zfloor*20 + 20)+10,false);
 }

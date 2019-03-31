@@ -1,4 +1,4 @@
-/// @description Insert description here
+/// @description Define parameters
 event_inherited();
 
 baseX = 191;
@@ -27,11 +27,10 @@ scrollPanelVerDefined = false;
 scrollPanelDefined = false;
 scrollHorWidth = panelWidth;
 scrollVerHeight = panelHeight;
-botPanelY = panelHeight;
 tilesWidthIterate = 0;
 
 scrollHorLeftBound = 16;
-scrollHorRightBound = x;
+scrollHorRightBound = x - 1;
 scrollHorTopBound = 70;
 scrollHorBotBound = 85;
 
@@ -40,6 +39,7 @@ scrollVerRightBound = 15;
 scrollVerTopBound = 86;
 scrollVerBotBound = 419;
 
-image_speed = 0;
 depth = obj_editor_gui.depth - 2;
 x = baseX;
+
+instance_create_layer(x,y,"Instances",obj_subpanel_left);

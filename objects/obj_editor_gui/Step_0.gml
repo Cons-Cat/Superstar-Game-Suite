@@ -1,7 +1,4 @@
 /// @description Change room state for mode
-var lay_id = layer_get_id("Background");
-var back_id = layer_background_get_id(lay_id);
-
 if mode = 1 {
 	// Dark grid
 	modeGridSpr = spr_grid_dark_editor;
@@ -26,7 +23,9 @@ if canChangeSelect {
 			other.tempSelectInstance = self.id;
 		}
 		
-		if (mouseCheckX >= tempSelectInstance.x && mouseCheckX < tempSelectInstance.x + tempSelectInstance.width * 20 && mouseCheckY >= tempSelectInstance.y - tempSelectInstance.zfloor*20 && mouseCheckY < tempSelectInstance.y + tempSelectInstance.image_yscale * 20 - tempSelectInstance.zfloor*20 && (mode != 1 && tempSelectInstance.modeForSelect)) || (mouseCheckX >= tempSelectInstance.x && mouseCheckX < tempSelectInstance.x + tempSelectInstance.width * 20 && mouseCheckY >= tempSelectInstance.y - (tempSelectInstance.zfloor - tempSelectInstance.zcieling) * 20 && mouseCheckY < tempSelectInstance.y - (tempSelectInstance.zfloor - tempSelectInstance.zcieling + tempSelectInstance.height) * 20 && tempSelectInstance.modeForSelect) {
+		if (mouseCheckX >= tempSelectInstance.x && mouseCheckX < tempSelectInstance.x + tempSelectInstance.width * 20 && mouseCheckY >= tempSelectInstance.y && mouseCheckY < tempSelectInstance.y + (tempSelectInstance.zfloor*20 - tempSelectInstance.zcieling*20) + 20 && (mode != 1 && tempSelectInstance.modeForSelect))
+		//|| (mouseCheckX >= tempSelectInstance.x && mouseCheckX < tempSelectInstance.x + tempSelectInstance.width * 20 && mouseCheckY >= tempSelectInstance.y - (tempSelectInstance.zfloor - tempSelectInstance.zcieling) * 20 && mouseCheckY < tempSelectInstance.y - (tempSelectInstance.zfloor - tempSelectInstance.zcieling + tempSelectInstance.height) * 20 && tempSelectInstance.modeForSelect) {
+		{
 			if tempSelectInstance.modeForSelect {
 				if tempSelectInstance.depth <= tempDepth {
 					tempDepth = tempSelectInstance.depth;
@@ -829,7 +828,6 @@ if mode = 2 {
 			xNode[0] = -1;
 			yNode[0] = -1;
 			i = 0;
-			maxI = 0;
 		}
 	}
 }

@@ -1,6 +1,7 @@
 /// @description Insert description here
 event_inherited();
 
+botPanelY = 0;
 baseY = 420;
 dragY = baseY;
 moveToY = baseY;
@@ -39,7 +40,6 @@ scrollVerBotBound = 572;
 
 rows = 0;
 selectRow[0] = false;
-rowDoubleClickCounter = 0;
 cutsceneInstanceId = -1;
 rowLength[0] = 0;
 
@@ -49,8 +49,7 @@ actionRowInd[0] = 0;
 addClick = -1;
 actionDoubleClick = 0;
 
-image_speed = 0;
-depth = obj_editor_gui.depth - 3;
+depth = obj_editor_gui.depth - 4;
 image_angle = 90;
 y = baseY;
 

@@ -24,8 +24,21 @@ if select {
 
 event_inherited();
 
+// Colors
 if imgIndex = 0 {
 	select = false;
+	
+	col[0] = make_color_rgb(46,60,109); // Light blue
+	col[1] = make_color_rgb(63,70,87); // Dark gray
+	col[2] = make_color_rgb(28,30,36); // Dark blue
+	col[3] = make_color_rgb(200,210,243); // Off white
+}
+
+if imgIndex = 1 {
+	col[0] = make_color_rgb(58,41,25); // Dark orange
+	col[1] = make_color_rgb(196,196,196); // Light gray
+	col[2] = make_color_rgb(38,15,14); // Darker orange
+	col[3] = make_color_rgb(255,160,64); // Light orange
 }
 
 if obj_panel_right.select = 1 || obj_panel_left.select = 1 {
@@ -35,16 +48,16 @@ if obj_panel_right.select = 1 || obj_panel_left.select = 1 {
 }
 
 // Sorting
-if 1024 - panelXPosition <= 340 {
+if 1024 - panelXPosition <= 320 {
 	obj_panel_right.panelHeight = 291;
 	sortX = 0;
 	
 	for(i = 0; i <= 4; i += 1) {
 		if sortIndex = i {
-			sortY = i * 57;
+			sortY = i * 44;
 		}
 	}
-} else if 1024 - panelXPosition <= 500 {
+} else if 1024 - panelXPosition <= 480 {
 	obj_panel_right.panelHeight = 184;
 	
 	for(i = 0; i <= 4; i += 1) {
@@ -57,16 +70,16 @@ if 1024 - panelXPosition <= 340 {
 				sortX = 162;
 			}
 			
-			sortY = floor(i/2) * 57;
+			sortY = floor(i/2) * 44;
 		}
 	}
-} else if 1024 - panelXPosition <= 662 {
+} else if 1024 - panelXPosition <= 642 {
 	obj_panel_right.panelHeight = 177;
 	
 	for(i = 0; i <= 4; i += 1) {
 		if sortIndex = i {
 			sortX = (i % 3) * 162;
-			sortY = floor(i/3) * 57;
+			sortY = floor(i/3) * 44;
 		}
 	}
 } else {
@@ -76,10 +89,10 @@ if 1024 - panelXPosition <= 340 {
 	for(i = 0; i <= 4; i += 1) {
 		if sortIndex = i {
 			sortX = (i % 4) * 162;
-			sortY = floor(i/4) * 57;
+			sortY = floor(i/4) * 44;
 		}
 	}
 }
 
-x = 1030 + sortX;
-y = 93 + sortY;
+x = 1027 + sortX;
+y = 89 + sortY;

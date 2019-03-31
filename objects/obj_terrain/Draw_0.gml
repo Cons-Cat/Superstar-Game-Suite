@@ -1,18 +1,4 @@
 /// @description 
-/*for (i = 0; i < image_xscale; i += 1){
-	for (j = 0; j < image_yscale; j += 1){
-		var lay_id = layer_get_id("Tiles_1");
-		var map_id = layer_tilemap_get_id(lay_id);
-		var mx = tilemap_get_cell_x_at_pixel(map_id, x+i*20, y+j*20);
-		var my = tilemap_get_cell_y_at_pixel(map_id, x+i*20, y+j*20);
-		var data = tilemap_get(map_id, mx, my);
-		var ind = tile_get_index(data);
-
-		tileDraw[i,j] = ind;
-		draw_tile(tls_whitebox,ind,0,x+i*20,y+j*20);
-	}
-}*/
-
 layerColor = c_white;
 // Draw walls
 if width > 1 {

@@ -29,7 +29,6 @@ scrollPanelHorDefined = false;
 scrollPanelVerDefined = false;
 scrollHorWidth = panelWidth;
 scrollVerHeight = panelHeight;
-botPanelY = panelHeight;
 tilesSheetPlacement = 1024;
 
 scrollHorLeftBound = x;
@@ -39,11 +38,9 @@ scrollHorBotBound = 85;
 
 scrollVerLeftBound = 1009;
 scrollVerRightBound = 1023;
-scrollVerTopBound = 85;
+scrollVerTopBound = 86;
 scrollVerBotBound = 419;
 
-image_speed = 0;
 depth = obj_editor_gui.depth - 1;
 image_xscale = -1;
 x = baseX;
-//relativeMouseX = 0;
