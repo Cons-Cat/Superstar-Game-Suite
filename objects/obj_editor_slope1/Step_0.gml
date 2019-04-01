@@ -24,13 +24,17 @@ if spawnButtons {
 	with instance_create_layer(x,y+20,"Instances",obj_x_editor) {
 		trg = other.id;
 	}
-	with instance_create_layer(x,y+20,"Instances",obj_info_editor) {
+	/*with instance_create_layer(x,y+20,"Instances",obj_info_editor) {
 		trg = other.id;
 		str2 = "mirror";
 	}
 	with instance_create_layer(x,y+20,"Instances",obj_info_editor) {
 		trg = other.id;
 		str2 = "flip";
+	}*/
+	
+	with instance_create_layer(x,y,"Instances",obj_editor_anglewheel) {
+		trg = other.id;
 	}
 }
 

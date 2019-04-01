@@ -32,11 +32,11 @@ scrollVerHeight = panelHeight;
 tilesSheetPlacement = 1024;
 
 scrollHorLeftBound = x;
-scrollHorRightBound = 1008;
+scrollHorRightBound = 1007;
 scrollHorTopBound = 70;
 scrollHorBotBound = 85;
 
-scrollVerLeftBound = 1009;
+scrollVerLeftBound = 1008;
 scrollVerRightBound = 1023;
 scrollVerTopBound = 86;
 scrollVerBotBound = 419;

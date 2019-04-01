@@ -1,5 +1,5 @@
 /// @description Insert description here
-draw_sprite_part(spr_editor_gui_streaks,0,x,70,1024,506,x,0+70);
+draw_sprite_part(spr_editor_gui_streaks,0,x,70,1024,506,x,70);
 event_inherited();
 
 // Edge

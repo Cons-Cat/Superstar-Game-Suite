@@ -53,5 +53,5 @@ depth = obj_editor_gui.depth - 4;
 image_angle = 90;
 y = baseY;
 
-font = font_add_sprite_ext(spr_font,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!?,'._ 1234567890",true,1);
+font = obj_editor_gui.font;
 draw_set_font(font);

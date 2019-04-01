@@ -18,7 +18,7 @@ if spawnButtons {
 		sortIndex = 4;
 	}
 	
-	obj_panel_right.panelHeight = 291;
+	obj_panel_right.panelHeight = 213;
 	
 	spawnButtons = false;
 	obj_panel_left.scrollPanelHorDefined = false;

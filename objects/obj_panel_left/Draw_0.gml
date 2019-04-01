@@ -1,5 +1,5 @@
 /// @description Insert description here
-draw_sprite_part(spr_editor_gui_streaks,0,0,0,scrollHorRightBound,(scrollVerBotBound+70),0,70);
+draw_sprite_part(spr_editor_gui_streaks,0,0,0,scrollHorRightBound+1,(scrollVerBotBound+70),0,70);
 event_inherited();
 
 // Edge
