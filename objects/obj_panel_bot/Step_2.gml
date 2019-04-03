@@ -1,14 +1,16 @@
 /// @description Insert description here
 baseY = 420;
-relativeMouseX = mouse_x % 1024;
+//relativeMouseX = mouse_x % 1024;
+relativeMouseX = window_view_mouse_get_x(1);
+relativeMouseY = window_view_mouse_get_y(1);
 x = 512;
 
 if relativeMouseX <= x + 60 && relativeMouseX >= x - 60 {
-	if mouse_y >= y - 21 && mouse_y <= y {
+	if relativeMouseY >= y - 21 && relativeMouseY <= y {
 		if mouse_check_button_pressed(mb_left) {
 			// Dragging
 			select = 1;
-			mouseClickOff = mouse_y - y;
+			mouseClickOff = relativeMouseY - y;
 			
 			// Double clicking
 			doubleClickCounter += 1;
@@ -22,7 +24,7 @@ if !mouse_check_button(mb_left) {
 	if select = 1 {
 		select = 0;
 		
-		moveToY = round((mouse_y - mouseClickOff + 1) / 10) * 10 + 1;
+		moveToY = round((relativeMouseY - mouseClickOff + 1) / 10) * 10 + 1;
 		if moveToY > 400 && moveToY < 480 {
 			moveToY = 420;
 		}
@@ -97,7 +99,7 @@ if !select {
 }
 
 if select {
-	dragY = mouse_y - mouseClickOff;
+	dragY = relativeMouseY - mouseClickOff;
 	dragYTemp = dragY;
 	
 	y = dragY;

@@ -2,7 +2,7 @@
     "id": "14155952-74ee-4212-b2d5-f8a6493f62ec",
     "modelName": "GMObject",
     "mvc": "1.0",
-    "name": "obj_big_button_right",
+    "name": "obj_panel_button",
     "eventList": [
         {
             "id": "d27101ff-67bf-4862-b561-d67024a75150",
@@ -47,8 +47,8 @@
     ],
     "maskSpriteId": "00000000-0000-0000-0000-000000000000",
     "overriddenProperties": null,
-    "parentObjectId": "f9a3a2b6-d012-4fe0-9b0c-56c41fe591ca",
-    "persistent": false,
+    "parentObjectId": "00000000-0000-0000-0000-000000000000",
+    "persistent": true,
     "physicsAngularDamping": 0.1,
     "physicsDensity": 0.5,
     "physicsFriction": 0.2,
@@ -63,6 +63,6 @@
     "physicsStartAwake": true,
     "properties": null,
     "solid": false,
-    "spriteId": "62eb55eb-3bcc-47c7-b8a1-e85bea7c3453",
+    "spriteId": "00000000-0000-0000-0000-000000000000",
     "visible": true
 }

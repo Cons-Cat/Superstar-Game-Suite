@@ -153,7 +153,7 @@ switch obj_editor_gui.mode {
 		if x > 16 && obj_big_button_tiling.spawnButtons {
 			view_set_visible(2,true);
 			
-			camera_set_view_pos(obj_editor_gui.cameraLeftPanel,1024 + (scrollHorX-16)/scrollHorFactor,scrollVerY);
+			camera_set_view_pos(obj_editor_gui.cameraLeftPanel,camera_get_view_x(obj_editor_gui.cameraRightPanel) + camera_get_view_width(obj_editor_gui.cameraRightPanel) + (scrollHorX-16)/scrollHorFactor,scrollVerY);
 			camera_set_view_size(view_camera[2], x - 15, scrollVerBotBound);
 			
 			view_set_wport(2,x - 15)

@@ -152,12 +152,12 @@ switch obj_editor_gui.mode {
 		if x < 1008 {
 			view_set_visible(3,true);
 			
-			camera_set_view_pos(obj_editor_gui.cameraRightPanel,1026,scrollVerTopBound - (scrollVerTopBound - scrollVerY) / scrollVerFactor);
-			camera_set_view_size(view_camera[3], 1009 - x, scrollVerBotBound - scrollVerTopBound);
+			camera_set_view_pos(obj_editor_gui.cameraRightPanel,1025,scrollVerTopBound - (scrollVerTopBound - scrollVerY) / scrollVerFactor);
+			camera_set_view_size(view_camera[3], 1008 - x, scrollVerBotBound - scrollVerTopBound);
 			
-			view_set_wport(3,1009 - x);
+			view_set_wport(3,1008 - x);
 			view_set_hport(3,scrollVerBotBound - scrollVerTopBound);
-			view_set_xport(3,x);
+			view_set_xport(3,x - 1);
 		} else {
 			view_set_visible(3,false);
 		}
@@ -206,8 +206,8 @@ switch obj_editor_gui.mode {
 			camera_set_view_pos(obj_editor_gui.cameraRightPanel,1024,86+(scrollVerY-86)/scrollVerFactor);
 			camera_set_view_size(view_camera[3], 1009-x, scrollVerBotBound);
 			
-			view_set_wport(3,1009-x)
-			view_set_hport(3,scrollVerBotBound)
+			view_set_wport(3,1009-x);
+			view_set_hport(3,scrollVerBotBound);
 			view_set_xport(3,x);
 		} else {
 			view_set_visible(3,false);

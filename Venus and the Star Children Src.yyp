@@ -170,7 +170,7 @@
             "Key": "14155952-74ee-4212-b2d5-f8a6493f62ec",
             "Value": {
                 "id": "1f170c32-0291-4ff9-8948-a585412d4a44",
-                "resourcePath": "objects\\obj_big_button_right\\obj_big_button_right.yy",
+                "resourcePath": "objects\\obj_panel_button\\obj_panel_button.yy",
                 "resourceType": "GMObject"
             }
         },

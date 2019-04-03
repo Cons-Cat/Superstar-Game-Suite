@@ -1,5 +1,5 @@
 /// @description Slide side panels in
-with obj_big_button_right {
+with obj_panel_button {
 	instance_destroy();
 }
 

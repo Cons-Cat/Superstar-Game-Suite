@@ -101,8 +101,12 @@ if select {
 	y = dragY;
 }
 
+// Dragging boundaries
 if y > obj_panel_bot.y + 6 {
 	y = obj_panel_bot.y + 6;
+}
+if y < obj_panel_left.scrollHorBotBound + 22 {
+	y = obj_panel_left.scrollHorBotBound + 22;
 }
 
 scrollVerTopBound = y + 5;
@@ -122,25 +126,21 @@ scrollHorWidth = obj_panel_left.scrollHorWidth;
 scrollVerHeight = (scrollVerFactor) * scrollVerBotBound;
 
 // Viewports
-if scrollVerBotBound - scrollVerTopBound <= 0 {
-	visible = false;
-} else {
+if scrollVerBotBound - scrollVerTopBound > 0 && obj_panel_left.x > 16 {
 	visible = true;
+} else {
+	visible = false;
 }
 
 if visible {
-	if obj_panel_left.x > 16 {
-		view_set_visible(5,true);
-		
-		camera_set_view_pos(obj_editor_gui.cameraLeftSubPanel,1024,0);
-		camera_set_view_size(view_camera[5], obj_panel_left.x - 15,scrollVerBotBound - y - 5);
-		
-		view_set_wport(5,obj_panel_left.x - 15);
-		view_set_hport(5,scrollVerBotBound - y - 5);
-		view_set_yport(5,y + 5);
-	} else {
-		view_set_visible(5,false);
-	}
+	view_set_visible(5,true);
+	
+	camera_set_view_pos(obj_editor_gui.cameraLeftSubPanel,1025,0);
+	camera_set_view_size(view_camera[5], obj_panel_left.x - 15,scrollVerBotBound - y - 5);
+	
+	view_set_wport(5,obj_panel_left.x - 15);
+	view_set_hport(5,scrollVerBotBound - y - 5);
+	view_set_yport(5,y + 5);
 } else {
 	view_set_visible(5,false);
 }

@@ -1,14 +1,13 @@
 /// @description Insert description here
-event_inherited();
+select = false;
+imgIndex = 0;
 
 sortX = 0;
 sortY = 0;
-sortIndex = 0;
-panelXPosition = 0;
 sprWidth = -1;
 sprHeight = 30;
 width = -1;
-label = "Square";
+label = "";
 
 alarm[0] = 2;
 
