@@ -1,9 +1,9 @@
 /// @description Slide side panels in
-if instance_exists(obj_editor_terrain_par) && !isPlayButton {
+//if instance_exists(obj_editor_terrain_par) && !isPlayButton {
 	with obj_panel_button {
 		instance_destroy();
 	}
-}
+//}
 
 obj_panel_left.moveToX = global.tempXLeft;
 obj_panel_left.moveToSpd = global.tempXLeft / 6;

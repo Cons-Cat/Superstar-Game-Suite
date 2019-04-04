@@ -18,7 +18,6 @@ obj_panel_right.scrollHorPartition = 0;
 obj_panel_right.scrollVerPartition = 0;
 
 // Tile input box
-//if collision_point(obj_editor_gui.mouseCheckX,obj_editor_gui.mouseCheckY,self.id,true,false) {
 sprMaterialDirectory = "";
 sprMaterialDirectory = get_open_filename_ext("Material Image File|*.png", "", working_directory + "\Room Saves\ ", "Import Material Tileset");
 

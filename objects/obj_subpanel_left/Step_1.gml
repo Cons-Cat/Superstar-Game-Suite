@@ -135,7 +135,7 @@ if scrollVerBotBound - scrollVerTopBound > 0 && obj_panel_left.x > 16 {
 if visible {
 	view_set_visible(5,true);
 	
-	camera_set_view_pos(obj_editor_gui.cameraLeftSubPanel,1025,0);
+	camera_set_view_pos(obj_editor_gui.cameraLeftSubPanel,1025 + camera_get_view_width(obj_editor_gui.cameraRightPanel) + camera_get_view_width(obj_editor_gui.cameraLeftPanel),0);
 	camera_set_view_size(view_camera[5], obj_panel_left.x - 15,scrollVerBotBound - y - 5);
 	
 	view_set_wport(5,obj_panel_left.x - 15);

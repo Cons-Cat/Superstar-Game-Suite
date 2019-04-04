@@ -2,20 +2,15 @@
 event_inherited();
 
 if spawnButtons {
-	with instance_create_layer(obj_panel_right.x,78,"Instances",obj_trigger_button_dialogue) {
+	with instance_create_layer(obj_panel_right.x,78,"Instances",obj_trigger_button_actor) {
 		sortIndex = 0;
+		viewOn = 3;
+		panelId = obj_panel_right.id;
 	}
 	with instance_create_layer(obj_panel_right.x,78,"Instances",obj_trigger_button_scene) {
 		sortIndex = 1;
-	}
-	with instance_create_layer(obj_panel_right.x,78,"Instances",obj_trigger_button_cutscene) {
-		sortIndex = 2;
-	}
-	with instance_create_layer(obj_panel_right.x,78,"Instances",obj_trigger_button_actor) {
-		sortIndex = 3;
-	}
-	with instance_create_layer(obj_panel_right.x,78,"Instances",obj_trigger_button_door) {
-		sortIndex = 4;
+		viewOn = 3;
+		panelId = obj_panel_right.id;
 	}
 	
 	obj_panel_right.panelHeight = 291;

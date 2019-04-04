@@ -7,6 +7,7 @@ if obj_editor_gui.mode = modeForSelectVal {
 
 if placed = 1 {
 	// canSelect defined by obj_editor_gui
+	// De-selection handled by obj_editor_button_parent
 	if canSelect {
 		if mouse_y > obj_panel_top.y {
 			if !(mouse_x >= obj_panel_left.x - 1 && mouse_x < obj_panel_left.x + 21 && mouse_y >= obj_panel_left.y - 60 && mouse_y <= obj_panel_left.y + 60) && obj_panel_left.select = 0 {
@@ -18,7 +19,7 @@ if placed = 1 {
 								if mouse_check_button_pressed(mb_left) && !instance_exists(obj_editor_button_parent) {
 									spawnButtons = true; // Button instances are created from child objects
 									
-									select = 1;
+									select = true;
 									buttonSelected = 1;
 									obj_editor_gui.canChangeSelect = false;
 								}
@@ -54,7 +55,7 @@ if placed = 1 {
 		}
 	}
 	
-	if select = 0 {
+	if !select {
 		exportString = string_hash_to_newline("#{"+chr(34)+"name"+chr(34)+": "+chr(34)+instId1[0]+chr(34)+","+chr(34)+"id"+chr(34)+": "+chr(34)+instId2+chr(34)+","+chr(34)+"colour"+chr(34)+": { "+chr(34)+"Value"+chr(34)+": "+instId3+" },"+chr(34)+"creationCodeFile"+chr(34)+": "+chr(34)+chr(34)+","+chr(34)+"creationCodeType"+chr(34)+": "+chr(34)+chr(34)+","+chr(34)+"ignore"+chr(34)+": false,"+chr(34)+"inheritCode"+chr(34)+": false,"+chr(34)+"inheritItemSettings"+chr(34)+": false,"+chr(34)+"IsDnD"+chr(34)+": false,"+chr(34)+"m_originalParentID"+chr(34)+": "+chr(34)+"00000000-0000-0000-0000-000000000000"+chr(34)+","+chr(34)+"m_serialiseFrozen"+chr(34)+": false,"+chr(34)+"modelName"+chr(34)+": "+chr(34)+"GMRInstance"+chr(34)+","+chr(34)+"name_with_no_file_rename"+chr(34)+": "+chr(34)+instId1[0]+chr(34)+","+chr(34)+"objId"+chr(34)+": "+chr(34)+instId4[0]+chr(34)+","+chr(34)+"properties"+chr(34)+": null,"+chr(34)+"rotation"+chr(34)+": 0,"+chr(34)+"scaleX"+chr(34)+": "+string(width)+","+chr(34)+"scaleY"+chr(34)+": "+string(height+zfloor-zcieling)+","+chr(34)+"mvc"+chr(34)+": "+chr(34)+"1.0"+chr(34)+","+chr(34)+"x"+chr(34)+": "+string(x)+","+chr(34)+"y"+chr(34)+": "+string(y)+"},");
 		//exportString = string_hash_to_newline("#{"+chr(34)+"name"+chr(34)+": "+chr(34)+instId1+chr(34)+","+chr(34)+"id"+chr(34)+": "+chr(34)+instId2+chr(34)+","+chr(34)+"colour"+chr(34)+": { "+chr(34)+"Value"+chr(34)+": "+instId3+" },"+chr(34)+"creationCodeFile"+chr(34)+": "+chr(34)+chr(34)+","+chr(34)+"creationCodeType"+chr(34)+": "+chr(34)+chr(34)+","+chr(34)+"ignore"+chr(34)+": false,"+chr(34)+"inheritCode"+chr(34)+": false,"+chr(34)+"inheritItemSettings"+chr(34)+": false,"+chr(34)+"IsDnD"+chr(34)+": false,"+chr(34)+"m_originalParentID"+chr(34)+": "+chr(34)+"00000000-0000-0000-0000-000000000000"+chr(34)+","+chr(34)+"m_serialiseFrozen"+chr(34)+": false,"+chr(34)+"modelName"+chr(34)+": "+chr(34)+"GMRInstance"+chr(34)+","+chr(34)+"name_with_no_file_rename"+chr(34)+": "+chr(34)+instId1+chr(34)+","+chr(34)+"objId"+chr(34)+": "+chr(34)+instId3+chr(34)+","+chr(34)+"properties"+chr(34)+": null,"+chr(34)+"rotation"+chr(34)+": 0,"+chr(34)+"scaleX"+chr(34)+": "+string(width)+","+chr(34)+"scaleY"+chr(34)+": "+string(height+zfloor-zcieling)+","+chr(34)+"mvc"+chr(34)+": "+chr(34)+"1.0"+chr(34)+","+chr(34)+"x"+chr(34)+": "+string(x)+","+chr(34)+"y"+chr(34)+": "+string(y)+"},");
 		
@@ -199,8 +200,8 @@ if spawnTiles {
 
 // Placing in the level
 if placed = 0 {
-	x = floor(obj_editor_gui.mouseCheckX/20)*20 //+ floor(camera_get_view_x(obj_editor_gui.cameraRealGame)/20)*20;
-	y = floor(obj_editor_gui.mouseCheckY/20)*20 - 4 //+ floor(camera_get_view_y(obj_editor_gui.cameraRealGame)/20)*20 - zfloor * 20;
+	x = floor(obj_editor_gui.mouseCheckX/20)*20;
+	y = floor(obj_editor_gui.mouseCheckY/20)*20 - 4;
 }
 
 if mouse_check_button_released(mb_left) {
@@ -209,7 +210,7 @@ if mouse_check_button_released(mb_left) {
 		lastY = y;
 		obj_editor_gui.canChangeSelect = true;
 		
-		placed = 1
+		placed = 1;
 	}
 }
 

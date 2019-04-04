@@ -16,7 +16,27 @@ if !mouse_check_button(mb_left) && instance_exists(trg) {
 // Deselect terrain
 if mouse_check_button_pressed(mb_left) {
 	if !select {
-		alarm[0] = 2;
+		if window_view_mouse_get_x(1) > obj_panel_left.x && window_view_mouse_get_x(1) < obj_panel_right.x && window_view_mouse_get_y(1) > obj_panel_top.y && window_view_mouse_get_y(1) < obj_panel_bot.y {
+			selfCanDeSelect = true;
+			
+			// Every exception case
+			if (obj_editor_gui.mode = 4 && mouse_y <= obj_panel_bot.y) {
+				if instance_exists(obj_region_button_vertex) {
+					if obj_region_button_vertex.select {
+						selfCanDeSelect = false;
+					}
+				}
+				if instance_exists(obj_trigger_vertex) {
+					if collision_rectangle(mouseCheckX-1,mouseCheckY-1,mouseCheckX+1,mouseCheckY+1,obj_trigger_vertex,false,false) {
+						selfCanDeSelect = false;
+					}
+				}
+			}
+			
+			if selfCanDeSelect {
+				alarm[0] = 2;
+			}
+		}
 	}
 }
 

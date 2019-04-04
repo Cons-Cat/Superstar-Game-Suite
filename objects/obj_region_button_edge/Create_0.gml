@@ -1,3 +1,5 @@
 /// @description Insert description here
 event_inherited();
-draw_self();
+
+objIndex = obj_editor_staircase;
+label = "Edge";

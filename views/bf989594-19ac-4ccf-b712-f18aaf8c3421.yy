@@ -26,10 +26,11 @@
         "255a7cd2-3e39-4fb9-8db4-a0e74d3639aa",
         "64cacd56-66e7-44a9-ac36-9169e979c994",
         "8e60f1a7-e07c-4772-a3aa-6c06aa21c5a0",
-        "7b1d46db-6726-48d2-87aa-d3feb8f81571"
+        "7b1d46db-6726-48d2-87aa-d3feb8f81571",
+        "99bd5104-5ba7-4fa9-8245-08ce547783ed"
     ],
     "filterType": "GMObject",
-    "folderName": "Cutscene",
+    "folderName": "Triggers",
     "isDefaultView": false,
     "localisedFolderName": ""
 }

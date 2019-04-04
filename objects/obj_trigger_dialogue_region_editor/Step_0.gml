@@ -20,8 +20,15 @@ if spawnButtons {
 	with instance_create_layer(x,y,"Instances",obj_arrow_editor_left) {
 		trg = other.id;
 	}
-	with instance_create_layer(x,y,"Instances",obj_rotate_editor) {
-		trg = other.id;
+	with instance_create_layer(x,y,"Instances",obj_region_button_vertex) {
+		sortIndex = 0;
+		viewOn = 5;
+		panelId = obj_subpanel_left.id;
+	}
+	with instance_create_layer(x,y,"Instances",obj_region_button_edge) {
+		sortIndex = 1;
+		viewOn = 5;
+		panelId = obj_subpanel_left.id;
 	}
 }
 

@@ -31,20 +31,18 @@ if obj_tile_z.z >= 0 {
 	zcieling = 0;
 }
 
-select = 0;
+select = true;
 placed = 0;
 buttonSelected = 0;
 canDeSelect = true;
 
 // Tile array values
 resetArray = true;
-tileArray[0,0] = 0;
 sprMaterialDirectoryLoad = false;
 sprMaterialDirectory = ""; // Must be a file directory
 sprMaterial = spr_tls_rectangle_default;
 tileArrayDrawX[0,0] = 0;
 tileArrayDrawY[0,0] = 0;
-paintSelected = false;
 canSpawnButtons = false;
 spawnButtons = false;
 spawnTiles = false;

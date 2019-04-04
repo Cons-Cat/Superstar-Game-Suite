@@ -19,8 +19,3 @@ if mouseCheckX >= self.x + 3 && mouseCheckX <= self.x + 3 + sprite_width && mous
 		select = true;
 	}
 }
-
-// Deselect terrain
-if mouse_check_button_pressed(mb_left) {
-	alarm[0] = 2;
-}
