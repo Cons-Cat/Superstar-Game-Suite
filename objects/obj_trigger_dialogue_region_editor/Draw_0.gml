@@ -59,4 +59,12 @@ if instance_exists(obj_editor_gui) {
 			}
 		}
 	}
+	
+	if select {
+		if !broken {
+			for (i = 0; i < ds_list_size(polygon); i += 6) {
+				draw_triangle(ds_list_find_value(polygon,i),ds_list_find_value(polygon,i+1),ds_list_find_value(polygon,i+2),ds_list_find_value(polygon,i+3),ds_list_find_value(polygon,i+4),ds_list_find_value(polygon,i+5),false);
+			}
+		}
+	}
 }

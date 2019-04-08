@@ -9,6 +9,11 @@ if instance_exists(trg) {
 		canDrag = true;
 		visible = true;
 		
+		if obj_region_button_edge.select {
+			// Prevent dragging while placing edges
+			canDrag = false;
+		}
+		
 		// Select
 		if mouse_check_button_pressed(mb_left) {
 			if mouse_y < obj_panel_bot.y {
@@ -24,6 +29,10 @@ if instance_exists(trg) {
 		
 		// De-select
 		if (mouse_check_button_released(mb_left)) {
+			if canPlace {
+				trg.recalculate = true;
+			}
+			
 			canDrag = true;
 			canPlace = false;
 		}
@@ -44,4 +53,9 @@ if canPlace {
 	}
 } else {
 	image_index = 0;
+}
+
+if edgeState > 0 {
+	// Highlight during edge editing
+	image_index = 2;
 }

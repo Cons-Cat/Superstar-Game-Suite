@@ -49,6 +49,44 @@ if select {
 		
 		trgGone = true;
 	}
+	
+	// Create ds_list from ordered pairs of vertex co-ordinats
+	if recalculate {
+		recalculate = false;
+		
+		if instance_exists(obj_trigger_vertex) { // 0 vertices broke this system
+			broken = false;
+		}
+		
+		for (i = 0; i < instance_number(obj_trigger_vertex); i += 1) {
+			if instance_find(obj_trigger_vertex,i).trg = self.id {
+				if instance_find(obj_trigger_vertex,i).vertexToId = -1 { // If the polygon is broken
+					broken = true;
+				}
+			}
+		}
+		
+		if !broken {
+			ds_list_clear(list); // Reset the list
+			
+			i = 0;
+			while i < vertexCount { // Iterate through the number of active vertices
+				for (j = 0; j < vertexCount; j += 1) { // Iterate through every existent vertex
+					if instance_find(obj_trigger_vertex,j).trg = self.id { // Reduce to exclusively active vertices
+						if instance_find(obj_trigger_vertex,j).vertexId = i + 1 { // Check if this is the vertex next in order
+							ds_list_add(list,vertexInstanceId[j+1].x);
+							ds_list_add(list,vertexInstanceId[j+1].y);
+							
+							i += 1;
+						}
+					}
+				}
+			}
+			
+			// Generate list of right triangles
+			polygon = scr_polygon_to_triangles(list);
+		}
+	}
 } else {
 	trgGone = false;
 }

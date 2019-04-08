@@ -9,6 +9,12 @@ width = 1;
 height = 1;
 angleVal = 0;
 
+polygon = -1;
+recalculate = true;
+broken = true;
+vertexCount = 0;
+list = ds_list_create();
+
 if obj_tile_z.z >= 0 {
 	zfloor = obj_tile_z.z;
 	zcieling = obj_tile_z.z;
@@ -17,7 +23,6 @@ if obj_tile_z.z >= 0 {
 	zcieling = 0;
 }
 
-trgDraw = self.id;
 canSelect = false;
 select = 0;
 placed = 0;

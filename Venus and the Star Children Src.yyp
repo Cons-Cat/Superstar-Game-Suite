@@ -503,6 +503,14 @@
             }
         },
         {
+            "Key": "31edb5ad-10ff-4ded-ad62-601c39428570",
+            "Value": {
+                "id": "e2169fc8-8636-4402-8a4f-8d677a84fe40",
+                "resourcePath": "scripts\\scr_polygon_to_triangles\\scr_polygon_to_triangles.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "32987a6f-3ff5-4ea7-b969-d8d5d9d2b13a",
             "Value": {
                 "id": "6070d62b-4db7-494b-b462-22f6187273fa",
@@ -604,6 +612,14 @@
                 "id": "886ff261-4f64-45aa-b048-0bffcde108d7",
                 "resourcePath": "sprites\\spr_editor_instance_terrain\\spr_editor_instance_terrain.yy",
                 "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "3cf38aa2-fcdc-49fc-a8c4-8b499b2eef70",
+            "Value": {
+                "id": "6499bbc2-224d-4f7d-a586-c5a205a99e50",
+                "resourcePath": "scripts\\scr_lines_intersect\\scr_lines_intersect.yy",
+                "resourceType": "GMScript"
             }
         },
         {
@@ -812,6 +828,14 @@
                 "id": "9d919cea-d202-46e2-9316-5b8c237b7c1c",
                 "resourcePath": "objects\\obj_battle_control\\obj_battle_control.yy",
                 "resourceType": "GMObject"
+            }
+        },
+        {
+            "Key": "4b358a94-1805-4d4f-a20e-4bc964ba0df9",
+            "Value": {
+                "id": "d34940fd-b1b7-4926-833c-7cf3796cf1f9",
+                "resourcePath": "notes\\note_credits.yy",
+                "resourceType": "GMNotes"
             }
         },
         {
@@ -1627,6 +1651,14 @@
             "Value": {
                 "id": "5101d72d-89b1-423b-821e-964149efff4c",
                 "resourcePath": "sprites\\spr_lucy_rupright\\spr_lucy_rupright.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "88de09ce-412f-4f11-8541-17ff5b29f257",
+            "Value": {
+                "id": "bec7f701-f151-435d-ba94-65b36c296a4b",
+                "resourcePath": "sprites\\spr_vector_marker\\spr_vector_marker.yy",
                 "resourceType": "GMSprite"
             }
         },
@@ -3158,6 +3190,8 @@
         "3a1d28dc-d5c5-4d8b-91a6-6cabfdc6180a",
         "5ff9b3b6-92b1-4a7a-a164-a8ee994f5cdf",
         "cbc4eaf0-c7ba-42a9-a9ce-955a2d2beab0",
+        "31edb5ad-10ff-4ded-ad62-601c39428570",
+        "3cf38aa2-fcdc-49fc-a8c4-8b499b2eef70",
         "1b254f41-b5b7-4063-ab01-c1f02ed3b1ac",
         "0e0e322f-380e-448f-9530-42154abd02ad",
         "2bb57222-41cb-44de-9101-e2a546ff6ce1",

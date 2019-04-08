@@ -26,8 +26,15 @@ if mouse_check_button_pressed(mb_left) {
 						selfCanDeSelect = false;
 					}
 				}
+				
 				if instance_exists(obj_trigger_vertex) {
 					if collision_rectangle(mouseCheckX-1,mouseCheckY-1,mouseCheckX+1,mouseCheckY+1,obj_trigger_vertex,false,false) {
+						selfCanDeSelect = false;
+					}
+				}
+				
+				if instance_exists(obj_region_button_edge) {
+					if obj_region_button_edge.select {
 						selfCanDeSelect = false;
 					}
 				}
