@@ -53,6 +53,7 @@ if select {
 	// Create ds_list from ordered pairs of vertex co-ordinats
 	if recalculate {
 		recalculate = false;
+		vectorCount = 0;
 		
 		if instance_exists(obj_trigger_vertex) { // 0 vertices broke this system
 			broken = false;
@@ -60,10 +61,17 @@ if select {
 		
 		for (i = 0; i < instance_number(obj_trigger_vertex); i += 1) {
 			if instance_find(obj_trigger_vertex,i).trg = self.id {
+				vectorCount += 1;
+				
 				if instance_find(obj_trigger_vertex,i).vertexToId = -1 { // If the polygon is broken
 					broken = true;
 				}
 			}
+		}
+		
+		if vectorCount < 3 {
+			// If the polygon is a single line
+			broken = true;
 		}
 		
 		if !broken {

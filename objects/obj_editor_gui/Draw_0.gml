@@ -1,4 +1,5 @@
 /// @description Draw interface
+
 // Draw room grid
 for(i = 0; i < room_width; i += 20) {
 	for(j = 576; j < room_height; j += 20) {

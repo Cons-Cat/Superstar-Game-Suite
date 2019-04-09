@@ -1,4 +1,5 @@
 /// @description Insert description here
+surface_resize(application_surface,camera_get_view_width(obj_editor_gui.camera),camera_get_view_height(obj_editor_gui.camera));
 draw_sprite_part(spr_editor_gui_streaks,0,192,y,641,576-y,192,y);
 
 // Timeline ticks

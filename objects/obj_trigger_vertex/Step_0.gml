@@ -55,7 +55,10 @@ if canPlace {
 	image_index = 0;
 }
 
-if edgeState > 0 {
-	// Highlight during edge editing
+// Highlight during edge editing
+if edgeState = 1 {
 	image_index = 2;
+}
+if edgeState = 2 {
+	image_index = 3;
 }

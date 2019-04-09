@@ -1,6 +1,4 @@
 /// @description 
-draw_sprite(sprite_index,image_index,x,y - (zfloor * 20));
-draw_set_color(c_black);
 
 // Draw edges
 if vertexToId != -1 {
@@ -9,9 +7,14 @@ if vertexToId != -1 {
 		
 		if vertexDrawId.vertexId = self.vertexToId {
 			if vertexDrawId.visible {
-				draw_arrow(x,y,vertexDrawId.x,vertexDrawId.y,5);
+				draw_set_color(make_color_rgb(29,0,92)); // Dark purple
+				draw_arrow(x-0.5,y-0.5,vertexDrawId.x-0.5,vertexDrawId.y-0.5,6);
+				draw_line_width(x-0.5,y-0.5,vertexDrawId.x-0.5,vertexDrawId.y-0.5,1);
+				
 				break;
 			}
 		}
 	}
 }
+
+draw_sprite(sprite_index,image_index,x,y - (zfloor * 20));
