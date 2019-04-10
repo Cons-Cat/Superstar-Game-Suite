@@ -8,7 +8,6 @@ if placed = 1 {
 						with obj_trigger_parent { canSelect = false; }
 						with instance_find(obj_trigger_parent,i) { canSelect = true; }
 						self.depthIterate = instance_find(obj_trigger_parent,i).depth;
-						self.highestDepthIterate = self.i;
 					}
 				} else {
 					if instance_find(obj_trigger_parent,i).canSelect = false {

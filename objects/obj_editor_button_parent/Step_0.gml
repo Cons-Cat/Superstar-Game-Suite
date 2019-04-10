@@ -6,6 +6,13 @@ if instance_exists(trg) {
 	fromTxt = trg.str;
 }
 
+// Do not obstruct higher level interfaces
+if canSelect {
+	image_alpha = 1;
+} else {
+	image_alpha = 0.5;
+}
+
 // Release mouse to deselect
 if !mouse_check_button(mb_left) && instance_exists(trg) {
 	select = false;
@@ -28,7 +35,8 @@ if mouse_check_button_pressed(mb_left) {
 				}
 				
 				if instance_exists(obj_trigger_vertex) {
-					if collision_rectangle(mouseCheckX-1,mouseCheckY-1,mouseCheckX+1,mouseCheckY+1,obj_trigger_vertex,false,false) {
+					// Consider zfloor passed into obj_region_button_edge from a selected obj_trigger_dialoge_region_editor instance
+					if collision_rectangle(mouseCheckX-1,mouseCheckY-1+(obj_region_button_edge.zfloor*20),mouseCheckX+1,mouseCheckY+1+(obj_region_button_edge.zfloor*20),obj_trigger_vertex,false,false) {
 						selfCanDeSelect = false;
 					}
 				}
@@ -56,6 +64,7 @@ if select {
 }
 
 visible = true;
+canSelect = true;
 
 if obj_editor_gui.mode = 4 { // Triggers mode
 	if instance_exists(obj_cutscene_actor_getter_target_parent) {
@@ -64,3 +73,4 @@ if obj_editor_gui.mode = 4 { // Triggers mode
 		visible = true;
 	}
 }
+

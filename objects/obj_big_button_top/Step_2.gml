@@ -25,6 +25,10 @@ if select {
 	select = false;
 	changeMode = true;
 	
+	if instance_exists(obj_editor_terrain_par) {
+		obj_editor_terrain_par.select = 0;
+	}
+	
 	alarm[0] = 17;
 }
 

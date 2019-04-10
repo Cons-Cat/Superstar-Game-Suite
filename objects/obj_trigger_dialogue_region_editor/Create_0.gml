@@ -12,7 +12,6 @@ angleVal = 0;
 polygon = -1;
 recalculate = true;
 broken = true;
-vertexCount = 0;
 list = ds_list_create();
 
 if obj_tile_z.z >= 0 {

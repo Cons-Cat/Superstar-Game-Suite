@@ -27,7 +27,6 @@ trgFinalTemp = -1;
 platOn = 0;
 
 blankCol = make_color_rgb(249,238,132);
-layerCol = blankCol;
 orangeAnyways = false;
 
 // Cutscene values
@@ -64,5 +63,3 @@ for (i = 0; i < 36; i += 1) {
 instance_create_layer(x+10,y+10,"Instances",obj_npc_level);
 trg = collision_point(x+10,y+10,obj_npc_level,false,false);
 trg.trg = self.id;
-spawnBool = true;
-spawnBool2 = true;

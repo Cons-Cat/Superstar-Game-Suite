@@ -5,7 +5,7 @@ if obj_editor_gui.mode = modeForSelectVal {
 	modeForSelect = false;
 }
 
-if placed = 1 {
+if placed != 0 {
 	// canSelect defined by obj_editor_gui
 	// De-selection handled by obj_editor_button_parent
 	if canSelect {
