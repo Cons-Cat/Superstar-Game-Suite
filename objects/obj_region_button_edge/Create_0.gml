@@ -4,4 +4,4 @@ event_inherited();
 label = "Edge";
 vertexSelectedCount = 0;
 vertexTempSelect = -1;
-totalVertices = 0;
+vertexTempHover = -1;

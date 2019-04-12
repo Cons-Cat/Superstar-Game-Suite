@@ -8,3 +8,6 @@ if instance_exists(trg) {
 if instance_exists(obj_cutscene_actor_getter_target_parent) {
 	select = false;
 }
+
+visible = true;
+canSelect = true;
