@@ -1,6 +1,6 @@
 /// @description Insert description here
 event_inherited();
 
+objIndex = -1;
 value = 4;
-x = 110;
-y = 426;
+label = "Camera Zooming";

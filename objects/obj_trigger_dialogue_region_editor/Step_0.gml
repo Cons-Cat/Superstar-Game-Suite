@@ -51,6 +51,36 @@ if spawnButtons {
 		viewOn = 5;
 		panelId = obj_subpanel_left.id;
 	}
+	with instance_create_layer(x,y,"Instances",obj_scene_button_walk) {
+		sortIndex = 2;
+		viewOn = 5;
+		panelId = obj_subpanel_left.id;
+	}
+	with instance_create_layer(x,y,"Instances",obj_scene_button_rotate) {
+		sortIndex = 3;
+		viewOn = 5;
+		panelId = obj_subpanel_left.id;
+	}
+	with instance_create_layer(x,y,"Instances",obj_scene_button_dialogue) {
+		sortIndex = 4;
+		viewOn = 5;
+		panelId = obj_subpanel_left.id;
+	}
+	with instance_create_layer(x,y,"Instances",obj_scene_button_camera) {
+		sortIndex = 5;
+		viewOn = 5;
+		panelId = obj_subpanel_left.id;
+	}
+	with instance_create_layer(x,y,"Instances",obj_scene_button_speed) {
+		sortIndex = 6;
+		viewOn = 5;
+		panelId = obj_subpanel_left.id;
+	}
+	with instance_create_layer(x,y,"Instances",obj_scene_button_arbitrary) {
+		sortIndex = 7;
+		viewOn = 5;
+		panelId = obj_subpanel_left.id;
+	}
 	
 	with obj_trigger_vertex {
 		if trg = other.id {

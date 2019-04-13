@@ -1,28 +1,29 @@
 /// @description 
-if collision_rectangle(x,y,x+image_xscale*20,y+image_yscale*20,obj_player_overworld,true,false) {
-	// Activate interactive cutscene
-	if !activated {
-		for (i = 1; i <= totalActions; i += 1) {
-			for (j = 0; j < rows; j += 1) {
-				if j = 0 {
-					actor[actionTime[i],0] = obj_player_overworld.id; // 1/10'th second, 0'th Row
-				} else {
-					actor[actionTime[i],j] = instance_find(obj_npc_position,j-1).trg; // 1/10'th second, Row
-				}
+if !activated {
+	for (i = 0; i < ds_list_size(polygon); i += 6) {
+		if point_in_triangle(obj_player_overworld.x,obj_player_overworld.y,ds_list_find_value(polygon,i),ds_list_find_value(polygon,i+1),ds_list_find_value(polygon,i+2),ds_list_find_value(polygon,i+3),ds_list_find_value(polygon,i+4),ds_list_find_value(polygon,i+5)) {
+		// Activate interactive cutscene
+			for (i = 1; i <= totalActions; i += 1) {
+				for (j = 0; j < rows; j += 1) {
+					if j = 0 {
+						actor[actionTime[i],0] = obj_player_overworld.id; // 1/10'th second, 0'th Row
+					} else {
+						actor[actionTime[i],j] = instance_find(obj_npc_position,j-1).trg; // 1/10'th second, Row
+					}
 				
-				actor[actionTime[i],j].trgRegion = self.id;
-				//actor[actionTime[i],j].activated = true;
+					actor[actionTime[i],j].trgRegion = self.id;
 				
-				for (a = j; a <= longestRowLength; a += 1) {
-					actor[actionTime[i],j].xNode[a] = -1; // Initialize xNode
-					actor[actionTime[i],j].yNode[a] = -1; // Initialize yNode
-					actor[actionTime[i],j].angleRot[a] = -1; // Initialize angleRot
-					actor[actionTime[i],j].arbitraryInd[a] = -1; // Initialize arbitraryInd
+					for (a = j; a <= longestRowLength; a += 1) {
+						actor[actionTime[i],j].xNode[a] = -1; // Initialize xNode
+						actor[actionTime[i],j].yNode[a] = -1; // Initialize yNode
+						actor[actionTime[i],j].angleRot[a] = -1; // Initialize angleRot
+						actor[actionTime[i],j].arbitraryInd[a] = -1; // Initialize arbitraryInd
+					}
 				}
 			}
-		}
 		
-		activated = true;
+			activated = true;
+		}
 	}
 }
 

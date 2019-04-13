@@ -7,6 +7,7 @@ imgIndex = 0;
 sortX = 0;
 sortY = 0;
 sprWidth = -1;
+longestSprWidth = -1;
 sprHeight = 30;
 width = -1;
 label = "";

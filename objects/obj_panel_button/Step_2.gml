@@ -61,10 +61,10 @@ if select {
 }
 
 // Sorting
-fillHor = abs(panelId.scrollHorRightBound - panelId.scrollHorLeftBound + 1) div (145);
+fillHor = abs(panelId.scrollHorRightBound - panelId.scrollHorLeftBound + 1) div (longestSprWidth);
 
 if fillHor > 0 {
-	sortX = (sortIndex % fillHor) * 145;
+	sortX = (sortIndex % fillHor) * longestSprWidth;
 	sortY = (sortIndex div fillHor) * 45;
 } else {
 	sortX = 0;

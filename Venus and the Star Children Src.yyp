@@ -658,7 +658,7 @@
             "Key": "4145ecfc-98f0-4b20-a2c7-a6da29e73918",
             "Value": {
                 "id": "1ce16fae-e010-4949-8ac3-bccfeb0d2d82",
-                "resourcePath": "objects\\obj_scene_walk\\obj_scene_walk.yy",
+                "resourcePath": "objects\\obj_scene_button_walk\\obj_scene_button_walk.yy",
                 "resourceType": "GMObject"
             }
         },
@@ -770,7 +770,7 @@
             "Key": "456c8630-9869-48c6-aff4-95116353a920",
             "Value": {
                 "id": "49fb518e-5ee3-4bf8-8cb8-bdadb52afc05",
-                "resourcePath": "objects\\obj_scene_arbitrary\\obj_scene_arbitrary.yy",
+                "resourcePath": "objects\\obj_scene_button_arbitrary\\obj_scene_button_arbitrary.yy",
                 "resourceType": "GMObject"
             }
         },
@@ -2178,7 +2178,7 @@
             "Key": "b20c6364-0024-4d3d-b65b-bae276a9db9f",
             "Value": {
                 "id": "aee5c1ac-9f7f-4160-96cb-095646b9fbd4",
-                "resourcePath": "objects\\obj_scene_dialogue\\obj_scene_dialogue.yy",
+                "resourcePath": "objects\\obj_scene_button_dialogue\\obj_scene_button_dialogue.yy",
                 "resourceType": "GMObject"
             }
         },
@@ -2522,7 +2522,7 @@
             "Key": "ce6b032e-9d6c-43e8-8193-943ef077f0e2",
             "Value": {
                 "id": "cab1a980-41d3-437a-a84b-be3b7d0c92e6",
-                "resourcePath": "objects\\obj_scene_speed\\obj_scene_speed.yy",
+                "resourcePath": "objects\\obj_scene_button_speed\\obj_scene_button_speed.yy",
                 "resourceType": "GMObject"
             }
         },
@@ -2890,7 +2890,7 @@
             "Key": "e7c1a781-0e53-4414-89a4-c01c8ab6bc29",
             "Value": {
                 "id": "5e20b9d0-8028-47c7-acf7-08adcac9e43a",
-                "resourcePath": "objects\\obj_scene_rotate\\obj_scene_rotate.yy",
+                "resourcePath": "objects\\obj_scene_button_rotate\\obj_scene_button_rotate.yy",
                 "resourceType": "GMObject"
             }
         },
@@ -3122,7 +3122,7 @@
             "Key": "fa81be3a-a616-4948-ba94-121e0c4c3f28",
             "Value": {
                 "id": "48300ef6-89fd-4da8-a8e3-aede17667483",
-                "resourcePath": "objects\\obj_scene_camera\\obj_scene_camera.yy",
+                "resourcePath": "objects\\obj_scene_button_camera\\obj_scene_button_camera.yy",
                 "resourceType": "GMObject"
             }
         },

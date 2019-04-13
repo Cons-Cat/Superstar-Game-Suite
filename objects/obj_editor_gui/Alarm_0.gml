@@ -12,6 +12,7 @@ with obj_trigger_dialogue_region_editor {
 		rows = instance_number(obj_actor_parent);
 		totalActions = other.totalActions;
 		longestRowLength = other.longestRowLength;
+		polygon = other.polygon;
 		
 		// Initialize ticks
 		for (i = 0; i <= longestRowLength; i += 1) {

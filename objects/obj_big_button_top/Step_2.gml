@@ -26,8 +26,13 @@ if select {
 	changeMode = true;
 	
 	if instance_exists(obj_editor_terrain_par) {
-		obj_editor_terrain_par.select = 0;
+		obj_editor_terrain_par.select = false; // De-select all terrain instances
 	}
+	with obj_editor_button_parent {
+		instance_destroy(); // Destroy any terrain interface remnants
+	}
+	
+	obj_editor_gui.selectInstance = -1; // Reset the selected instance
 	
 	alarm[0] = 17;
 }
