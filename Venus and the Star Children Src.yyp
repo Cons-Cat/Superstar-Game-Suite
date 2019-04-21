@@ -2167,6 +2167,14 @@
             }
         },
         {
+            "Key": "b0cf9ea0-ffd6-4000-a99a-b0685573eda3",
+            "Value": {
+                "id": "a6e92b36-4a03-4c4c-a587-419dd19d6b1c",
+                "resourcePath": "objects\\obj_subpanel_button\\obj_subpanel_button.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "b0d66955-0cb0-4d19-af8b-41d02be0e8e6",
             "Value": {
                 "id": "e454d4a3-aa62-463a-8bcc-e8b311aa22f9",

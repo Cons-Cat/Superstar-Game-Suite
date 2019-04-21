@@ -18,46 +18,43 @@ if instance_exists(trg) {
 if select {
 	// If the mouse hovers over a vertex
 	// Consider zfloor passed in from a selected obj_trigger_dialoge_region_editor instance
-	if collision_rectangle(relativeMouseX-1,relativeMouseY-1 + (self.zfloor * 20),relativeMouseX+1,relativeMouseY+1 + (self.zfloor * 20),obj_trigger_vertex,false,false) {
-		if collision_rectangle(relativeMouseX-1,relativeMouseY-1 + (self.zfloor * 20),relativeMouseX+1,relativeMouseY+1 + (self.zfloor * 20),obj_trigger_vertex,false,false).visible {
-			vertexTempHover = collision_rectangle(relativeMouseX-1,relativeMouseY-1 + (self.zfloor * 20),relativeMouseX+1,relativeMouseY+1 + (self.zfloor * 20),obj_trigger_vertex,false,false);
-			
-			if mouse_check_button_pressed(mb_left) {
-				vertexTempSelect = vertexTempHover;
-			}
-			
-			if vertexTempSelect = vertexTempHover {
+	if vertexTempHover != -1 {
+		if mouse_check_button_pressed(mb_left) {
+			vertexTempSelect = vertexTempHover;
+		}
+		
+		if vertexTempSelect = vertexTempHover {
+			vertexTempSelect.edgeState = 2;
+		}
+		
+		if mouse_check_button_pressed(mb_left) {
+			if vertexTempSelect.edgeState != 2 { // If the vertex is not selected
 				vertexTempSelect.edgeState = 2;
 			}
-			
-			if mouse_check_button_pressed(mb_left) {
-				if vertexTempSelect.edgeState != 2 { // If the vertex is not selected
-					vertexTempSelect.edgeState = 2;
+		}
+		
+		if mouse_check_button_released(mb_left) {
+			for (i = 0; i < instance_number(obj_trigger_vertex); i += 1) {
+				if instance_find(obj_trigger_vertex,i).edgeState = 2 {
+					vertexSelectedCount += 1;
+					vertexConnect[vertexSelectedCount] = vertexTempHover.id;
+					vertexTempSelect = -1;
 				}
-			}
-			
-			if mouse_check_button_released(mb_left) {
-				for (i = 0; i < instance_number(obj_trigger_vertex); i += 1) {
-					if instance_find(obj_trigger_vertex,i).edgeState = 2 {
-						vertexSelectedCount += 1;
-						vertexConnect[vertexSelectedCount] = vertexTempHover.id;
-						vertexTempSelect = -1;
+				
+				if vertexSelectedCount = 2 {
+					obj_trigger_vertex.edgeState = 0;
+					
+					if vertexConnect[2].vertexInd != vertexConnect[1].vertexInd { // Ensure these are different vertices
+						vertexConnect[1].vertexToInd = vertexConnect[2].vertexInd;
+						vertexConnect[1].vertexToId = -1; // Reset line id
+						vertexSelectedCount = 0;
+						
+						obj_trigger_dialogue_region_editor.recalculate = true; // Recalculate polygon
+					} else {
+						vertexSelectedCount = 0;
 					}
 					
-					if vertexSelectedCount = 2 {
-						obj_trigger_vertex.edgeState = 0;
-						
-						if vertexConnect[2].vertexId != vertexConnect[1].vertexId { // Ensure these are different vertices
-							vertexConnect[1].vertexToId = vertexConnect[2].vertexId;
-							vertexSelectedCount = 0;
-							
-							obj_trigger_dialogue_region_editor.recalculate = true; // Recalculate polygon
-						} else {
-							vertexSelectedCount = 0;
-						}
-						
-						break;
-					}
+					break;
 				}
 			}
 		}

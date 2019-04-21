@@ -8,6 +8,7 @@ if instance_exists(trg) {
 
 // Do not obstruct higher level interfaces
 if canSelect {
+	// canSelect determined by obj_trigger_vertex
 	image_alpha = 1;
 } else {
 	image_alpha = 0.5;
@@ -62,9 +63,6 @@ if select {
 		trg.buttonSelected = 1;
 	}
 }
-
-visible = true;
-canSelect = true;
 
 if obj_editor_gui.mode = 4 { // Triggers mode
 	if instance_exists(obj_cutscene_actor_getter_target_parent) {

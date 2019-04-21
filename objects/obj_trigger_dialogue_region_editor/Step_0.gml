@@ -4,26 +4,35 @@ event_inherited();
 // Initially generate a 1x1 square polygon region
 if placed = 1 {
 	with instance_create_layer(x,y,"Instances",obj_trigger_vertex) {
-		other.vertexInstanceId[self.vertexId] = self.id;
+		other.vertexInstanceId[self.vertexInd] = self.id;
 		self.trg = other.id;
-		visible = false;
+		self.vertexToInd = instance_number(obj_trigger_vertex) + 2;
+		trgXOff = x - other.x;
+		trgYOff = y - other.y ;
 	}
 	with instance_create_layer(x+20,y,"Instances",obj_trigger_vertex) {
-		other.vertexInstanceId[self.vertexId] = self.id;
+		other.vertexInstanceId[self.vertexInd] = self.id;
 		self.trg = other.id;
-		visible = false;
+		self.vertexToInd = instance_number(obj_trigger_vertex) - 1;
+		trgXOff = x - other.x;
+		trgYOff = y - other.y ;
 	}
 	with instance_create_layer(x,y+20,"Instances",obj_trigger_vertex) {
-		other.vertexInstanceId[self.vertexId] = self.id;
+		other.vertexInstanceId[self.vertexInd] = self.id;
 		self.trg = other.id;
-		visible = false;
+		self.vertexToInd = instance_number(obj_trigger_vertex) + 1;
+		trgXOff = x - other.x;
+		trgYOff = y - other.y ;
 	}
 	with instance_create_layer(x+20,y+20,"Instances",obj_trigger_vertex) {
-		other.vertexInstanceId[self.vertexId] = self.id;
+		other.vertexInstanceId[self.vertexInd] = self.id;
 		self.trg = other.id;
-		visible = false;
+		self.vertexToInd = instance_number(obj_trigger_vertex) - 2;
+		trgXOff = x - other.x;
+		trgYOff = y - other.y ;
 	}
 	
+	recalculate = true;
 	placed = 2;
 }
 
@@ -121,8 +130,9 @@ if select {
 				vertexCountTemp += 1;
 				tempInstanceStart = instance_find(obj_trigger_vertex,i).id; // Arbitrarily assign vertex n[0]
 				
-				if instance_find(obj_trigger_vertex,i).vertexToId = -1 { // If the polygon is broken
+				if instance_find(obj_trigger_vertex,i).vertexToInd = -1 { // If the polygon is broken
 					broken = true;
+					break;
 				}
 			}
 		}
@@ -140,7 +150,7 @@ if select {
 			while i < vertexCountTemp { // Iterate through the number of active vertices
 				for (j = 0; j < instance_number(obj_trigger_vertex); j += 1) { // Iterate through every existent vertex
 					if instance_find(obj_trigger_vertex,j).trg = self.id { // Reduce to exclusively active vertices
-						if instance_find(obj_trigger_vertex,j).vertexId = tempInstanceVal.vertexToId { // Check if this vertex is next in order	
+						if instance_find(obj_trigger_vertex,j).vertexInd = tempInstanceVal.vertexToInd { // Check if this vertex is next in order	
 							tempInstanceVal = instance_find(obj_trigger_vertex,j).id;
 							
 							ds_list_add(list,tempInstanceVal.x);

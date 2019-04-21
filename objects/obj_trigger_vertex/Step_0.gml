@@ -20,10 +20,11 @@ if canDragDelayed {
 				if mouse_y < obj_panel_bot.y {
 					if relativeMouseX >= self.x-5 && relativeMouseX <= self.x+5 {
 						if (relativeMouseY >= self.y-4 - (zfloor * 20) && relativeMouseY <= self.y+5 - (zfloor * 20)) {
+							obj_region_button_edge.vertexTempHover = self.id;
+							
 							if mouse_check_button_pressed(mb_left) {
 								if canDrag {
 									canPlace = true;
-									trg.broken = true;
 								}
 							}
 						}
@@ -39,17 +40,75 @@ if canDragDelayed {
 					canDrag = true;
 					canPlace = false;
 				}
-			} else {
-				canDrag = false;
 				
+				// Keep position relative to trg
+				if canPlace {
+					trgXOff = x - trg.x;
+					trgYOff = y - (trg.y + trg.zfloor*20);
+				} else {
+					x = trg.x + trgXOff;
+					y = trg.y + trgYOff + trg.zfloor * 20;
+					
+					trg.recalculate = true;
+				}
+				
+				// Hover over edge
+				if vertexToInd != -1 {
+					if vertexToId = -1 {
+						with obj_trigger_vertex {
+							if vertexInd = other.vertexToInd {
+								other.vertexToId = self.id;
+								
+								break;
+							}
+						}
+					}
+					
+					edgeHover = false;
+					
+					if !collision_rectangle(relativeMouseX-1,relativeMouseY-1 + (self.zfloor * 20),relativeMouseX+1,relativeMouseY+1 + (self.zfloor * 20),obj_trigger_vertex,false,false) { // Prevent interference with deleting vertices
+						if !obj_region_button_edge.select && !mouse_check_button(mb_left) { // If not added edges or dragging vertices
+							if scr_lines_intersect(x,y-zfloor*20,vertexToId.x,vertexToId.y-zfloor*20,relativeMouseX-3,relativeMouseY-3,relativeMouseX+3,relativeMouseY+3,true) != 0 || scr_lines_intersect(x,y-zfloor*20,vertexToId.x,vertexToId.y-zfloor*20,relativeMouseX+3,relativeMouseY-3,relativeMouseX-3,relativeMouseY+3,true) != 0 {
+								edgeHover = true;
+								
+								with obj_trigger_vertex {
+									if vertexInd != other.vertexInd { // Exclude source vertex
+										edgeHover = false; // Prevent multiple edges from being selected
+									}
+								}
+							}
+						}
+					}
+				}
+				
+				// Delete edge
+				if mouse_check_button_pressed(mb_right) {
+					if edgeHover {
+						edgeDeleteState = 1;
+					}
+				}
+				
+				if mouse_check_button_released(mb_right) {
+					if edgeHover {
+						if edgeDeleteState = 1 {
+							vertexToInd = -1; // Dissolve edge
+							trg.recalculate = true; // Recalculate polygon
+						}
+					}
+					
+					edgeDeleteState = 0;
+				}
+			} else {
+				// De-activate when trg is not selected
+				canDrag = false;
 				visible = false;
 			}
 		} else {
-			// De-couple instance
+			// De-couple instance from trg
 			trg = -1;
 		}
 	} else {
-		// Impell stasis
+		// Impell stasis when deleted
 		canDrag = false;
 		canPlace = false
 		
@@ -81,6 +140,15 @@ if relativeMouseX >= bbox_left && relativeMouseX <= bbox_right && relativeMouseY
 		}
 		if mouse_check_button_released(mb_right) {
 			// De-couple instance
+			with obj_trigger_vertex {
+				if vertexToInd = other.vertexInd {
+					vertexToInd = -1;
+				}
+			}
+			
+			trg.broken = true;
+			trg.recalculate = true;
+			
 			trg = -1;
 		}
 	}
@@ -96,4 +164,11 @@ if edgeState = 1 {
 }
 if edgeState = 2 {
 	image_index = 3;
+}
+
+// Highlight edge if hovered upon
+if edgeHover || edgeDeleteState = 1 {
+	edgeCol = c_yellow;
+} else {
+	edgeCol = make_color_rgb(29,0,92); // Dark purple
 }
