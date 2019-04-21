@@ -115,8 +115,8 @@ if x < 260 {
 if x > room_width - 264 {
 	x = room_width - 264;
 }
-if y < 576 + 174 {
-	y = 576 + 174;
+if y < 580 + 170 {
+	y = 580 + 170;
 }
 if y > room_height - 162 {
 	y = room_height - 162;

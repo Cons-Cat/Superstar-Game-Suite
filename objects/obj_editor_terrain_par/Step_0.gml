@@ -201,7 +201,7 @@ if spawnTiles {
 // Placing in the level
 if placed = 0 {
 	x = floor(obj_editor_gui.mouseCheckX/20)*20;
-	y = floor(obj_editor_gui.mouseCheckY/20)*20 - 4;
+	y = floor((obj_editor_gui.mouseCheckY+4)/20)*20 - 4;
 }
 
 if mouse_check_button_released(mb_left) {

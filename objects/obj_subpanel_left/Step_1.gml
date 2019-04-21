@@ -117,7 +117,7 @@ obj_panel_left.scrollVerBotBound = self.y - 2;
 event_inherited();
 
 if scrollHorRightBound > 136 {
-	x = (scrollHorRightBound + scrollVerRightBound) / 2;
+	x = floor((scrollHorRightBound + scrollVerRightBound) / 2);
 } else {
 	x = scrollHorRightBound - 60;
 }
