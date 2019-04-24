@@ -42,3 +42,5 @@ instId4[0] = "4d894d20-7ef3-4868-826d-3356487fbbc2"; // Graphics terrain object 
 instId4[1] = "cdd62787-d73e-485d-aa29-b8d49f1489ab"; // Floor terrain object id
 instId4[2] = "2ee9b48f-4b2a-4948-9a19-984d206ab55b"; // Front/Back collision object id
 instId4[3] = "1c492275-c3f6-4819-8e63-c11675f1c0b7"; // Side collision object id
+
+canMerge = true;

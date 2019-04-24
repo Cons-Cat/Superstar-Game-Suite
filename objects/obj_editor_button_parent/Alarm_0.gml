@@ -2,6 +2,7 @@
 if trg.buttonSelected = 0 {
 	if trg.canDeSelect {
 		trg.canSelect = false;
+		trg.canMerge = true; // Re-check merging when dimensions are change
 		obj_editor_gui.canChangeSelect = true;
 		
 		with obj_panel_button {

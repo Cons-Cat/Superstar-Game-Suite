@@ -5,6 +5,46 @@ if obj_editor_gui.mode = 0 || obj_editor_gui.mode = 1 || obj_editor_gui.mode = 3
 	modeForSelectVal = obj_editor_gui.mode;
 }
 
+// Merge like instances
+if canMerge {
+	if collision_point(bbox_right+10,y+10,obj_editor_terrain,false,true) { // Merge rightward
+		for (i = 0; i < instance_number(obj_editor_terrain); i += 1) {
+			tempInst = instance_find(obj_editor_terrain,i);
+			
+			if tempInst.zfloor = self.zfloor && tempInst.zcieling = self.zcieling && tempInst.y = self.y && tempInst.x = self.x + self.width*20 {
+				width += tempInst.width;
+				resetArray = true;
+				
+				with tempInst {
+					instance_destroy();
+				}
+				
+				break;
+			}
+		}
+	}
+	
+	if collision_point(bbox_left-10,y+10,obj_editor_terrain,false,true) { // Merge leftward
+		for (i = 0; i < instance_number(obj_editor_terrain); i += 1) {
+			tempInst = instance_find(obj_editor_terrain,i);
+			
+			if tempInst.zfloor = self.zfloor && tempInst.zcieling = self.zcieling && tempInst.y = self.y && tempInst.x = self.x - tempInst.width*20 {
+				x = tempInst.x;
+				width += tempInst.width;
+				resetArray = true;
+				
+				with tempInst {
+					instance_destroy();
+				}
+				
+				break;
+			}
+		}
+	}
+	
+	canMerge = false;
+}
+
 // Dimensional manipulation
 if spawnButtons {
 	spawnButtons = false;

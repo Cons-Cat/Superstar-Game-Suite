@@ -25,9 +25,11 @@ if mouse_check_button_pressed(mb_left) {
 	&& mouse_y >= y - 1 && mouse_y <= y + sprHeight + 1 {
 		if !select {
 			obj_panel_button.select = false;
+			obj_editor_gui.canChangeSelect = false;
 			select = true;
 		} else {
 			select = false;
+			obj_editor_gui.canChangeSelect = true;
 		}
 	} else {
 		if objIndex != -1 {

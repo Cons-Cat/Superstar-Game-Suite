@@ -12,24 +12,24 @@ if select {
 	if keyboard_check(vk_alt) {
 		objIndex = -1;
 	} else {
-		objIndex = obj_editor_terrain;
+		if !mouse_check_button(mb_left) {
+			objIndex = obj_editor_terrain;
+		}
 	}
 	
-	// Paoint
+	// Paint
 	if objIndex = -1 {
 		placeEmpty = true;
 		
 		for (i = 0; i < instance_number(obj_editor_terrain_par); i += 1) {
 			tempInst = instance_find(obj_editor_terrain_par,i);
 			
-			if tempInst.zfloor >= obj_tile_z.z + 1 {
-				if tempInst.zcieling <= obj_tile_z.z {
-					if tempInst.x <= mouseCheckX && tempInst.x + (tempInst.width*20) >= mouseCheckX {
-						if tempInst.y + (tempInst.zfloor)*20 - 20 <= mouseCheckY + (obj_tile_z.z*20) && tempInst.y + (tempInst.zcieling*20) + 20 >= mouseCheckY + (obj_tile_z.z*20) {
-							placeEmpty = false;
-							
-							break;
-						}
+			if (tempInst.zfloor >= obj_tile_z.z + 1 && tempInst.zcieling <= obj_tile_z.z) || (tempInst.zfloor >= obj_tile_z.z && obj_tile_z.z = -1) {
+				if tempInst.x <= mouseCheckX && tempInst.x + (tempInst.width*20) >= mouseCheckX {
+					if tempInst.y + (tempInst.zfloor)*20 - 20 <= mouseCheckY + (obj_tile_z.z*20) && tempInst.y + (tempInst.zcieling*20) + 20 >= mouseCheckY + (obj_tile_z.z*20) {
+						placeEmpty = false;
+						
+						break;
 					}
 				}
 			}
@@ -47,9 +47,9 @@ if select {
 										canDrag = false;
 										select = false;
 										placed = 1;
+										
 										x = floor(other.mouseCheckX/20)*20;
 										y = floor((obj_editor_gui.mouseCheckY+4)/20)*20 - 4;
-										show_debug_message(instance_number(obj_editor_terrain));
 									}
 								}
 							}
@@ -58,6 +58,13 @@ if select {
 				}
 			}
 		}
+	}
+	
+	// Stop painting
+	if (keyboard_check_released(vk_alt) && !mouse_check_button(mb_left)) || (!keyboard_check(vk_alt) && mouse_check_button_released(mb_left) && objIndex = -1) {
+		obj_editor_gui.canChangeSelect = true; // Override obj_editor_terrain_par's Create event
+		select = false; // Deselect button
+		objIndex = obj_editor_terrain;
 	}
 }
 

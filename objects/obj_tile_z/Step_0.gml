@@ -21,6 +21,7 @@ if mouse_x >= self.x + 71 && mouse_x <= self.x + 95 {
 			if z > -1 {
 				z -= 1;
 			}
+			
 			buttonIndex[1] = 1;
 			
 			alarm[0] = 14;
