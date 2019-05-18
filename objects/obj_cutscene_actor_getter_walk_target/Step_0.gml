@@ -30,20 +30,26 @@ if canPlace {
 	image_index = 0;
 }
 
+
 if (mouse_check_button_released(mb_left)) {
-	if canDel {
-		obj_panel_bot.xNode[timeIndex] = self.x;
-		obj_panel_bot.yNode[timeIndex] = self.y;
-		obj_trigger_region_parent.alarm[2] = 2;
+	if canRelease {
+			if canDel {
+			obj_panel_bot.xNode[timeIndex] = self.x;
+			obj_panel_bot.yNode[timeIndex] = self.y;
+			obj_trigger_region_parent.alarm[2] = 2;
 		
-		with obj_cutscene_actor_dummy_lucy {
+			with obj_cutscene_actor_dummy_lucy {
+				instance_destroy();
+			}
+		
 			instance_destroy();
+		} else {
+			canDrag = true;
+			canPlace = false;
+			alarm[0] = 18;
 		}
-		
-		instance_destroy();
 	} else {
-		canDrag = true;
-		canPlace = false;
-		alarm[0] = 18;
+		// The first mouse button release does not count
+		canRelease = true;
 	}
 }

@@ -22,6 +22,7 @@ if sprWidth != -1 {
 	draw_sprite_ext(spr_button_corner,imgIndex,x+sprWidth-1,y+28,-1,-1,0,c_white,1);
 	
 	draw_set_color(col[3]); // Text label
+	draw_set_font(font);
 	draw_text_transformed(x+6,y+7,label,2,2,0);
 	
 	// Preview

@@ -1,2 +1,2 @@
-/// @description Insert description here
+/// @description Disable deletion
 canDel = false;

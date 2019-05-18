@@ -76,10 +76,12 @@ if rows > 0 {
 			draw_set_color(make_color_rgb(255,160,64)); // Orange
 			draw_rectangle(21,y+35+i*14,190,y+46+i*14,false);
 			
-			draw_set_color(make_color_rgb(35,38,45)); // Dark text
+			draw_set_font(fontDark);
 			draw_text(23,y+36+i*14,actorTxt[i]);
 		} else {
 			draw_set_color(make_color_rgb(200,210,243)); // Light text
+			
+			draw_set_font(fontLight);
 			draw_text(23,y+36+i*14,actorTxt[i]);
 		}
 	}

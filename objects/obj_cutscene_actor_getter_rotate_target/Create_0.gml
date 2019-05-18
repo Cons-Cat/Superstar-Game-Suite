@@ -5,6 +5,7 @@ timeIndex = 0;
 radius = 20;
 canDrag = false;
 canDel = false;
+canRelease = true;
 gone = false;
 trg = -1;
 

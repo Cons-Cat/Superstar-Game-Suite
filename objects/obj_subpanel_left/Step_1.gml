@@ -6,7 +6,7 @@ if relativeMouseX <= x + 60 && relativeMouseX >= x - 60 {
 	if relativeMouseY >= y - 21 && relativeMouseY <= y {
 		if mouse_check_button_pressed(mb_left) {
 			// Dragging
-			select = 1;
+			select = true;
 			mouseClickOff = relativeMouseY - y;
 			
 			// Double clicking
@@ -18,8 +18,8 @@ if relativeMouseX <= x + 60 && relativeMouseX >= x - 60 {
 }
 
 if !mouse_check_button(mb_left) {
-	if select = 1 {
-		select = 0;
+	if select {
+		select = false;
 		
 		moveToY = round((relativeMouseY - mouseClickOff + 1) / 5) * 5 + 1;
 		

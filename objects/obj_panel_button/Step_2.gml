@@ -20,9 +20,15 @@ if select {
 }
 
 // Selecting / de-selecting
+if ((mouse_x >= x && mouse_x <= x + sprWidth) || (mouse_x >= x + sprWidth + 3 && mouse_x <= x + sprWidth + 34))
+&& mouse_y >= y - 1 && mouse_y <= y + sprHeight + 1 {
+	canSelect = true;
+} else {
+	canSelect = false;
+}
+
 if mouse_check_button_pressed(mb_left) {
-	if ((mouse_x >= x && mouse_x <= x + sprWidth) || (mouse_x >= x + sprWidth + 3 && mouse_x <= x + sprWidth + 34))
-	&& mouse_y >= y - 1 && mouse_y <= y + sprHeight + 1 {
+	if canSelect {
 		if !select {
 			obj_panel_button.select = false;
 			obj_editor_gui.canChangeSelect = false;
@@ -46,13 +52,14 @@ if mouse_check_button_released(mb_left) {
 }
 
 // Colors
-if select {
+if select || canSelect {
 	imgIndex = 1;
 	
-	col[0] = make_color_rgb(58,41,25); // Dark orange
+	col[0] = insideCol; // Light orange
 	col[1] = make_color_rgb(196,196,196); // Light gray
-	col[2] = make_color_rgb(38,15,14); // Darker orange
-	col[3] = make_color_rgb(255,160,64); // Light orange
+	col[2] = make_color_rgb(58,41,25); // Dark orange
+	col[3] = col[0];
+	font = obj_editor_gui.fontDark;
 } else {
 	imgIndex = 0;
 	
@@ -60,6 +67,7 @@ if select {
 	col[1] = make_color_rgb(63,70,87); // Dark gray
 	col[2] = make_color_rgb(28,30,36); // Dark blue
 	col[3] = make_color_rgb(200,210,243); // Off white
+	font = obj_editor_gui.font;
 }
 
 // Sorting

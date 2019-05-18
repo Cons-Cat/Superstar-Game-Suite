@@ -983,6 +983,14 @@
             }
         },
         {
+            "Key": "560109e1-a616-47fa-a9c4-e35d0d8a02b5",
+            "Value": {
+                "id": "f2384482-3aef-429f-8f2f-f29398736b5b",
+                "resourcePath": "sprites\\spr_font_dark\\spr_font_dark.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "58a1fc8c-6c5a-4b04-93e1-a6c6da34fefa",
             "Value": {
                 "id": "04e1aff4-8fcd-4769-819f-c4683430988b",

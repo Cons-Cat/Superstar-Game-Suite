@@ -10,7 +10,7 @@ if mouse_x <= x && mouse_x >= x - 21 {
 	if mouse_y >= y - 62 && mouse_y <= y + 58 {
 		if mouse_check_button_pressed(mb_left) {
 			// Dragging
-			select = 1;
+			select = true;
 			mouseClickOff = mouse_x - x;
 			
 			// Double clicking
@@ -22,8 +22,8 @@ if mouse_x <= x && mouse_x >= x - 21 {
 }
 
 if !mouse_check_button(mb_left) {
-	if select = 1 {
-		select = 0;
+	if select {
+		select = false;
 		
 		moveToX = round((relativeMouseX - mouseClickOff + 1) / 10) * 10 + 1;
 		if moveToX < 893 && moveToX >= 803 {
@@ -45,7 +45,7 @@ if !mouse_check_button(mb_left) {
 	}
 }
 
-if select = 0 {
+if !select {
 	// Double clicking
 	alarm[0] = 12;
 	
@@ -99,7 +99,7 @@ if select = 0 {
 	}
 }
 
-if select = 1 {
+if select {
 	dragX = relativeMouseX - mouseClickOff;
 	dragXTemp = dragX;
 	x = dragX;
@@ -114,7 +114,7 @@ if x > 1024 {
 }
 
 // Pushing other panel
-if x - 23 < obj_panel_left.x + 20 && select = 1 {
+if x - 23 < obj_panel_left.x + 20 && select {
 	if obj_editor_gui.sidePanelCtrl = -1 {
 		obj_editor_gui.sidePanelCtrl = 1;
 		trgXOrigin = obj_panel_left.x;

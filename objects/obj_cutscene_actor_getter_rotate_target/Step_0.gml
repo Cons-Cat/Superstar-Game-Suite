@@ -121,32 +121,37 @@ y = originY[j-1] - rise*radius*flip;
 gone = true;
 
 if (mouse_check_button_released(mb_left)) {
-	if canDel {
-		if trg = -1 {
-			obj_panel_bot.angleRot[timeIndex] = self.angleCalc;
-			obj_panel_bot.angleRotExport[timeIndex] = self.angleExport;
-			obj_panel_bot.runRot[timeIndex] = self.run;
-			obj_panel_bot.riseRot[timeIndex] = self.rise;
-			obj_panel_bot.mirrorRot[timeIndex] = self.mirror;
-			obj_panel_bot.flipRot[timeIndex] = self.flip;
+	if canRelease {
+		if canDel {
+			if trg = -1 {
+				obj_panel_bot.angleRot[timeIndex] = self.angleCalc;
+				obj_panel_bot.angleRotExport[timeIndex] = self.angleExport;
+				obj_panel_bot.runRot[timeIndex] = self.run;
+				obj_panel_bot.riseRot[timeIndex] = self.rise;
+				obj_panel_bot.mirrorRot[timeIndex] = self.mirror;
+				obj_panel_bot.flipRot[timeIndex] = self.flip;
+			} else {
+				with trg {
+					trg.dirIsoDef = other.angleExport;
+				}
+			}
+		
+			if instance_exists(obj_trigger_region_parent) {
+				obj_trigger_region_parent.alarm[2] = 2;
+		
+				with obj_cutscene_actor_dummy_lucy {
+					instance_destroy();
+				}
+			}
+		
+			instance_destroy();
 		} else {
-			with trg {
-				trg.dirIsoDef = other.angleExport;
-			}
+			canDrag = true;
+			canPlace = false;
+			alarm[0] = 18;
 		}
-		
-		if instance_exists(obj_trigger_region_parent) {
-			obj_trigger_region_parent.alarm[2] = 2;
-		
-			with obj_cutscene_actor_dummy_lucy {
-				instance_destroy();
-			}
-		}
-		
-		instance_destroy();
 	} else {
-		canDrag = true;
-		canPlace = false;
-		alarm[0] = 18;
+		// The first mouse button release does not count
+		canRelease = true;
 	}
 }

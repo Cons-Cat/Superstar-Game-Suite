@@ -1,2 +1,2 @@
-/// @description 
+/// @description Enable deletion
 canDel = true;

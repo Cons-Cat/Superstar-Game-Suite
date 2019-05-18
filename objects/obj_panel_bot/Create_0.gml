@@ -8,7 +8,7 @@ moveToY = baseY;
 moveToDeccel = 2.45;
 moveToSpd = 0;
 moveToSpdMin = 0.5;
-select = 0;
+select = false;
 mouseClickOff = 0;
 moveDirection = 1;
 doubleClickCounter = 0;
@@ -42,6 +42,7 @@ rows = 0;
 selectRow[0] = false;
 cutsceneInstanceId = -1;
 rowLength[0] = 0;
+hasRowSelected = false;
 
 totalActions = 0;
 actionInd[0] = -1; // Null action
@@ -53,5 +54,6 @@ depth = obj_editor_gui.depth - 4;
 image_angle = 90;
 y = baseY;
 
-font = obj_editor_gui.font;
-draw_set_font(font);
+fontLight = obj_editor_gui.font;
+fontDark = obj_editor_gui.fontDark;
+draw_set_font(fontLight);

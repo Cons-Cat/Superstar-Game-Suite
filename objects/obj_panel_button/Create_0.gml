@@ -11,8 +11,8 @@ longestSprWidth = -1;
 sprHeight = 30;
 width = -1;
 label = "";
+insideCol = make_color_rgb(255,160,64); // Light orange
 
 alarm[0] = 2;
 
 font = obj_editor_gui.font;
-draw_set_font(font);
