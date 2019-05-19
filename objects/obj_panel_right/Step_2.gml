@@ -21,8 +21,8 @@ if mouse_x <= x && mouse_x >= x - 21 {
 	}
 }
 
-if !mouse_check_button(mb_left) {
-	if select {
+if select {
+	if !mouse_check_button(mb_left) {
 		select = false;
 		
 		moveToX = round((relativeMouseX - mouseClickOff + 1) / 10) * 10 + 1;
@@ -43,9 +43,7 @@ if !mouse_check_button(mb_left) {
 		
 		image_index = 0;
 	}
-}
-
-if !select {
+} else {
 	// Double clicking
 	alarm[0] = 12;
 	
@@ -84,6 +82,7 @@ if !select {
 		if moveDirection = -1 {
 			if x > moveToX + moveToSpd {
 				x -= moveToSpd;
+				calculateHeight = true;
 			} else {
 				x = moveToX;
 				moveToSpd = 0;
@@ -102,7 +101,24 @@ if !select {
 if select {
 	dragX = relativeMouseX - mouseClickOff;
 	dragXTemp = dragX;
+	calculateHeight = true;
+	
 	x = dragX;
+}
+
+if calculateHeight {
+	tempHeight = 3;
+	
+	for (i = 0; i < instance_number(obj_panel_button); i += 1) {
+		tempTrg = instance_find(obj_panel_button,i);
+		
+		if tempTrg.viewOn = 3 { // If this button draws to the right panel
+			tempHeight += 45;
+		}
+	}
+	
+	panelHeight = tempHeight;
+	calculateHeight = false;
 }
 
 // Boundaries

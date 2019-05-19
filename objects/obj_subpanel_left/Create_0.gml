@@ -12,6 +12,9 @@ mouseClickOff = 0;
 moveDirection = 1;
 doubleClickCounter = 0;
 trgXOrigin = 0;
+mousePeek = 0;
+calculateHeight = false;
+tempY = -1;
 
 scrollPanelSquish = 0;
 panelWidth = 0;

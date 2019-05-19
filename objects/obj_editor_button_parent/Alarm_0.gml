@@ -5,6 +5,7 @@ if trg.buttonSelected = 0 {
 			trg.canSelect = false;
 			trg.canMerge = true; // Re-check merging when dimensions are change
 			obj_editor_gui.canChangeSelect = true;
+			obj_subpanel_left.panelHeight = 0;
 			
 			with obj_panel_button {
 				if panelId = obj_subpanel_left.id {

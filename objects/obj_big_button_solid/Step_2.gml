@@ -27,8 +27,16 @@ if spawnButtons {
 		viewOn = 3;
 		panelId = obj_panel_right.id;
 	}
-	
-	obj_panel_right.panelHeight = 213;
+	with instance_create_layer(obj_panel_right.x,78,"Instances",obj_instance_button_staircase) {
+		sortIndex = 5;
+		viewOn = 3;
+		panelId = obj_panel_right.id;
+	}
+	with instance_create_layer(obj_panel_right.x,78,"Instances",obj_instance_button_staircase) {
+		sortIndex = 6;
+		viewOn = 3;
+		panelId = obj_panel_right.id;
+	}
 	
 	spawnButtons = false;
 	obj_panel_left.scrollPanelHorDefined = false;

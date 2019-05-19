@@ -9,7 +9,8 @@ if relativeMouseX <= x + 60 && relativeMouseX >= x - 60 {
 	if relativeMouseY >= y - 21 && relativeMouseY <= y {
 		if mouse_check_button_pressed(mb_left) {
 			// Dragging
-			select = 1;
+			select = true;
+			tempSubPanelLeftY = obj_subpanel_left.y;
 			mouseClickOff = relativeMouseY - y;
 			
 			// Double clicking
@@ -20,9 +21,9 @@ if relativeMouseX <= x + 60 && relativeMouseX >= x - 60 {
 	}
 }
 
-if !mouse_check_button(mb_left) {
-	if select = 1 {
-		select = 0;
+if select {
+	if !mouse_check_button(mb_left) {
+		select = false;
 		
 		moveToY = round((relativeMouseY - mouseClickOff + 1) / 10) * 10 + 1;
 		if moveToY > 400 && moveToY < 480 {
@@ -42,9 +43,40 @@ if !mouse_check_button(mb_left) {
 		
 		image_index = 0;
 	}
-}
-
-if !select {
+	
+	// Dragging panel
+	dragY = relativeMouseY - mouseClickOff;
+	dragYTemp = dragY;
+	
+	y = dragY;
+	
+	if y < 300 {
+		y = 300;
+	}
+	
+	if y > 576 {
+		y = 576;
+	}
+	
+	// Preventing displacement of the subpanel
+	if y < obj_subpanel_left.y {
+		obj_subpanel_left.y = self.y;
+	} else {
+		obj_subpanel_left.visible = true;
+		
+		if obj_subpanel_left.mousePeek > 0 {
+			obj_subpanel_left.mousePeek -= 3.75;
+		} else {
+			obj_subpanel_left.mousePeek = 0;
+		}
+		
+		if obj_subpanel_left.y < tempSubPanelLeftY {
+			obj_subpanel_left.y = self.y;
+		} else {
+			obj_subpanel_left.y = tempSubPanelLeftY;
+		}
+	}
+} else {
 	// Double clicking
 	alarm[0] = 12;
 	
@@ -96,13 +128,6 @@ if !select {
 			}
 		}
 	}
-}
-
-if select {
-	dragY = relativeMouseY - mouseClickOff;
-	dragYTemp = dragY;
-	
-	y = dragY;
 }
 
 // Timeline view

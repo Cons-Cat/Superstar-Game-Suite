@@ -19,8 +19,8 @@ if mouse_x >= x && mouse_x <= x + 21 {
 	}
 }
 
-if !mouse_check_button(mb_left) {
-	if select = true {
+if select {
+	if !mouse_check_button(mb_left) {
 		select = false;
 		
 		moveToX = round((relativeMouseX - mouseClickOff - 1) / 10) * 10 - 1;
@@ -41,9 +41,7 @@ if !mouse_check_button(mb_left) {
 		
 		image_index = 0;
 	}
-}
-
-if !select  {
+} else {
 	// Double clicking
 	alarm[0] = 12;
 	
@@ -100,6 +98,7 @@ if !select  {
 if select {
 	dragX = relativeMouseX - mouseClickOff - 0;
 	dragXTemp = dragX;
+	
 	x = dragX;
 }
 

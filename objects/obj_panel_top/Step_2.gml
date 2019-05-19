@@ -17,9 +17,9 @@ if mouse_x <= x + 60 && mouse_x >= x - 60 {
 	}
 }
 
-if !mouse_check_button(mb_left) {
-	if select = 1 {
-		select = 0;
+if select {
+	if !mouse_check_button(mb_left) {
+		select = false;
 		
 		moveToY = round((mouse_y - mouseClickOff + 1) / 10) * 10 + 1;
 		if moveToY < 38 {
@@ -39,9 +39,7 @@ if !mouse_check_button(mb_left) {
 		
 		image_index = 0;
 	}
-}
-
-if select = 0 {
+} else {
 	// Double clicking
 	alarm[0] = 12;
 	

@@ -96,6 +96,19 @@ if spawnButtons {
 			alarm[0] = 2;
 		}
 	}
+	
+	obj_subpanel_left.tempY = obj_subpanel_left.y;
+	obj_subpanel_left.moveDirection = 1;
+	obj_subpanel_left.moveToY = obj_panel_bot.y;
+	obj_subpanel_left.moveToSpd = (obj_panel_bot.y - obj_subpanel_left.y)/6.5;
+	
+	if obj_subpanel_left.moveToSpd > 24 {
+		//obj_subpanel_left.moveToSpd = 24;
+	}
+	
+	// Standard formula to solve for time, given speed and distance
+	// +5 is a pause to dramatize the motion
+	obj_subpanel_left.alarm[1] = abs(obj_panel_bot.y - obj_subpanel_left.y) / obj_subpanel_left.moveToSpd + 5;
 }
 
 zcieling = zfloor;

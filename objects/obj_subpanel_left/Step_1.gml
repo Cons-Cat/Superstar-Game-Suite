@@ -17,8 +17,8 @@ if relativeMouseX <= x + 60 && relativeMouseX >= x - 60 {
 	}
 }
 
-if !mouse_check_button(mb_left) {
-	if select {
+if select {
+	if !mouse_check_button(mb_left) {
 		select = false;
 		
 		moveToY = round((relativeMouseY - mouseClickOff + 1) / 5) * 5 + 1;
@@ -37,9 +37,7 @@ if !mouse_check_button(mb_left) {
 		
 		image_index = 0;
 	}
-}
-
-if !select {
+} else {
 	// Double clicking
 	alarm[0] = 12;
 	
@@ -53,12 +51,7 @@ if !select {
 			moveToY = baseY;
 		}
 		
-		moveToSpd = abs(y - baseY) / 7;
-		
-		// Minimum speed
-		if moveToSpd < 13 {
-			moveToSpd = 13;
-		}
+		moveToSpd = abs(moveToY - y) / 11.5;
 		
 		if y > moveToY {
 			moveDirection = -1;
@@ -79,6 +72,7 @@ if !select {
 		if moveDirection = -1 {
 			if y > moveToY + moveToSpd {
 				y -= moveToSpd;
+				calculateHeight = true;
 			} else {
 				y = moveToY;
 				moveToSpd = 0;
@@ -99,6 +93,21 @@ if select {
 	dragYTemp = dragY;
 	
 	y = dragY;
+}
+
+if calculateHeight {
+	tempHeight = 3;
+	
+	for (i = 0; i < instance_number(obj_panel_button); i += 1) {
+		tempTrg = instance_find(obj_panel_button,i);
+		
+		if tempTrg.viewOn = 5 { // If this button draws to the sub-left panel
+			tempHeight += 45;
+		}
+	}
+	
+	panelHeight = tempHeight;
+	calculateHeight = false;
 }
 
 // Dragging boundaries
@@ -126,13 +135,34 @@ scrollHorWidth = obj_panel_left.scrollHorWidth;
 scrollVerHeight = (scrollVerFactor) * scrollVerBotBound;
 
 // Viewports
-if scrollVerBotBound - scrollVerTopBound > 0 && obj_panel_left.x > 16 {
-	visible = true;
-} else {
-	visible = false;
+if !obj_panel_bot.select {
+	if tempY = -1 { // If the panel will not slide back up automatically
+		if scrollVerBotBound - scrollVerTopBound <= 0 {
+			if obj_panel_left.x > 16 {
+				if relativeMouseX >= self.x - sprite_height/2 && relativeMouseX <= self.x + sprite_height/2 && relativeMouseY >= self.y - sprite_width && relativeMouseY <= self.y {
+					if mousePeek > 0 {
+						mousePeek -= 2.75;
+						visible = true;
+					} else {
+						mousePeek = 0;
+					}
+				} else {
+					if mousePeek < sprite_width {
+						mousePeek += 2.25;
+					} else {
+						mousePeek = sprite_width;
+						visible = false;
+					}
+				}
+			} else {
+				visible = false;
+			}
+		}
+	}
 }
 
-if visible {
+// Save expense when not needed
+if visible && tempY = -1 {
 	view_set_visible(5,true);
 	
 	camera_set_view_pos(obj_editor_gui.cameraLeftSubPanel,1025 + camera_get_view_width(obj_editor_gui.cameraRightPanel) + camera_get_view_width(obj_editor_gui.cameraLeftPanel),0);

@@ -20,7 +20,7 @@ draw_rectangle(3,y+2,scrollHorRightBound-1,y+2,false);
 
 // Structured to fix an issue with horizontal dragging
 if scrollHorRightBound > 136 {
-	draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,c_white,image_alpha);
+	draw_sprite_ext(sprite_index,image_index,x,y+mousePeek,image_xscale,image_yscale,image_angle,c_white,image_alpha);
 } else {
 	draw_sprite_ext(sprite_index,image_index,scrollHorRightBound - 60,y,image_xscale,image_yscale,image_angle,c_white,image_alpha);
 }
