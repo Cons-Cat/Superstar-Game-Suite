@@ -5,7 +5,7 @@ if instance_exists(trg) {
 	instance_destroy();
 }
 
-if instance_exists(obj_cutscene_actor_getter_target_parent) {
+if instance_exists(obj_cutscene_target_parent) {
 	select = false;
 }
 

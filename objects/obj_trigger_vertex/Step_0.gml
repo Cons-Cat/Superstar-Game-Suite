@@ -1,6 +1,6 @@
 ///@description Manipulate placement
-relativeMouseX = floor((mouse_x + 195 - 23) / 10) * 5 - 80 + floor(camera_get_view_x(obj_editor_gui.cameraRealGame)/20)*20;
-relativeMouseY = floor((mouse_y + 576) / 10) * 5 - 320 + 41 + floor(camera_get_view_y(obj_editor_gui.cameraRealGame)/20)*20;
+relativeMouseX = obj_editor_gui.mouseCheckX;
+relativeMouseY = obj_editor_gui.mouseCheckY;
 
 if canDragDelayed {
 	if trg != -1 {
@@ -11,20 +11,22 @@ if canDragDelayed {
 				canDrag = true;
 				visible = true;
 				
-				if obj_region_button_edge.select {
-					// Prevent dragging while placing edges
-					canDrag = false;
-				}
-				
-				// Select
-				if mouse_y < obj_panel_bot.y {
-					if relativeMouseX >= self.x-5 && relativeMouseX <= self.x+5 {
-						if (relativeMouseY >= self.y-4 - (zfloor * 20) && relativeMouseY <= self.y+5 - (zfloor * 20)) {
-							obj_region_button_edge.vertexTempHover = self.id;
-							
-							if mouse_check_button_pressed(mb_left) {
-								if canDrag {
-									canPlace = true;
+				if instance_exists(obj_region_button_edge) {
+					if obj_region_button_edge.select {
+						// Prevent dragging while placing edges
+						canDrag = false;
+					}
+					
+					// Select
+					if mouse_y < obj_panel_bot.y {
+						if relativeMouseX >= self.x-5 && relativeMouseX <= self.x+5 {
+							if (relativeMouseY >= self.y-4 - (zfloor * 20) && relativeMouseY <= self.y+5 - (zfloor * 20)) {
+								obj_region_button_edge.vertexTempHover = self.id;
+								
+								if mouse_check_button_pressed(mb_left) {
+									if canDrag {
+										canPlace = true;
+									}
 								}
 							}
 						}
@@ -33,10 +35,6 @@ if canDragDelayed {
 				
 				// De-select
 				if (mouse_check_button_released(mb_left)) {
-					if canPlace {
-						trg.recalculate = true;
-					}
-					
 					canDrag = true;
 					canPlace = false;
 				}
@@ -49,6 +47,7 @@ if canDragDelayed {
 					x = trg.x + trgXOff;
 					y = trg.y + trgYOff + trg.zfloor * 20;
 					
+					// Update trg recursively while it is selected
 					trg.recalculate = true;
 				}
 				
@@ -66,14 +65,16 @@ if canDragDelayed {
 					
 					edgeHover = false;
 					
-					if !collision_rectangle(relativeMouseX-1,relativeMouseY-1 + (self.zfloor * 20),relativeMouseX+1,relativeMouseY+1 + (self.zfloor * 20),obj_trigger_vertex,false,false) { // Prevent interference with deleting vertices
-						if !obj_region_button_edge.select && !mouse_check_button(mb_left) { // If not added edges or dragging vertices
-							if scr_lines_intersect(x,y-zfloor*20,vertexToId.x,vertexToId.y-zfloor*20,relativeMouseX-3,relativeMouseY-3,relativeMouseX+3,relativeMouseY+3,true) != 0 || scr_lines_intersect(x,y-zfloor*20,vertexToId.x,vertexToId.y-zfloor*20,relativeMouseX+3,relativeMouseY-3,relativeMouseX-3,relativeMouseY+3,true) != 0 {
-								edgeHover = true;
-								
-								with obj_trigger_vertex {
-									if vertexInd != other.vertexInd { // Exclude source vertex
-										edgeHover = false; // Prevent multiple edges from being selected
+					if instance_exists(obj_region_button_edge) {
+						if !collision_rectangle(relativeMouseX-1,relativeMouseY-1 + (self.zfloor * 20),relativeMouseX+1,relativeMouseY+1 + (self.zfloor * 20),obj_trigger_vertex,false,false) { // Prevent interference with deleting vertices
+							if !obj_region_button_edge.select && !mouse_check_button(mb_left) { // If not added edges or dragging vertices
+								if scr_lines_intersect(x,y-zfloor*20,vertexToId.x,vertexToId.y-zfloor*20,relativeMouseX-3,relativeMouseY-3,relativeMouseX+3,relativeMouseY+3,true) != 0 || scr_lines_intersect(x,y-zfloor*20,vertexToId.x,vertexToId.y-zfloor*20,relativeMouseX+3,relativeMouseY-3,relativeMouseX-3,relativeMouseY+3,true) != 0 {
+									edgeHover = true;
+									
+									with obj_trigger_vertex {
+										if vertexInd != other.vertexInd { // Exclude source vertex
+											edgeHover = false; // Prevent multiple edges from being selected
+										}
 									}
 								}
 							}

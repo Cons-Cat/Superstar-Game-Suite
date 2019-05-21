@@ -49,7 +49,7 @@ if select {
 						vertexConnect[1].vertexToId = -1; // Reset line id
 						vertexSelectedCount = 0;
 						
-						obj_trigger_dialogue_region_editor.recalculate = true; // Recalculate polygon
+						obj_trigger_cutscene_region_editor.recalculate = true; // Recalculate polygon
 					} else {
 						vertexSelectedCount = 0;
 					}

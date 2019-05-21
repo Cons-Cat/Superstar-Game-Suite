@@ -22,9 +22,9 @@ if spawnButtons {
 // Generate angle interface
 if placed = 1 {
 	if instance_exists(obj_editor_gui) {
-		if !instance_exists(obj_cutscene_actor_getter_rotate_target) {
+		if !instance_exists(obj_cutscene_rotate_target) {
 			if obj_editor_gui.mode = 4 { // Trigger mode
-				with instance_create_layer(x,y,"Instances",obj_cutscene_actor_getter_rotate_target) {
+				with instance_create_layer(x,y,"Instances",obj_cutscene_rotate_target) {
 					trg = other.id;
 					zfloor = other.zfloor;
 						

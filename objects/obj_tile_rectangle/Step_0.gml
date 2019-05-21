@@ -14,7 +14,7 @@ if select = 1 {
 					instance_create_layer(mouse_x,mouse_y,"Instances",obj_editor_terrain);
 				}
 				if obj_editor_gui.mode = 4 {
-					instance_create_layer(mouse_x,mouse_y,"Instances",obj_trigger_dialogue_region_editor);
+					instance_create_layer(mouse_x,mouse_y,"Instances",obj_trigger_cutscene_region_editor);
 				}
 			}
 		}

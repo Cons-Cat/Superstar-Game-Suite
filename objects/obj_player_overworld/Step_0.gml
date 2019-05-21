@@ -183,17 +183,18 @@ if (abs(c_hspeed) + abs(c_vspeed))/2 != 0 && !jumping {
 if canMove {
 	if keyboard_check_pressed(_A) {
 		// Initiating jump
-		if jumpHeight = platOn {
+		if onGround {
 			jumpDelay = jumpDelayMax;
 			jumpBoost = platOn;
 			glideDelay = glideDelayMax;
 			jumping = true;
-			onGround = false;
 			
 			imgIndex = 0;
 		}
 	}
 	if jumping {
+		isFalling = false; // Used for camera motion
+		
 		if jumpDelay > 0 {
 			if !fallSearch {
 				// Pre-jump timer
@@ -205,7 +206,6 @@ if canMove {
 		} else {
 			if jumpDelay != -1 {
 				// Boost forward in the direction set leaping
-				onGround = false;
 				c_hspeed = jumpTempHspd;
 				c_vspeed = jumpTempVspd;
 				//jumpDelay = -1;
@@ -232,6 +232,7 @@ if canMove {
 		}
 	}
 }
+
 if !jumping {
 	if !onStaircase {
 		jumpDelay = jumpDelayMax;
@@ -263,22 +264,29 @@ fallSearch = true; // Fall down by default
 // Find relevant floor object
 trgFinalTemp = 0;
 
+// Create array of viable landing spots
 for (i = 0; i < instance_number(obj_floor); i += 1) {
-	trgScr = instance_find(obj_floor,i).id;
-	if trgScr.zfloor*20 <= self.jumpHeight {
-		if collision_rectangle(bbox_left,bbox_top,bbox_right,bbox_bottom,trgScr,true,true) {
-			trgLayer[i] = trgScr.zfloor;
-			
-			for (a = 0; a <= i; a += 1) {
-				if trgLayer[a] >= trgFinalTemp {
-					trgFinal = trgScr;
-					trgFinalTemp = trgLayer[a];
-				}
-			}
-			platOn = trgFinal.zfloor*20;
+	trgLayer[i] = -1;
+	trgScr[i] = instance_find(obj_floor,i).id;
+	
+	if trgScr[i].zfloor*20 <= self.jumpHeight {
+		if collision_rectangle(bbox_left,bbox_top,bbox_right,bbox_bottom,trgScr[i].id,true,false) {
+			trgLayer[i] = trgScr[i].zfloor; // Spot is viable
 		}
 	}
 }
+
+// Find the highest-elevated viable landing spot
+for (i = 0; i < instance_number(obj_floor); i += 1) {
+	if trgLayer[i] != -1 { // Skip non-viable spots
+		if trgLayer[i] >= trgFinalTemp { // If elevation is higher than previous recursions'
+			trgFinal = trgScr[i];
+			trgFinalTemp = trgLayer[i];
+		}
+	}
+}
+
+platOn = trgFinal.zfloor*20;
 
 /*trgCount = 0;
 trgZfloorMax = 0;
@@ -301,12 +309,14 @@ for (i = 0; i < trgCount; i += 1) {
 	}
 }*/
 
+onGround = false;
 platOn = trgFinal.zfloor*20;
 
 if instance_exists(trgFinal) {
-	if trgFinal.zfloor = self.zplace {
-		fallSearch = false; // Cancel fall if standing on a platform
+	if platOn = self.jumpHeight {
 		onGround = true;
+		isFalling = true; // Used for camera motion
+		fallSearch = false; // Cancel fall if standing on a platform
 		
 		depth = obj_editor_gui.depth - (trgFinal.y + 20) - trgFinal.zfloor - 3 - trgFinal.depthOffset/3;
 	}

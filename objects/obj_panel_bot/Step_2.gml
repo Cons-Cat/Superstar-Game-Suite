@@ -168,8 +168,8 @@ if addClick != -1 {
 			actionInd[totalActions] = 0; // Walk action
 			actionColor[totalActions] = make_color_rgb(113,45,95); // Violet
 			
-			if !instance_exists(obj_cutscene_actor_getter_walk_target) {
-				with instance_create_layer(0,0,"Instances",obj_cutscene_actor_getter_walk_target) {
+			if !instance_exists(obj_cutscene_walk_target) {
+				with instance_create_layer(0,0,"Instances",obj_cutscene_walk_target) {
 					timeIndex = other.totalActions;
 					rowIndex = other.i;
 					canPlace = true;
@@ -188,12 +188,13 @@ if addClick != -1 {
 			actionInd[totalActions] = 1; // Rotate action
 			actionColor[totalActions] = make_color_rgb(57,113,43); // Green
 			
-			if !instance_exists(obj_cutscene_actor_getter_rotate_target) {
-				with instance_create_layer(0,0,"Instances",obj_cutscene_actor_getter_rotate_target) {
+			if !instance_exists(obj_cutscene_rotate_target) {
+				with instance_create_layer(0,0,"Instances",obj_cutscene_rotate_target) {
 					timeIndex = other.totalActions;
 					rowIndex = other.i;
 					canPlace = true;
 					canRelease = false;
+					placed = false;
 					angle = 0;
 					run = 0;
 					rise = 0;
@@ -213,8 +214,8 @@ if addClick != -1 {
 			actionInd[totalActions] = 2; // Dialogue action
 			actionColor[totalActions] = make_color_rgb(113,84,45); // Gold
 			
-			if !instance_exists(obj_cutscene_actor_getter_dialogue) {
-				with instance_create_layer(actorId[i].x,actorId[i].y-42,"Instances",obj_cutscene_actor_getter_dialogue) {
+			if !instance_exists(obj_cutscene_dialogue) {
+				with instance_create_layer(actorId[i].x,actorId[i].y-42,"Instances",obj_cutscene_dialogue) {
 					timeIndex = other.totalActions;
 					rowIndex = other.i;
 					trg = other.actorId[other.i];
@@ -232,8 +233,8 @@ if addClick != -1 {
 			actionInd[totalActions] = 3; // Camera pan action
 			actionColor[totalActions] = make_color_rgb(65,160,160); // Cyan
 			
-			if !instance_exists(obj_cutscene_actor_getter_pan) {
-				with instance_create_layer(cutsceneInstanceId.x-10,cutsceneInstanceId.y-2,"Instances",obj_cutscene_actor_getter_pan) {
+			if !instance_exists(obj_cutscene_pan) {
+				with instance_create_layer(cutsceneInstanceId.x-10,cutsceneInstanceId.y-2,"Instances",obj_cutscene_pan) {
 					timeIndex = other.totalActions;
 					trg = other.cutsceneInstanceId;
 					selectState = 1;
@@ -267,8 +268,8 @@ if addClick != -1 {
 			actionInd[totalActions] = 5; // Walk speed action
 			actionColor[totalActions] = make_color_rgb(163,178,0); // Light green
 			
-			if !instance_exists(obj_cutscene_actor_getter_speed) {
-				with instance_create_layer(actorId[i].x+10,actorId[i].y-35,"Instances",obj_cutscene_actor_getter_speed) {
+			if !instance_exists(obj_cutscene_speed) {
+				with instance_create_layer(actorId[i].x+10,actorId[i].y-35,"Instances",obj_cutscene_speed) {
 					timeIndex = other.totalActions;
 					rowIndex = other.i;
 					canPlace = true;
@@ -285,8 +286,8 @@ if addClick != -1 {
 			actionInd[totalActions] = 6; // Arbitrary action
 			actionColor[totalActions] = make_color_rgb(194,94,152); // Cute magenta
 			
-			if !instance_exists(obj_cutscene_actor_getter_arbitrary) {
-				with instance_create_layer(actorId[i].x+10,actorId[i].y-35,"Instances",obj_cutscene_actor_getter_arbitrary) {
+			if !instance_exists(obj_cutscene_arbitrary) {
+				with instance_create_layer(actorId[i].x+10,actorId[i].y-35,"Instances",obj_cutscene_arbitrary) {
 					timeIndex = other.totalActions;
 					rowIndex = other.i;
 					
@@ -306,8 +307,8 @@ if addClick != -1 {
 // Managing selection
 for (i = 0; i < rows; i += 1) {
 	if i = 0 {
-		if instance_exists(obj_trigger_dialogue_region_editor) {
-			actorId[i] = obj_trigger_dialogue_region_editor.id;
+		if instance_exists(obj_trigger_cutscene_region_editor) {
+			actorId[i] = obj_trigger_cutscene_region_editor.id;
 		} else {
 			actorId[i] = -1;
 		}
@@ -326,7 +327,7 @@ for (i = 0; i < rows; i += 1) {
 				selectRow[i] = false;
 				hasRowSelected = false;
 				
-				if !instance_exists(obj_cutscene_actor_getter_target_parent) {
+				if !instance_exists(obj_cutscene_target_parent) {
 					actorId[i].orangeAnyways = false;
 				}
 				
@@ -417,8 +418,8 @@ for (i = 1; i <= totalActions; i += 1) {
 									// Open action's interface
 									if actionInd[i] = 0 {
 										// Walk action
-										if !instance_exists(obj_cutscene_actor_getter_walk_target) {
-											with instance_create_layer(xNode[i],yNode[i],"Instances",obj_cutscene_actor_getter_walk_target) {
+										if !instance_exists(obj_cutscene_walk_target) {
+											with instance_create_layer(xNode[i],yNode[i],"Instances",obj_cutscene_walk_target) {
 												timeIndex = other.i
 												rowIndex = other.j;
 												canDrag = true;
@@ -435,8 +436,8 @@ for (i = 1; i <= totalActions; i += 1) {
 									
 									if actionInd[i] = 1 {
 										// Rotate action
-										if !instance_exists(obj_cutscene_actor_getter_rotate_target) {
-											with instance_create_layer(actorId[j].x+10,actorId[j].y+10,"Instances",obj_cutscene_actor_getter_rotate_target) {
+										if !instance_exists(obj_cutscene_rotate_target) {
+											with instance_create_layer(actorId[j].x+10,actorId[j].y+10,"Instances",obj_cutscene_rotate_target) {
 												timeIndex = other.i;
 												rowIndex = other.j;
 												canDrag = true;
@@ -460,8 +461,8 @@ for (i = 1; i <= totalActions; i += 1) {
 									
 									if actionInd[i] = 2 {
 										// Dialogue action
-										if !instance_exists(obj_cutscene_actor_getter_dialogue) {
-											with instance_create_layer(actorId[j].x-xOffDialogue[i],actorId[j].y-yOffDialogue[i],"Instances",obj_cutscene_actor_getter_dialogue) {
+										if !instance_exists(obj_cutscene_dialogue) {
+											with instance_create_layer(actorId[j].x-xOffDialogue[i],actorId[j].y-yOffDialogue[i],"Instances",obj_cutscene_dialogue) {
 												timeIndex = other.i;
 												rowIndex = other.j;
 												trg = other.actorId[other.j];
@@ -483,8 +484,8 @@ for (i = 1; i <= totalActions; i += 1) {
 									
 									if actionInd[i] = 3 {
 										// Camera pan action
-										if !instance_exists(obj_cutscene_actor_getter_pan) {
-											with instance_create_layer(cutsceneInstanceId.x-10,cutsceneInstanceId.y-2,"Instances",obj_cutscene_actor_getter_pan) {
+										if !instance_exists(obj_cutscene_pan) {
+											with instance_create_layer(cutsceneInstanceId.x-10,cutsceneInstanceId.y-2,"Instances",obj_cutscene_pan) {
 												timeIndex = other.i;
 												trg = other.cutsceneInstanceId;
 												panAngle = other.panAngle[timeIndex];
@@ -528,7 +529,7 @@ for (i = 1; i <= totalActions; i += 1) {
 									
 									if actionInd[i] = 5 {
 										// Actor speed action
-										with instance_create_layer(actorId[j].x+10,actorId[j].y-35,"Instances",obj_cutscene_actor_getter_speed) {
+										with instance_create_layer(actorId[j].x+10,actorId[j].y-35,"Instances",obj_cutscene_speed) {
 											timeIndex = other.i;
 											slowSpd = other.slowSpd[timeIndex];
 											
@@ -541,7 +542,7 @@ for (i = 1; i <= totalActions; i += 1) {
 									
 									if actionInd[i] = 6 {
 										// Arbitrary action
-										with instance_create_layer(actorId[j].x+10,actorId[j].y-35,"Instances",obj_cutscene_actor_getter_arbitrary) {
+										with instance_create_layer(actorId[j].x+10,actorId[j].y-35,"Instances",obj_cutscene_arbitrary) {
 											timeIndex = other.i;
 											arbitraryInd = other.arbitraryInd[timeIndex];
 											

@@ -117,7 +117,7 @@ for (i = 0; i <= 2; i += 1) {
 	}
 	
 	textWrite = textWrite + string_hash_to_newline("#"+chr(9)+chr(9)+"{");
-	textWrite = textWrite + string_hash_to_newline("#")+chr(9)+chr(9)+chr(9)+chr(34)+"__type"+chr(34)+": "+chr(34)+layerType+chr(34)+",";
+	textWrite = textWrite + string_hash_to_newline("#")+chr(9)+chr(9)+chr(9)+chr(34)+"_type"+chr(34)+": "+chr(34)+layerType+chr(34)+",";
 	textWrite = textWrite + string_hash_to_newline("#"+chr(9)+chr(9)+chr(9)+chr(34)+"name"+chr(34)+": "+chr(34)+layerName+chr(34)+",");
 	textWrite = textWrite + string_hash_to_newline("#"+chr(9)+chr(9)+chr(9)+chr(34)+"id"+chr(34)+": "+chr(34)+layerId[i]+chr(34)+",");
 	if i = 2 {

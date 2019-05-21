@@ -2,6 +2,9 @@
 if obj_editor_gui.mode != 2 {
 	x -= lengthdir_x(panMagnitudeTemp,panAngleTemp)*20;
 	y -= lengthdir_y(panMagnitudeTemp,panAngleTemp)*20;
+	placeX = x;
+	placeY = y;
+	//placeZ = 0;
 	
 	panMagnitudeTemp = 0;
 	panMagnitudeSpd = 0;
@@ -56,13 +59,118 @@ if obj_editor_gui.mode != 2 {
 	}
 } else {
 	// In play mode
-	if trgRegion != -1 {
-		if moving[i] {
-			// Follow player
-			if instance_exists(obj_player_overworld) {
-				x = obj_player_overworld.x + lengthdir_x(panMagnitudeTemp,panAngle[i])*20;
-				y = obj_player_overworld.y + lengthdir_y(panMagnitudeTemp,panAngle[i])*20 - obj_player_overworld.platOn;
+	
+	// Follow player
+	if instance_exists(obj_player_overworld) {
+		xTo = obj_player_overworld.x;
+		yTo = obj_player_overworld.y;
+		zTo = obj_player_overworld.jumpHeight;
+		
+		rightQuarter = camera_get_view_x(obj_editor_gui.cameraRealGame) + camera_get_view_width(obj_editor_gui.cameraRealGame)/2 + 32;
+		leftQuarter = camera_get_view_x(obj_editor_gui.cameraRealGame) + camera_get_view_width(obj_editor_gui.cameraRealGame)/2 - 32;
+		upQuarter = camera_get_view_y(obj_editor_gui.cameraRealGame) + 120 + placeZ;
+		downQuarter = camera_get_view_y(obj_editor_gui.cameraRealGame) + 160 + placeZ;
+		
+		centerX = leftQuarter + (rightQuarter - leftQuarter)/2;
+		centerY = upQuarter + (downQuarter - upQuarter)/2;
+		
+		if obj_player_overworld.x > rightQuarter {
+			// Player is a quarter-screen rightward of center
+			if accelX < 1 {
+				accelX += 0.05;
+			} else {
+				accelX = 1;
 			}
+		} else if obj_player_overworld.x < leftQuarter {
+			// Player is a quarter-screen leftward of center
+			if accelX < 1 {
+				accelX += 0.05;
+			} else {
+				accelX = 1;
+			}
+		}
+		
+		if obj_player_overworld.y > downQuarter {
+			// Player is a quarter-screen downward of center
+			if accelY < 1 {
+				accelY += 0.05;
+			} else {
+				accelY = 1;
+			}
+		} else if obj_player_overworld.y < upQuarter {
+			// Player is a quarter-screen upward of center
+			if accelY < 1 {
+				accelY += 0.05;
+			} else {
+				accelY = 1;
+			}
+		}
+		
+		// Update Z dimension when player lands on floor
+		if obj_player_overworld.onGround {
+			if placeZ != obj_player_overworld.jumpHeight {
+				if accelZ < 1 {
+					accelZ += 0.05;
+				} else {
+					accelZ = 1;
+				}
+				
+				placeZ += (zTo - placeZ)/10*accelZ;
+			}
+		} else {
+			// Fall down
+			if obj_player_overworld.jumpHeight - obj_player_overworld.trgFinal < 65 {
+				if obj_player_overworld.isFalling  {
+					// Light fall
+					if accelZ < 1 {
+						accelZ += 0.05;
+					} else {
+						accelZ = 1;
+					}
+					
+					placeZ += (zTo - placeZ)/10*accelZ;
+				}
+			} else {
+				// Heavy fall
+				placeZ = zTo + 65;
+			}
+		}
+		
+		if obj_player_overworld.x >= leftQuarter && obj_player_overworld.x <= rightQuarter {
+			// Decelerate horizontal motion
+			if accelX > 0 {
+				accelX -= 0.06;
+			} else {
+				accelX = 0;
+			}
+		}
+		if obj_player_overworld.y >= upQuarter && obj_player_overworld.y <= downQuarter {
+			// Decelerate vertical motion
+			if accelY > 0 {
+				accelY -= 0.06;
+			} else {
+				accelY = 0;
+			}
+		}
+		
+		// 16:10 ratio
+		if xTo > centerX {
+			placeX += (xTo - rightQuarter)/16*accelX;
+		} else {
+			placeX += (xTo - leftQuarter)/16*accelX;
+		}
+		
+		if yTo > centerY {
+			placeY += (yTo - downQuarter)/10*accelY;
+		} else {
+			placeY += (yTo - upQuarter)/10*accelY;
+		}
+		
+		/*if trgRegion != -1 {
+			if moving[i] {
+					x = placeX + lengthdir_x(panMagnitudeTemp,panAngle[i])*20;
+					y = placeY + lengthdir_y(panMagnitudeTemp,panAngle[i])*20 - obj_player_overworld.platOn;
+				}
 			
 			panAngleTemp = panAngle[i];
 			
@@ -104,7 +212,11 @@ if obj_editor_gui.mode != 2 {
 			} else {
 				moving[i] = true;
 			}
-		}
+		}*/
+		
+		// Update place
+		x = placeX;
+		y = placeY - placeZ;
 	}
 }
 
@@ -120,6 +232,18 @@ if y < 580 + 170 {
 }
 if y > room_height - 162 {
 	y = room_height - 162;
+}
+if placeX < 260 {
+	placeX = 260;
+}
+if placeX > room_width - 264 {
+	placeX = room_width - 264;
+}
+if placeY < 580 + 170 {
+	placeY = 580 + 170;
+}
+if placeY > room_height - 162 {
+	placeY = room_height - 162;
 }
 
 depth = obj_editor_gui.depth - 1;

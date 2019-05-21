@@ -5,7 +5,7 @@ with obj_npc_position {
 	}
 }
 
-with obj_trigger_dialogue_region_editor {
+with obj_trigger_cutscene_region_editor {
 	for (j = 1; j <= totalActions; j += 1) {
 		if actionRowInd[j] = other.npcIdVal {
 			actionInd[j] = -1; // Null action

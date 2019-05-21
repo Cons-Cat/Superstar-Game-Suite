@@ -22,13 +22,13 @@ for (i = 1; i <= 4; i += 1) {
 				
 				if i = 1 {
 					// Talk button
-					with instance_create_layer(mouse_x,mouse_y,"Instances",obj_cutscene_actor_getter_talk) {
+					with instance_create_layer(mouse_x,mouse_y,"Instances",obj_cutscene_talk) {
 						i = other.rowSelected;
 					}
 				}
 				if i = 2 {
 					// Walk button
-					with instance_create_layer(mouse_x,mouse_y,"Instances",obj_cutscene_actor_getter_walk) {
+					with instance_create_layer(mouse_x,mouse_y,"Instances",obj_cutscene_walk) {
 						i = other.rowSelected;
 					}
 				}
@@ -95,11 +95,11 @@ for (i = 0; i <= rows; i += 1) {
 				}
 				if rowSetting[i] = 2 {
 					// Walk button
-					if !instance_exists(obj_cutscene_actor_getter_walk_target) {
+					if !instance_exists(obj_cutscene_walk_target) {
 						menuAlpha = 0.3;
-						instance_create_layer(xNode[i],yNode[i]-zfloor*20,"Instances",obj_cutscene_actor_getter_walk_target);
-						obj_cutscene_actor_getter_walk_target.canDrag = true;
-						obj_cutscene_actor_getter_walk_target.i = self.i;
+						instance_create_layer(xNode[i],yNode[i]-zfloor*20,"Instances",obj_cutscene_walk_target);
+						obj_cutscene_walk_target.canDrag = true;
+						obj_cutscene_walk_target.i = self.i;
 					}
 				}
 				if rowSetting[i] = 3 {

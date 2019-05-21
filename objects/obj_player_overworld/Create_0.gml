@@ -21,6 +21,7 @@ floorTrg = 0;
 trgFinal = obj_floor;
 trgFinalTemp = -1;
 trg = -1;
+isFalling = false;
 
 imgSpd = 4;
 imgIndex = 0;

@@ -1,9 +1,9 @@
 /// @description Delayed objects spawn
 instance_create_layer(obj_camera_editor.x,obj_camera_editor.y,"Instances",obj_player_overworld);
 
-with obj_trigger_dialogue_region_editor {
+with obj_trigger_cutscene_region_editor {
 	// Region collision
-	with instance_create_layer(x,y,"Instances",obj_trigger_dialogue_region_level) {
+	with instance_create_layer(x,y,"Instances",obj_trigger_cutscene_region_level) {
 		x = other.x;
 		y = other.y;
 		image_xscale = other.width;
