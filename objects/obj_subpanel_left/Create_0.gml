@@ -1,7 +1,7 @@
 /// @description Define parameters
 event_inherited();
 
-baseY = obj_panel_bot.y - 94;
+baseY = obj_panel_bot.y - 144;
 dragY = baseY;
 moveToY = baseY;
 moveToDeccel = 2.45;

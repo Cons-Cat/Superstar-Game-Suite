@@ -23,4 +23,31 @@ if vertexToInd != -1 {
 	}
 }
 
+// Draw thresholds
+if hasThreshold {
+	if w > 0 {
+		// Draw polygon
+		draw_set_color(polygonCol);
+		gpu_set_blendmode_ext(bm_dest_color, bm_zero); // Multiply blend mode
+	
+		for (i = 0; i < ds_list_size(polygon); i += 6) {
+			draw_triangle(ds_list_find_value(polygon,i)-0.5,ds_list_find_value(polygon,i+1)-0.5,ds_list_find_value(polygon,i+2)-0.5,ds_list_find_value(polygon,i+3)-0.5,ds_list_find_value(polygon,i+4)-0.5,ds_list_find_value(polygon,i+5)-0.5,false);
+		}
+		
+		draw_set_color(edgeCol);
+		gpu_set_blendmode(bm_normal);
+		
+		// Normal
+		draw_line(edgeMidPointX,edgeMidPointY,edgeMidPointX + thresholdX,edgeMidPointY + thresholdY);
+		
+		// Girth line 1
+		draw_line(edgeMidPointX + thresholdX, edgeMidPointY + thresholdY, edgeMidPointX + thresholdX + girthX,edgeMidPointY + thresholdY + girthY);
+		draw_line(edgeMidPointX + thresholdX + girthX + lengthdir_x(5,normal), edgeMidPointY + thresholdY + girthY + lengthdir_y(5,normal),edgeMidPointX + thresholdX + girthX - lengthdir_x(5,normal), edgeMidPointY + thresholdY + girthY - lengthdir_y(5,normal));
+		
+		// Girth line 2
+		draw_line(edgeMidPointX + thresholdX, edgeMidPointY + thresholdY, edgeMidPointX + thresholdX - girthX,edgeMidPointY + thresholdY - girthY);
+		draw_line(edgeMidPointX + thresholdX - girthX + lengthdir_x(5,normal), edgeMidPointY + thresholdY - girthY + lengthdir_y(5,normal),edgeMidPointX + thresholdX - girthX - lengthdir_x(5,normal), edgeMidPointY + thresholdY - girthY - lengthdir_y(5,normal));
+	}
+}
+
 draw_sprite(sprite_index,image_index,x,y - (zfloor * 20));

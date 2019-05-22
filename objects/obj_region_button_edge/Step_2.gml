@@ -17,7 +17,7 @@ if instance_exists(trg) {
 
 if select {
 	// If the mouse hovers over a vertex
-	// Consider zfloor passed in from a selected obj_trigger_dialoge_region_editor instance
+	// Consider zfloor passed in from a selected obj_trigger_region_editor instance
 	if vertexTempHover != -1 {
 		if mouse_check_button_pressed(mb_left) {
 			vertexTempSelect = vertexTempHover;
@@ -49,7 +49,7 @@ if select {
 						vertexConnect[1].vertexToId = -1; // Reset line id
 						vertexSelectedCount = 0;
 						
-						obj_trigger_cutscene_region_editor.recalculate = true; // Recalculate polygon
+						obj_trigger_region_parent.recalculate = true; // Recalculate polygon
 					} else {
 						vertexSelectedCount = 0;
 					}
@@ -59,11 +59,12 @@ if select {
 			}
 		}
 		
-		if vertexTempSelect = -1 {
+		//if vertexTempSelect = -1 {
 			if vertexTempHover.edgeState = 0 {
 				vertexTempHover.edgeState = 1; // Hover over vertex
+				//show_debug_message("C");
 			}
-		}
+		//}
 	} else {
 		if mouse_check_button(mb_left) {
 			if vertexTempSelect != -1 {
@@ -102,13 +103,6 @@ if select {
 				obj_trigger_vertex.select = false;
 			}
 		}
-	}
-}
-
-with obj_trigger_vertex {
-	if edgeState = 2 {
-		// Keep this button selected when in use
-		other.select = true;
 	}
 }
 

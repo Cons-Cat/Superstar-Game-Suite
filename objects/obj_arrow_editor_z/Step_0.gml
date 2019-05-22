@@ -22,11 +22,11 @@ if instance_exists(trg) {
 		
 		if self.y < trg.y + 20 {
 			trg.zfloor += 1;
-			trg.y -= 20;
+			//trg.y -= 20;
 		}
 		if self.y > trg.y + 20 && trg.zfloor > trg.zcieling {
 			trg.zfloor -= 1;
-			trg.y += 20;
+			//trg.y += 20;
 		}
 		
 		trg.resetArray = true;

@@ -184,7 +184,7 @@ if obj_editor_gui.mode != 2 {
 			}
 			
 			// Accelerate / Decelerate
-			panMagnitudeDecelDistance = (panMagnitudeSpdMax[i]^2) / (2*panEaseOut[i]) / 60;
+			panMagnitudeDecelDistance = sqr(panMagnitudeSpdMax[i]) / (2*panEaseOut[i]) / 60;
 			
 			if panMagnitudeTemp < panMagnitude[i] - panMagnitudeDecelDistance {
 				// Accelerate

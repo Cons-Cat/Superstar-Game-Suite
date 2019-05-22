@@ -495,6 +495,14 @@
             }
         },
         {
+            "Key": "301ff46f-9ae4-4e2c-915a-d0d2744a5a87",
+            "Value": {
+                "id": "7d30ea49-6d01-47a2-81a9-665207861b28",
+                "resourcePath": "sprites\\spr_button_threshold\\spr_button_threshold.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "3087202c-06f4-4d28-918a-1077ae70ccfb",
             "Value": {
                 "id": "aebd9b97-dafb-41d4-a4f5-56aa8939799b",
@@ -1927,14 +1935,6 @@
             }
         },
         {
-            "Key": "a2b868fa-1008-40db-9288-caea9eeecabe",
-            "Value": {
-                "id": "2fa82dc9-6955-413d-984c-9983106e3b59",
-                "resourcePath": "objects\\obj_trigger_vertex_pan\\obj_trigger_vertex_pan.yy",
-                "resourceType": "GMObject"
-            }
-        },
-        {
             "Key": "a2d33744-4d49-4e1d-976f-e98c3b93c65f",
             "Value": {
                 "id": "b287e058-5cbb-44cd-a6c8-d47bde5b7556",
@@ -2583,6 +2583,14 @@
             }
         },
         {
+            "Key": "d076147e-9d96-403a-933d-4c37418f058d",
+            "Value": {
+                "id": "5c40f481-fb07-42fb-afa8-c84e49ad94d3",
+                "resourcePath": "sprites\\spr_vector_marker_pink\\spr_vector_marker_pink.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "d08585a9-5057-4f06-ae37-e08d946aaa8a",
             "Value": {
                 "id": "6f061eaa-4b2d-4290-accf-b1b53798e1ff",
@@ -3004,6 +3012,14 @@
                 "id": "dd05e486-fe33-45f3-9501-0452e1eda27b",
                 "resourcePath": "sprites\\spr_ph_right\\spr_ph_right.yy",
                 "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "ef9d20a7-587c-44e0-b898-6f0d0dfb4d1f",
+            "Value": {
+                "id": "e0660805-120c-4aa5-9e73-c6c7766d119a",
+                "resourcePath": "objects\\obj_region_button_threshold\\obj_region_button_threshold.yy",
+                "resourceType": "GMObject"
             }
         },
         {

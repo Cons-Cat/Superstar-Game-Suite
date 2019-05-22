@@ -18,17 +18,24 @@ if instance_exists(obj_editor_gui) {
 	if select {
 		if !broken {
 			if zfloor > 0 {
+				gpu_set_blendmode(bm_inv_src_color); // Shadow
+				
+				draw_set_alpha(0.8);
 				for (i = 0; i < ds_list_size(polygon); i += 6) {
-					gpu_set_blendmode(bm_inv_src_color); // Shadow
-					draw_set_alpha(0.8);
 					draw_triangle(ds_list_find_value(polygon,i)-0.5,ds_list_find_value(polygon,i+1)-0.5,ds_list_find_value(polygon,i+2)-0.5,ds_list_find_value(polygon,i+3)-0.5,ds_list_find_value(polygon,i+4)-0.5,ds_list_find_value(polygon,i+5)-0.5,false);
 				}
 			}
 			
+			gpu_set_blendmode_ext(bm_dest_color, bm_zero); // Multiply blend mode
+			draw_set_color(blankCol);
+			
+			/*draw_set_alpha(0.4);
+			for (i = 0; i < ds_list_size(polygonOutside); i += 6) {
+				draw_triangle(ds_list_find_value(polygonOutside,i)-0.5,ds_list_find_value(polygonOutside,i+1)-0.5-(zfloor*20),ds_list_find_value(polygonOutside,i+2)-0.5,ds_list_find_value(polygonOutside,i+3)-0.5-(zfloor*20),ds_list_find_value(polygonOutside,i+4)-0.5,ds_list_find_value(polygonOutside,i+5)-0.5-(zfloor*20),false);
+			}*/
+			
+			draw_set_alpha(1);
 			for (i = 0; i < ds_list_size(polygon); i += 6) {
-				gpu_set_blendmode_ext(bm_dest_color, bm_zero); // Multiply blend mode
-				draw_set_color(make_color_rgb(134,209,239)); // Dark blue
-				draw_set_alpha(1);
 				draw_triangle(ds_list_find_value(polygon,i)-0.5,ds_list_find_value(polygon,i+1)-0.5-(zfloor*20),ds_list_find_value(polygon,i+2)-0.5,ds_list_find_value(polygon,i+3)-0.5-(zfloor*20),ds_list_find_value(polygon,i+4)-0.5,ds_list_find_value(polygon,i+5)-0.5-(zfloor*20),false);
 			}
 			

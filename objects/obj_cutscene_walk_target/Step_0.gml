@@ -1,6 +1,6 @@
 /// @description Manipulating position
-relativeMouseX = floor((mouse_x + 195 - 23) / 10) * 5 - 80 + floor(camera_get_view_x(obj_editor_gui.cameraRealGame)/20)*20;
-relativeMouseY = floor((mouse_y + 576) / 10) * 5 - 320 + 41 + floor(camera_get_view_y(obj_editor_gui.cameraRealGame)/20)*20;
+relativeMouseX = obj_editor_gui.mouseCheckX;
+relativeMouseY = obj_editor_gui.mouseCheckY;
 
 if relativeMouseX >= self.x-5 && relativeMouseX <= self.x+5 && ((relativeMouseY >= self.y-4 && relativeMouseY <= self.y+5) || (relativeMouseY >= self.y-4 - zfloor*20 && relativeMouseY <= self.y+5 - zfloor*20)) {
 	mouseHover = true;
@@ -8,6 +8,9 @@ if relativeMouseX >= self.x-5 && relativeMouseX <= self.x+5 && ((relativeMouseY 
 	if mouse_check_button_pressed(mb_left) {
 		if mouse_y < obj_panel_bot.y {
 			if canDrag {
+				mouseXOff = self.x - relativeMouseX;
+				mouseYOff = self.y - relativeMouseY;
+				
 				canDel = true;
 				canPlace = true;
 			}
@@ -23,8 +26,8 @@ if canPlace {
 	image_index = 1;
 	
 	if mouse_y < obj_panel_bot.y {
-		x = relativeMouseX;
-		y = relativeMouseY;
+		x = floor((relativeMouseX + mouseXOff)/5)*5;
+		y = floor((relativeMouseY + (zfloor * 20) + mouseYOff)/5)*5 + 1;
 	}
 } else {
 	if mouseHover {

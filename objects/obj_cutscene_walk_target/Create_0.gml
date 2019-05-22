@@ -5,6 +5,8 @@ canDrag = false;
 canDel = false;
 canRelease = false;
 mouseHover = false;
+mouseXOff = 0;
+mouseYOff = 0;
 
 obj_trigger_region_parent.canDeSelect = false;
 

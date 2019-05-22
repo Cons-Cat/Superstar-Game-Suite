@@ -47,6 +47,11 @@ if mouse_check_button_pressed(mb_left) {
 						selfCanDeSelect = false;
 					}
 				}
+				if instance_exists(obj_region_button_threshold) {
+					if obj_region_button_threshold.select {
+						selfCanDeSelect = false;
+					}
+				}
 			}
 			
 			if selfCanDeSelect {
