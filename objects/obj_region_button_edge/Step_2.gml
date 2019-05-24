@@ -59,12 +59,9 @@ if select {
 			}
 		}
 		
-		//if vertexTempSelect = -1 {
-			if vertexTempHover.edgeState = 0 {
-				vertexTempHover.edgeState = 1; // Hover over vertex
-				//show_debug_message("C");
-			}
-		//}
+		if vertexTempHover.edgeState = 0 {
+			vertexTempHover.edgeState = 1; // Hover over vertex
+		}
 	} else {
 		if mouse_check_button(mb_left) {
 			if vertexTempSelect != -1 {

@@ -98,3 +98,35 @@ with obj_trigger_cutscene_region_editor {
 		}
 	}
 }
+
+with obj_trigger_pan_region_editor {
+	// Region collision
+	with instance_create_layer(x,y,"Instances",obj_trigger_pan_region_level) {
+		x = other.x;
+		y = other.y;
+		image_xscale = other.width;
+		image_yscale = other.height;
+		zfloor = other.zfloor;
+		polygon = other.polygon;
+		angle = other.angle;
+		maxMagnitude = real(other.magnitude);
+		thresholdCount = 0;
+		
+		for (i = 0; i < instance_number(obj_trigger_vertex); i += 1) {
+			if instance_find(obj_trigger_vertex,i).trg = other.id {
+				tempVertex = instance_find(obj_trigger_vertex,i).id;
+				
+				if tempVertex.hasThreshold {
+					thresholdRegion[thresholdCount] = tempVertex.polygon;
+					thresholdExitX[thresholdCount] = tempVertex.edgeMidPointX;
+					thresholdExitY[thresholdCount] = tempVertex.edgeMidPointY;
+					thresholdEntryX[thresholdCount] = tempVertex.edgeMidPointX + tempVertex.thresholdX;
+					thresholdEntryY[thresholdCount] = tempVertex.edgeMidPointY + tempVertex.thresholdY
+					thresholdLength[thresholdCount] = point_distance(thresholdExitX[thresholdCount],thresholdExitY[thresholdCount],thresholdEntryX[thresholdCount],thresholdEntryY[thresholdCount]);
+					
+					thresholdCount += 1;
+				}
+			}
+		}
+	}
+}

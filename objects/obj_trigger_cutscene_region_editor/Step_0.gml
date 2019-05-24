@@ -167,7 +167,6 @@ if select {
 							ds_list_add(list,tempInstanceVal.y);
 							
 							i += 1; // Move onto the next vertex
-							show_debug_message(i);
 							
 							break;
 						}

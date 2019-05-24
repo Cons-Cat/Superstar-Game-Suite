@@ -73,6 +73,21 @@ if spawnButtons {
 		viewOn = 5;
 		panelId = obj_subpanel_left.id;
 	}
+	with instance_create_layer(x,y,"Instances",obj_region_button_angle) {
+		sortIndex = 3;
+		viewOn = 5;
+		panelId = obj_subpanel_left.id;
+		angle = other.angle;
+		trg = other.id;
+	}
+	with instance_create_layer(x,y,"Instances",obj_region_button_magnitude) {
+		sortIndex = 4;
+		viewOn = 5;
+		panelId = obj_subpanel_left.id;
+		arbitraryVal = string(other.magnitude);
+		valueLength = string_width(arbitraryVal)*2 + 4;
+		trg = other.id;
+	}
 	
 	with obj_trigger_vertex {
 		if trg = other.id {
@@ -88,6 +103,11 @@ if spawnButtons {
 	// Standard formula to solve for time, given speed and distance
 	// +5 is a pause to dramatize the motion
 	obj_subpanel_left.alarm[1] = abs(obj_panel_bot.y - obj_subpanel_left.y) / obj_subpanel_left.moveToSpd + 5;
+	
+	// Fix issues when the sub-panel is folded
+	if obj_subpanel_left.y >= obj_panel_bot.y {
+		obj_subpanel_left.tempY = -1;
+	}
 }
 
 zcieling = zfloor;
@@ -230,11 +250,18 @@ if select {
 		}
 	}
 	
+	// These button instance couple to pass some values
 	if instance_exists(obj_region_button_edge) {
-		obj_region_button_edge.trg = self.id; // This button instance couples itself to pass some values
+		obj_region_button_edge.trg = self.id; 
 	}
 	if instance_exists(obj_region_button_threshold) {
-		obj_region_button_threshold.trg = self.id; // This button instance couples itself to pass some values
+		obj_region_button_threshold.trg = self.id;
+	}
+	if instance_exists(obj_region_button_angle) {
+		self.angle = obj_region_button_angle.angle;
+	}
+	if instance_exists(obj_region_button_magnitude) {
+		self.magnitude = obj_region_button_magnitude.arbitraryVal;
 	}
 } else {
 	// Set collision mask to match the sprite mask when not selected

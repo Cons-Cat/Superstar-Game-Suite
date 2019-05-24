@@ -7,7 +7,6 @@ modeForSelectVal = 4;
 
 width = 1;
 height = 1;
-angleVal = 0;
 
 polygon = -1;
 recalculate = true;

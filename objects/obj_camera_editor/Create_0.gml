@@ -17,13 +17,9 @@ downQuarter = 0;
 centerX = 0;
 centerY = 0;
 
-vm = matrix_build_lookat(x,y,-10,x,y,-0,0,1,0);
-pm = matrix_build_projection_ortho(512,288,1,10000);
+panX = 0;
+panY = 0;
 
-camera_set_view_mat(obj_editor_gui.cameraRealGame,vm);
-camera_set_proj_mat(obj_editor_gui.cameraRealGame,pm);
-
-follow = obj_player_overworld;
 xTo = x;
 yTo = y;
 

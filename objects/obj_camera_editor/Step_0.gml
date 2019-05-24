@@ -4,6 +4,8 @@ if obj_editor_gui.mode != 2 {
 	y -= lengthdir_y(panMagnitudeTemp,panAngleTemp)*20;
 	placeX = x;
 	placeY = y;
+	panX = 0;
+	panY = 0;
 	//placeZ = 0;
 	
 	panMagnitudeTemp = 0;
@@ -66,10 +68,10 @@ if obj_editor_gui.mode != 2 {
 		yTo = obj_player_overworld.y;
 		zTo = obj_player_overworld.jumpHeight;
 		
-		rightQuarter = camera_get_view_x(obj_editor_gui.cameraRealGame) + camera_get_view_width(obj_editor_gui.cameraRealGame)/2 + 32;
-		leftQuarter = camera_get_view_x(obj_editor_gui.cameraRealGame) + camera_get_view_width(obj_editor_gui.cameraRealGame)/2 - 32;
-		upQuarter = camera_get_view_y(obj_editor_gui.cameraRealGame) + 120 + placeZ;
-		downQuarter = camera_get_view_y(obj_editor_gui.cameraRealGame) + 160 + placeZ;
+		rightQuarter = camera_get_view_x(obj_editor_gui.cameraRealGame) + camera_get_view_width(obj_editor_gui.cameraRealGame)/2 + 32 - panX;
+		leftQuarter = camera_get_view_x(obj_editor_gui.cameraRealGame) + camera_get_view_width(obj_editor_gui.cameraRealGame)/2 - 32 - panX;
+		upQuarter = camera_get_view_y(obj_editor_gui.cameraRealGame) + 120 + placeZ - panY;
+		downQuarter = camera_get_view_y(obj_editor_gui.cameraRealGame) + 160 + placeZ - panY;
 		
 		centerX = leftQuarter + (rightQuarter - leftQuarter)/2;
 		centerY = upQuarter + (downQuarter - upQuarter)/2;
@@ -168,9 +170,9 @@ if obj_editor_gui.mode != 2 {
 		
 		/*if trgRegion != -1 {
 			if moving[i] {
-					x = placeX + lengthdir_x(panMagnitudeTemp,panAngle[i])*20;
-					y = placeY + lengthdir_y(panMagnitudeTemp,panAngle[i])*20 - obj_player_overworld.platOn;
-				}
+				panX = lengthdir_x(panMagnitudeTemp,panAngle[i])*20;
+				panY = lengthdir_y(panMagnitudeTemp,panAngle[i])*20;
+			}
 			
 			panAngleTemp = panAngle[i];
 			
@@ -180,7 +182,6 @@ if obj_editor_gui.mode != 2 {
 			} else {
 				// Snap to end
 				panMagnitudeTemp = panMagnitude[i];
-				//show_debug_message("snapped");
 			}
 			
 			// Accelerate / Decelerate
@@ -215,8 +216,8 @@ if obj_editor_gui.mode != 2 {
 		}*/
 		
 		// Update place
-		x = placeX;
-		y = placeY - placeZ;
+		x = placeX + panX;
+		y = placeY - placeZ + panY;
 	}
 }
 

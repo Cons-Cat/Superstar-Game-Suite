@@ -1,8 +1,7 @@
 /// @description 
 if !activated {
 	for (i = 0; i < ds_list_size(polygon); i += 6) {
-		//show_message(i);
-		if point_in_triangle(obj_player_overworld.x,obj_player_overworld.y,ds_list_find_value(polygon,i),ds_list_find_value(polygon,i+1),ds_list_find_value(polygon,i+2),ds_list_find_value(polygon,i+3),ds_list_find_value(polygon,i+4),ds_list_find_value(polygon,i+5)) {
+		if rectangle_in_triangle(obj_player_overworld.bbox_left,obj_player_overworld.bbox_top,obj_player_overworld.bbox_right,obj_player_overworld.bbox_bottom,ds_list_find_value(polygon,i),ds_list_find_value(polygon,i+1),ds_list_find_value(polygon,i+2),ds_list_find_value(polygon,i+3),ds_list_find_value(polygon,i+4),ds_list_find_value(polygon,i+5)) {
 			// Activate interactive cutscene
 			for (b = 1; b <= totalActions; b += 1) {
 				for (j = 0; j < rows; j += 1) {
@@ -11,9 +10,9 @@ if !activated {
 					} else {
 						actor[actionTime[b],j] = instance_find(obj_npc_position,j-1).trg; // 1/10'th second, Row
 					}
-				
+					
 					actor[actionTime[b],j].trgRegion = self.id;
-				
+					
 					for (a = j; a <= longestRowLength; a += 1) {
 						actor[actionTime[b],j].xNode[a] = -1; // Initialize xNode
 						actor[actionTime[b],j].yNode[a] = -1; // Initialize yNode

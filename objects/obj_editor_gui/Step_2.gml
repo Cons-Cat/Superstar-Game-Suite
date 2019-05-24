@@ -819,6 +819,9 @@ if mode = 2 {
 		with obj_trigger_cutscene_region_level {
 			instance_destroy();
 		}
+		with obj_trigger_pan_region_level {
+			instance_destroy();
+		}
 		with obj_player_overworld {
 			instance_destroy();
 		}

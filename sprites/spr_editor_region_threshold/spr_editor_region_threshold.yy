@@ -2,7 +2,7 @@
     "id": "301ff46f-9ae4-4e2c-915a-d0d2744a5a87",
     "modelName": "GMSprite",
     "mvc": "1.12",
-    "name": "spr_button_threshold",
+    "name": "spr_editor_region_threshold",
     "For3D": false,
     "HTile": false,
     "VTile": false,

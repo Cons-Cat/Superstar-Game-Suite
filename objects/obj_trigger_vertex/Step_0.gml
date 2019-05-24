@@ -98,6 +98,7 @@ if canDragDelayed {
 							if edgeSelect {
 								if w <= 0 {
 									hasThreshold = false;
+									trg.hasThreshold[vertexInd] = false;
 								}
 								
 								obj_region_button_threshold.edgeSelectVertex = -1;
@@ -113,6 +114,7 @@ if canDragDelayed {
 					if edgeHover {
 						edgeDeleteState = 1;
 						hasThreshold = false;
+						trg.hasThreshold[vertexInd] = false;
 					}
 				}
 				
@@ -217,7 +219,6 @@ if x != tempX || y != tempY {
 }
 
 if recalculate || recalculate2 {
-	show_debug_message(vertexToInd);
 	recalculate = false;
 	
 	if hasThreshold {

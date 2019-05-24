@@ -271,6 +271,14 @@
             }
         },
         {
+            "Key": "1d8d30f0-95c5-4cf3-a188-28f28eb1c40e",
+            "Value": {
+                "id": "cc503860-b355-4689-bcc2-f6c012a97c52",
+                "resourcePath": "objects\\obj_region_button_magnitude\\obj_region_button_magnitude.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "1ebb5645-139b-41a9-817a-43d68219b393",
             "Value": {
                 "id": "546871bf-7a00-4183-9b25-8429adb0e958",
@@ -498,7 +506,7 @@
             "Key": "301ff46f-9ae4-4e2c-915a-d0d2744a5a87",
             "Value": {
                 "id": "7d30ea49-6d01-47a2-81a9-665207861b28",
-                "resourcePath": "sprites\\spr_button_threshold\\spr_button_threshold.yy",
+                "resourcePath": "sprites\\spr_editor_region_threshold\\spr_editor_region_threshold.yy",
                 "resourceType": "GMSprite"
             }
         },
@@ -667,6 +675,14 @@
             "Value": {
                 "id": "0a6f338c-9860-4b11-9e08-ab7bda3000c8",
                 "resourcePath": "sprites\\spr_drag_arrow\\spr_drag_arrow.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "4052aeac-91d0-426a-835f-c7a72d7c7926",
+            "Value": {
+                "id": "71e77593-ebe0-448e-b0cc-aef89053fae5",
+                "resourcePath": "sprites\\spr_editor_region_wheel\\spr_editor_region_wheel.yy",
                 "resourceType": "GMSprite"
             }
         },
@@ -2535,6 +2551,14 @@
             }
         },
         {
+            "Key": "cc63058f-d34c-41a5-bdcf-ad5e7f6f7df8",
+            "Value": {
+                "id": "f416aafb-52d1-403c-977a-068b4d223252",
+                "resourcePath": "objects\\obj_trigger_pan_region_level\\obj_trigger_pan_region_level.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "cc98d028-7bdd-4680-85f3-c87a7baa481e",
             "Value": {
                 "id": "2bff5cee-3a0e-4ea9-b601-3f2f7b054e86",
@@ -3068,6 +3092,14 @@
                 "id": "350a1c14-b890-4fe9-a9ca-6238879933b9",
                 "resourcePath": "sprites\\spr_walls_slope2_editor\\spr_walls_slope2_editor.yy",
                 "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "f45a9e26-1c21-4ad8-897f-20079000bbd2",
+            "Value": {
+                "id": "cede0ab1-982a-4b16-b02e-3f1191cdd28d",
+                "resourcePath": "objects\\obj_region_button_angle\\obj_region_button_angle.yy",
+                "resourceType": "GMObject"
             }
         },
         {
