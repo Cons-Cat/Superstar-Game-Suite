@@ -36,8 +36,14 @@ if mouse_check_button_pressed(mb_left) {
 				}
 				
 				if instance_exists(obj_trigger_vertex) {
-					// Consider zfloor passed into obj_region_button_edge from a selected obj_trigger_dialoge_region_editor instance
-					if collision_rectangle(mouseCheckX-1,mouseCheckY-1+(obj_region_button_edge.zfloor*20),mouseCheckX+1,mouseCheckY+1+(obj_region_button_edge.zfloor*20),obj_trigger_vertex,false,false) {
+					// Consider zfloor passed into obj_trigger_vertex from a selected obj_trigger_dialogue_region_editor instance
+					if collision_rectangle(mouseCheckX-1,mouseCheckY-1+(obj_trigger_vertex.zfloor*20),mouseCheckX+1,mouseCheckY+1+(obj_trigger_vertex.zfloor*20),obj_trigger_vertex,false,false) {
+						selfCanDeSelect = false;
+					}
+				}
+				if instance_exists(obj_camera_target) {
+					// Consider zfloor passed into obj_camera_target from a selected obj_trigger_anchor_region_editor instance
+					if collision_rectangle(mouseCheckX-1,mouseCheckY-1+(obj_camera_target.zfloor*20),mouseCheckX+1,mouseCheckY+1+(obj_camera_target.zfloor*20),obj_camera_target,false,false) {
 						selfCanDeSelect = false;
 					}
 				}
@@ -49,6 +55,11 @@ if mouse_check_button_pressed(mb_left) {
 				}
 				if instance_exists(obj_region_button_threshold) {
 					if obj_region_button_threshold.select {
+						selfCanDeSelect = false;
+					}
+				}
+				if instance_exists(obj_region_button_target) {
+					if obj_region_button_target.select {
 						selfCanDeSelect = false;
 					}
 				}

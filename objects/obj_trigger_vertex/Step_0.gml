@@ -25,6 +25,9 @@ if canDragDelayed {
 								
 								if mouse_check_button_pressed(mb_left) {
 									if canDrag {
+										mouseXOff = self.x - relativeMouseX;
+										mouseYOff = self.y - relativeMouseY;
+										
 										canPlace = true;
 									}
 								}

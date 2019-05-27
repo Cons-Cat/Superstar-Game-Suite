@@ -36,6 +36,7 @@ panMagnitude = 0;
 panMagnitudeTemp = panMagnitude;
 panMagnitudeSpd = 0;
 trgRegion = -1;
+anchored = false;
 
 view_visible[2] = false;
 view_visible[3] = false;

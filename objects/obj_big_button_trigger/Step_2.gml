@@ -17,6 +17,11 @@ if spawnButtons {
 		viewOn = 3
 		panelId = obj_panel_right.id;
 	}
+	with instance_create_layer(obj_panel_right.x,78,"Instances",obj_trigger_button_anchor) {
+		sortIndex = 3;
+		viewOn = 3
+		panelId = obj_panel_right.id;
+	}
 	
 	obj_panel_right.panelHeight = 291;
 	

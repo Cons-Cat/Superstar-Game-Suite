@@ -130,3 +130,25 @@ with obj_trigger_pan_region_editor {
 		}
 	}
 }
+
+with obj_trigger_anchor_region_editor {
+	// Region collision
+	with instance_create_layer(x,y,"Instances",obj_trigger_anchor_region_level) {
+		x = other.x;
+		y = other.y;
+		image_xscale = other.width;
+		image_yscale = other.height;
+		depth = other.depth;
+		zfloor = other.zfloor;
+		majorRadius = other.majorRadius;
+		minorRadius = other.minorRadius;
+		thresholdRadius = other.thresholdRadius;
+		x1 = other.x1;
+		y1 = other.y1;
+		x2 = other.x2;
+		y2 = other.y2;
+		anchorId = other.anchorId;
+		trgX = other.trgX;
+		trgY = other.trgY;
+	}
+}

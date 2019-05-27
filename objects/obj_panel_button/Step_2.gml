@@ -82,7 +82,6 @@ if mouse_check_button_pressed(mb_left) {
 			select = true;
 		} else {
 			select = false;
-			obj_editor_gui.canChangeSelect = true;
 		}
 	} else {
 		if objIndex != -1 {

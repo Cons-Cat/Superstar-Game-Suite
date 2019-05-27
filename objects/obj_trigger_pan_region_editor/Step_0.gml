@@ -45,9 +45,6 @@ if spawnButtons {
 		width = widthTemp;
 	}
 	
-	/*with instance_create_layer(x,y,"Instances",obj_arrow_editor_right) {
-		trg = other.id;
-	}*/
 	with instance_create_layer(x,y,"Instances",obj_arrow_editor_drag) {
 		trg = other.id;
 	}
@@ -139,6 +136,7 @@ if select {
 				
 				if instance_find(obj_trigger_vertex,i).vertexToInd = -1 { // If the polygon is broken
 					broken = true;
+					
 					break;
 				}
 			}
@@ -154,34 +152,6 @@ if select {
 			ds_list_clear(list2); // Reset the list
 			tempInstanceVal = tempInstanceStart;
 			
-			// Find extreme vertices
-			/*tempXVertexExtreme[0] = -1;
-			tempXVertexExtreme[1] = -1;
-			tempYVertexExtreme[0] = -1;
-			tempYVertexExtreme[1] = -1;
-			
-			for (j = 0; j < instance_number(obj_trigger_vertex); j += 1) { // Iterate through every existent vertex
-				if instance_find(obj_trigger_vertex,j).trg = self.id { // Reduce to exclusively active vertices
-					if instance_find(obj_trigger_vertex,j).x < tempXVertexExtreme[0] || tempXVertexExtreme[0] = -1 { // If this vertex is leftmost thus far
-						tempXVertexExtreme[0] = instance_find(obj_trigger_vertex,j).x;
-					}
-					if instance_find(obj_trigger_vertex,j).x > tempXVertexExtreme[1] || tempXVertexExtreme[1] = -1{ // If this vertex is rightmost thus far
-						tempXVertexExtreme[1] = instance_find(obj_trigger_vertex,j).x;
-					}
-					if instance_find(obj_trigger_vertex,j).y < tempYVertexExtreme[0] || tempYVertexExtreme[0] = -1 { // If this vertex is topmost thus far
-						tempYVertexExtreme[0] = instance_find(obj_trigger_vertex,j).y;
-					}
-					if instance_find(obj_trigger_vertex,j).y > tempYVertexExtreme[1] || tempYVertexExtreme[1] = -1 { // If this vertex is bottommost thus far
-						tempYVertexExtreme[1] = instance_find(obj_trigger_vertex,j).y;
-					}
-				}
-			}
-			
-			xVertexExtreme[0] = tempXVertexExtreme[0];
-			xVertexExtreme[1] = tempXVertexExtreme[1];
-			yVertexExtreme[0] = tempYVertexExtreme[0];
-			yVertexExtreme[1] = tempYVertexExtreme[1];*/
-			
 			i = 0; // Start from vertex n[0]
 			while i < vertexCountTemp { // Iterate through all active vertices
 				for (j = 0; j < instance_number(obj_trigger_vertex); j += 1) { // Iterate through every existent vertex
@@ -189,13 +159,8 @@ if select {
 						if instance_find(obj_trigger_vertex,j).vertexInd = tempInstanceVal.vertexToInd { // Check if this vertex is next in order	
 							tempInstanceVal = instance_find(obj_trigger_vertex,j).id;
 							
-							//slopeRun = (tempInstanceVal.x - (xVertexExtreme[0] + (xVertexExtreme[1] - xVertexExtreme[0])/2)						) * (width/2 - 0.5);
-							//slopeRise = (tempInstanceVal.y - (yVertexExtreme[0] + (yVertexExtreme[1] - yVertexExtreme[0])/2) - zfloor*20	) * (width/2 - 0.5);
-							
 							ds_list_add(list,tempInstanceVal.x);
 							ds_list_add(list,tempInstanceVal.y);
-							//ds_list_add(list2,tempInstanceVal.x+slopeRun);
-							//ds_list_add(list2,tempInstanceVal.y+slopeRise);
 							
 							i += 1; // Move onto the next vertex
 							break;
@@ -204,49 +169,8 @@ if select {
 				}
 			}
 			
-			// Find outside vertices
-			/*for (i = 0; i < ds_list_size(list); i += 2) {
-				originX = ds_list_find_value(list,i); // x-coordinate of geometric origin
-				originY = ds_list_find_value(list,i+1); // y-coordinate of geometric origin
-				
-				if i >= 2 {
-					uX = ds_list_find_value(list,i-2) - originX; // x-component of 1st vertex
-					uY = ds_list_find_value(list,i-1) - originY; // y-component of 1st vertex
-				} else {
-					uX = ds_list_find_value(list,ds_list_size(list)-2) - originX; // x-component of 1st vertex
-					uY = ds_list_find_value(list,ds_list_size(list)-1)  - originY; // y-component of 1st vertex
-				}
-				
-				if i < ds_list_size(list) - 2 {
-					vX = ds_list_find_value(list,i+2) - originX; // x-component of 2nd vertex
-					vY = ds_list_find_value(list,i+3) - originY; // y-component of 2nd vertex
-				} else {
-					vX = ds_list_find_value(list,0) - originX; // x-component of 2nd vertex
-					vY = ds_list_find_value(list,1) - originY; // y-component of 2nd vertex
-				}
-				
-				uLength = sqrt(sqr(uX) + sqr(uY));
-				vLength = sqrt(sqr(vX) + sqr(vY));
-				
-				dotProduct = (uX * vX) + (uY * vY);
-				theta = darccos(dotProduct/(uLength*vLength));
-				theta2 = darctan2(vY - uY, vX - uX);
-				
-				// Convert to rectangular coordinates
-				magnitude = (width-1) * 10;
-				
-				resultantX = originX + magnitude;
-				resultantY = originY + magnitude;
-				//resultantX = originX + lengthdir_x(magnitude,theta2);
-				//resultantY = originY - lengthdir_y(magnitude,theta2);
-				
-				ds_list_add(list2,resultantX);
-				ds_list_add(list2,resultantY);
-			}*/
-			
 			// Generate lists of triangles
 			polygon = scr_polygon_to_triangles(list);
-			//polygonOutside = scr_polygon_to_triangles(list2);
 		}
 	}
 	

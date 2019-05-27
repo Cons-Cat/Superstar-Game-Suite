@@ -6,24 +6,15 @@ blankCol = make_color_rgb(226,99,144);
 modeForSelectVal = 4;
 
 width = 1;
-widthTemp = width;
 height = 1;
 
-polygon = -1;
-angle = -1;
-magnitude = 5;
-recalculate = true;
-broken = true;
-list = ds_list_create();
-list2 = ds_list_create();
-/*xVertexExtreme[0] = -1; // Leftmost vertex
-xVertexExtreme[1] = -1; // Rightmost vertex
-yVertexExtreme[0] = -1; // Topmost vertex
-yVertexExtreme[1] = -1; // Bottommost vertex
-resultantX[0] = x;
-resultantY[0] = y;
-resultantX[2] = x;
-resultantY[2] = y;*/
+majorId = -1;
+majorRadius = 2.5 * 20;
+minorId = -1;
+minorRadius = 2.5 * 20;
+thresholdId = -1;
+thresholdRadius = 1;
+angle = 0;
 
 if obj_tile_z.z >= 0 {
 	zfloor = obj_tile_z.z;

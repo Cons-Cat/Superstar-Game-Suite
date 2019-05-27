@@ -1,4 +1,6 @@
 /// @description Move camera
+camera_set_view_target(view_camera[0],-1);
+
 if obj_editor_gui.mode != 2 {
 	x -= lengthdir_x(panMagnitudeTemp,panAngleTemp)*20;
 	y -= lengthdir_y(panMagnitudeTemp,panAngleTemp)*20;
@@ -7,6 +9,7 @@ if obj_editor_gui.mode != 2 {
 	panX = 0;
 	panY = 0;
 	//placeZ = 0;
+	camera_set_view_pos(view_camera[0],x-camera_get_view_width(view_camera[0])/2,y-camera_get_view_height(view_camera[0])/2);
 	
 	panMagnitudeTemp = 0;
 	panMagnitudeSpd = 0;
@@ -68,10 +71,10 @@ if obj_editor_gui.mode != 2 {
 		yTo = obj_player_overworld.y;
 		zTo = obj_player_overworld.jumpHeight;
 		
-		rightQuarter = camera_get_view_x(obj_editor_gui.cameraRealGame) + camera_get_view_width(obj_editor_gui.cameraRealGame)/2 + 32 - panX;
-		leftQuarter = camera_get_view_x(obj_editor_gui.cameraRealGame) + camera_get_view_width(obj_editor_gui.cameraRealGame)/2 - 32 - panX;
-		upQuarter = camera_get_view_y(obj_editor_gui.cameraRealGame) + 120 + placeZ - panY;
-		downQuarter = camera_get_view_y(obj_editor_gui.cameraRealGame) + 160 + placeZ - panY;
+		rightQuarter = x + 32;
+		leftQuarter = x - 32;
+		upQuarter = y - 22;
+		downQuarter = y + 22;
 		
 		centerX = leftQuarter + (rightQuarter - leftQuarter)/2;
 		centerY = upQuarter + (downQuarter - upQuarter)/2;
@@ -216,8 +219,15 @@ if obj_editor_gui.mode != 2 {
 		}*/
 		
 		// Update place
-		x = placeX + panX;
-		y = placeY - placeZ + panY;
+		x = placeX;
+		y = placeY - placeZ;
+		
+		// Update view
+		if !anchored {
+			camera_set_view_pos(view_camera[0],x + panX - camera_get_view_width(view_camera[0])/2,y + panY - camera_get_view_height(view_camera[0])/2);
+		} else {
+			camera_set_view_pos(view_camera[0],(x + panX) * (1 - anchorId.magnitude) + (anchorId.trgX * anchorId.magnitude) - camera_get_view_width(view_camera[0])/2, (y + panY) * (1 - anchorId.magnitude) + (anchorId.trgY * anchorId.magnitude) - placeZ - camera_get_view_height(view_camera[0])/2);
+		}
 	}
 }
 
@@ -245,6 +255,16 @@ if placeY < 580 + 170 {
 }
 if placeY > room_height - 162 {
 	placeY = room_height - 162;
+}
+
+if camera_get_view_x(view_camera[0]) < 4 {
+	camera_set_view_pos(view_camera[0],4,camera_get_view_y(view_camera[0]));
+}
+if camera_get_view_x(view_camera[0]) > room_width - camera_get_view_width(view_camera[0]) {
+	camera_set_view_pos(view_camera[0],room_width - camera_get_view_width(view_camera[0]),camera_get_view_y(view_camera[0]));
+}
+if camera_get_view_y(view_camera[0]) < 606 {
+	camera_set_view_pos(view_camera[0],camera_get_view_x(view_camera[0]),606);
 }
 
 depth = obj_editor_gui.depth - 1;

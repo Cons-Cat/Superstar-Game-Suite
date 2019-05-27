@@ -55,6 +55,14 @@
             }
         },
         {
+            "Key": "06767fc6-8510-4d2f-80f2-6f53792a3460",
+            "Value": {
+                "id": "a434458c-e9db-410a-ba46-8578f919b255",
+                "resourcePath": "sprites\\spr_editor_region_target\\spr_editor_region_target.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "0b823086-0d47-4c64-b834-3413cb07f20b",
             "Value": {
                 "id": "27e89764-e142-4c8d-9bf6-e98358954b83",
@@ -1951,6 +1959,14 @@
             }
         },
         {
+            "Key": "a1643fff-d5cf-48be-9579-9ec1c24713c4",
+            "Value": {
+                "id": "e383f966-b691-45d8-8f7d-63a03fc5c79b",
+                "resourcePath": "objects\\obj_region_button_target\\obj_region_button_target.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "a2d33744-4d49-4e1d-976f-e98c3b93c65f",
             "Value": {
                 "id": "b287e058-5cbb-44cd-a6c8-d47bde5b7556",
@@ -2092,6 +2108,14 @@
                 "id": "bcaba812-8304-4560-9313-67faed299e76",
                 "resourcePath": "sprites\\spr_lucy_down_jump\\spr_lucy_down_jump.yy",
                 "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "ab03ec57-c942-4828-a37c-4f281cc41a51",
+            "Value": {
+                "id": "23ba4754-d67f-4258-9bbb-0e4d6f56e212",
+                "resourcePath": "objects\\obj_trigger_button_anchor\\obj_trigger_button_anchor.yy",
+                "resourceType": "GMObject"
             }
         },
         {
@@ -2647,6 +2671,14 @@
             }
         },
         {
+            "Key": "d27fcdc5-0412-4b80-b206-7ef628a853e9",
+            "Value": {
+                "id": "3783a98e-ba67-42fa-b498-c64e1a763638",
+                "resourcePath": "objects\\obj_trigger_anchor_region_editor\\obj_trigger_anchor_region_editor.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "d3d1033d-8a86-4ce3-a923-77b26c395a12",
             "Value": {
                 "id": "019309ec-aabc-4612-859b-5032d122fdc8",
@@ -2668,6 +2700,14 @@
                 "id": "a64f6168-cc22-4341-8855-de7bda1fd870",
                 "resourcePath": "sprites\\spr_lucy_right_jump\\spr_lucy_right_jump.yy",
                 "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "d5804622-c0bb-447c-8176-0431d211b215",
+            "Value": {
+                "id": "2e5b538d-17a7-434e-9ca9-0b1e0d12970b",
+                "resourcePath": "objects\\obj_trigger_anchor_region_level\\obj_trigger_anchor_region_level.yy",
+                "resourceType": "GMObject"
             }
         },
         {
@@ -2764,6 +2804,14 @@
                 "id": "9854a80d-4678-40fe-9777-f990b2755a9f",
                 "resourcePath": "sprites\\spr_arrow_target\\spr_arrow_target.yy",
                 "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "dc0309e5-66e9-4703-9e46-2232c7a534bd",
+            "Value": {
+                "id": "5ce26022-be6f-4b19-93bc-c87eee9b20b7",
+                "resourcePath": "objects\\obj_camera_target\\obj_camera_target.yy",
+                "resourceType": "GMObject"
             }
         },
         {

@@ -17,7 +17,7 @@ if canChangeSelect {
 	
 	for (i = 0; i < instance_number(obj_editor_terrain_par); i += 1) {
 		with instance_find(obj_editor_terrain_par,i) {
-			select = 0;
+			select = false;
 			canSelect = false;
 			
 			other.tempSelectInstance = self.id;
@@ -820,6 +820,9 @@ if mode = 2 {
 			instance_destroy();
 		}
 		with obj_trigger_pan_region_level {
+			instance_destroy();
+		}
+		with obj_trigger_anchor_region_level {
 			instance_destroy();
 		}
 		with obj_player_overworld {
