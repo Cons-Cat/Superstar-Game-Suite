@@ -85,6 +85,17 @@ if spawnButtons {
 		valueLength = string_width(arbitraryVal)*2 + 4;
 		trg = other.id;
 	}
+	with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
+		sortIndex = 5;
+		viewOn = 5;
+		label = "Zoom Percent";
+		buttonType = 2;
+		arbitraryVal = string(other.zoomVal);
+		valueLength = string_width(arbitraryVal)*2 + 4;
+		other.zoomId = self.id;
+		panelId = obj_subpanel_left.id;
+		trg = other.id;
+	}
 	
 	with obj_trigger_vertex {
 		if trg = other.id {
@@ -186,6 +197,13 @@ if select {
 	}
 	if instance_exists(obj_region_button_magnitude) {
 		self.magnitude = obj_region_button_magnitude.arbitraryVal;
+	}
+	if instance_exists(zoomId) {
+		if zoomId.arbitraryVal != "" {
+			self.zoomVal = real(zoomId.arbitraryVal);
+		} else {
+			self.zoomVal = 100;
+		}
 	}
 } else {
 	// Set collision mask to match the sprite mask when not selected

@@ -128,4 +128,4 @@ if fillHor > 0 {
 }
 
 x = camera_get_view_x(view_camera[viewOn]) + 2 + sortX;
-y = camera_get_view_y(view_camera[viewOn]) + 3 + sortY;
+y = camera_get_view_y(view_camera[viewOn]) + 3 + sortY - (panelId.panelHeight - (panelId.scrollVerBotBound - panelId.scrollVerTopBound + 9)) * panelId.scrollVerPartition/100;

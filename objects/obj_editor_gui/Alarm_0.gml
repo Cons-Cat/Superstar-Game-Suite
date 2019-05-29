@@ -69,21 +69,9 @@ with obj_trigger_cutscene_region_editor {
 			
 			// Camera pan action
 			if actionInd[other.actionTime[i],other.actionRowInd[i]] = 3 {
-				panAngle[other.actionTime[i]] = other.panAngle[i];
-				panMagnitude[other.actionTime[i]] = other.panMagnitude[i];
-				// The maximum speed spans the length of the vector in 1.05 seconds
-				panMagnitudeSpdMax[other.actionTime[i]] = other.panMagnitude[i] / (60 * 1.05);
-				
-				if other.easeInVal[i] != 0 {
-					panEaseIn[other.actionTime[i]] = other.easeInVal[i] / 320;
-				} else {
-					panEaseIn[other.actionTime[i]] = -1;
-				}
-				if other.easeOutVal[i] != 0 {
-					panEaseOut[other.actionTime[i]] = other.easeOutVal[i] / 320;
-				} else {
-					panEaseOut[other.actionTime[i]] = -1;
-				}
+				xNode[other.actionTime[i],other.actionRowInd[i]] = other.xNode[i];
+				yNode[other.actionTime[i],other.actionRowInd[i]] = other.yNode[i];
+				zoomVal[other.actionTime[i],other.actionRowInd[i]] = 1 - (other.zoomVal[i]/100);
 			}
 			
 			// Walk speed action
@@ -111,6 +99,7 @@ with obj_trigger_pan_region_editor {
 		angle = other.angle;
 		maxMagnitude = real(other.magnitude);
 		thresholdCount = 0;
+		maxZoom = 1 - (other.zoomVal / 100);
 		
 		for (i = 0; i < instance_number(obj_trigger_vertex); i += 1) {
 			if instance_find(obj_trigger_vertex,i).trg = other.id {
@@ -150,5 +139,6 @@ with obj_trigger_anchor_region_editor {
 		anchorId = other.anchorId;
 		trgX = other.trgX;
 		trgY = other.trgY;
+		maxZoom = 1 - (other.zoomVal / 100);
 	}
 }

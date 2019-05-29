@@ -14,6 +14,7 @@ moveDirection = 1;
 doubleClickCounter = 0;
 trg = -1;
 trgXOrigin = 0;
+cameraViewOn = 4;
 
 scrollPanelSquish = 0;
 panelWidth = 0;

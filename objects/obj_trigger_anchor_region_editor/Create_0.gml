@@ -8,13 +8,11 @@ modeForSelectVal = 4;
 width = 1;
 height = 1;
 
-majorId = -1;
-majorRadius = 2.5 * 20;
-minorId = -1;
 minorRadius = 2.5 * 20;
-thresholdId = -1;
+majorRadius = 2 * 20;
 thresholdRadius = 1;
 angle = 0;
+zoomVal = 100;
 
 if obj_tile_z.z >= 0 {
 	zfloor = obj_tile_z.z;

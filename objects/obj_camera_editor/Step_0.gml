@@ -9,6 +9,10 @@ if obj_editor_gui.mode != 2 {
 	panX = 0;
 	panY = 0;
 	//placeZ = 0;
+	zoomLevel = 1;
+	anchored = false;
+	cutscenePan = false;
+	camera_set_view_size(view_camera[0], baseZoomWidth, baseZoomHeight);
 	camera_set_view_pos(view_camera[0],x-camera_get_view_width(view_camera[0])/2,y-camera_get_view_height(view_camera[0])/2);
 	
 	panMagnitudeTemp = 0;
@@ -171,62 +175,61 @@ if obj_editor_gui.mode != 2 {
 			placeY += (yTo - upQuarter)/10*accelY;
 		}
 		
-		/*if trgRegion != -1 {
-			if moving[i] {
-				panX = lengthdir_x(panMagnitudeTemp,panAngle[i])*20;
-				panY = lengthdir_y(panMagnitudeTemp,panAngle[i])*20;
-			}
-			
-			panAngleTemp = panAngle[i];
-			
-			// Pan
-			if panMagnitudeTemp <= panMagnitude[i] - panMagnitudeSpd {
-				panMagnitudeTemp += panMagnitudeSpd;
-			} else {
-				// Snap to end
-				panMagnitudeTemp = panMagnitude[i];
-			}
-			
-			// Accelerate / Decelerate
-			panMagnitudeDecelDistance = sqr(panMagnitudeSpdMax[i]) / (2*panEaseOut[i]) / 60;
-			
-			if panMagnitudeTemp < panMagnitude[i] - panMagnitudeDecelDistance {
-				// Accelerate
-				if panMagnitudeSpd < panMagnitudeSpdMax[i] && panEaseIn[i] != -1 {
-					panMagnitudeSpd += panEaseIn[i];
-				} else {
-					// Max speed
-					panMagnitudeSpd = panMagnitudeSpdMax[i];
-				}
-			} else {
-				// Deccelerate
-				if panMagnitudeSpd > 0.0075 && panEaseOut[i] != -1 {
-					panMagnitudeSpd -= panEaseOut[i];
-				} else {
-					// Min speed
-					panMagnitudeSpd = 0.0075;
-				}
-			}
-		} else {
-			if i < trgRegion.timeIndexCalc {
-				while i < trgRegion.timeIndexCalc {
-					moving[i] = false;
-					i += 1;
-				}
-			} else {
-				moving[i] = true;
-			}
-		}*/
-		
 		// Update place
 		x = placeX;
 		y = placeY - placeZ;
+		
+		// Update zooming
+		if zoomLevel != tempZoomLevel {
+			// Get current size
+			view_w = camera_get_view_width(view_camera[0]);
+			view_h = camera_get_view_height(view_camera[0]);
+			
+			// Get new sizes by interpolating current and target zoomed size
+			new_w = lerp(view_w, baseZoomWidth / zoomLevel, zoomSpd);
+			new_h = lerp(view_h, baseZoomHeight / zoomLevel, zoomSpd);
+			
+			// Prevent zooming out of the world
+			if new_w > room_width {
+				new_w = room_width;
+				new_h = room_width/16 * 9;
+				
+				zoomLevel = baseZoomWidth / new_w;
+			}
+			if new_h > room_height {
+				new_h = room_height;
+				new_w = room_height/9 * 16;
+				
+				zoomLevel = baseZoomHeight / new_h;
+			}
+			
+			// Apply the new size
+			camera_set_view_size(view_camera[0], new_w, new_h);
+			
+			// Update temp value once the zooming finishes interpolation
+			if abs(new_w - view_w) < 0.5 && abs(new_h - view_h) < 0.5 {
+				tempZoomLevel = zoomLevel;
+			}
+		}
+		
+		// Cutscene panning
+		if cutscenePan {
+			if magnitudeTemp < 1 {
+				magnitudeTemp += cutscenePanSpd;
+			} else {
+				magnitudeTemp = 1;
+				cutscenePan = false;
+			}
+			
+			anchorId.magnitude = ( dsin( magnitudeTemp / 1  * 180 - 90) + 1 ) / 2;
+			show_debug_message(anchorId.magnitude);
+		}
 		
 		// Update view
 		if !anchored {
 			camera_set_view_pos(view_camera[0],x + panX - camera_get_view_width(view_camera[0])/2,y + panY - camera_get_view_height(view_camera[0])/2);
 		} else {
-			camera_set_view_pos(view_camera[0],(x + panX) * (1 - anchorId.magnitude) + (anchorId.trgX * anchorId.magnitude) - camera_get_view_width(view_camera[0])/2, (y + panY) * (1 - anchorId.magnitude) + (anchorId.trgY * anchorId.magnitude) - placeZ - camera_get_view_height(view_camera[0])/2);
+			camera_set_view_pos(view_camera[0],( (x + panX) * (1 - anchorId.magnitude) ) + (anchorId.trgX * anchorId.magnitude) - camera_get_view_width(view_camera[0])/2, ( (y + panY) * (1 - anchorId.magnitude) ) + (anchorId.trgY * anchorId.magnitude) - placeZ - camera_get_view_height(view_camera[0])/2);
 		}
 	}
 }

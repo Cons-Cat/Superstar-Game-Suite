@@ -38,5 +38,11 @@ panMagnitudeSpd = 0;
 trgRegion = -1;
 anchored = false;
 
+zoomLevel = 1;
+zoomSpd = 0.055;
+tempZoomLevel = zoomLevel;
+baseZoomWidth = 512;
+baseZoomHeight = 288;
+
 view_visible[2] = false;
 view_visible[3] = false;

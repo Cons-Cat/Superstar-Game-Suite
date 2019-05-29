@@ -6,7 +6,6 @@ if visible {
 				with obj_editor_button_parent {
 					if !select {
 						canSelect = false;
-						//obj_cutscene_actor_dummy_lucy.canSelect = false;
 					}
 				}
 			}

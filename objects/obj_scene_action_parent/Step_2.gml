@@ -1,6 +1,9 @@
 /// @description Add cutscene action
 if select {
-	obj_panel_bot.addClick = value;
+	if obj_panel_bot.hasRowSelected {
+		obj_panel_bot.addClick = value;
+	}
+	
 	select = false;
 }
 

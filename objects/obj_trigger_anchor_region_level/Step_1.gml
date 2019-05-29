@@ -18,18 +18,24 @@ if collision_ellipse(x1+thresholdRadius*20,y1-thresholdRadius*20,x2-thresholdRad
 	if distance < radiusOuter {
 		if distance > radiusInner {
 			magnitude = ( dsin( (radiusOuter - distance) / (radiusOuter - radiusInner) * 180 - 90 ) + 1 ) / 2;
+			zoom = 1 - (maxZoom * magnitude);
 		} else {
 			magnitude = 1;
+			zoom = 1 - maxZoom;
 		}
 	} else {
 		magnitude = 0;
+		zoom = 1;
 	}
 	
 	obj_camera_editor.anchored = true;
+	obj_camera_editor.zoomLevel = self.zoom;
 } else {
 	if activated {
 		obj_camera_editor.anchored = false;
+		
 		activated = false;
 		magnitude = 0;
+		zoom = 1 - maxZoom;
 	}
 }

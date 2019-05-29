@@ -84,7 +84,6 @@ if obj_editor_gui.mode = 4 { // Triggers mode
 	if instance_exists(obj_cutscene_target_parent) {
 		visible = false;
 	} else {
-		visible = true;
+		//visible = true;
 	}
 }
-

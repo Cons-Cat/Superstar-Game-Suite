@@ -1,75 +1,42 @@
 /// @description Insert description here
 draw_set_font(font);
+draw_set_color(c_white);
+draw_sprite(sprite_index,image_index,x,y);
 
-if gone {
-	// Draw backdrop
-	draw_set_color(col1);
-	draw_rectangle(x-11,y-51,x+11,y-27,false);
-	
-	// Draw direction display
-	draw_set_color(col2);
-	draw_line(x,y-41,x+lengthdir_x(10,panAngle),y-41+lengthdir_y(10,panAngle));
-	
-	// Draw connection cable
-	draw_sprite_ext(spr_interface_panel_line_ver,0,x,y,1,pointY-10-y,0,c_white,1);
-	draw_sprite(spr_interface_panel_line_curve,0,x,pointY-10);
-	draw_sprite_ext(spr_interface_panel_line_hor,0,x+5,pointY-7,pointX-15-x,1,0,c_white,1);
-	
-	// Draw menu
-	draw_sprite(sprite_index,0,x,y);
-	
-	// Draw incrementation buttons
-	for (i = 0; i <= 2; i += 1) {
-		// Offsets
-		if i = 0 {
-			xOffButtons = 0;
-			yOffButtons = 0;
-		}
-		if i = 1 {
-			xOffButtons = 78;
-			yOffButtons = 0;
-		}
-		if i = 2 {
-			xOffButtons = 78;
-			yOffButtons = 25;
-		}
-		
-		draw_sprite(spr_camera_integer_button,arrowSelect[0,i],x-11+xOffButtons,y-21-yOffButtons);
-		draw_sprite(spr_camera_integer_button,arrowSelect[1,i],x-3+xOffButtons,y-21-yOffButtons);
-		draw_sprite(spr_camera_integer_button,arrowSelect[2,i],x+8+xOffButtons,y-21-yOffButtons);
-		draw_sprite(spr_camera_integer_button,arrowSelect[3,i],x+16+xOffButtons,y-21-yOffButtons);
-		
-		draw_sprite_ext(spr_camera_integer_button,arrowSelect[4,i],x-11+xOffButtons,y-7-yOffButtons,1,-1,0,c_white,1);
-		draw_sprite_ext(spr_camera_integer_button,arrowSelect[5,i],x-3+xOffButtons,y-7-yOffButtons,1,-1,0,c_white,1);
-		draw_sprite_ext(spr_camera_integer_button,arrowSelect[6,i],x+8+xOffButtons,y-7-yOffButtons,1,-1,0,c_white,1);
-		draw_sprite_ext(spr_camera_integer_button,arrowSelect[7,i],x+16+xOffButtons,y-7-yOffButtons,1,-1,0,c_white,1);
-	}
-	
-	// Draw magnitude values
-	draw_set_color(c_white);
-	
-	for (i = 0; i <= 2; i += 1) {
-		// Offsets
-		if i = 0 {
-			xOffButtons = 0;
-			yOffButtons = 0;
-		}
-		if i = 1 {
-			xOffButtons = 78;
-			yOffButtons = 0;
-		}
-		if i = 2 {
-			xOffButtons = 78;
-			yOffButtons = 25;
-		}
-		
-		draw_text(x-15+xOffButtons,y-19-yOffButtons,val[0,i]);
-		draw_text(x-7+xOffButtons,y-19-yOffButtons,val[1,i]);
-		draw_text(x+4+xOffButtons,y-19-yOffButtons,val[2,i]);
-		draw_text(x+12+xOffButtons,y-19-yOffButtons,val[3,i]);
-	}
-	
-	// Draw easing values
-	draw_sprite(spr_camera_slider,sliderSelect[0],x + 25 + (easeOutSliderVal/20)*34,y - 41);
-	draw_sprite(spr_camera_slider,sliderSelect[1],x + 25 + (easeInSliderVal/20)*34,y - 16);
-}
+// Fill
+draw_sprite_ext(spr_chat_outline_white,4,x,y+10-45,6,3,0,c_white,1);
+draw_sprite_ext(spr_chat_outline_white,4,x,y+10-45,4,4,0,c_white,1);
+draw_sprite(spr_chat_fill,0,x-25+1,y+10-60+1);
+draw_sprite(spr_chat_fill,2,x+25-1,y+10-60+1);
+
+draw_sprite(spr_chat_fill,6,x-25+1,y+10-30-1);
+draw_sprite(spr_chat_fill,8,x+25-1,y+10-30-1);
+
+// Color outline
+draw_sprite(spr_chat_outline_white,0,x-25,y+10-60);
+draw_sprite_ext(spr_chat_outline_white,1,x,y+10-60,4,1,0,c_white,1);
+draw_sprite(spr_chat_outline_white,2,x+25,y+10-60);
+
+draw_sprite_ext(spr_chat_outline_white,3,x-25,y+10-45,1,2,0,c_white,1);
+draw_sprite_ext(spr_chat_outline_white,5,x+25,y+10-45,1,2,0,c_white,1);
+
+draw_sprite(spr_chat_outline_white,6,x-25,y+10-30);
+draw_sprite_ext(spr_chat_outline_white,7,x,y+10-30,4,1,0,c_white,1);
+draw_sprite(spr_chat_outline_white,8,x+25,y+10-30);
+
+// Dark outline
+draw_sprite(spr_chat_outline_dark,0,x-25,y+10-60);
+draw_sprite(spr_chat_outline_dark,2,x+25,y+10-60);
+
+draw_sprite(spr_chat_outline_dark,6,x-25,y+10-30);
+draw_sprite(spr_chat_outline_dark,8,x+25,y+10-30);
+
+// Draw text
+draw_set_halign(fa_center);
+draw_text(x,y+10-60,"Zoom");
+
+draw_set_color(orange);
+draw_text(x,y-30,zoomVal);
+
+draw_set_halign(fa_left);
+draw_set_color(c_white);

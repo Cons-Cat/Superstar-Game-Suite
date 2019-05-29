@@ -12,6 +12,7 @@ mouseClickOff = 0;
 moveDirection = 1;
 doubleClickCounter = 0;
 trgXOrigin = 0;
+cameraViewOn = 3;
 
 scrollPanelSquish = 0;
 panelWidth = 0;

@@ -3,9 +3,11 @@ event_inherited();
 
 // Selecting
 if mouseCheckX >= self.x - sprite_width/2 && mouseCheckX <= self.x + sprite_width/2 && mouseCheckY >= self.y - sprite_height + 4 && mouseCheckY <= self.y + 4 {
-	if mouse_check_button_pressed(mb_left) {
-		if canSelect {
-			select = true;
+	if visible {
+		if mouse_check_button_pressed(mb_left) {
+			if canSelect {
+				select = true;
+			}
 		}
 	}
 }

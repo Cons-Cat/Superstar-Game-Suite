@@ -1,8 +1,5 @@
 /// @description Insert description here
-
 baseY = 420;
-relativeMouseX = window_view_mouse_get_x(1);
-relativeMouseY = window_view_mouse_get_y(1);
 x = 512;
 
 if relativeMouseX <= x + 60 && relativeMouseX >= x - 60 {
@@ -234,35 +231,33 @@ if addClick != -1 {
 			actionColor[totalActions] = make_color_rgb(65,160,160); // Cyan
 			
 			if !instance_exists(obj_cutscene_pan) {
-				with instance_create_layer(cutsceneInstanceId.x-10,cutsceneInstanceId.y-2,"Instances",obj_cutscene_pan) {
+				with instance_create_layer(cutsceneInstanceId.x+10,cutsceneInstanceId.y+10,"Instances",obj_cutscene_pan) {
 					timeIndex = other.totalActions;
 					trg = other.cutsceneInstanceId;
-					selectState = 1;
-					pointX = trg.x + 10;
-					pointY = trg.y + 10;
-					zfloor = trg.zfloor;
-					panMagnitude = 10;
-					easeInVal = 10;
-					easeInSliderVal = easeInVal;
-					easeOutVal = 10;
-					easeOutSliderVal = easeOutVal;
-					
-					valPass[0] = panMagnitude;
-					valPass[1] = easeInVal;
-					valPass[2] = easeOutVal;
-					
-					for (j = 0; j <= 3; j += 1) {
-						for (i = 0; i <= 2; i += 1) {
-							if j = 0 {
-								val[j,i] = 1;
-							} else {
-								val[j,i] = 0;
-							}
-						}
-					}
+					zoomVal = "100";
+					//decimalPlace = -1;
 				}
 			}
 		}
+		
+		/*if addClick = 4 {
+			actionInd[totalActions] = 4; // Camera zoom action
+			actionColor[totalActions] = make_color_rgb(23,79,124); // Deep blue
+			
+			if !instance_exists(obj_cutscene_zoom) {
+				with instance_create_layer(cutsceneInstanceId.x-10,cutsceneInstanceId.y-2,"Instances",obj_cutscene_zoom) {
+					timeIndex = other.totalActions;
+					rowIndex = other.i;
+					trg = other.actorId[other.i];
+					zfloor = trg.zfloor;
+					width = 6;
+					height = 3;
+					
+					placex = xstart - width*5;
+					placey = ystart;
+				}
+			}
+		}*/
 		
 		if addClick = 5 {
 			actionInd[totalActions] = 5; // Walk speed action
@@ -485,44 +480,10 @@ for (i = 1; i <= totalActions; i += 1) {
 									if actionInd[i] = 3 {
 										// Camera pan action
 										if !instance_exists(obj_cutscene_pan) {
-											with instance_create_layer(cutsceneInstanceId.x-10,cutsceneInstanceId.y-2,"Instances",obj_cutscene_pan) {
+											with instance_create_layer(xNode[i],yNode[i],"Instances",obj_cutscene_pan) {
 												timeIndex = other.i;
 												trg = other.cutsceneInstanceId;
-												panAngle = other.panAngle[timeIndex];
-												panMagnitude = other.panMagnitude[timeIndex];
-												easeInVal = other.easeInVal[timeIndex];
-												easeInSliderVal = easeInVal;
-												easeOutVal = other.easeOutVal[timeIndex];
-												easeOutSliderVal = easeOutVal;
-												
-												selectState = 0;
-												pointX = trg.x + 10;
-												pointY = trg.y + 10;
-												zfloor = trg.zfloor;
-												
-												valPass[0] = panMagnitude;
-												valPass[1] = easeInVal;
-												valPass[2] = easeOutVal;
-												
-												for (i = 0; i <= 2; i += 1) {
-													a = 0;
-													
-													for (j = 0; j <= 3; j += 1) {
-														if string_char_at(string_digits(string_digits(valPass[i])),j+1-a) != "" {
-															val[j,i] = real(string_char_at(string_digits(valPass[i]),j+1-a));
-														} else {
-															val[j,i] = 0;
-														}
-														
-														if j = 0 {
-															if valPass[i] < 10 {
-																// Insert a 0 if val[] is not a double-digit integer
-																val[0,i] = 0;
-																a = 1;
-															}
-														}
-													}
-												}
+												zoomVal = string(other.zoomVal[timeIndex]);
 											}
 										}
 									}
@@ -674,11 +635,10 @@ if cutsceneInstanceId != -1 {
 					}
 				}
 				
-				if actionInd[j] = 3 { // Camera pan action
-					cutsceneInstanceId.panAngle[j] = self.panAngle[j];
-					cutsceneInstanceId.panMagnitude[j] = self.panMagnitude[j];
-					cutsceneInstanceId.easeInVal[j] = self.easeInVal[j];
-					cutsceneInstanceId.easeOutVal[j] = self.easeOutVal[j];
+				if actionInd[j] = 3 { // Camera action
+					cutsceneInstanceId.xNode[j] = self.xNode[j];
+					cutsceneInstanceId.yNode[j] = self.yNode[j];
+					cutsceneInstanceId.zoomVal[j] = self.zoomVal[j];
 				}
 				
 				if actionInd[j] = 5 { // Walk speed action

@@ -1,6 +1,7 @@
 /// @description Define parameters
 event_inherited();
 
+cameraViewOn = 5;
 baseY = obj_panel_bot.y - 144;
 dragY = baseY;
 moveToY = baseY;

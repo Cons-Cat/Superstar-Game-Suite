@@ -90,6 +90,16 @@ if spawnButtons {
 		viewOn = 5;
 		panelId = obj_subpanel_left.id;
 	}
+	/*with instance_create_layer(x,y,"Instances",obj_scene_action_parent) {
+		sortIndex = 8;
+		viewOn = 5;
+		panelId = obj_subpanel_left.id;
+		objIndex = -1;
+		value = 4;
+		label = "Zooming";
+		insideCol = make_color_rgb(23,79,124); // Deep blue
+		sprite_index = spr_scene_zoom;
+	}*/
 	
 	with obj_trigger_vertex {
 		if trg = other.id {

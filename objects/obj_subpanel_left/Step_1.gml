@@ -1,6 +1,5 @@
 /// @description 
-relativeMouseX = window_view_mouse_get_x(1);
-relativeMouseY = window_view_mouse_get_y(1);
+event_inherited();
 
 if relativeMouseX <= x + 60 && relativeMouseX >= x - 60 {
 	if relativeMouseY >= y - 21 && relativeMouseY <= y {
@@ -121,18 +120,6 @@ if y < obj_panel_left.scrollHorBotBound + 22 {
 scrollVerTopBound = y + 5;
 scrollVerBotBound = obj_panel_bot.y - 1;
 obj_panel_left.scrollVerBotBound = self.y - 2;
-
-// Scrollbars
-event_inherited();
-
-if scrollHorRightBound > 136 {
-	x = floor((scrollHorRightBound + scrollVerRightBound) / 2);
-} else {
-	x = scrollHorRightBound - 60;
-}
-
-scrollHorWidth = obj_panel_left.scrollHorWidth;
-scrollVerHeight = (scrollVerFactor) * scrollVerBotBound;
 
 // Viewports
 if !obj_panel_bot.select {

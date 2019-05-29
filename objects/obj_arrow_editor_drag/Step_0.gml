@@ -3,9 +3,11 @@ event_inherited();
 
 // Selecting
 if mouseCheckX >= bbox_left && mouseCheckX <= bbox_right && mouseCheckY >= bbox_top && mouseCheckY <= bbox_bottom {
-	if mouse_check_button_pressed(mb_left) {
-		if canSelect {
-			select = true;
+	if visible {
+		if mouse_check_button_pressed(mb_left) {
+			if canSelect {
+				select = true;
+			}
 		}
 	}
 }

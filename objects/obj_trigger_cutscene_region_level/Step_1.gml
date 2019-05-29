@@ -78,18 +78,21 @@ if activated {
 				if actionInd[timeIndexCalc,i] = 3 {
 					// Expresses intent to the camera. The actual movement is handled by that instance.
 					if instance_exists(obj_camera_editor) {
-						obj_camera_editor.trgRegion = self.id;
-						obj_camera_editor.panAngle[timeIndexCalc] = self.panAngle[timeIndexCalc,i];
-						obj_camera_editor.panMagnitude[timeIndexCalc] = self.panMagnitude[timeIndexCalc,i];
-						obj_camera_editor.panMagnitudeSpdMax[timeIndexCalc] = self.panMagnitudeSpdMax[timeIndexCalc,i];
+						obj_camera_editor.anchored = true;
+						obj_camera_editor.zoomLevel = 1 - self.zoomVal[timeIndexCalc,i];
+						obj_camera_editor.anchorId = self.id;
+						obj_camera_editor.cutscenePan = true;
+						obj_camera_editor.magnitudeTemp = 0;
+						self.trgX = self.xNode[timeIndexCalc,i];
+						self.trgY = self.yNode[timeIndexCalc,i];
+						obj_camera_editor.cutscenePanSpd = point_distance(camera_get_view_x(obj_editor_gui.cameraRealGame) + camera_get_view_width(obj_editor_gui.cameraRealGame)/2,camera_get_view_y(obj_editor_gui.cameraRealGame) + camera_get_view_height(obj_editor_gui.cameraRealGame)/2,trgX,trgY) / ( 20 * 60 * 4 );
 						
-						obj_camera_editor.panEaseIn[timeIndexCalc] = self.panEaseIn[timeIndexCalc,i];
-						obj_camera_editor.panEaseOut[timeIndexCalc] = self.panEaseOut[timeIndexCalc,i];
+						if obj_camera_editor.cutscenePanSpd > 0.0175 {
+							obj_camera_editor.cutscenePanSpd = 0.0175;
+						}
 					}
+					
 					if instance_exists(obj_camera) {
-						obj_camera.trgRegion[timeIndexCalc] = self.id;
-						obj_camera.panAngle[timeIndexCalc] = self.panAngle[timeIndexCalc,i];
-						obj_camera.panMagnitude[timeIndexCalc] = self.panMagnitude[timeIndexCalc,i];
 					}
 				}
 				

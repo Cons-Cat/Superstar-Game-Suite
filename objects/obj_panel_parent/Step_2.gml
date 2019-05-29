@@ -12,8 +12,8 @@ if scrollVerFactor > 1 {
 }
 
 // Scrolling
-if (relativeMouseX >= scrollHorLeftBound && relativeMouseX <= scrollVerRightBound) {
-	if (relativeMouseY >= scrollHorTopBound && relativeMouseY <= scrollVerBotBound) {
+if (relativeMouseX >= scrollHorLeftBound && relativeMouseX <= scrollHorRightBound) || (relativeMouseX >= scrollVerLeftBound && relativeMouseX <= scrollVerRightBound) {
+	if (relativeMouseY >= scrollVerTopBound && relativeMouseY <= scrollVerBotBound) || (relativeMouseY >= scrollHorTopBound && relativeMouseY <= scrollHorBotBound) {
 		if mouse_wheel_up() {
 			if keyboard_check(vk_shift) {
 				if scrollHorPartition < 100 - 100 / (panelWidth / (scrollHorRightBound - scrollHorLeftBound) * 2) {
@@ -64,7 +64,7 @@ scrollVerHeight = scrollVerFactor * (scrollVerBotBound - scrollVerTopBound); // 
 if scrollHorSelect {
 	// Drag horizontal scroll bar
 	if scrollPanelHorDefined {
-		scrollHorX = mouse_x - scrollHorSelectOff;
+		scrollHorX = relativeMouseX - scrollHorSelectOff;
 		scrollHorPartition = (scrollHorX - scrollHorLeftBound) / ((scrollHorRightBound - scrollHorLeftBound) - scrollHorWidth) * 100;
 		
 		if scrollHorX < x {
@@ -83,10 +83,10 @@ if scrollHorSelect {
 }
 
 if scrollVerSelect {
-	if scrollPanelVerDefined {
+	//if scrollPanelVerDefined {
 		// Drag vertical scroll bar
-		scrollVerY = mouse_y - scrollVerSelectOff;
-		scrollVerPartition = (scrollVerY - scrollVerTopBound) / (scrollVerBotBound - scrollVerHeight) * 100;
+		scrollVerY = relativeMouseY - scrollVerSelectOff;
+		scrollVerPartition = (scrollVerY - scrollVerTopBound) / (scrollVerBotBound - scrollVerTopBound - scrollVerHeight) * 100;
 		
 		if scrollVerY < scrollVerTopBound {
 			scrollVerY = scrollVerTopBound;
@@ -97,10 +97,11 @@ if scrollVerSelect {
 			scrollVerY = scrollVerBotBound - scrollVerHeight;
 			scrollVerPartition = 100;
 		}
-	}
+		show_debug_message(scrollVerPartition);
+	//}
 } else {
 	// Adapt to moving panel
-	// Top Boundary + Percentage * Bottom Boundary
+	// Top Boundary + Percentage * Bottommost Boundary for the top edge
 	scrollVerY = scrollVerTopBound + (scrollVerPartition/100) * (scrollVerBotBound - scrollVerTopBound - scrollVerHeight); // Net y coordinate of clickable scrollbar
 }
 

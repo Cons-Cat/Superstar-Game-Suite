@@ -60,6 +60,17 @@ if spawnButtons {
 		panelId = obj_subpanel_left.id;
 		trg = other.id;
 	}
+	with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
+		sortIndex = 4;
+		viewOn = 5;
+		label = "Zoom Percent";
+		buttonType = 2;
+		arbitraryVal = string(other.zoomVal);
+		valueLength = string_width(arbitraryVal)*2 + 4;
+		other.zoomId = self.id;
+		panelId = obj_subpanel_left.id;
+		trg = other.id;
+	}
 	
 	obj_subpanel_left.tempY = obj_subpanel_left.y;
 	obj_subpanel_left.moveDirection = 1;
@@ -101,6 +112,14 @@ if select {
 			self.thresholdRadius = real(thresholdId.arbitraryVal);
 		} else {
 			self.thresholdRadius = 0;
+		}
+	}
+	
+	if instance_exists(zoomId) {
+		if zoomId.arbitraryVal != "" {
+			self.zoomVal = real(zoomId.arbitraryVal);
+		} else {
+			self.zoomVal = 100;
 		}
 	}
 	

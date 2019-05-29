@@ -1,2 +1,2 @@
 /// @description Depth calculation
-depth = obj_editor_gui.depth -(y + zfloor*20 + 20) - zfloor - room_height - 100;
+depth = obj_editor_gui.depth -(y + 20) - room_height - 1000;

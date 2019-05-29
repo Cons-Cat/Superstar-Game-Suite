@@ -1,6 +1,7 @@
 /// @description Insert description here
 event_inherited();
 
+cameraViewOn = 2;
 baseX = 833;
 dragX = baseX;
 moveToX = baseX;

@@ -1,7 +1,7 @@
 /// @description Insert description here
+event_inherited();
+
 baseX = 191;
-relativeMouseX = window_view_mouse_get_x(1);
-relativeMouseY = window_view_mouse_get_y(1);
 y = 242;
 
 if mouse_x >= x && mouse_x <= x + 21 {
@@ -135,8 +135,6 @@ if mouse_check_button_released(mb_left) {
 
 scrollHorRightBound = x - 1;
 obj_subpanel_left.scrollHorRightBound = self.scrollHorRightBound;
-
-event_inherited();
 
 // Squish when panel offers less space than needed
 if x <= 16 {

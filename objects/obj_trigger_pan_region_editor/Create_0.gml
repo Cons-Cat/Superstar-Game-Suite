@@ -12,6 +12,7 @@ height = 1;
 polygon = -1;
 angle = -1;
 magnitude = 5;
+zoomVal = 100;
 recalculate = true;
 broken = true;
 list = ds_list_create();

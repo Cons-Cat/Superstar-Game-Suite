@@ -41,10 +41,9 @@ for (j = 1; j <= trgFrom.totalActions; j += 1) {
 	}
 	
 	if trgFrom.actionInd[j] = 3 { // Camera pan action
-		trgTo.panAngle[j] = trgFrom.panAngle[j];
-		trgTo.panMagnitude[j] = trgFrom.panMagnitude[j];
-		trgTo.easeInVal[j] = trgFrom.easeInVal[j];
-		trgTo.easeOutVal[j] = trgFrom.easeOutVal[j];
+		trgTo.xNode[j] = trgFrom.xNode[j];
+		trgTo.yNode[j] = trgFrom.yNode[j];
+		trgTo.zoomVal[j] = trgFrom.zoomVal[j];
 	}
 	
 	if trgFrom.actionInd[j] = 5 { // Walk speed action
