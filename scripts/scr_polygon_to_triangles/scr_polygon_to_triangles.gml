@@ -29,7 +29,7 @@
     points = ds_list_create();
     polyX = ds_list_create();
     polyY = ds_list_create();
- 
+	
     i = 0;
     repeat (polygonSize) 
     {
@@ -37,7 +37,7 @@
         ds_list_add(polyY, ds_list_find_value(polygon, i+1));
         i += 2;
     }
- 
+	
     // 1. For (n - 3) vertices
     n = polygonSize;
     for (n = polygonSize; n > 3; n -= 1) 
@@ -50,11 +50,11 @@
             i = floor(random(ds_list_size(points)));
             A = ds_list_find_value(points, i);
             ds_list_delete(points, i);
- 
+			
             //  b. Pick the next two points
             B = (A + 1) mod n;
             C = (A + 2) mod n;
- 
+			
             //  c. Make a triangle with the selected points
             x0 = ds_list_find_value(polyX, A);
             y0 = ds_list_find_value(polyY, A);
@@ -62,7 +62,7 @@
             y1 = ds_list_find_value(polyY, B);
             x2 = ds_list_find_value(polyX, C);
             y2 = ds_list_find_value(polyY, C);
- 
+			
             //  d. If triangle is counter-clockwise...
             if ((x1 - x0) * (y2 - y0) + (y0 - y1) * (x2 - x0) < 0)
             {
@@ -94,7 +94,7 @@
                         }
                     }
                 }
- 
+				
                 //  e.  ...then add the triangle to list and remove the unshared vertex
                 if (good) 
                 {
@@ -111,7 +111,7 @@
             }
         }
     }
- 
+	
     //  2. There are only three vertices left, so add the final triangle to the list
     ds_list_add(triangles, ds_list_find_value(polyX, 0));
     ds_list_add(triangles, ds_list_find_value(polyY, 0));
@@ -119,11 +119,11 @@
     ds_list_add(triangles, ds_list_find_value(polyY, 1));
     ds_list_add(triangles, ds_list_find_value(polyX, 2));
     ds_list_add(triangles, ds_list_find_value(polyY, 2));
- 
+	
     //  3. Clean up
     ds_list_destroy(polyX);
     ds_list_destroy(polyY);
     ds_list_destroy(points);
- 
+	
     return triangles;
 }

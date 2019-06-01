@@ -1,6 +1,8 @@
 /// @description Insert description here
 event_inherited();
 
+x = obj_panel_left.baseX + 10;
+
 if spawnButtons {
 	with instance_create_layer(obj_panel_right.x,78,"Instances",obj_instance_button_terrain) {
 		sortIndex = 0;

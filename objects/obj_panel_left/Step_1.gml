@@ -1,7 +1,7 @@
 /// @description Insert description here
 event_inherited();
 
-baseX = 191;
+baseX = (window_get_width() - 320 * obj_editor_gui.realPortScaleHor)/2 - 1;
 y = 242;
 
 if mouse_x >= x && mouse_x <= x + 21 {
@@ -24,10 +24,10 @@ if select {
 		select = false;
 		
 		moveToX = round((relativeMouseX - mouseClickOff - 1) / 10) * 10 - 1;
-		if moveToX <=  221 && moveToX > 131 {
-			moveToX = 191;
+		if moveToX <=  baseX + 30 && moveToX > baseX - 30 {
+			moveToX = baseX;
 		}
-		if moveToX <= 131 {
+		if moveToX <= baseX - 30 {
 			moveToX = 0;
 		}
 		
@@ -102,6 +102,16 @@ if select {
 	x = dragX;
 }
 
+// On base
+if x = baseX {
+	onBase = 1;
+} else {
+	onBase = 0;
+}
+if x = 0 {
+	onBase = 2;
+}
+
 // Boundaries
 if x < 0 {
 	x = 0;
@@ -135,6 +145,9 @@ if mouse_check_button_released(mb_left) {
 
 scrollHorRightBound = x - 1;
 obj_subpanel_left.scrollHorRightBound = self.scrollHorRightBound;
+scrollHorTopBound = obj_panel_top.y + 11;
+scrollHorBotBound = obj_panel_top.y + 26;
+scrollVerTopBound = obj_panel_top.y + 27;
 
 // Squish when panel offers less space than needed
 if x <= 16 {
@@ -144,17 +157,19 @@ if x <= 16 {
 }
 
 // Viewports
+camera_set_view_pos(obj_editor_gui.cameraLeftPanel,view_wport[1] + 1 + camera_get_view_width(obj_editor_gui.cameraRightPanel) + (scrollHorX-16)/scrollHorFactor,scrollVerY);
+camera_set_view_size(view_camera[2], x - 15, scrollVerBotBound);
+
+view_set_wport(2,x - 15);
+view_set_hport(2,scrollVerBotBound)
+
 switch obj_editor_gui.mode {
 	// Tiling mode
 	case 3:
 		if x > 16 && obj_big_button_tiling.spawnButtons {
 			view_set_visible(2,true);
 			
-			camera_set_view_pos(obj_editor_gui.cameraLeftPanel,camera_get_view_x(obj_editor_gui.cameraRightPanel) + camera_get_view_width(obj_editor_gui.cameraRightPanel) + (scrollHorX-16)/scrollHorFactor,scrollVerY);
-			camera_set_view_size(view_camera[2], x - 15, scrollVerBotBound);
-			
-			view_set_wport(2,x - 15)
-			view_set_hport(2,scrollVerBotBound)
+			//camera_set_view_pos(obj_editor_gui.cameraLeftPanel,camera_get_view_x(obj_editor_gui.cameraRightPanel) + camera_get_view_width(obj_editor_gui.cameraRightPanel) + (scrollHorX-16)/scrollHorFactor,scrollVerY);
 		} else {
 			view_set_visible(2,false);
 		}

@@ -1,6 +1,6 @@
 /// @description Insert description here
-baseY = 420;
-x = 512;
+baseY = view_hport[1] - (156/576 * view_hport[1]);
+x = view_wport[1]/2;
 
 if relativeMouseX <= x + 60 && relativeMouseX >= x - 60 {
 	if relativeMouseY >= y - 21 && relativeMouseY <= y {
@@ -23,11 +23,11 @@ if select {
 		select = false;
 		
 		moveToY = round((relativeMouseY - mouseClickOff + 1) / 10) * 10 + 1;
-		if moveToY > 400 && moveToY < 480 {
-			moveToY = 420;
+		if moveToY > baseY - 30 && moveToY < baseY + 30 {
+			moveToY = baseY;
 		}
-		if moveToY >= 480 {
-			moveToY = 576;
+		if moveToY >= baseY + 30 {
+			moveToY = view_hport[1];
 		}
 		
 		if y > moveToY {
@@ -46,14 +46,6 @@ if select {
 	dragYTemp = dragY;
 	
 	y = dragY;
-	
-	if y < 300 {
-		y = 300;
-	}
-	
-	if y > 576 {
-		y = 576;
-	}
 	
 	// Preventing displacement of the subpanel
 	if y < obj_subpanel_left.y {
@@ -80,10 +72,10 @@ if select {
 	if doubleClickCounter >= 2 {
 		doubleClickCounter = 0;
 		
-		if y != baseY {
+		if floor(y) != floor(baseY) {
 			moveToY = baseY;
 		} else {
-			moveToY = 576;
+			moveToY = view_hport[1];
 		}
 		
 		moveToSpd = abs(y - baseY) / 7;
@@ -125,6 +117,17 @@ if select {
 			}
 		}
 	}
+}
+
+// On base
+if floor(y) = floor(baseY) {
+	onBase = 1;
+} else {
+	onBase = 0;
+}
+
+if y = view_hport[1] {
+	onBase = 2;
 }
 
 // Timeline view
@@ -326,7 +329,7 @@ for (i = 0; i < rows; i += 1) {
 					actorId[i].orangeAnyways = false;
 				}
 				
-				if mouse_x <= 189 && mouse_y >= y+5 {
+				if relativeMouseX <= 189 && relativeMouseY >= y+5 {
 					with obj_editor_button_parent {
 						if fromTxt != "moveScene" {
 							instance_destroy();
@@ -340,7 +343,7 @@ for (i = 0; i < rows; i += 1) {
 	canSelectRow[i] = false;
 	
 	if relativeMouseX >= 21 && relativeMouseX <= 191 {
-		if mouse_y >= y+35 + i*14 && mouse_y <= y+46 + i*14 {
+		if relativeMouseY >= y+35 + i*14 && relativeMouseY <= y+46 + i*14 {
 			canSelectRow[i] = true;
 			
 			if mouse_check_button_pressed(mb_left) {
@@ -383,22 +386,23 @@ if totalActions > 0 {
 	}
 }
 
-panelWidth = longestRowLength * 6 + 1;
+panelWidth = longestRowLength*6 + 1;
 
 // Minimum length
-if panelWidth < 193 {
-	panelWidth = 193;
-	scrollPanelHorDefined = false;
-} else {
-	scrollPanelHorDefined = true;
+if panelWidth < view_wport[1] - 386 {
+	panelWidth = view_wport[1] - 386;
 }
 
 // Drag actions
+cameraNetX = camera_get_view_x(obj_editor_gui.cameraBotPanel) - view_wport[1] - camera_get_view_width(obj_editor_gui.cameraRightPanel) - camera_get_view_width(obj_editor_gui.cameraLeftPanel) - camera_get_view_width(obj_editor_gui.cameraLeftSubPanel);
+potentialActionTime = floor( (relativeMouseX - 193 + cameraNetX) / 6);
+ax = ( ((scrollHorX - 193)/(scrollHorRightBound - scrollHorLeftBound))*panelWidth ) + 1;
+
 for (i = 1; i <= totalActions; i += 1) {
 	for (j = 0; j < rows; j += 1) {
-		if mouse_x >= actionTime[i]*6 + 193-scrollOffAction && mouse_x <= actionTime[i]*6 + 198-scrollOffAction {
-			if mouse_y >= 454 + j*14 && mouse_y <= 464 + j*14 {
-				if mouse_x >= 192 {
+		if relativeMouseX >= 193 - ax + actionTime[i]*6 && relativeMouseX <= actionTime[i]*6 + 6 - ax + 193 {
+			if relativeMouseY >= 454 + j*14 && relativeMouseY <= 464 + j*14 {
+				if relativeMouseX >= 192 {
 					if actionInd[i] != -1 {
 						if actionRowInd[i] = j {
 							if mouse_check_button_pressed(mb_left) {
@@ -540,7 +544,7 @@ for (i = 1; i <= totalActions; i += 1) {
 			for (a = 1; a <= totalActions; a += 1) {
 				if actionRowInd[a] = actionRowInd[i] {
 					if actionInd[a] != -1 {
-						if actionTime[a] = floor((mouse_x-193+scrollOffAction)/6) {
+						if actionTime[a] = potentialActionTime {
 							actionTime[i] = actionTimeTemp; // Prevent the actions from overlapping
 							
 							break;
@@ -549,7 +553,7 @@ for (i = 1; i <= totalActions; i += 1) {
 				}
 				
 				if a = totalActions {
-					actionTime[i] = floor((mouse_x-193+scrollOffAction)/6); // Drag action snapped to 1/5 second ticks
+					actionTime[i] = potentialActionTime; // Drag action snapped to 1/5 second ticks
 					
 					if actionTime[i] < 0 {
 						for (b = 1; b <= totalActions; b += 1) {
@@ -668,130 +672,35 @@ if cutsceneInstanceId != -1 {
 	}
 }
 
-// Scrollbars
-scrollHorFactor = (scrollHorRightBound - scrollHorLeftBound) / panelWidth;
-scrollVerFactor = botPanelY / panelHeight;
-
-if scrollHorFactor > 1 {
-	scrollHorFactor = 1;
-}
-if scrollVerFactor > 1 {
-	scrollVerFactor = 1;
-}
-
-// Scrolling
-if relativeMouseX >= scrollHorLeftBound && relativeMouseX <= scrollHorRightBound {
-	if mouse_y >= y + 4 && mouse_y <= 576 {
-		if mouse_wheel_up() {
-			if keyboard_check(vk_shift) {
-				if scrollHorPartition < 100 - 100 / (panelWidth / (scrollHorRightBound - scrollHorLeftBound) * 2) {
-					scrollHorPartition += 100 / (panelWidth / (scrollHorRightBound - scrollHorLeftBound) * 2);
-				} else {
-					scrollHorPartition = 100;
-				}
-			} else {
-				if scrollVerPartition > 100 / (panelHeight / botPanelY) {
-					scrollVerPartition -= 100 / (panelHeight / botPanelY);
-				} else {
-					scrollVerPartition = 0;
-				}
-			}
-		}
-		if mouse_wheel_down() {
-			if keyboard_check(vk_shift) {
-				if scrollHorPartition > 100 / (panelWidth / (scrollHorRightBound - scrollHorLeftBound) * 2) {
-					scrollHorPartition -= 100 / (panelWidth / (scrollHorRightBound - scrollHorLeftBound) * 2);
-				} else {
-					scrollHorPartition = 0;
-				}
-			} else {
-				if scrollVerPartition < 100 - 100 / (panelHeight / botPanelY) {
-					scrollVerPartition += 100 / (panelHeight / botPanelY);
-				} else {
-					scrollVerPartition = 100;
-				}
-			}
-		}
-	}
-}
-
 // Boundaries
 if y < 300 {
 	y = 300;
 }
 
-if y > 576 {
-	y = 576;
+view_visible[4] = true;
+
+if y >= view_hport[1] {
+	y = view_hport[1];
+	view_visible[4] = false;
 }
+
+// Views
+camera_set_view_pos(obj_editor_gui.cameraBotPanel,view_wport[1] + 1 + camera_get_view_width(obj_editor_gui.cameraRightPanel) + camera_get_view_width(obj_editor_gui.cameraLeftPanel) + camera_get_view_width(obj_editor_gui.cameraLeftSubPanel) + (((scrollHorX - 193)/(scrollHorRightBound - scrollHorLeftBound))*panelWidth),0);
+view_xport[4] = 193;
+view_yport[4] = y + 34;
+view_wport[4] = (view_wport[1] - 384);
+view_hport[4] = (view_hport[1] - y) - 34;
+camera_set_view_size(obj_editor_gui.cameraBotPanel,view_wport[4],view_hport[4]);
 
 scrollHorTopBound = y+4;
 scrollHorBotBound = y+19;
 
 scrollVerTopBound = y+34;
+scrollVerBotBound = view_hport[1] - 4;
 botPanelY = scrollVerBotBound - scrollVerTopBound;
 
-// Select scroll bars
-if mouse_check_button_pressed(mb_left) && !select {
-	if relativeMouseX >= scrollHorX && relativeMouseX <= scrollHorX + scrollHorWidth {
-		if mouse_y >= scrollHorTopBound && mouse_y <= scrollHorBotBound {
-			scrollHorSelect = true;
-			scrollHorSelectOff = relativeMouseX - scrollHorX;
-		}
-	}
-	
-	if relativeMouseX >= scrollVerLeftBound && relativeMouseX <= scrollVerRightBound {
-		if mouse_y >= scrollVerY && mouse_y <= scrollVerY + scrollVerHeight {
-			scrollVerSelect = true;
-			scrollVerSelectOff = mouse_y - scrollVerY;
-		}
-	}
-}
+scrollHorLeftBound = 192;
+scrollHorRightBound = view_wport[1]-192
 
-if scrollHorSelect {
-	if scrollPanelHorDefined {
-		// Drag horizontal scroll bar
-		scrollHorX = relativeMouseX - scrollHorSelectOff;
-		scrollHorPartition = (scrollHorX - scrollHorLeftBound) / ((scrollHorRightBound - scrollHorLeftBound) - scrollHorWidth) * 100;
-		
-		if scrollHorX < scrollHorLeftBound {
-			scrollHorX = scrollHorLeftBound;
-			scrollHorPartition = 0;
-		}
-		if scrollHorX + scrollHorWidth > scrollHorRightBound {
-			scrollHorX = scrollHorRightBound - scrollHorWidth;
-			scrollHorPartition = 100;
-		}
-	}
-} else {
-	// Adapt to moving panel
-	scrollHorX = scrollHorLeftBound + (scrollHorPartition/100) * ((scrollHorRightBound - scrollHorLeftBound) - scrollHorWidth);
-}
-
-if scrollVerSelect {
-	if scrollPanelVerDefined {
-		// Drag vertical scroll bar
-		scrollVerY = mouse_y - scrollVerSelectOff;
-		scrollVerPartition = (scrollVerY - scrollVerTopBound) / ((botPanelY) - scrollVerHeight) * 100;
-		
-		if scrollVerY < scrollVerTopBound {
-			scrollVerY = scrollVerTopBound;
-			scrollVerPartition = 0;
-		}
-		if scrollVerY + scrollVerHeight > botPanelY + scrollVerTopBound {
-			scrollVerY = botPanelY + scrollVerTopBound - scrollVerHeight;
-			scrollVerPartition = 100;
-		}
-	}
-} else {
-	// Adapt to moving panel
-	scrollVerY = scrollVerTopBound + (scrollVerPartition/100) * (botPanelY-scrollVerHeight);
-}
-
-// Deselect scroll bars
-if mouse_check_button_released(mb_left) {
-	scrollHorSelect = false;
-	scrollVerSelect = false;
-}
-
-scrollHorWidth = (scrollHorFactor) * (scrollHorRightBound - scrollHorLeftBound);
-scrollVerHeight = (scrollVerFactor) * botPanelY;
+// Scroll bars
+event_inherited();

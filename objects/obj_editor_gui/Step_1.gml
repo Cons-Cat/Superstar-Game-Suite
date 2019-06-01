@@ -1,0 +1,57 @@
+/// @description Update views to screen size
+/*if window_get_width() < 1024 {
+	window_set_position(windowTempX,window_get_y());
+	window_set_size(1024,window_get_height());
+}
+if window_get_height() < 576 {
+	window_set_position(window_get_x(),windowTempY);
+	window_set_size(window_get_width(),576);
+}
+
+windowTempX = window_get_x();
+windowTempY = window_get_y();*/
+if tempResWidth != window_get_width() || tempResHeight != window_get_height() {
+	realPortScaleHor = window_get_width() div 512;
+	realPortScaleVer = window_get_height() div 288;
+	
+	view_set_wport(0,512 * ( realPortScaleHor ) +  (window_get_width() - (512 * ( realPortScaleHor ))) );
+	view_set_hport(0,288 * ( realPortScaleVer ) + ( window_get_height() - (288 * ( realPortScaleVer ))) );
+	
+	view_set_wport(1,window_get_width());
+	view_set_hport(1,window_get_height());
+	
+	camera_set_view_size(cameraRealGame,view_wport[0] / realPortScaleHor,view_hport[0] / realPortScaleHor);
+	camera_set_view_size(view_camera[1],window_get_width(),window_get_height());
+	
+	surface_resize(application_surface, view_get_wport(1), view_get_hport(1));
+	
+	if obj_panel_left.onBase = 1 {
+		obj_panel_left.x = (window_get_width() - 320 * obj_editor_gui.realPortScaleHor)/2 - 1;
+		obj_panel_left.moveToX = obj_panel_left.x;
+	}
+	if obj_panel_left.onBase = 2 {
+		obj_panel_left.x = 0;
+		obj_panel_left.moveToX = obj_panel_left.x;
+	}
+	
+	if obj_panel_right.onBase = 1 {
+		obj_panel_right.x = window_get_width() - (window_get_width() - 320 * obj_editor_gui.realPortScaleHor)/2 + 1;
+		obj_panel_right.moveToX = obj_panel_right.x;
+	}
+	if obj_panel_right.onBase = 2 {
+		obj_panel_right.x = view_wport[1];
+		obj_panel_right.moveToX = obj_panel_right.x;
+	}
+	
+	if obj_panel_bot.onBase = 1 {
+		obj_panel_bot.y = view_hport[1] - (156/576 * view_hport[1]);
+		obj_panel_bot.moveToY = obj_panel_bot.y;
+	}
+	if obj_panel_bot.onBase = 2 {
+		obj_panel_bot.y = view_hport[1];
+		obj_panel_bot.moveToY = obj_panel_bot.y;
+	}
+	
+	tempResWidth = window_get_width();
+	tempResHeight = window_get_height();
+}

@@ -25,5 +25,7 @@ scrollPanelVerDefined = false;
 scrollHorWidth = panelWidth;
 scrollVerHeight = panelHeight;
 tilesSheetPlacement = 1024;
+hasScrollVer = true;
+hasScrollHor = true;
 
 image_speed = 0;

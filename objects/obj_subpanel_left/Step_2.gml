@@ -6,4 +6,3 @@ if scrollHorRightBound > 136 {
 }
 
 event_inherited();
-show_debug_message(scrollHorRightBound - scrollHorLeftBound);

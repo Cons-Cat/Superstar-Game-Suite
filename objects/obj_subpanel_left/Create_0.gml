@@ -43,6 +43,8 @@ scrollVerRightBound = 15;
 scrollVerTopBound = 86;
 scrollVerBotBound = 419;
 
+hasScrollHor = false;
+
 depth = obj_editor_gui.depth - 3;
 image_angle = 90;
 y = baseY;

@@ -15,6 +15,7 @@ doubleClickCounter = 0;
 trg = -1;
 trgXOrigin = 0;
 cameraViewOn = 4;
+onBase = 1;
 
 scrollPanelSquish = 0;
 panelWidth = 0;
@@ -33,11 +34,11 @@ scrollHorWidth = panelWidth;
 scrollVerHeight = panelHeight;
 
 scrollHorLeftBound = 192;
-scrollHorRightBound = 832;
+scrollHorRightBound = view_wport[1]-192;
 
 scrollVerLeftBound = 3;
 scrollVerRightBound = 20;
-scrollVerBotBound = 572;
+scrollVerBotBound = view_hport[1] - 4;
 
 rows = 0;
 selectRow[0] = false;

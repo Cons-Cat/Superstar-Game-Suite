@@ -152,7 +152,7 @@ if !obj_panel_bot.select {
 if visible && tempY = -1 {
 	view_set_visible(5,true);
 	
-	camera_set_view_pos(obj_editor_gui.cameraLeftSubPanel,1025 + camera_get_view_width(obj_editor_gui.cameraRightPanel) + camera_get_view_width(obj_editor_gui.cameraLeftPanel),0);
+	camera_set_view_pos(obj_editor_gui.cameraLeftSubPanel,view_wport[1] + 1 + camera_get_view_width(obj_editor_gui.cameraRightPanel) + camera_get_view_width(obj_editor_gui.cameraLeftPanel),0);
 	camera_set_view_size(view_camera[5], obj_panel_left.x - 15,scrollVerBotBound - y - 5);
 	
 	view_set_wport(5,obj_panel_left.x - 15);

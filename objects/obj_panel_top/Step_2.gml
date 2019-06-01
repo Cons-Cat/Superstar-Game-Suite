@@ -1,6 +1,6 @@
 /// @description Insert description here
-baseY = 59;
-x = 512;
+baseY = 60/576 * view_hport[1] - 1;
+x = view_wport[1] / 2;
 
 if mouse_x <= x + 60 && mouse_x >= x - 60 {
 	if mouse_y >= y && mouse_y <= y + 21 {
@@ -22,11 +22,11 @@ if select {
 		select = false;
 		
 		moveToY = round((mouse_y - mouseClickOff + 1) / 10) * 10 + 1;
-		if moveToY < 38 {
+		if moveToY < baseY - 20 {
 			moveToY = 0;
 		}
-		if moveToY >= 38 {
-			moveToY = 59;
+		if moveToY >= baseY - 20 {
+			moveToY = baseY;
 		}
 		
 		if y > moveToY {
@@ -104,6 +104,6 @@ if select {
 if y < 0 {
 	y = 0;
 }
-if y > 59 {
-	y = 59;
+if y > baseY {
+	y = baseY;
 }

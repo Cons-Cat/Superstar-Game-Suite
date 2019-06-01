@@ -24,6 +24,9 @@ view_set_yport(4,453);
 view_set_xport(5,15);
 view_set_yport(5,362);
 
+tempResWidth = 0;
+tempResHeight = 0;
+
 depth = -room_height - 200;
 
 mode = 0;
@@ -55,3 +58,9 @@ global.sprMaterial = spr_tls_rectangle_default;
 window_set_fullscreen(false);
 font = font_add_sprite_ext(spr_font_new,"abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ!?,'._-1234567890",true,0);
 fontDark = font_add_sprite_ext(spr_font_dark,"abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ!?,'._-1234567890",true,0);
+
+colLight = make_color_rgb(35,38,45);
+colMid = make_color_rgb(31,34,40);
+colDark = make_color_rgb(28,30,36);
+outlineDark = make_color_rgb(63,70,87);
+outlineLight = make_color_rgb(196,196,196);

@@ -15,6 +15,7 @@ doubleClickCounter = 0;
 trg = -1;
 trgXOrigin = 0;
 calculateHeight = false;
+onBase = 1;
 
 scrollPanelSquish = 0;
 panelWidth = 0;

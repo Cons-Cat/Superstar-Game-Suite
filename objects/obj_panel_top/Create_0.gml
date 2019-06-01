@@ -16,3 +16,9 @@ image_speed = 0;
 depth = obj_editor_gui.depth - 3;
 image_angle = 270;
 y = baseY;
+
+colLight = make_color_rgb(35,38,45);
+colMid = make_color_rgb(31,34,40);
+colDark = make_color_rgb(28,30,36);
+outlineDark = make_color_rgb(63,70,87);
+barCol = make_color_rgb(38,43,50);

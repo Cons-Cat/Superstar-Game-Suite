@@ -6,9 +6,9 @@
     "For3D": false,
     "HTile": false,
     "VTile": false,
-    "bbox_bottom": 69,
+    "bbox_bottom": 70,
     "bbox_left": 0,
-    "bbox_right": 1023,
+    "bbox_right": 203,
     "bbox_top": 0,
     "bboxmode": 0,
     "colkind": 1,
@@ -16,24 +16,24 @@
     "edgeFiltering": false,
     "frames": [
         {
-            "id": "8882a28b-ee36-4a01-9516-698a202c5794",
+            "id": "218fceaf-215d-487d-9d75-54c2d39ce3cc",
             "modelName": "GMSpriteFrame",
             "mvc": "1.0",
             "SpriteId": "622b6093-99b8-46df-905b-90bb8cadfeb8",
             "compositeImage": {
-                "id": "2a16f899-e3ba-4a55-9252-21e09ce6761b",
+                "id": "dea26382-7ddd-481e-b91c-a9e0592349d4",
                 "modelName": "GMSpriteImage",
                 "mvc": "1.0",
-                "FrameId": "8882a28b-ee36-4a01-9516-698a202c5794",
+                "FrameId": "218fceaf-215d-487d-9d75-54c2d39ce3cc",
                 "LayerId": "00000000-0000-0000-0000-000000000000"
             },
             "images": [
                 {
-                    "id": "bf95cc3c-72c6-4b54-a121-2cca547c557d",
+                    "id": "5ad958e4-42c7-4e82-a972-e4150ad35ab5",
                     "modelName": "GMSpriteImage",
                     "mvc": "1.0",
-                    "FrameId": "8882a28b-ee36-4a01-9516-698a202c5794",
-                    "LayerId": "12f30541-0921-4445-8e27-845a448ed9ba"
+                    "FrameId": "218fceaf-215d-487d-9d75-54c2d39ce3cc",
+                    "LayerId": "b40c1f60-8107-46e6-bbca-e3f0a83e586f"
                 }
             ]
         }
@@ -43,7 +43,7 @@
     "height": 71,
     "layers": [
         {
-            "id": "12f30541-0921-4445-8e27-845a448ed9ba",
+            "id": "b40c1f60-8107-46e6-bbca-e3f0a83e586f",
             "modelName": "GMImageLayer",
             "mvc": "1.0",
             "SpriteId": "622b6093-99b8-46df-905b-90bb8cadfeb8",
@@ -64,7 +64,7 @@
     "swfPrecision": 2.525,
     "textureGroupId": "1225f6b0-ac20-43bd-a82e-be73fa0b6f4f",
     "type": 0,
-    "width": 1024,
+    "width": 204,
     "xorig": 0,
     "yorig": 0
 }

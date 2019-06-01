@@ -62,47 +62,42 @@ scrollHorWidth = scrollHorFactor * (scrollHorRightBound - scrollHorLeftBound); /
 scrollVerHeight = scrollVerFactor * (scrollVerBotBound - scrollVerTopBound); // The dimension of the vertical clickable scrollbar
 
 if scrollHorSelect {
-	// Drag horizontal scroll bar
-	if scrollPanelHorDefined {
-		scrollHorX = relativeMouseX - scrollHorSelectOff;
-		scrollHorPartition = (scrollHorX - scrollHorLeftBound) / ((scrollHorRightBound - scrollHorLeftBound) - scrollHorWidth) * 100;
-		
-		if scrollHorX < x {
-			scrollHorX = x;
-			scrollHorPartition = 0;
-		}
-		
-		if scrollHorX + scrollHorWidth > scrollHorRightBound {
-			scrollHorX = scrollHorRightBound - scrollHorWidth;
-			scrollHorPartition = 100;
-		}
+// Drag horizontal scroll bar
+	scrollHorX = relativeMouseX - scrollHorSelectOff;
+	scrollHorPartition = (scrollHorX - scrollHorLeftBound) / (scrollHorRightBound - scrollHorLeftBound - scrollHorWidth) * 100;
+	
+	if scrollHorX < scrollHorLeftBound{
+		scrollHorX = scrollHorLeftBound;
+		scrollHorPartition = 0;
+	}
+	
+	if scrollHorX > scrollHorRightBound - scrollHorWidth {
+		scrollHorX = scrollHorRightBound - scrollHorWidth;
+		scrollHorPartition = 100;
 	}
 } else {
 	// Adapt to moving panel
-	scrollHorX = scrollHorLeftBound + (scrollHorPartition / 100) * ((scrollHorRightBound - scrollHorLeftBound) - scrollHorWidth);
+	scrollHorX = scrollHorLeftBound + (scrollHorPartition / 100) * (scrollHorRightBound - scrollHorLeftBound - scrollHorWidth);
 }
 
 if scrollVerSelect {
-	//if scrollPanelVerDefined {
-		// Drag vertical scroll bar
-		scrollVerY = relativeMouseY - scrollVerSelectOff;
-		scrollVerPartition = (scrollVerY - scrollVerTopBound) / (scrollVerBotBound - scrollVerTopBound - scrollVerHeight) * 100;
-		
-		if scrollVerY < scrollVerTopBound {
-			scrollVerY = scrollVerTopBound;
-			scrollVerPartition = 0;
-		}
-		
-		if scrollVerY > scrollVerBotBound - scrollVerHeight {
-			scrollVerY = scrollVerBotBound - scrollVerHeight;
-			scrollVerPartition = 100;
-		}
-		show_debug_message(scrollVerPartition);
-	//}
+	// Drag vertical scroll bar
+	scrollVerY = relativeMouseY - scrollVerSelectOff;
+	scrollVerPartition = (scrollVerY - scrollVerTopBound) / (scrollVerBotBound - scrollVerTopBound - scrollVerHeight) * 100;
+	
+	if scrollVerY < scrollVerTopBound {
+		scrollVerY = scrollVerTopBound;
+		scrollVerPartition = 0;
+	}
+	
+	if scrollVerY > scrollVerBotBound - scrollVerHeight {
+		scrollVerY = scrollVerBotBound - scrollVerHeight;
+		scrollVerPartition = 100;
+	}
 } else {
 	// Adapt to moving panel
 	// Top Boundary + Percentage * Bottommost Boundary for the top edge
-	scrollVerY = scrollVerTopBound + (scrollVerPartition/100) * (scrollVerBotBound - scrollVerTopBound - scrollVerHeight); // Net y coordinate of clickable scrollbar
+	scrollVerY = scrollVerTopBound + (scrollVerPartition / 100) * (scrollVerBotBound - scrollVerTopBound - scrollVerHeight); // Net y coordinate of clickable scrollbar
 }
 
 // Select scroll bars

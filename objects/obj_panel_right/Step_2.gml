@@ -1,7 +1,5 @@
 /// @description Insert description here
-baseX = 833;
-scrollHorLeftBound = x;
-scrollVerBotBound = obj_panel_bot.y - 1;
+baseX = window_get_width() - (window_get_width() - 320 * obj_editor_gui.realPortScaleHor)/2 + 1;
 relativeMouseX = window_view_mouse_get_x(1);
 relativeMouseY = window_view_mouse_get_y(1);
 y = 242;
@@ -26,11 +24,11 @@ if select {
 		select = false;
 		
 		moveToX = round((relativeMouseX - mouseClickOff + 1) / 10) * 10 + 1;
-		if moveToX < 893 && moveToX >= 803 {
-			moveToX = 833;
+		if moveToX < baseX + 30 && moveToX >= baseX - 30 {
+			moveToX = baseX;
 		}
-		if moveToX >= 893 {
-			moveToX = 1024;
+		if moveToX >= baseX + 30 {
+			moveToX = view_get_wport(0);
 		}
 		
 		if x > moveToX {
@@ -54,7 +52,7 @@ if select {
 			moveToX = baseX;
 			moveToSpd = abs(x - baseX) / 7;
 		} else {
-			moveToX = 1024;
+			moveToX = view_get_wport(1);
 			moveToSpd = 26;
 		}
 		
@@ -121,12 +119,23 @@ if calculateHeight {
 	calculateHeight = false;
 }
 
+// On base
+if x = baseX {
+	onBase = 1;
+} else {
+	onBase = 0;
+}
+
+if x = view_wport[1] {
+	onBase = 2;
+}
+
 // Boundaries
 if x < 235 {
 	x = 235;
 }
-if x > 1024 {
-	x = 1024;
+if x > view_get_wport(1) {
+	x = view_get_wport(1);
 }
 
 // Pushing other panel
@@ -153,27 +162,40 @@ if mouse_check_button_released(mb_left) {
 	}
 }
 
+// Scrollbars
+scrollHorLeftBound = x;
+scrollHorRightBound = view_get_wport(0) - 17;
+
+scrollVerRightBound = view_get_wport(0) - 1;
+scrollVerLeftBound = view_get_wport(0) - 16;
+scrollVerBotBound = obj_panel_bot.y - 1;
+
+scrollHorTopBound = obj_panel_top.y + 11;
+scrollHorBotBound = obj_panel_top.y + 26;
+scrollVerTopBound = obj_panel_top.y + 27;
+
 event_inherited();
 
 // Squish when panel offers less space than needed
-if x >= 1008 {
-	scrollPanelSquish = (x - 1008) * 2;
+if x >= view_wport[1] - 16 {
+	scrollPanelSquish = (x - view_wport[1] - 16) * 2;
 } else {
 	scrollPanelSquish = 0;
 }
 
+// Viewports
+camera_set_view_pos(obj_editor_gui.cameraRightPanel,view_wport[1] + 1,0);
+camera_set_view_size(view_camera[3], view_wport[1] - 16 - x, scrollVerBotBound - scrollVerTopBound);
+
+view_set_wport(3,view_wport[1] - 16 - x);
+view_set_hport(3,scrollVerBotBound - scrollVerTopBound);
+view_set_xport(3,x - 1);
+
 switch obj_editor_gui.mode {
 	// Collision mode
 	case 0:
-		if x < 1008 {
+		if x < view_wport[1] - 16 {
 			view_set_visible(3,true);
-			
-			camera_set_view_pos(obj_editor_gui.cameraRightPanel,1025,scrollVerTopBound - (scrollVerTopBound - scrollVerY) / scrollVerFactor);
-			camera_set_view_size(view_camera[3], 1008 - x, scrollVerBotBound - scrollVerTopBound);
-			
-			view_set_wport(3,1008 - x);
-			view_set_hport(3,scrollVerBotBound - scrollVerTopBound);
-			view_set_xport(3,x - 1);
 		} else {
 			view_set_visible(3,false);
 		}
@@ -182,15 +204,8 @@ switch obj_editor_gui.mode {
 	
 	// Wireframe mode
 	case 1:
-		if x < 1008 {
+		if x < view_wport[1] - 16 {
 			view_set_visible(3,true);
-			
-			camera_set_view_pos(obj_editor_gui.cameraRightPanel,1024,86+(scrollVerY-86)/scrollVerFactor);
-			camera_set_view_size(view_camera[3], 1009-x, scrollVerBotBound);
-			
-			view_set_wport(3,1009-x)
-			view_set_hport(3,scrollVerBotBound)
-			view_set_xport(3,x);
 		} else {
 			view_set_visible(3,false);
 		}
@@ -199,15 +214,10 @@ switch obj_editor_gui.mode {
 	
 	// Tiling mode
 	case 3:
-		if x < 1008 && obj_big_button_tiling.spawnButtons {
+		if x < view_wport[1] - 16 && obj_big_button_tiling.spawnButtons {
 			view_set_visible(3,true);
 			
-			camera_set_view_pos(obj_editor_gui.cameraRightPanel,tilesSheetPlacement+(scrollHorX-x)/scrollHorFactor,86+(scrollVerY-86)/scrollVerFactor);
-			camera_set_view_size(view_camera[3], 1009-x, scrollVerBotBound);
-			
-			view_set_wport(3,1009-x)
-			view_set_hport(3,scrollVerBotBound)
-			view_set_xport(3,x);
+			//camera_set_view_pos(obj_editor_gui.cameraRightPanel,tilesSheetPlacement+(scrollHorX-x)/scrollHorFactor,86+(scrollVerY-86)/scrollVerFactor);
 		} else {
 			view_set_visible(3,false);
 		}
@@ -216,15 +226,8 @@ switch obj_editor_gui.mode {
 	
 	// Trigger mode
 	case 4:
-		if x < 1008 {
+		if x < view_wport[1] - 16 {
 			view_set_visible(3,true);
-			
-			camera_set_view_pos(obj_editor_gui.cameraRightPanel,1024,86+(scrollVerY-86)/scrollVerFactor);
-			camera_set_view_size(view_camera[3], 1009-x, scrollVerBotBound);
-			
-			view_set_wport(3,1009-x);
-			view_set_hport(3,scrollVerBotBound);
-			view_set_xport(3,x);
 		} else {
 			view_set_visible(3,false);
 		}

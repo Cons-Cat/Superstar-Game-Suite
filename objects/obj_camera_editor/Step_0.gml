@@ -2,8 +2,9 @@
 camera_set_view_target(view_camera[0],-1);
 
 if obj_editor_gui.mode != 2 {
-	x -= lengthdir_x(panMagnitudeTemp,panAngleTemp)*20;
-	y -= lengthdir_y(panMagnitudeTemp,panAngleTemp)*20;
+	//x -= lengthdir_x(panMagnitudeTemp,panAngleTemp)*20;
+	//y -= lengthdir_y(panMagnitudeTemp,panAngleTemp)*20;
+	
 	placeX = x;
 	placeY = y;
 	panX = 0;
@@ -12,13 +13,10 @@ if obj_editor_gui.mode != 2 {
 	zoomLevel = 1;
 	anchored = false;
 	cutscenePan = false;
-	camera_set_view_size(view_camera[0], baseZoomWidth, baseZoomHeight);
+	//camera_set_view_size(view_camera[0], baseZoomWidth, baseZoomHeight);
 	camera_set_view_pos(view_camera[0],x-camera_get_view_width(view_camera[0])/2,y-camera_get_view_height(view_camera[0])/2);
+	//view_set_visible(0,false);
 	
-	panMagnitudeTemp = 0;
-	panMagnitudeSpd = 0;
-	panMagnitudeDecelDistance = 0;
-	panAngleTemp = 0
 	i = 0;
 	
 	/*if mouse_check_button_pressed(mb_right) {
@@ -204,7 +202,7 @@ if obj_editor_gui.mode != 2 {
 			}
 			
 			// Apply the new size
-			camera_set_view_size(view_camera[0], new_w, new_h);
+			//camera_set_view_size(view_camera[0], new_w, new_h);
 			
 			// Update temp value once the zooming finishes interpolation
 			if abs(new_w - view_w) < 0.5 && abs(new_h - view_h) < 0.5 {
@@ -222,7 +220,6 @@ if obj_editor_gui.mode != 2 {
 			}
 			
 			anchorId.magnitude = ( dsin( magnitudeTemp / 1  * 180 - 90) + 1 ) / 2;
-			show_debug_message(anchorId.magnitude);
 		}
 		
 		// Update view

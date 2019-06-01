@@ -842,7 +842,7 @@ if obj_panel_left.select = 0 && obj_panel_right.select = 0 {
 }
 
 // Fullscreen
-if keyboard_check(vk_alt) && keyboard_check_pressed(vk_enter) {
+/*if keyboard_check(vk_alt) && keyboard_check_pressed(vk_enter) {
 	if window_get_fullscreen() {
 		window_set_fullscreen(false);
 	} else {
