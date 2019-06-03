@@ -1,3 +1,3 @@
 /// @description 
-relativeMouseX = window_view_mouse_get_x(1);
-relativeMouseY = window_view_mouse_get_y(1);
+relativeMouseX = window_mouse_get_x();
+relativeMouseY = window_mouse_get_y();

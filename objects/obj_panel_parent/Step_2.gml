@@ -11,6 +11,8 @@ if scrollVerFactor > 1 {
 	scrollVerFactor = 1;
 }
 
+relativeMouseX = window_mouse_get_x() + room_width;
+
 // Scrolling
 if (relativeMouseX >= scrollHorLeftBound && relativeMouseX <= scrollHorRightBound) || (relativeMouseX >= scrollVerLeftBound && relativeMouseX <= scrollVerRightBound) {
 	if (relativeMouseY >= scrollVerTopBound && relativeMouseY <= scrollVerBotBound) || (relativeMouseY >= scrollHorTopBound && relativeMouseY <= scrollHorBotBound) {
@@ -122,3 +124,5 @@ if mouse_check_button_released(mb_left) {
 	scrollHorSelect = false;
 	scrollVerSelect = false;
 }
+
+relativeMouseX = window_mouse_get_x();

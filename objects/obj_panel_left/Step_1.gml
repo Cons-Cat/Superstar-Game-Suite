@@ -1,15 +1,16 @@
 /// @description Insert description here
 event_inherited();
 
-baseX = (window_get_width() - 320 * obj_editor_gui.realPortScaleHor)/2 - 1;
+relativeX = x - room_width;
+baseX = (window_get_width() - 320 * obj_editor_gui.realPortScaleHor)/2 - 1 + room_width;
 y = 242;
 
-if mouse_x >= x && mouse_x <= x + 21 {
-	if mouse_y >= y - 62 && mouse_y <= y + 58 {
+if relativeMouseX >= relativeX && relativeMouseX <= relativeX + 21 {
+	if relativeMouseY >= y - 62 && relativeMouseY <= y + 58 {
 		if mouse_check_button_pressed(mb_left) {
 			// Dragging
 			select = true;
-			mouseClickOff = mouse_x - x;
+			mouseClickOff = relativeMouseX - relativeX;
 			
 			// Double clicking
 			doubleClickCounter += 1;
@@ -23,12 +24,12 @@ if select {
 	if !mouse_check_button(mb_left) {
 		select = false;
 		
-		moveToX = round((relativeMouseX - mouseClickOff - 1) / 10) * 10 - 1;
+		moveToX = round((relativeMouseX - mouseClickOff - 1) / 10) * 10 - 1 + room_width;
 		if moveToX <=  baseX + 30 && moveToX > baseX - 30 {
 			moveToX = baseX;
 		}
 		if moveToX <= baseX - 30 {
-			moveToX = 0;
+			moveToX = room_width;
 		}
 		
 		if x > moveToX {
@@ -52,7 +53,7 @@ if select {
 			moveToX = baseX;
 			moveToSpd = abs(x - baseX) / 7;
 		} else {
-			moveToX = 0;
+			moveToX = room_width;
 			moveToSpd = 26;
 		}
 		
@@ -96,11 +97,13 @@ if select {
 }
 
 if select {
-	dragX = relativeMouseX - mouseClickOff - 0;
+	dragX = relativeMouseX - mouseClickOff + room_width;
 	dragXTemp = dragX;
 	
 	x = dragX;
 }
+
+relativeX = x - room_width;
 
 // On base
 if x = baseX {
@@ -113,15 +116,15 @@ if x = 0 {
 }
 
 // Boundaries
-if x < 0 {
-	x = 0;
+if x < room_width {
+	x = room_width;
 }
-if x > 790 {
-	x = 790;
+if x > 790 + room_width {
+	x = 790 + room_width;
 }
 
 // Pushing other panel
-if x + 25 > obj_panel_right.x - 20 && select {
+/*if x + 25 > obj_panel_right.x - 20 && select {
 	if obj_editor_gui.sidePanelCtrl = -1 {
 		obj_editor_gui.sidePanelCtrl = 0;
 		trgXOrigin = obj_panel_right.x;
@@ -134,6 +137,7 @@ if obj_editor_gui.sidePanelCtrl = 0 {
 		obj_panel_right.x = trgXOrigin;
 	}
 }
+
 if mouse_check_button_released(mb_left) {
 	if obj_editor_gui.sidePanelCtrl = 0 {
 		with obj_panel_right {
@@ -141,27 +145,36 @@ if mouse_check_button_released(mb_left) {
 			moveToX = round((x + 2) / 10) * 10 + 2;
 		}
 	}
-}
+}*/
 
 scrollHorRightBound = x - 1;
+scrollHorLeftBound = room_width + 16;
 obj_subpanel_left.scrollHorRightBound = self.scrollHorRightBound;
 scrollHorTopBound = obj_panel_top.y + 11;
 scrollHorBotBound = obj_panel_top.y + 26;
+
+scrollVerLeftBound = room_width;
+scrollVerRightBound = room_width + 15;
 scrollVerTopBound = obj_panel_top.y + 27;
 
 // Squish when panel offers less space than needed
-if x <= 16 {
+/*if x <= 16 {
 	scrollPanelSquish = -(16 - x) * (2);
 } else {
 	scrollPanelSquish = 0;
-}
+}*/
 
 // Viewports
-camera_set_view_pos(obj_editor_gui.cameraLeftPanel,view_wport[1] + 1 + camera_get_view_width(obj_editor_gui.cameraRightPanel) + (scrollHorX-16)/scrollHorFactor,scrollVerY);
-camera_set_view_size(view_camera[2], x - 15, scrollVerBotBound);
+camera_set_view_pos(obj_editor_gui.cameraLeftPanel,view_wport[1] + 1 + longestPanelRightButton + camera_get_view_width(obj_editor_gui.cameraRightPanel) + (scrollHorX-16)/scrollHorFactor,scrollVerY);
+camera_set_view_size(view_camera[2], relativeX - 15, scrollVerBotBound);
 
-view_set_wport(2,x - 15);
+view_set_wport(2,relativeX - 15);
+if view_wport[2] < 0 {
+	view_set_wport(2,0);
+}
+
 view_set_hport(2,scrollVerBotBound)
+view_set_yport(2,scrollVerTopBound);
 
 switch obj_editor_gui.mode {
 	// Tiling mode
@@ -185,4 +198,8 @@ switch obj_editor_gui.mode {
 		}
 		
 		break;
+}
+
+if !visible {
+	view_set_visible(2,false);
 }

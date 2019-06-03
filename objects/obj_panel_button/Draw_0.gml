@@ -1,5 +1,5 @@
 /// @description 
-if sprWidth != -1 {
+if gone {
 	// Button
 	draw_set_color(col[0]); // Inside fill
 	draw_rectangle(x+3,y+1,x+sprWidth-2,y+27,false);
@@ -69,8 +69,8 @@ if sprWidth != -1 {
 		draw_sprite(sprite_index,0,x+sprWidth+2+sprite_width/2,y-1+sprite_height/2);
 	}
 	
-	if buttonType = 2 {
-		// Value display
+	if buttonType = 2 || buttonType = 3 {
+		// Value / String display
 		draw_set_color(perimeterCol);
 		draw_rectangle(x+sprWidth+6,y-1,x+sprWidth+6+valueLength,y-1,false);
 		draw_rectangle(x+sprWidth+6,y+30,x+sprWidth+6+valueLength,y+30,false);

@@ -59,16 +59,19 @@ if spawnButtons {
 		sortIndex = 0;
 		viewOn = 5;
 		panelId = obj_subpanel_left.id;
+		sprWidth = (string_width(label) + 5) * 2;
 	}
 	with instance_create_layer(x,y,"Instances",obj_region_button_edge) {
 		sortIndex = 1;
 		viewOn = 5;
 		panelId = obj_subpanel_left.id;
+		sprWidth = (string_width(label) + 5) * 2;
 	}
 	with instance_create_layer(x,y,"Instances",obj_region_button_threshold) {
 		sortIndex = 2;
 		viewOn = 5;
 		panelId = obj_subpanel_left.id;
+		sprWidth = (string_width(label) + 5) * 2;
 	}
 	with instance_create_layer(x,y,"Instances",obj_region_button_angle) {
 		sortIndex = 3;
@@ -76,6 +79,7 @@ if spawnButtons {
 		panelId = obj_subpanel_left.id;
 		angle = other.angle;
 		trg = other.id;
+		sprWidth = (string_width(label) + 5) * 2;
 	}
 	with instance_create_layer(x,y,"Instances",obj_region_button_magnitude) {
 		sortIndex = 4;
@@ -84,6 +88,7 @@ if spawnButtons {
 		arbitraryVal = string(other.magnitude);
 		valueLength = string_width(arbitraryVal)*2 + 4;
 		trg = other.id;
+		sprWidth = (string_width(label) + 5) * 2;
 	}
 	with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
 		sortIndex = 5;
@@ -95,7 +100,10 @@ if spawnButtons {
 		other.zoomId = self.id;
 		panelId = obj_subpanel_left.id;
 		trg = other.id;
+		sprWidth = (string_width(label) + 5) * 2;
 	}
+	
+	event_user(0);
 	
 	with obj_trigger_vertex {
 		if trg = other.id {

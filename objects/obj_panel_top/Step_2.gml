@@ -1,12 +1,14 @@
 /// @description Insert description here
+x = room_width + view_wport[1] / 2;
 baseY = 60/576 * view_hport[1] - 1;
-x = view_wport[1] / 2;
+relativeMouseX = window_mouse_get_x();
+relativeX = x - room_width;
 
-if mouse_x <= x + 60 && mouse_x >= x - 60 {
+if relativeMouseX <= relativeX + 60 && relativeMouseX >= relativeX - 60 {
 	if mouse_y >= y && mouse_y <= y + 21 {
 		if mouse_check_button_pressed(mb_left) {
 			// Dragging
-			select = 1;
+			select = true;
 			mouseClickOff = mouse_y - y;
 			
 			// Double clicking
@@ -98,6 +100,17 @@ if select {
 	dragYTemp = dragY;
 	
 	y = dragY;
+}
+
+// On base
+if floor(y) = floor(baseY) {
+	onBase = 1;
+} else {
+	onBase = 0;
+}
+
+if y = 0 {
+	onBase = 2;
 }
 
 // Boundaries

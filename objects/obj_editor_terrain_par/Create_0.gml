@@ -8,6 +8,7 @@ depthOffset = 0;
 alpha = 1;
 modeForSelect = false;
 modeForSelectVal = 0;
+longestPanelRightButton = 0;
 
 blankCol = c_white;
 blankColDark = c_dkgray

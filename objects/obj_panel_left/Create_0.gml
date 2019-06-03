@@ -1,7 +1,7 @@
 /// @description Define parameters
 event_inherited();
 
-baseX = 191;
+baseX = 191 + room_width;
 dragX = baseX;
 moveToX = baseX;
 moveToDeccel = 2.45;
@@ -13,7 +13,9 @@ moveDirection = 1;
 doubleClickCounter = 0;
 trgXOrigin = 0;
 cameraViewOn = 3;
+longestPanelRightButton = 0;
 onBase = 1;
+x = baseX;
 
 scrollPanelSquish = 0;
 panelWidth = 0;
@@ -42,6 +44,5 @@ scrollVerTopBound = 86;
 scrollVerBotBound = 419;
 
 depth = obj_editor_gui.depth - 2;
-x = baseX;
 
 instance_create_layer(x,y,"Instances",obj_subpanel_left);

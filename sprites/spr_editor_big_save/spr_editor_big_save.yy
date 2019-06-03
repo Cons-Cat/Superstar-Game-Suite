@@ -6,44 +6,44 @@
     "For3D": false,
     "HTile": false,
     "VTile": false,
-    "bbox_bottom": 46,
-    "bbox_left": 8,
-    "bbox_right": 42,
-    "bbox_top": 4,
+    "bbox_bottom": 93,
+    "bbox_left": 16,
+    "bbox_right": 85,
+    "bbox_top": 8,
     "bboxmode": 0,
     "colkind": 1,
     "coltolerance": 0,
     "edgeFiltering": false,
     "frames": [
         {
-            "id": "f5c167d7-fa7e-4fcb-9dd7-891d3030d9f8",
+            "id": "9ed9232b-44f1-4a04-9761-15f93bb1600e",
             "modelName": "GMSpriteFrame",
             "mvc": "1.0",
             "SpriteId": "5f865e3e-7311-428c-bf92-be3f0813f3d3",
             "compositeImage": {
-                "id": "04ed1619-0b21-4799-b289-f77b488820ac",
+                "id": "52eb10b6-a3e4-4452-84be-9e16f6647233",
                 "modelName": "GMSpriteImage",
                 "mvc": "1.0",
-                "FrameId": "f5c167d7-fa7e-4fcb-9dd7-891d3030d9f8",
+                "FrameId": "9ed9232b-44f1-4a04-9761-15f93bb1600e",
                 "LayerId": "00000000-0000-0000-0000-000000000000"
             },
             "images": [
                 {
-                    "id": "9e184786-2b2f-4fae-90b1-2440c9578ce5",
+                    "id": "9a03e32f-cf89-4fc5-a16c-a678deb38cb1",
                     "modelName": "GMSpriteImage",
                     "mvc": "1.0",
-                    "FrameId": "f5c167d7-fa7e-4fcb-9dd7-891d3030d9f8",
-                    "LayerId": "56dfba64-fd2e-4c59-b319-e9f4f1498108"
+                    "FrameId": "9ed9232b-44f1-4a04-9761-15f93bb1600e",
+                    "LayerId": "879ab778-ddab-4208-b9d5-f049f32d8085"
                 }
             ]
         }
     ],
     "gridX": 0,
     "gridY": 0,
-    "height": 50,
+    "height": 100,
     "layers": [
         {
-            "id": "56dfba64-fd2e-4c59-b319-e9f4f1498108",
+            "id": "879ab778-ddab-4208-b9d5-f049f32d8085",
             "modelName": "GMImageLayer",
             "mvc": "1.0",
             "SpriteId": "5f865e3e-7311-428c-bf92-be3f0813f3d3",
@@ -54,7 +54,7 @@
             "visible": true
         }
     ],
-    "origin": 0,
+    "origin": 9,
     "originLocked": false,
     "playbackSpeed": 15,
     "playbackSpeedType": 0,
@@ -64,7 +64,7 @@
     "swfPrecision": 2.525,
     "textureGroupId": "1225f6b0-ac20-43bd-a82e-be73fa0b6f4f",
     "type": 0,
-    "width": 50,
-    "xorig": 0,
-    "yorig": 0
+    "width": 100,
+    "xorig": 50,
+    "yorig": 100
 }

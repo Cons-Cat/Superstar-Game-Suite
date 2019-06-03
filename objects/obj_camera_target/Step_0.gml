@@ -61,7 +61,7 @@ if canPlace {
 	
 	if mouse_y < obj_panel_bot.y {
 		x = floor((relativeMouseX + mouseXOff)/5)*5;
-		y = floor((relativeMouseY + (zfloor * 20) + mouseYOff)/5)*5 + 1;
+		y = floor((relativeMouseY + (zfloor * 20) + mouseYOff)/5)*5;
 		trg.trgX = self.x;
 		trg.trgY = self.y;
 	}

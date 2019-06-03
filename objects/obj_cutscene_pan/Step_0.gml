@@ -27,7 +27,7 @@ if canPlace {
 	
 	if mouse_y < obj_panel_bot.y {
 		x = floor((relativeMouseX + mouseXOff)/5)*5;
-		y = floor((relativeMouseY + mouseYOff)/5)*5 + 1;
+		y = floor((relativeMouseY + mouseYOff)/5)*5;
 	}
 } else {
 	if mouseHover {

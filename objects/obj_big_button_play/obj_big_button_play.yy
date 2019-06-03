@@ -5,16 +5,6 @@
     "name": "obj_big_button_play",
     "eventList": [
         {
-            "id": "7059dcfe-084f-4279-ae20-4fcdc580b63b",
-            "modelName": "GMEvent",
-            "mvc": "1.0",
-            "IsDnD": false,
-            "collisionObjectId": "00000000-0000-0000-0000-000000000000",
-            "enumb": 0,
-            "eventtype": 8,
-            "m_owner": "54409f16-dae1-4306-b8e5-132e18d667fa"
-        },
-        {
             "id": "a1420d3b-8f1f-41be-a902-fb9a3a5f1165",
             "modelName": "GMEvent",
             "mvc": "1.0",

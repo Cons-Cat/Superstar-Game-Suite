@@ -2,7 +2,7 @@
 event_inherited();
 
 cameraViewOn = 2;
-baseX = 833;
+baseX = 1856;
 dragX = baseX;
 moveToX = baseX;
 moveToDeccel = 2.45;
@@ -16,6 +16,10 @@ trg = -1;
 trgXOrigin = 0;
 calculateHeight = false;
 onBase = 1;
+longestSprWidth = 0;
+panelId = 3;
+
+x = baseX;
 
 scrollPanelSquish = 0;
 panelWidth = 0;
@@ -44,6 +48,5 @@ scrollVerRightBound = 1023;
 scrollVerTopBound = 86;
 scrollVerBotBound = 419;
 
-depth = obj_editor_gui.depth - 1;
+depth = - 1;
 image_xscale = -1;
-x = baseX;

@@ -11,9 +11,11 @@ moveDirection = 1;
 doubleClickCounter = 0;
 trg = -1;
 trgXOrigin = 0;
+onBase = 1;
+sortXMax = 4;
 
 image_speed = 0;
-depth = obj_editor_gui.depth - 3;
+depth = -3;
 image_angle = 270;
 y = baseY;
 

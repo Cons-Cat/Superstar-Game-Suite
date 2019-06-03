@@ -1,5 +1,5 @@
 /// @description 
-if mouse_y >= 600 {
+/*if mouse_y >= 600 {
 	if mouse_x <= 170 {
 		if !keyboard_check(vk_shift) {
 			if mouse_wheel_down() {
@@ -17,7 +17,10 @@ if mouse_y >= 600 {
 			}
 		}
 	}
-}
+}*/
+
+x = camera_get_view_x(obj_editor_gui.cameraLeftPanel) + 2 + i*21;
+y = j*21;
 
 if mouse_x >= self.x && mouse_x < self.x+20 {
 	if mouse_y >= self.y && mouse_y < self.y+20 {

@@ -1,7 +1,8 @@
 /// @description 
 event_inherited();
+relativeX = x - room_width;
 
-if relativeMouseX <= x + 60 && relativeMouseX >= x - 60 {
+if relativeMouseX <= relativeX + 60 && relativeMouseX >= relativeX - 60 {
 	if relativeMouseY >= y - 21 && relativeMouseY <= y {
 		if mouse_check_button_pressed(mb_left) {
 			// Dragging
@@ -117,16 +118,21 @@ if y < obj_panel_left.scrollHorBotBound + 22 {
 	y = obj_panel_left.scrollHorBotBound + 22;
 }
 
+// Scrollbars
+scrollHorLeftBound = obj_panel_left.scrollHorLeftBound;
+scrollHorRightBound = obj_panel_left.scrollHorRightBound;
+
+scrollVerLeftBound = room_width;
+scrollVerRightBound = room_width + 15;
 scrollVerTopBound = y + 5;
 scrollVerBotBound = obj_panel_bot.y - 1;
-obj_panel_left.scrollVerBotBound = self.y - 2;
 
 // Viewports
 if !obj_panel_bot.select {
 	if tempY = -1 { // If the panel will not slide back up automatically
 		if scrollVerBotBound - scrollVerTopBound <= 0 {
-			if obj_panel_left.x > 16 {
-				if relativeMouseX >= self.x - sprite_height/2 && relativeMouseX <= self.x + sprite_height/2 && relativeMouseY >= self.y - sprite_width && relativeMouseY <= self.y {
+			if obj_panel_left.x - room_width > 16 {
+				if relativeMouseX >= relativeX - sprite_height/2 && relativeMouseX <= relativeX + sprite_height/2 && relativeMouseY >= self.y - sprite_width && relativeMouseY <= self.y {
 					if mousePeek > 0 {
 						mousePeek -= 2.75;
 						visible = true;
@@ -152,12 +158,20 @@ if !obj_panel_bot.select {
 if visible && tempY = -1 {
 	view_set_visible(5,true);
 	
-	camera_set_view_pos(obj_editor_gui.cameraLeftSubPanel,view_wport[1] + 1 + camera_get_view_width(obj_editor_gui.cameraRightPanel) + camera_get_view_width(obj_editor_gui.cameraLeftPanel),0);
-	camera_set_view_size(view_camera[5], obj_panel_left.x - 15,scrollVerBotBound - y - 5);
+	camera_set_view_pos(obj_editor_gui.cameraLeftSubPanel,longestPanelRightButton + room_width + view_wport[1] + 1 + view_wport[2] + view_wport[3],0);
+	camera_set_view_size(view_camera[5], obj_panel_left.x - 15 - room_width,scrollVerBotBound - y - 5);
 	
-	view_set_wport(5,obj_panel_left.x - 15);
+	view_set_wport(5,obj_panel_left.x - 15 - room_width);
+	if view_wport[5] < 0 {
+		view_set_wport(5,0);
+	}
+	
 	view_set_hport(5,scrollVerBotBound - y - 5);
 	view_set_yport(5,y + 5);
+	
+	obj_panel_left.scrollVerBotBound = self.y - 2;
 } else {
 	view_set_visible(5,false);
+	
+	obj_panel_left.scrollVerBotBound = obj_panel_bot.y - 1;
 }

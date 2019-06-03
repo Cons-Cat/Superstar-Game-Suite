@@ -1,6 +1,8 @@
 /// @description Insert description here
-if mouse_x >= x && mouse_x <= x + sprWidth {
-	if mouse_y >= y && mouse_y <= y + sprHeight {
+scale = view_hport[1] / 1152;
+
+if mouse_x >= x - (sprite_get_width(spr_editor_big_button) * scale / 2) && mouse_x <= x + (sprite_get_width(spr_editor_big_button) * scale / 2) {
+	if mouse_y >= y - (sprite_get_height(spr_editor_big_button) * scale) && mouse_y <= y {
 		if mouse_check_button_pressed(mb_left) {
 			if !select {
 				imgIndex = 1;

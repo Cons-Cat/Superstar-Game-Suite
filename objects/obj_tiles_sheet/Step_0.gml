@@ -1,4 +1,8 @@
 /// @description 
+x = camera_get_view_x(obj_editor_gui.cameraRightPanel);
+obj_panel_right.panelWidth = sprite_get_width(global.sprMaterial);
+obj_panel_right.panelHeight = sprite_get_height(global.sprMaterial);
+
 if mouse_y >= self.y && mouse_y <= sprite_get_height(global.sprMaterial) + self.y {
 	if mouse_x >= self.x && mouse_x <= sprite_get_width(global.sprMaterial) + self.x {
 		selectWidthScale = selectWidthOffset/2;

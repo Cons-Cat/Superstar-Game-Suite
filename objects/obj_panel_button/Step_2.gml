@@ -1,5 +1,4 @@
 /// @description Insert description here
-
 if ((mouse_x >= x && mouse_x <= x + sprWidth) || (mouse_x >= x + sprWidth + 3 && mouse_x <= x + sprWidth + 34))
 && mouse_y >= y - 1 && mouse_y <= y + sprHeight + 1 {
 	canSelect = true;
@@ -71,6 +70,15 @@ if select {
 			}
 		}
 	}
+	
+	// String input behavior
+	if buttonType = 3 {
+		if keyboard_check_pressed(vk_anykey) {
+			arbitraryVal = typeText(arbitraryVal);
+		}
+		
+		valueLength = string_width(arbitraryVal)*2 + 4;
+	}
 }
 
 // Selecting / de-selecting
@@ -129,3 +137,11 @@ if fillHor > 0 {
 
 x = camera_get_view_x(view_camera[viewOn]) + 2 + sortX;
 y = camera_get_view_y(view_camera[viewOn]) + 3 + sortY - (panelId.panelHeight - (panelId.scrollVerBotBound - panelId.scrollVerTopBound + 9)) * panelId.scrollVerPartition/100;
+
+if viewOn = 3 {
+	//obj_panel_left.longestPanelRightButton = self.longestSprWidth + 14;
+	//obj_subpanel_left.longestPanelRightButton = self.longestSprWidth + 14;
+	//obj_panel_bot.longestPanelRightButton = self.longestSprWidth + 14;
+}
+
+gone = true;

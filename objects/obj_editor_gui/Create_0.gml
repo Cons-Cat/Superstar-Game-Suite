@@ -27,7 +27,7 @@ view_set_yport(5,362);
 tempResWidth = 0;
 tempResHeight = 0;
 
-depth = -room_height - 200;
+depth = 0;
 
 mode = 0;
 /*

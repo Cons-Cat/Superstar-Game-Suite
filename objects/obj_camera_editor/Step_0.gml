@@ -238,8 +238,8 @@ if x < 260 {
 if x > room_width - 264 {
 	x = room_width - 264;
 }
-if y < 580 + 170 {
-	y = 580 + 170;
+if y < 174 {
+	y = 174;
 }
 if y > room_height - 162 {
 	y = room_height - 162;
@@ -250,8 +250,8 @@ if placeX < 260 {
 if placeX > room_width - 264 {
 	placeX = room_width - 264;
 }
-if placeY < 580 + 170 {
-	placeY = 580 + 170;
+if placeY < 174 {
+	placeY = 174;
 }
 if placeY > room_height - 162 {
 	placeY = room_height - 162;
@@ -263,8 +263,8 @@ if camera_get_view_x(view_camera[0]) < 4 {
 if camera_get_view_x(view_camera[0]) > room_width - camera_get_view_width(view_camera[0]) {
 	camera_set_view_pos(view_camera[0],room_width - camera_get_view_width(view_camera[0]),camera_get_view_y(view_camera[0]));
 }
-if camera_get_view_y(view_camera[0]) < 606 {
-	camera_set_view_pos(view_camera[0],camera_get_view_x(view_camera[0]),606);
+if camera_get_view_y(view_camera[0]) < 30 {
+	camera_set_view_pos(view_camera[0],camera_get_view_x(view_camera[0]),30);
 }
 
 depth = obj_editor_gui.depth - 1;

@@ -16,6 +16,7 @@ if placed != 0 {
 						if modeForSelect {
 							if obj_editor_gui.mode != 3 {
 								// Dimension manipulation
+								
 								if mouse_check_button_pressed(mb_left) && !instance_exists(obj_editor_button_parent) {
 									spawnButtons = true; // Button instances are created from child objects
 									
@@ -24,8 +25,9 @@ if placed != 0 {
 									obj_editor_gui.canChangeSelect = false;
 								}
 							} else {
+								// Tiling for collisions instances
+								
 								if mouse_check_button_pressed(mb_left) {
-									// Tiling for collisions instances
 									if modeForSelect = 0 || modeForSelect = 1 {
 										if mouse_check_button_pressed(mb_left) {
 											// Slide side panels out
@@ -39,8 +41,8 @@ if placed != 0 {
 											obj_panel_left.moveToSpd = global.tempXLeft/4;
 											obj_panel_left.moveDirection = -1;
 											
-											obj_panel_right.moveToX = 1024;
-											obj_panel_right.moveToSpd = (1024 - global.tempXRight)/4;
+											obj_panel_right.moveToX = room_width + view_wport[1];
+											obj_panel_right.moveToSpd = (room_width + view_wport[1] - global.tempXRight)/4;
 											obj_panel_right.moveDirection = 1;
 											
 											alarm[1] = 18;
@@ -78,7 +80,7 @@ if spawnTiles {
 		if str = "rectangle" {
 			for (i = 0; i < width + 2; i += 1) {
 				for (j = 0; j < image_yscale + 1; j += 1) {
-					with instance_create_layer(1026 + i*21,86 + j*21,"Instances",obj_tiles_grid) {
+					with instance_create_layer(camera_get_view_x(obj_editor_gui.cameraLeftPanel) + 2 + i*21,j*21,"Instances",obj_tiles_grid) {
 						trgId = other.id;
 						i = other.i;
 						j = other.j;
@@ -183,15 +185,7 @@ if spawnTiles {
 		
 		if !instance_exists(obj_tiles_sheet) {
 			// Open menu
-			if 1024 + (i+1) * 21 < 1800 {
-				// Ensure that the tiles sheet never overlaps with the left panel view
-				obj_panel_right.tilesSheetPlacement = 1800;
-				instance_create_layer(1800,86,"Instances",obj_tiles_sheet);
-			} else {
-				// Ensure that the tiles sheet is always placed beyond the tiles grid
-				obj_panel_right.tilesSheetPlacement = 1024 + (i+1) * 21;
-				instance_create_layer(1024 + (i+1) * 21,86,"Instances",obj_tiles_sheet);
-			}
+			instance_create_layer(room_width,0,"Instances",obj_tiles_sheet);
 		}
 	}
 	
@@ -201,7 +195,7 @@ if spawnTiles {
 // Placing in the level
 if placed = 0 {
 	x = floor(obj_editor_gui.mouseCheckX/20)*20;
-	y = floor((obj_editor_gui.mouseCheckY+4)/20)*20 - 4;
+	y = floor((obj_editor_gui.mouseCheckY)/20)*20;
 }
 
 if mouse_check_button_released(mb_left) {

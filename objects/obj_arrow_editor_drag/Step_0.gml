@@ -16,7 +16,7 @@ if mouseCheckX >= bbox_left && mouseCheckX <= bbox_right && mouseCheckY >= bbox_
 if instance_exists(trg) {
 	if select {
 		x = floor((mouseCheckX) / 20) * 20;
-		y = floor((mouseCheckY + 4) / 20) * 20 - 4;
+		y = floor((mouseCheckY) / 20) * 20;
 		
 		trg.x = self.x;
 		trg.y = self.y;

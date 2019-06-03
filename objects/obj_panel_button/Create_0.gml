@@ -3,6 +3,7 @@ select = false;
 canRelease = false;
 objIndex = -1;
 imgIndex = 0;
+gone = false;
 
 sortX = 0;
 sortY = 0;
@@ -25,6 +26,6 @@ graphicFillOutsideCol = make_color_rgb(31,34,40); // Dark gray
 graphicCol1 = make_color_rgb(200,210,243);
 graphicCol2 = make_color_rgb(147,155,179);
 
-alarm[0] = 2;
+//alarm[0] = 2;
 
 font = obj_editor_gui.font;

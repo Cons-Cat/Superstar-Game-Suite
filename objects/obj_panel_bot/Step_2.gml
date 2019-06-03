@@ -1,8 +1,9 @@
 /// @description Insert description here
 baseY = view_hport[1] - (156/576 * view_hport[1]);
-x = view_wport[1]/2;
+x = room_width + view_wport[1]/2;
+relativeX = x - room_width;
 
-if relativeMouseX <= x + 60 && relativeMouseX >= x - 60 {
+if relativeMouseX <= relativeX + 60 && relativeMouseX >= relativeX - 60 {
 	if relativeMouseY >= y - 21 && relativeMouseY <= y {
 		if mouse_check_button_pressed(mb_left) {
 			// Dragging
@@ -386,7 +387,7 @@ if totalActions > 0 {
 	}
 }
 
-panelWidth = longestRowLength*6 + 1;
+panelWidth = longestRowLength*6 + 2;
 
 // Minimum length
 if panelWidth < view_wport[1] - 386 {
@@ -394,14 +395,14 @@ if panelWidth < view_wport[1] - 386 {
 }
 
 // Drag actions
-cameraNetX = camera_get_view_x(obj_editor_gui.cameraBotPanel) - view_wport[1] - camera_get_view_width(obj_editor_gui.cameraRightPanel) - camera_get_view_width(obj_editor_gui.cameraLeftPanel) - camera_get_view_width(obj_editor_gui.cameraLeftSubPanel);
+cameraNetX = camera_get_view_x(obj_editor_gui.cameraBotPanel) - (camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) ) - view_wport[5] - obj_subpanel_left.longestPanelRightButton;
 potentialActionTime = floor( (relativeMouseX - 193 + cameraNetX) / 6);
-ax = ( ((scrollHorX - 193)/(scrollHorRightBound - scrollHorLeftBound))*panelWidth ) + 1;
+ax = ( ((scrollHorX - 193 - room_width) / (scrollHorRightBound - scrollHorLeftBound)) * panelWidth ) + 1;
 
 for (i = 1; i <= totalActions; i += 1) {
 	for (j = 0; j < rows; j += 1) {
-		if relativeMouseX >= 193 - ax + actionTime[i]*6 && relativeMouseX <= actionTime[i]*6 + 6 - ax + 193 {
-			if relativeMouseY >= 454 + j*14 && relativeMouseY <= 464 + j*14 {
+		if relativeMouseX > 194 - ax + actionTime[i]*6 && relativeMouseX <= 193 - ax + actionTime[i]*6 + 6 {
+			if relativeMouseY >= y + 34 + j*14 && relativeMouseY <= y + 44 + j*14 {
 				if relativeMouseX >= 192 {
 					if actionInd[i] != -1 {
 						if actionRowInd[i] = j {
@@ -426,8 +427,8 @@ for (i = 1; i <= totalActions; i += 1) {
 												
 												with other.actorId[other.j] {
 													other.zfloor = self.zfloor;
-													other.originX[0] = self.x+10;
-													other.originY[0] = self.y+10;
+													other.originX[0] = self.x + 10;
+													other.originY[0] = self.y + 10;
 												}
 											}
 										}
@@ -677,30 +678,36 @@ if y < 300 {
 	y = 300;
 }
 
-view_visible[4] = true;
+// Views
+view_xport[4] = 193;
+view_yport[4] = y + 34;
+view_wport[4] = view_wport[1] - 384;
+view_hport[4] = view_hport[1] - y - 34;
+
+camera_set_view_pos(obj_editor_gui.cameraBotPanel,camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) + view_wport[5] + ( ((scrollHorX - 193 - room_width) / (scrollHorRightBound - scrollHorLeftBound)) * panelWidth + longestPanelRightButton),0);
+camera_set_view_size(obj_editor_gui.cameraBotPanel,view_wport[4],view_hport[4]);
 
 if y >= view_hport[1] {
 	y = view_hport[1];
 	view_visible[4] = false;
+} else {
+	view_visible[4] = true;
 }
 
-// Views
-camera_set_view_pos(obj_editor_gui.cameraBotPanel,view_wport[1] + 1 + camera_get_view_width(obj_editor_gui.cameraRightPanel) + camera_get_view_width(obj_editor_gui.cameraLeftPanel) + camera_get_view_width(obj_editor_gui.cameraLeftSubPanel) + (((scrollHorX - 193)/(scrollHorRightBound - scrollHorLeftBound))*panelWidth),0);
-view_xport[4] = 193;
-view_yport[4] = y + 34;
-view_wport[4] = (view_wport[1] - 384);
-view_hport[4] = (view_hport[1] - y) - 34;
-camera_set_view_size(obj_editor_gui.cameraBotPanel,view_wport[4],view_hport[4]);
-
+// Scroll bars
+scrollHorLeftBound = room_width + 192;
+scrollHorRightBound = room_width + view_wport[1] - 192
 scrollHorTopBound = y+4;
 scrollHorBotBound = y+19;
 
+scrollVerLeftBound = room_width;
+scrollVerRightBound = room_width + 16;
 scrollVerTopBound = y+34;
-scrollVerBotBound = view_hport[1] - 4;
+scrollVerBotBound = view_hport[1] - 3;
 botPanelY = scrollVerBotBound - scrollVerTopBound;
 
-scrollHorLeftBound = 192;
-scrollHorRightBound = view_wport[1]-192
-
-// Scroll bars
 event_inherited();
+
+if !visible {
+	view_set_visible(4,false);
+}

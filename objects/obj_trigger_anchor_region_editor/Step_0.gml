@@ -31,6 +31,7 @@ if spawnButtons {
 		other.minorId = self.id;
 		panelId = obj_subpanel_left.id;
 		trg = other.id;
+		sprWidth = (string_width(label) + 5) * 2;
 	}
 	with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
 		sortIndex = 1;
@@ -42,6 +43,7 @@ if spawnButtons {
 		other.majorId = self.id;
 		panelId = obj_subpanel_left.id;
 		trg = other.id;
+		sprWidth = (string_width(label) + 5) * 2;
 	}
 	with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
 		sortIndex = 2;
@@ -53,12 +55,14 @@ if spawnButtons {
 		other.thresholdId = self.id;
 		panelId = obj_subpanel_left.id;
 		trg = other.id;
+		sprWidth = (string_width(label) + 5) * 2;
 	}
 	with instance_create_layer(x,y,"Instances",obj_region_button_target) {
 		sortIndex = 3;
 		viewOn = 5;
 		panelId = obj_subpanel_left.id;
 		trg = other.id;
+		sprWidth = (string_width(label) + 5) * 2;
 	}
 	with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
 		sortIndex = 4;
@@ -70,7 +74,10 @@ if spawnButtons {
 		other.zoomId = self.id;
 		panelId = obj_subpanel_left.id;
 		trg = other.id;
+		sprWidth = (string_width(label) + 5) * 2;
 	}
+	
+	event_user(0);
 	
 	obj_subpanel_left.tempY = obj_subpanel_left.y;
 	obj_subpanel_left.moveDirection = 1;

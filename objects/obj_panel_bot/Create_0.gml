@@ -16,6 +16,7 @@ trg = -1;
 trgXOrigin = 0;
 cameraViewOn = 4;
 onBase = 1;
+longestPanelRightButton = 0;
 
 scrollPanelSquish = 0;
 panelWidth = 0;
