@@ -1,7 +1,8 @@
 /// @description Draw above rectangle span
-depth = obj_panel_right.depth - 1;
+depth = -3;
 
 tileDefaultSpr = -1;
-xVal = 0;
-yVal = 0;
+xVal[0] = 0;
+yVal[0] = 0;
+hasTile[0] = false;
 close = false;

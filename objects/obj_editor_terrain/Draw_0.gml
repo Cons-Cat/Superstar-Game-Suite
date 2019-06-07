@@ -198,7 +198,11 @@ if obj_editor_gui.mode = 1 {
 if obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4 {
 	for (i = 0; i < width + 2; i += 1) {
 		for (j = 0; j <= image_yscale; j += 1) {
-			draw_sprite_part_ext(sprMaterial,0,tileArrayDrawX[i,j],tileArrayDrawY[i,j],20,20,x+(i)*20-20,y+(j)*20-20,1,1,layerColor,alpha);
+			for (k = 0; k <= tileLayerCount; k += 1) {
+				if hasTile[scr_array_xy(i,j,tileLayerCount),k] {
+					draw_sprite_part_ext(sprMaterial,0,tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k],tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k],20,20,x+(i)*20-20,y+(j)*20-20,1,1,layerColor,alpha);
+				}
+			}
 		}
 	}
 }

@@ -165,7 +165,13 @@ scrollVerTopBound = obj_panel_top.y + 27;
 }*/
 
 // Viewports
-camera_set_view_pos(obj_editor_gui.cameraLeftPanel,view_wport[1] + 1 + longestPanelRightButton + camera_get_view_width(obj_editor_gui.cameraRightPanel) + (scrollHorX-16)/scrollHorFactor,scrollVerY);
+panelOffset = camera_get_view_width(obj_editor_gui.cameraRightPanel);
+
+if panelOffset < obj_panel_right.panelWidth {
+	panelOffset = obj_panel_right.panelWidth;
+}
+
+camera_set_view_pos(obj_editor_gui.cameraLeftPanel,camera_get_view_x(obj_editor_gui.cameraRightPanel) + longestPanelRightButton + panelOffset /*+ (scrollHorX-16)/scrollHorFactor*/,0);
 camera_set_view_size(view_camera[2], relativeX - 15, scrollVerBotBound);
 
 view_set_wport(2,relativeX - 15);
@@ -176,7 +182,9 @@ if view_wport[2] < 0 {
 view_set_hport(2,scrollVerBotBound)
 view_set_yport(2,scrollVerTopBound);
 
-switch obj_editor_gui.mode {
+view_set_visible(2,true);
+
+/*switch obj_editor_gui.mode {
 	// Tiling mode
 	case 3:
 		if x > 16 && obj_big_button_tiling.spawnButtons {
@@ -198,7 +206,7 @@ switch obj_editor_gui.mode {
 		}
 		
 		break;
-}
+}*/
 
 if !visible {
 	view_set_visible(2,false);

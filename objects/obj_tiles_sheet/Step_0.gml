@@ -1,10 +1,12 @@
 /// @description 
 x = camera_get_view_x(obj_editor_gui.cameraRightPanel);
+relativeMouseX = (mouse_x - self.x);
+relativeMouseY = (mouse_y - self.y);
 obj_panel_right.panelWidth = sprite_get_width(global.sprMaterial);
 obj_panel_right.panelHeight = sprite_get_height(global.sprMaterial);
 
-if mouse_y >= self.y && mouse_y <= sprite_get_height(global.sprMaterial) + self.y {
-	if mouse_x >= self.x && mouse_x <= sprite_get_width(global.sprMaterial) + self.x {
+if relativeMouseY >= 0 && relativeMouseY <= sprite_get_height(global.sprMaterial) {
+	if relativeMouseX >= 0 && relativeMouseX <= sprite_get_width(global.sprMaterial) {
 		selectWidthScale = selectWidthOffset/2;
 		selectHeightScale = selectHeightOffset/2;
 		
@@ -12,8 +14,8 @@ if mouse_y >= self.y && mouse_y <= sprite_get_height(global.sprMaterial) + self.
 		if mouse_check_button_pressed(mb_left) {
 			selecting = true;
 			draggingSelection = true;
-			xInit = floor(mouse_x/20)*20;
-			yInit = floor((mouse_y-6)/20)*20;
+			xInit = floor(relativeMouseX/20)*20;
+			yInit = floor(relativeMouseY/20)*20;
 			selectWidthOffset = 20;
 			selectHeightOffset = 20;
 		}
@@ -21,16 +23,16 @@ if mouse_y >= self.y && mouse_y <= sprite_get_height(global.sprMaterial) + self.
 		if selecting = true {
 			for (i = 0; i < selectWidthOffset; i += 20) {
 				for (j = 0; j < selectHeightOffset; j += 20) {
-					xVal[i,j] = xInit + ((xInit) % 20) + i;
-					yVal[i,j] = yInit + ((yInit) % 20) + j + 6;
+					xVal[i,j] = xInit + ((xInit) % 20) + i + x;
+					yVal[i,j] = yInit + ((yInit) % 20) + j + y;
 				}
 			}
 			if draggingSelection = true {
-				if mouse_x > xInit {
-					selectWidthOffset = floor((mouse_x+20)/20)*20 - xInit;
+				if relativeMouseX > xInit {
+					selectWidthOffset = floor((relativeMouseX+20)/20)*20 - xInit;
 				}
-				if mouse_y > yInit {
-					selectHeightOffset = floor((mouse_y+20-6)/20)*20 - yInit;
+				if relativeMouseY > yInit {
+					selectHeightOffset = floor((relativeMouseY+20)/20)*20 - yInit;
 				}
 				if selectWidthOffset < 20 {
 					selectWidthOffset = 20;

@@ -1,5 +1,5 @@
 /// @description 
-depth = -obj_panel_right.depth - 1;
+depth = -1;
 
 xVal[0,0] = x;
 yVal[0,0] = y;

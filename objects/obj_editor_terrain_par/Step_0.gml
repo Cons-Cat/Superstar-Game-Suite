@@ -38,11 +38,11 @@ if placed != 0 {
 											
 											// Assign values to slide side panels in
 											obj_panel_left.moveToX = 0;
-											obj_panel_left.moveToSpd = global.tempXLeft/4;
+											obj_panel_left.moveToSpd = (global.tempXLeft - room_width) / 4;
 											obj_panel_left.moveDirection = -1;
 											
 											obj_panel_right.moveToX = room_width + view_wport[1];
-											obj_panel_right.moveToSpd = (room_width + view_wport[1] - global.tempXRight)/4;
+											obj_panel_right.moveToSpd = (room_width + view_wport[1] - global.tempXRight) / 4;
 											obj_panel_right.moveDirection = 1;
 											
 											alarm[1] = 18;
@@ -85,8 +85,23 @@ if spawnTiles {
 						i = other.i;
 						j = other.j;
 						tempMaterial = other.sprMaterial;
-						xVal = other.tileArrayDrawX[i,j];
-						yVal = other.tileArrayDrawY[i,j];
+						tileLayerCount = other.tileLayerCount;
+						
+						for (k = 0; k <= tileLayerCount; k += 1) {
+							xVal[k] = other.tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k];
+							yVal[k] = other.tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k];
+							hasTile[scr_array_xy(i,j,tileLayerCount),k] = other.hasTile[scr_array_xy(i,j,tileLayerCount),k];
+							
+							tileLayer[k,0] = other.tileLayer[k,0]; // Pass in layer names
+							
+							for (a = 1; a <= other.tileSubLayerBreadth[k]; a += 1) {
+								tileLayer[k,a] = other.tileLayer[k,a]; // Pass in sub-layer names
+								
+								if a = other.tileSubLayerBreadth[k] {
+									tileLayer[k,a] = ""; // Add empty sub-layer at tail
+								}
+							}
+						}
 					}
 				}
 			}
@@ -186,6 +201,10 @@ if spawnTiles {
 		if !instance_exists(obj_tiles_sheet) {
 			// Open menu
 			instance_create_layer(room_width,0,"Instances",obj_tiles_sheet);
+			
+			with instance_create_layer(room_width,0,"Instances",obj_tile_layers) {
+				trgId = other.id;
+			}
 		}
 	}
 	

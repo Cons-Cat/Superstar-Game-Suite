@@ -49,6 +49,8 @@ if mode = 2 {
 		alarm[0] = 2;
 		
 		with obj_editor_terrain {
+			#region
+			
 			if zfloor > 0 || !finite {
 				// Front collision
 				with instance_create_layer(x,y,"Instances",obj_solid) {
@@ -106,8 +108,13 @@ if mode = 2 {
 					finite = other.finite;
 				}
 			}
+			
+			#endregion
 		}
+		
 		with obj_editor_slope1 {
+			#region
+			
 			if zfloor > 0 || !finite {
 				for (i = 0; i < width; i += 1) {
 					// Right slopes collision
@@ -179,8 +186,13 @@ if mode = 2 {
 					}
 				}
 			}
+			
+			#endregion
 		}
+		
 		with obj_editor_slope2 {
+			#region
+			
 			if zfloor > 0 || !finite {
 				for (i = 0; i < width; i += 1) {
 					// Right slopes collision
@@ -252,8 +264,12 @@ if mode = 2 {
 					}
 				}
 			}
+			#endregion
 		}
+		
 		with obj_editor_slope3 {
+			#region
+			
 			if zfloor > 0 || !finite {
 				for (i = 0; i < width; i += 1) {
 					// Right slopes collision
@@ -325,8 +341,13 @@ if mode = 2 {
 					}
 				}
 			}
+			
+			#endregion
 		}
+		
 		with obj_editor_staircase {
+			#region
+			
 			// Initialize variables
 			trgCreated[0] = -1;
 			trgCreated[1] = -1;
@@ -802,6 +823,8 @@ if mode = 2 {
 				}
 			}
 		}
+		
+		#endregion
 	}
 } else {
 	if spawnedCollisions {
@@ -839,13 +862,4 @@ if mode = 2 {
 // Control side panel pushing
 if obj_panel_left.select = 0 && obj_panel_right.select = 0 {
 	sidePanelCtrl = -1;
-}
-
-// Fullscreen
-/*if keyboard_check(vk_alt) && keyboard_check_pressed(vk_enter) {
-	if window_get_fullscreen() {
-		window_set_fullscreen(false);
-	} else {
-		window_set_fullscreen(true);
-	}
 }

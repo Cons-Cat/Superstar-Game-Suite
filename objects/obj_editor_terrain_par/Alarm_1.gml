@@ -18,7 +18,7 @@ obj_panel_right.scrollHorPartition = 0;
 obj_panel_right.scrollVerPartition = 0;
 
 // Tile input box
-sprMaterialDirectory = "";
+sprMaterialDirectory = "a";
 //sprMaterialDirectory = get_open_filename_ext("Material Image File|*.png", "", working_directory + "\Room Saves\ ", "Import Material Tileset");
 
 if sprMaterialDirectory != "" {
@@ -27,7 +27,7 @@ if sprMaterialDirectory != "" {
 
 obj_editor_gui.hasMaterials = true;
 
-for (i = 0; i <= obj_editor_gui.materialsImported; i += 1) {
+/*for (i = 0; i <= obj_editor_gui.materialsImported; i += 1) {
 	if i = obj_editor_gui.materialsImported {
 		global.sprMaterial = spr_tls_rectangle_default; //sprite_add(other.sprMaterialDirectory,0,false,false,0,0);
 		obj_editor_gui.sprMaterialDirectoryList[i] = sprMaterialDirectory;
@@ -42,7 +42,7 @@ for (i = 0; i <= obj_editor_gui.materialsImported; i += 1) {
 		
 		break;
 	}
-}
+}*/
 
 canSpawnButtons = true;
 spawnTiles = true;
