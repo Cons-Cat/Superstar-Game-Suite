@@ -1,6 +1,8 @@
 /// @description Generic variable initialization
 width = 1;
 height = 1;
+tileLayerCount = 1;
+layerVisible[0] = true;
 mirror = false;
 flip = false;
 finite = true;

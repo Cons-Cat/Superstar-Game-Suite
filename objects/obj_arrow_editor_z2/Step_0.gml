@@ -13,7 +13,8 @@ if instance_exists(trg) {
 		if selectYOff = 0 {
 			selectYOff = mouseCheckY - y;
 		}
-		y = floor((mouseCheckY - selectYOff)/20)*20 + 16;
+		
+		y = floor((mouseCheckY - selectYOff)/20)*20;
 		
 		if y < trg.y + trg.height*20 {
 			y = trg.y + trg.height*20;

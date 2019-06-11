@@ -197,10 +197,10 @@ if obj_editor_gui.mode = 1 {
 // Tile painting mode / Play testing mode
 if obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4 {
 	for (i = 0; i < width + 2; i += 1) {
-		for (j = 0; j <= image_yscale; j += 1) {
+		for (j = 0; j < zfloor - zcieling + 2; j += 1) {
 			for (k = 0; k <= tileLayerCount; k += 1) {
-				if hasTile[scr_array_xy(i,j,tileLayerCount),k] {
-					draw_sprite_part_ext(sprMaterial,0,tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k],tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k],20,20,x+(i)*20-20,y+(j)*20-20,1,1,layerColor,alpha);
+				if hasTile[scr_array_xy(i,j,tileRowWidth),k] {
+					draw_sprite_part_ext(sprMaterial,0,tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),k],tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),k],20,20,x+(i)*20-20,y+(j)*20-20,1,1,layerColor,alpha);
 				}
 			}
 		}

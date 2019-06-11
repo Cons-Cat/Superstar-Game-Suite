@@ -49,7 +49,7 @@ if select {
 										placed = 1;
 										
 										x = floor(other.mouseCheckX/20)*20;
-										y = floor((obj_editor_gui.mouseCheckY+4)/20)*20 - 4;
+										y = floor((obj_editor_gui.mouseCheckY+4)/20)*20;
 									}
 								}
 							}

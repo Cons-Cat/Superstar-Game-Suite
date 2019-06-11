@@ -4,7 +4,7 @@ event_inherited();
 str = "rectangle";
 tileLayer[0,0] = "layer_0";
 tileLayer[0,1] = "";
-tileLayerCount = 0;
+tileRowWidth = 0;
 tileSubLayerBreadth[0] = 1;
 
 // Graphics IDs

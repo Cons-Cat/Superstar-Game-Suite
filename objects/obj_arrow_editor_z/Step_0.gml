@@ -14,7 +14,7 @@ if instance_exists(trg) {
 			selectYOff = mouseCheckY - y;
 		}
 		
-		y = floor((mouseCheckY - selectYOff)/20)*20 + 6;
+		y = floor((mouseCheckY - selectYOff)/20)*20 + 10;
 		
 		if y > trg.y + trg.height*10 + (trg.zfloor - trg.zcieling) * 20 {
 			y = trg.y + trg.height*10 + (trg.zfloor - trg.zcieling) * 20;
@@ -22,11 +22,11 @@ if instance_exists(trg) {
 		
 		if self.y < trg.y + 20 {
 			trg.zfloor += 1;
-			//trg.y -= 20;
+			trg.y -= 20;
 		}
 		if self.y > trg.y + 20 && trg.zfloor > trg.zcieling {
 			trg.zfloor -= 1;
-			//trg.y += 20;
+			trg.y += 20;
 		}
 		
 		trg.resetArray = true;

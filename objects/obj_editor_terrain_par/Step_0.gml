@@ -79,26 +79,33 @@ if spawnTiles {
 		// Spawn tiles GUI
 		if str = "rectangle" {
 			for (i = 0; i < width + 2; i += 1) {
-				for (j = 0; j < image_yscale + 1; j += 1) {
+				for (j = 0; j < zfloor - zcieling + 2; j += 1) {
 					with instance_create_layer(camera_get_view_x(obj_editor_gui.cameraLeftPanel) + 2 + i*21,j*21,"Instances",obj_tiles_grid) {
 						trgId = other.id;
 						i = other.i;
 						j = other.j;
+						k = 0;
+						width = other.width;
 						tempMaterial = other.sprMaterial;
+						tileRowWidth = other.width + 2;
 						tileLayerCount = other.tileLayerCount;
 						
 						for (k = 0; k <= tileLayerCount; k += 1) {
-							xVal[k] = other.tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k];
-							yVal[k] = other.tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k];
-							hasTile[scr_array_xy(i,j,tileLayerCount),k] = other.hasTile[scr_array_xy(i,j,tileLayerCount),k];
+							hasTile[scr_array_xy(i,j,tileRowWidth),k] = other.hasTile[scr_array_xy(i,j,tileRowWidth),k];
+							layerVisible[k div 2] = other.layerVisible[k div 2];
 							
-							tileLayer[k,0] = other.tileLayer[k,0]; // Pass in layer names
-							
-							for (a = 1; a <= other.tileSubLayerBreadth[k]; a += 1) {
-								tileLayer[k,a] = other.tileLayer[k,a]; // Pass in sub-layer names
+							if hasTile[scr_array_xy(i,j,tileRowWidth),k] {
+								xVal[k] = other.tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),k];
+								yVal[k] = other.tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),k];
 								
-								if a = other.tileSubLayerBreadth[k] {
-									tileLayer[k,a] = ""; // Add empty sub-layer at tail
+								tileLayer[k,0] = other.tileLayer[k,0]; // Pass in layer names
+								
+								for (a = 1; a <= other.tileSubLayerBreadth[k]; a += 1) {
+									tileLayer[k,a] = other.tileLayer[k,a]; // Pass in sub-layer names
+									
+									if a = other.tileSubLayerBreadth[k] {
+										tileLayer[k,a] = ""; // Add empty sub-layer at tail
+									}
 								}
 							}
 						}
@@ -152,7 +159,7 @@ if spawnTiles {
 		
 		// Spawn tiles GUI (slope 3)
 		if str = "slope3" {
-			for (i = 0; i <= width + 1; i += 1) {
+			for (i = 0; i <= width + 2; i += 1) {
 				for (j = zfloor + 2; j >= zcieling; j -= 1) {
 					with instance_create_layer(1026 + i*21,86 + (zfloor + 2)*21 - j*21,"Instances",obj_tiles_grid) {
 						trgId = other.id;
@@ -204,6 +211,7 @@ if spawnTiles {
 			
 			with instance_create_layer(room_width,0,"Instances",obj_tile_layers) {
 				trgId = other.id;
+				tileLayerCount = other.tileLayerCount;
 			}
 		}
 	}

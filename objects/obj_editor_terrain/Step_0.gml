@@ -76,84 +76,86 @@ if spawnButtons {
 if resetArray && obj_editor_gui.mode != 3 {
 	resetArray = false;
 	sprMaterial = spr_tls_rectangle_default // Reset material
+	tileRowWidth = width + 2;
+	tileLayerCount = 1;
 	
-	for (i = 0; i <= width + 2; i += 1) {
-		for (j = 0; j <= image_yscale + 1; j += 1) {
-			k = 0;
-			hasTile[scr_array_xy(i,j,tileLayerCount),k] = true;
+	for (i = 0; i < width + 2; i += 1) {
+		for (j = 0; j < zfloor - zcieling + 2; j += 1) {
+			hasTile[scr_array_xy(i,j,tileRowWidth),0] = true;
+			hasTile[scr_array_xy(i,j,tileRowWidth),1] = false;
 			
-			tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k] = 0;
-			tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k] = 120;
+			tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),0] = 0;
+			tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),0] = 120;
 			
 			if i = 1 && j = 1 {
 				if width > 1 && height > 1 {
 					// Top left floor corner index
-					tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k] = 20;
-					tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k] = 20;
+					tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),0] = 20;
+					tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),0] = 20;
 				} else if width > 1 {
 					// Left beam edge
-					tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k] = 0;
-					tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k] = 220;
+					tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),0] = 0;
+					tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),0] = 220;
 				} else if height > 1 {
 					// Vertical top beam edge
-					tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k] = 80;
-					tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k] = 180;
+					tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),0] = 80;
+					tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),0] = 180;
 				} else {
 					// Center edge
-					tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k] = 0;
-					tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k] = 100;
+					tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),0] = 0;
+					tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),0] = 100;
 				}
 			}
 			if i = width && j = 1 {
 				if height > 1 && width > 1 {
 					// Top right floor corner index
-					tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k] = 60;
-					tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k] = 20;
+					tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),0] = 60;
+					tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),0] = 20;
 				}
 			}
 			if i = 1 && j = height {
 				if height > 1 && width > 1 {
 					// Bottom left floor corner index
-					tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k] = 20;
-					tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k] = 60;
+					tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),0] = 20;
+					tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),0] = 60;
 				} else if height > 1 {
 					// Vertical bottom beam edge
-					tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k] = 80;
-					tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k] = 220;
+					tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),0] = 80;
+					tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),0] = 220;
 				}
 			}
 			if i = width && j = height {
 				if width > 1 && height > 1 {
 					// Bottom right floor corner index
-					tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k] = 60;
-					tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k] = 60;
+					tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),0] = 60;
+					tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),0] = 60;
 				}
 			}
 			if i > 1 && i < width && j = 1 {
 				if height > 1 {
 					// Top floor edge index
-					tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k] = 40;
-					tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k] = 20;
+					tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),0] = 40;
+					tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),0] = 20;
 				}
 			}
 			if i > 1 && i < width && j = height {
 				if width > 1 {
 					if height > 1 {
 						// Bottom floor edge index
-						tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k] = 40;
-						tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k] = 60;
+						tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),0] = 40;
+						tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),0] = 60;
 					} else {
 						// Center horizontal beam center edge index
-						tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k] = 20;
-						tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k] = 220;
+						tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),0] = 20;
+						tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),0] = 220;
 					}
 				}
 			}
 			if j > 1 && j < height && i = 1 {
 				if width > 1 && height > 1 {
 					// Left floor edge index
-					tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k] = 20;
-					tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k] = 40;
+					tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),0] = 20;
+					tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),0] = 40;
 				} else if height > 1 {
 					// Center vertical beam edge index
 					tileArrayDrawX[1,j] = 80;
@@ -168,15 +170,15 @@ if resetArray && obj_editor_gui.mode != 3 {
 			if j > 1 && j < height && i = width {
 				if width > 1 {
 					// Right floor edge index
-					tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k] = 60;
-					tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k] = 40;
+					tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),0] = 60;
+					tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),0] = 40;
 				}
 			}
 			if i > 1 && i < width && j > 1 && j < height {
 				if width > 1 && height > 1 {
 					// Center floor index
-					tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k] = 40;
-					tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k] = 40;
+					tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),0] = 40;
+					tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),0] = 40;
 				}
 			}
 			
@@ -184,54 +186,54 @@ if resetArray && obj_editor_gui.mode != 3 {
 				if i = 1 {
 					if width > 1 {
 						// Left wall edge
-						tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k] = 20;
-						tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k] = 100;
+						tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),0] = 20;
+						tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),0] = 100;
 					} else {
 						// Vertical beam center wall edge
-						tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k] = 80;
-						tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k] = 100;
+						tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),0] = 80;
+						tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),0] = 100;
 					}
 				}
 				if i = width {
 					if width > 1 {
 						// Right wall edge
-						tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k] = 60;
-						tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k] = 100;
+						tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),0] = 60;
+						tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),0] = 100;
 					}
 				}
 				if i > 1 && i < width && j = image_yscale {
 					if width > 1 {
 						// Bottom wall edge
-						tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k] = 40;
-						tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k] = 120;
+						tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),0] = 40;
+						tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),0] = 120;
 					}
 				}
 				if i > 1 && i < width && j < image_yscale {
 					if width > 1 {
 						// Center wall
-						tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k] = 40;
-						tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k] = 100;
+						tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),0] = 40;
+						tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),0] = 100;
 					}
 				}
 				if i = 1 && j = image_yscale {
 					if width > 1 {
 						// Bottom left wall corner
-						tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k] = 20;
-						tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k] = 120;
+						tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),0] = 20;
+						tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),0] = 120;
 					}
 				}
 				if i = width && j = image_yscale {
 					if width > 1 {
 						// Bottom right wall corner
-						tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k] = 60;
-						tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k] = 120;
+						tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),0] = 60;
+						tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),0] = 120;
 					}
 				}
 				if i = 1 && j = image_yscale {
 					if width = 1 && image_yscale > 1 {
 						// Vertical beam bottom edge
-						tileArrayDrawX[scr_array_xy(i,j,tileLayerCount),k] = 80;
-						tileArrayDrawY[scr_array_xy(i,j,tileLayerCount),k] = 120;
+						tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),0] = 80;
+						tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),0] = 120;
 					}
 				}
 			}
