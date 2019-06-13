@@ -22,7 +22,7 @@
 x = camera_get_view_x(obj_editor_gui.cameraLeftPanel) + 2 + i*21;
 y = 1 + j*21;
 
-tileRowWidth = width + 2; //array_height_2d(obj_tile_layers.list) - 1;
+tileRowWidth = width + 2; //array_height_2d(obj_tiles_layers.list) - 1;
 
 if tileLayerSelect != -1 {
 	if mouse_x >= self.x && mouse_x < self.x+20 {
@@ -52,18 +52,17 @@ if tileLayerSelect != -1 {
 
 // Pass values into target terrain instance
 for (k = 0; k <= tileLayerCount; k += 1) {
-	if layerVisible[k div 2] {
-		trgId.hasTile[scr_array_xy(i,j,tileRowWidth),k] = self.hasTile[scr_array_xy(i,j,tileRowWidth),k];
+	if layerVisible[layerOrder[k]] {
+		trgId.hasTile[scr_array_xy(i,j,tileRowWidth),layerOrder[k]] = self.hasTile[scr_array_xy(i,j,tileRowWidth),layerOrder[k]];
 	} else {
-		trgId.hasTile[scr_array_xy(i,j,tileRowWidth),k] = false;
+		trgId.hasTile[scr_array_xy(i,j,tileRowWidth),layerOrder[k]] = false;
 	}
 	
-	if hasTile[scr_array_xy(i,j,tileRowWidth),k] {
-		trgId.tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),k] = xVal[k];
-		trgId.tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),k] = yVal[k];
+	if hasTile[scr_array_xy(i,j,tileRowWidth),layerOrder[k]] {
+		trgId.tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),layerOrder[k]] = xVal[layerOrder[k]];
+		trgId.tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),layerOrder[k]] = yVal[layerOrder[k]];
 	}
 }
 
 trgId.sprMaterial = global.sprMaterial;
 trgId.slope3MustUpdate = true;
-show_debug_message(tileLayerSelect);

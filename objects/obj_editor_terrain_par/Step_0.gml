@@ -5,14 +5,17 @@ if obj_editor_gui.mode = modeForSelectVal {
 	modeForSelect = false;
 }
 
+relativeMouseX = window_mouse_get_x();
+relativeMouseY = window_mouse_get_y();
+
 if placed != 0 {
 	// canSelect defined by obj_editor_gui
 	// De-selection handled by obj_editor_button_parent
-	if canSelect {
-		if mouse_y > obj_panel_top.y {
-			if !(mouse_x >= obj_panel_left.x - 1 && mouse_x < obj_panel_left.x + 21 && mouse_y >= obj_panel_left.y - 60 && mouse_y <= obj_panel_left.y + 60) && obj_panel_left.select = 0 {
-				if !(mouse_x > obj_panel_right.x - 21 && mouse_x <= obj_panel_right.x + 1 && mouse_y >= obj_panel_right.y - 60 && mouse_y <= obj_panel_right.y + 60) && obj_panel_right.select = 0 {
-					if !(mouse_x > obj_panel_top.x - 60 && mouse_x < obj_panel_top.x + 60 && mouse_y >= obj_panel_top.y && mouse_y <= obj_panel_top.y + 21) && obj_panel_top.select = 0 {
+	if relativeMouseY > obj_panel_top.y && !obj_panel_top.select {
+		if relativeMouseX > obj_panel_left.x - room_width && !obj_panel_left.select {
+			if relativeMouseX < obj_panel_right.x - room_width && !obj_panel_right.select {
+				if relativeMouseY < obj_panel_bot.y && !obj_panel_bot.select {
+					if canSelect { // If an instance is hovered over
 						if modeForSelect {
 							if obj_editor_gui.mode != 3 {
 								// Dimension manipulation
@@ -37,6 +40,8 @@ if placed != 0 {
 											}
 											
 											// Assign values to slide side panels in
+											sprMaterialDirectory = "a";
+											
 											obj_panel_left.moveToX = 0;
 											obj_panel_left.moveToSpd = (global.tempXLeft - room_width) / 4;
 											obj_panel_left.moveDirection = -1;
@@ -49,6 +54,24 @@ if placed != 0 {
 										}
 									}
 								}
+							}
+						}
+					} else {
+						if mouse_check_button_pressed(mb_left) {
+							// De-select tiles
+							if obj_editor_gui.mode = 3 {
+								// Assign values to slide side panels in
+								sprMaterialDirectory = "";
+								
+								obj_panel_left.moveToX = 0;
+								obj_panel_left.moveToSpd = (global.tempXLeft - room_width) / 4;
+								obj_panel_left.moveDirection = -1;
+								
+								obj_panel_right.moveToX = room_width + view_wport[1];
+								obj_panel_right.moveToSpd = (room_width + view_wport[1] - global.tempXRight) / 4;
+								obj_panel_right.moveDirection = 1;
+								
+								alarm[1] = 18;
 							}
 						}
 					}
@@ -78,13 +101,14 @@ if spawnTiles {
 		
 		// Spawn tiles GUI
 		if str = "rectangle" {
+			#region
+			
 			for (i = 0; i < width + 2; i += 1) {
 				for (j = 0; j < zfloor - zcieling + 2; j += 1) {
 					with instance_create_layer(camera_get_view_x(obj_editor_gui.cameraLeftPanel) + 2 + i*21,j*21,"Instances",obj_tiles_grid) {
 						trgId = other.id;
 						i = other.i;
 						j = other.j;
-						k = 0;
 						width = other.width;
 						tempMaterial = other.sprMaterial;
 						tileRowWidth = other.width + 2;
@@ -92,21 +116,24 @@ if spawnTiles {
 						
 						for (k = 0; k <= tileLayerCount; k += 1) {
 							hasTile[scr_array_xy(i,j,tileRowWidth),k] = other.hasTile[scr_array_xy(i,j,tileRowWidth),k];
-							layerVisible[k div 2] = other.layerVisible[k div 2];
+							layerVisible[k] = other.layerVisible[k];
+							layerOrder[k] = other.layerOrder[k];
 							
 							if hasTile[scr_array_xy(i,j,tileRowWidth),k] {
 								xVal[k] = other.tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),k];
 								yVal[k] = other.tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),k];
 								
-								tileLayer[k,0] = other.tileLayer[k,0]; // Pass in layer names
+								// Pass in layer names
+								layerName[k,0] = other.layerName[k,0];
+								layerName[k,1] = other.layerName[k,1];
 								
-								for (a = 1; a <= other.tileSubLayerBreadth[k]; a += 1) {
+								/*for (a = 1; a <= other.tileSubLayerBreadth[k]; a += 1) {
 									tileLayer[k,a] = other.tileLayer[k,a]; // Pass in sub-layer names
 									
 									if a = other.tileSubLayerBreadth[k] {
 										tileLayer[k,a] = ""; // Add empty sub-layer at tail
 									}
-								}
+								}*/
 							}
 						}
 					}
@@ -115,10 +142,14 @@ if spawnTiles {
 			
 			obj_panel_left.panelWidth = i * 21;
 			obj_panel_left.panelHeight = j * 21;
+			
+			#endregion
 		}
 		
 		// Spawn tiles GUI (slope 1)
 		if str = "slope1" {
+			#region
+			
 			for (i = 0; i < width + 2; i += 1) {
 				for (j = zfloor + 1; j >= zcieling; j -= 1) {
 					if !(i = 0 && j = zcieling) && !(i = width + 1 && j = zfloor + 1) {
@@ -136,10 +167,14 @@ if spawnTiles {
 			
 			obj_panel_left.panelWidth = i * 21;
 			obj_panel_left.panelHeight = (zfloor + 1 - zcieling) * 21;
+			
+			#endregion
 		}
 		
 		// Spawn tiles GUI (slope 2)
 		if str = "slope2" {
+			#region
+			
 			for (i = 0; i <= width + 2; i += 1) {
 				for (j = zfloor + 1; j >= zcieling; j -= 1) {
 					with instance_create_layer(1026 + i * 21,86 + (zfloor + 1)*21 - j*21,"Instances",obj_tiles_grid) {
@@ -155,10 +190,14 @@ if spawnTiles {
 			
 			obj_panel_left.panelWidth = i * 21;
 			obj_panel_left.panelHeight = (zfloor + 1 - zcieling) * 21;
+			
+			#endregion
 		}
 		
 		// Spawn tiles GUI (slope 3)
 		if str = "slope3" {
+			#region
+			
 			for (i = 0; i <= width + 2; i += 1) {
 				for (j = zfloor + 2; j >= zcieling; j -= 1) {
 					with instance_create_layer(1026 + i*21,86 + (zfloor + 2)*21 - j*21,"Instances",obj_tiles_grid) {
@@ -174,10 +213,14 @@ if spawnTiles {
 			
 			obj_panel_left.panelWidth = i * 21;
 			obj_panel_left.panelHeight = (zfloor + 2 - zcieling) * 21;
+			
+			#endregion
 		}
 		
 		// Spawn tiles GUI (staircase)
 		if str = "staircase" {
+			#region
+			
 			for (i = 0; i < widthIterate; i += 1) {
 				for (j = heightIterate; j >= zfloor; j -= 1) {
 					with instance_create_layer(1026 + i*21,86 + heightIterate*21 - j*21,"Instances",obj_tiles_grid) {
@@ -193,6 +236,8 @@ if spawnTiles {
 			
 			obj_panel_left.panelWidth = i * 21;
 			obj_panel_left.panelHeight = heightIterate * 21;
+			
+			#endregion
 		}
 		
 		obj_panel_right.panelWidth = sprite_get_width(global.sprMaterial);
@@ -209,9 +254,29 @@ if spawnTiles {
 			// Open menu
 			instance_create_layer(room_width,0,"Instances",obj_tiles_sheet);
 			
-			with instance_create_layer(room_width,0,"Instances",obj_tile_layers) {
+			with instance_create_layer(room_width,0,"Instances",obj_tiles_layers) {
 				trgId = other.id;
 				tileLayerCount = other.tileLayerCount;
+				//passIn = true;
+				
+				for (i = 0; i <= tileLayerCount; i += 1) {
+					layerOrder[i] = other.layerOrder[i];
+					layerVisible[i] = other.layerVisible[i];
+					
+					layerName[i,0] = other.layerName[i,0];
+					layerName[i,1] = other.layerName[i,1];
+					
+					eyeState[i] = 0;
+					eyeCol[i] = col;
+					
+					select[i,0] = false;
+					canSelect[i,0] = false;
+					
+					select[i,1] = false;
+					canSelect[i,1] = false;
+					
+					layerAlpha[i] = 1;
+				}
 			}
 		}
 	}

@@ -2,7 +2,7 @@
     "id": "dab19ea0-f51c-437f-a862-d7711022c7d0",
     "modelName": "GMObject",
     "mvc": "1.0",
-    "name": "obj_tile_layers",
+    "name": "obj_tiles_layers",
     "eventList": [
         {
             "id": "c5b11bd6-8eda-44fa-83a8-fd1431b50745",

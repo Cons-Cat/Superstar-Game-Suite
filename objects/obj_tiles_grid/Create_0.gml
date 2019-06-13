@@ -1,11 +1,10 @@
 /// @description Draw above rectangle span
 depth = -3;
+alarm[0] = 2;
 
 tileLayerSelect = -1;
 tileDefaultSpr = -1;
 
-xVal[0] = 0;
-yVal[0] = 0;
-hasTile[0] = false;
 z = 0;
 close = false;
+gone = false;

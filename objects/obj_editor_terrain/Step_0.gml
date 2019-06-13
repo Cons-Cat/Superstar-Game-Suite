@@ -77,12 +77,10 @@ if resetArray && obj_editor_gui.mode != 3 {
 	resetArray = false;
 	sprMaterial = spr_tls_rectangle_default // Reset material
 	tileRowWidth = width + 2;
-	tileLayerCount = 1;
 	
 	for (i = 0; i < width + 2; i += 1) {
 		for (j = 0; j < zfloor - zcieling + 2; j += 1) {
 			hasTile[scr_array_xy(i,j,tileRowWidth),0] = true;
-			hasTile[scr_array_xy(i,j,tileRowWidth),1] = false;
 			
 			tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),0] = 0;
 			tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),0] = 120;

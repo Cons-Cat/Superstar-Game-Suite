@@ -51,8 +51,3 @@ if relativeMouseY >= 0 && relativeMouseY <= sprite_get_height(global.sprMaterial
 if mouse_check_button_released(mb_left) {
 	selecting = false;
 }
-
-if !instance_exists(obj_tiles_grid) {
-	// Delete object automatically when menu closes
-	instance_destroy();
-}

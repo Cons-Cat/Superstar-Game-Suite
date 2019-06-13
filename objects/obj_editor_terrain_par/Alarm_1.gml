@@ -4,6 +4,16 @@ if instance_exists(obj_tiles_grid) {
 		instance_destroy();
 	}
 }
+if instance_exists(obj_tiles_layers) {
+	with obj_tiles_layers {
+		instance_destroy();
+	}
+}
+if instance_exists(obj_tiles_sheet) {
+	with obj_tiles_sheet {
+		instance_destroy();
+	}
+}
 
 obj_panel_left.moveToX = global.tempXLeft;
 obj_panel_left.moveToSpd = (global.tempXLeft - room_width) / 6;
@@ -18,7 +28,6 @@ obj_panel_right.scrollHorPartition = 0;
 obj_panel_right.scrollVerPartition = 0;
 
 // Tile input box
-sprMaterialDirectory = "a";
 //sprMaterialDirectory = get_open_filename_ext("Material Image File|*.png", "", working_directory + "\Room Saves\ ", "Import Material Tileset");
 
 if sprMaterialDirectory != "" {

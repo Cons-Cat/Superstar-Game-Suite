@@ -1,8 +1,13 @@
 /// @description Generic variable initialization
 width = 1;
 height = 1;
-tileLayerCount = 1;
+tileLayerCount = 0;
 layerVisible[0] = true;
+layerOrder[0] = 0;
+layerVisible[0] = true;
+layerName[0,0] = "layer_0";
+layerName[0,1] = "sublayer_0";
+
 mirror = false;
 flip = false;
 finite = true;
