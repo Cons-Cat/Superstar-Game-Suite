@@ -3,10 +3,10 @@ if calculateSub {
 	// Calculate subtraction mask
 	emptyPixels = 0;
 	totalPixels = 0;
-	clusterCount[tileLayerSelect + 1] = 0;
+	clusterCount[tileLayerSelect] = 0;
 	
-	currentWidth = 0;
-	currentHeight = 0;
+	currentWidth = -1;
+	currentHeight = -1;
 	
 	currentPixelX = 0;
 	currentPixelY = 0;
@@ -14,20 +14,23 @@ if calculateSub {
 	canIncHor = true;
 	canIncVer = true;
 	rowEnd = false;
+	buildCluster = true;
 	
 	while totalPixels < 400 - emptyPixels {
 		//show_message("Pixels remaining: " + string(400 - emptyPixels - totalPixels));
 		show_debug_message("Pixels remaining: " + string(400 - emptyPixels - totalPixels));
 		
 		// Attempt to increase width
-		if !rowEnd {
+		if canIncHor {
 			currentWidth += 1;
 			
 			if currentPixelX + currentWidth >= 20 {
 				//show_message("HIT HOR BOUND");
 				show_debug_message("HIT HOR BOUND");
+				show_debug_message(currentPixelX + currentWidth);
 				
 				currentWidth -= 1;
+				
 				canIncHor = false;
 				rowEnd = true;
 			}
@@ -35,91 +38,94 @@ if calculateSub {
 			if canIncHor {
 				for (a = currentPixelY; a <= currentPixelY + currentHeight; a += 1) {
 					if !subMask[currentPixelX + currentWidth,a] || passedPixel[currentPixelX + currentWidth,a] {
-						//show_message("STOPPED HOR at" + string(a));
-						show_debug_message("STOPPED HOR at" + string(a));
-						clusterCount[tileLayerSelect] += 1;
-						clusterX[clusterCount[tileLayerSelect],tileLayerSelect] = currentPixelX;
-						clusterY[clusterCount[tileLayerSelect],tileLayerSelect] = currentPixelY;
-						clusterWidth[clusterCount[tileLayerSelect],tileLayerSelect] = currentWidth;
-						clusterHeight[clusterCount[tileLayerSelect],tileLayerSelect] = currentHeight;
+						//show_message("STOPPED HOR at Y: " + string(a));
+						show_debug_message("STOPPED HOR at Y: " + string(a));
 						
 						if !subMask[currentPixelX + currentWidth,a] {
-							currentPixelX += currentWidth;
-							
 							//show_message("MASK EMPTY");
 							show_debug_message("MASK EMPTY");
+							if buildCluster {
+								/*show_debug_message("countInd: " + string(clusterCount[tileLayerSelect]));
+								show_debug_message("xVal: " + string(clusterX[clusterCount[tileLayerSelect],tileLayerSelect]));
+								show_debug_message("yVal: " + string(clusterY[clusterCount[tileLayerSelect],tileLayerSelect]));
+								show_debug_message("widthVal: " + string(clusterWidth[clusterCount[tileLayerSelect],tileLayerSelect]));
+								show_debug_message("heightVal: " + string(clusterHeight[clusterCount[tileLayerSelect],tileLayerSelect]));
+								show_debug_message(" ");*/
+								
+								//clusterCount[tileLayerSelect] += 1;
+							}
 						} else if passedPixel[currentPixelX + currentWidth,a] {
-							currentPixelX += 1;
 							//show_message("PASSED PIXEL");
 							show_debug_message("PASSED PIXEL");
 						}
 						
+						currentWidth -= 1;
 						canIncHor = false;
-						canIncVer = false;
-						
-						currentHeight = 0;
-						currentWidth = 0;
 						
 						break;
 					}
 				}
+			}
+			
+			if canIncHor {
+				//tempPixX = currentPixelX;
+				//tempPixWidth = currentWidth;
 				
-				if canIncHor {
-					//tempPixX = currentPixelX;
-					//tempPixWidth = currentWidth;
-					
-					// Increment right one pixel
-					//show_message("Horizontally. " + "currentPixelX: " + string(currentPixelX + currentWidth) + ", currentPixelY: " + string(currentPixelY + currentHeight) + ", totalPixels: " + string(totalPixels));
-					show_debug_message("Horizontally. " + "currentPixelX: " + string(currentPixelX + currentWidth) + ", currentPixelY: " + string(currentPixelY + currentHeight) + ", totalPixels: " + string(totalPixels));
-					totalPixels += currentHeight;
-				}
+				// Increment right one pixel
+				//show_message("Horizontally. " + "currentPixelX: " + string(currentPixelX + currentWidth) + ", currentPixelY: " + string(currentPixelY + currentHeight) + ", totalPixels: " + string(totalPixels));
+				show_debug_message("Horizontally. " + "currentPixelX: " + string(currentPixelX + currentWidth) + ", currentPixelY: " + string(currentPixelY + currentHeight) + ", totalPixels: " + string(totalPixels));
+				totalPixels += currentHeight;
 			}
 		}
 		
 		// Attempt to increase height
-		currentHeight += 1;
-		
-		if currentPixelY + currentHeight >= 20 {
-			//show_message("HIT VER BOUND");
-			show_debug_message("HIT VER BOUND");
-			
-			currentHeight -= 1;
-			canIncVer = false;
-		}
-		
-		
-		
 		if canIncVer {
+			currentHeight += 1;
+			
+			if currentPixelY + currentHeight >= 20 {
+				//show_message("HIT VER BOUND");
+				show_debug_message("HIT VER BOUND");
+				
+				currentHeight -= 1;
+				canIncVer = false;
+			}
+			
 			for (a = currentPixelX; a <= currentPixelX + currentWidth; a += 1) {
 				if !subMask[a,currentPixelY + currentHeight] || passedPixel[a,currentPixelY + currentHeight] {
 					//show_message("STOPPED VER at" + string(a));
-					show_debug_message("STOPPED VER at" + string(a));
-					clusterCount[tileLayerSelect] += 1;
-					clusterX[clusterCount[tileLayerSelect],tileLayerSelect] = currentPixelX;
-					clusterY[clusterCount[tileLayerSelect],tileLayerSelect] = currentPixelY;
-					clusterWidth[clusterCount[tileLayerSelect],tileLayerSelect] = currentWidth;
-					clusterHeight[clusterCount[tileLayerSelect],tileLayerSelect] = currentHeight;
+					show_debug_message("STOPPED VER at X: " + string(a));
 					
 					if !subMask[a,currentPixelY + currentHeight] {
 						//show_message("MASK EMPTY");
 						show_debug_message("MASK EMPTY");
+						
+						if buildCluster {
+							/*show_debug_message("countInd: " + string(clusterCount[tileLayerSelect]));
+							show_debug_message("xVal: " + string(clusterX[clusterCount[tileLayerSelect],tileLayerSelect]));
+							show_debug_message("yVal: " + string(clusterY[clusterCount[tileLayerSelect],tileLayerSelect]));
+							show_debug_message("widthVal: " + string(clusterWidth[clusterCount[tileLayerSelect],tileLayerSelect]));
+							show_debug_message("heightVal: " + string(clusterHeight[clusterCount[tileLayerSelect],tileLayerSelect]));
+							show_debug_message(" ");*/
+							
+							//clusterCount[tileLayerSelect] += 1;
+						}
 					}
+					
 					if passedPixel[a,currentPixelY + currentHeight] {
 						//show_message("PASSED PIXEL");
 						show_debug_message("PASSED PIXEL");
 					}
 					
+					currentHeight -= 1;
 					canIncVer = false;
-					
-					currentPixelX += currentWidth;
-					currentHeight = 0;
-					currentWidth = 0;
 					
 					break;
 				}
 			}
 			
 			if canIncVer {
+				buildCluster = true;
+				
 				//tempPixY = currentPixelY;
 				//tempPixHeight = currentHeight;
 				
@@ -131,28 +137,36 @@ if calculateSub {
 		}
 		
 		// Update passed pixels
-		tempPixX = currentPixelX;
-		tempPixWidth = currentWidth;
-		tempPixY = currentPixelY;
-		tempPixHeight = currentHeight;
-		
-		for (a = tempPixX; a < tempPixX + tempPixWidth; a += 1) {
-			for (b = tempPixY; b < tempPixY + tempPixHeight; b += 1) {
+		for (a = currentPixelX; a <= currentPixelX + currentWidth; a += 1) {
+			for (b = currentPixelY; b <= currentPixelY + currentHeight; b += 1) {
 				passedPixel[a,b] = true;
 				//show_message("Passed: " + string(a) + ", " + string(b));
 			}
 		}
 		
 		// Move on to new row if row and column have ended
+		show_debug_message(canIncHor);
+		show_debug_message(canIncVer);
+		
 		if !canIncHor && !canIncVer {
+			// Pass in rectangle
+			clusterX[clusterCount[tileLayerSelect],tileLayerSelect] = currentPixelX;
+			clusterWidth[clusterCount[tileLayerSelect],tileLayerSelect] = currentWidth;
+			clusterY[clusterCount[tileLayerSelect],tileLayerSelect] = currentPixelY;
+			clusterHeight[clusterCount[tileLayerSelect],tileLayerSelect] = currentHeight;
+			clusterCount[tileLayerSelect] += 1;
+			
+			show_debug_message(" ");
+			
+			// Increment currentPixelX
+			currentPixelX += currentWidth + 1;
+			
+			// Increment currentPixelY
 			if rowEnd {
 				//show_message("NEW LINE");
 				show_debug_message("NEW LINE");
 				currentPixelX = 0;
 				currentPixelY += 1;
-				
-				currentWidth = 0;
-				currentHeight = 0;
 				
 				rowEnd = false;
 				
@@ -161,16 +175,14 @@ if calculateSub {
 					totalPixels = 400;
 				}
 			}
+			
+			// Reset cluster
+			currentWidth = -1;
+			currentHeight = -1;
+			
+			canIncVer = true;
+			canIncHor = true;
 		}
-		
-		// Reset values for next tick
-		tempPixX = 0;
-		tempPixY = 0;
-		tempPixWidth = -1;
-		tempPixHeight = -1;
-		
-		canIncHor = true;
-		canIncVer = true;
 	}
 	
 	calculateSub = false;
