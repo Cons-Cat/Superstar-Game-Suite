@@ -12,85 +12,123 @@ if calculateSub {
 	
 	canIncHor = true;
 	canIncVer = true;
+	rowEnd = false;
 	
 	while totalPixels < 400 - emptyPixels {
-		show_message("Pixels remaining: " + string(400 - emptyPixels - totalPixels))
+		show_message("Pixels remaining: " + string(400 - emptyPixels - totalPixels));
+		
+		// Attempt to increase width
+		currentWidth += 1;
+		
+		if currentPixelX + currentWidth >= 20 {
+			show_message("HIT HOR BOUND");
+			
+			currentWidth -= 1;
+			canIncHor = false;
+			rowEnd = true;
+		}
 		
 		if canIncHor {
-			for (a2 = currentPixelY; a2 < currentPixelY + currentHeight; a2 += 1) {
-				if !subMask[currentPixelX + currentWidth,a2] || passedPixel[currentPixelX + currentWidth,a2] {
+			for (a = currentPixelY; a < currentPixelY + currentHeight; a += 1) {
+				if !subMask[currentPixelX + currentWidth,a] || passedPixel[currentPixelX + currentWidth,a] {
+					show_message("STOPPED HOR at" + string(a));
+					
+					if !subMask[currentPixelX + currentWidth,a] {
+						currentPixelX += currentWidth - 1;
+						
+						show_message("MASK EMPTY");
+					} else if passedPixel[currentPixelX + currentWidth,a] {
+						currentWidth += 1;
+						
+						show_message("PASSED PIXEL");
+					}
+					
 					canIncHor = false;
 					canIncVer = false;
 					
-					currentPixelX += currentWidth;
 					currentHeight = 0;
 					currentWidth = 0;
-					show_message("STOPPED HOR");
 					
 					break;
 				}
 			}
 			
 			if canIncHor {
+				//tempPixX = currentPixelX;
+				//tempPixWidth = currentWidth;
+				
 				// Increment right one pixel
-				currentWidth += 1;
-				tempPixX = currentPixelX;
-				tempPixWidth = currentWidth;
-				
-				totalPixels += currentHeight;
 				show_message("Horizontally. " + "currentPixelX: " + string(currentPixelX + currentWidth) + ", currentPixelY: " + string(currentPixelY + currentHeight) + ", totalPixels: " + string(totalPixels));
-				
-				if currentPixelX + currentWidth >= 20 {
-					show_message("HIT HOR BOUND");
-					canIncVer = false;
-					
-					currentPixelX = 0;
-					currentPixelY += 1;
-					
-					currentWidth = 0;
-					currentHeight = 0;
-				}
+				totalPixels += currentHeight;
 			}
 		}
 		
+		// Attempt to increase height
+		currentHeight += 1;
+		
+		if currentPixelY + currentHeight >= 20 {
+			show_message("HIT VER BOUND");
+			
+			currentHeight -= 1;
+			canIncVer = false;
+		}
+		
 		if canIncVer {
-			for (a2 = currentPixelX; a2 < currentPixelX + currentWidth; a2 += 1) {
-				if !subMask[a2,currentPixelY + currentHeight] || passedPixel[a2,currentPixelY + currentHeight] {
+			for (a = currentPixelX; a < currentPixelX + currentWidth; a += 1) {
+				if !subMask[a,currentPixelY + currentHeight] || passedPixel[a,currentPixelY + currentHeight] {
+					show_message("STOPPED VER at" + string(a));
+					
+					if !subMask[a,currentPixelY + currentHeight] {
+						show_message("MASK EMPTY");
+					}
+					if passedPixel[a,currentPixelY + currentHeight] {
+						show_message("PASSED PIXEL");
+					}
+					
 					canIncVer = false;
 					
-					currentPixelX += currentWidth;
+					currentPixelX += currentWidth - 1;
 					currentHeight = 0;
 					currentWidth = 0;
-					show_message("STOPPED VER");
 					
 					break;
 				}
 			}
 			
 			if canIncVer {
+				//tempPixY = currentPixelY;
+				//tempPixHeight = currentHeight;
+				
 				// Increment down  one pixel
-				currentHeight += 1;
-				tempPixY = currentPixelY;
-				tempPixHeight = currentHeight;
-				
-				totalPixels += currentWidth;
 				show_message("Vertically. " + "currentPixelX: " + string(currentPixelX + currentWidth) + ", currentPixelY: " + string(currentPixelY + currentHeight) + ", totalPixels: " + string(totalPixels));
-				
-				if currentPixelY + currentHeight >= 20 {
-					show_message("HIT VER BOUND");
-					currentPixelX += 1;
-					currentPixelY = 0;
-					
-					currentWidth = 0;
-					currentHeight = 0;
-				}
+				totalPixels += currentWidth;
 			}
 		}
 		
 		// Update passed pixels
-		for (a2 = tempPixX; a2 < tempPixX + tempPixWidth; a2 += 1) {
-			for (b2 = tempPixY; b2 < tempPixY + tempPixHeight; b2 += 1) {
-				passedPixel[a2,b2] = true;
+		tempPixX = currentPixelX;
+		tempPixWidth = currentWidth;
+		tempPixY = currentPixelY;
+		tempPixHeight = currentHeight;
+		
+		for (a = tempPixX; a < tempPixX + tempPixWidth; a += 1) {
+			for (b = tempPixY; b < tempPixY + tempPixHeight; b += 1) {
+				passedPixel[a,b] = true;
+				//show_message("Passed: " + string(a) + ", " + string(b));
+			}
+		}
+		
+		// Move on to new row if row and column have ended
+		if !canIncHor && !canIncVer {
+			if rowEnd {
+				show_message("NEW LINE");
+				currentPixelX = 0;
+				currentPixelY += 1;
+				
+				currentWidth = 0;
+				currentHeight = 0;
+				
+				rowEnd = false;
 			}
 		}
 		
