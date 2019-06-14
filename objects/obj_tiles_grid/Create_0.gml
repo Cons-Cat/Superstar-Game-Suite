@@ -10,7 +10,17 @@ hasTileDraw[0] = false;
 layerVisibleDraw[0] = false;
 subCol = make_color_rgb(198,0,165);
 
+clusterCount[1] = 0;
+
 z = 0;
 close = false;
 passIn = true;
 calculateSub = false;
+
+/*
+						clusterCount[tileLayerSelect] += 1;
+						clusterX[clusterCount,tileLayerSelect] = currentPixelX;
+						clusterY[clusterCount,tileLayerSelect] = currentPixelY;
+						clusterWidth[clusterCount,tileLayerSelect] = currentWidth;
+						clusterHeight[clusterCount,tileLayerSelect] = currentHeight;
+*/

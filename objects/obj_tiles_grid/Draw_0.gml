@@ -18,28 +18,28 @@ for (k = 0; k <= tileLayerCount; k += 2) { // Iterate through absolute
 					
 					draw_sprite_part(tempMaterial,0,xValDraw[k+1],yValDraw[k+1],20,20,0,0);
 					
-					for (a2 = 0; a2 < 20; a2 += 1) {
-						for (b2 = 0; b2 < 20; b2 += 1) {
+					for (a = 0; a < 20; a += 1) {
+						for (b = 0; b < 20; b += 1) {
 							//show_message(window_mouse_get_x() - (x + a2 - camera_get_view_x(obj_editor_gui.cameraLeftPanel) + 16 - 2) );
 							//show_message(window_mouse_get_y() - (y + b2 - camera_get_view_y(obj_editor_gui.cameraLeftPanel) + view_yport[3] - 2) );
-							findPixelX = view_xport[2] + (x - camera_get_view_x(obj_editor_gui.cameraLeftPanel)) + a2;
-							findPixelY = view_yport[2] + (y - camera_get_view_y(obj_editor_gui.cameraLeftPanel)) + b2 ;
+							findPixelX = view_xport[2] + (x - camera_get_view_x(obj_editor_gui.cameraLeftPanel)) + a;
+							findPixelY = view_yport[2] + (y - camera_get_view_y(obj_editor_gui.cameraLeftPanel)) + b ;
 							//show_message(draw_getpixel_ext(findPixelX,findPixelY));
 							
 							//if draw_getpixel_ext(findPixelX,findPixelY) = c_black {
-							pixCol = surface_getpixel_ext (tileSurface,a2,b2);
+							pixCol = surface_getpixel_ext (tileSurface,a,b);
 							
 							if (pixCol >> 24) && 255 {
 								// Subtract pixel
-								subMask[a2,b2] = true;
+								subMask[a,b] = true;
 							} else {
 								// Maintain pixel
-								subMask[a2,b2] = false;
+								subMask[a,b] = false;
 								emptyPixels += 1;
 							}
 							
 							// Initialize passed pixels
-							passedPixel[a2,b2] = false;
+							passedPixel[a,b] = false;
 						}
 					}
 					
@@ -47,7 +47,9 @@ for (k = 0; k <= tileLayerCount; k += 2) { // Iterate through absolute
 					surface_free(tileSurface);
 				} else {
 					// If the mask has been baked
-					draw_sprite_part(tempMaterial,0,xValDraw[k+1],yValDraw[k+1],20,20,x,y);
+					for (a = 0; a < clusterCount[k]; a += 1) {
+						draw_sprite_part(tempMaterial,0,xValDraw[k] + clusterX[clusterCount[a],k],yValDraw[k] + clusterY[clusterCount[a],k],clusterWidth[clusterCount[a],k],clusterHeight[clusterCount[a],k],x,y);
+					}
 				}
 			}
 		}
