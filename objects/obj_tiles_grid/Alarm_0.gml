@@ -1,2 +1,0 @@
-/// @description 
-gone = true;

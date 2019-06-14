@@ -114,27 +114,37 @@ if spawnTiles {
 						tileRowWidth = other.width + 2;
 						tileLayerCount = other.tileLayerCount;
 						
-						for (k = 0; k <= tileLayerCount; k += 1) {
-							hasTile[scr_array_xy(i,j,tileRowWidth),k] = other.hasTile[scr_array_xy(i,j,tileRowWidth),k];
+						for (k = 0; k <= tileLayerCount; k += 2) {
+							hasTile[k] = other.hasTile[scr_array_xy(i,j,tileRowWidth),k];
+							hasTile[k+1] = other.hasTile[scr_array_xy(i,j,tileRowWidth),k+1];
+							hasTileDraw[k] = other.hasTile[scr_array_xy(i,j,tileRowWidth),k];
+							hasTileDraw[k+1] = other.hasTile[scr_array_xy(i,j,tileRowWidth),k+1];
+							
 							layerVisible[k] = other.layerVisible[k];
+							layerVisibleDraw[k] = other.layerVisible[k];
+							
 							layerOrder[k] = other.layerOrder[k];
 							
-							if hasTile[scr_array_xy(i,j,tileRowWidth),k] {
+							// Pass in tiles
+							if hasTile[k] {
 								xVal[k] = other.tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),k];
 								yVal[k] = other.tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),k];
 								
-								// Pass in layer names
-								layerName[k,0] = other.layerName[k,0];
-								layerName[k,1] = other.layerName[k,1];
-								
-								/*for (a = 1; a <= other.tileSubLayerBreadth[k]; a += 1) {
-									tileLayer[k,a] = other.tileLayer[k,a]; // Pass in sub-layer names
-									
-									if a = other.tileSubLayerBreadth[k] {
-										tileLayer[k,a] = ""; // Add empty sub-layer at tail
-									}
-								}*/
+								xValDraw[k] = xVal[k];
+								yValDraw[k] = yVal[k];
 							}
+							
+							if hasTile[k+1] {
+								xVal[k+1] = other.tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),k+1];
+								yVal[k+1] = other.tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),k+1];
+								
+								xValDraw[k+1] = xVal[k+1];
+								yValDraw[k+1] = yVal[k+1];
+							}
+							
+							// Pass in layer names
+							layerName[k] = other.layerName[k];
+							layerName[k+1] = other.layerName[k+1];
 						}
 					}
 				}
@@ -257,23 +267,22 @@ if spawnTiles {
 			with instance_create_layer(room_width,0,"Instances",obj_tiles_layers) {
 				trgId = other.id;
 				tileLayerCount = other.tileLayerCount;
-				//passIn = true;
 				
-				for (i = 0; i <= tileLayerCount; i += 1) {
+				for (i = 0; i <= tileLayerCount; i += 2) {
 					layerOrder[i] = other.layerOrder[i];
 					layerVisible[i] = other.layerVisible[i];
 					
-					layerName[i,0] = other.layerName[i,0];
-					layerName[i,1] = other.layerName[i,1];
+					layerName[i] = other.layerName[i];
+					layerName[i+1] = other.layerName[i+1];
 					
 					eyeState[i] = 0;
 					eyeCol[i] = col;
 					
-					select[i,0] = false;
-					canSelect[i,0] = false;
+					select[i] = false;
+					canSelect[i] = false;
 					
-					select[i,1] = false;
-					canSelect[i,1] = false;
+					select[i+1] = false;
+					canSelect[i+1] = false;
 					
 					layerAlpha[i] = 1;
 				}

@@ -5,15 +5,15 @@ x = camera_get_view_x(obj_editor_gui.cameraLeftSubPanel);
 // Add new tile layer	
 plusCol = col;
 
-if mouse_x >= x + 28 && mouse_x <= x + 34 && mouse_y >= 5 + (array_height_2d(layerName) * 21) && mouse_y <= 12 + (array_height_2d(layerName) * 21) {
+if mouse_x >= x + 28 && mouse_x <= x + 34 && mouse_y >= 5 + (tileLayerCount + 2) * 11 && mouse_y <= 12 + (tileLayerCount + 2) * 11 {
 	if mouse_check_button_pressed(mb_left) {
-		eyeState[array_height_2d(layerName)] = 0;
-		eyeCol[array_height_2d(layerName)] = col;
-		
-		tileLayerCount += 1;
-		layerVisible[tileLayerCount] = true;
-		
+		tileLayerCount += 2;
 		trgId.tileLayerCount = self.tileLayerCount;
+		
+		layerOrder[tileLayerCount] = tileLayerCount;
+		layerVisible[tileLayerCount] = true;
+		layerAlpha[tileLayerCount] = 1;
+		
 		trgId.layerOrder[tileLayerCount] = tileLayerCount;
 		trgId.layerVisible[tileLayerCount] = true;
 		
@@ -21,33 +21,45 @@ if mouse_x >= x + 28 && mouse_x <= x + 34 && mouse_y >= 5 + (array_height_2d(lay
 		obj_tiles_grid.layerOrder[tileLayerCount] = tileLayerCount;
 		obj_tiles_grid.layerVisible[tileLayerCount] = true;
 		
+		obj_tiles_grid.hasTileDraw[tileLayerCount] = false;
+		obj_tiles_grid.hasTileDraw[tileLayerCount+1] = false;
+		obj_tiles_grid.layerVisibleDraw[tileLayerCount] = true;
+		
 		for (i = 0; i < trgId.width + 2; i += 1) {
 			for (j = 0; j < trgId.zfloor - trgId.zcieling + 2; j += 1) {
 				// Initialize new tiles
 				trgId.hasTile[ scr_array_xy( i,j,trgId.width + 2 ), tileLayerCount ] = false;
+				trgId.hasTile[ scr_array_xy( i,j,trgId.width + 2 ), tileLayerCount + 1 ] = false;
 				
 				obj_tiles_grid.hasTile[ scr_array_xy( i,j,trgId.width + 2 ), tileLayerCount ] = false;
+				obj_tiles_grid.hasTile[ scr_array_xy( i,j,trgId.width + 2 ), tileLayerCount + 1] = false;
 			}
 		}
 		
-		select[tileLayerCount,0] = false;
-		canSelect[tileLayerCount,0] = false;
-		k = tileLayerCount;
-		layerAlpha[tileLayerCount] = 1;
-		layerOrder[tileLayerCount] = tileLayerCount;
+		for (k = 0; k <= tileLayerCount; k += 1) {
+			// De-select all layers
+			select[k] = false;
+		}
 		
-		layerName[tileLayerCount,0] = "layer_" + string(tileLayerCount);
-		layerName[tileLayerCount,1] = "sublayer_" + string(tileLayerCount);
-		trgId.layerName[tileLayerCount,0] = self.layerName[tileLayerCount,0];
-		trgId.layerName[tileLayerCount,1] = self.layerName[tileLayerCount,1];
+		eyeState[tileLayerCount] = 0;
+		eyeCol[tileLayerCount] = col;
 		
-		select[tileLayerCount,1] = false;
-		canSelect[tileLayerCount,1] = false;
-		trgId.layerName[tileLayerCount,1] = self.layerName[tileLayerCount,1];
+		select[tileLayerCount] = true;
+		canSelect[tileLayerCount] = true;
+		select[tileLayerCount+1] = false;
+		canSelect[tileLayerCount+1] = false;
+		
+		obj_tiles_grid.tileLayerSelect = tileLayerCount;
+		
+		layerName[tileLayerCount] = "layer_" + string(tileLayerCount div 2);
+		trgId.layerName[tileLayerCount] = self.layerName[tileLayerCount];
+		layerName[tileLayerCount+1] = "sublayer_" + string(tileLayerCount div 2);
+		trgId.layerName[tileLayerCount+1] = self.layerName[tileLayerCount+1];
 	}
 	
-	obj_subpanel_left.panelHeight = (tileLayerCount + 1) * 21 + 4;
+	obj_subpanel_left.panelHeight = (tileLayerCount + 1) * 11 + 4;
 	plusCol = orange;
+	passIn = true;
 	
 	exit;
 }
@@ -55,13 +67,13 @@ if mouse_x >= x + 28 && mouse_x <= x + 34 && mouse_y >= 5 + (array_height_2d(lay
 dieCol = col;
 
 // Manipulate layers
-for (i = 0; i < array_height_2d(layerName); i += 1) {
-	canSelect[i,0] = false;
+for (i = 0; i <= tileLayerCount; i += 2) {
+	canSelect[i] = false;
 	
 	// Toggle layer eye
 	eyeCol[i] = col;
 	
-	if mouse_x >= x + 18 && mouse_x <= x + 27 && mouse_y >= 2 + layerOrder[i] * 21 && mouse_y < 12 + layerOrder[i] * 21 {
+	if mouse_x >= x + 18 && mouse_x <= x + 27 && mouse_y >= 2 + layerOrder[i] * 11 && mouse_y < 12 + layerOrder[i] * 11 {
 		eyeCol[i] = orange;
 		
 		if mouse_check_button_pressed(mb_left) {
@@ -76,25 +88,33 @@ for (i = 0; i < array_height_2d(layerName); i += 1) {
 				trgId.layerVisible[i] = true;
 				obj_tiles_grid.layerVisible[i] = true;
 			}
+			
+			passIn = true;
+			obj_tiles_grid.passIn = true;
 		}
 	}
 	
 	if !draggingMouseInit {
 		// Select layer
-		if mouse_x >= x + 30 && (mouse_x <= x + 36 + string_width(layerName[i,0]) || (mouse_x <= x + 75 && layerName[i,0] = "")) && mouse_y >= 2 + layerOrder[i] * 21 && mouse_y < 12 + layerOrder[i] * 21 {
-			canSelect[i,0] = true;
+		if mouse_x >= x + 30 && (mouse_x <= x + 36 + string_width(layerName[i]) || (mouse_x <= x + 75 && layerName[i] = "")) && mouse_y >= 2 + layerOrder[i] * 11 && mouse_y < 12 + layerOrder[i] * 11 {
+			canSelect[i] = true;
 			
 			if mouse_check_button_pressed(mb_left) {
-				if select[i,0] {
-					select[i,0] = false;
+				if select[i] {
+					select[i] = false;
 					obj_tiles_grid.tileLayerSelect = -1;
 				} else {
-					select[i,0] = true;
+					for (k = 0; k <= tileLayerCount + 1; k += 1) {
+						// De-select all other layers
+						select[k] = false;
+					}
+					
+					select[i] = true;
 					obj_tiles_grid.tileLayerSelect = i;
 					
 					tempMouseX = window_mouse_get_x();
 					tempMouseY = window_mouse_get_y();
-					mouseOffY = y + 1 + layerOrder[i] * 21 - mouse_y;
+					mouseOffY = y + 1 + layerOrder[i] * 11 - mouse_y;
 				}
 				
 				dragLayer = i;
@@ -108,7 +128,7 @@ for (i = 0; i < array_height_2d(layerName); i += 1) {
 			if !(window_mouse_get_x() < obj_panel_left.x && window_mouse_get_y() < obj_subpanel_left.y) {
 				if !(window_mouse_get_x() > obj_panel_right.x && window_mouse_get_y() < obj_panel_bot.y) {
 					if mouse_check_button_pressed(mb_left) {
-						select[i,0] = false;
+						select[i] = false;
 						obj_tiles_grid.tileLayerSelect = -1;
 					}
 				}
@@ -116,78 +136,67 @@ for (i = 0; i < array_height_2d(layerName); i += 1) {
 		}
 		
 		// Name
-		if select[i,0] {
+		if select[i] {
 			if keyboard_check_pressed(vk_anykey) {
-				layerName[i,0] = typeText(layerName[i,0]);
+				layerName[i] = typeText(layerName[i]);
+				passIn = true;
 			}
 			
-			trgId.layerName[i,0] = self.layerName[i,0];
+			trgId.layerName[i] = self.layerName[i];
 		}
 		
 		// Sub-layers
-		for (j = 1; j < array_length_2d(layerName,i); j += 1) {
-			canSelect[i,j] = false;
+		canSelect[i+1] = false;
+		
+		// Select sub-layer
+		if mouse_x >= x + 34 && (mouse_x <= x + 44 + string_width(layerName[i+1]) || (mouse_x <= x + 85 && layerName[i+1] = "")) && mouse_y >= 2 + (layerOrder[i] + 1) * 11 && mouse_y < 12 + (layerOrder[i] + 1) * 11 {
+			canSelect[i+1] = true;
 			
-			// Select sub-layer
-			if mouse_x >= x + 34 && (mouse_x <= x + 44 + string_width(layerName[i,j]) || (mouse_x <= x + 85 && layerName[i,j] = "")) && mouse_y >= 2 + (layerOrder[i] * 21) + (j * 11) && mouse_y < 12 + (layerOrder[i] * 21) + (j * 11) {
-				canSelect[i,j] = true;
+			if mouse_check_button_pressed(mb_left) {
+				if select[i+1] {
+					select[i+1] = false;
+					obj_tiles_grid.tileLayerSelect = -1;
+				} else {
+					for (k = 0; k <= tileLayerCount + 1; k += 1) {
+						// De-select all other layers
+						select[k] = false;
+					}
+					
+					select[i+1] = true;
+					obj_tiles_grid.tileLayerSelect = i + 1;
+				}
 				
-				if mouse_check_button_pressed(mb_left) {
-					if select[i,j] {
-						select[i,j] = false;
+				break;
+			}
+		} else {
+			// De-select sub-layer
+			if !(window_mouse_get_x() < obj_panel_left.x && window_mouse_get_y() < obj_subpanel_left.y) {
+				if !(window_mouse_get_x() > obj_panel_right.x && window_mouse_get_y() < obj_panel_bot.y) {
+					if mouse_check_button_pressed(mb_left) {
+						select[i+1] = false;
 						obj_tiles_grid.tileLayerSelect = -1;
-					} else {
-						select[i,j] = true;
-						obj_tiles_grid.tileLayerSelect = i;
-					}
-					
-					break;
-				}
-			} else {
-				// De-select sub-layer
-				if !(window_mouse_get_x() < obj_panel_left.x && window_mouse_get_y() < obj_subpanel_left.y) {
-					if !(window_mouse_get_x() > obj_panel_right.x && window_mouse_get_y() < obj_panel_bot.y) {
-						if mouse_check_button_pressed(mb_left) {
-							select[i,j] = false;
-							obj_tiles_grid.tileLayerSelect = -1;
-						}
 					}
 				}
 			}
-			
-			// Name sub-layer
-			if select[i,j] {
-				if keyboard_check_pressed(vk_anykey) {
-					layerName[i,j] = typeText(layerName[i,j]);
-					
-					/*if j > tileSubLayerCount[i] {
-						with obj_tiles_grid {
-							trgId.tileSubLayerCount[i] = j;
-							tileSubLayerCount[i] = j;
-							other.tileSubLayerCount[i] = j;
-						}
-					}*/
-				}
-				
-				trgId.layerName[i,j] = self.layerName[i,j];
+		}
+		
+		// Name sub-layer
+		if select[i+1] {
+			if keyboard_check_pressed(vk_anykey) {
+				layerName[i+1] = typeText(layerName[i+1]);
+				passIn = true;
 			}
 			
-			// Increase sub-layer count
-			/*if j = array_length_2d(layerName,i) - 1 {
-				if layerName[i,j] != "" {
-					layerName[i,j+1] = "";
-					select[i,j+1] = false;
-				}
-			}*/
+			trgId.layerName[i+1] = self.layerName[i+1];
 		}
 	} else {
 		// De-select when dragging
 		if draggingMouse {
-			canSelect[i,0] = false;
-			canSelect[i,1] = false;
+			canSelect[i] = false;
+			canSelect[i+1] = false;
 			
-			select[i,0] = false;
-			select[i,1] = false;
+			select[i] = false;
+			select[i+1] = false;
 		}
 	}
 }
@@ -195,17 +204,17 @@ for (i = 0; i < array_height_2d(layerName); i += 1) {
 // Dragging layers
 if (point_distance(window_mouse_get_x(),window_mouse_get_y(),tempMouseX,tempMouseY) > 6 && draggingMouseInit) || draggingMouse {
 	draggingMouse = true;
-	select[dragLayer,0] = true;
+	select[dragLayer] = true;
 	layerAlpha[dragLayer] = 0.5;
 	
-	layerOrder[dragLayer] = (window_mouse_get_y() - obj_subpanel_left.y - y + 1 + mouseOffY) / 21;
+	layerOrder[dragLayer] = (window_mouse_get_y() - obj_subpanel_left.y - y + 1 + mouseOffY) / 11;
 	
 	// Snapping layer to position
-	if layerOrder[dragLayer] < tempOrder - 1 + 0.2 {
-		layerOrder[dragLayer] = tempOrder - 1;
-	} else if layerOrder[dragLayer] > tempOrder + 1 - 0.2 {
-		layerOrder[dragLayer] = tempOrder + 1;
-	} else if layerOrder[dragLayer] < tempOrder + 0.2 && layerOrder[dragLayer] > tempOrder - 0.2 {
+	if layerOrder[dragLayer] < tempOrder - 2 + 0.35 {
+		layerOrder[dragLayer] = tempOrder - 2;
+	} else if layerOrder[dragLayer] > tempOrder + 2 - 0.35 {
+		layerOrder[dragLayer] = tempOrder + 2;
+	} else if layerOrder[dragLayer] < tempOrder + 0.35 && layerOrder[dragLayer] > tempOrder - 0.35 {
 		layerOrder[dragLayer] = tempOrder;
 	}
 	
@@ -214,15 +223,15 @@ if (point_distance(window_mouse_get_x(),window_mouse_get_y(),tempMouseX,tempMous
 	if layerOrder[dragLayer] > tileLayerCount { layerOrder[dragLayer] = tileLayerCount; }
 	
 	// Shift displaced layers
-	for (i = 0; i <= tileLayerCount; i += 1) {
+	for (i = 0; i <= tileLayerCount; i += 2) {
 		if i != dragLayer {
 			if layerOrder[dragLayer] = layerOrder[i] {
 				if tempOrder < layerOrder[i] {
-					layerOrder[i] -= 1;
+					layerOrder[i] -= 2;
 				}
 				
 				if tempOrder > layerOrder[i] {
-					layerOrder[i] += 1;
+					layerOrder[i] += 2;
 				}
 				
 				tempOrder = layerOrder[dragLayer];
@@ -232,7 +241,7 @@ if (point_distance(window_mouse_get_x(),window_mouse_get_y(),tempMouseX,tempMous
 	
 	if mouse_check_button_released(mb_left) {
 		draggingMouse = false;
-		select[dragLayer,0] = false;
+		select[dragLayer] = false;
 		
 		layerOrder[dragLayer] = tempOrder;
 		
@@ -242,6 +251,7 @@ if (point_distance(window_mouse_get_x(),window_mouse_get_y(),tempMouseX,tempMous
 	}
 	
 	passIn = true;
+	obj_tiles_grid.passIn = true;
 }
 
 // Don't prepare to drag layer when merely selecting
@@ -250,22 +260,18 @@ if !mouse_check_button(mb_left) {
 	dragLayer = -1;
 }
 
-// Pass in layer order cypher
+// Pass in layer order
 if passIn {
-	for (i = 0; i < array_height_2d(layerName); i += 1) { // Absolute
-		for (j = 0; j < array_height_2d(layerName); j += 1) { // Arbitrary
-			if layerOrder[j] = i {
-				obj_tiles_grid.layerOrder[i] = j;
-				trgId.layerOrder[i] = j;
-			}
-		}
+	for (i = 0; i <= tileLayerCount; i += 1) { // Absolute
+		obj_tiles_grid.layerOrder[i] = self.layerOrder[i];
+		trgId.layerOrder[i] = self.layerOrder[i];
 	}
 	
 	passIn = false;
 }
 
 // Add foliated marble layer
-/*if mouse_x >= x + 38 && mouse_x <= x + 44 && mouse_y >= 5 + (i * 21) && mouse_y <= 12 + (i * 21) {
+/*if mouse_x >= x + 38 && mouse_x <= x + 44 && mouse_y >= 5 + (i * 11) && mouse_y <= 12 + (i * 11) {
 	if mouse_check_button_pressed(mb_left) {
 		eyeState[array_height_2d(layerName)] = 0;
 		eyeCol[array_height_2d(layerName)] = col;
