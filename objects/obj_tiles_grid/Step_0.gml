@@ -1,5 +1,5 @@
 /// @description 
-if calculateSub {
+/*if calculateSub {
 	// Calculate subtraction mask
 	emptyPixels = 0;
 	totalPixels = 0;
@@ -44,16 +44,6 @@ if calculateSub {
 						if !subMask[currentPixelX + currentWidth,a] {
 							//show_message("MASK EMPTY");
 							show_debug_message("MASK EMPTY");
-							if buildCluster {
-								/*show_debug_message("countInd: " + string(clusterCount[tileLayerSelect]));
-								show_debug_message("xVal: " + string(clusterX[clusterCount[tileLayerSelect],tileLayerSelect]));
-								show_debug_message("yVal: " + string(clusterY[clusterCount[tileLayerSelect],tileLayerSelect]));
-								show_debug_message("widthVal: " + string(clusterWidth[clusterCount[tileLayerSelect],tileLayerSelect]));
-								show_debug_message("heightVal: " + string(clusterHeight[clusterCount[tileLayerSelect],tileLayerSelect]));
-								show_debug_message(" ");*/
-								
-								//clusterCount[tileLayerSelect] += 1;
-							}
 						} else if passedPixel[currentPixelX + currentWidth,a] {
 							//show_message("PASSED PIXEL");
 							show_debug_message("PASSED PIXEL");
@@ -98,17 +88,6 @@ if calculateSub {
 					if !subMask[a,currentPixelY + currentHeight] {
 						//show_message("MASK EMPTY");
 						show_debug_message("MASK EMPTY");
-						
-						if buildCluster {
-							/*show_debug_message("countInd: " + string(clusterCount[tileLayerSelect]));
-							show_debug_message("xVal: " + string(clusterX[clusterCount[tileLayerSelect],tileLayerSelect]));
-							show_debug_message("yVal: " + string(clusterY[clusterCount[tileLayerSelect],tileLayerSelect]));
-							show_debug_message("widthVal: " + string(clusterWidth[clusterCount[tileLayerSelect],tileLayerSelect]));
-							show_debug_message("heightVal: " + string(clusterHeight[clusterCount[tileLayerSelect],tileLayerSelect]));
-							show_debug_message(" ");*/
-							
-							//clusterCount[tileLayerSelect] += 1;
-						}
 					}
 					
 					if passedPixel[a,currentPixelY + currentHeight] {
@@ -186,7 +165,7 @@ if calculateSub {
 	}
 	
 	calculateSub = false;
-}
+}*/
 
 /*if mouse_y >= 600 {
 	if mouse_x <= 170 {
@@ -227,8 +206,19 @@ if tileLayerSelect != -1 {
 						
 						hasTile[tileLayerSelect] = true;
 						
-						if tileLayerSelect % 2 != 0 {
+						if tileLayerSelect % 2 = 1 { // If a sub-layer is selected
 							calculateSub = true;
+							//show_message(tileLayerSelect);
+							
+							if surfaceSubtract[(tileLayerSelect div 2)*2] != -1 {
+								// Clear the surface layer
+								surface_set_target(surfaceSubtract[(tileLayerSelect div 2)*2]);
+								draw_clear_alpha(c_white,0);
+								surface_reset_target();
+							} else {
+								// Create surface
+								surfaceSubtract[(tileLayerSelect div 2)*2] = surface_create(20,20);
+							}
 						}
 						
 						passIn = true;
@@ -274,6 +264,8 @@ if passIn {
 					trgId.tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),k+1] = xValDraw[k+1];
 					trgId.tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),k+1] = yValDraw[k+1];
 				}
+				
+				trgId.surfaceSubtract[k2] = surfaceSubtract[k2];
 				
 				break;
 			}

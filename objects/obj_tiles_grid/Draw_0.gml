@@ -9,50 +9,33 @@ for (k = 0; k <= tileLayerCount; k += 2) { // Iterate through absolute
 				draw_sprite_part(tempMaterial,0,xValDraw[k],yValDraw[k],20,20,x,y);
 			} else {
 				if calculateSub {
-					// First step in baking clipping mask
-					emptyPixels = 0;
-					
-					var tileSurface;
+					// Bake subtracted layer
 					tileSurface = surface_create(20,20);
 					surface_set_target(tileSurface);
 					
-					draw_sprite_part(tempMaterial,0,xValDraw[k+1],yValDraw[k+1],20,20,0,0);
+					draw_sprite_part(tempMaterial,0,xValDraw[k],yValDraw[k],20,20,0,0);
 					
-					for (a = 0; a <= 20; a += 1) {
-						for (b = 0; b <= 20; b += 1) {
-							//show_message(window_mouse_get_x() - (x + a2 - camera_get_view_x(obj_editor_gui.cameraLeftPanel) + 16 - 2) );
-							//show_message(window_mouse_get_y() - (y + b2 - camera_get_view_y(obj_editor_gui.cameraLeftPanel) + view_yport[3] - 2) );
-							findPixelX = view_xport[2] + (x - camera_get_view_x(obj_editor_gui.cameraLeftPanel)) + a;
-							findPixelY = view_yport[2] + (y - camera_get_view_y(obj_editor_gui.cameraLeftPanel)) + b;
-							//show_message(draw_getpixel_ext(findPixelX,findPixelY));
-							
-							//if draw_getpixel_ext(findPixelX,findPixelY) = c_black {
-							pixCol = surface_getpixel_ext (tileSurface,a,b);
-							
-							if (pixCol >> 24) && 255 {
-								// Subtract pixel
-								subMask[a,b] = true;
-							} else {
-								// Maintain pixel
-								subMask[a,b] = false;
-								emptyPixels += 1;
-							}
-							
-							// Initialize passed pixels
-							passedPixel[a,b] = false;
-						}
-					}
+					gpu_set_blendmode(bm_subtract);
+					draw_sprite_part(tempMaterial,0,xValDraw[k+1],yValDraw[k+1],20,20,0,0);
+					gpu_set_blendmode(bm_normal);
+					
+					// Add subtracted layer to a surface
+					surface_copy(surfaceSubtract[k], 0, 0, tileSurface);
 					
 					surface_reset_target();
 					surface_free(tileSurface);
-				} else {
-					// If the mask has been baked
+					
+					calculateSub = false;
+				}
+				
+				if !calculateSub {
 					if tileLayerSelect = k+1 {
+						// Draw subtraction mask over tile
+						draw_sprite_part(tempMaterial,0,xValDraw[k],yValDraw[k],20,20,x,y);
 						draw_sprite_part(tempMaterial,0,xValDraw[k+1],yValDraw[k+1],20,20,x,y);
 					} else {
-						for (a = 0; a < clusterCount[k+1]; a += 1) {
-							draw_sprite_part(tempMaterial,0,xValDraw[k],yValDraw[k],clusterWidth[a,k+1],clusterHeight[a,k+1],x+clusterX[a,k+1],y+clusterY[a,k+1]);
-						}
+						// Draw subtracted layer
+						draw_surface(surfaceSubtract[k],x,y);
 					}
 				}
 			}

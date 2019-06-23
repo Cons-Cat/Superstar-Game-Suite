@@ -25,6 +25,8 @@ if mouse_x >= x + 28 && mouse_x <= x + 34 && mouse_y >= 5 + (tileLayerCount + 2)
 		obj_tiles_grid.hasTileDraw[tileLayerCount+1] = false;
 		obj_tiles_grid.layerVisibleDraw[tileLayerCount] = true;
 		
+		obj_tiles_grid.surfaceSubtract[tileLayerCount] = -1
+		
 		for (i = 0; i < trgId.width + 2; i += 1) {
 			for (j = 0; j < trgId.zfloor - trgId.zcieling + 2; j += 1) {
 				// Initialize new tiles

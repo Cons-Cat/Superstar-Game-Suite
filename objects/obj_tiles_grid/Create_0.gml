@@ -8,9 +8,6 @@ xValDraw[0] = 0;
 yValDraw[0] = 0;
 hasTileDraw[0] = false;
 layerVisibleDraw[0] = false;
-subCol = make_color_rgb(198,0,165);
-
-clusterCount[1] = 0;
 
 z = 0;
 close = false;

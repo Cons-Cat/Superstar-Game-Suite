@@ -29,29 +29,26 @@ if placed != 0 {
 								}
 							} else {
 								// Tiling for collisions instances
-								
 								if mouse_check_button_pressed(mb_left) {
 									if modeForSelect = 0 || modeForSelect = 1 {
-										if mouse_check_button_pressed(mb_left) {
-											// Slide side panels out
-											if obj_panel_left.moveToSpd = 0 && obj_panel_right.moveToSpd = 0 {
-												global.tempXLeft = obj_panel_left.x;
-												global.tempXRight = obj_panel_right.x;
-											}
-											
-											// Assign values to slide side panels in
-											sprMaterialDirectory = "a";
-											
-											obj_panel_left.moveToX = 0;
-											obj_panel_left.moveToSpd = (global.tempXLeft - room_width) / 4;
-											obj_panel_left.moveDirection = -1;
-											
-											obj_panel_right.moveToX = room_width + view_wport[1];
-											obj_panel_right.moveToSpd = (room_width + view_wport[1] - global.tempXRight) / 4;
-											obj_panel_right.moveDirection = 1;
-											
-											alarm[1] = 18;
+										// Slide side panels out
+										if obj_panel_left.moveToSpd = 0 && obj_panel_right.moveToSpd = 0 {
+											global.tempXLeft = obj_panel_left.x;
+											global.tempXRight = obj_panel_right.x;
 										}
+										
+										// Assign values to slide side panels in
+										sprMaterialDirectory = "a";
+										
+										obj_panel_left.moveToX = 0;
+										obj_panel_left.moveToSpd = (global.tempXLeft - room_width) / 4;
+										obj_panel_left.moveDirection = -1;
+										
+										obj_panel_right.moveToX = room_width + view_wport[1];
+										obj_panel_right.moveToSpd = (room_width + view_wport[1] - global.tempXRight) / 4;
+										obj_panel_right.moveDirection = 1;
+										
+										alarm[1] = 18;
 									}
 								}
 							}
@@ -145,6 +142,9 @@ if spawnTiles {
 							// Pass in layer names
 							layerName[k] = other.layerName[k];
 							layerName[k+1] = other.layerName[k+1];
+							
+							// Pass in subtracted layer surfaces
+							surfaceSubtract[k] = other.surfaceSubtract[k];
 						}
 					}
 				}
