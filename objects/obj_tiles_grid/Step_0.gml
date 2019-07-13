@@ -238,6 +238,8 @@ if tileLayerSelect != -1 {
 
 // Sort layers
 if passIn {
+	trgId.calculateSub = true;
+	
 	for (k = 0; k <= tileLayerCount; k += 2) { // Absolute
 		for (k2 = 0; k2 <= tileLayerCount; k2 += 2) { // Arbitrary
 			if layerOrder[k2] = k {
@@ -257,6 +259,7 @@ if passIn {
 					trgId.tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),k] = xValDraw[k];
 					trgId.tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),k] = yValDraw[k];
 				}
+				
 				if hasTileDraw[k + 1] {
 					xValDraw[k+1] = xVal[k2+1];
 					yValDraw[k+1] = yVal[k2+1];
@@ -272,8 +275,8 @@ if passIn {
 		}
 	}
 	
+	trgId.sprMaterial = global.sprMaterial;
+	trgId.slope3MustUpdate = true;
+	
 	passIn = false;
 }
-
-trgId.sprMaterial = global.sprMaterial;
-trgId.slope3MustUpdate = true;

@@ -5,7 +5,28 @@ str = "rectangle";
 tileLayer[0,0] = "layer_0";
 tileLayer[0,1] = "";
 tileRowWidth = 0;
-tileSubLayerBreadth[0] = 1;
+calculateSub = true;
+tileSurfaceDraw = surface_create((width + 2) * 20,(height + zfloor - zcieling + 1) * 20);
+
+grid = -1;
+marbleSamplesDark = 7;
+marbleSamplesLight = 8;
+marbleNetPixels = 0;
+marbleSampleGirth[marbleNetPixels] = 0;
+
+marbleSurfaceTop = surface_create(width * 20,height * 2 * 20);
+marbleSurfaceSide = surface_create(width * 20,(zfloor - zcieling) * 20);
+
+// Marble colors
+marbleCol[0] = make_color_rgb(197,198,197);
+marbleCol[1] = make_color_rgb(176,177,176);
+marbleCol[2] = make_color_rgb(155,155,155);
+marbleCol[3] = make_color_rgb(132,134,136);
+marbleCol[4] = make_color_rgb(109,112,117);
+marbleCol[5] = make_color_rgb(72,72,79);
+//marbleCol[6] = make_color_rgb(43,43,56);
+
+marblePixelValueCol[0,0] = c_white;
 
 // Graphics IDs
 instId1[0] = "inst_"; // Graphics

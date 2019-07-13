@@ -4,9 +4,22 @@ x = camera_get_view_x(obj_editor_gui.cameraLeftSubPanel);
 
 // Add new tile layer	
 plusCol = col;
+dieCol = col;
 
-if mouse_x >= x + 28 && mouse_x <= x + 34 && mouse_y >= 5 + (tileLayerCount + 2) * 11 && mouse_y <= 12 + (tileLayerCount + 2) * 11 {
-	if mouse_check_button_pressed(mb_left) {
+if mouse_y >= 5 + (tileLayerCount + 2) * 11 && mouse_y <= 12 + (tileLayerCount + 2) * 11 {
+	if mouse_x >= x + 28 && mouse_x <= x + 34 {
+		plusCol = orange;
+		passIn = true;
+	}
+	
+	if mouse_x >= x + 37 && mouse_x <= x + 45 {
+		dieCol = orange;
+		passIn = true;
+	}
+}
+
+if mouse_check_button_pressed(mb_left) {
+	if plusCol = orange || dieCol = orange {
 		tileLayerCount += 2;
 		trgId.tileLayerCount = self.tileLayerCount;
 		
@@ -27,17 +40,6 @@ if mouse_x >= x + 28 && mouse_x <= x + 34 && mouse_y >= 5 + (tileLayerCount + 2)
 		
 		obj_tiles_grid.surfaceSubtract[tileLayerCount] = -1
 		
-		for (i = 0; i < trgId.width + 2; i += 1) {
-			for (j = 0; j < trgId.zfloor - trgId.zcieling + 2; j += 1) {
-				// Initialize new tiles
-				trgId.hasTile[ scr_array_xy( i,j,trgId.width + 2 ), tileLayerCount ] = false;
-				trgId.hasTile[ scr_array_xy( i,j,trgId.width + 2 ), tileLayerCount + 1 ] = false;
-				
-				obj_tiles_grid.hasTile[ scr_array_xy( i,j,trgId.width + 2 ), tileLayerCount ] = false;
-				obj_tiles_grid.hasTile[ scr_array_xy( i,j,trgId.width + 2 ), tileLayerCount + 1] = false;
-			}
-		}
-		
 		for (k = 0; k <= tileLayerCount; k += 1) {
 			// De-select all layers
 			select[k] = false;
@@ -57,16 +59,36 @@ if mouse_x >= x + 28 && mouse_x <= x + 34 && mouse_y >= 5 + (tileLayerCount + 2)
 		trgId.layerName[tileLayerCount] = self.layerName[tileLayerCount];
 		layerName[tileLayerCount+1] = "sublayer_" + string(tileLayerCount div 2);
 		trgId.layerName[tileLayerCount+1] = self.layerName[tileLayerCount+1];
+		
+		// Tile layer
+		if plusCol = orange {
+			for (i = 0; i < trgId.width + 2; i += 1) {
+				for (j = 0; j < trgId.zfloor - trgId.zcieling + 2; j += 1) {
+					// Initialize new tiles
+					trgId.hasTile[ scr_array_xy( i,j,trgId.width + 2 ), tileLayerCount ] = false;
+					trgId.hasTile[ scr_array_xy( i,j,trgId.width + 2 ), tileLayerCount + 1 ] = false;
+				
+					obj_tiles_grid.hasTile[ scr_array_xy( i,j,trgId.width + 2 ), tileLayerCount ] = false;
+					obj_tiles_grid.hasTile[ scr_array_xy( i,j,trgId.width + 2 ), tileLayerCount + 1] = false;
+				}
+			}
+		}
+		
+		// Perlin layer
+		if dieCol = orange {
+			with trgId {
+				grid = ds_grid_create((width + 2) * 20, (height + zfloor - zcieling + 1) * 20);
+				
+				randomize();
+				generate((width + 2) * 20, (height + zfloor - zcieling + 1) * 20);
+			}
+		}
 	}
 	
 	obj_subpanel_left.panelHeight = (tileLayerCount + 1) * 11 + 4;
-	plusCol = orange;
-	passIn = true;
 	
 	exit;
 }
-
-dieCol = col;
 
 // Manipulate layers
 for (i = 0; i <= tileLayerCount; i += 2) {
@@ -267,6 +289,7 @@ if passIn {
 	for (i = 0; i <= tileLayerCount; i += 1) { // Absolute
 		obj_tiles_grid.layerOrder[i] = self.layerOrder[i];
 		trgId.layerOrder[i] = self.layerOrder[i];
+		trgId.grid = self.grid;
 	}
 	
 	passIn = false;
