@@ -5,6 +5,8 @@ if obj_editor_gui.mode = modeForSelectVal {
 	modeForSelect = false;
 }
 
+mouseCheckX = obj_editor_gui.mouseCheckX;
+mouseCheckY = obj_editor_gui.mouseCheckY;
 relativeMouseX = window_mouse_get_x();
 relativeMouseY = window_mouse_get_y();
 
@@ -295,8 +297,8 @@ if spawnTiles {
 
 // Placing in the level
 if placed = 0 {
-	x = floor(obj_editor_gui.mouseCheckX/20)*20;
-	y = floor((obj_editor_gui.mouseCheckY)/20)*20;
+	x = (mouseCheckX div 20) * 20;
+	y = (mouseCheckY div 20) * 20;
 }
 
 if mouse_check_button_released(mb_left) {
@@ -311,7 +313,7 @@ if mouse_check_button_released(mb_left) {
 }
 
 image_xscale = width;
-image_yscale = height+zfloor-zcieling;
+image_yscale = height + zfloor - zcieling;
 
 // Terrain collision height and alpha
 if finite {

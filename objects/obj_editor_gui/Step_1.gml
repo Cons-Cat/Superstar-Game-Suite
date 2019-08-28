@@ -66,3 +66,11 @@ if tempResWidth != window_get_width() || tempResHeight != window_get_height() {
 	tempResWidth = window_get_width();
 	tempResHeight = window_get_height();
 }
+
+mouseCheckX = floor(window_mouse_get_x() * (camera_get_view_width(cameraRealGame)) / window_get_width()) + camera_get_view_x(cameraRealGame);
+mouseCheckY = floor(window_mouse_get_y() * (camera_get_view_height(cameraRealGame)) / window_get_height()) + camera_get_view_y(cameraRealGame);
+
+// Toggle marble drawing
+if keyboard_check_pressed(ord("Q")) {
+	global.drawMarble = !global.drawMarble;
+}

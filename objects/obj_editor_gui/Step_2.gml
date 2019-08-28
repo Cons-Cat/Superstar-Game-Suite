@@ -7,9 +7,6 @@ if mode = 1 {
 	modeGridSpr = spr_grid_editor;
 }
 
-mouseCheckX = floor(window_mouse_get_x() / 2) + camera_get_view_x(cameraRealGame);
-mouseCheckY = floor(window_mouse_get_y() / 2) + camera_get_view_y(cameraRealGame);
-
 // Selecting instances
 if canChangeSelect {
 	tempDepth = 0;

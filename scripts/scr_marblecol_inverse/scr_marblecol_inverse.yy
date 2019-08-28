@@ -1,8 +1,8 @@
 {
-    "id": "975c473c-60f6-404a-a74d-e3112b99dee7",
+    "id": "e27720ab-4adc-4555-9c3b-5561c27e2a90",
     "modelName": "GMScript",
     "mvc": "1.0",
-    "name": "buffer_getpixel_begin",
+    "name": "scr_marblecol_inverse",
     "IsCompatibility": false,
     "IsDnD": false
 }

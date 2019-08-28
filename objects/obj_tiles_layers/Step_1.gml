@@ -19,7 +19,7 @@ if mouse_y >= 5 + (tileLayerCount + 2) * 11 && mouse_y <= 12 + (tileLayerCount +
 }
 
 if mouse_check_button_pressed(mb_left) {
-	if plusCol = orange || dieCol = orange {
+	if plusCol = orange {
 		tileLayerCount += 2;
 		trgId.tileLayerCount = self.tileLayerCount;
 		
@@ -60,27 +60,14 @@ if mouse_check_button_pressed(mb_left) {
 		layerName[tileLayerCount+1] = "sublayer_" + string(tileLayerCount div 2);
 		trgId.layerName[tileLayerCount+1] = self.layerName[tileLayerCount+1];
 		
-		// Tile layer
-		if plusCol = orange {
-			for (i = 0; i < trgId.width + 2; i += 1) {
-				for (j = 0; j < trgId.zfloor - trgId.zcieling + 2; j += 1) {
-					// Initialize new tiles
-					trgId.hasTile[ scr_array_xy( i,j,trgId.width + 2 ), tileLayerCount ] = false;
-					trgId.hasTile[ scr_array_xy( i,j,trgId.width + 2 ), tileLayerCount + 1 ] = false;
+		// Initialize new tiles
+		for (i = 0; i < trgId.width + 2; i += 1) {
+			for (j = 0; j < trgId.zfloor - trgId.zcieling + 2; j += 1) {
+				trgId.hasTile[ scr_array_xy( i,j,trgId.width + 2 ), tileLayerCount ] = false;
+				trgId.hasTile[ scr_array_xy( i,j,trgId.width + 2 ), tileLayerCount + 1 ] = false;
 				
-					obj_tiles_grid.hasTile[ scr_array_xy( i,j,trgId.width + 2 ), tileLayerCount ] = false;
-					obj_tiles_grid.hasTile[ scr_array_xy( i,j,trgId.width + 2 ), tileLayerCount + 1] = false;
-				}
-			}
-		}
-		
-		// Perlin layer
-		if dieCol = orange {
-			with trgId {
-				grid = ds_grid_create((width + 2) * 20, (height + zfloor - zcieling + 1) * 20);
-				
-				randomize();
-				generate((width + 2) * 20, (height + zfloor - zcieling + 1) * 20);
+				obj_tiles_grid.hasTile[ scr_array_xy( i,j,trgId.width + 2 ), tileLayerCount ] = false;
+				obj_tiles_grid.hasTile[ scr_array_xy( i,j,trgId.width + 2 ), tileLayerCount + 1] = false;
 			}
 		}
 	}

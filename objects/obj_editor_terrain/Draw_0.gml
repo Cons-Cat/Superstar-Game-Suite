@@ -195,7 +195,7 @@ if obj_editor_gui.mode = 1 {
 }
 
 // Tile painting mode / Play testing mode
-if obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4 {
+if obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4 && !global.drawMarble {
 	/*for (i = 0; i < width + 2; i += 1) {
 		for (j = 0; j < zfloor - zcieling + 2; j += 1) {
 			for (k = 0; k <= tileLayerCount; k += 2) {
@@ -212,17 +212,10 @@ if obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4
 		}
 	}*/
 	
-	draw_surface_ext(tileSurfaceDraw,x-20,y-20,1,1,0,layerColor,1);
+	//draw_surface_ext(tileSurfaceDraw,x-20,y-20,1,1,0,layerColor,1);
 }
 
 // Draw marble
-//draw_surface_part(marbleSurfaceTop,0,0,width*20,height * 20,x,y);
-//draw_surface_part(marbleSurfaceSide,0,height*20,width*20,(zfloor - zcieling) * 20,x,y+height*20);
-draw_surface(marbleSurfaceSide,x,y);
-
-/*for (i = 0; i < marbleNetPixels; i += 1) {
-	draw_set_color(c_red);
-	draw_set_alpha(0.5);
-	draw_rectangle(x + marblePixelX[i],y + marblePixelY[i],x + marblePixelX[i]+1,y + marblePixelY[i]+1,false); // Draw side face
-	draw_set_alpha(1);
+if global.drawMarble {
+	draw_surface(marbleSurfaceSide,x,y);
 }

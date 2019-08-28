@@ -244,6 +244,7 @@ if resetArray && obj_editor_gui.mode != 3 {
 		}
 	}
 	
+	if global.drawMarble {
 	// Bake marble map
 	marbleNetPixels = 0;
 	randomize();
@@ -280,30 +281,13 @@ if resetArray && obj_editor_gui.mode != 3 {
 			marblePixelX[marbleNetPixels] = marbleSampleX;
 			marblePixelY[marbleNetPixels] = marbleSampleY;
 			
-			if marblePixelY[marbleNetPixels] < height *20 - 1 {
-				if i < marbleSamplesLight {
-					// Light streaks
-					//marblePixelValue[marbleNetPixels] = 2;
-					marblePixelValue[marbleNetPixels] = 4;
-				} else {
-					// Dark streaks
-					//marblePixelValue[marbleNetPixels] = 4;
-					marblePixelValue[marbleNetPixels] = 5;
-				}
+			if i < marbleSamplesLight {
+				// Light streaks
+				marblePixelValue[marbleNetPixels] = 5;
 			} else {
-				if i < marbleSamplesLight {
-					// Light streaks
-					marblePixelValue[marbleNetPixels] = 4;
-				} else {
-					// Dark streaks
-					marblePixelValue[marbleNetPixels] = 5;
-				}
+				// Dark streaks
+				marblePixelValue[marbleNetPixels] = 6;
 			}
-			
-			// Store color value for anti-aliasing
-			/*if marblePixelX[marbleNetPixels] >= 0 && marblePixelY[marbleNetPixels] >= 0 {
-				marblePixelValueCol[marblePixelX[marbleNetPixels],marblePixelY[marbleNetPixels]] = marblePixelValue[marbleNetPixels];
-			}*/
 			
 			marbleNetPixels += 1;
 		}
@@ -311,11 +295,9 @@ if resetArray && obj_editor_gui.mode != 3 {
 	
 	surface_resize(marbleSurfaceSide,width*20,(height + zfloor-zcieling)*20);
 	surface_resize(marbleSurfaceTop,width*20,height*2*20);
-	
 	surface_set_target(marbleSurfaceSide);
 	
-	draw_clear(marbleCol[2]);
-	//draw_rectangle_color(0,height*20,width*20,(height + zfloor - zcieling)*20,marbleCol[2],marbleCol[2],marbleCol[2],marbleCol[2],false);
+	draw_clear(marbleCol[3]);
 	
 	// Draw marble streaks
 	for (i = 0; i < marbleNetPixels; i += 1) {
@@ -325,28 +307,16 @@ if resetArray && obj_editor_gui.mode != 3 {
 	
 	// Bake details
 	var antialiasCount = 0;
-	buffer = buffer_getpixel_begin(marbleSurfaceSide);
-	bufferWidth = surface_get_width(marbleSurfaceSide);
-	bufferHeight = surface_get_height(marbleSurfaceSide);
-	
-	// Generate buffer-compatible color data
-	/*for (k = 0; k <= 5; k += 1) {
-		draw_set_color(marbleCol[k]);
-		draw_rectangle(k,0,k,0,false);
-		
-		var r = buffer_getpixel_r(buffer,k,0,bufferWidth,bufferHeight);
-		var g = buffer_getpixel_g(buffer,k,0,bufferWidth,bufferHeight);
-		var b = buffer_getpixel_b(buffer,k,0,bufferWidth,bufferHeight);
-		bufferMarbleCol[k] = make_color_rgb(r,g,b);
-	}*/
+	surfaceWidth = surface_get_width(marbleSurfaceSide);
+	surfaceHeight = surface_get_height(marbleSurfaceSide);
 	
 	// Lighten top surface
 	for (i = 0; i < width*20; i += 1) {
 		for (j = 0; j < height * 20; j += 1) {
-			for (k = 2; k <= 5; k += 1) {
-				var bufferCol = surface_getpixel(marbleSurfaceSide,i,j);
+			for (k = 3; k <= 6; k += 1) {
+				var tempCol = surface_getpixel(marbleSurfaceSide,i,j);
 				
-				if bufferCol = marbleCol[k] {
+				if tempCol = marbleCol[k] {
 					draw_set_color(marbleCol[k-2]);
 					draw_rectangle(i,j,i,j,false);
 					
@@ -357,89 +327,98 @@ if resetArray && obj_editor_gui.mode != 3 {
 	}
 	
 	// Blend corners with anti-aliasing
-	for (jj = 0; jj <= 1; jj += 1) {
+	for (zz = 0; zz <= 1; zz += 1) {
 		for (i = 0; i < width*20; i += 1) {
 			for (j = 0; j < (height + zfloor - zcieling) * 20; j += 1) {
 				// Focus on either dark or light streaks
 				if j < height * 20 {
-					if jj = 0 {
-						k = 2;
-					} else {
+					if zz = 0 {
 						k = 3;
+					} else {
+						k = 4;
 					}
 				} else {
-					if jj = 0 {
-						k = 4;
-					} else {
+					if zz = 0 {
 						k = 5;
+					} else {
+						k = 6;
 					}
 				}
 				
-				var adjacentCount = 0;
-				var ii = 0;
+				var netK = k;
 				
-				if surface_getpixel(marbleSurfaceSide,i,j) = marbleCol[k] {
+				var adjacentCount = 0;
+				var dirCheck = 0;
+				
+				var tempColInd = scr_marblecol_inverse( surface_getpixel(marbleSurfaceSide,i,j) );
+				
+				if tempColInd = k {
 					continue;
 				}
 				
 				repeat(4) {
-					ii += 1;
+					dirCheck += 1;
 					
-					if ii = 1 {
-						var bufferi = i - 1;
-						var bufferj = j;
+					if dirCheck = 1 {
+						var ii = i - 1;
+						var jj = j;
 					}
-					if ii = 2 {
-						var bufferi = i + 1;
-						var bufferj = j;
+					if dirCheck = 2 {
+						var ii = i + 1;
+						var jj = j;
 					}
-					if ii = 3 {
-						var bufferi = i;
-						var bufferj = j - 1;
+					if dirCheck = 3 {
+						var ii = i;
+						var jj = j - 1;
 					}
-					if ii = 4 {
-						var bufferi = i;
-						var bufferj = j + 1;
+					if dirCheck = 4 {
+						var ii = i;
+						var jj = j + 1;
 					}
 					
-					clamp(bufferi,0,bufferWidth);
-					clamp(bufferj,0,bufferHeight);
+					clamp(ii,0,surfaceWidth);
+					clamp(jj,0,surfaceHeight);
 					
-					//show_debug_message("i: " + string(i) + ", j: " + string(j));
-					//var r = buffer_getpixel_r(buffer,bufferi,bufferj,bufferWidth,bufferHeight);
-					//var g = buffer_getpixel_g(buffer,bufferi,bufferj,bufferWidth,bufferHeight);
-					//var b = buffer_getpixel_b(buffer,bufferi,bufferj,bufferWidth,bufferHeight);
-					//var bufferCol = make_color_rgb(r,g,b);
+					tempColInd = scr_marblecol_inverse( surface_getpixel(marbleSurfaceSide,ii,jj) );
 					
-					bufferCol = surface_getpixel(marbleSurfaceSide,bufferi,bufferj);
-					
-					if bufferCol = marbleCol[k] {
-						
+					// If the adjacent pixel's darkness is equal to the selected streak's darkness
+					if tempColInd = k {
 						adjacentCount += 1;
+					}
+					
+					// If any adjacent pixel's is greater than, increment the darkness of the anti-aliasing
+					if tempColInd > k {
+						netK = k + 1;
 					}
 				}
 				
-				if adjacentCount > 1 && adjacentCount < 4 {
+				// If the select pixel is in a corner
+				if adjacentCount > 1 {
 					antialiasCount += 1;
 					
 					antialiasX[antialiasCount] = i;
 					antialiasY[antialiasCount] = j;
-					antialiasVal[antialiasCount] = marbleCol[k-1];
-					
-					show_debug_message(string(adjacentCount) + ", antialiasCount: " + string(antialiasCount));
+					antialiasVal[antialiasCount] = marbleCol[netK-1];
 				}
 			}
 		}
 	}
 	
+	// Draw anti-aliasing
 	for (i = 1; i < antialiasCount; i += 1) {
 		draw_set_color(antialiasVal[i]);
 		draw_rectangle(antialiasX[i],antialiasY[i],antialiasX[i],antialiasY[i],false);
 	}
 	
-	buffer_delete(buffer);
+	// Brighten edge
+	for (i = 0; i < width * 20; i += 1) {
+		tempColInd = scr_marblecol_inverse( surface_getpixel(marbleSurfaceSide,i,height * 19) );
+		
+		draw_set_color(marbleCol[tempColInd - 1]);
+		draw_rectangle(i,height * 19,i,height * 19,false);
+	}
+	
 	surface_reset_target();
-	surface_copy_part(marbleSurfaceTop,0,0,marbleSurfaceSide,0,0,width*20,height*2*20);
 }
 
 // Bake surfaces
@@ -478,4 +457,5 @@ if calculateSub {
 	surface_free(tileSurfaceCalc);
 	
 	calculateSub = false;
+	}
 }
