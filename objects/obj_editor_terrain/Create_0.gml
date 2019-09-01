@@ -9,8 +9,6 @@ calculateSub = true;
 tileSurfaceDraw = surface_create((width + 2) * 20,(height + zfloor - zcieling + 1) * 20);
 
 grid = -1;
-marbleSamplesDark = 7;
-marbleSamplesLight = 8;
 marbleNetPixels = 0;
 marbleSampleGirth[marbleNetPixels] = 0;
 

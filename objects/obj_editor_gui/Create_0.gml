@@ -65,4 +65,4 @@ colDark = make_color_rgb(28,30,36);
 outlineDark = make_color_rgb(63,70,87);
 outlineLight = make_color_rgb(196,196,196);
 
-global.drawMarble = false;
+global.drawMarble = true;
