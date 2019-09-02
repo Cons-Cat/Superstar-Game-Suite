@@ -195,7 +195,7 @@ if obj_editor_gui.mode = 1 {
 }
 
 // Tile painting mode / Play testing mode
-if obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4 && !global.drawMarble {
+if ( obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4 ) && !genMarble {
 	/*for (i = 0; i < width + 2; i += 1) {
 		for (j = 0; j < zfloor - zcieling + 2; j += 1) {
 			for (k = 0; k <= tileLayerCount; k += 2) {
@@ -216,6 +216,11 @@ if obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4
 }
 
 // Draw marble
-if global.drawMarble {
+if surface_exists(marbleSurfaceSide) {
 	draw_surface(marbleSurfaceSide,x,y);
+	
+	/*for (j = 0; j < edgeStreakCountRead; j += 1) {
+		draw_set_color(c_red);
+		draw_rectangle(transfusedSampleX[j],transfusedSampleY[j],transfusedSampleX[j],transfusedSampleY[j],false);
+	}*/
 }

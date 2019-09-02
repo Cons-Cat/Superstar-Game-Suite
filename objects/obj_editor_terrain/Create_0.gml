@@ -11,20 +11,32 @@ tileSurfaceDraw = surface_create((width + 2) * 20,(height + zfloor - zcieling + 
 grid = -1;
 marbleNetPixels = 0;
 marbleSampleGirth[marbleNetPixels] = 0;
+edgeStreakCountRead = 0;
+transfusedDistributionX[edgeStreakCountRead] = -1;
+transfusedDistributionY[edgeStreakCountRead] = -1;
+genMarble = false;
+
+hasAdjacentLeft = false;
+hasAdjacentRight = false;
+show_debug_message(" ");
 
 marbleSurfaceTop = surface_create(width * 20,height * 2 * 20);
-marbleSurfaceSide = surface_create(width * 20,(zfloor - zcieling) * 20);
 
-// Marble colors
+if zfloor - zcieling > 0 {
+	marbleSurfaceSide = surface_create(width * 20,(zfloor - zcieling) * 20);
+} else {
+	marbleSurfaceSide = surface_create(width * 20,20);
+}
+
+// Marble colors ( lightest to darkest )
 marbleCol[0] = make_color_rgb(242,242,242);
 marbleCol[1] = make_color_rgb(197,198,197);
-marbleCol[2] = make_color_rgb(176,177,176);
-marbleCol[3] = make_color_rgb(155,155,155);
-marbleCol[4] = make_color_rgb(132,134,136);
-marbleCol[5] = make_color_rgb(109,112,117);
-marbleCol[6] = make_color_rgb(72,72,79);
-
-marblePixelValueCol[0,0] = c_white;
+marbleCol[2] = make_color_rgb(183,183,183);
+marbleCol[3] = make_color_rgb(160,160,160);
+marbleCol[4] = make_color_rgb(145,146,150);
+marbleCol[5] = make_color_rgb(132,134,137);
+marbleCol[6] = make_color_rgb(119,119,122);
+marbleCol[7] = c_red;
 
 // Graphics IDs
 instId1[0] = "inst_"; // Graphics

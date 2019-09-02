@@ -67,10 +67,25 @@ if tempResWidth != window_get_width() || tempResHeight != window_get_height() {
 	tempResHeight = window_get_height();
 }
 
-mouseCheckX = floor(window_mouse_get_x() * (camera_get_view_width(cameraRealGame)) / window_get_width()) + camera_get_view_x(cameraRealGame);
-mouseCheckY = floor(window_mouse_get_y() * (camera_get_view_height(cameraRealGame)) / window_get_height()) + camera_get_view_y(cameraRealGame);
+mouseCheckX = floor(window_mouse_get_x() * (camera_get_view_width(cameraRealGame)) / window_get_width() ) + camera_get_view_x(cameraRealGame);
+mouseCheckY = floor(window_mouse_get_y() * (camera_get_view_height(cameraRealGame)) / window_get_height() ) + camera_get_view_y(cameraRealGame);
 
-// Toggle marble drawing
-if keyboard_check_pressed(ord("Q")) {
-	global.drawMarble = !global.drawMarble;
+// Generate marble
+/*if keyboard_check_pressed(ord("E")) {
+	tempYi[horSlice] = 0;
+	tempYf[horSlice] = room_height;
+	tempXi[horSlice] = 0;
+	tempXf[horSlice] = room_width;
+	
+	for (i = 0; i < instance_number(obj_editor_terrain); i += 1) {
+		tempInst = instance_find(obj_editor_terrain,i);
+		
+		// Find height of total region
+		if tempInst.y < tempYi {
+			tempYi = tempInst.y;
+		}
+		if tempInst.y > tempYf {
+			tempYf = tempInst.y;
+		}
+	}
 }

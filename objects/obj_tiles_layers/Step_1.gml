@@ -13,15 +13,32 @@ if mouse_y >= 5 + (tileLayerCount + 2) * 11 && mouse_y <= 12 + (tileLayerCount +
 	}
 	
 	if mouse_x >= x + 37 && mouse_x <= x + 45 {
+		// Prevent duplicate marble layers
+		for (i = 0; i < tileLayerCount; i += 2) {
+			if layerType[i] = 1 {
+				exit;
+			}
+		}
+		
 		dieCol = orange;
 		passIn = true;
 	}
 }
 
 if mouse_check_button_pressed(mb_left) {
-	if plusCol = orange {
+	if plusCol = orange || dieCol = orange {
 		tileLayerCount += 2;
 		trgId.tileLayerCount = self.tileLayerCount;
+		
+		// Tile layer
+		if plusCol = orange {
+			layerType[tileLayerCount] = 0;
+		}
+		// Marble layer
+		if dieCol = orange {
+			layerType[tileLayerCount] = 1; 
+			trgId.genMarble = true;
+		}
 		
 		layerOrder[tileLayerCount] = tileLayerCount;
 		layerVisible[tileLayerCount] = true;
