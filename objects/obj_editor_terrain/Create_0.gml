@@ -7,6 +7,7 @@ tileLayer[0,1] = "";
 tileRowWidth = 0;
 calculateSub = true;
 tileSurfaceDraw = surface_create((width + 2) * 20,(height + zfloor - zcieling + 1) * 20);
+layerType[0] = 0;
 
 grid = -1;
 marbleNetPixels = 0;
@@ -18,12 +19,9 @@ genMarble = false;
 
 hasAdjacentLeft = false;
 hasAdjacentRight = false;
-show_debug_message(" ");
-
-marbleSurfaceTop = surface_create(width * 20,height * 2 * 20);
 
 if zfloor - zcieling > 0 {
-	marbleSurfaceSide = surface_create(width * 20,(zfloor - zcieling) * 20);
+	marbleSurfaceSide = surface_create(width * 20,(height + zfloor - zcieling) * 20);
 } else {
 	marbleSurfaceSide = surface_create(width * 20,20);
 }

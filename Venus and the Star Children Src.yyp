@@ -3255,14 +3255,6 @@
             }
         },
         {
-            "Key": "f4b66a27-7c8b-4fb6-8c31-7d9dd5bd84a1",
-            "Value": {
-                "id": "b8e3f811-9d61-480f-87c6-dfd4c5297012",
-                "resourcePath": "sprites\\spr_command_jump\\spr_command_jump.yy",
-                "resourceType": "GMSprite"
-            }
-        },
-        {
             "Key": "f4bbfa52-ba41-48cb-b1b5-3126837e8c21",
             "Value": {
                 "id": "3a6e3aa6-ea96-4667-8883-3f3130bf695a",

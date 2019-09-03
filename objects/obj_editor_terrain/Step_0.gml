@@ -76,12 +76,6 @@ if spawnButtons {
 	#endregion
 }
 
-// DEBUG
-	if keyboard_check_pressed(ord("W")) { zfloor += 1; resetArray = true; }
-	if keyboard_check_pressed(ord("A")) { width -= 1; resetArray = true; }
-	if keyboard_check_pressed(ord("S")) { zfloor -= 1; resetArray = true; }
-	if keyboard_check_pressed(ord("D")) { width += 1; resetArray = true; }
-
 // Tile array
 if resetArray && obj_editor_gui.mode != 3 {
 	#region
@@ -127,6 +121,10 @@ if resetArray && obj_editor_gui.mode != 3 {
 					// Top right floor corner index
 					tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),0] = 60;
 					tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),0] = 20;
+				} else if width > 1 {
+					// Right beam edge
+					tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),0] = 40;
+					tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),0] = 220;
 				}
 			}
 			if i = 1 && j = height {
@@ -437,8 +435,7 @@ if genMarble {
 	// Bake basic  texture
 	#region
 	
-	surface_resize(marbleSurfaceSide,width*20,(height + zfloor-zcieling)*20);
-	surface_resize(marbleSurfaceTop,width*20,height*2*20);
+	surface_resize(marbleSurfaceSide,width*20,(height + zfloor - zcieling)*20);
 	surface_set_target(marbleSurfaceSide);
 	
 	draw_clear(marbleCol[3]);
@@ -643,9 +640,9 @@ if genMarble {
 		}
 	}
 	
-	surface_reset_target();
-	
 	#endregion
+	
+	surface_reset_target();
 	
 	#endregion
 }
@@ -663,26 +660,42 @@ if calculateSub {
 	tileSurfaceCalc = surface_create((width + 2) * 20,(height + zfloor - zcieling + 1) * 20);
 	surface_set_target(tileSurfaceCalc);
 	
-	for (i = 0; i < width + 2; i += 1) {
-		for (j = 0; j < height + zfloor - zcieling + 1; j += 1) {
-			for (k = 0; k <= tileLayerCount; k += 2) { // Absolute
-				//if layerVisible[k] {
-					for (k2 = 0; k2 <= tileLayerCount; k2 += 2) { // Arbitrary
+	for (k = 0; k <= tileLayerCount; k += 2) { // Absolute
+		if layerVisible[k] {
+			if layerType[k] = 0 { // Tiles layer
+				for (i = 0; i < width + 2; i += 1) {
+					for (j = 0; j < height + zfloor - zcieling + 1; j += 1) {
 						if hasTile[scr_array_xy(i,j,tileRowWidth),k] {
 							draw_sprite_part(sprMaterial,0,tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),k],tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),k],20,20,i*20,j*20);
 							
+							// Subtract sub-layer
 							if hasTile[scr_array_xy(i,j,tileRowWidth),k+1] {
 								gpu_set_blendmode(bm_subtract);
 								draw_sprite_part(sprMaterial,0,tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),k+1],tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),k+1],20,20,i*20,j*20);
 								gpu_set_blendmode(bm_normal);
 							}
-							
-							// Add subtracted layer to a surface
-							surface_copy(tileSurfaceDraw, 0, 0, tileSurfaceCalc);
 						}
 					}
-				//}
+				}
 			}
+			
+			if layerType[k] = 1 { // Marble layer
+				draw_surface(marbleSurfaceSide,20,20);
+				
+				for (i = 1; i < width + 1; i += 1) {
+					for (j = 1; j < height + zfloor - zcieling + 1; j += 1) {
+						// Subtract sub-layer
+						if hasTile[scr_array_xy(i,j,tileRowWidth),k+1] {
+							gpu_set_blendmode(bm_subtract);
+							draw_sprite_part(sprMaterial,0,tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),k+1],tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),k+1],20,20,i*20,j*20);
+							gpu_set_blendmode(bm_normal);
+						}
+					}
+				}
+			}
+			
+			// Add layer to the drawing surface
+			surface_copy(tileSurfaceDraw, 0, 0, tileSurfaceCalc);
 		}
 	}
 	

@@ -287,6 +287,7 @@ if spawnTiles {
 					canSelect[i+1] = false;
 					
 					layerAlpha[i] = 1;
+					layerType[i] = other.layerType[i];
 				}
 			}
 		}

@@ -14,9 +14,15 @@ if mouse_y >= 5 + (tileLayerCount + 2) * 11 && mouse_y <= 12 + (tileLayerCount +
 	
 	if mouse_x >= x + 37 && mouse_x <= x + 45 {
 		// Prevent duplicate marble layers
-		for (i = 0; i < tileLayerCount; i += 2) {
+		for (i = 0; i <= tileLayerCount; i += 2) {
 			if layerType[i] = 1 {
-				exit;
+				// Re-calculate pre-existant marble layer
+				if mouse_check_button_pressed(mb_left) {
+					trgId.genMarble = true;
+					trgId.calculateSub = true;
+					
+					exit;
+				}
 			}
 		}
 		
@@ -33,12 +39,18 @@ if mouse_check_button_pressed(mb_left) {
 		// Tile layer
 		if plusCol = orange {
 			layerType[tileLayerCount] = 0;
+			trgId.layerType[tileLayerCount] = 0;
 		}
 		// Marble layer
 		if dieCol = orange {
-			layerType[tileLayerCount] = 1; 
+			layerType[tileLayerCount] = 1;
+			trgId.layerType[tileLayerCount] = 1;
+			
+			trgId.calculateSub = true;
 			trgId.genMarble = true;
 		}
+		
+		obj_tiles_grid.layerType[tileLayerCount] = self.layerType[tileLayerCount];
 		
 		layerOrder[tileLayerCount] = tileLayerCount;
 		layerVisible[tileLayerCount] = true;
@@ -55,7 +67,7 @@ if mouse_check_button_pressed(mb_left) {
 		obj_tiles_grid.hasTileDraw[tileLayerCount+1] = false;
 		obj_tiles_grid.layerVisibleDraw[tileLayerCount] = true;
 		
-		obj_tiles_grid.surfaceSubtract[tileLayerCount] = -1
+		obj_tiles_grid.surfaceSubtract[tileLayerCount] = -1;
 		
 		for (k = 0; k <= tileLayerCount; k += 1) {
 			// De-select all layers
@@ -87,11 +99,11 @@ if mouse_check_button_pressed(mb_left) {
 				obj_tiles_grid.hasTile[ scr_array_xy( i,j,trgId.width + 2 ), tileLayerCount + 1] = false;
 			}
 		}
+		
+		obj_subpanel_left.panelHeight = (tileLayerCount + 1) * 11 + 4;
+		
+		exit;
 	}
-	
-	obj_subpanel_left.panelHeight = (tileLayerCount + 1) * 11 + 4;
-	
-	exit;
 }
 
 // Manipulate layers
@@ -124,7 +136,7 @@ for (i = 0; i <= tileLayerCount; i += 2) {
 	
 	if !draggingMouseInit {
 		// Select layer
-		if mouse_x >= x + 30 && (mouse_x <= x + 36 + string_width(layerName[i]) || (mouse_x <= x + 75 && layerName[i] = "")) && mouse_y >= 2 + layerOrder[i] * 11 && mouse_y < 12 + layerOrder[i] * 11 {
+		if mouse_x >= x + 30 && ( mouse_x <= x + 36 + string_width(layerName[i]) || (mouse_x <= x + 75 && layerName[i] = "") ) && mouse_y >= 2 + layerOrder[i] * 11 && mouse_y < 12 + layerOrder[i] * 11 {
 			canSelect[i] = true;
 			
 			if mouse_check_button_pressed(mb_left) {
@@ -177,7 +189,7 @@ for (i = 0; i <= tileLayerCount; i += 2) {
 		canSelect[i+1] = false;
 		
 		// Select sub-layer
-		if mouse_x >= x + 34 && (mouse_x <= x + 44 + string_width(layerName[i+1]) || (mouse_x <= x + 85 && layerName[i+1] = "")) && mouse_y >= 2 + (layerOrder[i] + 1) * 11 && mouse_y < 12 + (layerOrder[i] + 1) * 11 {
+		if mouse_x >= x + 34 && ( mouse_x <= x + 44 + string_width(layerName[i+1]) || (mouse_x <= x + 85 && layerName[i+1] = "") ) && mouse_y >= 2 + (layerOrder[i] + 1) * 11 && mouse_y < 12 + (layerOrder[i] + 1) * 11 {
 			canSelect[i+1] = true;
 			
 			if mouse_check_button_pressed(mb_left) {
@@ -216,15 +228,6 @@ for (i = 0; i <= tileLayerCount; i += 2) {
 			}
 			
 			trgId.layerName[i+1] = self.layerName[i+1];
-		}
-	} else {
-		// De-select when dragging
-		if draggingMouse {
-			canSelect[i] = false;
-			canSelect[i+1] = false;
-			
-			select[i] = false;
-			select[i+1] = false;
 		}
 	}
 }
@@ -267,6 +270,7 @@ if (point_distance(window_mouse_get_x(),window_mouse_get_y(),tempMouseX,tempMous
 		}
 	}
 	
+	// Release dragging layer
 	if mouse_check_button_released(mb_left) {
 		draggingMouse = false;
 		select[dragLayer] = false;
@@ -283,12 +287,14 @@ if (point_distance(window_mouse_get_x(),window_mouse_get_y(),tempMouseX,tempMous
 }
 
 // Don't prepare to drag layer when merely selecting
-if !mouse_check_button(mb_left) {
-	draggingMouseInit = false;
-	dragLayer = -1;
+if !draggingMouse {
+	if !mouse_check_button(mb_left) {
+		draggingMouseInit = false;
+		dragLayer = -1;
+	}
 }
 
-// Pass in layer order
+// Pass in layer order into obj_tiles_grid
 if passIn {
 	for (i = 0; i <= tileLayerCount; i += 1) { // Absolute
 		obj_tiles_grid.layerOrder[i] = self.layerOrder[i];
@@ -299,20 +305,4 @@ if passIn {
 	passIn = false;
 }
 
-// Add foliated marble layer
-/*if mouse_x >= x + 38 && mouse_x <= x + 44 && mouse_y >= 5 + (i * 11) && mouse_y <= 12 + (i * 11) {
-	if mouse_check_button_pressed(mb_left) {
-		eyeState[array_height_2d(layerName)] = 0;
-		eyeCol[array_height_2d(layerName)] = col;
-		
-		select[array_height_2d(layerName),0] = false;
-		canSelect[array_height_2d(layerName),0] = false;
-		layerName[array_height_2d(layerName),0] = "layer_" + string(array_height_2d(layerName));
-		
-		select[array_height_2d(layerName)-1,1] = false;
-		canSelect[array_height_2d(layerName)-1,1] = false;
-		layerName[array_height_2d(layerName)-1,1] = "sublayer_" + string(array_height_2d(layerName));
-	}
-	
-	dieCol = orange;
-}*/
+//obj_tiles_grid passes layer values into terrain instances

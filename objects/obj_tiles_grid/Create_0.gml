@@ -8,16 +8,8 @@ xValDraw[0] = 0;
 yValDraw[0] = 0;
 hasTileDraw[0] = false;
 layerVisibleDraw[0] = false;
+layerType[0] = 0;
 
 z = 0;
-close = false;
 passIn = true;
 calculateSub = false;
-
-/*
-						clusterCount[tileLayerSelect] += 1;
-						clusterX[clusterCount,tileLayerSelect] = currentPixelX;
-						clusterY[clusterCount,tileLayerSelect] = currentPixelY;
-						clusterWidth[clusterCount,tileLayerSelect] = currentWidth;
-						clusterHeight[clusterCount,tileLayerSelect] = currentHeight;
-*/
