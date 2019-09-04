@@ -9,10 +9,11 @@ dieCol = col;
 if mouse_y >= 5 + (tileLayerCount + 2) * 11 && mouse_y <= 12 + (tileLayerCount + 2) * 11 {
 	if mouse_x >= x + 28 && mouse_x <= x + 34 {
 		plusCol = orange;
-		passIn = true;
 	}
 	
 	if mouse_x >= x + 37 && mouse_x <= x + 45 {
+		dieCol = orange;
+		
 		// Prevent duplicate marble layers
 		for (i = 0; i <= tileLayerCount; i += 2) {
 			if layerType[i] = 1 {
@@ -25,14 +26,13 @@ if mouse_y >= 5 + (tileLayerCount + 2) * 11 && mouse_y <= 12 + (tileLayerCount +
 				}
 			}
 		}
-		
-		dieCol = orange;
-		passIn = true;
 	}
 }
 
 if mouse_check_button_pressed(mb_left) {
 	if plusCol = orange || dieCol = orange {
+		passIn = true;
+		
 		tileLayerCount += 2;
 		trgId.tileLayerCount = self.tileLayerCount;
 		
@@ -129,8 +129,20 @@ for (i = 0; i <= tileLayerCount; i += 2) {
 				obj_tiles_grid.layerVisible[i] = true;
 			}
 			
+			// Recalculating a marble surface lost after
+			// resizing the game window when invisible
+			if layerType[i] = 1 { // Marble layer
+				if layerVisible[i] {
+					if trgId.marbleLostResize {
+						trgId.bakeMarble = true;
+						trgId.marbleLostResize = false;
+					}
+				}
+			}
+			
 			passIn = true;
 			obj_tiles_grid.passIn = true;
+			
 		}
 	}
 	
@@ -266,12 +278,13 @@ if (point_distance(window_mouse_get_x(),window_mouse_get_y(),tempMouseX,tempMous
 				}
 				
 				tempOrder = layerOrder[dragLayer];
+				passIn = true;
 			}
 		}
 	}
 	
 	// Release dragging layer
-	if mouse_check_button_released(mb_left) {
+	if !mouse_check_button(mb_left) {
 		draggingMouse = false;
 		select[dragLayer] = false;
 		
@@ -281,9 +294,6 @@ if (point_distance(window_mouse_get_x(),window_mouse_get_y(),tempMouseX,tempMous
 			layerAlpha[dragLayer] = 1;
 		}
 	}
-	
-	passIn = true;
-	obj_tiles_grid.passIn = true;
 }
 
 // Don't prepare to drag layer when merely selecting
@@ -303,6 +313,7 @@ if passIn {
 	}
 	
 	passIn = false;
+	
+	// obj_tiles_grid passes layer values into terrain instances
+	obj_tiles_grid.passIn = true;
 }
-
-//obj_tiles_grid passes layer values into terrain instances

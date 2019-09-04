@@ -20,7 +20,7 @@ for (k = 0; k <= tileLayerCount; k += 2) { // Iterate through absolute
 					gpu_set_blendmode(bm_normal);
 					
 					// Add subtracted layer to a surface
-					surface_copy(surfaceSubtract[k], 0, 0, tileSurface);
+					draw_surface(surfaceSubtract[k],0,0);
 					
 					surface_reset_target();
 					surface_free(tileSurface);

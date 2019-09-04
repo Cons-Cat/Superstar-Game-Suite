@@ -1,5 +1,7 @@
 /// @description Update views to screen size
-/*if window_get_width() < 1024 {
+/*
+// Minimum window dimensions
+if window_get_width() < 1024 {
 	window_set_position(windowTempX,window_get_y());
 	window_set_size(1024,window_get_height());
 }
@@ -10,7 +12,12 @@ if window_get_height() < 576 {
 
 windowTempX = window_get_x();
 windowTempY = window_get_y();*/
+
 if tempResWidth != window_get_width() || tempResHeight != window_get_height() {
+	with obj_editor_terrain {
+		surfaceResize = true;
+	}
+	
 	realPortScaleHor = window_get_width() div 512;
 	realPortScaleVer = window_get_height() div 288;
 	
@@ -69,23 +76,3 @@ if tempResWidth != window_get_width() || tempResHeight != window_get_height() {
 
 mouseCheckX = floor(window_mouse_get_x() * (camera_get_view_width(cameraRealGame)) / window_get_width() ) + camera_get_view_x(cameraRealGame);
 mouseCheckY = floor(window_mouse_get_y() * (camera_get_view_height(cameraRealGame)) / window_get_height() ) + camera_get_view_y(cameraRealGame);
-
-// Generate marble
-/*if keyboard_check_pressed(ord("E")) {
-	tempYi[horSlice] = 0;
-	tempYf[horSlice] = room_height;
-	tempXi[horSlice] = 0;
-	tempXf[horSlice] = room_width;
-	
-	for (i = 0; i < instance_number(obj_editor_terrain); i += 1) {
-		tempInst = instance_find(obj_editor_terrain,i);
-		
-		// Find height of total region
-		if tempInst.y < tempYi {
-			tempYi = tempInst.y;
-		}
-		if tempInst.y > tempYf {
-			tempYf = tempInst.y;
-		}
-	}
-}

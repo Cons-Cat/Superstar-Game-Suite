@@ -3413,6 +3413,14 @@
                 "resourcePath": "scripts\\scr_array_xy\\scr_array_xy.yy",
                 "resourceType": "GMScript"
             }
+        },
+        {
+            "Key": "ff85086d-a3a8-4a90-b7a2-da307e31e951",
+            "Value": {
+                "id": "322ad359-0474-41aa-a76b-7a2bf6ed717e",
+                "resourcePath": "sprites\\spr_surface_error\\spr_surface_error.yy",
+                "resourceType": "GMSprite"
+            }
         }
     ],
     "script_order": [

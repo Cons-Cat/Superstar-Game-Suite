@@ -11,5 +11,5 @@ layerVisibleDraw[0] = false;
 layerType[0] = 0;
 
 z = 0;
-passIn = true;
+passIn = false;
 calculateSub = false;

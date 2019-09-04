@@ -8,6 +8,7 @@ layerVisible[0] = true;
 layerName[0,0] = "layer_0";
 layerName[0,1] = "sublayer_0";
 surfaceSubtract[0] = -1;
+surfaceResize = false;
 
 mirror = false;
 flip = false;

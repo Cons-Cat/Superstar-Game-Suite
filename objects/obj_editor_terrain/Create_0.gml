@@ -6,8 +6,9 @@ tileLayer[0,0] = "layer_0";
 tileLayer[0,1] = "";
 tileRowWidth = 0;
 calculateSub = true;
-tileSurfaceDraw = surface_create((width + 2) * 20,(height + zfloor - zcieling + 1) * 20);
 layerType[0] = 0;
+surfaceResize = true; // Initialize surfaces
+marbleLostResize = false; // If the marble is deleted when resizing the window
 
 grid = -1;
 marbleNetPixels = 0;
@@ -16,15 +17,10 @@ edgeStreakCountRead = 0;
 transfusedDistributionX[edgeStreakCountRead] = -1;
 transfusedDistributionY[edgeStreakCountRead] = -1;
 genMarble = false;
+bakeMarble = false;
 
 hasAdjacentLeft = false;
 hasAdjacentRight = false;
-
-if zfloor - zcieling > 0 {
-	marbleSurfaceSide = surface_create(width * 20,(height + zfloor - zcieling) * 20);
-} else {
-	marbleSurfaceSide = surface_create(width * 20,20);
-}
 
 // Marble colors ( lightest to darkest )
 marbleCol[0] = make_color_rgb(242,242,242);

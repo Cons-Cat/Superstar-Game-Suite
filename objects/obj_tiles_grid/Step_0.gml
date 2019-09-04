@@ -33,8 +33,6 @@ if tileLayerSelect != -1 {
 						}
 						
 						passIn = true;
-						
-						break;
 					}
 				}
 			}
@@ -80,7 +78,10 @@ if passIn {
 					trgId.tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),k+1] = yValDraw[k+1];
 				}
 				
-				trgId.surfaceSubtract[k2] = surfaceSubtract[k2];
+				trgId.surfaceSubtract[k] = surfaceSubtract[k2];
+				if trgId.surfaceSubtract[k] = -1 {
+					show_debug_message("k: " + string(k2) + ", i: " + string(i) + ", j: " + string(j));
+				}
 				
 				break;
 			}

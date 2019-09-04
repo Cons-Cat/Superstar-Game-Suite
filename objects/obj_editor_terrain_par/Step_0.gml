@@ -113,7 +113,7 @@ if spawnTiles {
 						tileRowWidth = other.width + 2;
 						tileLayerCount = other.tileLayerCount;
 						
-						for (k = 0; k <= tileLayerCount; k += 2) {
+						for (k = 0; k <= tileLayerCount; k += 2) { // Absolute
 							hasTile[k] = other.hasTile[scr_array_xy(i,j,tileRowWidth),k];
 							hasTile[k+1] = other.hasTile[scr_array_xy(i,j,tileRowWidth),k+1];
 							hasTileDraw[k] = other.hasTile[scr_array_xy(i,j,tileRowWidth),k];
@@ -123,6 +123,7 @@ if spawnTiles {
 							layerVisibleDraw[k] = other.layerVisible[k];
 							
 							layerOrder[k] = other.layerOrder[k];
+							layerType[k] = other.layerType[k];
 							
 							// Pass in tiles
 							if hasTile[k] {

@@ -26,6 +26,7 @@ view_set_yport(5,362);
 
 tempResWidth = 0;
 tempResHeight = 0;
+screenStateTemp = false;
 
 depth = 0;
 

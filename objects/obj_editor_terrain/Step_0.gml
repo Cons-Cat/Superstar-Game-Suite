@@ -76,6 +76,36 @@ if spawnButtons {
 	#endregion
 }
 
+// Resizing the game window
+if surfaceResize {
+	#region
+	
+	surfaceResize = false;
+	calculateSub = true;
+	
+	for (i = 0; i <= tileLayerCount; i += 2) {
+		if layerType[i] = 1 { // Marble layer
+			if layerVisible[i] {
+				bakeMarble = true;
+			} else {
+				marbleLostResize = true;
+			}
+			
+			break;
+		}
+	}
+	
+	tileSurfaceDraw = surface_create((width + 2) * 20,(height + zfloor - zcieling + 1) * 20);
+	
+	if zfloor - zcieling > 0 {
+		marbleSurfaceSide = surface_create(width * 20,(height + zfloor - zcieling) * 20);
+	} else {
+		marbleSurfaceSide = surface_create(width * 20,20);
+	}
+	
+	#endregion
+}
+
 // Tile array
 if resetArray && obj_editor_gui.mode != 3 {
 	#region
@@ -262,6 +292,7 @@ if genMarble {
 	#region
 	
 	genMarble = false;
+	bakeMarble = true;
 	
 	// Initialize values
 	#region
@@ -432,7 +463,15 @@ if genMarble {
 	
 	#endregion
 	
-	// Bake basic  texture
+	#endregion
+}
+
+if bakeMarble {
+	#region
+	
+	bakeMarble = false;
+	
+	// Bake basic texture
 	#region
 	
 	surface_resize(marbleSurfaceSide,width*20,(height + zfloor - zcieling)*20);
@@ -651,7 +690,7 @@ if genMarble {
 if calculateSub {
 	#region
 	
-	calculateSub = false;
+	calculateSub = false; // Recalculating the surface
 	
 	surface_set_target(tileSurfaceDraw);
 	draw_clear_alpha(c_white,0);
