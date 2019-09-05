@@ -27,31 +27,5 @@ obj_panel_right.moveDirection = -1;
 obj_panel_right.scrollHorPartition = 0;
 obj_panel_right.scrollVerPartition = 0;
 
-// Tile input box
-//sprMaterialDirectory = get_open_filename_ext("Material Image File|*.png", "", working_directory + "\Room Saves\ ", "Import Material Tileset");
-
-if sprMaterialDirectory != "" {
-	global.pieceSelected = self.id;
-}
-
-obj_editor_gui.hasMaterials = true;
-
-/*for (i = 0; i <= obj_editor_gui.materialsImported; i += 1) {
-	if i = obj_editor_gui.materialsImported {
-		global.sprMaterial = spr_tls_rectangle_default; //sprite_add(other.sprMaterialDirectory,0,false,false,0,0);
-		obj_editor_gui.sprMaterialDirectoryList[i] = sprMaterialDirectory;
-		obj_editor_gui.materialDirectorySprite[i] = global.sprMaterial;
-		obj_editor_gui.materialsImported += 1;
-		
-		break;
-	}
-	
-	if obj_editor_gui.sprMaterialDirectoryList[i] = self.sprMaterialDirectory {
-		global.sprMaterial = obj_editor_gui.materialDirectorySprite[i];
-		
-		break;
-	}
-}*/
-
 canSpawnButtons = true;
 spawnTiles = true;

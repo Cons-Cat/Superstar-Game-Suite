@@ -10,7 +10,6 @@ layerType[0] = 0;
 surfaceResize = true; // Initialize surfaces
 marbleLostResize = false; // If the marble is deleted when resizing the window
 
-grid = -1;
 marbleNetPixels = 0;
 marbleSampleGirth[marbleNetPixels] = 0;
 edgeStreakCountRead = 0;

@@ -109,7 +109,7 @@ if spawnTiles {
 						i = other.i;
 						j = other.j;
 						width = other.width;
-						tempMaterial = other.sprMaterial;
+						tileDrawSpr = other.tileDrawSpr;
 						tileRowWidth = other.width + 2;
 						tileLayerCount = other.tileLayerCount;
 						
@@ -145,9 +145,6 @@ if spawnTiles {
 							// Pass in layer names
 							layerName[k] = other.layerName[k];
 							layerName[k+1] = other.layerName[k+1];
-							
-							// Pass in subtracted layer surfaces
-							surfaceSubtract[k] = other.surfaceSubtract[k];
 						}
 					}
 				}
@@ -170,7 +167,7 @@ if spawnTiles {
 							trgId = other.id;
 							i = other.i;
 							j = other.j;
-							tempMaterial = other.sprMaterial;
+							tileDrawSpr = other.tileDrawSpr;
 							xVal = other.tileArrayDrawX[i,j];
 							yVal = other.tileArrayDrawY[i,j];
 						}
@@ -194,7 +191,7 @@ if spawnTiles {
 						trgId = other.id;
 						i = other.i;
 						j = other.j;
-						tempMaterial = other.sprMaterial;
+						tileDrawSpr = other.tileDrawSpr;
 						xVal = other.tileArrayDrawX[i,j];
 						yVal = other.tileArrayDrawY[i,j];
 					}
@@ -217,7 +214,7 @@ if spawnTiles {
 						trgId = other.id;
 						i = other.i;
 						j = other.j;
-						tempMaterial = other.sprMaterial;
+						tileDrawSpr = other.tileDrawSpr;
 						xVal = other.tileArrayDrawX[i,j];
 						yVal = other.tileArrayDrawY[i,j];
 					}
@@ -240,7 +237,7 @@ if spawnTiles {
 						trgId = other.id;
 						i = other.i;
 						j = other.j;
-						tempMaterial = other.sprMaterial;
+						tileDrawSpr = other.tileDrawSpr;
 						xVal = other.tileArrayDrawX[i,j];
 						yVal = other.tileArrayDrawY[i,j];
 					}
@@ -253,23 +250,26 @@ if spawnTiles {
 			#endregion
 		}
 		
-		obj_panel_right.panelWidth = sprite_get_width(global.sprMaterial);
-			
-		if sprite_get_height(global.sprMaterial) <= 334 {
+		obj_panel_right.panelWidth = sprite_get_width(tileDrawSpr);
+		
+		if sprite_get_height(tileDrawSpr) <= 334 {
 			obj_panel_right.scrollPanelVerDefined = false;
 			obj_panel_right.panelHeight = 0;
 		} else {
 			obj_panel_right.scrollPanelVerDefined = true;
-			obj_panel_right.panelHeight = sprite_get_height(global.sprMaterial);
+			obj_panel_right.panelHeight = sprite_get_height(tileDrawSpr);
 		}
 		
 		if !instance_exists(obj_tiles_sheet) {
 			// Open menu
-			instance_create_layer(room_width,0,"Instances",obj_tiles_sheet);
+			with instance_create_layer(room_width,0,"Instances",obj_tiles_sheet) {
+				tileDefaultSpr = other.tileDrawSpr;
+			}
 			
 			with instance_create_layer(room_width,0,"Instances",obj_tiles_layers) {
 				trgId = other.id;
 				tileLayerCount = other.tileLayerCount;
+				tileDefaultSpr = other.tileDefaultSpr;
 				
 				for (i = 0; i <= tileLayerCount; i += 2) {
 					layerOrder[i] = other.layerOrder[i];

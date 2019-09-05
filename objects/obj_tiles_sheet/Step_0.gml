@@ -2,11 +2,12 @@
 x = camera_get_view_x(obj_editor_gui.cameraRightPanel);
 relativeMouseX = (mouse_x - self.x);
 relativeMouseY = (mouse_y - self.y);
-obj_panel_right.panelWidth = sprite_get_width(global.sprMaterial);
-obj_panel_right.panelHeight = sprite_get_height(global.sprMaterial);
 
-if relativeMouseY >= 0 && relativeMouseY <= sprite_get_height(global.sprMaterial) {
-	if relativeMouseX >= 0 && relativeMouseX <= sprite_get_width(global.sprMaterial) {
+obj_panel_right.panelWidth = sprite_get_width(tileDefaultSpr);
+obj_panel_right.panelHeight = sprite_get_height(tileDefaultSpr);
+
+if relativeMouseY >= 0 && relativeMouseY <= sprite_get_height(tileDefaultSpr) {
+	if relativeMouseX >= 0 && relativeMouseX <= sprite_get_width(tileDefaultSpr) {
 		selectWidthScale = selectWidthOffset/2;
 		selectHeightScale = selectHeightOffset/2;
 		

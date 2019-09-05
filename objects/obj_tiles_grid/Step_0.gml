@@ -3,6 +3,7 @@ x = camera_get_view_x(obj_editor_gui.cameraLeftPanel) + 2 + i*21;
 y = 1 + j*21;
 
 tileRowWidth = width + 2;
+calculateSub = false;
 
 if tileLayerSelect != -1 {
 	if mouse_x >= self.x && mouse_x < self.x+20 {
@@ -13,7 +14,6 @@ if tileLayerSelect != -1 {
 						with collision_point(x+a+a/20, y+b+b/20,obj_tiles_grid,false,false) {
 							xVal[tileLayerSelect] = obj_tiles_sheet.xVal[other.a,other.b] - obj_tiles_sheet.x;
 							yVal[tileLayerSelect] = obj_tiles_sheet.yVal[other.a,other.b] - obj_tiles_sheet.y;
-							tempMaterial = global.sprMaterial;
 						}
 						
 						hasTile[tileLayerSelect] = true;
@@ -31,10 +31,10 @@ if tileLayerSelect != -1 {
 								surfaceSubtract[(tileLayerSelect div 2)*2] = surface_create(20,20);
 							}
 						}
-						
-						passIn = true;
 					}
 				}
+				
+				passIn = true;
 			}
 			
 			if mouse_check_button(mb_right) {
@@ -45,8 +45,15 @@ if tileLayerSelect != -1 {
 	}
 }
 
+// Refresh surface
+if calculateSub {
+	surface_free(tileSurface);
+	tileSurface = surface_create(20,20);
+}
+
 // Sort layers
 if passIn {
+	calculateSub = true;
 	trgId.calculateSub = true;
 	
 	for (k = 0; k <= tileLayerCount; k += 2) { // Absolute
@@ -60,6 +67,7 @@ if passIn {
 				
 				layerVisibleDraw[k] = layerVisible[k2];
 				trgId.layerVisible[k] = layerVisibleDraw[k];
+				
 				trgId.layerType[k] = layerType[k2];
 				
 				if hasTileDraw[k] {
@@ -78,17 +86,11 @@ if passIn {
 					trgId.tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),k+1] = yValDraw[k+1];
 				}
 				
-				trgId.surfaceSubtract[k] = surfaceSubtract[k2];
-				if trgId.surfaceSubtract[k] = -1 {
-					show_debug_message("k: " + string(k2) + ", i: " + string(i) + ", j: " + string(j));
-				}
-				
 				break;
 			}
 		}
 	}
 	
-	trgId.sprMaterial = global.sprMaterial;
 	trgId.slope3MustUpdate = true;
 	
 	passIn = false;

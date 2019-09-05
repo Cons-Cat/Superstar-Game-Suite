@@ -55,7 +55,6 @@ canChangeSelect = true;
 tempDepth = 0;
 
 global.pieceSelected = -1;
-global.sprMaterial = spr_tls_rectangle_default;
 window_set_fullscreen(false);
 font = font_add_sprite_ext(spr_font_new,"abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ!?,'._-1234567890",true,0);
 fontDark = font_add_sprite_ext(spr_font_dark,"abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ!?,'._-1234567890",true,0);

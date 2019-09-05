@@ -15,7 +15,7 @@ for (i = 0; i <= tileLayerCount; i += 2) {
 	
 	draw_set_font(obj_editor_gui.fontDark);
 	draw_set_color(col);
-	draw_text(x + 2,y+ 2 + i * 11,string( (i div 2) + 1) );
+	draw_text(x + 2,y + 2 + i * 11,string( (i div 2) + 1) );
 	
 	// Layer
 	if canSelect[i] || select[i] && !(i = dragLayer && draggingMouse) {
@@ -38,7 +38,7 @@ for (i = 0; i <= tileLayerCount; i += 2) {
 	// Sub-layer
 	if canSelect[i+1] || select[i+1] && !(i = dragLayer && draggingMouse) {
 		draw_set_color(orange);
-		draw_rectangle(x + 43, 2 + (layerOrder[i] + 1) * 11, x + 43 + string_width(layerName[i+1]), 11 + (layerOrder[i] + 1) * 11, false);
+		draw_rectangle(x + 43, y + 2 + (layerOrder[i] + 1) * 11, x + 43 + string_width(layerName[i+1]), y + 11 + (layerOrder[i] + 1) * 11, false);
 		
 		draw_set_font(obj_editor_gui.fontDark);
 		draw_set_color(orange);
@@ -60,3 +60,15 @@ for (i = 0; i <= tileLayerCount; i += 2) {
 // New layer icons
 draw_sprite_ext(spr_layer_plus,0,x + 31, y + 6 + (tileLayerCount + 2) * 11,1,1,0,plusCol,1);
 draw_sprite_ext(spr_layer_die,0,x + 41, y + 6 + (tileLayerCount + 2) * 11,1,1,0,dieCol,1);
+
+// Draw tileset name
+if resourceSelect || resourceCanSelect {
+	draw_set_color(orange);
+	draw_rectangle(x+2,y-11,x+1+string_width(tileDefaultSpr),y-2,false);
+	draw_set_font(obj_editor_gui.fontDark);
+} else {
+	draw_set_color(col);
+	draw_set_font(obj_editor_gui.font);
+}
+
+draw_text(x+2,y-11,tileDefaultSpr);

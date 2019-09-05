@@ -1,12 +1,12 @@
 /// @description 
-y = 0;
+y = 12;
 x = camera_get_view_x(obj_editor_gui.cameraLeftSubPanel);
 
 // Add new tile layer	
 plusCol = col;
 dieCol = col;
 
-if mouse_y >= 5 + (tileLayerCount + 2) * 11 && mouse_y <= 12 + (tileLayerCount + 2) * 11 {
+if mouse_y >= 5 + (tileLayerCount + 2) * 11 && mouse_y <= y + 12 + (tileLayerCount + 2) * 11 {
 	if mouse_x >= x + 28 && mouse_x <= x + 34 {
 		plusCol = orange;
 	}
@@ -113,7 +113,7 @@ for (i = 0; i <= tileLayerCount; i += 2) {
 	// Toggle layer eye
 	eyeCol[i] = col;
 	
-	if mouse_x >= x + 18 && mouse_x <= x + 27 && mouse_y >= 2 + layerOrder[i] * 11 && mouse_y < 12 + layerOrder[i] * 11 {
+	if mouse_x >= x + 18 && mouse_x <= x + 27 && mouse_y >= y + 2 + layerOrder[i] * 11 && mouse_y < y + 12 + layerOrder[i] * 11 {
 		eyeCol[i] = orange;
 		
 		if mouse_check_button_pressed(mb_left) {
@@ -141,14 +141,12 @@ for (i = 0; i <= tileLayerCount; i += 2) {
 			}
 			
 			passIn = true;
-			obj_tiles_grid.passIn = true;
-			
 		}
 	}
 	
 	if !draggingMouseInit {
 		// Select layer
-		if mouse_x >= x + 30 && ( mouse_x <= x + 36 + string_width(layerName[i]) || (mouse_x <= x + 75 && layerName[i] = "") ) && mouse_y >= 2 + layerOrder[i] * 11 && mouse_y < 12 + layerOrder[i] * 11 {
+		if mouse_x >= x + 30 && ( mouse_x <= x + 36 + string_width(layerName[i]) || (mouse_x <= x + 75 && layerName[i] = "") ) && mouse_y >= y + 2 + layerOrder[i] * 11 && mouse_y < y + 12 + layerOrder[i] * 11 {
 			canSelect[i] = true;
 			
 			if mouse_check_button_pressed(mb_left) {
@@ -201,7 +199,7 @@ for (i = 0; i <= tileLayerCount; i += 2) {
 		canSelect[i+1] = false;
 		
 		// Select sub-layer
-		if mouse_x >= x + 34 && ( mouse_x <= x + 44 + string_width(layerName[i+1]) || (mouse_x <= x + 85 && layerName[i+1] = "") ) && mouse_y >= 2 + (layerOrder[i] + 1) * 11 && mouse_y < 12 + (layerOrder[i] + 1) * 11 {
+		if mouse_x >= x + 34 && ( mouse_x <= x + 44 + string_width(layerName[i+1]) || (mouse_x <= x + 85 && layerName[i+1] = "") ) && mouse_y >= y + 2 + (layerOrder[i] + 1) * 11 && mouse_y < y + 12 + (layerOrder[i] + 1) * 11 {
 			canSelect[i+1] = true;
 			
 			if mouse_check_button_pressed(mb_left) {
@@ -304,15 +302,43 @@ if !draggingMouse {
 	}
 }
 
+// Select resource name
+if mouse_x >= x + 2 && mouse_x <= x + 1 + string_width(tileDefaultSpr) && mouse_y >= y - 11 && mouse_y <= y - 2 {
+	resourceCanSelect = true;
+} else {
+	resourceCanSelect = false;
+}
+
+if mouse_check_button_pressed(mb_left) {
+	if resourceCanSelect {
+		resourceSelect = !resourceSelect;
+	} else {
+		resourceSelect = false;
+	}
+}
+
+if resourceSelect {
+	if keyboard_check_pressed(vk_anykey) {
+		tileDefaultSpr = typeText(tileDefaultSpr);
+		
+		// Pass in tileset resource
+		if asset_get_index(tileDefaultSpr) != -1 {
+			trgId.tileDefaultSpr = tileDefaultSpr;
+			trgId.tileDrawSpr = asset_get_index(tileDefaultSpr);
+			obj_tiles_grid.tileDrawSpr = asset_get_index(tileDefaultSpr);
+			obj_tiles_sheet.tileDefaultSpr = asset_get_index(tileDefaultSpr);
+		}
+	}
+}
+
 // Pass in layer order into obj_tiles_grid
 if passIn {
-	for (i = 0; i <= tileLayerCount; i += 1) { // Absolute
+	passIn = false;
+	
+	for (i = 0; i <= tileLayerCount; i += 2) { // Arbitrary
 		obj_tiles_grid.layerOrder[i] = self.layerOrder[i];
 		trgId.layerOrder[i] = self.layerOrder[i];
-		trgId.grid = self.grid;
 	}
-	
-	passIn = false;
 	
 	// obj_tiles_grid passes layer values into terrain instances
 	obj_tiles_grid.passIn = true;

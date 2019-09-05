@@ -1,5 +1,5 @@
 /// @description 
-draw_sprite(global.sprMaterial,0,x,y);
+draw_sprite(tileDefaultSpr,0,x,y);
 
 // Select box horizontal edges
 draw_sprite_ext(spr_tile_select_editor,0,xVal[0,0],yVal[0,0],selectWidthScale,1,0,c_white,1);

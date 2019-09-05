@@ -1,5 +1,5 @@
 /// @description Delayed material initialization
-if sprMaterialDirectoryLoad = true {
+/*if sprMaterialDirectoryLoad = true {
 	for (i = 0; i <= obj_editor_gui.materialsImported; i += 1) {
 		if obj_editor_gui.sprMaterialDirectoryList[i] = self.sprMaterialDirectory {
 			global.sprMaterial = self.sprMaterialDirectory;

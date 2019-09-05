@@ -13,3 +13,5 @@ layerType[0] = 0;
 z = 0;
 passIn = false;
 calculateSub = false;
+
+tileSurface = surface_create(20,20);

@@ -14,6 +14,7 @@ draggingMouse = false;
 draggingMouseInit = false;
 dragLayer = -1;
 mouseOffY = 0;
-grid = -1;
+resourceCanSelect = false;
+resourceSelect = resourceCanSelect;
 
 depth = -1;
