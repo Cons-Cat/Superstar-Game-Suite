@@ -5,6 +5,16 @@ relativeX = x - room_width;
 baseX = (window_get_width() - 320 * obj_editor_gui.realPortScaleHor)/2 - 1 + room_width;
 y = 242;
 
+if exitInterface {
+	exitInterface = false;
+	
+	moveToX = 0;
+	moveToSpd = (global.tempXLeft - room_width) / 4;
+	moveDirection = -1;
+	
+	alarm[1] = 18;
+}
+
 if relativeMouseX >= relativeX && relativeMouseX <= relativeX + 21 {
 	if relativeMouseY >= y - 62 && relativeMouseY <= y + 58 {
 		if mouse_check_button_pressed(mb_left) {

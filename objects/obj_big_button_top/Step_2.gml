@@ -9,22 +9,17 @@ if !mouse_check_button(mb_left) {
 }
 
 if select {
+	select = false;
+	changeMode = true;
+	
 	// Slide side panels out
 	if obj_panel_left.moveToSpd = 0 && obj_panel_right.moveToSpd = 0 {
 		global.tempXLeft = obj_panel_left.x;
 		global.tempXRight = obj_panel_right.x;
 	}
 	
-	obj_panel_left.moveToX = room_width;
-	obj_panel_left.moveToSpd = (global.tempXLeft - room_width) / 4;
-	obj_panel_left.moveDirection = -1;
-	
-	obj_panel_right.moveToX = room_width + view_wport[1];
-	obj_panel_right.moveToSpd = ( view_wport[1] - (global.tempXRight - room_width)) / 4;
-	obj_panel_right.moveDirection = 1;
-	
-	select = false;
-	changeMode = true;
+	obj_panel_right.exitInterface = true;
+	obj_panel_left.exitInterface = true;
 	
 	if instance_exists(obj_editor_terrain_par) {
 		obj_editor_terrain_par.select = false; // De-select all terrain instances

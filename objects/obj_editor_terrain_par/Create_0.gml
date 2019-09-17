@@ -56,7 +56,8 @@ tileArrayDrawX[0,0] = 0;
 tileArrayDrawY[0,0] = 0;
 canSpawnButtons = false;
 spawnButtons = false;
-spawnTiles = false;
+canSpawnTiles = false;
+spawnTiles = canSpawnTiles;
 depthIterate = 0;
 
 canSelect = true;

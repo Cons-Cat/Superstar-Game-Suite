@@ -1,4 +1,5 @@
 /// @description Perform most scrollbar operations
+relativeMouseX = window_mouse_get_x() + room_width
 
 // Scrollbars
 scrollHorFactor = (scrollHorRightBound - scrollHorLeftBound) / panelWidth;
@@ -10,8 +11,6 @@ if scrollHorFactor > 1 {
 if scrollVerFactor > 1 {
 	scrollVerFactor = 1;
 }
-
-relativeMouseX = window_mouse_get_x() + room_width;
 
 // Scrolling
 if (relativeMouseX >= scrollHorLeftBound && relativeMouseX <= scrollHorRightBound) || (relativeMouseX >= scrollVerLeftBound && relativeMouseX <= scrollVerRightBound) {
@@ -63,6 +62,28 @@ if scrollHorWidth = scrollHorRightBound - scrollHorLeftBound {
 scrollHorWidth = scrollHorFactor * (scrollHorRightBound - scrollHorLeftBound); // The dimension of the horizontal clickable scrollbar
 scrollVerHeight = scrollVerFactor * (scrollVerBotBound - scrollVerTopBound); // The dimension of the vertical clickable scrollbar
 
+if mouse_check_button_pressed(mb_left) && !select {
+	if relativeMouseX >= scrollHorX && relativeMouseX <= scrollHorX + scrollHorWidth {
+		if relativeMouseY >= scrollHorTopBound && relativeMouseY <= scrollHorBotBound {
+			scrollHorSelect = true;
+			scrollHorSelectOff = relativeMouseX - scrollHorX;
+		}
+	}
+	
+	if relativeMouseX >= scrollVerLeftBound && relativeMouseX <= scrollVerRightBound {
+		if relativeMouseY >= scrollVerY && relativeMouseY <= scrollVerY + scrollVerHeight {
+			scrollVerSelect = true;
+			scrollVerSelectOff = relativeMouseY - scrollVerY;
+		}
+	}
+}
+
+// Deselect scroll bars
+if mouse_check_button_released(mb_left) {
+	scrollHorSelect = false;
+	scrollVerSelect = false;
+}
+
 if scrollHorSelect {
 // Drag horizontal scroll bar
 	scrollHorX = relativeMouseX - scrollHorSelectOff;
@@ -87,7 +108,7 @@ if scrollVerSelect {
 	scrollVerY = relativeMouseY - scrollVerSelectOff;
 	scrollVerPartition = (scrollVerY - scrollVerTopBound) / (scrollVerBotBound - scrollVerTopBound - scrollVerHeight) * 100;
 	
-	if scrollVerY < scrollVerTopBound {
+	if scrollVerY < scrollVerTopBound || scrollVerHeight > panelHeight {
 		scrollVerY = scrollVerTopBound;
 		scrollVerPartition = 0;
 	}
@@ -101,28 +122,3 @@ if scrollVerSelect {
 	// Top Boundary + Percentage * Bottommost Boundary for the top edge
 	scrollVerY = scrollVerTopBound + (scrollVerPartition / 100) * (scrollVerBotBound - scrollVerTopBound - scrollVerHeight); // Net y coordinate of clickable scrollbar
 }
-
-// Select scroll bars
-if mouse_check_button_pressed(mb_left) && !select {
-	if relativeMouseX >= scrollHorX && relativeMouseX <= scrollHorX + scrollHorWidth {
-		if relativeMouseY >= scrollHorTopBound && relativeMouseY <= scrollHorBotBound {
-			scrollHorSelect = true;
-			scrollHorSelectOff = relativeMouseX - scrollHorX;
-		}
-	}
-	
-	if relativeMouseX >= scrollVerLeftBound && relativeMouseX <= scrollVerRightBound {
-		if relativeMouseY >= scrollVerY && relativeMouseY <= scrollVerY + scrollVerHeight {
-			scrollVerSelect = true;
-			scrollVerSelectOff = relativeMouseY - scrollVerY;
-		}
-	}
-}
-
-// Deselect scroll bars
-if mouse_check_button_released(mb_left) {
-	scrollHorSelect = false;
-	scrollVerSelect = false;
-}
-
-relativeMouseX = window_mouse_get_x();

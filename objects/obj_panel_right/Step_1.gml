@@ -193,7 +193,7 @@ if view_wport[3] < 0 {
 }
 
 view_set_hport(3,scrollVerBotBound - scrollVerTopBound);
-view_set_xport(3,relativeX - 1);
+view_set_xport(3,relativeX);
 view_set_yport(3,scrollVerTopBound);
 
 switch obj_editor_gui.mode {

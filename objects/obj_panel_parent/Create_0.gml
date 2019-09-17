@@ -28,4 +28,6 @@ tilesSheetPlacement = 1024;
 hasScrollVer = true;
 hasScrollHor = true;
 
+exitInterface = false;
+
 image_speed = 0;

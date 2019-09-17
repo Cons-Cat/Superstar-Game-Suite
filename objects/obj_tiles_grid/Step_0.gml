@@ -12,8 +12,8 @@ if tileLayerSelect != -1 {
 				for (a = 0; a < obj_tiles_sheet.selectWidthOffset; a += 20) {
 					for (b = 0; b < obj_tiles_sheet.selectHeightOffset; b += 20) {
 						with collision_point(x+a+a/20, y+b+b/20,obj_tiles_grid,false,false) {
-							xVal[tileLayerSelect] = obj_tiles_sheet.xVal[other.a,other.b] - obj_tiles_sheet.x;
-							yVal[tileLayerSelect] = obj_tiles_sheet.yVal[other.a,other.b] - obj_tiles_sheet.y;
+							xVal[tileLayerSelect] = obj_tiles_sheet.xVal[other.a,other.b];
+							yVal[tileLayerSelect] = obj_tiles_sheet.yVal[other.a,other.b];
 						}
 						
 						hasTile[tileLayerSelect] = true;

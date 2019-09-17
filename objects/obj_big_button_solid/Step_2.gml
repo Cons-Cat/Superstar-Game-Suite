@@ -32,18 +32,6 @@ if spawnButtons {
 		panelId = obj_panel_right.id;
 		sprWidth = (string_width(label) + 5) * 2;
 	}
-	with instance_create_layer(obj_panel_right.x,78,"Instances",obj_instance_button_staircase) {
-		sortIndex = 5;
-		viewOn = 3;
-		panelId = obj_panel_right.id;
-		sprWidth = (string_width(label) + 5) * 2;
-	}
-	with instance_create_layer(obj_panel_right.x,78,"Instances",obj_instance_button_staircase) {
-		sortIndex = 6;
-		viewOn = 3;
-		panelId = obj_panel_right.id;
-		sprWidth = (string_width(label) + 5) * 2;
-	}
 	
 	event_user(0);
 	

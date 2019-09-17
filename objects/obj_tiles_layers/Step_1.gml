@@ -176,7 +176,7 @@ for (i = 0; i <= tileLayerCount; i += 2) {
 		} else {
 			// De-select layer
 			if !(window_mouse_get_x() < obj_panel_left.x && window_mouse_get_y() < obj_subpanel_left.y) {
-				if !(window_mouse_get_x() > obj_panel_right.x && window_mouse_get_y() < obj_panel_bot.y) {
+				if !(window_mouse_get_x() > obj_panel_right.x - room_width && window_mouse_get_y() < obj_panel_bot.y) {
 					if mouse_check_button_pressed(mb_left) {
 						select[i] = false;
 						obj_tiles_grid.tileLayerSelect = -1;
