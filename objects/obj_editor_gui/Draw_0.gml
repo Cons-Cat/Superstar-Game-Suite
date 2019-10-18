@@ -12,9 +12,13 @@ draw_set_alpha(0.5451);
 draw_set_color(make_color_rgb(28,28,25));
 gpu_set_blendmode(bm_inv_src_color);
 
+// Left quadrant
 draw_rectangle(room_width,obj_panel_top.y + 10,obj_panel_left.baseX,view_hport[1],false);
+// Right quadrant
 draw_rectangle(obj_panel_right.baseX,obj_panel_top.y + 10,room_width + view_wport[1],view_hport[1],false);
+// Top quadrant
 draw_rectangle(obj_panel_left.baseX+1,0,obj_panel_right.baseX-1,obj_panel_top.baseY,false);
+// Bottom quadrant
 draw_rectangle(obj_panel_left.baseX+1,obj_panel_bot.baseY,obj_panel_right.baseX-1,view_hport[1],false);
 
 draw_set_alpha(1);

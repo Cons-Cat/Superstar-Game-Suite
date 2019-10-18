@@ -24,7 +24,6 @@ green = make_color_rgb(148,175,65);
 red = make_color_rgb(210,74,84);
 pink = make_color_rgb(172,85,209);
 blue = make_color_rgb(64,139,209);
-
-self.canMove = false;
+font = obj_editor_gui.font;
 
 alarm[0] = 2;

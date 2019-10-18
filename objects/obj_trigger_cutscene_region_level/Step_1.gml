@@ -50,7 +50,7 @@ if activated {
 				if actionInd[timeIndexCalc,i] = 2 {
 					// Create text box with expressed intent.
 					with instance_create_layer(actor[timeIndexCalc,i].x-xOffDialogue[timeIndexCalc,i],actor[timeIndexCalc,i].y-yOffDialogue[timeIndexCalc,i],"Instances",obj_chat_bubble) {
-						canMove = true;
+						canMove = false;
 						message_end = 0;
 						textRows = other.textRows[other.timeIndexCalc,other.i];
 						trg = other.actor[other.timeIndexCalc,other.i];

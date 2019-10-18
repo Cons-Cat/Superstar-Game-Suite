@@ -286,29 +286,6 @@ for (i = 0; i < instance_number(obj_floor); i += 1) {
 	}
 }
 
-platOn = trgFinal.zfloor*20;
-
-/*trgCount = 0;
-trgZfloorMax = 0;
-trgFinal = obj_floor;
-
-with obj_floor {
-	if zfloor <= other.zplace {
-		if other.x >= self.x && other.x <= self.x + image_xscale*20 && other.y >= self.y && other.y <= self.y + image_yscale*20 {
-			other.trgCount += 1;
-			other.trgZfloorVal[other.trgCount] = self.zfloor;
-			other.trgFloor[other.trgCount] = self.id;
-		}
-	}
-}
-
-for (i = 0; i < trgCount; i += 1) {
-	if trgZfloorVal[i] > trgZfloorMax {
-		trgZfloorMax = trgZfloorVal[i];
-		trgFinal = trgFloor[i];
-	}
-}*/
-
 onGround = false;
 platOn = trgFinal.zfloor*20;
 

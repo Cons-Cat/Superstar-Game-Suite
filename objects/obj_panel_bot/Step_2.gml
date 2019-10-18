@@ -1,5 +1,5 @@
 /// @description Insert description here
-baseY = view_hport[1] - (156/576 * view_hport[1]);
+baseY = ( 9 * 20 * obj_editor_gui.realPortScaleVer ) + ( 60 / 576 * window_get_height() );
 x = room_width + view_wport[1]/2;
 relativeX = x - room_width;
 
@@ -47,6 +47,11 @@ if select {
 	dragYTemp = dragY;
 	
 	y = dragY;
+	
+	// Dragging boundary
+	if y < 300 {
+		y = 300;
+	}
 	
 	// Preventing displacement of the subpanel
 	if y < obj_subpanel_left.y {
@@ -671,11 +676,6 @@ if cutsceneInstanceId != -1 {
 		
 		cutsceneInstanceId = -1;
 	}
-}
-
-// Boundaries
-if y < 300 {
-	y = 300;
 }
 
 // Views

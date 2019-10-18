@@ -2,9 +2,6 @@
 camera_set_view_target(view_camera[0],-1);
 
 if obj_editor_gui.mode != 2 {
-	//x -= lengthdir_x(panMagnitudeTemp,panAngleTemp)*20;
-	//y -= lengthdir_y(panMagnitudeTemp,panAngleTemp)*20;
-	
 	placeX = x;
 	placeY = y;
 	panX = 0;
@@ -13,57 +10,135 @@ if obj_editor_gui.mode != 2 {
 	zoomLevel = 1;
 	anchored = false;
 	cutscenePan = false;
-	//camera_set_view_size(view_camera[0], baseZoomWidth, baseZoomHeight);
-	camera_set_view_pos(view_camera[0],x-camera_get_view_width(view_camera[0])/2,y-camera_get_view_height(view_camera[0])/2);
-	//view_set_visible(0,false);
-	
 	i = 0;
 	
-	/*if mouse_check_button_pressed(mb_right) {
-		tempX = mouse_x;
-		tempY = mouse_y;
-		spasmFix = false;
-		spasmX[0] = 0;
-		spasmX[2] = 1;
-		spasmI = 0;
-	}
-	if mouse_check_button(mb_right) && spasmFix = false {
-		if mouse_x != tempX {
-			x += tempX - mouse_x;
-			tempX = mouse_x;
-			spasmX[spasmI] = x;
-			
-			if spasmI < 2 {
-				spasmI += 1;
-			} else {
-				spasmI = 0;
-			}
-		}
-		if mouse_y != tempY {
-			y += tempY - mouse_y;
-			tempY = mouse_y;
+	// Keyboard movement
+	if keyboard_check(vk_right) && !keyboard_check(vk_left) {
+		if curAtX = gridAtX {
+			gridAtX += 1;
+			consecutiveMovesHor += 1;
 		}
 	}
-	if spasmX[0] = spasmX[2] {
-		if spasmFix = false {
-			spasmFix = true;
-			alarm[0] = 20;
+	if gridAtX > curAtX {
+		curAtX += gridSpeedHor;
+		
+		if curAtX > gridAtX {
+			curAtX = gridAtX;
 		}
-	}*/
+	}
 	
-	// Arrow key movement
-	if keyboard_check(vk_right) {
-		x += 7;
+	if keyboard_check(vk_left) && !keyboard_check(vk_right) {
+		if curAtX = gridAtX {
+			gridAtX -= 1;
+			consecutiveMovesHor += 1;
+		}
 	}
-	if keyboard_check(vk_left) {
-		x -= 7;
+	if gridAtX < curAtX {
+		curAtX -= gridSpeedHor;
+		
+		if curAtX < gridAtX {
+			curAtX = gridAtX;
+		}
 	}
-	if keyboard_check(vk_down) {
-		y += 7;
+	
+	if keyboard_check(vk_down) && !keyboard_check(vk_up) {
+		if curAtY = gridAtY {
+			gridAtY += 1;
+			consecutiveMovesVer += 1;
+		}
 	}
-	if keyboard_check(vk_up) {
-		y -= 7;
+	if gridAtY > curAtY {
+		curAtY += gridSpeedVer;
+		
+		if curAtY > gridAtY {
+			curAtY = gridAtY;
+		}
 	}
+	
+	if keyboard_check(vk_up) && !keyboard_check(vk_down) {
+		if curAtY = gridAtY {
+			gridAtY -= 1;
+			consecutiveMovesVer += 1;
+		}
+	}
+	if gridAtY < curAtY {
+		curAtY -= gridSpeedVer;
+		
+		if curAtY < gridAtY {
+			curAtY = gridAtY;
+		}
+	}
+	
+	// Barriers
+	if gridAtX < 2 {
+		gridAtX = 2;
+	}
+	if curAtX < 2 {
+		curAtX = 2;
+	}
+	
+	if gridAtY < 2 {
+		gridAtY = 2;
+	}
+	if curAtY < 2 {
+		curAtY = 2;
+	}
+	
+	// Consecutive moves
+	if ( keyboard_check(vk_left) && keyboard_check(vk_right) ) || ( !keyboard_check(vk_left) && !keyboard_check(vk_right) ) {
+		consecutiveMovesHor = 0;
+	}
+	if ( keyboard_check(vk_up) && keyboard_check(vk_down) ) || ( !keyboard_check(vk_up) && !keyboard_check(vk_down) ) {
+		consecutiveMovesVer = 0;
+	}
+	
+	// Default horizontal speed
+	gridSpeedHor = 0.07;
+	
+	if consecutiveMovesHor >= 4 {
+		// Faster speed
+		gridSpeedHor = 0.15;
+	}
+	
+	if consecutiveMovesHor >= 18 {
+		// Super fast speed
+		gridSpeedHor = 0.22;
+	}
+	
+	// Default vertical speed
+	gridSpeedVer = 0.07;
+	
+	if consecutiveMovesVer >= 4 {
+		// Faster speed
+		gridSpeedVer = 0.15;
+	}
+	
+	if consecutiveMovesVer >= 18 {
+		// Super fast speed
+		gridSpeedVer = 0.22;
+	}
+	
+	// Easing
+	if gridAtX % 1 = 0 { gridGravX = 0; }
+	if gridAtY % 1 = 0 { gridGravY = 0; }
+	
+	gridGravX = (power( 2 * ( (curAtX % 1) - 0.5 ), 3) * 2 + 2) / 4;
+	gridGravY = (power( 2 * ( (curAtY % 1) - 0.5 ), 3) * 2 + 2) / 4;
+	
+	if gridGravX >= 1 {
+		gridGravX = 0;
+	}
+	if gridGravY >= 1 {
+		gridGravY = 0;
+	}
+	
+	// Snap to GUI
+	calcOffX = ( ( (window_get_width() - (16 * 20 * obj_editor_gui.realPortScaleHor) ) / 2) / obj_editor_gui.realPortScaleHor ) % 20;
+	calcOffY = ( (window_get_height() - (9 * 20 * obj_editor_gui.realPortScaleVer) - (window_get_height() - obj_panel_bot.baseY) ) / obj_editor_gui.realPortScaleVer ) % 20;
+	//show_debug_message(calcOffY);
+	
+	// Move camera view
+	camera_set_view_pos(view_camera[0],floor(curAtX) * 20 + (gridGravX * 20) - calcOffX, floor(gridAtY) * 20 + (gridGravY * 20) - calcOffY );
 } else {
 	// In play mode
 	
@@ -232,7 +307,7 @@ if obj_editor_gui.mode != 2 {
 }
 
 // Boundaries
-if x < 260 {
+/*if x < 260 {
 	x = 260;
 }
 if x > room_width - 264 {
@@ -265,6 +340,6 @@ if camera_get_view_x(view_camera[0]) > room_width - camera_get_view_width(view_c
 }
 if camera_get_view_y(view_camera[0]) < 30 {
 	camera_set_view_pos(view_camera[0],camera_get_view_x(view_camera[0]),30);
-}
+}*/
 
 depth = obj_editor_gui.depth - 1;

@@ -1,4 +1,17 @@
-/// @description 
+/// @description Initialize variables
+gridAtX = 0;
+gridAtY = 0;
+curAtX = 0;
+curAtY = 0;
+calcOffX = 0;
+calcOffY = 0;
+gridGravX = 0;
+gridGravY = 0;
+consecutiveMovesHor = 0;
+consecutiveMovesVer = 0;
+gridSpeedHor = 0;
+gridSpeedVer = 0;
+
 tempX = x;
 tempY = y;
 

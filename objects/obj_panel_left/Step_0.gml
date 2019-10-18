@@ -2,8 +2,8 @@
 event_inherited();
 
 relativeX = x - room_width;
-baseX = (window_get_width() - 320 * obj_editor_gui.realPortScaleHor)/2 - 1 + room_width;
-y = 242;
+baseX = (window_get_width() - (16 * 20 * obj_editor_gui.realPortScaleHor)) / 2 + room_width;
+y = 242/576 * view_hport[1];
 
 if exitInterface {
 	exitInterface = false;
@@ -129,8 +129,8 @@ if x = 0 {
 if x < room_width {
 	x = room_width;
 }
-if x > 790 + room_width {
-	x = 790 + room_width;
+if x > obj_panel_right.x {
+	x = obj_panel_right.x;
 }
 
 // Pushing other panel

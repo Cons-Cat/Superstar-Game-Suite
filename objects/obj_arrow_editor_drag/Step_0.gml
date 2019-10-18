@@ -15,8 +15,8 @@ if mouseCheckX >= bbox_left && mouseCheckX <= bbox_right && mouseCheckY >= bbox_
 // Dragging terrain
 if instance_exists(trg) {
 	if select {
-		x = floor(mouseCheckX / 20) * 20;
-		y = floor(mouseCheckY / 20) * 20;
+		x = (mouseCheckX div global.snapDimension) * global.snapDimension;
+		y = (mouseCheckY div global.snapDimension) * global.snapDimension;
 		
 		trg.x = self.x;
 		trg.y = self.y;

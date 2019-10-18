@@ -2,8 +2,8 @@
 event_inherited();
 
 relativeX = x - room_width;
-baseX = window_get_width() - (window_get_width() - 320 * obj_editor_gui.realPortScaleHor)/2 + 1 + room_width;
-y = 242;
+baseX = window_get_width() + room_width*2 - obj_panel_left.baseX;
+y = 242/576 * view_hport[1];
 
 if relativeMouseX <= relativeX  && relativeMouseX >= relativeX - 21 {
 	if relativeMouseY >= y - 62 && relativeMouseY <= y + 58 {
@@ -143,8 +143,8 @@ if relativeX = view_wport[1] {
 }
 
 // Boundaries
-if x < 235 + room_width {
-	x = 235 + room_width;
+if x < obj_panel_left.x {
+	x = obj_panel_left.x;
 }
 if x > view_wport[1] + room_width {
 	x = view_wport[1] + room_width;

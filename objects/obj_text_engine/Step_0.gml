@@ -1,7 +1,7 @@
 /// @description Increment string
 if keyboard_check_pressed(_A) {
     if current < message_end {
-        //current += 1;
+		//current += 1;
     }
 }
 
@@ -14,22 +14,25 @@ if characters[textRows-1] < string_length(message[current,textRows-1]) { // If t
 		rowCurrent += 1;
 	}
 } else {
-	if freeDecay = 0 {
+	//if freeDecay = 0 {
 		if keyboard_check_pressed(_A) {
 		    if message_current < message_end {
+				show_message("A");
 	            message_current += 1;
 	            message_length = string_length(message[current,message_current]);
 	            characters = 0;
 				rowCurrent = 0;
 	            message_draw[0,0] = "";
 		    } else {
+				show_message("B");
 				if !canMove {
+					show_message("C");
 					// Let the player move after being frozen in dialogue
 					obj_player_overworld.canMove = true;
 				}
 				
-				//instance_destroy();
+				instance_destroy();
 			}
 		}
-	}
+	//}
 }

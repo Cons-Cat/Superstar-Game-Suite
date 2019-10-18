@@ -284,8 +284,8 @@ if spawnTiles {
 
 // Placing in the level
 if placed = 0 {
-	x = (mouseCheckX div 20) * 20;
-	y = (mouseCheckY div 20) * 20;
+	x = (mouseCheckX div global.snapDimension) * global.snapDimension;
+	y = (mouseCheckY div global.snapDimension) * global.snapDimension;
 }
 
 if mouse_check_button_released(mb_left) {
