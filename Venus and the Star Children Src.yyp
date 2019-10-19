@@ -1727,6 +1727,14 @@
             }
         },
         {
+            "Key": "879924ff-bd76-4476-9d61-f20d8f6de8ea",
+            "Value": {
+                "id": "6288f4b6-ad9c-4650-a6f8-8899b9ca7172",
+                "resourcePath": "sprites\\spr_minimap_vert\\spr_minimap_vert.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "87a750de-74d3-46e6-97d1-4662510aab71",
             "Value": {
                 "id": "3675a0a8-2afe-4e45-98d7-383a8b69236f",
@@ -1900,6 +1908,14 @@
                 "id": "0ab0387e-ec55-45bf-a733-aac4ad314640",
                 "resourcePath": "objects\\obj_big_button_top\\obj_big_button_top.yy",
                 "resourceType": "GMObject"
+            }
+        },
+        {
+            "Key": "9712ceb6-5f77-47fe-9c26-3f798963ce44",
+            "Value": {
+                "id": "073b6bbd-aedb-4e27-b432-24dd783738b2",
+                "resourcePath": "sprites\\spr_minimap_side\\spr_minimap_side.yy",
+                "resourceType": "GMSprite"
             }
         },
         {
@@ -2340,6 +2356,14 @@
                 "id": "62a6be53-1bea-4465-874d-a0f3a4ed1272",
                 "resourcePath": "objects\\obj_instance_button_slope3\\obj_instance_button_slope3.yy",
                 "resourceType": "GMObject"
+            }
+        },
+        {
+            "Key": "b2b83865-b405-497b-b436-840ac0a21144",
+            "Value": {
+                "id": "08aabe79-b452-4ed5-81df-108d1c2cc971",
+                "resourcePath": "sprites\\spr_minimap_corner\\spr_minimap_corner.yy",
+                "resourceType": "GMSprite"
             }
         },
         {

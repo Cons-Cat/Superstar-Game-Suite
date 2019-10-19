@@ -47,11 +47,11 @@ if y < view_hport[1] {
 	draw_rectangle(room_width + view_wport[1]-1,y,room_width + view_wport[1],y+view_hport[1]-1,false);
 	
 	draw_set_color(make_color_rgb(28,30,36));
-	draw_rectangle(room_width,y+1,room_width + view_wport[1],view_hport[1]-1,true);
-	draw_rectangle(room_width + 1,y+2,room_width + view_wport[1]-1,view_hport[1]-2,true);
+	draw_rectangle(room_width, y+1,room_width + view_wport[1]-1,view_hport[1] - 1,true);
+	draw_rectangle(room_width + 1, y+2,room_width + view_wport[1] - 2,view_hport[1] - 2,true);
 	
 	draw_set_color(make_color_rgb(31,34,40));
-	draw_rectangle(room_width + 2,y+3,room_width + view_wport[1]-2,view_hport[1]-3,true);
+	draw_rectangle(room_width + 2,y+3,room_width + view_wport[1]-3,view_hport[1]-3,true);
 	draw_rectangle(room_width + 191,y+3,room_width + view_wport[1]-191,view_hport[1]-3,true);
 	
 	draw_set_color(make_color_rgb(38,43,50));
@@ -86,5 +86,46 @@ if rows > 0 {
 	}
 }
 
+// Minimap
+mapCenterX = floor( room_width + (view_wport[1]) - (room_width + (view_wport[1]) - obj_panel_right.baseX) / 2 );
+mapCenterY = floor( y + 5 + ( (view_hport[1] - 31) - y ) / 2 );
+
+//mapWidth = (room_width + view_wport[1] - 43) - (obj_panel_right.baseX + 42);
+
+gradientY[0] = 1; // Portion for dark
+gradientY[1] = 0.88; // Portion for medium
+gradientY[2] = 0.5; // Portion for light
+
+if room_width >= room_height {
+	mapRatio = room_height / room_width;
+	
+	mapWidth = (room_width + view_wport[1] - 37) - (obj_panel_right.baseX + 34);;
+	mapHeight = mapWidth * mapRatio;
+} else {
+	mapRatio = room_width / room_height;
+	
+	mapHeight = (view_hport[1] - 26) - (y + 5);
+	mapWidth = mapHeight * mapRatio;
+}
+
+// Top
+draw_sprite_ext(spr_minimap_vert,0,mapCenterX - floor((mapWidth-14)/2),mapCenterY - floor(mapHeight/2),mapWidth-14,1,0,c_white,1); // Top edge
+draw_sprite_ext(spr_minimap_corner,0,mapCenterX - floor(mapWidth/2) + 8,mapCenterY - floor(mapHeight/2),1,1,0,c_white,1); // Top left corner
+draw_sprite_ext(spr_minimap_corner,0,mapCenterX + floor(mapWidth/2) - 8,mapCenterY - floor(mapHeight/2),-1,1,0,c_white,1); // Top right corner
+
+// Bottom
+draw_sprite_ext(spr_minimap_vert,1,mapCenterX - floor((mapWidth-14)/2),mapCenterY + floor(mapHeight/2)+2,mapWidth-14,-1,0,c_white,1); // Bottom edge
+draw_sprite_ext(spr_minimap_corner,1,mapCenterX - floor(mapWidth/2) + 8,mapCenterY + floor(mapHeight/2)+2,1,-1,0,c_white,1); // Bottom left corner
+draw_sprite_ext(spr_minimap_corner,1,mapCenterX + floor(mapWidth/2) - 8,mapCenterY + floor(mapHeight/2)+2,-1,-1,0,c_white,1); // Bottom right corner
+
+for (i = 0; i <= 2; i += 1) {
+	// Left
+	draw_sprite_ext(spr_minimap_side,i,mapCenterX - floor((mapWidth-12)/2),mapCenterY - floor(mapHeight/2) + 8 + 1/(mapHeight*gradientY[i]),1,(mapHeight*gradientY[i])-14,0,c_white,1); // Left light edge
+	
+	// Right
+	draw_sprite_ext(spr_minimap_side,i,mapCenterX + floor((mapWidth-12)/2),mapCenterY - floor(mapHeight/2) + 8 + 1/(mapHeight*gradientY[i]),-1,(mapHeight*gradientY[i])-14,0,c_white,1); // Left light edge
+}
+
+// Draw scrollbars and slider
 event_inherited();
 draw_sprite_ext(sprite_index,image_index,x,y+1,image_xscale,image_yscale,image_angle,c_white,1);

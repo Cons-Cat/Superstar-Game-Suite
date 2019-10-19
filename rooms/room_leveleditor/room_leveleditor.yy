@@ -120,7 +120,7 @@
         "modelName": "GMRoomSettings",
         "persistent": false,
         "mvc": "1.0",
-        "Width": 1024
+        "Width": 1152
     },
     "mvc": "1.0",
     "views": [
