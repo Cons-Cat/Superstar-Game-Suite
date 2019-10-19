@@ -3,6 +3,7 @@ event_inherited();
 
 relativeX = x - room_width;
 baseX = window_get_width() + room_width*2 - obj_panel_left.baseX;
+
 y = 242/576 * view_hport[1];
 
 if relativeMouseX <= relativeX  && relativeMouseX >= relativeX - 21 {
@@ -25,11 +26,13 @@ if select {
 		select = false;
 		
 		moveToX = round( (relativeMouseX - mouseClickOff + 1) / 10) * 10 + 1 + room_width;
-		if moveToX < baseX + 30 && moveToX >= baseX - 30 {
-			moveToX = baseX;
-		}
-		if moveToX >= baseX + 30 {
+		
+		if moveToX >= baseX + (baseX - room_width - 16*20*obj_editor_gui.realPortScaleHor) / 3 {
+			// Fold away
 			moveToX = view_wport[1] + room_width;
+		} else if moveToX >= baseX - (17 * obj_editor_gui.realPortScaleHor) {
+			// Snap to baseX
+			moveToX = baseX;
 		}
 		
 		if x > moveToX {
@@ -138,6 +141,7 @@ if x = baseX {
 	onBase = 0;
 }
 
+// Folded
 if relativeX = view_wport[1] {
 	onBase = 2;
 }

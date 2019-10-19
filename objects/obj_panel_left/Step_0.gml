@@ -2,7 +2,7 @@
 event_inherited();
 
 relativeX = x - room_width;
-baseX = (window_get_width() - (16 * 20 * obj_editor_gui.realPortScaleHor)) / 2 + room_width;
+baseX = round( (window_get_width() - (16 * 20 * obj_editor_gui.realPortScaleHor) ) / 2 ) + room_width;
 y = 242/576 * view_hport[1];
 
 if exitInterface {
@@ -35,11 +35,13 @@ if select {
 		select = false;
 		
 		moveToX = round((relativeMouseX - mouseClickOff - 1) / 10) * 10 - 1 + room_width;
-		if moveToX <=  baseX + 30 && moveToX > baseX - 30 {
-			moveToX = baseX;
-		}
-		if moveToX <= baseX - 30 {
+		
+		if moveToX <= baseX - (baseX - room_width) / 3 {
+			// Fold away
 			moveToX = room_width;
+		} else if moveToX <= baseX + (17 * obj_editor_gui.realPortScaleHor) {
+			// Snap to baseX
+			moveToX = baseX;
 		}
 		
 		if x > moveToX {
@@ -121,7 +123,9 @@ if x = baseX {
 } else {
 	onBase = 0;
 }
-if x = 0 {
+
+// Folded
+if relativeX = 0 {
 	onBase = 2;
 }
 

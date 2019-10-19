@@ -90,16 +90,15 @@ if rows > 0 {
 mapCenterX = floor( room_width + (view_wport[1]) - (room_width + (view_wport[1]) - obj_panel_right.baseX) / 2 );
 mapCenterY = floor( y + 5 + ( (view_hport[1] - 31) - y ) / 2 );
 
-//mapWidth = (room_width + view_wport[1] - 43) - (obj_panel_right.baseX + 42);
-
 gradientY[0] = 1; // Portion for dark
 gradientY[1] = 0.88; // Portion for medium
 gradientY[2] = 0.5; // Portion for light
 
+// Keep width proportional to the height, or vice versa, depending on which is larger
 if room_width >= room_height {
 	mapRatio = room_height / room_width;
 	
-	mapWidth = (room_width + view_wport[1] - 37) - (obj_panel_right.baseX + 34);;
+	mapWidth = (room_width + view_wport[1] - 37) - (obj_panel_right.baseX + 34);
 	mapHeight = mapWidth * mapRatio;
 } else {
 	mapRatio = room_width / room_height;
@@ -108,23 +107,93 @@ if room_width >= room_height {
 	mapWidth = mapHeight * mapRatio;
 }
 
-// Top
+// 16:9 ratio cursor
+mapCursorWidth = 16 * (mapWidth - 10) / (room_width / 20 - 16) / obj_editor_gui.realPortScaleHor;
+mapCursorHeight = mapCursorWidth * 9/16;
+
+// Conversion ratios: Room units to map units
+mapCursorIncrementX = (mapWidth - 10) / (room_width / 20 - 16) - ( 16 / (room_width / 20) * obj_editor_gui.realPortScaleHor);
+mapCursorIncrementY = (mapWidth - 9) / (room_height / 20 - 9) - ( 9 / (room_height / 20) * obj_editor_gui.realPortScaleVer);
+
+if obj_camera_editor.gridAtX = room_width / 20 - 16 {
+	// Snap cursor to right edge
+	mapCursorX = mapWidth - 11 - round(mapCursorWidth);
+} else {
+	// Increment the cursor horizontally
+	mapCursorX = obj_camera_editor.gridAtX * mapCursorIncrementX;
+}
+
+mapCursorY = obj_camera_editor.gridAtY * mapCursorIncrementY;
+
+// Minimap top edge
 draw_sprite_ext(spr_minimap_vert,0,mapCenterX - floor((mapWidth-14)/2),mapCenterY - floor(mapHeight/2),mapWidth-14,1,0,c_white,1); // Top edge
 draw_sprite_ext(spr_minimap_corner,0,mapCenterX - floor(mapWidth/2) + 8,mapCenterY - floor(mapHeight/2),1,1,0,c_white,1); // Top left corner
 draw_sprite_ext(spr_minimap_corner,0,mapCenterX + floor(mapWidth/2) - 8,mapCenterY - floor(mapHeight/2),-1,1,0,c_white,1); // Top right corner
 
-// Bottom
-draw_sprite_ext(spr_minimap_vert,1,mapCenterX - floor((mapWidth-14)/2),mapCenterY + floor(mapHeight/2)+2,mapWidth-14,-1,0,c_white,1); // Bottom edge
-draw_sprite_ext(spr_minimap_corner,1,mapCenterX - floor(mapWidth/2) + 8,mapCenterY + floor(mapHeight/2)+2,1,-1,0,c_white,1); // Bottom left corner
-draw_sprite_ext(spr_minimap_corner,1,mapCenterX + floor(mapWidth/2) - 8,mapCenterY + floor(mapHeight/2)+2,-1,-1,0,c_white,1); // Bottom right corner
+// Minimap bottom edge
+draw_set_color(make_color_rgb(31,34,40));
+draw_rectangle(mapCenterX - floor((mapWidth-10)/2),mapCenterY + floor(mapHeight/2) - 6,mapCenterX + floor((mapWidth-10)/2),mapCenterY + floor(mapHeight/2) - 6,false);
+draw_rectangle(mapCenterX + floor((mapWidth)/2) - 7,mapCenterY + floor(mapHeight/2) - 7,mapCenterX + floor((mapWidth)/2) - 7,mapCenterY + floor(mapHeight/2) - 7,false);
+draw_rectangle(mapCenterX - floor((mapWidth)/2) + 6,mapCenterY + floor(mapHeight/2) - 7,mapCenterX - floor((mapWidth)/2) + 6,mapCenterY + floor(mapHeight/2) - 7,false);
 
 for (i = 0; i <= 2; i += 1) {
-	// Left
-	draw_sprite_ext(spr_minimap_side,i,mapCenterX - floor((mapWidth-12)/2),mapCenterY - floor(mapHeight/2) + 8 + 1/(mapHeight*gradientY[i]),1,(mapHeight*gradientY[i])-14,0,c_white,1); // Left light edge
+	// Left edge
+	draw_sprite_ext(spr_minimap_side,i,mapCenterX - floor((mapWidth-12)/2),mapCenterY - floor(mapHeight/2) + 8 + 1/(mapHeight*gradientY[i]),1,(mapHeight*gradientY[i]) - 15,0,c_white,1); // Left light edge
 	
-	// Right
-	draw_sprite_ext(spr_minimap_side,i,mapCenterX + floor((mapWidth-12)/2),mapCenterY - floor(mapHeight/2) + 8 + 1/(mapHeight*gradientY[i]),-1,(mapHeight*gradientY[i])-14,0,c_white,1); // Left light edge
+	// Right edge
+	draw_sprite_ext(spr_minimap_side,i,mapCenterX + floor((mapWidth-12)/2),mapCenterY - floor(mapHeight/2) + 8 + 1/(mapHeight*gradientY[i]),-1,(mapHeight*gradientY[i]) - 15,0,c_white,1); // Right light edge
 }
+
+// Draw map cursor
+cursorX1 = mapCenterX - floor(mapWidth/2) + 5 + mapCursorX;
+cursorX2 = mapCenterX - floor(mapWidth/2) + 5 + mapCursorWidth + mapCursorX;
+cursorY1 = mapCenterY - floor(mapHeight/2) + 5 + mapCursorY;
+cursorY2 = mapCenterY - floor(mapHeight/2) + 5 + mapCursorHeight + mapCursorY;
+
+// Darks
+	// Top
+	draw_set_color(make_color_rgb(28,30,36));
+	draw_rectangle(cursorX1+2,cursorY1+1,cursorX2-2,cursorY1+1,false);
+	draw_rectangle(cursorX1+1,cursorY1+2,cursorX1+1,cursorY1+2,false);
+	draw_rectangle(cursorX2-1,cursorY1+2,cursorX2-1,cursorY1+2,false);
+	
+	draw_set_color(make_color_rgb(31,34,40));
+	draw_rectangle(cursorX1+2,cursorY1+2,cursorX2-2,cursorY1+2,false);
+	draw_rectangle(cursorX1+1,cursorY1+3,cursorX1+1,cursorY1+3,false);
+	draw_rectangle(cursorX2-1,cursorY1+3,cursorX2-1,cursorY1+3,false);
+	
+	// Bottom
+	draw_set_color(make_color_rgb(28,30,36));
+	draw_rectangle(cursorX1+1,cursorY2+1,cursorX2-1,cursorY2+1,false);
+	draw_rectangle(cursorX1,cursorY2,cursorX1,cursorY2,false);
+	draw_rectangle(cursorX2,cursorY2,cursorX2,cursorY2,false);
+	
+	draw_set_color(make_color_rgb(31,34,40));
+	draw_rectangle(cursorX1+1,cursorY2+2,cursorX2-1,cursorY2+2,false);
+	draw_rectangle(cursorX1,cursorY2+1,cursorX1,cursorY2+1,false);
+	draw_rectangle(cursorX2,cursorY2+1,cursorX2,cursorY2+1,false);
+
+//Lights
+	// Top
+	draw_set_color(make_color_rgb(230,232,242));
+	draw_rectangle(cursorX1+1,cursorY1,cursorX2-1,cursorY1,false);
+	draw_rectangle(cursorX1,cursorY1+1,cursorX1+1,cursorY1+1,false);
+	draw_rectangle(cursorX2-1,cursorY1+1,cursorX2,cursorY1+1,false);
+	
+	// Middle
+	draw_set_color(make_color_rgb(200,210,243));
+	draw_rectangle(cursorX1,cursorY1+2,cursorX1,cursorY2-2,false);
+	draw_rectangle(cursorX2,cursorY1+2,cursorX2,cursorY2-2,false);
+	
+	// Bottom
+	draw_rectangle(cursorX1,cursorY2-1,cursorX1+1,cursorY2-1,false);
+	draw_rectangle(cursorX2-1,cursorY2-1,cursorX2,cursorY2-1,false);
+	draw_rectangle(cursorX1+1,cursorY2,cursorX2-1,cursorY2,false);
+
+// Minimap bottom edge, drawn over the cursor
+draw_sprite_ext(spr_minimap_vert,1,mapCenterX - floor((mapWidth-14)/2),mapCenterY + floor(mapHeight/2)+1,mapWidth-14,-1,0,c_white,1);
+draw_sprite_ext(spr_minimap_corner,1,mapCenterX - floor(mapWidth/2) + 8,mapCenterY + floor(mapHeight/2)+1,1,-1,0,c_white,1); // Bottom left corner
+draw_sprite_ext(spr_minimap_corner,1,mapCenterX + floor(mapWidth/2) - 8,mapCenterY + floor(mapHeight/2)+1,-1,-1,0,c_white,1); // Bottom right corner
 
 // Draw scrollbars and slider
 event_inherited();

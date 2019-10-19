@@ -45,47 +45,51 @@ if tempResWidth != window_get_width() || tempResHeight != window_get_height() {
 	surface_resize(application_surface, view_get_wport(1), view_get_hport(1));
 	
 	// Update left panel
+	obj_panel_left.baseX = round( (window_get_width() - (16 * 20 * realPortScaleHor) ) / 2 ) + room_width;
+	
 	if obj_panel_left.onBase = 1 { // At baseX
-		obj_panel_left.baseX = round( (window_get_width() - (16 * 20 * realPortScaleHor) ) / 2 ) + room_width;
+		obj_panel_left.x = obj_panel_left.baseX;
 	}
 	if obj_panel_left.onBase = 2 { // Folded
-		obj_panel_left.baseX = 0;
+		obj_panel_left.x = room_width;
 	}
 	
-	obj_panel_left.x = obj_panel_left.baseX;
 	obj_panel_left.moveToX = obj_panel_left.x;
 	
 	// Update right panel
+	obj_panel_right.baseX = window_get_width() + room_width*2 - obj_panel_left.baseX;
+	
 	if obj_panel_right.onBase = 1 { // At baseX
-		obj_panel_right.baseX = window_get_width() + room_width*2 - obj_panel_left.baseX;
+		obj_panel_right.x = obj_panel_right.baseX;
 	}
 	if obj_panel_right.onBase = 2 { // Folded
-		obj_panel_right.baseX = view_wport[1];
+		obj_panel_right.x = view_wport[1] + room_width;;
 	}
 	
-	obj_panel_right.x = obj_panel_right.baseX;
 	obj_panel_right.moveToX = obj_panel_right.x;
 	
 	// Update bottom panel
-	if obj_panel_bot.onBase = 1 {
-		obj_panel_bot.baseY = ( 9 * 20 * obj_editor_gui.realPortScaleVer ) + ( 60 / 576 * window_get_height() );
+	obj_panel_bot.baseY = ( 9 * 20 * obj_editor_gui.realPortScaleVer ) + ( 60 / 576 * window_get_height() );
+	
+	if obj_panel_bot.onBase = 1 { // At baseX
+		obj_panel_bot.y = obj_panel_bot.baseY;
 	}
-	if obj_panel_bot.onBase = 2 {
-		obj_panel_bot.baseY = view_hport[1];
+	if obj_panel_bot.onBase = 2 { // Folded
+		obj_panel_bot.y = view_hport[1];
 	}
 	
-	obj_panel_bot.y = obj_panel_bot.baseY;
 	obj_panel_bot.moveToY = obj_panel_bot.y;
 	
 	// Update top panel
-	if obj_panel_top.onBase = 1 {
-		obj_panel_top.baseY = view_hport[1] - ( ( 576 - 60 - (9*20*2) ) / 576 * view_hport[1]);
+	obj_panel_top.baseY = view_hport[1] - ( ( 576 - 60 - (9*20*2) ) / 576 * view_hport[1]);
+	
+	if obj_panel_top.onBase = 1 { // At baseX
+		obj_panel_top.y = obj_panel_top.baseY;
 	}
-	if obj_panel_top.onBase = 2 {
-		obj_panel_top.baseY = 0;
+	if obj_panel_top.onBase = 2 { // Folded
+		obj_panel_top.y = 0;
 	}
 	
-	obj_panel_top.y = obj_panel_top.baseY;
 	obj_panel_top.moveToY = obj_panel_top.y;
 	
 	tempResWidth = window_get_width();

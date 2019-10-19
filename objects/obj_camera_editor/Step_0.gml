@@ -70,18 +70,35 @@ if obj_editor_gui.mode != 2 {
 	}
 	
 	// Barriers
-	if gridAtX < 2 {
-		gridAtX = 2;
+	barrierHor = ceil( (room_width - obj_panel_left.baseX) / obj_editor_gui.realPortScaleHor );
+	barrierVer = ceil( (-obj_panel_top.baseY) / obj_editor_gui.realPortScaleVer );
+	
+	if gridAtX < 0 {
+		gridAtX = 0;
 	}
-	if curAtX < 2 {
-		curAtX = 2;
+	if curAtX < 0 {
+		curAtX = 0;
 	}
 	
-	if gridAtY < 2 {
-		gridAtY = 2;
+	if gridAtX > room_width div 20 - 16 {
+		gridAtX = room_width div 20 - 16;
 	}
-	if curAtY < 2 {
-		curAtY = 2;
+	if curAtX > room_width div 20 - 16 {
+		curAtX = room_width div 20 - 16;
+	}
+	
+	if gridAtY < 0 {
+		gridAtY = 0;
+	}
+	if curAtY < 0 {
+		curAtY = 0;
+	}
+	
+	if gridAtY > room_height div 20 - 9 {
+		gridAtY = room_height div 20 - 9;
+	}
+	if curAtY > room_height div 20 - 9 {
+		curAtY = room_height div 20 - 9;
 	}
 	
 	// Consecutive moves
@@ -100,7 +117,7 @@ if obj_editor_gui.mode != 2 {
 		gridSpeedHor = 0.15;
 	}
 	
-	if consecutiveMovesHor >= 18 {
+	if consecutiveMovesHor >= 15 {
 		// Super fast speed
 		gridSpeedHor = 0.22;
 	}
@@ -132,13 +149,8 @@ if obj_editor_gui.mode != 2 {
 		gridGravY = 0;
 	}
 	
-	// Snap to GUI
-	calcOffX = ( ( (window_get_width() - (16 * 20 * obj_editor_gui.realPortScaleHor) ) / 2) / obj_editor_gui.realPortScaleHor ) % 20;
-	calcOffY = ( (window_get_height() - (9 * 20 * obj_editor_gui.realPortScaleVer) - (window_get_height() - obj_panel_bot.baseY) ) / obj_editor_gui.realPortScaleVer ) % 20;
-	//show_debug_message(calcOffY);
-	
 	// Move camera view
-	camera_set_view_pos(view_camera[0],floor(curAtX) * 20 + (gridGravX * 20) - calcOffX, floor(gridAtY) * 20 + (gridGravY * 20) - calcOffY );
+	camera_set_view_pos(view_camera[0],barrierHor + floor(curAtX) * 20 + (gridGravX * 20), barrierVer + floor(gridAtY) * 20 + (gridGravY * 20));
 } else {
 	// In play mode
 	
