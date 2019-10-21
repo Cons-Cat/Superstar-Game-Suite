@@ -3,19 +3,25 @@ baseY = ( 9 * 20 * obj_editor_gui.realPortScaleVer ) + ( 60 / 576 * window_get_h
 x = room_width + view_wport[1]/2;
 relativeX = x - room_width;
 
+canSelect = false;
+
 if relativeMouseX <= relativeX + 60 && relativeMouseX >= relativeX - 60 {
 	if relativeMouseY >= y - 21 && relativeMouseY <= y {
-		if mouse_check_button_pressed(mb_left) {
-			// Dragging
-			select = true;
-			tempSubPanelLeftY = obj_subpanel_left.y;
-			mouseClickOff = relativeMouseY - y;
-			
-			// Double clicking
-			doubleClickCounter += 1;
-			
-			image_index = 1;
-		}
+		canSelect = true;
+	}
+}
+
+if canSelect {
+	if mouse_check_button_pressed(mb_left) {
+		// Dragging
+		select = true;
+		tempSubPanelLeftY = obj_subpanel_left.y;
+		mouseClickOff = relativeMouseY - y;
+		
+		// Double clicking
+		doubleClickCounter += 1;
+		
+		image_index = 1;
 	}
 }
 
@@ -51,6 +57,9 @@ if select {
 	// Dragging boundary
 	if y < 300 {
 		y = 300;
+	}
+	if moveToY < 300 {
+		moveToY = 300;
 	}
 	
 	// Preventing displacement of the subpanel
@@ -132,6 +141,7 @@ if floor(y) = floor(baseY) {
 	onBase = 0;
 }
 
+// Folded
 if y = view_hport[1] {
 	onBase = 2;
 }
@@ -244,29 +254,9 @@ if addClick != -1 {
 					timeIndex = other.totalActions;
 					trg = other.cutsceneInstanceId;
 					zoomVal = "100";
-					//decimalPlace = -1;
 				}
 			}
 		}
-		
-		/*if addClick = 4 {
-			actionInd[totalActions] = 4; // Camera zoom action
-			actionColor[totalActions] = make_color_rgb(23,79,124); // Deep blue
-			
-			if !instance_exists(obj_cutscene_zoom) {
-				with instance_create_layer(cutsceneInstanceId.x-10,cutsceneInstanceId.y-2,"Instances",obj_cutscene_zoom) {
-					timeIndex = other.totalActions;
-					rowIndex = other.i;
-					trg = other.actorId[other.i];
-					zfloor = trg.zfloor;
-					width = 6;
-					height = 3;
-					
-					placex = xstart - width*5;
-					placey = ystart;
-				}
-			}
-		}*/
 		
 		if addClick = 5 {
 			actionInd[totalActions] = 5; // Walk speed action
@@ -348,7 +338,7 @@ for (i = 0; i < rows; i += 1) {
 	
 	canSelectRow[i] = false;
 	
-	if relativeMouseX >= 21 && relativeMouseX <= 191 {
+	if relativeMouseX >= 21 && relativeMouseX <= obj_panel_left.baseX - room_width - 1 {
 		if relativeMouseY >= y+35 + i*14 && relativeMouseY <= y+46 + i*14 {
 			canSelectRow[i] = true;
 			
@@ -395,20 +385,23 @@ if totalActions > 0 {
 panelWidth = longestRowLength*6 + 2;
 
 // Minimum length
-if panelWidth < view_wport[1] - 386 {
-	panelWidth = view_wport[1] - 386;
+if panelWidth < view_wport[1] - (obj_panel_right.baseX - obj_panel_left.baseX + 2) {
+	panelWidth = view_wport[1] - (obj_panel_right.baseX - obj_panel_left.baseX + 2);
 }
 
 // Drag actions
 cameraNetX = camera_get_view_x(obj_editor_gui.cameraBotPanel) - (camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) ) - view_wport[5] - obj_subpanel_left.longestPanelRightButton;
-potentialActionTime = floor( (relativeMouseX - 193 + cameraNetX) / 6);
-ax = ( ((scrollHorX - 193 - room_width) / (scrollHorRightBound - scrollHorLeftBound)) * panelWidth ) + 1;
+//potentialActionTime = floor( (relativeMouseX - (obj_panel_left.baseX - room_width + 1) + cameraNetX) / 6);
+potentialActionTime = floor( (relativeMouseX - (obj_panel_left.baseX - room_width + 1) + cameraNetX) / 6);
+
+//ax = ( ((scrollHorX - 193 - room_width) / (scrollHorRightBound - scrollHorLeftBound)) * panelWidth ) + 1;
+ax = ( ((scrollHorX - ( obj_panel_left.baseX + 1 - room_width ) - room_width ) / (scrollHorRightBound - scrollHorLeftBound)) * panelWidth ) + 1;
 
 for (i = 1; i <= totalActions; i += 1) {
 	for (j = 0; j < rows; j += 1) {
-		if relativeMouseX > 194 - ax + actionTime[i]*6 && relativeMouseX <= 193 - ax + actionTime[i]*6 + 6 {
+		if relativeMouseX > (obj_panel_left.baseX - room_width + 2) - ax + actionTime[i]*6 && relativeMouseX <= (obj_panel_left.baseX - room_width + 1) - ax + actionTime[i]*6 + 6 {
 			if relativeMouseY >= y + 34 + j*14 && relativeMouseY <= y + 44 + j*14 {
-				if relativeMouseX >= 192 {
+				if relativeMouseX >= obj_panel_left.baseX - room_width {
 					if actionInd[i] != -1 {
 						if actionRowInd[i] = j {
 							if mouse_check_button_pressed(mb_left) {
@@ -710,12 +703,12 @@ if updateMap {
 }*/
 
 // Views
-view_xport[4] = 193;
+view_xport[4] = obj_panel_left.baseX - room_width + 1;
 view_yport[4] = y + 34;
-view_wport[4] = view_wport[1] - 384;
+view_wport[4] = view_wport[1] - ( ( obj_panel_left.baseX - room_width ) * 2 );
 view_hport[4] = view_hport[1] - y - 34;
 
-camera_set_view_pos(obj_editor_gui.cameraBotPanel,camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) + view_wport[5] + ( ((scrollHorX - 193 - room_width) / (scrollHorRightBound - scrollHorLeftBound)) * panelWidth + longestPanelRightButton),0);
+camera_set_view_pos(obj_editor_gui.cameraBotPanel,camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) + view_wport[5] + ( ((scrollHorX - (obj_panel_left.baseX - room_width + 1) - room_width) / (scrollHorRightBound - scrollHorLeftBound)) * panelWidth + longestPanelRightButton),0);
 camera_set_view_size(obj_editor_gui.cameraBotPanel,view_wport[4],view_hport[4]);
 
 if y >= view_hport[1] {
@@ -726,8 +719,8 @@ if y >= view_hport[1] {
 }
 
 // Scroll bars
-scrollHorLeftBound = room_width + 192;
-scrollHorRightBound = room_width + view_wport[1] - 192
+scrollHorLeftBound = obj_panel_left.baseX;
+scrollHorRightBound = obj_panel_right.baseX
 scrollHorTopBound = y+4;
 scrollHorBotBound = y+19;
 

@@ -26,7 +26,6 @@ if tempResWidth != window_get_width() || tempResHeight != window_get_height() {
 		is4K = true;
 	} else {
 		is4K = false;
-		
 	}
 	
 	realPortScaleHor = window_get_width() div 512;
@@ -58,6 +57,10 @@ if tempResWidth != window_get_width() || tempResHeight != window_get_height() {
 		obj_panel_left.x = room_width;
 	}
 	
+	if obj_panel_left.x < obj_panel_left.baseX {
+		obj_panel_left.x = obj_panel_left.baseX;
+	}
+	
 	obj_panel_left.moveToX = obj_panel_left.x;
 	
 	// Update right panel
@@ -68,6 +71,10 @@ if tempResWidth != window_get_width() || tempResHeight != window_get_height() {
 	}
 	if obj_panel_right.onBase = 2 { // Folded
 		obj_panel_right.x = view_wport[1] + room_width;;
+	}
+	
+	if obj_panel_right.x > obj_panel_right.baseX {
+		obj_panel_right.x = obj_panel_right.baseX;
 	}
 	
 	obj_panel_right.moveToX = obj_panel_right.x;
@@ -95,6 +102,10 @@ if tempResWidth != window_get_width() || tempResHeight != window_get_height() {
 	}
 	
 	obj_panel_top.moveToY = obj_panel_top.y;
+	
+	// Reset panel temp places
+	global.tempXRight = obj_panel_right.baseX;
+	global.tempXLeft = obj_panel_left.baseX;
 	
 	tempResWidth = window_get_width();
 	tempResHeight = window_get_height();

@@ -15,18 +15,24 @@ if exitInterface {
 	alarm[1] = 18;
 }
 
+canSelect = false;
+
 if relativeMouseX >= relativeX && relativeMouseX <= relativeX + 21 {
 	if relativeMouseY >= y - 62 && relativeMouseY <= y + 58 {
-		if mouse_check_button_pressed(mb_left) {
-			// Dragging
-			select = true;
-			mouseClickOff = relativeMouseX - relativeX;
-			
-			// Double clicking
-			doubleClickCounter += 1;
-			
-			image_index = 1;
-		}
+		canSelect = true;
+	}
+}
+
+if canSelect {
+	if mouse_check_button_pressed(mb_left) {
+		// Dragging
+		select = true;
+		mouseClickOff = relativeMouseX - relativeX;
+		
+		// Double clicking
+		doubleClickCounter += 1;
+		
+		image_index = 1;
 	}
 }
 
@@ -115,6 +121,14 @@ if select {
 	x = dragX;
 }
 
+// Boundaries
+if x < room_width {
+	x = room_width;
+}
+if x > obj_panel_right.x {
+	x = obj_panel_right.x;
+}
+
 relativeX = x - room_width;
 
 // On base
@@ -127,14 +141,6 @@ if x = baseX {
 // Folded
 if relativeX = 0 {
 	onBase = 2;
-}
-
-// Boundaries
-if x < room_width {
-	x = room_width;
-}
-if x > obj_panel_right.x {
-	x = obj_panel_right.x;
 }
 
 // Pushing other panel
@@ -161,39 +167,23 @@ if mouse_check_button_released(mb_left) {
 	}
 }*/
 
-scrollHorRightBound = x - 1;
-scrollHorLeftBound = room_width + 16;
-obj_subpanel_left.scrollHorRightBound = self.scrollHorRightBound;
-scrollHorTopBound = obj_panel_top.y + 11;
-scrollHorBotBound = obj_panel_top.y + 26;
-
-scrollVerLeftBound = room_width;
-scrollVerRightBound = room_width + 15;
-scrollVerTopBound = obj_panel_top.y + 27;
-
-// Squish when panel offers less space than needed
-/*if x <= 16 {
-	scrollPanelSquish = -(16 - x) * (2);
-} else {
-	scrollPanelSquish = 0;
-}*/
-
 // Viewports
 panelOffset = camera_get_view_width(obj_editor_gui.cameraRightPanel);
 
+// Prevent right panel buttons from ever clipping into the left panel
 if panelOffset < obj_panel_right.panelWidth {
 	panelOffset = obj_panel_right.panelWidth;
 }
 
-camera_set_view_pos(obj_editor_gui.cameraLeftPanel,camera_get_view_x(obj_editor_gui.cameraRightPanel) + longestPanelRightButton + panelOffset /*+ (scrollHorX-16)/scrollHorFactor*/,0);
-camera_set_view_size(view_camera[2], relativeX - 15, scrollVerBotBound);
+camera_set_view_pos(obj_editor_gui.cameraLeftPanel, camera_get_view_x(obj_editor_gui.cameraRightPanel) + longestPanelRightButton + panelOffset, 0);
+camera_set_view_size(view_camera[2], relativeX - 15, scrollVerBotBound - scrollVerTopBound - 10);
 
-view_set_wport(2,relativeX - 15);
+view_set_wport(2, relativeX - 15);
 if view_wport[2] < 0 {
 	view_set_wport(2,0);
 }
 
-view_set_hport(2,scrollVerBotBound)
+view_set_hport(2,scrollVerBotBound - scrollVerTopBound - 10)
 view_set_yport(2,scrollVerTopBound);
 
 view_set_visible(2,true);
@@ -224,4 +214,19 @@ view_set_visible(2,true);
 
 if !visible {
 	view_set_visible(2,false);
+}
+
+scrollHorRightBound = x - 1;
+scrollHorLeftBound = room_width + 16;
+obj_subpanel_left.scrollHorRightBound = self.scrollHorRightBound;
+scrollHorTopBound = obj_panel_top.y + 11;
+scrollHorBotBound = obj_panel_top.y + 26;
+
+scrollVerLeftBound = room_width;
+scrollVerRightBound = room_width + 15;
+scrollVerTopBound = obj_panel_top.y + 27;
+
+// Fold scrollbars with the panel
+if relativeX <= 16 {
+	scrollVerRightBound = x-1;
 }

@@ -15,12 +15,6 @@ if spawnButtons {
 		trg = other.id;
 	}
 	
-	/*with instance_create_layer(x,y,"Instances",obj_region_button_angle) {
-		sortIndex = 0;
-		viewOn = 5;
-		panelId = obj_subpanel_left.id;
-		trg = other.id;
-	}*/
 	with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
 		sortIndex = 0;
 		viewOn = 5;
@@ -77,16 +71,9 @@ if spawnButtons {
 		sprWidth = (string_width(label) + 5) * 2;
 	}
 	
+	valueButtonsExist = true;
+	
 	event_user(0);
-	
-	obj_subpanel_left.tempY = obj_subpanel_left.y;
-	obj_subpanel_left.moveDirection = 1;
-	obj_subpanel_left.moveToY = obj_panel_bot.y;
-	obj_subpanel_left.moveToSpd = (obj_panel_bot.y - obj_subpanel_left.y)/6.5;
-	
-	// Standard formula to solve for time, given speed and distance
-	// +5 is a pause to dramatize the motion
-	obj_subpanel_left.alarm[1] = abs(obj_panel_bot.y - obj_subpanel_left.y) / obj_subpanel_left.moveToSpd + 5;
 	
 	// Fix issues when the sub-panel is folded
 	if obj_subpanel_left.y >= obj_panel_bot.y {
@@ -98,35 +85,37 @@ zcieling = zfloor;
 
 if select {
 	// These button instances couple to pass some values
-	if instance_exists(majorId) {
-		if majorId.arbitraryVal != "" {
-			self.majorRadius = real(majorId.arbitraryVal)*20
-		} else {
-			self.majorRadius = 0;
+	if valueButtonsExist {
+		if instance_exists(majorId) {
+			if majorId.arbitraryVal != "" {
+				self.majorRadius = real(majorId.arbitraryVal)*20
+			} else {
+				self.majorRadius = 0;
+			}
 		}
-	}
-	
-	if instance_exists(minorId) {
-		if minorId.arbitraryVal != "" {
-			self.minorRadius = real(minorId.arbitraryVal)*20;
-		} else {
-			self.minorRadius = 0;
+		
+		if instance_exists(minorId) {
+			if minorId.arbitraryVal != "" {
+				self.minorRadius = real(minorId.arbitraryVal)*20;
+			} else {
+				self.minorRadius = 0;
+			}
 		}
-	}
-	
-	if instance_exists(thresholdId) {
-		if thresholdId.arbitraryVal != "" {
-			self.thresholdRadius = real(thresholdId.arbitraryVal);
-		} else {
-			self.thresholdRadius = 0;
+		
+		if instance_exists(thresholdId) {
+			if thresholdId.arbitraryVal != "" {
+				self.thresholdRadius = real(thresholdId.arbitraryVal);
+			} else {
+				self.thresholdRadius = 0;
+			}
 		}
-	}
-	
-	if instance_exists(zoomId) {
-		if zoomId.arbitraryVal != "" {
-			self.zoomVal = real(zoomId.arbitraryVal);
-		} else {
-			self.zoomVal = 100;
+		
+		if instance_exists(zoomId) {
+			if zoomId.arbitraryVal != "" {
+				self.zoomVal = real(zoomId.arbitraryVal);
+			} else {
+				self.zoomVal = 100;
+			}
 		}
 	}
 	

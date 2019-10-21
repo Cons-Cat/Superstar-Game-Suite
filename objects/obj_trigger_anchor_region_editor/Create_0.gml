@@ -29,6 +29,7 @@ buttonSelected = 0;
 depthIterate = 0;
 canSpawnButtons = false;
 anchorId = -1;
+valueButtonsExist = false;
 
 // Instance IDs
 instId1[0] = "inst_"; // Instance object

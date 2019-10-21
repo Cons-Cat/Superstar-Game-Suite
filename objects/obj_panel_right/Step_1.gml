@@ -6,18 +6,24 @@ baseX = window_get_width() + room_width*2 - obj_panel_left.baseX;
 
 y = 242/576 * view_hport[1];
 
+canSelect = false;
+
 if relativeMouseX <= relativeX  && relativeMouseX >= relativeX - 21 {
 	if relativeMouseY >= y - 62 && relativeMouseY <= y + 58 {
-		if mouse_check_button_pressed(mb_left) {
-			// Dragging
-			select = true;
-			mouseClickOff = relativeMouseX - relativeX;
-			
-			// Double clicking
-			doubleClickCounter += 1;
-			
-			image_index = 1;
-		}
+		canSelect = true;
+	}
+}
+
+if canSelect {
+	if mouse_check_button_pressed(mb_left) {
+		// Dragging
+		select = true;
+		mouseClickOff = relativeMouseX - relativeX;
+		
+		// Double clicking
+		doubleClickCounter += 1;
+		
+		image_index = 1;
 	}
 }
 
@@ -108,6 +114,7 @@ if select {
 	x = dragX;
 }
 
+// Calculate dimensions based on the buttons on this panel
 if calculateHeight {
 	tempHeight = 3;
 	
@@ -123,6 +130,25 @@ if calculateHeight {
 	calculateHeight = false;
 }
 
+if calculateWidth {
+	tempWidth = 0;
+	
+	for (i = 0; i < instance_number(obj_panel_button); i += 1) {
+		tempTrg = instance_find(obj_panel_button,i);
+		
+		if tempTrg.viewOn = 3 { // If this button draws to the right panel
+			if tempTrg.sortX + tempTrg.longestSprWidth > tempWidth { // If this is the widest button yet found
+				tempWidth = tempTrg.sortX + tempTrg.longestSprWidth + 14;
+			}
+			
+			tempTrg.visible = true; // Make this button visible after it has been accounted for
+		}
+	}
+	
+	panelWidth = tempWidth;
+	calculateWidth = false;
+}
+
 if mouse_check_button_released(mb_left) {
 	if obj_editor_gui.sidePanelCtrl = 1 {
 		with obj_panel_left {
@@ -130,6 +156,14 @@ if mouse_check_button_released(mb_left) {
 			moveToX = round((relativeX - 1) / 10) * 10 - 1 + room_width;
 		}
 	}
+}
+
+// Boundaries
+if x < obj_panel_left.x {
+	x = obj_panel_left.x;
+}
+if x > view_wport[1] + room_width {
+	x = view_wport[1] + room_width;
 }
 
 relativeX = x - room_width;
@@ -146,14 +180,6 @@ if relativeX = view_wport[1] {
 	onBase = 2;
 }
 
-// Boundaries
-if x < obj_panel_left.x {
-	x = obj_panel_left.x;
-}
-if x > view_wport[1] + room_width {
-	x = view_wport[1] + room_width;
-}
-
 // Pushing other panel
 /*if x - 23 < obj_panel_left.x + 20 && select {
 	if obj_editor_gui.sidePanelCtrl = -1 {
@@ -168,24 +194,6 @@ if obj_editor_gui.sidePanelCtrl = 1 {
 		obj_panel_left.x = trgXOrigin;
 	}
 }*/
-
-// Scrollbars
-scrollHorLeftBound = x;
-scrollHorRightBound = view_wport[1] - 17 + room_width;
-scrollHorTopBound = obj_panel_top.y + 11;
-scrollHorBotBound = obj_panel_top.y + 26;
-
-scrollVerRightBound = view_wport[1] - 1 + room_width;
-scrollVerLeftBound = view_wport[1] - 16 + room_width;
-scrollVerTopBound = obj_panel_top.y + 27;
-scrollVerBotBound = obj_panel_bot.y - 1;
-
-// Squish when panel offers less space than needed
-if relativeX >= view_wport[1] - 16 {
-	scrollPanelSquish = (relativeX - view_wport[1] - 16) * 2 + room_width;
-} else {
-	scrollPanelSquish = 0;
-}
 
 // Viewports
 camera_set_view_pos(obj_editor_gui.cameraRightPanel,room_width + view_wport[1] + 1,0);
@@ -225,8 +233,6 @@ switch obj_editor_gui.mode {
 	case 3:
 		if relativeX < view_wport[1] - 16 && obj_big_button_tiling.spawnButtons {
 			view_set_visible(3,true);
-			
-			//camera_set_view_pos(obj_editor_gui.cameraRightPanel,tilesSheetPlacement+(scrollHorX-x)/scrollHorFactor,86+(scrollVerY-86)/scrollVerFactor);
 		} else {
 			view_set_visible(3,false);
 		}
@@ -252,4 +258,21 @@ switch obj_editor_gui.mode {
 
 if !visible {
 	view_set_visible(3,false);
+}
+
+
+// Scrollbars
+scrollHorLeftBound = x;
+scrollHorRightBound = view_wport[1] - 17 + room_width;
+scrollHorTopBound = obj_panel_top.y + 11;
+scrollHorBotBound = obj_panel_top.y + 26;
+
+scrollVerRightBound = view_wport[1] - 1 + room_width;
+scrollVerLeftBound = view_wport[1] - 16 + room_width;
+scrollVerTopBound = obj_panel_top.y + 27;
+scrollVerBotBound = obj_panel_bot.y - 1;
+
+// Fold scrollbars with the panel
+if relativeX >= view_wport[1] - 16 {
+	scrollVerLeftBound = x;
 }

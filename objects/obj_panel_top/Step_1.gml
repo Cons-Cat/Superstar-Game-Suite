@@ -4,18 +4,24 @@ baseY = 60/576 * view_hport[1] - 1;
 relativeMouseX = window_mouse_get_x();
 relativeX = x - room_width;
 
+canSelect = false;
+
 if relativeMouseX <= relativeX + 60 && relativeMouseX >= relativeX - 60 {
 	if mouse_y >= y && mouse_y <= y + 21 {
-		if mouse_check_button_pressed(mb_left) {
-			// Dragging
-			select = true;
-			mouseClickOff = mouse_y - y;
-			
-			// Double clicking
-			doubleClickCounter += 1;
-			
-			image_index = 1;
-		}
+		canSelect = true;
+	}
+}
+
+if canSelect {
+	if mouse_check_button_pressed(mb_left) {
+		// Dragging
+		select = true;
+		mouseClickOff = mouse_y - y;
+		
+		// Double clicking
+		doubleClickCounter += 1;
+		
+		image_index = 1;
 	}
 }
 

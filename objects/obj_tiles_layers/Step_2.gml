@@ -1,12 +1,13 @@
 /// @description 
-y = 12;
+scrollOff = (obj_subpanel_left.panelHeight - (obj_subpanel_left.scrollVerBotBound - obj_subpanel_left.scrollVerTopBound + 9)) * obj_subpanel_left.scrollVerPartition / 100;
+y = 12 - scrollOff;
 x = camera_get_view_x(obj_editor_gui.cameraLeftSubPanel);
 
 // Add new tile layer	
 plusCol = col;
 dieCol = col;
 
-if mouse_y >= 5 + (tileLayerCount + 2) * 11 && mouse_y <= y + 12 + (tileLayerCount + 2) * 11 {
+if mouse_y >= y + (tileLayerCount + 2) * 11 && mouse_y <= y + (tileLayerCount + 3) * 11 {
 	if mouse_x >= x + 28 && mouse_x <= x + 34 {
 		plusCol = orange;
 	}
@@ -100,11 +101,12 @@ if mouse_check_button_pressed(mb_left) {
 			}
 		}
 		
-		obj_subpanel_left.panelHeight = (tileLayerCount + 1) * 11 + 4;
-		
 		exit;
 	}
 }
+
+// Update the sub-panel height
+obj_subpanel_left.panelHeight = (tileLayerCount + 2) * 11 + 33;
 
 // Manipulate layers
 for (i = 0; i <= tileLayerCount; i += 2) {
@@ -121,11 +123,13 @@ for (i = 0; i <= tileLayerCount; i += 2) {
 				eyeState[i] = 1;
 				layerAlpha[i] = 0.5;
 				trgId.layerVisible[i] = false;
+				
 				obj_tiles_grid.layerVisible[i] = false;
 			} else {
 				eyeState[i] = 0;
 				layerAlpha[i] = 1;
 				trgId.layerVisible[i] = true;
+				
 				obj_tiles_grid.layerVisible[i] = true;
 			}
 			

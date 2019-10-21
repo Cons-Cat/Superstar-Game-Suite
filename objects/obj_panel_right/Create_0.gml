@@ -8,16 +8,17 @@ moveToX = baseX;
 moveToDeccel = 2.45;
 moveToSpd = 0;
 moveToSpdMin = 0.5;
-select = false;
 mouseClickOff = 0;
 moveDirection = 1;
 doubleClickCounter = 0;
+
 trg = -1;
 trgXOrigin = 0;
-calculateHeight = false;
-onBase = 1;
 longestSprWidth = 0;
 panelId = 3;
+
+calculateHeight = false;
+calculateWidth = false;
 
 x = baseX;
 

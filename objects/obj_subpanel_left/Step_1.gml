@@ -118,23 +118,21 @@ if y < obj_panel_left.scrollHorBotBound + 22 {
 	y = obj_panel_left.scrollHorBotBound + 22;
 }
 
-// Scrollbars
-scrollHorLeftBound = obj_panel_left.scrollHorLeftBound;
-scrollHorRightBound = obj_panel_left.scrollHorRightBound;
+obj_panel_left.scrollVerBotBound = y - 2;
 
-scrollVerLeftBound = room_width;
-scrollVerRightBound = room_width + 15;
-scrollVerTopBound = y + 5;
-scrollVerBotBound = obj_panel_bot.y - 1;
+if obj_panel_left.scrollVerBotBound > window_get_height() - 1 {
+	obj_panel_left.scrollVerBotBound = window_get_height() - 1;
+}
 
-// Viewports
-if !obj_panel_bot.select {
+// Hide slider when the panel is folded
+if !obj_panel_bot.select && !self.select {
 	if tempY = -1 { // If the panel will not slide back up automatically
 		if scrollVerBotBound - scrollVerTopBound <= 0 {
 			if obj_panel_left.x - room_width > 16 {
 				if relativeMouseX >= relativeX - sprite_height/2 && relativeMouseX <= relativeX + sprite_height/2 && relativeMouseY >= self.y - sprite_width && relativeMouseY <= self.y {
 					if mousePeek > 0 {
 						mousePeek -= 2.75;
+						
 						visible = true;
 					} else {
 						mousePeek = 0;
@@ -144,6 +142,7 @@ if !obj_panel_bot.select {
 						mousePeek += 2.25;
 					} else {
 						mousePeek = sprite_width;
+						
 						visible = false;
 					}
 				}
@@ -154,24 +153,22 @@ if !obj_panel_bot.select {
 	}
 }
 
-// Save expense when not needed
+// Viewports
 if visible && tempY = -1 {
 	view_set_visible(5,true);
+	view_set_yport(5,y + 5);
 	
 	camera_set_view_pos(obj_editor_gui.cameraLeftSubPanel,longestPanelRightButton + room_width + view_wport[1] + 1 + view_wport[2] + view_wport[3],0);
 	camera_set_view_size(view_camera[5], obj_panel_left.x - 15 - room_width,scrollVerBotBound - y - 5);
 	
 	view_set_wport(5,obj_panel_left.x - 15 - room_width);
+	
 	if view_wport[5] < 0 {
 		view_set_wport(5,0);
 	}
 	
 	view_set_hport(5,scrollVerBotBound - y - 5);
-	view_set_yport(5,y + 5);
-	
-	obj_panel_left.scrollVerBotBound = self.y - 2;
 } else {
+	// Save expense when not needed
 	view_set_visible(5,false);
-	
-	obj_panel_left.scrollVerBotBound = obj_panel_bot.y - 1;
 }

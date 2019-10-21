@@ -1,6 +1,9 @@
 /// @description Manipulating dimensions
 event_inherited();
 
+// Make z-dimension flat
+zcieling = zfloor;
+
 // Initially generate a 1x1 square polygon region
 if placed = 1 {
 	with instance_create_layer(x,y,"Instances",obj_trigger_vertex) {
@@ -97,11 +100,14 @@ if spawnButtons {
 		buttonType = 2;
 		arbitraryVal = string(other.zoomVal);
 		valueLength = string_width(arbitraryVal)*2 + 4;
-		other.zoomId = self.id;
 		panelId = obj_subpanel_left.id;
 		trg = other.id;
 		sprWidth = (string_width(label) + 5) * 2;
+		
+		other.zoomId = self.id;
 	}
+	
+	valueButtonsExist = true;
 	
 	event_user(0);
 	
@@ -111,22 +117,11 @@ if spawnButtons {
 		}
 	}
 	
-	obj_subpanel_left.tempY = obj_subpanel_left.y;
-	obj_subpanel_left.moveDirection = 1;
-	obj_subpanel_left.moveToY = obj_panel_bot.y;
-	obj_subpanel_left.moveToSpd = (obj_panel_bot.y - obj_subpanel_left.y)/6.5;
-	
-	// Standard formula to solve for time, given speed and distance
-	// +5 is a pause to dramatize the motion
-	obj_subpanel_left.alarm[1] = abs(obj_panel_bot.y - obj_subpanel_left.y) / obj_subpanel_left.moveToSpd + 5;
-	
 	// Fix issues when the sub-panel is folded
 	if obj_subpanel_left.y >= obj_panel_bot.y {
 		obj_subpanel_left.tempY = -1;
 	}
 }
-
-zcieling = zfloor;
 
 if select {
 	if width != widthTemp {
@@ -206,11 +201,14 @@ if select {
 	if instance_exists(obj_region_button_magnitude) {
 		self.magnitude = obj_region_button_magnitude.arbitraryVal;
 	}
-	if instance_exists(zoomId) {
-		if zoomId.arbitraryVal != "" {
-			self.zoomVal = real(zoomId.arbitraryVal);
-		} else {
-			self.zoomVal = 100;
+	
+	if valueButtonsExist {
+		if instance_exists(zoomId) {
+			if zoomId.arbitraryVal != "" {
+				self.zoomVal = real(zoomId.arbitraryVal);
+			} else {
+				self.zoomVal = 100;
+			}
 		}
 	}
 } else {

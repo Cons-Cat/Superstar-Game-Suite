@@ -8,14 +8,12 @@ moveToY = baseY;
 moveToDeccel = 2.45;
 moveToSpd = 0;
 moveToSpdMin = 0.5;
-select = false;
 mouseClickOff = 0;
 moveDirection = 1;
 doubleClickCounter = 0;
 trg = -1;
 trgXOrigin = 0;
 cameraViewOn = 4;
-onBase = 1;
 longestPanelRightButton = 0;
 
 scrollPanelSquish = 0;
@@ -53,6 +51,9 @@ actionRowInd[0] = 0;
 addClick = -1;
 actionDoubleClick = 0;
 
+mapCenterX = 0;
+mapCenterY = 0;
+mapYOff = 0;
 remakeMap = false;
 updateMap = true;
 mapSurface = surface_create(room_width,room_height);

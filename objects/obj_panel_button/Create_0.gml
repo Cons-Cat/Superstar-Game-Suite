@@ -27,3 +27,8 @@ graphicCol1 = make_color_rgb(200,210,243);
 graphicCol2 = make_color_rgb(147,155,179);
 
 font = obj_editor_gui.font;
+
+// Update the right panel
+obj_panel_right.calculateWidth = true;
+obj_panel_left.calculateWidth = true;
+// The right panel makes these buttons visible once it has updated

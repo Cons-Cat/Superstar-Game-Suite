@@ -1,11 +1,13 @@
 /// @description Insert description here
+select = false;
+canSelect = false;
+
 baseY = 59;
 dragY = baseY;
 moveToY = baseY;
 moveToDeccel = 2.45;
 moveToSpd = 0;
 moveToSpdMin = 0.5;
-select = false;
 mouseClickOff = 0;
 moveDirection = 1;
 doubleClickCounter = 0;

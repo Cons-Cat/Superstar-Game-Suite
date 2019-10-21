@@ -98,16 +98,6 @@ if spawnButtons {
 		panelId = obj_subpanel_left.id;
 		sprWidth = (string_width(label) + 5) * 2;
 	}
-	/*with instance_create_layer(x,y,"Instances",obj_scene_action_parent) {
-		sortIndex = 8;
-		viewOn = 5;
-		panelId = obj_subpanel_left.id;
-		objIndex = -1;
-		value = 4;
-		label = "Zooming";
-		insideCol = make_color_rgb(23,79,124); // Deep blue
-		sprite_index = spr_scene_zoom;
-	}*/
 	
 	event_user(0);
 	
@@ -116,15 +106,6 @@ if spawnButtons {
 			alarm[0] = 2; // Delay until vertices respond to mouse input
 		}
 	}
-	
-	obj_subpanel_left.tempY = obj_subpanel_left.y;
-	obj_subpanel_left.moveDirection = 1;
-	obj_subpanel_left.moveToY = obj_panel_bot.y;
-	obj_subpanel_left.moveToSpd = (obj_panel_bot.y - obj_subpanel_left.y)/6.5;
-	
-	// Standard formula to solve for time, given speed and distance
-	// +5 is a pause to dramatize the motion
-	obj_subpanel_left.alarm[1] = abs(obj_panel_bot.y - obj_subpanel_left.y) / obj_subpanel_left.moveToSpd + 5;
 }
 
 zcieling = zfloor;

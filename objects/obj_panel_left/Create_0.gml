@@ -7,14 +7,12 @@ moveToX = baseX;
 moveToDeccel = 2.45;
 moveToSpd = 0;
 moveToSpdMin = 0.5;
-select = false;
 mouseClickOff = 0;
 moveDirection = 1;
 doubleClickCounter = 0;
 trgXOrigin = 0;
 cameraViewOn = 3;
 longestPanelRightButton = 0;
-onBase = 1;
 x = baseX;
 
 scrollPanelSquish = 0;

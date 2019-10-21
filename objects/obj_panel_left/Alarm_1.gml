@@ -5,6 +5,8 @@ if instance_exists(obj_tiles_layers) {
 	}
 }
 
+obj_subpanel_left.panelHeight = 0;
+
 moveToX = global.tempXLeft;
 moveToSpd = (global.tempXLeft - room_width) / 6;
 moveDirection = 1;

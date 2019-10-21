@@ -3,9 +3,6 @@ x = camera_get_view_x(obj_editor_gui.cameraRightPanel);
 relativeMouseX = (mouse_x - self.x);
 relativeMouseY = (mouse_y - self.y);
 
-obj_panel_right.panelWidth = sprite_get_width(tileDefaultSpr);
-obj_panel_right.panelHeight = sprite_get_height(tileDefaultSpr);
-
 xOff = camera_get_view_x(obj_editor_gui.cameraRightPanel) - (obj_panel_right.panelWidth - (obj_panel_right.scrollHorRightBound - obj_panel_right.scrollHorLeftBound)) * obj_panel_right.scrollHorPartition / 100;
 yOff = camera_get_view_y(obj_editor_gui.cameraRightPanel) - (obj_panel_right.panelHeight - (obj_panel_right.scrollVerBotBound - obj_panel_right.scrollVerTopBound + 9)) * obj_panel_right.scrollVerPartition / 100;
 

@@ -13,42 +13,64 @@ relativeMouseY = window_mouse_get_y();
 if placed != 0 {
 	// canSelect defined by obj_editor_gui
 	// De-selection handled by obj_editor_button_parent
-	if relativeMouseY > obj_panel_top.y && !obj_panel_top.select {
-		if relativeMouseX > obj_panel_left.x - room_width && !obj_panel_left.select {
-			if relativeMouseX < obj_panel_right.x - room_width && !obj_panel_right.select {
-				if relativeMouseY < obj_panel_bot.y && !obj_panel_bot.select {
-					if canSelect { // If an instance is hovered over
-						if modeForSelect {
-							if obj_editor_gui.mode != 3 {
-								// Dimension manipulation
-								if mouse_check_button_pressed(mb_left) && !instance_exists(obj_editor_button_parent) {
-									spawnButtons = true; // Button instances are created from child objects
-									
-									select = true;
-									buttonSelected = 1;
-									obj_editor_gui.canChangeSelect = false;
-								}
-							} else {
-								// Tiling for collisions instances
-								if mouse_check_button_pressed(mb_left) {
-									if modeForSelect = 0 || modeForSelect = 1 {
-										canSpawnTiles = true;
-										
-										// Slide side panels out
-										if obj_panel_left.moveToSpd = 0 && obj_panel_right.moveToSpd = 0 {
-											global.tempXLeft = obj_panel_left.x;
-											global.tempXRight = obj_panel_right.x;
-										}
-										
-										obj_panel_right.exitInterface = true;
-										obj_panel_left.exitInterface = true;
-										
-										alarm[1] = 18;
-									}
-								}
-							}
+	if canSelect { // If an instance is hovered over
+		if modeForSelect {
+			if obj_editor_gui.mode = 4 {
+				// Trigger instances
+				if mouse_check_button_pressed(mb_left) && !instance_exists(obj_editor_button_parent) {
+					canSpawnButtons = true;
+					
+					select = true;
+					buttonSelected = 1;
+					obj_editor_gui.canChangeSelect = false;
+					
+					// Slide sub-panel in
+					obj_subpanel_left.tempY = obj_subpanel_left.y;
+					obj_subpanel_left.moveDirection = 1;
+					obj_subpanel_left.moveToY = obj_panel_bot.y;
+					obj_subpanel_left.moveToSpd = (obj_panel_bot.y - obj_subpanel_left.y)/6.5;
+					
+					// Standard formula to solve for time, given speed and distance
+					// +5 is a pause to dramatize the motion
+					obj_subpanel_left.alarm[1] = abs(obj_panel_bot.y - obj_subpanel_left.y) / obj_subpanel_left.moveToSpd + 5;
+					
+					alarm[1] = obj_subpanel_left.alarm[1];
+				}
+			} else if obj_editor_gui.mode = 3 {
+				// Tiling for collisions instances
+				if mouse_check_button_pressed(mb_left) {
+					if modeForSelect = 0 || modeForSelect = 1 {
+						canSpawnTiles = true;
+						
+						// Slide side panels in
+						if obj_panel_left.moveToSpd = 0 && obj_panel_right.moveToSpd = 0 {
+							global.tempXLeft = obj_panel_left.x;
+							global.tempXRight = obj_panel_right.x;
 						}
-					} else {
+						
+						
+						obj_panel_right.exitInterface = true;
+						obj_panel_left.exitInterface = true;
+										
+						alarm[1] = 18;
+					}
+				}
+			} else {
+				// Collision instances
+				if mouse_check_button_pressed(mb_left) && !instance_exists(obj_editor_button_parent) {
+					spawnButtons = true; // Button instances are spawned by child objects
+					
+					select = true;
+					buttonSelected = 1;
+					obj_editor_gui.canChangeSelect = false;
+				}
+			}
+		}
+	} else {
+		if window_mouse_get_y() > obj_panel_top.y && !obj_panel_top.canSelect {
+			if window_mouse_get_x() > obj_panel_left.x - room_width && !obj_panel_left.canSelect {
+				if window_mouse_get_x() < obj_panel_right.x - room_width && !obj_panel_right.canSelect {
+					if window_mouse_get_y() < obj_panel_bot.y && !obj_panel_bot.canSelect {
 						if mouse_check_button_pressed(mb_left) {
 							// De-select tiles
 							if obj_editor_gui.mode = 3 {
@@ -83,7 +105,7 @@ if placed != 0 {
 // Spawn tile buttons
 if spawnTiles {
 	spawnTiles = false;
-		
+	
 	// Spawn tiles GUI
 	if str = "rectangle" {
 		#region
@@ -236,6 +258,7 @@ if spawnTiles {
 		#endregion
 	}
 	
+	// Right panel dimensions match the tileset's dimensions
 	obj_panel_right.panelWidth = sprite_get_width(tileDrawSpr);
 	
 	if sprite_get_height(tileDrawSpr) <= 334 {
@@ -312,6 +335,7 @@ if finite {
 	alpha = 0.25;
 }
 
+// Make orange when mouse hovers over it
 if !canSelect {
 	if finite {
 		layerColor = blankCol;

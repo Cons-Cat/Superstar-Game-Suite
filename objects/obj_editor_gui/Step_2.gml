@@ -8,30 +8,46 @@ if mode = 1 {
 }
 
 // Selecting instances
+// Reset state of canSelect each tick
+for (i = 0; i < instance_number(obj_editor_terrain_par); i += 1) {
+	with instance_find(obj_editor_terrain_par,i) {
+		canSelect = false;
+	}
+}
+
+// Selecting and de-selecting instances
 if canChangeSelect {
 	tempDepth = 0;
 	selectInstance = -1;
 	
-	for (i = 0; i < instance_number(obj_editor_terrain_par); i += 1) {
-		with instance_find(obj_editor_terrain_par,i) {
-			select = false;
-			canSelect = false;
-			
-			other.tempSelectInstance = self.id;
-		}
-		
-		if (mouseCheckX >= tempSelectInstance.x && mouseCheckX < tempSelectInstance.x + tempSelectInstance.width * 20 && mouseCheckY >= tempSelectInstance.y && mouseCheckY < tempSelectInstance.y + (tempSelectInstance.zfloor*20 - tempSelectInstance.zcieling*20) + 20 && (mode != 1 && tempSelectInstance.modeForSelect)) {
-			if tempSelectInstance.modeForSelect {
-				if tempSelectInstance.depth <= tempDepth {
-					tempDepth = tempSelectInstance.depth;
-					selectInstance = tempSelectInstance;
+	if window_mouse_get_y() > obj_panel_top.y && !obj_panel_top.canSelect {
+		if window_mouse_get_x() > obj_panel_left.x - room_width && !obj_panel_left.canSelect {
+			if window_mouse_get_x() < obj_panel_right.x - room_width && !obj_panel_right.canSelect {
+				if window_mouse_get_y() < obj_panel_bot.y && !obj_panel_bot.canSelect {
+					for (i = 0; i < instance_number(obj_editor_terrain_par); i += 1) {
+						with instance_find(obj_editor_terrain_par,i) {
+							// Deselect instance
+							select = false;
+							
+							other.tempSelectInstance = self.id;
+						}
+						
+						if (mouseCheckX >= tempSelectInstance.x && mouseCheckX < tempSelectInstance.x + tempSelectInstance.width * 20 && mouseCheckY >= tempSelectInstance.y && mouseCheckY < tempSelectInstance.y + (tempSelectInstance.zfloor*20 - tempSelectInstance.zcieling*20) + 20 && (mode != 1 && tempSelectInstance.modeForSelect)) {
+							if tempSelectInstance.modeForSelect {
+								if tempSelectInstance.depth <= tempDepth {
+									tempDepth = tempSelectInstance.depth;
+									selectInstance = tempSelectInstance;
+								}
+							}
+						}
+					}
+					
+					if selectInstance != -1 {
+						selectInstance.canSelect = true;
+					}
 				}
 			}
 		}
-	}
-	
-	if selectInstance != -1 {
-		selectInstance.canSelect = true;
 	}
 }
 

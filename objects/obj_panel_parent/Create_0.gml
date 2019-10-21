@@ -1,4 +1,7 @@
 /// @description Insert description here
+canSelect = false;
+select = false;
+
 scrollHorLeftBound = 0;
 scrollHorRightBound = 0;
 scrollHorTopBound = 0;
@@ -9,7 +12,6 @@ scrollVerRightBound = 0;
 scrollVerTopBound = 0;
 scrollVerBotBound = 0;
 
-scrollPanelSquish = 0;
 panelWidth = 0;
 panelHeight = 0;
 scrollHorX = 0;
@@ -27,6 +29,7 @@ scrollVerHeight = panelHeight;
 tilesSheetPlacement = 1024;
 hasScrollVer = true;
 hasScrollHor = true;
+onBase = 1;
 
 exitInterface = false;
 
