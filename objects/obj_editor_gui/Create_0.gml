@@ -5,7 +5,6 @@ cameraLeftPanel = camera_create_view(1024,0,200,576,0,-1,-1,-1,-1,-1);
 cameraLeftSubPanel = camera_create_view(1024,0,200,200,0,-1,-1,-1,-1,-1);
 cameraRightPanel = camera_create_view(1024,0,200,200,0,-1,-1,-1,-1,-1);
 cameraBotPanel = camera_create_view(1025,453,642,120,0,-1,-1,-1,-1,-1);
-calcBaseX = 0;
 
 view_set_camera(0, cameraRealGame);
 view_set_camera(2, cameraLeftPanel);

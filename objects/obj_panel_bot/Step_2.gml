@@ -678,6 +678,37 @@ if cutsceneInstanceId != -1 {
 	}
 }
 
+// Minimap surface
+/*if remakeMap {
+	mapSurface = surface_create(room_width,room_height);
+	updateMap = true;
+}
+
+if updateMap {
+	updateMap = false;
+	// var trg;
+	
+	// Clear the surface
+	surface_set_target(mapSurface);
+	draw_clear_alpha(c_white, 0);
+	surface_reset_target();
+	
+	for (var k = 0; k < instance_number(obj_editor_terrain_par); k +=1) {
+		var trg = instance_find(obj_editor_terrain_par,k);
+		
+		if surface_exists( trg.tileSurfaceDraw ) {
+			// Add collision tiles to the map
+			surface_copy( mapSurface, trg.x, trg.y, trg.tileSurfaceDraw );
+		} else {
+			// Skip a tick to make sure the surface exists before drawing to map
+			// I suspect that this may not be working
+			updateMap = true;
+			
+			break;
+		}
+	}
+}*/
+
 // Views
 view_xport[4] = 193;
 view_yport[4] = y + 34;

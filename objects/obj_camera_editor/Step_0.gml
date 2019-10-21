@@ -19,6 +19,8 @@ if obj_editor_gui.mode != 2 {
 			consecutiveMovesHor += 1;
 		}
 	}
+	
+	// Movement
 	if gridAtX > curAtX {
 		curAtX += gridSpeedHor;
 		
@@ -33,6 +35,8 @@ if obj_editor_gui.mode != 2 {
 			consecutiveMovesHor += 1;
 		}
 	}
+	
+	// Movement
 	if gridAtX < curAtX {
 		curAtX -= gridSpeedHor;
 		
@@ -47,6 +51,8 @@ if obj_editor_gui.mode != 2 {
 			consecutiveMovesVer += 1;
 		}
 	}
+	
+	// Movement
 	if gridAtY > curAtY {
 		curAtY += gridSpeedVer;
 		
@@ -61,6 +67,8 @@ if obj_editor_gui.mode != 2 {
 			consecutiveMovesVer += 1;
 		}
 	}
+	
+	// Movement
 	if gridAtY < curAtY {
 		curAtY -= gridSpeedVer;
 		
@@ -130,7 +138,7 @@ if obj_editor_gui.mode != 2 {
 		gridSpeedVer = 0.15;
 	}
 	
-	if consecutiveMovesVer >= 18 {
+	if consecutiveMovesVer >= 15 {
 		// Super fast speed
 		gridSpeedVer = 0.22;
 	}
@@ -142,15 +150,8 @@ if obj_editor_gui.mode != 2 {
 	gridGravX = (power( 2 * ( (curAtX % 1) - 0.5 ), 3) * 2 + 2) / 4;
 	gridGravY = (power( 2 * ( (curAtY % 1) - 0.5 ), 3) * 2 + 2) / 4;
 	
-	if gridGravX >= 1 {
-		gridGravX = 0;
-	}
-	if gridGravY >= 1 {
-		gridGravY = 0;
-	}
-	
 	// Move camera view
-	camera_set_view_pos(view_camera[0],barrierHor + floor(curAtX) * 20 + (gridGravX * 20), barrierVer + floor(gridAtY) * 20 + (gridGravY * 20));
+	camera_set_view_pos(view_camera[0],barrierHor + floor(curAtX) * 20 + (gridGravX * 20), barrierVer + floor(curAtY) * 20 + (gridGravY * 20));
 } else {
 	// In play mode
 	

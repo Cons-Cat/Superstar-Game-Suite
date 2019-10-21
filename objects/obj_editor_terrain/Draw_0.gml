@@ -184,10 +184,12 @@ if obj_editor_gui.mode = 1 {
 	draw_rectangle(x,y+(zfloor-zcieling)*20,x+width*20,y+height*20+(zfloor-zcieling)*20,false);
 	draw_set_alpha(1);
 	draw_set_color(layerColorLine);
+	
 	// Top surface
 	draw_rectangle(x,y,x+width*20,y+height*20,true);
 	draw_rectangle(x+1,y+1,x+width*20-1,y+height*20-1,true);
 	draw_rectangle(x+2,y+2,x+width*20-2,y+height*20-2,true);
+	
 	// Front surface
 	draw_rectangle(x,y+height*20,x+width*20,y+height*20+(zfloor-zcieling)*20,true);
 	draw_rectangle(x+1,y+height*20+1,x+width*20-1,y+height*20+(zfloor-zcieling)*20-1,true);

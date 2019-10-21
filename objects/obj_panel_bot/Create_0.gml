@@ -53,6 +53,10 @@ actionRowInd[0] = 0;
 addClick = -1;
 actionDoubleClick = 0;
 
+remakeMap = false;
+updateMap = true;
+mapSurface = surface_create(room_width,room_height);
+
 depth = obj_editor_gui.depth - 4;
 image_angle = 90;
 y = baseY;

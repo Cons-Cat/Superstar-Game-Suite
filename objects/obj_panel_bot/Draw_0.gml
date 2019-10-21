@@ -107,6 +107,11 @@ if room_width >= room_height {
 	mapWidth = mapHeight * mapRatio;
 }
 
+// Draw map backdrop
+if surface_exists(mapSurface) {
+	draw_surface_stretched(mapSurface, mapCenterX - floor(mapWidth/2), mapCenterY - floor(mapHeight/2), mapWidth, mapHeight);
+}
+
 // 16:9 ratio cursor
 mapCursorWidth = 16 * (mapWidth - 10) / (room_width / 20 - 16) / obj_editor_gui.realPortScaleHor;
 mapCursorHeight = mapCursorWidth * 9/16;

@@ -14,8 +14,12 @@ windowTempX = window_get_x();
 windowTempY = window_get_y();*/
 
 if tempResWidth != window_get_width() || tempResHeight != window_get_height() {
+	// Replace surfaces
 	with obj_editor_terrain {
 		surfaceResize = true;
+	}
+	with obj_panel_bot {
+		remakeMap = true;
 	}
 	
 	if window_get_width() >= 3840 {
@@ -104,10 +108,3 @@ if keyboard_check(vk_control) {
 } else {
 	global.snapDimension = 20;
 }
-
-//calcCamX = ( /*window_get_width() * */ (camera_get_view_x(cameraRealGame) ) ) div camera_get_view_width(cameraRealGame);
-//calcCamX = (camera_get_view_x(cameraRealGame)) mod camera_get_view_width(cameraRealGame);
-//show_debug_message(calcCamX);
-//calcBaseX = floor( (obj_panel_left.baseX - room_width) * camera_get_view_width(cameraRealGame) / window_get_width() ) + camera_get_view_x(cameraRealGame);
-calcBaseX = ( (obj_panel_left.baseX - room_width) * ( camera_get_view_width(cameraRealGame) / window_get_width() ) ) + camera_get_view_x(cameraRealGame);
-//show_debug_message(calcBaseX);

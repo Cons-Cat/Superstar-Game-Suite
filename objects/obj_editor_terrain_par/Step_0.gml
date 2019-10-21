@@ -83,7 +83,7 @@ if placed != 0 {
 // Spawn tile buttons
 if spawnTiles {
 	spawnTiles = false;
-	
+		
 	// Spawn tiles GUI
 	if str = "rectangle" {
 		#region
@@ -292,6 +292,7 @@ if mouse_check_button_released(mb_left) {
 	if placed = 0 {
 		lastX = x;
 		lastY = y;
+		
 		canMerge = true; // Merge upon placement
 		obj_editor_gui.canChangeSelect = true;
 		

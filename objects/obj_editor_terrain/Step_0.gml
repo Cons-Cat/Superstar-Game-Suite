@@ -285,6 +285,11 @@ if resetArray && obj_editor_gui.mode != 3 {
 	}
 	
 	#endregion
+	
+	// Update the minimap
+	with obj_panel_bot {
+		scr_editor_map(other.x, other.y, other.x + other.width * 20, other.y + (other.zfloor - other.zcieling + other.height) * 20);
+	}
 }
 
 // Generate marble texture
@@ -686,7 +691,7 @@ if bakeMarble {
 	#endregion
 }
 
-// Bake surfaces
+// Bake tile surfaces
 if calculateSub {
 	#region
 	
