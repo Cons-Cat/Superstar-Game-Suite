@@ -205,19 +205,28 @@ if obj_editor_gui.mode != 2 {
 		
 		// Update Z dimension when player lands on floor
 		if obj_player_overworld.onGround {
-			if placeZ != obj_player_overworld.jumpHeight {
+			if floor(placeZ) != floor(obj_player_overworld.jumpHeight) {
 				if accelZ < 1 {
 					accelZ += 0.05;
 				} else {
 					accelZ = 1;
 				}
 				
+				// Approach the placeZ
 				placeZ += (zTo - placeZ)/10*accelZ;
+				
+				// Snap to asymptote
+				if abs(zTo - placeZ) < 1 {
+					placeZ = floor(obj_player_overworld.jumpHeight);
+				}
+			} else {
+				heavyFall = false;
+				accelZ = 0;
 			}
 		} else {
 			// Fall down
-			if obj_player_overworld.jumpHeight - obj_player_overworld.trgFinal < 65 {
-				if obj_player_overworld.isFalling  {
+			if obj_player_overworld.isFalling  {
+				if ( obj_player_overworld.jumpHeight - obj_player_overworld.platOn < 65 ) && !heavyFall {
 					// Light fall
 					if accelZ < 1 {
 						accelZ += 0.05;
@@ -226,10 +235,14 @@ if obj_editor_gui.mode != 2 {
 					}
 					
 					placeZ += (zTo - placeZ)/10*accelZ;
+				} else {
+					// Heavy fall
+					if placeZ > zTo + 55 {
+						placeZ = zTo + 55; // Make momentum instantaneous
+						heavyFall = true; // Keep heavy fall state even when below 35
+						accelZ = 1; // Carry instantaneous momentum into the onGround phase
+					}
 				}
-			} else {
-				// Heavy fall
-				placeZ = zTo + 65;
 			}
 		}
 		
@@ -256,7 +269,6 @@ if obj_editor_gui.mode != 2 {
 		}
 		if xTo < leftQuarter {
 			placeX += (xTo - leftQuarter)/16*accelX;
-			show_debug_message(random(10));
 		}
 		
 		if yTo > centerY {
@@ -326,28 +338,29 @@ if obj_editor_gui.mode != 2 {
 		
 		// Update place
 		x = placeX;
-		y = placeY - placeZ;
+		y = placeY;
 		
 		// Update view
 		if !anchored {
-			camera_set_view_pos(view_camera[0],x + panX - camera_get_view_width(view_camera[0])/2,y + panY - camera_get_view_height(view_camera[0])/2);
+			camera_set_view_pos(view_camera[0],x + panX - camera_get_view_width(view_camera[0])/2,y - placeZ + panY - camera_get_view_height(view_camera[0])/2);
 		} else {
 			camera_set_view_pos(view_camera[0],( (x + panX) * (1 - anchorId.magnitude) ) + (anchorId.trgX * anchorId.magnitude) - camera_get_view_width(view_camera[0])/2, ( (y + panY) * (1 - anchorId.magnitude) ) + (anchorId.trgY * anchorId.magnitude) - placeZ - camera_get_view_height(view_camera[0])/2);
 		}
 	}
-	
-	if camera_get_view_x(view_camera[0]) < -(obj_panel_left.baseX - room_width) / obj_editor_gui.realPortScaleHor {
-		camera_set_view_pos(view_camera[0],-(obj_panel_left.baseX - room_width) / obj_editor_gui.realPortScaleHor,camera_get_view_y(view_camera[0]));
-	}
-	if camera_get_view_x(view_camera[0]) > room_width - camera_get_view_width(view_camera[0]) + (obj_panel_left.baseX - room_width) / obj_editor_gui.realPortScaleHor {
-		camera_set_view_pos(view_camera[0],room_width - camera_get_view_width(view_camera[0]) + (obj_panel_left.baseX - room_width) / obj_editor_gui.realPortScaleHor,camera_get_view_y(view_camera[0]));
-	}
-	if camera_get_view_y(view_camera[0]) < -(obj_panel_top.baseY) / obj_editor_gui.realPortScaleVer {
-		camera_set_view_pos(view_camera[0],camera_get_view_x(view_camera[0]),-(obj_panel_top.baseY) / obj_editor_gui.realPortScaleVer);
-	}
-	if camera_get_view_y(view_camera[0]) > room_height - camera_get_view_height(view_camera[0]) + (view_hport[1] - obj_panel_bot.baseY) / obj_editor_gui.realPortScaleVer {
-		camera_set_view_pos(view_camera[0],camera_get_view_x(view_camera[0]),room_height - camera_get_view_height(view_camera[0]) + (view_hport[1] - obj_panel_bot.baseY) / obj_editor_gui.realPortScaleVer);
-	}
+}
+
+// Camera boundaries
+if camera_get_view_x(view_camera[0]) < -(obj_panel_left.baseX - room_width) / obj_editor_gui.realPortScaleHor {
+	camera_set_view_pos(view_camera[0],-(obj_panel_left.baseX - room_width) / obj_editor_gui.realPortScaleHor,camera_get_view_y(view_camera[0]));
+}
+if camera_get_view_x(view_camera[0]) > room_width - camera_get_view_width(view_camera[0]) + (obj_panel_left.baseX - room_width) / obj_editor_gui.realPortScaleHor {
+	camera_set_view_pos(view_camera[0],room_width - camera_get_view_width(view_camera[0]) + (obj_panel_left.baseX - room_width) / obj_editor_gui.realPortScaleHor,camera_get_view_y(view_camera[0]));
+}
+if camera_get_view_y(view_camera[0]) < -(obj_panel_top.baseY) / obj_editor_gui.realPortScaleVer {
+	camera_set_view_pos(view_camera[0],camera_get_view_x(view_camera[0]),-(obj_panel_top.baseY) / obj_editor_gui.realPortScaleVer);
+}
+if camera_get_view_y(view_camera[0]) > room_height - camera_get_view_height(view_camera[0]) + (view_hport[1] - obj_panel_bot.baseY) / obj_editor_gui.realPortScaleVer {
+	camera_set_view_pos(view_camera[0],camera_get_view_x(view_camera[0]),room_height - camera_get_view_height(view_camera[0]) + (view_hport[1] - obj_panel_bot.baseY) / obj_editor_gui.realPortScaleVer);
 }
 
 depth = obj_editor_gui.depth - 1;

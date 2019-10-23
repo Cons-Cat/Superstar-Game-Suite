@@ -35,8 +35,6 @@ if select {
 						if staircaseType > 2 {
 							staircaseType = 0;
 						}
-						
-						//show_debug_message(staircaseType);
 					}
 					if other.str2 = "flip" {
 						staircaseRotation += 1;
@@ -44,8 +42,6 @@ if select {
 						if staircaseRotation > 9 {
 							staircaseRotation = 0;
 						}
-						
-						//show_debug_message(staircaseRotation);
 					}
 					
 					resetArray = true;

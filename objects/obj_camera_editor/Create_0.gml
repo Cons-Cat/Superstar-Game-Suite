@@ -18,6 +18,7 @@ tempY = y;
 placeX = x;
 placeY = y;
 placeZ = 0;
+heavyFall = false;
 
 accelX = 0;
 accelY = 0;

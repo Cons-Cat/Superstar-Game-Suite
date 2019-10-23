@@ -292,14 +292,14 @@ if resetArray && obj_editor_gui.mode != 3 {
 	}
 }
 
-// Generate marble texture
+// Generate marble streaks
 if genMarble {
 	#region
 	
 	genMarble = false;
 	bakeMarble = true;
 	
-	// Initialize values
+	// Initialize variables
 	#region
 	
 	hasAdjacentLeft = false;
@@ -311,6 +311,12 @@ if genMarble {
 	edgeStreakCountRead = 0;
 	edgeStreakCountWrite = 0;
 	transfuseIterate = 0;
+	
+	for (i = 0; i < width * 20; i += 1) {
+		for (j = 0; j < ( height + zfloor - zcieling ) * 20; j += 1) {
+			marblePixelCol[i,j] = 3;
+		}
+	}
 	
 	#endregion
 	
@@ -356,7 +362,7 @@ if genMarble {
 	
 	#endregion
 	
-	// Generate streaks
+	// Calculate streak values
 	#region
 	
 	randomize();
@@ -410,38 +416,55 @@ if genMarble {
 		marbleSampleLength = round( (width * 20) / ( (marbleSamplesDark + marbleSamplesLight) / 4.0 ) * 20 * random_range(0.85,1.15));
 		
 		for (j = 0; j < marbleSampleLength; j += 1) {
+			marbleNetPixels += 1;
+			
 			// Develop streak
 			marbleSampleDir += random_range(-38,38);
 			marbleSampleX += lengthdir_x(1,marbleSampleDir);
 			marbleSampleY += lengthdir_y(1,marbleSampleDir);
 			
 			// Develop girth
-			marbleSampleGirth[marbleNetPixels] = 1;
+			marbleSampleGirth[marbleNetPixels] = marbleSampleGirth[marbleNetPixels - 1];
 			
 			if j < marbleSampleLength - marbleSampleGirth[marbleNetPixels] {
-				marbleSampleGirth[marbleNetPixels] += random_range(-0.45,1.25);
+				marbleSampleGirth[marbleNetPixels] += random_range(-0.55,0.55);
 			} else {
 				marbleSampleGirth[marbleNetPixels] -= 1;
 			}
 			
-			marbleSampleGirth[marbleNetPixels + 1] = marbleSampleGirth[marbleNetPixels];
-			
-			if marbleSampleGirth[marbleNetPixels] < 1 {
-				marbleSampleGirth[marbleNetPixels] = 1;
+			// Girth limits
+			if marbleSampleGirth[marbleNetPixels] < 0.5 {
+				marbleSampleGirth[marbleNetPixels] = 0.5;
 			}
+			if marbleSampleGirth[marbleNetPixels] > 4.5 {
+				marbleSampleGirth[marbleNetPixels] = 4.5;
+			}
+			
+			marbleSampleGirth[marbleNetPixels + 1] = marbleSampleGirth[marbleNetPixels];
 			
 			// Define where a pixel is placed
 			marblePixelX[marbleNetPixels] = marbleSampleX;
 			marblePixelY[marbleNetPixels] = marbleSampleY;
+			marbleStreakDir[marbleNetPixels] = marbleSampleDir;
 			
 			// Define the value of the pixel
 			if initializeNew {
 				if i <= marbleSamplesLight {
 					// Light streaks
-					marblePixelValue[marbleNetPixels] = 5;
+					if marbleSampleGirth[marbleNetPixels] >= 1 {
+						marblePixelValue[marbleNetPixels] = 5;
+					} else {
+						// Taper value
+						marblePixelValue[marbleNetPixels] = 4;
+					}
 				} else {
 					// Dark streaks
-					marblePixelValue[marbleNetPixels] = 6;
+					if marbleSampleGirth[marbleNetPixels] >= 1 {
+						marblePixelValue[marbleNetPixels] = 6;
+					} else {
+						// Taper value
+						marblePixelValue[marbleNetPixels] = 5;
+					}
 				}
 			} else {
 				marblePixelValue[marbleNetPixels] = 7; //transfusePixelValue[transfuseIterate];
@@ -459,10 +482,9 @@ if genMarble {
 				if initializeNew {
 					show_debug_message(string(id) + " Write: " + string(edgeStreakCountWrite));
 				}
+				
 				break;
 			}
-			
-			marbleNetPixels += 1;
 		}
 	}
 	
@@ -479,62 +501,31 @@ if bakeMarble {
 	// Bake basic texture
 	#region
 	
-	surface_resize(marbleSurfaceSide,width*20,(height + zfloor - zcieling)*20);
-	surface_set_target(marbleSurfaceSide);
-	
-	draw_clear(marbleCol[3]);
-	
 	// Generate circle noise
-	draw_set_color(marbleCol[4]);
-	
-	for (i = -10; i < width * 20 + 10; i += floor(random(12))) {
-		for (j = -10; j < (height + zfloor - zcieling) * 20 + 10; j += floor(random(7))) {
+	for (i = -10; i < width * 20 + 10; i += floor(irandom_range(4,11))) {
+		for (j = -10; j < (height + zfloor - zcieling) * 20 + 10; j += floor(irandom_range(4,7))) {
 			var radius = 2 + random(4);
 			var chance = floor(random(4));
 			
-			if chance = 0 {
-				draw_circle(i,j,radius - 1,true);
-			}
-			if chance < 3 {
-				draw_circle(i,j,radius,true);
-			}
+			scr_marble_draw_circle(i,j,radius,4);
 		}
 	}
 	
 	// Erase circle noise around top edges
-	draw_set_color(marbleCol[3]);
-	
 	if zfloor - zcieling > 0 {
-		for (i = 0; i < width * 20; i += 1) {
-			tempColInd = scr_marblecol_inverse( surface_getpixel(marbleSurfaceSide,i,height * 19) );
-				
-			if tempColInd = 4 {
-				draw_rectangle(i,height * 19,i,height * 19,false);
+		for (j = 0; j < height * 20 - 1; j += 1) {
+			if !hasAdjacentLeft {
+				marblePixelCol[0,j] = 3;
 			}
-		}
-		
-		for (i = 0; i < height * 19; i += 1) {
-			for (j = 0; j <= 1; j += 1) {
-				if j = 0 {
-					if !hasAdjacentLeft {
-						tempColInd = scr_marblecol_inverse( surface_getpixel(marbleSurfaceSide,j,i) );
-						draw_rectangle(j * width * 20,i,j * width * 20,i,false);
-					}
-				}
-				if j = 1 {
-					if !hasAdjacentRight {
-						tempColInd = scr_marblecol_inverse( surface_getpixel(marbleSurfaceSide,j * width * 20 - 1,i) );
-						draw_rectangle(j * width * 20 - 1,i,j * width * 20 - 1,i,false);
-					}
-				}
+			if !hasAdjacentRight {
+				marblePixelCol[width * 20,j] = 3;
 			}
 		}
 	}
 	
 	// Draw marble streaks
-	for (i = 0; i < marbleNetPixels; i += 1) {
-		draw_set_color(marbleCol[marblePixelValue[i]]);
-		draw_line_width(marblePixelX[i]-marbleSampleGirth[i]/2,marblePixelY[i]-marbleSampleGirth[i]/2,marblePixelX[i]+marbleSampleGirth[i]/2,marblePixelY[i]+marbleSampleGirth[i]/2,marbleSampleGirth[i]);
+	for (i = 0; i <= marbleNetPixels; i += 1) {
+		scr_marble_draw_streak(marblePixelX[i],marblePixelY[i],marbleSampleGirth[i],marbleStreakDir[i],marblePixelValue[i]);
 	}
 	
 	#endregion
@@ -542,43 +533,17 @@ if bakeMarble {
 	// Bake details
 	#region
 	
-	var antialiasCount = 0;
-	surfaceWidth = surface_get_width(marbleSurfaceSide);
-	surfaceHeight = surface_get_height(marbleSurfaceSide);
-	
-	// Lighten top surface
-	for (i = 0; i < width*20; i += 1) {
-		for (j = 0; j < height * 20; j += 1) {
-			for (k = 3; k <= 6; k += 1) {
-				var tempCol = surface_getpixel(marbleSurfaceSide,i,j);
-				
-				if tempCol = marbleCol[k] {
-					draw_set_color(marbleCol[k-2]);
-					draw_rectangle(i,j,i,j,false);
-					
-					break;
-				}
-			}
-		}
-	}
-	
 	// Blend corners with anti-aliasing
-	for (zz = 0; zz <= 1; zz += 1) {
+	for (zz = 0; zz <= 1; zz += 1) { // Iterate between light and dark streak
 		for (i = 0; i < width*20; i += 1) {
 			for (j = 0; j < (height + zfloor - zcieling) * 20; j += 1) {
 				// Focus on either dark or light streaks
-				if j < height * 20 {
-					if zz = 0 {
-						k = 3;
-					} else {
-						k = 4;
-					}
+				if zz = 0 {
+					// Blend light streaks first
+					k = 5;
 				} else {
-					if zz = 0 {
-						k = 5;
-					} else {
-						k = 6;
-					}
+					// Blend dark streaks secondly
+					k = 6;
 				}
 				
 				var netK = k;
@@ -586,9 +551,7 @@ if bakeMarble {
 				var adjacentCount = 0;
 				var dirCheck = 0;
 				
-				var tempColInd = scr_marblecol_inverse( surface_getpixel(marbleSurfaceSide,i,j) );
-				
-				if tempColInd = k {
+				if marblePixelCol[i,j] = k {
 					continue;
 				}
 				
@@ -612,10 +575,12 @@ if bakeMarble {
 						var jj = j + 1;
 					}
 					
-					clamp(ii,0,surfaceWidth);
-					clamp(jj,0,surfaceHeight);
+					// Limit within boundaries
+					if ii < 0 || ii >= width * 20 { continue; }
+					if jj < 0 || jj >= ( height + zfloor - zcieling) * 20 { continue; }
 					
-					tempColInd = scr_marblecol_inverse( surface_getpixel(marbleSurfaceSide,ii,jj) );
+					//tempColInd = scr_marblecol_inverse( surface_getpixel(marbleSurfaceSide,ii,jj) );
+					tempColInd = marblePixelCol[ii,jj];
 					
 					// If the adjacent pixel's darkness is equal to the selected streak's darkness
 					if tempColInd = k {
@@ -629,64 +594,61 @@ if bakeMarble {
 				}
 				
 				// If the select pixel is in a corner
-				if adjacentCount > 1 {
-					antialiasCount += 1;
-					
-					antialiasX[antialiasCount] = i;
-					antialiasY[antialiasCount] = j;
-					antialiasVal[antialiasCount] = marbleCol[netK-1];
+				if adjacentCount >= 2 {
+					marblePixelCol[i,j] = netK - 1;
 				}
 			}
 		}
 	}
 	
-	// Draw anti-aliasing
-	for (i = 1; i < antialiasCount; i += 1) {
-		draw_set_color(antialiasVal[i]);
-		draw_rectangle(antialiasX[i],antialiasY[i],antialiasX[i],antialiasY[i],false);
+	// Lighten top surface
+	for (i = 0; i < width*20; i += 1) {
+		for (j = 0; j < height * 20; j += 1) {
+			marblePixelCol[i,j] -= 2;
+		}
 	}
 	
+	// If the terrain is not flat
 	if zfloor - zcieling > 0 {
 		for (i = 0; i < width * 20; i += 1) {
-			// Brighten top edge
-			tempColInd = scr_marblecol_inverse( surface_getpixel(marbleSurfaceSide,i,height * 19) );
-			
-			draw_set_color(marbleCol[tempColInd - 1]);
-			draw_rectangle(i,height * 19,i,height * 19,false);
+			// Bevel top edge
+			marblePixelCol[i,19] -= 1;
 			
 			// Occlude bottom edge
-			tempColInd = scr_marblecol_inverse( surface_getpixel(marbleSurfaceSide,i,height * 19 + (zfloor - zcieling) * 20) );
-			
-			if tempColInd < 6 {
-				draw_set_color(marbleCol[tempColInd + 1]);
-				draw_rectangle(i,height * 19 + (zfloor - zcieling) * 20,i,height * 19 + (zfloor - zcieling) * 20,false);
+			if marblePixelCol[i,height * 19 + (zfloor - zcieling) * 20] < 6 {
+				marblePixelCol[i,height * 19 + (zfloor - zcieling) * 20] += 1;
 			}
 		}
 		
-		for (i = 0; i < height * 19; i += 1) {
-			for (j = 0; j <= 1; j += 1) {
-				// Brighten top edges
-				draw_set_color(marbleCol[tempColInd - 1]);
-				
-				if j = 0 {
-					if !hasAdjacentLeft {
-						tempColInd = scr_marblecol_inverse( surface_getpixel(marbleSurfaceSide,j,i) );
-						draw_rectangle(j * width * 20,i,j * width * 20,i,false);
-					}
-				}
-				if j = 1 {
-					if !hasAdjacentRight {
-						tempColInd = scr_marblecol_inverse( surface_getpixel(marbleSurfaceSide,j * width * 20 - 1,i) );
-						draw_rectangle(j * width * 20 - 1,i,j * width * 20 - 1,i,false);
-					}
-				}
+		// Bevel side edges
+		for (j = 0; j < height * 20 - 1; j += 1) {
+			if !hasAdjacentLeft {
+				marblePixelCol[0, j] -= 1;
+			}
+			if !hasAdjacentRight {
+				marblePixelCol[width * 20 - 1, j] -= 1;
 			}
 		}
 	}
 	
 	#endregion
 	
+	// Draw texture to surface
+	#region
+	
+	surface_resize(marbleSurfaceSide,width*20,(height + zfloor - zcieling)*20);
+	surface_set_target(marbleSurfaceSide);
+	
+	for (i = 0; i < width * 20; i += 1) {
+		for (j = 0; j < ( height + zfloor - zcieling) * 20; j += 1) {
+			draw_set_color( marbleCol[marblePixelCol[i,j]] );
+			draw_rectangle( i, j, i, j, false);
+		}
+	}
+	
 	surface_reset_target();
+	
+	#endregion
 	
 	#endregion
 }
