@@ -36,11 +36,6 @@ panY = 0;
 xTo = x;
 yTo = y;
 
-spasmX[0] = 0;
-spasmX[1] = 0;
-spasmX[2] = 1;
-spasmFix = false;
-
 i = 0;
 trgRegion = -1;
 anchored = false;

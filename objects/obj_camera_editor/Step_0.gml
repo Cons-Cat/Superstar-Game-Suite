@@ -2,8 +2,8 @@
 camera_set_view_target(view_camera[0],-1);
 
 if obj_editor_gui.mode != 2 {
-	placeX = x;
-	placeY = y;
+	placeX = gridAtX*20 + 16*20/2;
+	placeY = gridAtY*20 + 9*20/2 + 20;
 	panX = 0;
 	panY = 0;
 	//placeZ = 0;
@@ -11,6 +11,8 @@ if obj_editor_gui.mode != 2 {
 	anchored = false;
 	cutscenePan = false;
 	i = 0;
+	x = placeX;
+	y = placeY;
 	
 	// Keyboard movement
 	if keyboard_check(vk_right) && !keyboard_check(vk_left) {
@@ -249,10 +251,12 @@ if obj_editor_gui.mode != 2 {
 		}
 		
 		// 16:10 ratio
-		if xTo > centerX {
+		if xTo > rightQuarter {
 			placeX += (xTo - rightQuarter)/16*accelX;
-		} else {
+		}
+		if xTo < leftQuarter {
 			placeX += (xTo - leftQuarter)/16*accelX;
+			show_debug_message(random(10));
 		}
 		
 		if yTo > centerY {
@@ -260,10 +264,6 @@ if obj_editor_gui.mode != 2 {
 		} else {
 			placeY += (yTo - upQuarter)/10*accelY;
 		}
-		
-		// Update place
-		x = placeX;
-		y = placeY - placeZ;
 		
 		// Update zooming
 		if zoomLevel != tempZoomLevel {
@@ -310,6 +310,24 @@ if obj_editor_gui.mode != 2 {
 			anchorId.magnitude = ( dsin( magnitudeTemp / 1  * 180 - 90) + 1 ) / 2;
 		}
 		
+		// Play mode boundaries
+		if placeX < 16*20/2 {
+			placeX = 16*20/2;
+		}
+		if placeX > room_width - 16*20/2 {
+			placeX = room_width - 16*20/2;
+		}
+		if placeY < 9*20/2 - 10 {
+			placeY = 9*20/2 - 10;
+		}
+		if placeY > room_height - 9*20/2 + 15 {
+			placeY = room_height - 9*20/2 + 15;
+		}
+		
+		// Update place
+		x = placeX;
+		y = placeY - placeZ;
+		
 		// Update view
 		if !anchored {
 			camera_set_view_pos(view_camera[0],x + panX - camera_get_view_width(view_camera[0])/2,y + panY - camera_get_view_height(view_camera[0])/2);
@@ -317,42 +335,19 @@ if obj_editor_gui.mode != 2 {
 			camera_set_view_pos(view_camera[0],( (x + panX) * (1 - anchorId.magnitude) ) + (anchorId.trgX * anchorId.magnitude) - camera_get_view_width(view_camera[0])/2, ( (y + panY) * (1 - anchorId.magnitude) ) + (anchorId.trgY * anchorId.magnitude) - placeZ - camera_get_view_height(view_camera[0])/2);
 		}
 	}
+	
+	if camera_get_view_x(view_camera[0]) < -(obj_panel_left.baseX - room_width) / obj_editor_gui.realPortScaleHor {
+		camera_set_view_pos(view_camera[0],-(obj_panel_left.baseX - room_width) / obj_editor_gui.realPortScaleHor,camera_get_view_y(view_camera[0]));
+	}
+	if camera_get_view_x(view_camera[0]) > room_width - camera_get_view_width(view_camera[0]) + (obj_panel_left.baseX - room_width) / obj_editor_gui.realPortScaleHor {
+		camera_set_view_pos(view_camera[0],room_width - camera_get_view_width(view_camera[0]) + (obj_panel_left.baseX - room_width) / obj_editor_gui.realPortScaleHor,camera_get_view_y(view_camera[0]));
+	}
+	if camera_get_view_y(view_camera[0]) < -(obj_panel_top.baseY) / obj_editor_gui.realPortScaleVer {
+		camera_set_view_pos(view_camera[0],camera_get_view_x(view_camera[0]),-(obj_panel_top.baseY) / obj_editor_gui.realPortScaleVer);
+	}
+	if camera_get_view_y(view_camera[0]) > room_height - camera_get_view_height(view_camera[0]) + (view_hport[1] - obj_panel_bot.baseY) / obj_editor_gui.realPortScaleVer {
+		camera_set_view_pos(view_camera[0],camera_get_view_x(view_camera[0]),room_height - camera_get_view_height(view_camera[0]) + (view_hport[1] - obj_panel_bot.baseY) / obj_editor_gui.realPortScaleVer);
+	}
 }
-
-// Boundaries
-/*if x < 260 {
-	x = 260;
-}
-if x > room_width - 264 {
-	x = room_width - 264;
-}
-if y < 174 {
-	y = 174;
-}
-if y > room_height - 162 {
-	y = room_height - 162;
-}
-if placeX < 260 {
-	placeX = 260;
-}
-if placeX > room_width - 264 {
-	placeX = room_width - 264;
-}
-if placeY < 174 {
-	placeY = 174;
-}
-if placeY > room_height - 162 {
-	placeY = room_height - 162;
-}
-
-if camera_get_view_x(view_camera[0]) < 4 {
-	camera_set_view_pos(view_camera[0],4,camera_get_view_y(view_camera[0]));
-}
-if camera_get_view_x(view_camera[0]) > room_width - camera_get_view_width(view_camera[0]) {
-	camera_set_view_pos(view_camera[0],room_width - camera_get_view_width(view_camera[0]),camera_get_view_y(view_camera[0]));
-}
-if camera_get_view_y(view_camera[0]) < 30 {
-	camera_set_view_pos(view_camera[0],camera_get_view_x(view_camera[0]),30);
-}*/
 
 depth = obj_editor_gui.depth - 1;
