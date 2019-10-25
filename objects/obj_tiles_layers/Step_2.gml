@@ -21,7 +21,6 @@ if mouse_y >= y + (tileLayerCount + 2) * 11 && mouse_y <= y + (tileLayerCount + 
 				// Re-calculate pre-existant marble layer
 				if mouse_check_button_pressed(mb_left) {
 					trgId.genMarble = true;
-					trgId.calculateSub = true;
 					
 					exit;
 				}
@@ -47,7 +46,6 @@ if mouse_check_button_pressed(mb_left) {
 			layerType[tileLayerCount] = 1;
 			trgId.layerType[tileLayerCount] = 1;
 			
-			trgId.calculateSub = true;
 			trgId.genMarble = true;
 		}
 		

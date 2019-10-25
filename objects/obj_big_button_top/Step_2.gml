@@ -4,10 +4,6 @@ event_inherited();
 y = round(obj_panel_top.y - 3 - ( (obj_panel_top.y - 5) / 55) * 2 );
 x = obj_panel_left.baseX + 2 + (sprite_width * scale / 2) + (sortX * sprite_width * scale) + (6/50 * sprite_width * scale * (sortX + 1) );
 
-if !mouse_check_button(mb_left) {
-	imgIndex = 0;
-}
-
 if select {
 	select = false;
 	changeMode = true;

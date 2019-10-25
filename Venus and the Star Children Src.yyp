@@ -594,7 +594,7 @@
             "Key": "363214a5-a142-45e9-bf02-3fb1c54de2e5",
             "Value": {
                 "id": "b9cd2e72-24f4-4de2-bb69-386733560835",
-                "resourcePath": "objects\\obj_big_button_export\\obj_big_button_export.yy",
+                "resourcePath": "objects\\obj_big_button_load\\obj_big_button_load.yy",
                 "resourceType": "GMObject"
             }
         },
@@ -2546,7 +2546,7 @@
             "Key": "bd70241a-36b9-47de-a75f-c44608d0c47b",
             "Value": {
                 "id": "f94af46e-d414-406c-8853-493b0cbafa3e",
-                "resourcePath": "sprites\\spr_editor_big_export\\spr_editor_big_export.yy",
+                "resourcePath": "sprites\\spr_editor_big_load\\spr_editor_big_load.yy",
                 "resourceType": "GMSprite"
             }
         },

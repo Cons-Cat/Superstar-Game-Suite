@@ -11,3 +11,8 @@ if mouse_x >= x - (sprite_get_width(spr_editor_big_button) * scale / 2) && mouse
 		}
 	}
 }
+
+if !mouse_check_button(mb_left) {
+	imgIndex = 0;
+	select = false;
+}

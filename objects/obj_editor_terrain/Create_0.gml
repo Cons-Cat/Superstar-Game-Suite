@@ -1,15 +1,15 @@
-/// @description 
+/// @description Initialize values
 event_inherited();
 
 str = "rectangle";
 tileLayer[0,0] = "layer_0";
 tileLayer[0,1] = "";
 tileRowWidth = 0;
-calculateSub = true;
 layerType[0] = 0;
 surfaceResize = true; // Initialize surfaces
-marbleLostResize = false; // If the marble is deleted when resizing the window
+calculateSub = true; // Generate surface
 
+// Marble values
 marbleNetPixels = 0;
 marbleSampleGirth[marbleNetPixels] = 0;
 edgeStreakCountRead = 0;
@@ -17,6 +17,7 @@ transfusedDistributionX[edgeStreakCountRead] = -1;
 transfusedDistributionY[edgeStreakCountRead] = -1;
 genMarble = false;
 bakeMarble = false;
+marbleLostResize = false; // If the marble is deleted when resizing the window
 
 hasAdjacentLeft = false;
 hasAdjacentRight = false;

@@ -61,6 +61,5 @@ spawnTiles = canSpawnTiles;
 depthIterate = 0;
 
 canSelect = true;
-obj_editor_gui.canChangeSelect = false;
 
 alarm[0] = 2;

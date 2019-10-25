@@ -490,22 +490,13 @@ if genMarble {
 	
 	#endregion
 	
-	#endregion
-}
-
-if bakeMarble {
-	#region
-	
-	bakeMarble = false;
-	
-	// Bake basic texture
+	// Calculate basic pixels
 	#region
 	
 	// Generate circle noise
 	for (i = -10; i < width * 20 + 10; i += floor(irandom_range(4,11))) {
 		for (j = -10; j < (height + zfloor - zcieling) * 20 + 10; j += floor(irandom_range(4,7))) {
 			var radius = 2 + random(4);
-			var chance = floor(random(4));
 			
 			scr_marble_draw_circle(i,j,radius,4);
 		}
@@ -530,7 +521,7 @@ if bakeMarble {
 	
 	#endregion
 	
-	// Bake details
+	// Calculate detail pixels
 	#region
 	
 	// Blend corners with anti-aliasing
@@ -633,6 +624,10 @@ if bakeMarble {
 	
 	#endregion
 	
+	#endregion
+}
+
+if bakeMarble {
 	// Draw texture to surface
 	#region
 	
@@ -647,8 +642,7 @@ if bakeMarble {
 	}
 	
 	surface_reset_target();
-	
-	#endregion
+	calculateSub = true;
 	
 	#endregion
 }

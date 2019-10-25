@@ -2,7 +2,7 @@
     "id": "bd70241a-36b9-47de-a75f-c44608d0c47b",
     "modelName": "GMSprite",
     "mvc": "1.12",
-    "name": "spr_editor_big_export",
+    "name": "spr_editor_big_load",
     "For3D": false,
     "HTile": false,
     "VTile": false,
