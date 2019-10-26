@@ -260,19 +260,8 @@ if obj_editor_gui.mode = 1 {
 
 // Tile painting mode / Play testing mode
 if obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4 {
-	// Draw walls
-	for (j = zfloor + 1; j >= zcieling; j -= 1) {
-		// Iterate across the z height
-		for (i = 0; i <= width + 1; i += 1) {
-			// Iterate across the width diagonally
-			if !mirror {
-				if !(j = 0 && i = 0) && !(j = zfloor + 1 && i = width + 1) {
-					draw_sprite_part_ext(sprMaterial,0,tileArrayDrawX[i,j],tileArrayDrawY[i,j],20,20,x+(i-1)*20,y+(zfloor-zcieling)*20-(i)*20-(j)*20+20,1,1,layerColor,alpha);
-				}
-			}
-			if mirror {
-				draw_sprite_part_ext(sprMaterial,0,tileArrayDrawX[i,j],tileArrayDrawY[i,j],20,20,x+(i-1)*20,y+(zfloor-zcieling)*20+(i)*20-(j)*20-width*20,1,1,layerColor,alpha);
-			}
-		}
+	// Draw surface baked in the Step event
+	if surface_exists(tileSurfaceDraw) {
+		draw_surface_ext(tileSurfaceDraw,x-20,y-20,1,1,0,layerColor,1);
 	}
 }

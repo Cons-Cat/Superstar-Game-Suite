@@ -4,33 +4,8 @@ event_inherited();
 str = "rectangle";
 tileLayer[0,0] = "layer_0";
 tileLayer[0,1] = "";
-tileRowWidth = 0;
+tileArrayHeight = 0;
 layerType[0] = 0;
-surfaceResize = true; // Initialize surfaces
-calculateSub = true; // Generate surface
-
-// Marble values
-marbleNetPixels = 0;
-marbleSampleGirth[marbleNetPixels] = 0;
-edgeStreakCountRead = 0;
-transfusedDistributionX[edgeStreakCountRead] = -1;
-transfusedDistributionY[edgeStreakCountRead] = -1;
-genMarble = false;
-bakeMarble = false;
-marbleLostResize = false; // If the marble is deleted when resizing the window
-
-hasAdjacentLeft = false;
-hasAdjacentRight = false;
-
-// Marble colors ( lightest to darkest )
-marbleCol[0] = make_color_rgb(242,242,242);
-marbleCol[1] = make_color_rgb(197,198,197);
-marbleCol[2] = make_color_rgb(183,183,183);
-marbleCol[3] = make_color_rgb(160,160,160);
-marbleCol[4] = make_color_rgb(145,146,150);
-marbleCol[5] = make_color_rgb(132,134,137);
-marbleCol[6] = make_color_rgb(119,119,122);
-marbleCol[7] = c_red;
 
 // Graphics IDs
 instId1[0] = "inst_"; // Graphics

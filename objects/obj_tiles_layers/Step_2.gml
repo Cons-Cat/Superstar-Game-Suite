@@ -3,11 +3,14 @@ scrollOff = (obj_subpanel_left.panelHeight - (obj_subpanel_left.scrollVerBotBoun
 y = 12 - scrollOff;
 x = camera_get_view_x(obj_editor_gui.cameraLeftSubPanel);
 
-// Add new tile layer	
+
+// Hover mouse over new layer buttons
 plusCol = col;
 dieCol = col;
 
 if mouse_y >= y + (tileLayerCount + 2) * 11 && mouse_y <= y + (tileLayerCount + 3) * 11 {
+	#region
+	
 	if mouse_x >= x + 28 && mouse_x <= x + 34 {
 		plusCol = orange;
 	}
@@ -27,20 +30,34 @@ if mouse_y >= y + (tileLayerCount + 2) * 11 && mouse_y <= y + (tileLayerCount + 
 			}
 		}
 	}
+	
+	#endregion
 }
 
+// Initialize a new tile layer
 if mouse_check_button_pressed(mb_left) {
 	if plusCol = orange || dieCol = orange {
+		#region
+		
 		passIn = true;
 		
 		tileLayerCount += 2;
 		trgId.tileLayerCount = self.tileLayerCount;
+		obj_tiles_grid.tileLayerCount = self.tileLayerCount;
+		
+		// Absolute order
+		layerOrder[tileLayerCount] = tileLayerCount;
+		trgId.layerOrder[tileLayerCount] = tileLayerCount;
+		obj_tiles_grid.layerOrder[tileLayerCount] = self.tileLayerCount;
+		
+		// Relative layer values
 		
 		// Tile layer
 		if plusCol = orange {
 			layerType[tileLayerCount] = 0;
 			trgId.layerType[tileLayerCount] = 0;
 		}
+		
 		// Marble layer
 		if dieCol = orange {
 			layerType[tileLayerCount] = 1;
@@ -50,21 +67,17 @@ if mouse_check_button_pressed(mb_left) {
 		}
 		
 		obj_tiles_grid.layerType[tileLayerCount] = self.layerType[tileLayerCount];
+		obj_tiles_grid.layerTypeAbsolute[tileLayerCount] = self.layerType[tileLayerCount];
 		
-		layerOrder[tileLayerCount] = tileLayerCount;
-		layerVisible[tileLayerCount] = true;
 		layerAlpha[tileLayerCount] = 1;
 		
-		trgId.layerOrder[tileLayerCount] = tileLayerCount;
+		layerVisible[tileLayerCount] = true;
 		trgId.layerVisible[tileLayerCount] = true;
-		
-		obj_tiles_grid.tileLayerCount = self.tileLayerCount;
-		obj_tiles_grid.layerOrder[tileLayerCount] = tileLayerCount;
 		obj_tiles_grid.layerVisible[tileLayerCount] = true;
+		obj_tiles_grid.layerVisibleAbsolute[tileLayerCount] = true;
 		
-		obj_tiles_grid.hasTileDraw[tileLayerCount] = false;
-		obj_tiles_grid.hasTileDraw[tileLayerCount+1] = false;
-		obj_tiles_grid.layerVisibleDraw[tileLayerCount] = true;
+		//obj_tiles_grid.layerTypeAbsolute[tileLayerCount] = self.layerType[tileLayerCount];
+		//show_message(obj_tiles_grid.layerTypeAbsolute[tileLayerCount]);
 		
 		obj_tiles_grid.surfaceSubtract[tileLayerCount] = -1;
 		
@@ -73,15 +86,16 @@ if mouse_check_button_pressed(mb_left) {
 			select[k] = false;
 		}
 		
-		eyeState[tileLayerCount] = 0;
-		eyeCol[tileLayerCount] = col;
+		// Select new layer
+		obj_tiles_grid.tileLayerSelect = tileLayerCount;
 		
 		select[tileLayerCount] = true;
 		canSelect[tileLayerCount] = true;
 		select[tileLayerCount+1] = false;
 		canSelect[tileLayerCount+1] = false;
 		
-		obj_tiles_grid.tileLayerSelect = tileLayerCount;
+		eyeState[tileLayerCount] = 0;
+		eyeCol[tileLayerCount] = col;
 		
 		layerName[tileLayerCount] = "layer_" + string(tileLayerCount div 2);
 		trgId.layerName[tileLayerCount] = self.layerName[tileLayerCount];
@@ -89,17 +103,50 @@ if mouse_check_button_pressed(mb_left) {
 		trgId.layerName[tileLayerCount+1] = self.layerName[tileLayerCount+1];
 		
 		// Initialize new tiles
-		for (i = 0; i < trgId.width + 2; i += 1) {
-			for (j = 0; j < trgId.zfloor - trgId.zcieling + 2; j += 1) {
-				trgId.hasTile[ scr_array_xy( i,j,trgId.width + 2 ), tileLayerCount ] = false;
-				trgId.hasTile[ scr_array_xy( i,j,trgId.width + 2 ), tileLayerCount + 1 ] = false;
-				
-				obj_tiles_grid.hasTile[ scr_array_xy( i,j,trgId.width + 2 ), tileLayerCount ] = false;
-				obj_tiles_grid.hasTile[ scr_array_xy( i,j,trgId.width + 2 ), tileLayerCount + 1] = false;
+		if layerType[tileLayerCount] = 0 { // Tiles layer
+			trgId.hasTile[ scr_array_xy( i,j,trgId.tileArrayHeight ), tileLayerCount ] = false;
+			obj_tiles_grid.hasTile[ scr_array_xy( i,j,trgId.tileArrayHeight ), tileLayerCount ] = false;
+			
+			trgId.hasTile[ scr_array_xy( i,j,trgId.tileArrayHeight ), tileLayerCount + 1 ] = false;
+			obj_tiles_grid.hasTile[ scr_array_xy( i,j,trgId.tileArrayHeight ), tileLayerCount + 1] = false;
+		}
+		
+		if layerType[tileLayerCount] = 1 { // Marble layer
+			for (i = 0; i < trgId.width + 2; i += 1) {
+				for (j = 0; j < trgId.height + trgId.zfloor - trgId.zcieling + 1; j += 1) {
+					if i = 0 || i >= trgId.width + 1 || j = 0 {
+						// Perimeter is empty
+						trgId.hasTile[ scr_array_xy( i,j,trgId.tileArrayHeight ), tileLayerCount ] = false;
+						
+						with obj_tiles_grid {
+							if i = other.i && j = other.j {
+								hasTile[other.tileLayerCount] = false;
+							}
+						}
+					} else {
+						// Center is filled with marble
+						trgId.hasTile[ scr_array_xy( i,j,trgId.tileArrayHeight ), tileLayerCount ] = true;
+						
+						with obj_tiles_grid {
+							if i = other.i && j = other.j {
+								hasTile[other.tileLayerCount] = true;
+							}
+						}
+					}
+					
+					// Clear sublayers
+					trgId.hasTile[ scr_array_xy( i,j,trgId.tileArrayHeight ), tileLayerCount + 1 ] = false;
+					obj_tiles_grid.hasTile[ scr_array_xy( i,j,trgId.tileArrayHeight ), tileLayerCount + 1] = false;
+				}
 			}
 		}
 		
+		obj_tiles_grid.hasTileAbsolute[tileLayerCount] = false;
+		obj_tiles_grid.hasTileAbsolute[tileLayerCount+1] = false;
+		
 		exit;
+		
+		#endregion
 	}
 }
 
@@ -114,6 +161,8 @@ for (i = 0; i <= tileLayerCount; i += 2) {
 	eyeCol[i] = col;
 	
 	if mouse_x >= x + 18 && mouse_x <= x + 27 && mouse_y >= y + 2 + layerOrder[i] * 11 && mouse_y < y + 12 + layerOrder[i] * 11 {
+		#region
+		
 		eyeCol[i] = orange;
 		
 		if mouse_check_button_pressed(mb_left) {
@@ -144,6 +193,8 @@ for (i = 0; i <= tileLayerCount; i += 2) {
 			
 			passIn = true;
 		}
+		
+		#endregion
 	}
 	
 	if !draggingMouseInit {

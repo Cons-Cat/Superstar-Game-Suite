@@ -115,7 +115,7 @@ if select {
 }
 
 // Calculate dimensions based on the buttons on this panel
-if calculateHeight {
+if calculateHeight && obj_editor_gui.mode != 3 {
 	tempHeight = 3;
 	
 	for (i = 0; i < instance_number(obj_panel_button); i += 1) {

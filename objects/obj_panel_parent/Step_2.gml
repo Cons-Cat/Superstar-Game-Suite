@@ -16,7 +16,7 @@ if scrollVerFactor > 1 {
 if (relativeMouseX >= scrollHorLeftBound && relativeMouseX <= scrollHorRightBound) || (relativeMouseX >= scrollVerLeftBound && relativeMouseX <= scrollVerRightBound) {
 	if (relativeMouseY >= scrollVerTopBound && relativeMouseY <= scrollVerBotBound) || (relativeMouseY >= scrollHorTopBound && relativeMouseY <= scrollHorBotBound) {
 		if mouse_wheel_up() {
-			if keyboard_check(vk_shift) {
+			if keyboard_check(vk_shift) || panelHeight <= (scrollVerBotBound - scrollVerTopBound) {
 				if scrollHorPartition < 100 - 100 / (panelWidth / (scrollHorRightBound - scrollHorLeftBound) * 2) {
 					scrollHorPartition += 100 / (panelWidth / (scrollHorRightBound - scrollHorLeftBound) * 2);
 				} else {
@@ -32,7 +32,7 @@ if (relativeMouseX >= scrollHorLeftBound && relativeMouseX <= scrollHorRightBoun
 		}
 		
 		if mouse_wheel_down() {
-			if keyboard_check(vk_shift) {
+			if keyboard_check(vk_shift) || panelHeight <= (scrollVerBotBound - scrollVerTopBound) {
 				if scrollHorPartition > 100 / (panelWidth / (scrollHorRightBound - scrollHorLeftBound) * 2) {
 					scrollHorPartition -= 100 / (panelWidth / (scrollHorRightBound - scrollHorLeftBound) * 2);
 				} else {

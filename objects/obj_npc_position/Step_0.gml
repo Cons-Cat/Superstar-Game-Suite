@@ -27,10 +27,10 @@ if placed = 1 {
 				with instance_create_layer(x,y,"Instances",obj_cutscene_rotate_target) {
 					trg = other.id;
 					zfloor = other.zfloor;
-						
+					
 					originX[0] = x + 10;
 					originY[0] = y + 10;
-						
+					
 					canPlace = true;
 					canDel = true;
 				}

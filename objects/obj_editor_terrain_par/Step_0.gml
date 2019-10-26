@@ -107,167 +107,70 @@ if spawnTiles {
 	spawnTiles = false;
 	
 	// Spawn tiles GUI
-	if str = "rectangle" {
-		#region
-		
-		for (i = 0; i < width + 2; i += 1) {
-			for (j = 0; j < zfloor - zcieling + 2; j += 1) {
-				with instance_create_layer(camera_get_view_x(obj_editor_gui.cameraLeftPanel) + 2 + i*21,j*21,"Instances",obj_tiles_grid) {
-					trgId = other.id;
-					i = other.i;
-					j = other.j;
-					width = other.width;
-					tileDrawSpr = other.tileDrawSpr;
-					tileRowWidth = other.width + 2;
-					tileLayerCount = other.tileLayerCount;
+	#region
+	
+	for (i = 0; i < width + 2; i += 1) {
+		for (j = 0; j < zfloor - zcieling + 2; j += 1) {
+			with instance_create_layer(camera_get_view_x(obj_editor_gui.cameraLeftPanel) + 2 + i*21,j*21,"Instances",obj_tiles_grid) {
+				trgId = other.id;
+				i = other.i;
+				j = other.j;
+				width = other.width;
+				height= other.height;
+				tileDrawSpr = other.tileDrawSpr;
+				tileArrayHeight = other.tileArrayHeight;
+				tileLayerCount = other.tileLayerCount;
+				
+				for (k = 0; k <= tileLayerCount; k += 2) { // Arbitrary
+					hasTile[k] = other.hasTile[scr_array_xy(i,j,tileArrayHeight),k];
+					hasTile[k+1] = other.hasTile[scr_array_xy(i,j,tileArrayHeight),k+1];
+					hasTileAbsolute[k] = other.hasTile[scr_array_xy(i,j,tileArrayHeight),k];
+					hasTileAbsolute[k+1] = other.hasTile[scr_array_xy(i,j,tileArrayHeight),k+1];
 					
-					for (k = 0; k <= tileLayerCount; k += 2) { // Absolute
-						hasTile[k] = other.hasTile[scr_array_xy(i,j,tileRowWidth),k];
-						hasTile[k+1] = other.hasTile[scr_array_xy(i,j,tileRowWidth),k+1];
-						hasTileDraw[k] = other.hasTile[scr_array_xy(i,j,tileRowWidth),k];
-						hasTileDraw[k+1] = other.hasTile[scr_array_xy(i,j,tileRowWidth),k+1];
+					layerVisible[k] = other.layerVisible[k];
+					layerVisibleAbsolute[k] = other.layerVisible[k];
+					
+					layerType[k] = other.layerType[k];
+					layerTypeAbsolute[k] = other.layerType[k];
+					
+					layerOrder[k] = other.layerOrder[k];
+					
+					// Pass in tiles
+					if hasTile[k] {
+						xVal[k] = other.tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k];
+						yVal[k] = other.tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k];
 						
-						layerVisible[k] = other.layerVisible[k];
-						layerVisibleDraw[k] = other.layerVisible[k];
-						
-						layerOrder[k] = other.layerOrder[k];
-						layerType[k] = other.layerType[k];
-						
-						// Pass in tiles
-						if hasTile[k] {
-							xVal[k] = other.tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),k];
-							yVal[k] = other.tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),k];
-							
-							xValDraw[k] = xVal[k];
-							yValDraw[k] = yVal[k];
-						}
-						
-						if hasTile[k+1] {
-							xVal[k+1] = other.tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),k+1];
-							yVal[k+1] = other.tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),k+1];
-								
-							xValDraw[k+1] = xVal[k+1];
-							yValDraw[k+1] = yVal[k+1];
-						}
-						
-						// Pass in layer names
-						layerName[k] = other.layerName[k];
-						layerName[k+1] = other.layerName[k+1];
+						xValDraw[k] = xVal[k];
+						yValDraw[k] = yVal[k];
 					}
-				}
-			}
-		}
-		
-		obj_panel_left.panelWidth = i * 21;
-		obj_panel_left.panelHeight = j * 21;
-		
-		#endregion
-	}
-	
-	// Spawn tiles GUI (slope 1)
-	if str = "slope1" {
-		#region
-		
-		for (i = 0; i < width + 2; i += 1) {
-			for (j = zfloor + 1; j >= zcieling; j -= 1) {
-				if !(i = 0 && j = zcieling) && !(i = width + 1 && j = zfloor + 1) {
-					with instance_create_layer(1026 + i * 21,86 + (zfloor + 1)*21 - j*21,"Instances",obj_tiles_grid) {
-						trgId = other.id;
-						i = other.i;
-						j = other.j;
-						tileDrawSpr = other.tileDrawSpr;
-						xVal = other.tileArrayDrawX[i,j];
-						yVal = other.tileArrayDrawY[i,j];
+					
+					if hasTile[k+1] {
+						xVal[k+1] = other.tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k+1];
+						yVal[k+1] = other.tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k+1];
+						
+						xValDraw[k+1] = xVal[k+1];
+						yValDraw[k+1] = yVal[k+1];
 					}
+					
+					// Pass in layer names
+					layerName[k] = other.layerName[k];
+					layerName[k+1] = other.layerName[k+1];
 				}
 			}
 		}
-		
-		obj_panel_left.panelWidth = i * 21;
-		obj_panel_left.panelHeight = (zfloor + 1 - zcieling) * 21;
-		
-		#endregion
 	}
 	
-	// Spawn tiles GUI (slope 2)
-	if str = "slope2" {
-		#region
-		
-		for (i = 0; i <= width + 2; i += 1) {
-			for (j = zfloor + 1; j >= zcieling; j -= 1) {
-				with instance_create_layer(1026 + i * 21,86 + (zfloor + 1)*21 - j*21,"Instances",obj_tiles_grid) {
-					trgId = other.id;
-					i = other.i;
-					j = other.j;
-					tileDrawSpr = other.tileDrawSpr;
-					xVal = other.tileArrayDrawX[i,j];
-					yVal = other.tileArrayDrawY[i,j];
-				}
-			}
-		}
-		
-		obj_panel_left.panelWidth = i * 21;
-		obj_panel_left.panelHeight = (zfloor + 1 - zcieling) * 21;
-		
-		#endregion
-	}
+	obj_panel_left.panelWidth = i * 21;
+	obj_panel_left.panelHeight = j * 21;
 	
-	// Spawn tiles GUI (slope 3)
-	if str = "slope3" {
-		#region
-		
-		for (i = 0; i <= width + 2; i += 1) {
-			for (j = zfloor + 2; j >= zcieling; j -= 1) {
-				with instance_create_layer(1026 + i*21,86 + (zfloor + 2)*21 - j*21,"Instances",obj_tiles_grid) {
-					trgId = other.id;
-					i = other.i;
-					j = other.j;
-					tileDrawSpr = other.tileDrawSpr;
-					xVal = other.tileArrayDrawX[i,j];
-					yVal = other.tileArrayDrawY[i,j];
-				}
-			}
-		}
-		
-		obj_panel_left.panelWidth = i * 21;
-		obj_panel_left.panelHeight = (zfloor + 2 - zcieling) * 21;
-		
-		#endregion
-	}
+	#endregion
 	
-	// Spawn tiles GUI (staircase)
-	if str = "staircase" {
-		#region
-		
-		for (i = 0; i < widthIterate; i += 1) {
-			for (j = heightIterate; j >= zfloor; j -= 1) {
-				with instance_create_layer(1026 + i*21,86 + heightIterate*21 - j*21,"Instances",obj_tiles_grid) {
-					trgId = other.id;
-					i = other.i;
-					j = other.j;
-					tileDrawSpr = other.tileDrawSpr;
-					xVal = other.tileArrayDrawX[i,j];
-					yVal = other.tileArrayDrawY[i,j];
-				}
-			}
-		}
-		
-		obj_panel_left.panelWidth = i * 21;
-		obj_panel_left.panelHeight = heightIterate * 21;
-		
-		#endregion
-	}
+	// Spawn tilesheet and layer interfaces
+	#region
 	
 	// Right panel dimensions match the tileset's dimensions
 	obj_panel_right.panelWidth = sprite_get_width(tileDrawSpr);
-	
-	if sprite_get_height(tileDrawSpr) <= 334 {
-		obj_panel_right.scrollPanelVerDefined = false;
-		obj_panel_right.panelHeight = 0;
-	} else {
-		obj_panel_right.scrollPanelVerDefined = true;
-		obj_panel_right.panelHeight = sprite_get_height(tileDrawSpr);
-	}
+	obj_panel_right.panelHeight = sprite_get_height(tileDrawSpr);
 	
 	if !instance_exists(obj_tiles_sheet) {
 		// Open menu
@@ -302,7 +205,7 @@ if spawnTiles {
 		}
 	}
 	
-	canSpawnButtons = false;
+	#endregion
 }
 
 // Placing in the level

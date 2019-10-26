@@ -2,7 +2,6 @@
 x = camera_get_view_x(obj_editor_gui.cameraLeftPanel) + 2 + i*21;
 y = 1 + j*21;
 
-tileRowWidth = width + 2;
 calculateSub = false;
 
 if tileLayerSelect != -1 {
@@ -53,37 +52,45 @@ if calculateSub {
 
 // Sort layers
 if passIn {
-	calculateSub = true;
+	#region
+	
+	passIn = false;
 	trgId.calculateSub = true;
+	trgId.slope3MustUpdate = true;
 	
 	for (k = 0; k <= tileLayerCount; k += 2) { // Absolute
 		for (k2 = 0; k2 <= tileLayerCount; k2 += 2) { // Arbitrary
 			if layerOrder[k2] = k {
-				hasTileDraw[k] = hasTile[k2];
-				hasTileDraw[k+1] = hasTile[k2+1];
+				// hasTileAbsolute is absolute, hasTile is arbitrary
+				hasTileAbsolute[k] = hasTile[k2];
+				hasTileAbsolute[k+1] = hasTile[k2+1];
 				
-				trgId.hasTile[scr_array_xy(i,j,tileRowWidth),k] = hasTileDraw[k];
-				trgId.hasTile[scr_array_xy(i,j,tileRowWidth),k+1] = hasTileDraw[k+1];
+				trgId.hasTile[scr_array_xy(i,j,tileArrayHeight),k] = hasTileAbsolute[k];
+				trgId.hasTile[scr_array_xy(i,j,tileArrayHeight),k+1] = hasTileAbsolute[k+1];
 				
-				layerVisibleDraw[k] = layerVisible[k2];
-				trgId.layerVisible[k] = layerVisibleDraw[k];
+				layerVisibleAbsolute[k] = layerVisible[k2];
+				trgId.layerVisible[k] = layerVisible[k2];
 				
+				// layerTypeAbsolute is absolute, layerType is arbitrary
+				layerTypeAbsolute[k] = layerType[k2];
 				trgId.layerType[k] = layerType[k2];
 				
-				if hasTileDraw[k] {
-					xValDraw[k] = xVal[k2];
-					yValDraw[k] = yVal[k2];
+				if hasTileAbsolute[k] {
+					if layerTypeAbsolute[k] = 0 { // Tiles
+						xValDraw[k] = xVal[k2];
+						yValDraw[k] = yVal[k2];
 					
-					trgId.tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),k] = xValDraw[k];
-					trgId.tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),k] = yValDraw[k];
+						trgId.tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k] = xValDraw[k];
+						trgId.tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k] = yValDraw[k];
+					}
 				}
 				
-				if hasTileDraw[k + 1] {
+				if hasTileAbsolute[k + 1] {
 					xValDraw[k+1] = xVal[k2+1];
 					yValDraw[k+1] = yVal[k2+1];
 					
-					trgId.tileArrayDrawX[scr_array_xy(i,j,tileRowWidth),k+1] = xValDraw[k+1];
-					trgId.tileArrayDrawY[scr_array_xy(i,j,tileRowWidth),k+1] = yValDraw[k+1];
+					trgId.tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k+1] = xValDraw[k+1];
+					trgId.tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k+1] = yValDraw[k+1];
 				}
 				
 				break;
@@ -91,7 +98,5 @@ if passIn {
 		}
 	}
 	
-	trgId.slope3MustUpdate = true;
-	
-	passIn = false;
+	#endregion
 }

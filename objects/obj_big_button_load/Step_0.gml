@@ -59,7 +59,7 @@ if select {
 					file_text_readln(export)
 					tileLayerCount = file_text_read_real(export);
 					file_text_readln(export)
-					tileRowWidth = file_text_read_real(export);
+					tileArrayHeight = file_text_read_real(export);
 					file_text_readln(export)
 					
 					// Rectangle terrain tiles
@@ -85,22 +85,22 @@ if select {
 								// Read hasTile values
 								for (a = 0; a < width + 2; a += 1) { // Iterate horizontally
 									for (b = 0; b < height + zfloor - zcieling + 1; b += 1) { // Iterate vertically
-										hasTile[scr_array_xy(a, b, tileRowWidth), k2] = file_text_read_real(export);
+										hasTile[scr_array_xy(a, b, tileArrayHeight), k2] = file_text_read_real(export);
 										file_text_readln(export)
-										hasTile[scr_array_xy(a, b, tileRowWidth), k2+1] = file_text_read_real(export);
+										hasTile[scr_array_xy(a, b, tileArrayHeight), k2+1] = file_text_read_real(export);
 										file_text_readln(export)
 										
 										// Define tile co-ordinates if true
-										if hasTile[scr_array_xy(a, b, tileRowWidth), k2] {
-											tileArrayDrawX[scr_array_xy(a, b, tileRowWidth), k2] = file_text_read_real(export);
+										if hasTile[scr_array_xy(a, b, tileArrayHeight), k2] {
+											tileArrayDrawX[scr_array_xy(a, b, tileArrayHeight), k2] = file_text_read_real(export);
 											file_text_readln(export)
-											tileArrayDrawY[scr_array_xy(a, b, tileRowWidth), k2] = file_text_read_real(export);
+											tileArrayDrawY[scr_array_xy(a, b, tileArrayHeight), k2] = file_text_read_real(export);
 											file_text_readln(export)
 										}
-										if hasTile[scr_array_xy(a, b, tileRowWidth), k2+1] {
-											tileArrayDrawX[scr_array_xy(a, b, tileRowWidth), k2+1] = file_text_read_real(export);
+										if hasTile[scr_array_xy(a, b, tileArrayHeight), k2+1] {
+											tileArrayDrawX[scr_array_xy(a, b, tileArrayHeight), k2+1] = file_text_read_real(export);
 											file_text_readln(export)
-											tileArrayDrawY[scr_array_xy(a, b, tileRowWidth), k2+1] = file_text_read_real(export);
+											tileArrayDrawY[scr_array_xy(a, b, tileArrayHeight), k2+1] = file_text_read_real(export);
 											file_text_readln(export)
 										}
 									}

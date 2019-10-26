@@ -4,7 +4,7 @@ relativeMouseX = (mouse_x - self.x);
 relativeMouseY = (mouse_y - self.y);
 
 xOff = camera_get_view_x(obj_editor_gui.cameraRightPanel) - (obj_panel_right.panelWidth - (obj_panel_right.scrollHorRightBound - obj_panel_right.scrollHorLeftBound)) * obj_panel_right.scrollHorPartition / 100;
-yOff = camera_get_view_y(obj_editor_gui.cameraRightPanel) - (obj_panel_right.panelHeight - (obj_panel_right.scrollVerBotBound - obj_panel_right.scrollVerTopBound + 9)) * obj_panel_right.scrollVerPartition / 100;
+yOff = camera_get_view_y(obj_editor_gui.cameraRightPanel) - (obj_panel_right.panelHeight - (obj_panel_right.scrollVerBotBound - obj_panel_right.scrollVerTopBound)) * obj_panel_right.scrollVerPartition / 100;
 
 if relativeMouseY >= 0 && relativeMouseY <= sprite_get_height(tileDefaultSpr) {
 	if relativeMouseX >= 0 && relativeMouseX <= sprite_get_width(tileDefaultSpr) {

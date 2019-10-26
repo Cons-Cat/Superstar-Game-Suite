@@ -33,7 +33,7 @@ if select {
 				str += string_hash_to_newline("#" + string(trg.finite));
 				str += string_hash_to_newline("#" + string(trg.tileDrawSpr));
 				str += string_hash_to_newline("#" + string(trg.tileLayerCount));
-				str += string_hash_to_newline("#" + string(trg.tileRowWidth));
+				str += string_hash_to_newline("#" + string(trg.tileArrayHeight));
 				
 				// Rectangle terrain tiles
 				for (k = 0; k <= trg.tileLayerCount; k += 2) { // Iterate through arbitrary layers
@@ -51,17 +51,17 @@ if select {
 					// Write hasTile values
 					for (a = 0; a < trg.width + 2; a += 1) { // Iterate horizontally
 						for (b = 0; b < trg.height + trg.zfloor - trg.zcieling + 1; b += 1) { // Iterate vertically
-							str += string_hash_to_newline("#" + string(trg.hasTile[scr_array_xy(a, b, trg.tileRowWidth), k]));
-							str += string_hash_to_newline("#" + string(trg.hasTile[scr_array_xy(a, b, trg.tileRowWidth), k+1]));
+							str += string_hash_to_newline("#" + string(trg.hasTile[scr_array_xy(a, b, trg.tileArrayHeight), k]));
+							str += string_hash_to_newline("#" + string(trg.hasTile[scr_array_xy(a, b, trg.tileArrayHeight), k+1]));
 							
 							// Define tile co-ordinates if true
-							if trg.hasTile[scr_array_xy(a, b, trg.tileRowWidth), k] {
-								str += string_hash_to_newline("#" + string(trg.tileArrayDrawX[scr_array_xy(a, b, trg.tileRowWidth), k]));
-								str += string_hash_to_newline("#" + string(trg.tileArrayDrawY[scr_array_xy(a, b, trg.tileRowWidth), k]));
+							if trg.hasTile[scr_array_xy(a, b, trg.tileArrayHeight), k] {
+								str += string_hash_to_newline("#" + string(trg.tileArrayDrawX[scr_array_xy(a, b, trg.tileArrayHeight), k]));
+								str += string_hash_to_newline("#" + string(trg.tileArrayDrawY[scr_array_xy(a, b, trg.tileArrayHeight), k]));
 							}
-							if trg.hasTile[scr_array_xy(a, b, trg.tileRowWidth), k+1] {
-								str += string_hash_to_newline("#" + string(trg.tileArrayDrawX[scr_array_xy(a, b, trg.tileRowWidth), k+1]));
-								str += string_hash_to_newline("#" + string(trg.tileArrayDrawY[scr_array_xy(a, b, trg.tileRowWidth), k+1]));
+							if trg.hasTile[scr_array_xy(a, b, trg.tileArrayHeight), k+1] {
+								str += string_hash_to_newline("#" + string(trg.tileArrayDrawX[scr_array_xy(a, b, trg.tileArrayHeight), k+1]));
+								str += string_hash_to_newline("#" + string(trg.tileArrayDrawY[scr_array_xy(a, b, trg.tileArrayHeight), k+1]));
 							}
 						}
 					}

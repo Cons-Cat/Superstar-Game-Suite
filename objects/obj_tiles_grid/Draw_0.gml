@@ -2,11 +2,19 @@
 draw_self();
 
 for (k = 0; k <= tileLayerCount; k += 2) { // Iterate through absolute
-	if layerVisibleDraw[k] {
-		if hasTileDraw[k] {
-			if !hasTileDraw[k+1] {
-				// Tile layer
-				draw_sprite_part(tileDrawSpr,0,xValDraw[k],yValDraw[k],20,20,x,y);
+	if layerVisibleAbsolute[k] {
+		if hasTileAbsolute[k] {
+			if !hasTileAbsolute[k+1] {
+				if layerTypeAbsolute[k] = 0 { // Tile layer
+					draw_sprite_part(tileDrawSpr,0,xValDraw[k],yValDraw[k],20,20,x,y);
+				}
+				
+				if layerTypeAbsolute[k] = 1 { // Marble layer
+					if surface_exists(marbleSurface) {
+						draw_surface(marbleSurface,x,y);
+					}
+					show_debug_message(k);
+				}
 			} else {
 				surface_set_target(tileSurface);
 				

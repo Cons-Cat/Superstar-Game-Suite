@@ -16,7 +16,7 @@ windowTempY = window_get_y();*/
 if window_has_focus() {
 	if tempResWidth != window_get_width() || tempResHeight != window_get_height() {
 		// Replace surfaces
-		with obj_editor_terrain {
+		with obj_editor_terrain_par {
 			surfaceResize = true;
 		}
 		with obj_panel_bot {
