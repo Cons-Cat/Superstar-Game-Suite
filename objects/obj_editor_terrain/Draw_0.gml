@@ -2,6 +2,8 @@
 
 // Solid mode
 if obj_editor_gui.mode = 0 {
+	#region
+	
 	if zcieling > 0 {
 		// Draw Shadow
 		gpu_set_blendmode(bm_inv_src_color);
@@ -21,7 +23,7 @@ if obj_editor_gui.mode = 0 {
 		for (i = 1; i < width-1; i += 1) { // Center fill
 			for (j = 1; j < zfloor-zcieling; j += 1) {
 				if canSelect = false {
-					layerColor = col[ abs( (zfloor - j) % 8) ];
+					layerColor = col[ abs( (zfloor - j) % 9) ];
 				} else {
 					layerColor = c_orange;
 				}
@@ -31,7 +33,7 @@ if obj_editor_gui.mode = 0 {
 		
 		for (j = 1; j < zfloor-zcieling; j += 1) { // Left and right edges
 			if canSelect = false {
-				layerColor = col[ abs( (zfloor - j) % 8) ];
+				layerColor = col[ abs( (zfloor - j) % 9) ];
 			} else {
 				layerColor = c_orange;
 			}
@@ -41,7 +43,7 @@ if obj_editor_gui.mode = 0 {
 	} else {
 		for (j = 1; j < zfloor-zcieling; j += 1) {
 			if canSelect = false {
-				layerColor = col[ abs( (zfloor - j) % 8) ];
+				layerColor = col[ abs( (zfloor - j) % 9) ];
 			} else {
 				layerColor = c_orange;
 			}
@@ -50,7 +52,7 @@ if obj_editor_gui.mode = 0 {
 	}
 	
 	if canSelect = false {
-		layerColor = col[ abs(zcieling % 8) ];
+		layerColor = col[ abs(zcieling % 9) ];
 	} else {
 		layerColor = c_orange;
 	}
@@ -70,7 +72,7 @@ if obj_editor_gui.mode = 0 {
 	// Draw floor
 	if canSelect = false {
 		if zfloor > 0 {
-			layerColor = col[ abs( (zfloor-1) % 8 ) ];
+			layerColor = col[ abs( (zfloor-1) % 9 ) ];
 		} else {
 			layerColor = c_white;
 		}
@@ -154,62 +156,37 @@ if obj_editor_gui.mode = 0 {
 		
 		gpu_set_blendmode(bm_normal);
 	}
+	
+	#endregion
 }
 
 // Wireframe mode
 if obj_editor_gui.mode = 1 {
-	if canSelect = false {
-		layerColor = col[ abs( (zfloor-1) % 8) ];
 	} else {
-		layerColor = c_orange;
-	}
-	
-	if zfloor > 0 {
-		layerColorLine = make_color_rgb(color_get_red(layerColor)+30,color_get_green(layerColor)+30,color_get_blue(layerColor)+30);
-		layerColorShadow = make_color_rgb(color_get_red(layerColor)-60,color_get_green(layerColor)-60,color_get_blue(layerColor)-60);
-	} else {
-		if canSelect = false {
-			layerColorLine = c_white;
-			layerColorShadow = c_gray;
-		} else {
-			layerColorLine = c_orange;
-			layerColorShadow = c_red;
-		}
-	}
-	
-	draw_set_color(layerColorShadow);
+	#region
 	
 	// Bottom surface
-	draw_set_alpha(0.35);
-	draw_rectangle(x,y+(zfloor-zcieling)*20,x+width*20,y+height*20+(zfloor-zcieling)*20,false);
+	draw_set_color(layerColorShadow);
+	draw_set_alpha(0.45);
+	draw_rectangle(x,y+(zfloor-zcieling)*20,x+width*20,y+(height+zfloor-zcieling)*20,false);
+	
 	draw_set_alpha(1);
 	draw_set_color(layerColorLine);
+	show_debug_message(layerColorLine);
 	
-	// Top surface
-	draw_rectangle(x,y,x+width*20,y+height*20,true);
-	draw_rectangle(x+1,y+1,x+width*20-1,y+height*20-1,true);
-	draw_rectangle(x+2,y+2,x+width*20-2,y+height*20-2,true);
+	// Horizontal lines
+	draw_rectangle(x,y,x+width*20,y,false);
+	draw_rectangle(x,y+height*20,x+width*20,y+height*20,false);
 	
-	// Front surface
-	draw_rectangle(x,y+height*20,x+width*20,y+height*20+(zfloor-zcieling)*20,true);
-	draw_rectangle(x+1,y+height*20+1,x+width*20-1,y+height*20+(zfloor-zcieling)*20-1,true);
-	draw_rectangle(x+2,y+height*20+2,x+width*20-2,y+height*20+(zfloor-zcieling)*20-2,true);
+	draw_rectangle(x,y+(zfloor-zcieling)*20,x+width*20,y+(zfloor-zcieling)*20,false);
+	draw_rectangle(x,y+(height+zfloor-zcieling)*20,x+width*20,y+(height+zfloor-zcieling)*20,false);
+	
+	// Vertical lines
+	draw_rectangle(x,y,x,y+(height+zfloor-zcieling)*20,false);
+	draw_rectangle(x+width*20,y,x+width*20,y+(height+zfloor-zcieling)*20,false);
+	
+	#endregion
 }
 
-// Tile painting mode / Play testing mode
-if ( obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4 ) {
-	// Draw surface baked in the Step event
-	if surface_exists(tileSurfaceDraw) {
-		draw_surface_ext(tileSurfaceDraw,x-20,y-20,1,1,0,layerColor,1);
-	} else {
-		// Draw generic null texture
-		for (i = 0; i < width; i += 1) {
-			for (j = 0; j < height; j += 1) {
-				draw_sprite_ext(spr_surface_error,1,x+i*20,y+j*20,1,1,0,layerColor,1);
-			}
-			for (j = height; j < height + zfloor - zcieling; j += 1) {
-				draw_sprite_ext(spr_surface_error,0,x+i*20,y+j*20,1,1,0,layerColor,1);
-			}
-		}
-	}
-}
+// Tiling / Trigger / Play
+event_inherited();

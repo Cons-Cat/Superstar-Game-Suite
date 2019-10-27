@@ -32,7 +32,17 @@ if canChangeSelect {
 							other.tempSelectInstance = self.id;
 						}
 						
-						if (mouseCheckX >= tempSelectInstance.x && mouseCheckX < tempSelectInstance.x + tempSelectInstance.width * 20 && mouseCheckY >= tempSelectInstance.y && mouseCheckY < tempSelectInstance.y + (tempSelectInstance.zfloor*20 - tempSelectInstance.zcieling*20) + 20 && (mode != 1 && tempSelectInstance.modeForSelect)) {
+						if (mouseCheckX >= tempSelectInstance.x && mouseCheckX < tempSelectInstance.x + tempSelectInstance.width * 20)
+						&& (
+						
+						// Typical mouse hovering
+						( mouseCheckY >= tempSelectInstance.y && mouseCheckY < tempSelectInstance.y + (tempSelectInstance.height + tempSelectInstance.zfloor - tempSelectInstance.zcieling)*20  && (mode != 1 && tempSelectInstance.modeForSelect) )
+						||
+						// Wireframe mouse hovering
+						( mouseCheckY >= tempSelectInstance.y + (tempSelectInstance.zfloor- tempSelectInstance.zcieling)*20 && mouseCheckY < tempSelectInstance.y + (tempSelectInstance.height + tempSelectInstance.zfloor - tempSelectInstance.zcieling)*20 && (mode = 1 && tempSelectInstance.modeForSelect) )
+						
+						)
+						{
 							if tempSelectInstance.modeForSelect {
 								if tempSelectInstance.depth <= tempDepth {
 									tempDepth = tempSelectInstance.depth;

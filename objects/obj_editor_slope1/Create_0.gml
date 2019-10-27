@@ -6,8 +6,7 @@ tileLayer[0,0] = "layer_0";
 tileLayer[0,1] = "";
 tileArrayHeight = 0;
 layerType[0] = 0;
-surfaceResize = true; // Initialize surfaces
-calculateSub = true; // Generate surface
+marbleAngleOffset = 45;
 
 // Graphics IDs
 instId1[0] = "inst_"; // Graphics

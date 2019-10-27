@@ -77,7 +77,7 @@ if resetArray {
 						#region
 						
 						if zfloor > zcieling {
-							if j >= 1 && j < zfloor - zcieling + 1 {
+							if ( ( j >= 1 && !flip) || ( j >= 2 && flip ) ) && j < zfloor - zcieling + 1 {
 								// Pillar center
 								tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k] = 80;
 								tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k] = 100;
@@ -98,20 +98,20 @@ if resetArray {
 									}
 								}
 							} else {
-								if j = 0 {
+								if j = zfloor - zcieling + 1 {
 									if zfloor > zcieling {
 										// Pillar base
-										tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k] = 100;
+										tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k] = 160;
 										tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k] = 140;
 									} else {
 										// Flat floor
-										tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k] = 140;
+										tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k] = 120;
 										tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k] = 160;
 									}
 								}
 							}
 						} else {
-							if j = 0 {
+							if j = zfloor - zcieling + 1 {
 								if zfloor > zcieling {
 									// Pillar base, regardless of mirror
 									tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k] = 80;
@@ -142,7 +142,7 @@ if resetArray {
 									tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k] = 140;
 									tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k] = 160;
 								} else {
-									tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k] = 140;
+									tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k] = 120;
 									tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k] = 160;
 								}
 							} else {

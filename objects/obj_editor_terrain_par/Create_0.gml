@@ -10,6 +10,8 @@ layerName[0,1] = "sublayer_0";
 surfaceResize = false;
 tileDefaultSpr = "spr_tls_rectangle_default";
 tileDrawSpr = asset_get_index(tileDefaultSpr)
+lastX = x;
+lastY = y;
 
 mirror = false;
 flip = false;
@@ -31,16 +33,31 @@ surfaceResize = true; // Initialize surfaces
 blankCol = c_white;
 blankColDark = c_dkgray
 layerColor = blankCol;
+layerColorLine = blankCol;
+layerColorShadow = blankColDark;
 
-col[0] = make_color_rgb(210,74,84); // Red
-col[1] = make_color_rgb(212,106,55); // Dark orange
-col[2] = make_color_rgb(209,160,75); // Light orange
-col[3] = make_color_rgb(149,175,61); // Dark green
-col[4] = make_color_rgb(177,209,75); // Light green
-col[5] = make_color_rgb(0,184,132); // Teal
-col[6] = make_color_rgb(64,139,209); // Blue
+// Base colors
+col[0] = make_color_rgb(204,53,78); // Red
+col[1] = make_color_rgb(212,100,56); // Dark orange
+col[2] = make_color_rgb(219,164,37); // Yellow
+col[3] = make_color_rgb(162,216,44); // Light green
+col[4] = make_color_rgb(102,142,27); // Dark green
+col[5] = make_color_rgb(0,180,108); // Aqua
+col[6] = make_color_rgb(56,107,203); // Blue
 col[7] = make_color_rgb(147,71,198); // Purple
-col[8] = make_color_rgb(225,86,204); // Pink
+col[8] = make_color_rgb(214,79,196); // Pink
+
+// Wireframe shadow colors
+col[9] = make_color_rgb(122,26,29); // Red
+col[10] = make_color_rgb(150,43,19); // Dark orange
+col[11] = make_color_rgb(153,81,13); // Light orange
+col[12] = make_color_rgb(40,118,19); // Light green
+//col[13] = make_color_rgb(69,81,10); // Dark green
+col[13] = make_color_rgb(30,97,50); // Dark green
+col[14] = make_color_rgb(4,86,77); // Teal
+col[15] = make_color_rgb(0,65,119); // Blue
+col[16] = make_color_rgb(74,27,107); // Purple
+col[17] = make_color_rgb(119,19,93); // Pink
 
 if obj_tile_z.z >= 0 {
 	// Cube

@@ -19,7 +19,7 @@ if obj_editor_gui.mode = 0 {
 	for (i = 0; i < width; i += 1) {
 		for (j = 1; j <= zfloor-zcieling; j += 1) {
 			if canSelect = false {
-				layerColor = col[ abs(zfloor - j % 8) ];
+				layerColor = col[ abs(zfloor - j % 9) ];
 			} else {
 				layerColor = c_orange;
 			}
@@ -57,7 +57,7 @@ if obj_editor_gui.mode = 0 {
 	}
 	
 	if canSelect = false {
-		layerColor = col[ abs(zcieling % 8) ];
+		layerColor = col[ abs(zcieling % 9) ];
 	} else {
 		layerColor = c_orange;
 	}
@@ -65,7 +65,7 @@ if obj_editor_gui.mode = 0 {
 	//	Draw floor
 	if canSelect = false {
 		if zfloor > 0 {
-			layerColor = col[ abs( (zfloor-1) % 8 ) ];
+			layerColor = col[ abs( (zfloor-1) % 9 ) ];
 		} else {
 			layerColor = c_white;
 		}
@@ -128,7 +128,7 @@ if obj_editor_gui.mode = 0 {
 // Wireframe mode
 if obj_editor_gui.mode = 1 {
 	if canSelect = false {
-		layerColor = col[ abs( (zfloor-1) % 8) ];
+		layerColor = col[ abs( (zfloor-1) % 9) ];
 	} else {
 		layerColor = c_orange;
 	}

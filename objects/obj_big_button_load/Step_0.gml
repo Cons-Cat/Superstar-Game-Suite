@@ -26,15 +26,21 @@ if select {
 			file_text_readln(export)
 			
 			// Load rectangular collision
-			if objStr = "rectangle" {
-				obj = obj_editor_terrain;
-			} else {
-				// Skip creation of undefined instances
-				break;
+			switch objStr {
+				case "rectangle":
+					obj = obj_editor_terrain;
+					break;
+				case "slope1":
+					obj = obj_editor_slope1
+					break;
+				default:
+					break;
 			}
 			
 			with instance_create_layer(objX,objY,"Instances",obj) {
 				export = other.export;
+				resetArray = false;
+				placed = 1;
 				
 				// Read generic data
 				width = file_text_read_real(export);
@@ -46,11 +52,8 @@ if select {
 				zcieling = file_text_read_real(export);
 				file_text_readln(export)
 				
-				resetArray = false;
-				placed = 1;
-				
 				// Load rectangle data
-				if other.objStr = "rectangle" {
+				if other.objStr = "rectangle" || other.objStr = "slope1" {
 					#region
 					
 					finite = file_text_read_real(export);
@@ -61,6 +64,14 @@ if select {
 					file_text_readln(export)
 					tileArrayHeight = file_text_read_real(export);
 					file_text_readln(export)
+					
+					// Generic slope data
+					if other.objStr != "rectangle" {
+						mirror = file_text_read_real(export);
+						file_text_readln(export)
+						flip = file_text_read_real(export);
+						file_text_readln(export)
+					}
 					
 					// Rectangle terrain tiles
 					for (k = 0; k <= tileLayerCount; k += 2) { // Iterate through arbitrary layers

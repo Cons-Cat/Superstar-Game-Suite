@@ -103,17 +103,21 @@ if mouse_check_button_pressed(mb_left) {
 		trgId.layerName[tileLayerCount+1] = self.layerName[tileLayerCount+1];
 		
 		// Initialize new tiles
-		if layerType[tileLayerCount] = 0 { // Tiles layer
-			trgId.hasTile[ scr_array_xy( i,j,trgId.tileArrayHeight ), tileLayerCount ] = false;
-			obj_tiles_grid.hasTile[ scr_array_xy( i,j,trgId.tileArrayHeight ), tileLayerCount ] = false;
-			
-			trgId.hasTile[ scr_array_xy( i,j,trgId.tileArrayHeight ), tileLayerCount + 1 ] = false;
-			obj_tiles_grid.hasTile[ scr_array_xy( i,j,trgId.tileArrayHeight ), tileLayerCount + 1] = false;
-		}
-		
-		if layerType[tileLayerCount] = 1 { // Marble layer
-			for (i = 0; i < trgId.width + 2; i += 1) {
-				for (j = 0; j < trgId.height + trgId.zfloor - trgId.zcieling + 1; j += 1) {
+		for (i = 0; i < trgId.width + 2; i += 1) {
+			for (j = 0; j < trgId.height + trgId.zfloor - trgId.zcieling + 1; j += 1) {
+				if layerType[tileLayerCount] = 0 { // Tiles layer
+					trgId.hasTile[ scr_array_xy( i,j,trgId.tileArrayHeight ), tileLayerCount ] = false;
+					trgId.hasTile[ scr_array_xy( i,j,trgId.tileArrayHeight ), tileLayerCount + 1 ] = false;
+					
+					with obj_tiles_grid {
+						if i = other.i && j = other.j {
+							hasTile[other.tileLayerCount] = false;
+							hasTile[other.tileLayerCount + 1] = false;
+						}
+					}
+				}
+				
+				if layerType[tileLayerCount] = 1 { // Marble layer
 					if i = 0 || i >= trgId.width + 1 || j = 0 {
 						// Perimeter is empty
 						trgId.hasTile[ scr_array_xy( i,j,trgId.tileArrayHeight ), tileLayerCount ] = false;

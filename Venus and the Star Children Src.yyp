@@ -343,6 +343,14 @@
             }
         },
         {
+            "Key": "23f9fe6d-7659-4925-a9fd-fc34e66e2b1b",
+            "Value": {
+                "id": "6bcdc3dd-a816-4305-8709-a75b26e3db29",
+                "resourcePath": "scripts\\scr_marble_pixel_threshold\\scr_marble_pixel_threshold.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "2428dbb1-63a2-4117-9e94-a2d32a7b4b0d",
             "Value": {
                 "id": "fa867910-97cb-4085-b784-f6375fd9dd5f",
@@ -3500,6 +3508,7 @@
         "74b56600-fc69-4be1-b626-29c52b1f6589",
         "6cee756a-8862-4df0-ad1d-cb846ee7a5c4",
         "ecf1d05d-bd70-4c37-a140-76fb45a208fd",
+        "23f9fe6d-7659-4925-a9fd-fc34e66e2b1b",
         "1b254f41-b5b7-4063-ab01-c1f02ed3b1ac",
         "0e0e322f-380e-448f-9530-42154abd02ad",
         "2bb57222-41cb-44de-9101-e2a546ff6ce1",

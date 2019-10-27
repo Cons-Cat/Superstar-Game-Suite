@@ -13,7 +13,6 @@ for (k = 0; k <= tileLayerCount; k += 2) { // Iterate through absolute
 					if surface_exists(marbleSurface) {
 						draw_surface(marbleSurface,x,y);
 					}
-					show_debug_message(k);
 				}
 			} else {
 				surface_set_target(tileSurface);

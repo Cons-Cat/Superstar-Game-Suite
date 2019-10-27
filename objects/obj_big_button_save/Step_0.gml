@@ -1,4 +1,4 @@
-/// @description  X Position
+/// @description Saving room data
 x = round( (obj_panel_left.baseX - 4 - room_width) / 3 * 2 - ( (obj_panel_left.baseX - 4 - room_width) / 6.25) ) + room_width;
 
 if select {
@@ -27,13 +27,19 @@ if select {
 			str += string_hash_to_newline("#" + string(trg.zcieling));
 			
 			// Write instance-particular data
-			if trg.str = "rectangle" {
+			if trg.str = "rectangle" || trg.str = "slope1" {
 				#region
 				
 				str += string_hash_to_newline("#" + string(trg.finite));
 				str += string_hash_to_newline("#" + string(trg.tileDrawSpr));
 				str += string_hash_to_newline("#" + string(trg.tileLayerCount));
 				str += string_hash_to_newline("#" + string(trg.tileArrayHeight));
+				
+				// Generic slope data
+				if trg.str != "rectangle" {
+					str += string_hash_to_newline("#" + string(trg.mirror));
+					str += string_hash_to_newline("#" + string(trg.flip));
+				}
 				
 				// Rectangle terrain tiles
 				for (k = 0; k <= trg.tileLayerCount; k += 2) { // Iterate through arbitrary layers

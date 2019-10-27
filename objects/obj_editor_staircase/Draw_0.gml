@@ -2,7 +2,7 @@
 // Wireframe mode
 if obj_editor_gui.mode = 1 {
 	if canSelect = false {
-		layerColor = col[ abs( (zfloor-1) % 8) ];
+		layerColor = col[ abs( (zfloor-1) % 9) ];
 	} else {
 		layerColor = c_orange;
 	}
@@ -92,7 +92,7 @@ if (obj_editor_gui.mode = 0 || obj_editor_gui.mode = 2 || obj_editor_gui.mode = 
 				
 				if canSelect = false {
 					if zfloor > 0 {
-						layerColor = col[ abs( (zfloor-1) % 8 ) ];
+						layerColor = col[ abs( (zfloor-1) % 9 ) ];
 					} else {
 						layerColor = c_white;
 					}

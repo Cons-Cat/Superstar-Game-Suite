@@ -136,20 +136,22 @@ if spawnTiles {
 					layerOrder[k] = other.layerOrder[k];
 					
 					// Pass in tiles
-					if hasTile[k] {
-						xVal[k] = other.tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k];
-						yVal[k] = other.tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k];
+					if layerType[k] = 0 {
+						if hasTile[k] {
+							xVal[k] = other.tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k];
+							yVal[k] = other.tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k];
+							
+							xValDraw[k] = xVal[k];
+							yValDraw[k] = yVal[k];
+						}
 						
-						xValDraw[k] = xVal[k];
-						yValDraw[k] = yVal[k];
-					}
-					
-					if hasTile[k+1] {
-						xVal[k+1] = other.tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k+1];
-						yVal[k+1] = other.tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k+1];
-						
-						xValDraw[k+1] = xVal[k+1];
-						yValDraw[k+1] = yVal[k+1];
+						if hasTile[k+1] {
+							xVal[k+1] = other.tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k+1];
+							yVal[k+1] = other.tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k+1];
+							
+							xValDraw[k+1] = xVal[k+1];
+							yValDraw[k+1] = yVal[k+1];
+						}
 					}
 					
 					// Pass in layer names
@@ -247,4 +249,24 @@ if !canSelect {
 	}
 } else {
 	layerColor = c_orange;
+}
+
+// Calculate wireframe colors
+if obj_editor_gui.mode = 1 {
+	if !canSelect {
+		if zfloor > 0 {
+			layerColor = col[ abs( (zfloor - 1) % 9) ];
+			//layerColorLine = layerColor;
+			layerColorLine = make_color_rgb(color_get_red(layerColor)+25,color_get_green(layerColor)+25,color_get_blue(layerColor)+25);
+			layerColorShadow = col[ abs( (zfloor - 1) % 9) + 9 ];
+			//layerColorLine = make_color_rgb(color_get_red(layerColor)+30,color_get_green(layerColor)+30,color_get_blue(layerColor)+30);
+			//layerColorShadow = make_color_rgb(color_get_red(layerColor)-60,color_get_green(layerColor)-60,color_get_blue(layerColor)-60);
+		} else {
+			layerColorLine = c_white;
+			layerColorShadow = c_gray;
+		}
+	} else {
+		layerColorLine = layerColor;
+		layerColorShadow = c_orange;
+	}
 }
