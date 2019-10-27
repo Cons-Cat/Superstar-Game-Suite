@@ -162,7 +162,6 @@ if obj_editor_gui.mode = 0 {
 
 // Wireframe mode
 if obj_editor_gui.mode = 1 {
-	} else {
 	#region
 	
 	// Bottom surface
