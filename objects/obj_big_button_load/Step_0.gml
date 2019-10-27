@@ -31,7 +31,10 @@ if select {
 					obj = obj_editor_terrain;
 					break;
 				case "slope1":
-					obj = obj_editor_slope1
+					obj = obj_editor_slope1;
+					break;
+				case "slope2":
+					obj = obj_editor_slope2;
 					break;
 				default:
 					break;
@@ -53,7 +56,7 @@ if select {
 				file_text_readln(export)
 				
 				// Load rectangle data
-				if other.objStr = "rectangle" || other.objStr = "slope1" {
+				if other.objStr = "rectangle" || other.objStr = "slope1" || other.objStr = "slope2" {
 					#region
 					
 					finite = file_text_read_real(export);

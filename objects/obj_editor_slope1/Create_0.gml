@@ -7,6 +7,7 @@ tileLayer[0,1] = "";
 tileArrayHeight = 0;
 layerType[0] = 0;
 marbleAngleOffset = 45;
+angleSlope = 1;
 
 // Graphics IDs
 instId1[0] = "inst_"; // Graphics

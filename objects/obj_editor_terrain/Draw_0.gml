@@ -19,6 +19,8 @@ if obj_editor_gui.mode = 0 {
 	}
 	
 	// Draw walls
+	#region
+	
 	if width > 1 {
 		for (i = 1; i < width-1; i += 1) { // Center fill
 			for (j = 1; j < zfloor-zcieling; j += 1) {
@@ -69,7 +71,9 @@ if obj_editor_gui.mode = 0 {
 		draw_sprite_ext(spr_walls_editor,7,x,y+(zfloor-zcieling)*20+(height-1)*20,1,1,0,layerColor,alpha);
 	}
 	
-	// Draw floor
+	#endregion
+	
+	//	Calculate floor color
 	if canSelect = false {
 		if zfloor > 0 {
 			layerColor = col[ abs( (zfloor-1) % 9 ) ];
@@ -79,6 +83,9 @@ if obj_editor_gui.mode = 0 {
 	} else {
 		layerColor = c_orange;
 	}
+	
+	// Draw floor
+	#region
 	
 	if width > 1 && height > 1 {
 		draw_sprite_ext(spr_terrain_editor,0,x,y,1,1,0,layerColor,alpha);
@@ -90,10 +97,12 @@ if obj_editor_gui.mode = 0 {
 			draw_sprite_ext(spr_terrain_editor,1,x+i*20,y,1,1,0,layerColor,alpha);
 			draw_sprite_ext(spr_terrain_editor,7,x+i*20,y+(height-1)*20,1,1,0,layerColor,alpha);
 		}
+		
 		for (j = 1; j < height-1; j += 1) {
 			draw_sprite_ext(spr_terrain_editor,3,x,y+j*20,1,1,0,layerColor,alpha);
 			draw_sprite_ext(spr_terrain_editor,5,x+(width-1)*20,y+j*20,1,1,0,layerColor,alpha);
 		}
+		
 		for (i = 1; i < width-1; i += 1) {
 			for (j = 1; j < height-1; j += 1) {
 				draw_sprite_ext(spr_terrain_editor,4,x+i*20,y+j*20,1,1,0,layerColor,alpha);
@@ -104,6 +113,7 @@ if obj_editor_gui.mode = 0 {
 		for (j = 1; j < height - 1; j += 1) {
 			draw_sprite_ext(spr_terrain_editor,14,x,y+j*20,1,1,0,layerColor,alpha);
 		}
+		
 		draw_sprite_ext(spr_terrain_editor,13,x,y,1,1,0,layerColor,alpha);
 		draw_sprite_ext(spr_terrain_editor,15,x,y+(height-1)*20,1,1,0,layerColor,alpha);
 	} else if width > 1 && height = 1 {
@@ -111,6 +121,7 @@ if obj_editor_gui.mode = 0 {
 		for (i = 1; i < width - 1; i += 1) {
 			draw_sprite_ext(spr_terrain_editor,11,x+i*20,y,1,1,0,layerColor,alpha);
 		}
+		
 		draw_sprite_ext(spr_terrain_editor,10,x,y,1,1,0,layerColor,alpha);
 		draw_sprite_ext(spr_terrain_editor,12,x+(width-1)*20,y,1,1,0,layerColor,alpha);
 	} else {
@@ -122,6 +133,8 @@ if obj_editor_gui.mode = 0 {
 		}
 	}
 	
+	#endregion
+	
 	// Initialize shadow iteration
 	for (i = 0; i < width; i += 1) {
 		for (j = 0; j < height; j += 1) {
@@ -129,8 +142,10 @@ if obj_editor_gui.mode = 0 {
 		}
 	}
 	
+	// Draw Shadow
 	if zcieling >= 0 {
-		// Draw Shadow
+		#region
+		
 		gpu_set_blendmode(bm_inv_src_color);
 		
 		for (i = 0; i < width; i += 1) {
@@ -155,6 +170,8 @@ if obj_editor_gui.mode = 0 {
 		}
 		
 		gpu_set_blendmode(bm_normal);
+		
+		#endregion
 	}
 	
 	#endregion
@@ -167,22 +184,21 @@ if obj_editor_gui.mode = 1 {
 	// Bottom surface
 	draw_set_color(layerColorShadow);
 	draw_set_alpha(0.45);
-	draw_rectangle(x,y+(zfloor-zcieling)*20,x+width*20,y+(height+zfloor-zcieling)*20,false);
+	draw_rectangle(x,y+(zfloor-zcieling)*20,x+width*20-1,y+(height+zfloor-zcieling)*20-1,false);
 	
 	draw_set_alpha(1);
 	draw_set_color(layerColorLine);
-	show_debug_message(layerColorLine);
 	
 	// Horizontal lines
-	draw_rectangle(x,y,x+width*20,y,false);
-	draw_rectangle(x,y+height*20,x+width*20,y+height*20,false);
+	draw_rectangle(x,y,x+width*20-1,y,false);
+	draw_rectangle(x,y+height*20-1,x+width*20-1,y+height*20,false);
 	
-	draw_rectangle(x,y+(zfloor-zcieling)*20,x+width*20,y+(zfloor-zcieling)*20,false);
-	draw_rectangle(x,y+(height+zfloor-zcieling)*20,x+width*20,y+(height+zfloor-zcieling)*20,false);
+	draw_rectangle(x,y+(zfloor-zcieling)*20,x+width*20-1,y+(zfloor-zcieling)*20,false);
+	draw_rectangle(x,y+(height+zfloor-zcieling)*20-1,x+width*20-1,y+(height+zfloor-zcieling)*20-1,false);
 	
 	// Vertical lines
-	draw_rectangle(x,y,x,y+(height+zfloor-zcieling)*20,false);
-	draw_rectangle(x+width*20,y,x+width*20,y+(height+zfloor-zcieling)*20,false);
+	draw_rectangle(x,y,x,y+(height+zfloor-zcieling)*20-1,false);
+	draw_rectangle(x+width*20-1,y,x+width*20-1,y+(height+zfloor-zcieling)*20-1,false);
 	
 	#endregion
 }

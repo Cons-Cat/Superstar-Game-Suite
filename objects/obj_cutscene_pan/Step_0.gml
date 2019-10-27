@@ -66,7 +66,7 @@ if keyboard_check_pressed(vk_anykey) {
 		} else {
 			// Add an integer
 			zoomVal = string_digits(typeText(zoomVal));
-					
+			
 			if decimalPlace != -1 {
 				zoomVal = string_insert(".",zoomVal,decimalPlace);
 			}

@@ -197,15 +197,15 @@ if obj_editor_gui.mode = 1 {
 	
 	if flip {
 		if mirror {
-			draw_triangle(x,y+(zfloor-zcieling)*20,x,y+(height+zfloor-zcieling)*20,x+width*20,y+(height+zfloor-zcieling)*20,false);
+			draw_triangle(x,y+(zfloor-zcieling)*20,x,y+(height+zfloor-zcieling)*20-1,x+width*20-1,y+(height+zfloor-zcieling)*20-1,false);
 		} else {
-			draw_triangle(x,y+(height+zfloor-zcieling)*20,x+width*20,y+(zfloor-zcieling)*20,x+width*20,y+(height+zfloor-zcieling)*20,false);
+			draw_triangle(x,y+(height+zfloor-zcieling)*20-1,x+width*20-1,y+(zfloor-zcieling)*20,x+width*20-1,y+(height+zfloor-zcieling)*20-1,false);
 		}
 	} else {
 		if mirror {
-			draw_triangle(x,y+(zfloor-zcieling)*20,x+width*20,y+(zfloor-zcieling)*20,x+width*20,y+(height+zfloor-zcieling)*20,false);
+			draw_triangle(x,y+(zfloor-zcieling)*20,x+width*20-1,y+(zfloor-zcieling)*20,x+width*20-1,y+(height+zfloor-zcieling)*20-1,false);
 		} else {
-			draw_triangle(x,y+(zfloor-zcieling)*20,x+width*20,y+(zfloor-zcieling)*20,x,y+(height+zfloor-zcieling)*20,false);
+			draw_triangle(x,y+(zfloor-zcieling)*20,x+width*20-1,y+(zfloor-zcieling)*20,x,y+(height+zfloor-zcieling)*20-1,false);
 		}
 	}
 	
@@ -216,42 +216,42 @@ if obj_editor_gui.mode = 1 {
 	
 	// Diagonal line
 	if mirror {
-		for (i = 0; i <= width*20; i += 1) {
-			draw_rectangle(x+width*20-i,y+20+scr_marble_pixel_threshold(marbleAngleOffset, i),x+width*20-i,y+20+scr_marble_pixel_threshold(marbleAngleOffset, i),false);
-			draw_rectangle(x+width*20-i,y+20+scr_marble_pixel_threshold(marbleAngleOffset, i)+(zfloor-zcieling)*20,x+width*20-i,y+20+scr_marble_pixel_threshold(marbleAngleOffset, i)+(zfloor-zcieling)*20,false);
+		for (i = 0; i <= width*20-1; i += 1) {
+			draw_rectangle(x+width*20-1-i,y+20+scr_marble_pixel_threshold(marbleAngleOffset, i)-1,x+width*20-1-i,y+20+scr_marble_pixel_threshold(marbleAngleOffset, i)-1,false);
+			draw_rectangle(x+width*20-1-i,y+20+scr_marble_pixel_threshold(marbleAngleOffset, i)+(zfloor-zcieling)*20-1,x+width*20-1-i,y+20+scr_marble_pixel_threshold(marbleAngleOffset, i)+(zfloor-zcieling)*20-1,false);
 		}
 	} else {
-		for (i = 0; i <= width*20; i += 1) {
-			draw_rectangle(x+i,y+20+scr_marble_pixel_threshold(marbleAngleOffset, i),x+i,y+20+scr_marble_pixel_threshold(marbleAngleOffset, i),false);
-			draw_rectangle(x+i,y+20+scr_marble_pixel_threshold(marbleAngleOffset, i)+(zfloor-zcieling)*20,x+i,y+20+scr_marble_pixel_threshold(marbleAngleOffset, i)+(zfloor-zcieling)*20,false);
+		for (i = 0; i <= width*20-1; i += 1) {
+			draw_rectangle(x+i,y+20+scr_marble_pixel_threshold(marbleAngleOffset, i)-1,x+i,y+20+scr_marble_pixel_threshold(marbleAngleOffset, i)-1,false);
+			draw_rectangle(x+i,y+20+scr_marble_pixel_threshold(marbleAngleOffset, i)+(zfloor-zcieling)*20-1,x+i,y+20+scr_marble_pixel_threshold(marbleAngleOffset, i)+(zfloor-zcieling)*20-1,false);
 		}
 	}
 	
 	// Horizontal line
 	if flip {
-		draw_rectangle(x,y+height*20,x+width*20,y+height*20,false);
-		draw_rectangle(x,y+(height+zfloor-zcieling)*20,x+width*20,y+(height+zfloor-zcieling)*20,false);
+		draw_rectangle(x,y+height*20,x+width*20-1,y+height*20,false);
+		draw_rectangle(x,y+(height+zfloor-zcieling)*20-1,x+width*20-1,y+(height+zfloor-zcieling)*20-1,false);
 	} else {
-		draw_rectangle(x,y,x+width*20,y,false);
-		draw_rectangle(x,y+(zfloor-zcieling)*20,x+width*20,y+(zfloor-zcieling)*20,false);
+		draw_rectangle(x,y,x+width*20-1,y,false);
+		draw_rectangle(x,y+(zfloor-zcieling)*20,x+width*20-1,y+(zfloor-zcieling)*20,false);
 	}
 	
 	// Side line
 	if mirror {
 		if flip {
-			draw_rectangle(x,y,x,y+(height + zfloor - zcieling)*20,false);
-			draw_rectangle(x+width*20,y+height*20,x+width*20,y+(height + zfloor - zcieling)*20,false);
+			draw_rectangle(x,y,x,y+(height + zfloor - zcieling)*20-1,false);
+			draw_rectangle(x+width*20-1,y+height*20,x+width*20-1,y+(height + zfloor - zcieling)*20-1,false);
 		} else {
-			draw_rectangle(x+width*20,y,x+width*20,y+(height + zfloor - zcieling)*20,false);
+			draw_rectangle(x+width*20-1,y,x+width*20-1,y+(height + zfloor - zcieling)*20-1,false);
 			draw_rectangle(x,y,x,y+(zfloor - zcieling)*20,false);
 		}
 	} else {
 		if flip {
-			draw_rectangle(x+width*20,y,x+width*20,y+(height + zfloor - zcieling)*20,false);
-			draw_rectangle(x,y+height*20,x,y+(height + zfloor - zcieling)*20,false);
+			draw_rectangle(x+width*20-1,y,x+width*20-1,y+(height + zfloor - zcieling)*20-1,false);
+			draw_rectangle(x,y+height*20,x,y+(height + zfloor - zcieling)*20-1,false);
 		} else {
-			draw_rectangle(x,y,x,y+(height + zfloor - zcieling)*20,false);
-			draw_rectangle(x+width*20,y,x+width*20,y+(zfloor - zcieling)*20,false);
+			draw_rectangle(x,y,x,y+(height + zfloor - zcieling)*20-1,false);
+			draw_rectangle(x+width*20-1,y,x+width*20-1,y+(zfloor - zcieling)*20,false);
 		}
 	}
 	

@@ -46,6 +46,7 @@ if placed != 2 {
 		
 		hasAdjacentLeft = false;
 		hasAdjacentRight = false;
+		hasAdjacentDown = false;
 		
 		marbleNetPixels = 0;
 		marbleSamplesLight = ceil( width * ( height + zfloor - zcieling ) );
@@ -97,6 +98,14 @@ if placed != 2 {
 						if tempInst.y <= self.y {
 							hasAdjacentRight = true;
 						}
+					}
+				}
+				
+				
+				// Transfuse upward streaks
+				if tempInst.y = self.y + self.height*20 {
+					if tempInst.zfloor = self.zfloor {
+						hasAdjacentDown = true;
 					}
 				}
 			}
@@ -290,7 +299,7 @@ if placed != 2 {
 					
 					repeat(4) {
 						dirCheck += 1;
-							
+						
 						if dirCheck = 1 {
 							var ii = i - 1;
 							var jj = j;
@@ -335,8 +344,14 @@ if placed != 2 {
 		
 		// Lighten top surface
 		for (i = 0; i < width*20; i += 1) {
-			for (j = 0; j < height * 20 + scr_marble_pixel_threshold(marbleAngleOffset, i); j += 1) {
-				marblePixelCol[i,j] -= 2;
+			if flip {
+				for (j = 0; j < height * 20; j += 1) {
+					marblePixelCol[i,j] -= 2;
+				}
+			} else {
+				for (j = 0; j < angleStartY + 1 - i*angleSlope; j += 1) {
+					marblePixelCol[i,j] -= 2;
+				}
 			}
 		}
 		
@@ -344,21 +359,41 @@ if placed != 2 {
 		if zfloor - zcieling > 0 {
 			for (i = 0; i < width * 20; i += 1) {
 				// Bevel top edge
-				marblePixelCol[i,19 + scr_marble_pixel_threshold(marbleAngleOffset, i)] -= 1;
+				if !hasAdjacentDown {
+					if flip {
+						marblePixelCol[i,height*20-1] -= 1;
+					} else {
+						marblePixelCol[i,angleStartY - i*angleSlope] -= 1;
+					}
+				}
 				
 				// Occlude bottom edge
-				if marblePixelCol[i,height * 19 + (zfloor - zcieling) * 20 + scr_marble_pixel_threshold(marbleAngleOffset, i)] < 6 {
-					marblePixelCol[i,height * 19 + (zfloor - zcieling) * 20 + scr_marble_pixel_threshold(marbleAngleOffset, i)] += 1;
+				if marblePixelCol[i,angleStartY + (zfloor - zcieling) * 20 - i*angleSlope] < 6 {
+					marblePixelCol[i,angleStartY + (zfloor - zcieling) * 20 - i*angleSlope] += 1;
 				}
 			}
 			
-			// Bevel side edges
-			if marbleAngleOffset = 0 { // Rectangle terrain
-				for (j = 0; j < height * 20 - 1; j += 1) {
-					if !hasAdjacentLeft {
+			// Bevel left edge
+			if !hasAdjacentLeft {
+				if flip {
+					for (j = 0; j < height*20-1+hasAdjacentDown; j += 1) {
 						marblePixelCol[0, j] -= 1;
 					}
-					if !hasAdjacentRight {
+				} else {
+					for (j = 0; j < angleStartY - angleSlope*0+hasAdjacentDown; j += 1) {
+						marblePixelCol[0, j] -= 1;
+					}
+				}
+			}
+			
+			// Bevel right edge
+			if !hasAdjacentRight {
+				if flip {
+					for (j = 0; j < height*20-1+hasAdjacentDown; j += 1) {
+						marblePixelCol[width * 20 - 1, j] -= 1;
+					}
+				} else {
+					for (j = 0; j < angleStartY - angleSlope*0+hasAdjacentDown; j += 1) {
 						marblePixelCol[width * 20 - 1, j] -= 1;
 					}
 				}
@@ -379,13 +414,26 @@ if placed != 2 {
 		
 		surface_resize(marbleSurfaceSide,width*20,(height + zfloor - zcieling)*20);
 		surface_set_target(marbleSurfaceSide);
+		draw_clear_alpha(c_white,0);
 		
 		for (i = 0; i < width * 20; i += 1) {
-			for (j = 0; j < ( height + zfloor - zcieling) * 20; j += 1) {
-				// Skip pixels below angle offset
-				if j < ( height + zfloor - zcieling ) * 20 + scr_marble_pixel_threshold(marbleAngleOffset, i) {
-					draw_set_color( marbleCol[marblePixelCol[i,j]] );
-					draw_rectangle( i, j, i, j, false );
+			for (j = 0; j < (height + zfloor - zcieling) * 20; j += 1) {
+				if marblePixelCol[i,j] != -1 {
+					if flip {
+						// Skip pixels above angle offset
+						if j >=  angleStartY - i*angleSlope {
+							draw_set_color( marbleCol[marblePixelCol[i,j]] );
+							draw_rectangle( i, j, i, j, false );
+						}
+					} else {
+						// Skip pixels below angle offset
+						if j <= angleStartY + (zfloor - zcieling) * 20 - i*angleSlope {
+							draw_set_color( marbleCol[marblePixelCol[i,j]] );
+							draw_rectangle( i, j, i, j, false );
+						} else {
+							break;
+						}
+					}
 				}
 			}
 		}

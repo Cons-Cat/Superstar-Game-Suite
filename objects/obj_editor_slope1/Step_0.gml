@@ -38,6 +38,15 @@ if spawnButtons {
 	#endregion
 }
 
+// Update angle
+if mirror {
+	angleSlope = -1;
+	angleStartY = 0;
+} else {
+	angleSlope = 1;
+	angleStartY = height * 20 - 1;
+}
+
 // Tile array
 if resetArray {
 	#region
@@ -66,7 +75,7 @@ if resetArray {
 			for (j = 0; j < zfloor - zcieling + 2; j += 1) {
 				hasTile[scr_array_xy(i,j,tileArrayHeight),k] = true;
 				hasTile[scr_array_xy(i,j,tileArrayHeight),k+1] = false;
-			
+				
 				// Default to the designated coordinates of an empty tile
 				tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k] = 0;
 				tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k] = 120;

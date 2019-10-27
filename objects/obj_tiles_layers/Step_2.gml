@@ -3,7 +3,6 @@ scrollOff = (obj_subpanel_left.panelHeight - (obj_subpanel_left.scrollVerBotBoun
 y = 12 - scrollOff;
 x = camera_get_view_x(obj_editor_gui.cameraLeftSubPanel);
 
-
 // Hover mouse over new layer buttons
 plusCol = col;
 dieCol = col;

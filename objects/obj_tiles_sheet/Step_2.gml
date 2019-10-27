@@ -22,10 +22,10 @@ if relativeMouseY >= 0 && relativeMouseY <= sprite_get_height(tileDefaultSpr) {
 		}
 		
 		if selecting {
-			for (i = 0; i < selectWidthOffset; i += 20) {
-				for (j = 0; j < selectHeightOffset; j += 20) {
-					xVal[i,j] = xInit + ((xInit) % 20) + i + ( (x - xOff) div 20 ) * 20;
-					yVal[i,j] = yInit + ((yInit) % 20) + j + ( (y - yOff) div 20 ) * 20;
+			for (i = 0; i < selectWidthOffset/10; i += 1) {
+				for (j = 0; j < selectHeightOffset/10; j += 1) {
+					xVal[i,j] = xInit + ((xInit) % 20) + i*20 + ( (x - xOff) div 20 ) * 20;
+					yVal[i,j] = yInit + ((yInit) % 20) + j*20 + ( (y - yOff) div 20 ) * 20;
 				}
 			}
 			
