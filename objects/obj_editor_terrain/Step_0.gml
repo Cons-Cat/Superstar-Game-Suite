@@ -87,7 +87,7 @@ if resetArray && obj_editor_gui.mode != 3 {
 	tileLayerCount = 0;
 	
 	for (i = 0; i < width + 2; i += 1) {
-		for (j = 0; j < zfloor - zcieling + 2; j += 1) {
+		for (j = 0; j < height + zfloor - zcieling + 1; j += 1) {
 			hasTile[scr_array_xy(i,j,tileArrayHeight),0] = true;
 			hasTile[scr_array_xy(i,j,tileArrayHeight),1] = false;
 			

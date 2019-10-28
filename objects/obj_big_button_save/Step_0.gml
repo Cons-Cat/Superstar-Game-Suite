@@ -27,7 +27,7 @@ if select {
 			str += string_hash_to_newline("#" + string(trg.zcieling));
 			
 			// Write instance-particular data
-			if trg.str = "rectangle" || trg.str = "slope1" || trg.str = "slope2" {
+			if trg.str = "rectangle" || trg.str = "slope1" || trg.str = "slope2" || trg.str = "slope3" {
 				#region
 				
 				str += string_hash_to_newline("#" + string(trg.finite));

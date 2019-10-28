@@ -61,7 +61,7 @@ if resetArray {
 		tileLayerCount = 2;
 	} else {
 		// Flat floor
-		tileLayerCount = 1;
+		tileLayerCount = 0;
 	}
 	
 	for (k = 0; k <= tileLayerCount; k += 2) {

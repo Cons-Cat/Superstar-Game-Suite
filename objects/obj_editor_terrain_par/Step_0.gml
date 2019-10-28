@@ -110,13 +110,13 @@ if spawnTiles {
 	#region
 	
 	for (i = 0; i < width + 2; i += 1) {
-		for (j = 0; j < zfloor - zcieling + 2; j += 1) {
+		for (j = 0; j < height + zfloor - zcieling + 1; j += 1) {
 			with instance_create_layer(camera_get_view_x(obj_editor_gui.cameraLeftPanel) + 2 + i*21,j*21,"Instances",obj_tiles_grid) {
 				trgId = other.id;
 				i = other.i;
 				j = other.j;
 				width = other.width;
-				height= other.height;
+				height = other.height;
 				tileDrawSpr = other.tileDrawSpr;
 				tileArrayHeight = other.tileArrayHeight;
 				tileLayerCount = other.tileLayerCount;
@@ -256,11 +256,8 @@ if obj_editor_gui.mode = 1 {
 	if !canSelect {
 		if zfloor > 0 {
 			layerColor = col[ abs( (zfloor - 1) % 9) ];
-			//layerColorLine = layerColor;
 			layerColorLine = make_color_rgb(color_get_red(layerColor)+25,color_get_green(layerColor)+25,color_get_blue(layerColor)+25);
 			layerColorShadow = col[ abs( (zfloor - 1) % 9) + 9 ];
-			//layerColorLine = make_color_rgb(color_get_red(layerColor)+30,color_get_green(layerColor)+30,color_get_blue(layerColor)+30);
-			//layerColorShadow = make_color_rgb(color_get_red(layerColor)-60,color_get_green(layerColor)-60,color_get_blue(layerColor)-60);
 		} else {
 			layerColorLine = c_white;
 			layerColorShadow = c_gray;

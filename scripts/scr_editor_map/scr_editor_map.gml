@@ -43,8 +43,9 @@ for (var k = 0; k < instance_number(obj_editor_terrain); k += 1) {
 						tempDepth[i,j] = trg.depth;
 						
 						// Draw tile to minimap
-						surface_copy_part(obj_panel_bot.mapSurface, i*20, j*20, trg.tileSurfaceDraw, (i * 20) - trg.x, (j * 20) - trg.y, 20, 20);
-						//show_debug_message("x: " + string(i*20) + ", y: " + string(j*20));
+						if surface_exists(trg.tileSurfaceDraw) {
+							surface_copy_part(obj_panel_bot.mapSurface, i*20, j*20, trg.tileSurfaceDraw, (i * 20) - trg.x, (j * 20) - trg.y, 20, 20);
+						}
 					}
 				}
 			}

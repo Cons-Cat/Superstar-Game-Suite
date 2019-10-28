@@ -4,7 +4,6 @@ event_inherited();
 str = "slope1";
 tileLayer[0,0] = "layer_0";
 tileLayer[0,1] = "";
-tileArrayHeight = 0;
 layerType[0] = 0;
 marbleAngleOffset = 45;
 angleSlope = 1;

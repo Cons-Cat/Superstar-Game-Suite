@@ -61,7 +61,7 @@ if resetArray {
 		tileLayerCount = 2;
 	} else {
 		// Flat floor
-		tileLayerCount = 1;
+		tileLayerCount = 0;
 	}
 	
 	for (k = 0; k <= tileLayerCount; k += 2) {
@@ -74,7 +74,7 @@ if resetArray {
 		// Iterate across the width diagonally
 		for (i = 0; i < width + 2; i += 1) {
 			// Iterate across the z height
-			for (j = 0; j < zfloor - zcieling + 2; j += 1) {
+			for (j = 0; j < height + zfloor - zcieling + 1; j += 1) {
 				hasTile[scr_array_xy(i,j,tileArrayHeight),k] = true;
 				hasTile[scr_array_xy(i,j,tileArrayHeight),k+1] = false;
 				
@@ -98,6 +98,23 @@ if resetArray {
 								tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k] = 100;
 							}
 						}
+						
+						if j = zfloor - zcieling {
+							if !flip {
+								// Pillar corner
+								if mirror {
+									if i = 1 {
+										tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k] = 140;
+										tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k] = 60;
+									}
+								} else {
+									if i = 2 {
+										tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k] = 120;
+										tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k] = 60;
+									}
+								}
+							}
+						}
 					}
 					
 					if j = zfloor - zcieling + 1 {
@@ -109,10 +126,10 @@ if resetArray {
 							} else {
 								if mirror {
 									tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k] = 140;
-									tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k] = 100;
+									tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k] = 80;
 								} else {
 									tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k] = 100;
-									tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k] = 100;
+									tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k] = 80;
 								}
 							}
 						}
@@ -125,10 +142,10 @@ if resetArray {
 							} else {
 								if mirror {
 									tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k] = 160;
-									tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k] = 100;
+									tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k] = 80;
 								} else {
 									tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k] = 120;
-									tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k] = 100;
+									tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k] = 80;
 								}
 							}
 						}

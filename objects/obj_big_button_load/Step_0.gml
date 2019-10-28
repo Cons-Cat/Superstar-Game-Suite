@@ -25,7 +25,7 @@ if select {
 			objY = file_text_read_real(export);
 			file_text_readln(export)
 			
-			// Load rectangular collision
+			// Load collision
 			switch objStr {
 				case "rectangle":
 					obj = obj_editor_terrain;
@@ -35,6 +35,9 @@ if select {
 					break;
 				case "slope2":
 					obj = obj_editor_slope2;
+					break;
+				case "slope3":
+					obj = obj_editor_slope3;
 					break;
 				default:
 					break;
@@ -56,7 +59,7 @@ if select {
 				file_text_readln(export)
 				
 				// Load rectangle data
-				if other.objStr = "rectangle" || other.objStr = "slope1" || other.objStr = "slope2" {
+				if other.objStr = "rectangle" || other.objStr = "slope1" || other.objStr = "slope2" || other.objStr = "slope3" {
 					#region
 					
 					finite = file_text_read_real(export);

@@ -4,7 +4,6 @@ event_inherited();
 str = "rectangle";
 tileLayer[0,0] = "layer_0";
 tileLayer[0,1] = "";
-tileArrayHeight = 0;
 layerType[0] = 0;
 height = 1;
 marbleAngleOffset = 0;

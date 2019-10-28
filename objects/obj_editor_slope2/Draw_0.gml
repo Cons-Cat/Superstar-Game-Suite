@@ -176,15 +176,13 @@ if obj_editor_gui.mode = 1 {
 	// Top surface
 	
 	// Diagonal line
-	if mirror {
-		for (i = 0; i <= width*20-1; i += 2) {
-			draw_rectangle(x+width*20-1-i,y+20+scr_marble_pixel_threshold(marbleAngleOffset, i)-1,x+width*20-i,y+20+scr_marble_pixel_threshold(marbleAngleOffset, i)-1,false);
-			draw_rectangle(x+width*20-1-i,y+20+scr_marble_pixel_threshold(marbleAngleOffset, i)+(zfloor-zcieling)*20-1,x+width*20-i,y+20+scr_marble_pixel_threshold(marbleAngleOffset, i)+(zfloor-zcieling)*20-1,false);
-		}
-	} else {
-		for (i = 0; i <= width*20-1; i += 2) {
-			draw_rectangle(x+i,y+20+scr_marble_pixel_threshold(marbleAngleOffset, i)-1,x+i+1,y+20+scr_marble_pixel_threshold(marbleAngleOffset, i)-1,false);
-			draw_rectangle(x+i,y+20+scr_marble_pixel_threshold(marbleAngleOffset, i)+(zfloor-zcieling)*20-1,x+i+1,y+20+scr_marble_pixel_threshold(marbleAngleOffset, i)+(zfloor-zcieling)*20-1,false);
+	for (i = 0; i < width*20-1; i += 2) {
+		if mirror {
+			draw_rectangle(x+width*20-1-i,y+20+scr_calc_slopepixel(marbleAngleOffset, i)-1,x+width*20-i,y+20+scr_calc_slopepixel(marbleAngleOffset, i)-1,false);
+			draw_rectangle(x+width*20-1-i,y+20+scr_calc_slopepixel(marbleAngleOffset, i)+(zfloor-zcieling)*20-1,x+width*20-i,y+20+scr_calc_slopepixel(marbleAngleOffset, i)+(zfloor-zcieling)*20-1,false);
+		} else {
+			draw_rectangle(x+i,y+20+scr_calc_slopepixel(marbleAngleOffset, i)-1,x+i+1,y+20+scr_calc_slopepixel(marbleAngleOffset, i)-1,false);
+			draw_rectangle(x+i,y+20+scr_calc_slopepixel(marbleAngleOffset, i)+(zfloor-zcieling)*20-1,x+i+1,y+20+scr_calc_slopepixel(marbleAngleOffset, i)+(zfloor-zcieling)*20-1,false);
 		}
 	}
 	

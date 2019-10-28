@@ -2,12 +2,18 @@
 event_inherited();
 
 str = "slope3";
+tileLayer[0,0] = "layer_0";
+tileLayer[0,1] = "";
+layerType[0] = 0;
+height = 2;
+marbleAngleOffset = 63.4; // Slope: 2/1
+angleSlope = 2;
 
-dummyTop = instance_create_layer(x,y,layer,obj_editor_slope3_dummy_top);
+/*dummyTop = instance_create_layer(x,y,layer,obj_editor_slope3_dummy_top);
 dummyBot = instance_create_layer(x,y,layer,obj_editor_slope3_dummy_bot);
 dummyTop.trg = self.id;
 dummyBot.trg = self.id;
-slope3MustUpdate = false;
+slope3MustUpdate = false;*/
 
 // Graphics IDs
 instId1[0] = "inst_"; // Graphics

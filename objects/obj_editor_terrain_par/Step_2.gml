@@ -1,7 +1,7 @@
 /// @description Depth and Baking
 depth = obj_editor_gui.depth -(y + zfloor*20 + 20) - zfloor - depthOffset;
 
-if placed != 2 {
+if placed = 1 {
 	// Resizing the game window
 	if surfaceResize {
 		#region
@@ -69,7 +69,7 @@ if placed != 2 {
 		for (i = 0; i < instance_number(obj_editor_terrain_par); i += 1) {
 			tempInst = instance_find(obj_editor_terrain_par,i);
 			
-			if tempInst.id != self.id {
+			if tempInst.id != self.id { // Exclude itself from the set
 				if tempInst.y + (tempInst.height + tempInst.zfloor) * 20 = self.y + (self.height + self.zfloor) * 20 {
 					// Transfuse rightward streaks
 					if tempInst.x + tempInst.width * 20 = self.x {
@@ -104,8 +104,13 @@ if placed != 2 {
 				
 				// Transfuse upward streaks
 				if tempInst.y = self.y + self.height*20 {
-					if tempInst.zfloor = self.zfloor {
-						hasAdjacentDown = true;
+					if tempInst.x + tempInst.width*20 >= self.x + self.width*20 {
+						if tempInst.x <= self.x {
+							if tempInst.zfloor = self.zfloor {
+								hasAdjacentDown = true;
+								show_message(i);
+							}
+						}
 					}
 				}
 			}
@@ -361,9 +366,9 @@ if placed != 2 {
 				// Bevel top edge
 				if !hasAdjacentDown {
 					if flip {
-						marblePixelCol[i,height*20-1] -= 1;
+						marblePixelCol[i,height*20-1] = scr_marble_bevelpixel(i,height*20-1);
 					} else {
-						marblePixelCol[i,angleStartY - i*angleSlope] -= 1;
+						marblePixelCol[i,angleStartY - i*angleSlope] = scr_marble_bevelpixel(i,angleStartY - i*angleSlope);
 					}
 				}
 				
@@ -376,12 +381,12 @@ if placed != 2 {
 			// Bevel left edge
 			if !hasAdjacentLeft {
 				if flip {
-					for (j = 0; j < height*20-1+hasAdjacentDown; j += 1) {
-						marblePixelCol[0, j] -= 1;
+					for (j = 0; j < angleStartY - angleSlope*width*20 + hasAdjacentDown; j += 1) {
+						marblePixelCol[0, j] =  scr_marble_bevelpixel(0,j);
 					}
 				} else {
-					for (j = 0; j < angleStartY - angleSlope*0+hasAdjacentDown; j += 1) {
-						marblePixelCol[0, j] -= 1;
+					for (j = 0; j < angleStartY + hasAdjacentDown; j += 1) {
+						marblePixelCol[0, j] = scr_marble_bevelpixel(0,j);
 					}
 				}
 			}
@@ -389,12 +394,12 @@ if placed != 2 {
 			// Bevel right edge
 			if !hasAdjacentRight {
 				if flip {
-					for (j = 0; j < height*20-1+hasAdjacentDown; j += 1) {
-						marblePixelCol[width * 20 - 1, j] -= 1;
+					for (j = 0; j < angleStartY + hasAdjacentDown; j += 1) {
+						marblePixelCol[width * 20 - 1, j] = scr_marble_bevelpixel(width * 20 - 1, j);
 					}
 				} else {
-					for (j = 0; j < angleStartY - angleSlope*0+hasAdjacentDown; j += 1) {
-						marblePixelCol[width * 20 - 1, j] -= 1;
+					for (j = 0; j < angleStartY - angleSlope*width*20 + hasAdjacentDown; j += 1) {
+						marblePixelCol[width * 20 - 1, j] = scr_marble_bevelpixel(width * 20 - 1, j);
 					}
 				}
 			}
@@ -461,6 +466,8 @@ if placed != 2 {
 		for (k = 0; k <= tileLayerCount; k += 2) { // Absolute
 			if layerVisible[k] {
 				if layerType[k] = 0 { // Tiles layer
+					#region
+					
 					for (i = 0; i < width + 2; i += 1) {
 						for (j = 0; j < height + zfloor - zcieling + 1; j += 1) {
 							if hasTile[scr_array_xy(i,j,tileArrayHeight),k] {
@@ -475,9 +482,13 @@ if placed != 2 {
 							}
 						}
 					}
+					
+					#endregion
 				}
 				
 				if layerType[k] = 1 { // Marble layer
+					#region
+					
 					draw_surface(marbleSurfaceSide,20,20);
 					
 					for (i = 1; i < width + 1; i += 1) {
@@ -505,6 +516,8 @@ if placed != 2 {
 							}
 						}
 					}
+					
+					#endregion
 				}
 				
 				// Add layer to the drawing surface
