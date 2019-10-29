@@ -2,10 +2,21 @@
 relativeMouseX = 0;
 relativeMouseY = 0;
 timeIndex = 0;
+
+angleCalc = 0;
 radius = 20;
+run = 0;
+rise = 0;
+mirror = false;
+flip = false;
+xTo = x;
+yTo = y;
+calcAngleVals = true;
+initPosition = true;
+
 canDrag = false;
 canDel = false;
-canRelease = 2;
+canRelease = false;
 gone = false;
 mouseHover = false;
 placed = true;

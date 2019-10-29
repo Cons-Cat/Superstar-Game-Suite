@@ -22,10 +22,6 @@ for (j = 1; j <= trgFrom.totalActions; j += 1) {
 	if trgFrom.actionInd[j] = 1 { // Rotation action
 		trgTo.angleRot[j] = trgFrom.angleRot[j];
 		trgTo.angleRotExport[j] = trgFrom.angleRotExport[j];
-		trgTo.runRot[j] = trgFrom.runRot[j];
-		trgTo.riseRot[j] = trgFrom.riseRot[j];
-		trgTo.mirrorRot[j] = trgFrom.mirrorRot[j];
-		trgTo.flipRot[j] = trgFrom.flipRot[j];
 	}
 	
 	if trgFrom.actionInd[j] = 2 { // Dialogue action

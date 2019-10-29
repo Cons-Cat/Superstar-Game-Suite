@@ -14,15 +14,4 @@ with obj_trigger_cutscene_region_editor {
 			actionRowInd[j] -= 1;
 		}
 	}
-	
-	/*j = i + 1;
-	
-	actionColor[i] = actionColor[j];
-	actionSelect[i] = actionSelect[j];
-	actionDelete[i] = actionDelete[j];
-	actionTime[i] = actionTime[j];
-	actionRowInd[i] = actionRowInd[j];
-	actionRowId[i] = actionRowId[j];
-	*/
-//}
 }

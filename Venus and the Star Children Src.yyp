@@ -1194,7 +1194,7 @@
             "Key": "5ff9b3b6-92b1-4a7a-a164-a8ee994f5cdf",
             "Value": {
                 "id": "f05d3494-c8c2-4300-b800-f92686bdc297",
-                "resourcePath": "scripts\\importCutscene\\importCutscene.yy",
+                "resourcePath": "scripts\\scr_import_cutscene\\scr_import_cutscene.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -3460,6 +3460,14 @@
                 "id": "876c9b88-fee6-4083-b822-71e7f27a7097",
                 "resourcePath": "sprites\\spr_x_editor\\spr_x_editor.yy",
                 "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "fd8cf224-4fd4-4ec4-873a-409910e40dc5",
+            "Value": {
+                "id": "0dca19d8-03fc-4679-b56e-d59ec788e272",
+                "resourcePath": "objects\\obj_actor_button_rotate\\obj_actor_button_rotate.yy",
+                "resourceType": "GMObject"
             }
         },
         {

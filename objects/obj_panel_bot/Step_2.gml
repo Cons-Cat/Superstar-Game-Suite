@@ -211,6 +211,7 @@ if addClick != -1 {
 					canPlace = true;
 					canRelease = false;
 					placed = false;
+					calcAngleVals = true;
 					angle = 0;
 					run = 0;
 					rise = 0;
@@ -391,12 +392,11 @@ if panelWidth < view_wport[1] - (obj_panel_right.baseX - obj_panel_left.baseX + 
 
 // Drag actions
 cameraNetX = camera_get_view_x(obj_editor_gui.cameraBotPanel) - (camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) ) - view_wport[5] - obj_subpanel_left.longestPanelRightButton;
-//potentialActionTime = floor( (relativeMouseX - (obj_panel_left.baseX - room_width + 1) + cameraNetX) / 6);
 potentialActionTime = floor( (relativeMouseX - (obj_panel_left.baseX - room_width + 1) + cameraNetX) / 6);
 
-//ax = ( ((scrollHorX - 193 - room_width) / (scrollHorRightBound - scrollHorLeftBound)) * panelWidth ) + 1;
 ax = ( ((scrollHorX - ( obj_panel_left.baseX + 1 - room_width ) - room_width ) / (scrollHorRightBound - scrollHorLeftBound)) * panelWidth ) + 1;
 
+// Edit action
 for (i = 1; i <= totalActions; i += 1) {
 	for (j = 0; j < rows; j += 1) {
 		if relativeMouseX > (obj_panel_left.baseX - room_width + 2) - ax + actionTime[i]*6 && relativeMouseX <= (obj_panel_left.baseX - room_width + 1) - ax + actionTime[i]*6 + 6 {
@@ -440,13 +440,9 @@ for (i = 1; i <= totalActions; i += 1) {
 												rowIndex = other.j;
 												canDrag = true;
 												canPlace = false;
-												angleCalc = other.angleRot[other.i];
-												run = other.runRot[other.i];
-												rise = other.riseRot[other.i];
-												mirror = other.mirrorRot[other.i];
-												flip = other.flipRot[other.i];
-												
-												angleExport = angleFormConv(angleCalc,mirror,flip);
+												canDel = true;
+												calcAngleVals = true;
+												angle = other.angleRot[other.i];
 												
 												with other.actorId[other.j] {
 													other.zfloor = self.zfloor;
@@ -592,9 +588,11 @@ for (i = 1; i <= totalActions; i += 1) {
 if cutsceneInstanceId != -1 {
 	if instance_exists(cutsceneInstanceId) {
 		if !cutsceneInstanceId.select {
-			// Importing handled by the script importCutscene
+			#region
 			
-			// Export metadata
+			// Importing handled by the script scr_import_cutscene
+			
+			// Export data
 			for (i = 0; i < rows; i += 1) {
 				cutsceneInstanceId.rowLength[i] = self.rowLength[i];
 				cutsceneInstanceId.actorTxt[i] = self.actorTxt[i];
@@ -620,10 +618,6 @@ if cutsceneInstanceId != -1 {
 				if actionInd[j] = 1 { // Rotation action
 					cutsceneInstanceId.angleRot[j] = self.angleRot[j];
 					cutsceneInstanceId.angleRotExport[j] = self.angleRotExport[j];
-					cutsceneInstanceId.runRot[j] = self.runRot[j];
-					cutsceneInstanceId.riseRot[j] = self.riseRot[j];
-					cutsceneInstanceId.mirrorRot[j] = self.mirrorRot[j];
-					cutsceneInstanceId.flipRot[j] = self.flipRot[j];
 				}
 				
 				if actionInd[j] = 2 { // Dialogue action
@@ -657,6 +651,8 @@ if cutsceneInstanceId != -1 {
 			
 			totalActions = 0;
 			cutsceneInstanceId = -1; // Reset target instance
+			
+			#endregion
 		}
 	} else {
 		// Clear interface when trigger instance is deleted while selected

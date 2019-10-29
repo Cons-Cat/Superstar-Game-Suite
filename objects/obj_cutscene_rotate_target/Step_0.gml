@@ -9,6 +9,7 @@ if relativeMouseX >= self.x-5 && relativeMouseX <= self.x+5 && ((relativeMouseY 
 		if mouse_y < obj_panel_bot.y {
 			canDel = false;
 			canPlace = true;
+			calcAngleVals = true;
 		}
 	}
 } else {
@@ -20,13 +21,14 @@ j = 1;
 originX[timeIndex] = originX[0];
 originY[timeIndex] = originY[0];
 
-// originX[0] and originY[0] are transmitted from obj_panel_bot
+// originX[0] and originY[0] are passed in externally
 
 while tempActionTime < obj_panel_bot.longestRowLength {
 	for (i = 1; i <= obj_panel_bot.totalActions; i += 1) {
 		if obj_panel_bot.actionRowInd[i] = rowIndex {
 			if obj_panel_bot.actionTime[i] = tempActionTime {
 				if obj_panel_bot.actionInd[i] = 0 {
+					show_debug_message(i);
 					originX[j] = obj_panel_bot.xNode[i];
 					originY[j] = obj_panel_bot.yNode[i];
 					
@@ -51,8 +53,88 @@ while tempActionTime < obj_panel_bot.longestRowLength {
 	tempActionTime += 1;
 }
 
-angle = point_direction(originX[j-1],originY[j-1],relativeMouseX,relativeMouseY);
-angleCalc = round(angle/22.5)*22.5;
+// Point angle at mouse
+if gone {
+	angle = point_direction(originX[j-1],originY[j-1] - (zfloor * 20),relativeMouseX,relativeMouseY - (zfloor * 20));
+}
+
+// Update angle for calculation
+if calcAngleVals {
+	calcAngleVals = false;
+	
+	// Keep >= 0 and < 360
+	while angle >= 360 {
+		angle -= 360;
+	}
+	while angle < 0 {
+		angle += 360;
+	}
+	
+	if angle <= (angle div 22.5)*22.5 + 15 && angle > (angle div 22.5)*22.5 - 15 {
+		angleCalc = (angle div 22.5)*22.5;
+	}
+	
+	// Top right quadrant
+	if angleCalc >= 0 && angleCalc <= 90 {
+		mirror = 1;
+		flip = 1;
+	}
+	// Top left quadrant
+	if angleCalc > 90 && angleCalc <= 180 {
+		mirror = -1;
+		flip = 1;
+	}
+	// Bottom left quadrant
+	if angleCalc > 180 && angleCalc < 270 {
+		mirror = -1;
+		flip = -1;
+	}
+	// Bottom right quadrant
+	if angleCalc >= 270 && angleCalc <= 360 {
+		mirror = 1;
+		flip = -1;
+	}
+	
+	if abs(angleCalc % 90) = 0 {
+		run = 2;
+		rise = 0;
+	}
+	if abs(angleCalc % 90) = 22.5 {
+		if mirror = flip {
+			run = 2;
+			rise = 1;
+		} else {
+			run = 1;
+			rise = 2;
+		}
+	}
+	if abs(angleCalc % 90) = 45 {
+		run = 1;
+		rise = 1;
+	}
+	if abs(angleCalc % 90) = 67.5 {
+		if mirror = flip {
+			run = 1;
+			rise = 2;
+		} else {
+			run = 2;
+			rise = 1;
+		}
+	}
+	if abs(angleCalc % 180) = 90 {
+		run = 0;
+		rise = 2;
+	}
+	
+	// Initialize x-y co-ordinates
+	if initPosition {
+		initPosition = false;
+		
+		xTo = originX[j-1] + run*radius*mirror;
+		yTo = originY[j-1] - rise*radius*flip;
+		angleExport = angleFormConv(angleCalc,mirror,flip);
+	}
+}
 
 // Dragging
 if canPlace {
@@ -62,56 +144,22 @@ if canPlace {
 		image_index = 1;
 	}
 	
-	if mouse_y < obj_panel_bot.y {
-		if angleCalc >= 0 && angleCalc <= 90 {
-			mirror = 1;
-			flip = 1;
-		}
-		if angleCalc > 90 && angleCalc <= 180 {
-			mirror = -1;
-			flip = 1;
-		}
-		if angleCalc > 180 && angleCalc <= 270 {
-			mirror = -1;
-			flip = -1;
-		}
-		if angleCalc > 270 && angleCalc < 360 {
-			mirror = 1;
-			flip = -1;
-		}
-		
-		if abs(angle % 90) = 0 {
-			run = 2;
-			rise = 0;
-		}
-		if abs(angleCalc % 90) = 22.5 {
-			if mirror = flip {
-				run = 2;
-				rise = 1;
-			} else {
-				run = 1;
-				rise = 2;
-			}
-		}
-		if abs(angleCalc % 90) = 45 {
-			run = 1;
-			rise = 1;
-		}
-		if abs(angleCalc % 90) = 67.5 {
-			if mirror = flip {
-				run = 1;
-				rise = 2;
-			} else {
-				run = 2;
-				rise = 1;
-			}
-		}
-		if abs(angleCalc % 180) = 90 {
-			run = 0;
-			rise = 2;
-		}
-		
+	if mouse_y < obj_panel_bot.y || placed {
+		// Update position
 		angleExport = angleFormConv(angleCalc,mirror,flip);
+		
+		xTo = originX[j-1] + run*radius*mirror;
+		yTo = originY[j-1] - rise*radius*flip;
+		calcAngleVals = true
+		
+		// Pass values out
+		with trg {
+			angle = other.angle;
+			trg.dirIsoDef = other.angleExport;
+		}
+		if instance_exists(obj_actor_button_rotate) {
+			obj_actor_button_rotate.angle = self.angle;
+		}
 	}
 } else {
 	if mouseHover {
@@ -121,22 +169,16 @@ if canPlace {
 	}
 }
 
-x = originX[j-1] + run*radius*mirror;
-y = originY[j-1] - rise*radius*flip;
+x = xTo;
+y = yTo;
 gone = true;
 
 if (mouse_check_button_released(mb_left)) {
 	if canRelease {
-		//placed = true; // Enables the halo when selected
-		
 		if canDel {
 			if trg = -1 {
 				obj_panel_bot.angleRot[timeIndex] = self.angleCalc;
 				obj_panel_bot.angleRotExport[timeIndex] = self.angleExport;
-				obj_panel_bot.runRot[timeIndex] = self.run;
-				obj_panel_bot.riseRot[timeIndex] = self.rise;
-				obj_panel_bot.mirrorRot[timeIndex] = self.mirror;
-				obj_panel_bot.flipRot[timeIndex] = self.flip;
 			} else {
 				with trg {
 					trg.dirIsoDef = other.angleExport;
@@ -145,7 +187,7 @@ if (mouse_check_button_released(mb_left)) {
 			
 			if instance_exists(obj_trigger_region_parent) {
 				obj_trigger_region_parent.alarm[2] = 2;
-		
+				
 				with obj_cutscene_actor_dummy_lucy {
 					instance_destroy();
 				}
@@ -155,6 +197,7 @@ if (mouse_check_button_released(mb_left)) {
 		} else {
 			canDrag = true;
 			canPlace = false;
+			
 			alarm[0] = 18;
 		}
 	} else {

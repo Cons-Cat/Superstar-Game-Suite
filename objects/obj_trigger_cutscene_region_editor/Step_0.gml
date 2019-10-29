@@ -3,6 +3,8 @@ event_inherited();
 
 // Initially generate a 1x1 square polygon region
 if placed = 1 {
+	#region
+	
 	with instance_create_layer(x,y,"Instances",obj_trigger_vertex) {
 		other.vertexInstanceId[self.vertexInd] = self.id;
 		self.trg = other.id;
@@ -34,10 +36,14 @@ if placed = 1 {
 	
 	recalculate = true;
 	placed = 2;
+	
+	#endregion
 }
 
 // Dimensional manipulation
 if spawnButtons {
+	#region
+	
 	spawnButtons = false;
 	
 	with instance_create_layer(x,y,"Instances",obj_arrow_editor_drag) {
@@ -106,6 +112,8 @@ if spawnButtons {
 			alarm[0] = 2; // Delay until vertices respond to mouse input
 		}
 	}
+	
+	#endregion
 }
 
 zcieling = zfloor;
@@ -113,7 +121,7 @@ zcieling = zfloor;
 if select {
 	if !trgGone {
 		// Import metadata
-		importCutscene(obj_panel_bot,self.id);
+		scr_import_cutscene(obj_panel_bot,self.id);
 		
 		if !instance_exists(obj_cutscene_actor_dummy_lucy) {
 			// Generate stand-in for Minerva

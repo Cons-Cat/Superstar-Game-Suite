@@ -5,7 +5,7 @@ if select {
 			with trg {
 				if str = "actor" {
 					// Import metadata
-					importCutscene(obj_panel_bot.id,self.id);
+					scr_import_cutscene(obj_panel_bot.id,self.id);
 				}
 				if str = "door" {
 					roomStr = get_string("What is the room name?",string(roomStr));
