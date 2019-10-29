@@ -1,7 +1,4 @@
 ///@description Manipulate placement
-relativeMouseX = obj_editor_gui.mouseCheckX;
-relativeMouseY = obj_editor_gui.mouseCheckY;
-
 if canDragDelayed {
 	if trg != -1 {
 		if instance_exists(trg) {
@@ -49,12 +46,17 @@ if canDragDelayed {
 				} else {
 					x = trg.x + trgXOff;
 					y = trg.y + trgYOff + trg.zfloor * 20;
-					
-					// Update trg recursively while it is selected
+				}
+				
+				// Recalculate mesh when this vertex moves
+				if x != tempXDrag || y != tempYDrag {
+					tempXDrag = x;
+					tempYDrag = y;
 					trg.recalculate = true;
 				}
 				
 				if vertexToInd != -1 {
+					// Correlate the targeted vertex ID to the target vertex index
 					if vertexToId = -1 {
 						with obj_trigger_vertex {
 							if vertexInd = other.vertexToInd {

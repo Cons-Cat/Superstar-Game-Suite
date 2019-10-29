@@ -160,6 +160,8 @@ if instance_number(obj_npc_level) + 1 != rows {
 
 // Adding actions to timeline
 if addClick != -1 {
+	#region
+	
 	if hasRowSelected {
 		totalActions += 1;
 		actionSelect[totalActions] = false;
@@ -194,7 +196,7 @@ if addClick != -1 {
 					with other.actorId[other.i] {
 						other.zfloor = self.zfloor;
 						other.originX[0] = self.x + 10;
-						other.originY[0] = self.y + 10;
+						other.originY[0] = self.y + 10 + zfloor * 20;
 					}
 				}
 			}
@@ -297,6 +299,8 @@ if addClick != -1 {
 	}
 	
 	addClick = -1;
+	
+	#endregion
 }
 
 // Managing selection
@@ -403,6 +407,8 @@ for (i = 1; i <= totalActions; i += 1) {
 			if relativeMouseY >= y + 34 + j*14 && relativeMouseY <= y + 44 + j*14 {
 				if relativeMouseX >= obj_panel_left.baseX - room_width {
 					if actionInd[i] != -1 {
+						#region
+						
 						if actionRowInd[i] = j {
 							if mouse_check_button_pressed(mb_left) {
 								actionSelect[i] = true;
@@ -426,7 +432,7 @@ for (i = 1; i <= totalActions; i += 1) {
 												with other.actorId[other.j] {
 													other.zfloor = self.zfloor;
 													other.originX[0] = self.x + 10;
-													other.originY[0] = self.y + 10;
+													other.originY[0] = self.y + 10 + zfloor*20;
 												}
 											}
 										}
@@ -519,6 +525,8 @@ for (i = 1; i <= totalActions; i += 1) {
 								actionDelete[i] = true;
 							}
 						}
+						
+						#endregion
 					}
 				}
 			} else {
@@ -532,7 +540,10 @@ for (i = 1; i <= totalActions; i += 1) {
 		
 		actionColorDraw[i] = actionColor[i]; // Default color
 		
+		// Dragging actions
 		if actionSelect[i] {
+			#region
+			
 			actionColorDraw[i] = c_orange;
 			actionTimeTemp = actionTime[i];
 			
@@ -565,6 +576,8 @@ for (i = 1; i <= totalActions; i += 1) {
 					}
 				}
 			}
+			
+			#endregion
 		}
 		
 		if actionDelete[i] {

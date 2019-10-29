@@ -21,8 +21,9 @@ if instance_exists(obj_editor_gui) {
 		obj_trigger_vertex.edgeColTemp = make_color_rgb(29,0,92);
 		
 		if !broken {
+			// Shadow cast by polygon
 			if zfloor > 0 {
-				gpu_set_blendmode(bm_inv_src_color); // Shadow
+				gpu_set_blendmode(bm_inv_src_color);
 				
 				for (i = 0; i < ds_list_size(polygon); i += 6) {
 					draw_set_alpha(0.8);
@@ -30,6 +31,7 @@ if instance_exists(obj_editor_gui) {
 				}
 			}
 			
+			// Inside polygon
 			gpu_set_blendmode_ext(bm_dest_color, bm_zero); // Multiply blend mode
 			
 			for (i = 0; i < ds_list_size(polygon); i += 6) {

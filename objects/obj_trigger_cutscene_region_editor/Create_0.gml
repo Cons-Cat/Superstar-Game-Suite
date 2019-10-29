@@ -9,17 +9,9 @@ width = 1;
 height = 1;
 
 polygon = -1;
-recalculate = true;
+recalculate = false;
 broken = true;
 list = ds_list_create();
-
-if obj_tile_z.z >= 0 {
-	zfloor = obj_tile_z.z;
-	zcieling = obj_tile_z.z;
-} else {
-	zfloor = 0;
-	zcieling = 0;
-}
 
 canSelect = false;
 select = 0;

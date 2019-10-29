@@ -106,7 +106,7 @@ if calculateHeight {
 		}
 	}
 	
-	panelHeight = tempHeight;
+	panelHeight = tempHeight - 4;
 	calculateHeight = false;
 }
 

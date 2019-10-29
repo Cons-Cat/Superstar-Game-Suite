@@ -6,6 +6,8 @@ zcieling = zfloor;
 
 // Initially generate a 1x1 square polygon region
 if placed = 1 {
+	#region
+	
 	with instance_create_layer(x,y,"Instances",obj_trigger_vertex) {
 		other.vertexInstanceId[self.vertexInd] = self.id;
 		self.trg = other.id;
@@ -37,10 +39,14 @@ if placed = 1 {
 	
 	recalculate = true;
 	placed = 2;
+	
+	#endregion
 }
 
 // Dimensional manipulation
 if spawnButtons {
+	#region
+	
 	spawnButtons = false;
 	
 	if width = 1 {
@@ -57,6 +63,26 @@ if spawnButtons {
 	with instance_create_layer(x,y+20,"Instances",obj_x_editor) {
 		trg = other.id;
 	}
+	
+	with obj_trigger_vertex {
+		if trg = other.id {
+			alarm[0] = 2;
+		}
+	}
+	
+	// Fix issues when the sub-panel is folded
+	if obj_subpanel_left.y >= obj_panel_bot.y {
+		obj_subpanel_left.tempY = -1;
+	}
+	
+	#endregion
+}
+
+// Trigger manipulation
+if spawnTriggers {
+	#region
+	
+	spawnTriggers = false;
 	
 	with instance_create_layer(x,y,"Instances",obj_region_button_vertex) {
 		sortIndex = 0;
@@ -111,16 +137,7 @@ if spawnButtons {
 	
 	event_user(0);
 	
-	with obj_trigger_vertex {
-		if trg = other.id {
-			alarm[0] = 2;
-		}
-	}
-	
-	// Fix issues when the sub-panel is folded
-	if obj_subpanel_left.y >= obj_panel_bot.y {
-		obj_subpanel_left.tempY = -1;
-	}
+	#endregion
 }
 
 if select {

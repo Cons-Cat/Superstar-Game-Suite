@@ -2,6 +2,8 @@
 var angle = argument[0];
 var mirror = argument[1];
 var flip = argument[2];
+show_debug_message("m: " + string(mirror));
+show_debug_message("f: " + string(flip));
 
 if mirror = 1 {
 	if flip = 1 {
@@ -21,6 +23,21 @@ if mirror = 1 {
 			return 2;
 		}
 	}
+	
+	if flip = -1 {
+		if abs(angle % 90) = 0 {
+			return 6;
+		}
+		if abs(angle % 90) = 22.5 {
+			return 6.5;
+		}
+		if abs(angle % 90) = 45 {
+			return 7;
+		}
+		if abs(angle % 90) = 67.5 {
+			return 7.5;
+		}
+	}
 }
 if mirror = -1 {
 	if flip = 1 {
@@ -37,9 +54,7 @@ if mirror = -1 {
 			return 3.5;
 		}
 	}
-}
-
-if mirror = -1 {
+	
 	if flip = -1 {
 		if abs(angle % 180) = 90 {
 			return 6;
@@ -52,20 +67,6 @@ if mirror = -1 {
 		}
 		if abs(angle % 90) = 67.5 {
 			return 5.5;
-		}
-	}
-}
-
-if mirror = 1 {
-	if flip = -1 {
-		if abs(angle % 90) = 22.5 {
-			return 6.5;
-		}
-		if abs(angle % 90) = 45 {
-			return 7;
-		}
-		if abs(angle % 90) = 67.5 {
-			return 7.5;
 		}
 	}
 }

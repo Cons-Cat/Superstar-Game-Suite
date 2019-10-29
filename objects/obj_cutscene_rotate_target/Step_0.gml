@@ -1,21 +1,4 @@
 /// @description Insert description here
-relativeMouseX = obj_editor_gui.mouseCheckX;
-relativeMouseY = obj_editor_gui.mouseCheckY;
-
-if relativeMouseX >= self.x-5 && relativeMouseX <= self.x+5 && ((relativeMouseY >= self.y-4 && relativeMouseY <= self.y+5) || (relativeMouseY >= self.y-4 - zfloor*20 && relativeMouseY <= self.y+5 - zfloor*20)) {
-	mouseHover = true;
-	
-	if mouse_check_button_pressed(mb_left) {
-		if mouse_y < obj_panel_bot.y {
-			canDel = false;
-			canPlace = true;
-			calcAngleVals = true;
-		}
-	}
-} else {
-	mouseHover = false;
-}
-
 tempActionTime = 0;
 j = 1;
 originX[timeIndex] = originX[0];
@@ -60,18 +43,20 @@ if gone {
 
 // Update angle for calculation
 if calcAngleVals {
-	calcAngleVals = false;
+	#region
 	
-	// Keep >= 0 and < 360
-	while angle >= 360 {
-		angle -= 360;
-	}
-	while angle < 0 {
-		angle += 360;
-	}
+	calcAngleVals = false;
 	
 	if angle <= (angle div 22.5)*22.5 + 15 && angle > (angle div 22.5)*22.5 - 15 {
 		angleCalc = (angle div 22.5)*22.5;
+	}
+	
+	// Keep >= 0 and < 360
+	while angleCalc >= 360 {
+		angleCalc -= 360;
+	}
+	while angleCalc < 0 {
+		angleCalc += 360;
 	}
 	
 	// Top right quadrant
@@ -90,7 +75,7 @@ if calcAngleVals {
 		flip = -1;
 	}
 	// Bottom right quadrant
-	if angleCalc >= 270 && angleCalc <= 360 {
+	if angleCalc >= 270 && angleCalc < 360 {
 		mirror = 1;
 		flip = -1;
 	}
@@ -134,6 +119,8 @@ if calcAngleVals {
 		yTo = originY[j-1] - rise*radius*flip;
 		angleExport = angleFormConv(angleCalc,mirror,flip);
 	}
+	
+	#endregion
 }
 
 // Dragging

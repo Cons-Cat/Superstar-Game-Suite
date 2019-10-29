@@ -31,6 +31,11 @@ canDeSelect = true;
 calculateSub = false; // Generate surface
 surfaceResize = true; // Initialize surfaces
 
+depthIterate = 0;
+spawnButtons = false;
+spawnTriggers = false;
+canSpawnTriggers = false;
+
 blankCol = c_white;
 blankColDark = c_dkgray
 layerColor = blankCol;
@@ -74,11 +79,8 @@ resetArray = true;
 sprMaterial = spr_tls_rectangle_default;
 tileArrayDrawX[0,0] = 0;
 tileArrayDrawY[0,0] = 0;
-canSpawnButtons = false;
-spawnButtons = false;
 canSpawnTiles = false;
 spawnTiles = canSpawnTiles;
-depthIterate = 0;
 
 // Marble values
 marbleNetPixels = 0;

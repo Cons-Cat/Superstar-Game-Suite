@@ -7,14 +7,6 @@ modeForSelectVal = 4;
 width = 1;
 height = 1;
 
-if obj_tile_z.z >= 0 {
-	zfloor = obj_tile_z.z;
-	zcieling = obj_tile_z.z;
-} else {
-	zfloor = 0;
-	zcieling = 0;
-}
-
 canSelect = false;
 select = 0;
 placed = 0;

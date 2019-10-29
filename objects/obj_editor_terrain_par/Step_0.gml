@@ -18,7 +18,8 @@ if placed != 0 {
 			if obj_editor_gui.mode = 4 {
 				// Trigger instances
 				if mouse_check_button_pressed(mb_left) && !instance_exists(obj_editor_button_parent) {
-					canSpawnButtons = true;
+					spawnButtons = true;
+					canSpawnTriggers = true;
 					
 					select = true;
 					buttonSelected = 1;

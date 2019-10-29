@@ -17,22 +17,6 @@ recalculate = true;
 broken = true;
 list = ds_list_create();
 list2 = ds_list_create();
-/*xVertexExtreme[0] = -1; // Leftmost vertex
-xVertexExtreme[1] = -1; // Rightmost vertex
-yVertexExtreme[0] = -1; // Topmost vertex
-yVertexExtreme[1] = -1; // Bottommost vertex
-resultantX[0] = x;
-resultantY[0] = y;
-resultantX[2] = x;
-resultantY[2] = y;*/
-
-if obj_tile_z.z >= 0 {
-	zfloor = obj_tile_z.z;
-	zcieling = obj_tile_z.z;
-} else {
-	zfloor = 0;
-	zcieling = 0;
-}
 
 canSelect = false;
 select = 0;

@@ -14,6 +14,8 @@ mouseXOff = 0;
 mouseYOff = 0;
 tempX = x;
 tempY = y;
+tempXDrag = x;
+tempYDrag = y;
 
 vertexInd = instance_number(obj_trigger_vertex);
 edgeCol = c_white;

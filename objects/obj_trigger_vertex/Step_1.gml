@@ -1,4 +1,7 @@
 /// @description Disable obstructing interface buttons
+relativeMouseX = obj_editor_gui.mouseCheckX;
+relativeMouseY = obj_editor_gui.mouseCheckY;
+
 if visible {
 	if trg != -1 {
 		if instance_exists(obj_editor_button_parent) {

@@ -17,6 +17,15 @@ if spawnButtons {
 		trg = other.id;
 	}
 	
+	#endregion
+}
+
+// Trigger manipulation
+if spawnTriggers {
+	#region
+	
+	spawnTriggers = false;
+	
 	with instance_create_layer(x,y,"Instances",obj_actor_button_rotate) {
 		trg = other.id;
 		sortIndex = 0;
@@ -26,11 +35,15 @@ if spawnButtons {
 		angle = other.angle;
 	}
 	
+	event_user(0);
+	
 	#endregion
 }
 
 // Generate angle interface
 if placed = 1 {
+	#region
+	
 	if instance_exists(obj_editor_gui) {
 		if !instance_exists(obj_cutscene_rotate_target) {
 			if obj_editor_gui.mode = 4 { // Trigger mode
@@ -53,6 +66,8 @@ if placed = 1 {
 			}
 		}
 	}
+	
+	#endregion
 }
 
 // Find relevant floor object

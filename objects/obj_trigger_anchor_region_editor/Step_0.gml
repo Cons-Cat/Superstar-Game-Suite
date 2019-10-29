@@ -3,6 +3,8 @@ event_inherited();
 
 // Dimensional manipulation
 if spawnButtons {
+	#region
+	
 	spawnButtons = false;
 	
 	with instance_create_layer(x,y,"Instances",obj_arrow_editor_drag) {
@@ -75,10 +77,7 @@ if spawnButtons {
 	
 	event_user(0);
 	
-	// Fix issues when the sub-panel is folded
-	if obj_subpanel_left.y >= obj_panel_bot.y {
-		obj_subpanel_left.tempY = -1;
-	}
+	#endregion
 }
 
 zcieling = zfloor;

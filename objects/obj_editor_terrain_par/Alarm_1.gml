@@ -4,7 +4,7 @@ if canSpawnTiles {
 	spawnTiles = true;
 }
 
-if canSpawnButtons {
-	canSpawnButtons = false;
-	spawnButtons = true;
+if canSpawnTriggers {
+	canSpawnTriggers = false;
+	spawnTriggers = true;
 }
