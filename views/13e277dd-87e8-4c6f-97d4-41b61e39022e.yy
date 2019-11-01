@@ -14,7 +14,8 @@
         "fbcea4aa-c8ee-412d-b2a7-2cd71fe77950",
         "13590b8f-6522-49a1-88ea-467de634e1da",
         "730bb42f-7a3a-448f-83aa-db345fea5122",
-        "c5571ea3-f6b0-49d8-93a0-bf6171099a35"
+        "c5571ea3-f6b0-49d8-93a0-bf6171099a35",
+        "1bb98f46-5bbf-4bea-93c0-5b653e9bc0eb"
     ],
     "filterType": "GMSprite",
     "folderName": "Dialogue Bubble",

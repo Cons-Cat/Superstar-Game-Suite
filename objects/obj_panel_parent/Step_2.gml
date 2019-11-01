@@ -83,8 +83,8 @@ if mouse_check_button_released(mb_left) {
 	scrollVerSelect = false;
 }
 
-if scrollHorSelect {
 // Drag horizontal scroll bar
+if scrollHorSelect {
 	scrollHorX = relativeMouseX - scrollHorSelectOff;
 	scrollHorPartition = (scrollHorX - scrollHorLeftBound) / (scrollHorRightBound - scrollHorLeftBound - scrollHorWidth) * 100;
 	
@@ -102,8 +102,8 @@ if scrollHorSelect {
 	scrollHorX = scrollHorLeftBound + (scrollHorPartition / 100) * (scrollHorRightBound - scrollHorLeftBound - scrollHorWidth);
 }
 
+// Drag vertical scroll bar
 if scrollVerSelect {
-	// Drag vertical scroll bar
 	scrollVerY = relativeMouseY - scrollVerSelectOff;
 	scrollVerPartition = (scrollVerY - scrollVerTopBound) / (scrollVerBotBound - scrollVerTopBound - scrollVerHeight) * 100;
 	

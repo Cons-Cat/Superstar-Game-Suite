@@ -22,6 +22,9 @@ if window_has_focus() {
 		with obj_panel_bot {
 			remakeMap = true;
 		}
+		with obj_cutscene_dialogue {
+			remakeSurface = true;
+		}
 		
 		if window_get_width() >= 3840 {
 			is4K = true;

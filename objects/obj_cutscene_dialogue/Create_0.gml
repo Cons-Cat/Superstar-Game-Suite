@@ -7,13 +7,15 @@ obj_trigger_region_parent.canDeSelect = false;
 cursorPlaceChar = -1; // Off of a bubble
 cursorPlacePix = 0;
 cursorBubble = -1;
-cursorLine = -1;
+cursorPlaceLine = -1;
 cursorState = -1;
 /*
 -1 is an inactive state
 0 is an idle state
 1 is a multi-select state
 */
+tempCursorPlaceChar = -1;
+cursorPlaceSelectionLine = -1;
 
 // Dialogue bubble values
 bubbleCount = 0; // 0 is a single bubble
@@ -22,6 +24,8 @@ bubbleY[bubbleCount] = 0;
 lineCount[bubbleCount] = 0; // 0 is a single line
 lineStr[bubbleCount,0] = "Test!";
 longestLine[bubbleCount] = 0;
+canSelectBubState[bubbleCount] = -1; // -1 is inert state
+sliderMagnitude = 0;
 waviesCount[bubbleCount] = 0; // No wavies initially
 
 // Box Values
@@ -32,6 +36,13 @@ placeY = y;
 placeXOff = 0;
 placeYOff = 0;
 canDelete = false;
+canSelectBox = false;
+diaSurface = surface_create(boxWidth,boxHeight);
+remakeSurface = true;
+surfaceScrollOff = 0;
+
+// Scrollbar values
+hasScrollHor = false;
 
 // Colors
 col[0] = make_color_rgb(28,30,36); // Dark

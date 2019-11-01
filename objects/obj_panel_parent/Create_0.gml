@@ -14,6 +14,9 @@ scrollVerBotBound = 0;
 
 panelWidth = 0;
 panelHeight = 0;
+scrollHorWidth = panelWidth;
+scrollVerHeight = panelHeight;
+
 scrollHorX = 0;
 scrollVerY = 0;
 scrollHorPartition = 0;
@@ -24,9 +27,8 @@ scrollHorSelect = false;
 scrollVerSelect = false;
 scrollPanelHorDefined = false;
 scrollPanelVerDefined = false;
-scrollHorWidth = panelWidth;
-scrollVerHeight = panelHeight;
 tilesSheetPlacement = 1024;
+
 hasScrollVer = true;
 hasScrollHor = true;
 onBase = 1;
