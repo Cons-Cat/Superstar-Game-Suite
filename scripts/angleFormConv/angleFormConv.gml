@@ -2,8 +2,6 @@
 var angle = argument[0];
 var mirror = argument[1];
 var flip = argument[2];
-show_debug_message("m: " + string(mirror));
-show_debug_message("f: " + string(flip));
 
 if mirror = 1 {
 	if flip = 1 {

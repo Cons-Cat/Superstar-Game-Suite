@@ -135,7 +135,8 @@
         "6d50fd3f-8dce-430d-9acf-41194e62770e",
         "b2b83865-b405-497b-b436-840ac0a21144",
         "9712ceb6-5f77-47fe-9c26-3f798963ce44",
-        "879924ff-bd76-4476-9d61-f20d8f6de8ea"
+        "879924ff-bd76-4476-9d61-f20d8f6de8ea",
+        "13e277dd-87e8-4c6f-97d4-41b61e39022e"
     ],
     "filterType": "GMSprite",
     "folderName": "Level Editor",

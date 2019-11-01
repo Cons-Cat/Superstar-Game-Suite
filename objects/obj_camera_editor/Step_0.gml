@@ -15,14 +15,37 @@ if obj_editor_gui.mode != 2 {
 	y = placeY;
 	
 	// Keyboard movement
-	if keyboard_check(vk_right) && !keyboard_check(vk_left) {
-		if curAtX = gridAtX {
-			gridAtX += 1;
-			consecutiveMovesHor += 1;
+	if canInputMove {
+		if keyboard_check(vk_right) && !keyboard_check(vk_left) {
+			if curAtX = gridAtX {
+				gridAtX += 1;
+				consecutiveMovesHor += 1;
+			}
+		}
+		if keyboard_check(vk_left) && !keyboard_check(vk_right) {
+			if curAtX = gridAtX {
+				gridAtX -= 1;
+				consecutiveMovesHor += 1;
+			}
+		}
+		if keyboard_check(vk_down) && !keyboard_check(vk_up) {
+			if curAtY = gridAtY {
+				gridAtY += 1;
+				consecutiveMovesVer += 1;
+			}
+		}
+	
+		if keyboard_check(vk_up) && !keyboard_check(vk_down) {
+			if curAtY = gridAtY {
+				gridAtY -= 1;
+				consecutiveMovesVer += 1;
+			}
 		}
 	}
 	
-	// Movement
+	// Co-ordinates movement
+	
+	// Rightward
 	if gridAtX > curAtX {
 		curAtX += gridSpeedHor;
 		
@@ -31,14 +54,7 @@ if obj_editor_gui.mode != 2 {
 		}
 	}
 	
-	if keyboard_check(vk_left) && !keyboard_check(vk_right) {
-		if curAtX = gridAtX {
-			gridAtX -= 1;
-			consecutiveMovesHor += 1;
-		}
-	}
-	
-	// Movement
+	// Leftward
 	if gridAtX < curAtX {
 		curAtX -= gridSpeedHor;
 		
@@ -47,14 +63,7 @@ if obj_editor_gui.mode != 2 {
 		}
 	}
 	
-	if keyboard_check(vk_down) && !keyboard_check(vk_up) {
-		if curAtY = gridAtY {
-			gridAtY += 1;
-			consecutiveMovesVer += 1;
-		}
-	}
-	
-	// Movement
+	// Downward
 	if gridAtY > curAtY {
 		curAtY += gridSpeedVer;
 		
@@ -63,14 +72,7 @@ if obj_editor_gui.mode != 2 {
 		}
 	}
 	
-	if keyboard_check(vk_up) && !keyboard_check(vk_down) {
-		if curAtY = gridAtY {
-			gridAtY -= 1;
-			consecutiveMovesVer += 1;
-		}
-	}
-	
-	// Movement
+	// Upward
 	if gridAtY < curAtY {
 		curAtY -= gridSpeedVer;
 		

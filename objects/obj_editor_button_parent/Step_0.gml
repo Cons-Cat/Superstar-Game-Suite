@@ -34,7 +34,6 @@ if mouse_check_button_pressed(mb_left) {
 						selfCanDeSelect = false;
 					}
 				}
-				
 				if instance_exists(obj_trigger_vertex) {
 					// Consider zfloor passed into obj_trigger_vertex from a selected obj_trigger_dialogue_region_editor instance
 					if collision_rectangle(mouseCheckX-1,mouseCheckY-1+(obj_trigger_vertex.zfloor*20),mouseCheckX+1,mouseCheckY+1+(obj_trigger_vertex.zfloor*20),obj_trigger_vertex,false,false) {
@@ -83,5 +82,7 @@ if select {
 if obj_editor_gui.mode = 4 { // Triggers mode
 	if instance_exists(obj_cutscene_target_parent) {
 		visible = false;
+	} else {
+		visible = true;
 	}
 }

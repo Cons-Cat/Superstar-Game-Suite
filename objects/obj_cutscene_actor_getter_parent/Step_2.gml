@@ -11,7 +11,7 @@ if mouse_check_button_pressed(mb_left) {
 			} else {
 				obj_dialogue_region_interface.actor[i] = collision_point(mouse_x,mouse_y,obj_actor_parent,false,false).id;
 			}
-			activated = true;
+			activeInScene = true;
 		}
 	}
 }

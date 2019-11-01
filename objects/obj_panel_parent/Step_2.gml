@@ -1,5 +1,4 @@
 /// @description Perform most scrollbar operations
-relativeMouseX = window_mouse_get_x() + room_width
 
 // Scrollbars
 scrollHorFactor = (scrollHorRightBound - scrollHorLeftBound) / panelWidth;

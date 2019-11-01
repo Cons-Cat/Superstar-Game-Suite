@@ -36,6 +36,7 @@ panY = 0;
 
 xTo = x;
 yTo = y;
+canInputMove = true;
 
 i = 0;
 trgRegion = -1;

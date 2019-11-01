@@ -1,6 +1,7 @@
 /// @description Insert description here
 baseY = ( 9 * 20 * obj_editor_gui.realPortScaleVer ) + ( 60 / 576 * window_get_height() );
 x = room_width + view_wport[1]/2;
+relativeMouseX = window_mouse_get_x();
 relativeX = x - room_width;
 
 canSelect = false;
@@ -234,16 +235,13 @@ if addClick != -1 {
 			actionColor[totalActions] = make_color_rgb(113,84,45); // Gold
 			
 			if !instance_exists(obj_cutscene_dialogue) {
-				with instance_create_layer(actorId[i].x,actorId[i].y-42,"Instances",obj_cutscene_dialogue) {
+				with instance_create_layer(actorId[i].x+18,actorId[i].y-42,"Instances",obj_cutscene_dialogue) {
 					timeIndex = other.totalActions;
 					rowIndex = other.i;
 					trg = other.actorId[other.i];
-					zfloor = trg.zfloor;
-					width = 6;
-					height = 3;
 					
-					placex = xstart - width*5;
-					placey = ystart;
+					placeX = xstart;
+					placeY = ystart;
 				}
 			}
 		}
@@ -633,7 +631,7 @@ if cutsceneInstanceId != -1 {
 					cutsceneInstanceId.angleRotExport[j] = self.angleRotExport[j];
 				}
 				
-				if actionInd[j] = 2 { // Dialogue action
+				/*if actionInd[j] = 2 { // Dialogue action
 					cutsceneInstanceId.dialogueWidth[j] = self.dialogueWidth[j];
 					cutsceneInstanceId.dialogueHeight[j] = self.dialogueHeight[j];
 					cutsceneInstanceId.textRows[j] = self.textRows[j];
@@ -643,7 +641,7 @@ if cutsceneInstanceId != -1 {
 					for (i = 0; i < textRows[j]; i += 1) {
 						cutsceneInstanceId.dialogueStr[j,i] = other.str[j,i];
 					}
-				}
+				}*/
 				
 				if actionInd[j] = 3 { // Camera action
 					cutsceneInstanceId.xNode[j] = self.xNode[j];

@@ -1,5 +1,5 @@
 /// @description 
-activated = false;
+activeInScene = false;
 canClick = false;
 str = "/";
 

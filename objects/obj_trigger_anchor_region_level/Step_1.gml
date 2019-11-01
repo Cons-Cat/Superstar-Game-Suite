@@ -2,8 +2,8 @@
 if collision_ellipse(x1+thresholdRadius*20,y1-thresholdRadius*20,x2-thresholdRadius*20,y2+thresholdRadius*20,obj_player_overworld,false,false) {
 	obj_camera_editor.anchorId = self.id;
 	
-	if !activated {
-		activated = true;
+	if !activeInScene {
+		activeInScene = true;
 	}
 	
 	a1 = minorRadius;
@@ -31,10 +31,10 @@ if collision_ellipse(x1+thresholdRadius*20,y1-thresholdRadius*20,x2-thresholdRad
 	obj_camera_editor.anchored = true;
 	obj_camera_editor.zoomLevel = self.zoom;
 } else {
-	if activated {
+	if activeInScene {
 		obj_camera_editor.anchored = false;
 		
-		activated = false;
+		activeInScene = false;
 		magnitude = 0;
 		zoom = 1 - maxZoom;
 	}

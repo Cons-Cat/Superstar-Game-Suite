@@ -16,16 +16,18 @@ if canDragDelayed {
 					
 					// Select
 					if mouse_y < obj_panel_bot.y {
-						if relativeMouseX >= bbox_left && relativeMouseX <= bbox_right {
-							if (relativeMouseY >= bbox_top - (zfloor * 20) && relativeMouseY <= bbox_bottom - (zfloor * 20)) {
-								obj_region_button_edge.vertexTempHover = self.id;
-								
-								if mouse_check_button_pressed(mb_left) {
-									if canDrag {
-										mouseXOff = self.x - relativeMouseX;
-										mouseYOff = self.y - relativeMouseY;
-										
-										canPlace = true;
+						if !instance_exists(obj_cutscene_target_parent) {
+							if relativeMouseX >= bbox_left && relativeMouseX <= bbox_right {
+								if (relativeMouseY >= bbox_top - (zfloor * 20) && relativeMouseY <= bbox_bottom - (zfloor * 20)) {
+									obj_region_button_edge.vertexTempHover = self.id;
+									
+									if mouse_check_button_pressed(mb_left) {
+										if canDrag {
+											mouseXOff = self.x - relativeMouseX;
+											mouseYOff = self.y - relativeMouseY;
+											
+											canPlace = true;
+										}
 									}
 								}
 							}

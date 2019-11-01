@@ -1,7 +1,7 @@
 /// @description 
 event_inherited();
 
-if activated {
+if activeInScene {
 	str = get_string("Dialogue Input:",str);
 	obj_dialogue_region_interface.str[i] = self.str;
 	obj_dialogue_region_interface.menuAlpha = 1;

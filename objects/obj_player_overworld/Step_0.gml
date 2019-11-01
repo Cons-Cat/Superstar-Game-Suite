@@ -17,7 +17,7 @@ if slowSpd { // Walking
 	}*/
 }
 
-if !activated {
+if !activeInScene {
 
 phy_acceleration_imp = phy_acceleration
 phy_deceleration_imp = phy_deceleration
@@ -150,6 +150,7 @@ rotDir = scr_rotateDirection(rotationInputDirection,dirIso,rotFin);
 if dirIso != rotFin {
 	dirIso = scr_spriteRotateTowards(rotFin,rotDir,dirIso); // Update the angle towards the direction
 }
+
 spr = scr_spriteDir(dirIso);
 
 if (abs(c_hspeed) + abs(c_vspeed))/2 != 0 && !jumping {
@@ -192,6 +193,7 @@ if canMove {
 			imgIndex = 0;
 		}
 	}
+	
 	if jumping {
 		isFalling = false; // Used for camera motion
 		
@@ -208,7 +210,6 @@ if canMove {
 				// Boost forward in the direction set leaping
 				c_hspeed = jumpTempHspd;
 				c_vspeed = jumpTempVspd;
-				//jumpDelay = -1;
 			}
 			
 			// Rising skyward

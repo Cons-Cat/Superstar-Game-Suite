@@ -2,4 +2,4 @@
 timeIndex = 0;
 timeIndexCalc = timeIndex;
 
-activated = false;
+activeInScene = false;

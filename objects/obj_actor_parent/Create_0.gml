@@ -4,7 +4,7 @@ str = "actor";
 trgRegion = -1;
 sceneStep = 0;
 dir = -1;
-activated = false;
+activeInScene = false;
 
 spd = 0;
 dirIso = 6;

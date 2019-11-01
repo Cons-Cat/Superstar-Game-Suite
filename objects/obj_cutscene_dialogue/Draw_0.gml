@@ -1,115 +1,101 @@
-/// @description Draw chat bubble
+/// @description 
 
-// Darks
-	//Fill
-	for(i = 0; i <= width; i += 1) {
-		for(j = 0; j <= height; j += 1) {
-			if (i > 0 && i < width) || (j > 0 && j < height) {
-				draw_sprite(spr_chat_outline_dark,4,placex+i*10+5,placey+j*10+5);
+// Draw backdrop
+draw_sprite_tiled_area(spr_editor_gui_streaks,0,x,y,x,y,x+boxWidth,y+boxHeight);
+
+// Draw outline
+draw_set_color(col[0]); // Dark
+#region
+
+	// Dark verticals
+	draw_rectangle(x-1,y,x-1,y+boxHeight,false);
+	
+	// Dark horizontals
+	draw_rectangle(x-1,y-1,x+boxWidth,y-1,false);
+	draw_rectangle(x-1,y+1+boxHeight,x+boxWidth,y+1+boxHeight,false);
+	
+	// Dark corners
+	draw_rectangle(x,y,x,y,false);
+	draw_rectangle(x,y+boxHeight,x,y+boxHeight,false);
+	draw_rectangle(x,y+boxHeight,x,y+boxHeight,false);
+	draw_rectangle(x+boxWidth,y+boxHeight,x+boxWidth,y+boxHeight,false);
+
+#endregion
+
+draw_set_color(outlineCol[1]); // Bright outline
+#region
+
+	// Bright verticals
+	draw_rectangle(x-2,y,x-2,y+boxHeight,false);
+	draw_rectangle(x+boxWidth+scrollVerRightBound-scrollVerLeftBound+1,y-1,x+boxWidth+scrollVerRightBound-scrollVerLeftBound+1,y+1+boxHeight,false);
+	
+	// Bright horizontals
+	draw_rectangle(x-1,y-2,scrollVerRightBound,y-2,false);
+	draw_rectangle(x-1,y+2+boxHeight,scrollVerRightBound,y+2+boxHeight,false);
+	
+	// Bright corners
+	draw_rectangle(x-1,y-1,x-1,y-1,false);
+	draw_rectangle(x-1,y+1+boxHeight,x-1,y+1+boxHeight,false);
+	
+#endregion
+
+draw_set_color(outlineCol[0]); // Dark outline
+#region
+
+	// Medium verticals
+	draw_rectangle(x-3,y-1,x-3,y+boxHeight+1,false);
+	draw_rectangle(x+boxWidth+scrollVerRightBound-scrollVerLeftBound+2,y-2,x+boxWidth+scrollVerRightBound-scrollVerLeftBound+2,y+2+boxHeight,false);
+	
+	// Medium horizontals
+	draw_rectangle(x-2,y-3,scrollVerRightBound+1,y-3,false);
+	draw_rectangle(x-2,y+3+boxHeight,scrollVerRightBound+1,y+3+boxHeight,false);
+	
+	// Medium corners
+	draw_rectangle(x-2,y-2,x-2,y-1,false);
+	draw_rectangle(x-2,y+2+boxHeight,x-2,y+1+boxHeight,false);
+	draw_rectangle(x+boxWidth+scrollVerRightBound-scrollVerLeftBound+1,y-2,x+boxWidth+scrollVerRightBound-scrollVerLeftBound+1,y-2,false);
+	draw_rectangle(x+boxWidth+scrollVerRightBound-scrollVerLeftBound+1,y+2+boxHeight,x+boxWidth+scrollVerRightBound-scrollVerLeftBound+1,y+2+boxHeight,false);
+	
+#endregion
+
+// Draw dialogue bubbles
+for ( i = 0; i <= bubbleCount; i += 1 ) {
+	#region
+	
+	draw_set_color(make_color_rgb(20,22,33));
+	draw_rectangle(x+14+bubbleX[i],y+14+bubbleY[i],x+1+bubbleX[i]+longestLine[i],y+1+bubbleY[i]+lineCount[i]*10,false);
+	
+	draw_sprite(spr_dia_box_tl,0,x+1+bubbleX[i],y+1+bubbleY[i]);
+	draw_sprite(spr_dia_box_tr,0,x+3+bubbleX[i]+longestLine[i]-9,y+1+bubbleY[i]);
+	draw_sprite(spr_dia_box_bl,0,x+1+bubbleX[i],y+2+bubbleY[i]+lineCount[i]*10);
+	draw_sprite(spr_dia_box_br,0,x+3+bubbleX[i]+longestLine[i]-9,y+2+bubbleY[i]+lineCount[i]*10);
+	
+	draw_sprite_ext(spr_dia_box_top,0,x+14+bubbleX[i],y+1+bubbleY[i],(-6+bubbleX[i]+longestLine[i]) - (14+bubbleX[i]),1,0,c_white,1);
+	draw_sprite_ext(spr_dia_box_bot,0,x+14+bubbleX[i],y+2+bubbleY[i]+lineCount[i]*10,(-6+bubbleX[i]+longestLine[i]) - (14+bubbleX[i]),1,0,c_white,1);
+	
+	draw_sprite_ext(spr_dia_box_left,0,x+1+bubbleX[i],y+14+bubbleY[i],1,-12+lineCount[i]*10,0,c_white,1);
+	draw_sprite_ext(spr_dia_box_right,0,x+3+bubbleX[i]+longestLine[i]-9,y+14+bubbleY[i],1,-12+lineCount[i]*10,0,c_white,1);
+	
+	draw_set_font(font);
+	draw_set_color(col[2]); // Font color
+	
+	for ( j = 0; j <= lineCount[i]; j += 1 ) {
+		draw_text(x+4+bubbleX[i],y+4+bubbleY[i]+j*10,lineStr[i,j]);
+		
+		// Draw cursor
+		if cursorBubble = i {
+			if cursorLine = j {
+				draw_set_color(col[4]); // Yellow
+				
+				draw_rectangle(x+4+bubbleX[i]+cursorPlacePix,y+bubbleY[i]+3+j*10,x+bubbleX[i]+4+cursorPlacePix,y+12+bubbleY[i]+j*10,false);
+				
+				draw_set_color(col[2]); // Reset color
 			}
 		}
 	}
 	
-	draw_sprite(spr_chat_fill,0,placex+2+4,placey+2+4);
-	draw_sprite(spr_chat_fill,0,placex+2+4,placey+height*10+4);
-	draw_sprite(spr_chat_fill,0,placex+width*10+4,placey+2+4);
-	draw_sprite(spr_chat_fill,0,placex+width*10+4,placey+height*10+4);
-	
-	//Top left corner
-	draw_sprite(spr_chat_outline_dark,0,placex+5,placey+5);
-	//Bottom left corner
-	draw_sprite(spr_chat_outline_dark,6,placex+5,placey+(height)*10+5);
-	
-	//Top
-	for(i = 1; i < width; i += 1) {
-		draw_sprite(spr_chat_outline_dark,1,placex+i*10+5,placey+5);
-	}
-	//Bottom
-	for(i = 1; i < width; i += 1) {
-		draw_sprite(spr_chat_outline_dark,7,placex+i*10+5,placey+(height)*10+5);
-	}
-	//Left
-	for(i = 1; i < height; i += 1) {
-		draw_sprite(spr_chat_outline_dark,3,placex+5,placey+i*10+5);
-	}
-	//Right
-	for(i = 1; i < height; i += 1) {
-		draw_sprite(spr_chat_outline_dark,5,placex+width*10+5,placey+i*10+5);
-	}
-	
-	//Top right corner
-	draw_sprite(spr_chat_outline_dark,2,placex+(width*10)+5,placey+5);
-	//Bottom right corner
-	draw_sprite(spr_chat_outline_dark,corner,placex+(width)*10+5,placey+(height)*10+5);
-
-// Whites
-	// Top left corner
-	draw_sprite_ext(spr_chat_outline_white,0,placex+5,placey+5,1,1,0,outlineColor,1);
-	// Bottom left corner
-	draw_sprite_ext(spr_chat_outline_white,6,placex+5,placey+(height)*10+5,1,1,0,outlineColor,1);
-	
-	// Top
-	for(i = 1; i < width; i += 1) {
-		draw_sprite_ext(spr_chat_outline_white,1,placex+i*10+5,placey+5,1,1,0,outlineColor,1);
-	}
-	// Bottom
-	for(i = 1; i < width; i += 1) {
-		draw_sprite_ext(spr_chat_outline_white,7,placex+i*10+5,placey+(height)*10+5,1,1,0,outlineColor,1);
-	}
-	// Left
-	for(i = 1; i < height; i += 1) {
-		draw_sprite_ext(spr_chat_outline_white,3,placex+5,placey+i*10+5,1,1,0,outlineColor,1);
-	}
-	// Right
-	for(i = 1; i < height; i += 1) {
-		draw_sprite_ext(spr_chat_outline_white,5,placex+width*10+5,placey+i*10+5,1,1,0,outlineColor,1);
-	}
-	
-	// Top right corner
-	draw_sprite_ext(spr_chat_outline_white,2,placex+(width*10)+5,placey+5,1,1,0,outlineColor,1);
-	// Bottom right corner
-	draw_sprite_ext(spr_chat_outline_white,corner,placex+(width)*10+5,placey+(height)*10+5,1,1,0,outlineColor,1);
-
-// Arrow
-draw_sprite_ext(spr_chat_arrow,0,trg.x+9,placey+height*10+5,1,1,0,outlineColor,1);
-draw_sprite(spr_chat_arrow,1,trg.x+9,placey+height*10+5);
-draw_sprite(spr_chat_arrow,2,trg.x+9,placey+height*10+5);
-
-// Draggers
-draw_sprite_ext(spr_dialogue_dragger,0,placex,placey,-1,height*10+10,0,selectCol[0],1); // Left
-draw_sprite_ext(spr_dialogue_dragger_border,0,placex,placey,-1,1,0,selectCol[0],1);
-draw_sprite_ext(spr_dialogue_dragger_border,0,placex,placey+height*10+9,-1,1,0,selectCol[0],1);
-
-draw_sprite_ext(spr_dialogue_dragger,0,placex+width*10+10,placey,1,height*10+10,0,selectCol[1],1); // Right
-draw_sprite_ext(spr_dialogue_dragger_border,0,placex+width*10+10,placey,1,1,0,selectCol[1],1);
-draw_sprite_ext(spr_dialogue_dragger_border,0,placex+width*10+10,placey+height*10+9,1,1,0,selectCol[1],1);
-
-for (i = 0; i < width*10+10; i += 1) {
-	draw_sprite_ext(spr_dialogue_dragger,0,placex+i,placey,1,1,90,selectCol[2],1); // Top
+	#endregion
 }
-draw_sprite_ext(spr_dialogue_dragger_border,0,placex,placey,1,1,90,selectCol[2],1);
-draw_sprite_ext(spr_dialogue_dragger_border,0,placex+width*10+9,placey,1,1,90,selectCol[2],1);
 
-// Arrows on draggers
-draw_sprite_ext(spr_dialogue_dragger_arrow,0,placex,placey+height*5+5,-1,1,0,c_white,1); // Left
-draw_sprite_ext(spr_dialogue_dragger_arrow,0,placex+width*10+10,placey+height*5+5,1,1,0,c_white,1); // Right
-draw_sprite_ext(spr_dialogue_dragger_arrow,0,placex+width*5+5,placey,1,1,90,c_white,1); // Top
-
-// Z dragger
-draw_sprite_ext(spr_dialogue_dragger_z,0,placex+width*10+10-15,placey+height*10+10,1,1,0,selectCol[3],1);
-draw_sprite_ext(spr_dialogue_dragger_z_arrow,0,placex+width*10+10-15,placey+height*10+10,1,1,0,c_white,1);
-
-// Select text rows
-draw_set_font(font);
-
-for (i = 0; i < textRows; i += 1) {
-	if selectTextRow[i] || canSelectTextRow[i] {
-		draw_set_color(dorange);
-		draw_rectangle(placex + 5,placey + 5 + i*10, placex + width*10 + 4,placey + 14 + i*10,false);
-		draw_set_color(orange);
-	} else {
-		draw_set_color(c_white);
-	}
-	
-	draw_text_ext(placex + 5, placey + 5 + i*10,str[i],0,200);
-}
+// Draw scrollbars
+event_inherited();

@@ -11,7 +11,7 @@ if instance_exists(obj_editor_gui) {
 
 if instance_exists(trg) {
 	placex = trg.x - xOffDialogue - 10;
-	placey = trg.y - yOffDialogue - 5 - bounceYOff;
+	placey = trg.y - yOffDialogue - 10 - bounceYOff - trg.zfloor*20;
 }
 
 // Top left corner

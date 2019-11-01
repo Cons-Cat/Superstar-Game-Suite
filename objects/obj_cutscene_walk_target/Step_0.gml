@@ -29,6 +29,7 @@ if (mouse_check_button_released(mb_left)) {
 		} else {
 			canDrag = true;
 			canPlace = false;
+			
 			alarm[0] = 18;
 		}
 	} else {

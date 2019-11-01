@@ -1,3 +1,3 @@
 /// @description 
-activated = false;
+activeInScene = false;
 zoom = 1;

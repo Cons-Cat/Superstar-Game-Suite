@@ -68,6 +68,8 @@ if !instance_exists(obj_editor_terrain_par) {
 // Spawn collisions
 if mode = 2 {
 	if !spawnedCollisions {
+		#region
+		
 		spawnedCollisions = true;
 		alarm[0] = 2;
 		
@@ -848,9 +850,13 @@ if mode = 2 {
 		}
 		
 		#endregion
+		
+		#endregion
 	}
 } else {
 	if spawnedCollisions {
+		#region
+		
 		spawnedCollisions = false;
 		
 		with obj_solid_parent {
@@ -879,6 +885,8 @@ if mode = 2 {
 			yNode[0] = -1;
 			i = 0;
 		}
+		
+		#endregion
 	}
 }
 

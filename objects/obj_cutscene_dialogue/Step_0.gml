@@ -1,163 +1,140 @@
-/// @description Manipulating position
-relativeMouseX = obj_editor_gui.mouseCheckX;
-relativeMouseY = obj_editor_gui.mouseCheckY;
+/// @description Box behavior
 
-if textRows != height {
-	textRows = height;
-}
-
-for (i = 0; i <= textRows; i += 1) {
-	// Initialize new rows
-	if i >= array_length_1d(str) {
-		canSelectTextRow[i] = false;
-		selectTextRow[i] = false;
-		str[i] = "";
-	}
-	if mouse_check_button_pressed(mb_left) {
-		selectTextRow[i] = false;
-	}
+// Drag box
+if ( relativeMouseX >= x - 3 && relativeMouseX <= x ) ||
+( relativeMouseX > scrollVerRightBound && relativeMouseX <= scrollVerRightBound + 3 ) ||
+( relativeMouseY >= y - 3 && relativeMouseY <= y ) ||
+( relativeMouseY >= y + boxHeight && relativeMouseY <= y + boxHeight + 3 ) {
+	canSelect = true;
 	
-	if relativeMouseX >= placex + 5 && relativeMouseX <= placex + width*10 + 5 && relativeMouseY >= placey + 10 + i*10 && relativeMouseY < placey + 20 + i*10 {
-		canSelectTextRow[i] = true;
-		
-		if mouse_check_button_pressed(mb_left) {
-			selectTextRow[i] = true;
-			select[4] = true; // Generic text row selection flag
-		}
-	} else {
-		canSelectTextRow[i] = false;
-	}
-	
-	if selectTextRow[i] {
-		select[4] = true;
-		
-		if keyboard_check_pressed(vk_anykey) && !keyboard_check_pressed(vk_control) && !keyboard_check_pressed(vk_shift) && !keyboard_check_pressed(vk_alt) && !keyboard_check_pressed(vk_enter) {
-			str[i] = typeText(str[i]); // Custom script which adds keyboard characters to a string argument
-		}
-		if keyboard_check_pressed(vk_enter) {
-			// New line
-			if canInputEnter {
-				if i = textRows - 1 {
-					height += 1;
-					textRows += 1;
-				}
-				
-				selectTextRow[i] = false;
-				canSelectTextRow[i + 1] = true;
-				selectTextRow[i + 1] = true;
-				canInputEnter = false;
-				
-				alarm[1] = 2;
-			}
-		}
-	}
-}
-
-// Select dimension buttons
-if mouse_check_button_pressed(mb_left) {
-	// Left drag button
-	if relativeMouseX >= placex - 6 && relativeMouseX <= placex && relativeMouseY >= placey - 3 && relativeMouseY <= placey + height*10 + 10 {
-		select[0] = true;
-	}
-	// Right drag button
-	if relativeMouseX >= placex+width*10+10 && relativeMouseX <= placex+width*10+16 && relativeMouseY >= placey - 3 && relativeMouseY <= placey + height*10 + 10 {
-		select[1] = true;
-	}
-	// Top drag button
-	if relativeMouseX >= placex && relativeMouseX <= placex+width*10+10 && relativeMouseY >= placey - 6 && relativeMouseY <= placey {
-		select[2] = true;
-	}
-}
-
-// Select z button
-if relativeMouseX >= placex+width*10-5 && relativeMouseX <= placex+width*10+10 && relativeMouseY >= placey+height*10+10 && relativeMouseY <= placey+height*10+25 {
-	canSelect[3] = true;
-	
-	if mouse_check_button_pressed(mb_left) {
-		select[3] = true;
-	}
+	outlineCol[0] = col[3];
+	outlineCol[1] = col[4];
 } else {
-	canSelect[3] = false;
+	if !select {
+		canSelect = false;
+		
+		outlineCol[0] = col[1];
+		outlineCol[1] = col[2];
+	}
 }
 
-// Drag dimensions
-if select[0] {
-	selectCol[0] = orange;
-	
-	if relativeMouseX < placex - 6 {
-		width += 1;
-		placex -= 10;
-	}
-	if relativeMouseX > placex {
-		if placex + 20 < trg.x+10 {
-			if width > 1 {
-				width -= 1;
-				placex += 10;
-			}
-		}
+// Click on outline
+if canSelect {
+	if mouse_check_button_pressed(mb_left) {
+		select = true;
+		canDelete = false; // Do not delete after releasing mouse
+		
+		xDragOff = x - relativeMouseX;
+		yDragOff = y - relativeMouseY;
 	}
 }
-if select[1] {
-	selectCol[1] = orange;
-	
-	if relativeMouseX > placex+width*10+16 {
-		width += 1;
-	}
-	if relativeMouseX < placex+width*10+10 {
-		if placex+width*10-10 > trg.x+10 {
-			if width > 1 {
-				width -= 1;
-			}
-		}
-	}
+
+if !mouse_check_button(mb_left) {
+	select = false;
 }
-if select[2] {
-	selectCol[2] = orange;
-	
-	if relativeMouseY < placey - 6 {
-		height += 1;
-		placey -= 10;
-	}
-	if relativeMouseY > placey {
-		if height > 1 {
-			height -= 1;
-			placey += 10;
-		}
-	}
-}
-if select[3] {
-	selectCol[3] = orange;
-	
-	if relativeMouseY < placey+height*10+10 {
-		placey -= 5;
-	}
-	if relativeMouseY > placey+height*10+25 {
-		if placey < trg.y - height*10 - 15 {
-			placey += 5;
-		}
-	}
-} else {
-	selectCol[3] = blue;
+
+// Dragged by the mouse
+if select {
+	x = ( ( relativeMouseX + xDragOff ) div 5 ) * 5;
+	y = ( ( relativeMouseY + yDragOff ) div 5 ) * 5;
 }
 
 if mouse_check_button_released(mb_left) {
 	// Delete interface
-	if !select[0] && !select[1] && !select[2] && !select[3] && !select[4] {
-		if relativeMouseX <= placex || relativeMouseX >= placex+width*10+10 || relativeMouseY <= placey || relativeMouseY >= placey+height*10+10 {
-			if canClose {
-				instance_destroy();
+	if canDelete {
+		if relativeMouseX < x - 3 || relativeMouseX > scrollVerRightBound + 3 || relativeMouseY < y - 3 || relativeMouseY > y + boxHeight + 3 {
+			instance_destroy();
+		}
+	} else {
+		cursorPlace = -1; // Lose cursor
+		canDelete = true;
+	}
+}
+
+// Create new dialogue bubble
+if keyboard_check_pressed(ord("Z")) {
+	bubbleCount += 1;
+	bubbleX[bubbleCount] = 5;
+	bubbleY[bubbleCount] = bubbleY[bubbleCount - 1] + lineCount[bubbleCount - 1]*10 + 16;
+	lineCount[bubbleCount] = 0;
+	lineStr[bubbleCount,lineCount[bubbleCount]] = "new";
+	longestLine[bubbleCount] = string_width(lineStr[bubbleCount,lineCount[bubbleCount]]);
+}
+
+// Create new dialogue line
+if keyboard_check_pressed(ord("X")) {
+	lineCount[bubbleCount] += 1;
+	lineStr[bubbleCount,lineCount[bubbleCount]] = "TEXT";
+}
+
+// Extend line
+if keyboard_check_pressed(ord("C")) {
+	lineStr[bubbleCount,lineCount[bubbleCount]] += "a";
+}
+
+// Place cursor
+k = 0; // Bubble
+
+if mouse_check_button_pressed(mb_left) {
+	for (k = 0; k <= bubbleCount; k += 1) {
+		if relativeMouseX >= self.x + 4 + bubbleX[k] && relativeMouseX <= self.x + 4 + bubbleX[k] + longestLine[k] && relativeMouseY >= self.y + bubbleY[k] && relativeMouseY <= self.y + bubbleY[k] + (lineCount[k]+1)*10 {
+			show_debug_message(k);
+			for (j = 0; j <= lineCount[k]; j += 1) {
+				if relativeMouseY >= self.y + 4 + bubbleY[k] + j*10 && relativeMouseY < self.y + 14 + bubbleY[k] + j*10 {
+					cursorBubble = k;
+					cursorLine = j;
+					cursorState = 0; // Idle cursor
+					obj_camera_editor.canInputMove = false; // Freeze camera while manipulating cursor
+					
+					if relativeMouseX - self.x - 4 - bubbleX[k] > string_width( string_copy(lineStr[k,j],1,string_length(lineStr[k,j]))) - ( string_width( string_char_at(lineStr[k,j],string_length(lineStr[k,j])) ) / 2 ) {
+						cursorPlaceChar = string_length(lineStr[k,j]); // Go to end of line
+					} else {
+						for (i = 1; i <= string_length(lineStr[k,j]); i += 1) {
+							if string_width( string_copy(lineStr[k,j],1,i) ) - ( string_width( string_char_at(lineStr[k,j],i) ) / 2 ) >= relativeMouseX - self.x - 4 - bubbleX[k] {
+								cursorPlaceChar = i-1; // Place to the left of this character
+								
+								break;
+							}
+						}
+					}
+					
+					cursorPlacePix = string_width( string_copy(lineStr[k,j],1,cursorPlaceChar) ); // Pixel position of cursor
+					tempCursorPlacePix = cursorPlacePix; // Pixel position of cursor
+					
+					break;
+				}
 			}
 		}
 	}
-	
-	// Release buttons
-	select[0] = false;
-	selectCol[0] = blue;
-	select[1] = false;
-	selectCol[1] = blue;
-	select[2] = false;
-	selectCol[2] = blue;
-	select[3] = false;
-	selectCol[3] = blue;
-	select[4] = false;
 }
+
+// Navigate cursor
+if cursorState = 0 {
+	if keyboard_check_pressed(vk_right) {
+		cursorPlaceChar += 1;
+		cursorPlacePix = string_width( string_copy(lineStr[0,0],1,cursorPlaceChar) ); // Pixel position of cursor
+	}
+	if keyboard_check_pressed(vk_left) {
+		cursorPlaceChar -= 1;
+		cursorPlacePix = string_width( string_copy(lineStr[0,0],1,cursorPlaceChar) ); // Pixel position of cursor
+	}
+}
+
+// Longest line for each bubble
+for ( j = 0; j <= bubbleCount; j += 1) {
+	var tempLength = 20; // Minimum bubble width
+	
+	for ( i = 0; i <= lineCount[j]; i += 1) {
+		if string_width(lineStr[j,i]) >= tempLength {
+			tempLength = string_width(lineStr[j,i]);
+			
+			longestLine[j] = tempLength;
+		}
+	}
+}
+
+// Update scrollbar
+scrollVerLeftBound = x + boxWidth;
+scrollVerRightBound = x + boxWidth + 8;
+scrollVerTopBound = y - 1;
+scrollVerBotBound = y + boxHeight + 1;

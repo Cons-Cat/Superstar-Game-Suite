@@ -11,7 +11,6 @@ while tempActionTime < obj_panel_bot.longestRowLength {
 		if obj_panel_bot.actionRowInd[i] = rowIndex {
 			if obj_panel_bot.actionTime[i] = tempActionTime {
 				if obj_panel_bot.actionInd[i] = 0 {
-					show_debug_message(i);
 					originX[j] = obj_panel_bot.xNode[i];
 					originY[j] = obj_panel_bot.yNode[i];
 					

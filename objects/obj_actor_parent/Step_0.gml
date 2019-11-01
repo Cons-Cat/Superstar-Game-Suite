@@ -1,7 +1,7 @@
 /// @description Insert description here
 if instance_exists(obj_editor_gui) {
 	if obj_editor_gui.mode != 2 {
-		activated = false;
+		activeInScene = false;
 	}
 	
 	// Adapting visible state to editor mode
@@ -12,7 +12,7 @@ if instance_exists(obj_editor_gui) {
 	}
 }
 
-if !activated {
+if !activeInScene {
 	// Not in play mode
 	if object_index != obj_player_overworld {
 		if instance_exists(trg) {

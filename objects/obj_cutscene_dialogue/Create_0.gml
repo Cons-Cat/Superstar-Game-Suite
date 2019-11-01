@@ -1,30 +1,46 @@
 /// @description Initialize values
-isInit = false;
-canDrag = false;
-canClose = false;
+event_inherited();
 
-blue = make_color_rgb(54,70,128);
-orange = make_color_rgb(255,160,64);
-dorange = make_color_rgb(58,41,25);
+obj_trigger_region_parent.canDeSelect = false;
 
-outlineColor = c_white;
-corner = 8;
-select[0] = false;
-selectCol[0] = blue;
-select[1] = false;
-selectCol[1] = blue;
-select[2] = false;
-selectCol[2] = blue;
-select[3] = false;
-selectCol[3] = blue;
-select[4] = false;
+// Cursor values
+cursorPlaceChar = -1; // Off of a bubble
+cursorPlacePix = 0;
+cursorBubble = -1;
+cursorLine = -1;
+cursorState = -1;
+/*
+-1 is an inactive state
+0 is an idle state
+1 is a multi-select state
+*/
 
-textRows = 0;
-canSelectTextRow[0] = false;
-selectTextRow[0] = false;
-canInputEnter = true;
-str[0] = "";
+// Dialogue bubble values
+bubbleCount = 0; // 0 is a single bubble
+bubbleX[bubbleCount] = 0;
+bubbleY[bubbleCount] = 0;
+lineCount[bubbleCount] = 0; // 0 is a single line
+lineStr[bubbleCount,0] = "Test!";
+longestLine[bubbleCount] = 0;
+waviesCount[bubbleCount] = 0; // No wavies initially
+
+// Box Values
+boxWidth = 70;
+boxHeight = 70;
+placeX = x;
+placeY = y;
+placeXOff = 0;
+placeYOff = 0;
+canDelete = false;
+
+// Colors
+col[0] = make_color_rgb(28,30,36); // Dark
+col[1] = make_color_rgb(63,70,87); // Medium
+col[2] = make_color_rgb(200,210,243); // Bright
+col[3] = make_color_rgb(117,73,71); // Dark highlight
+col[4] = make_color_rgb(232,180,89); // Bright highlight
+
+outlineCol[0] = col[1]; // Outside outline
+outlineCol[1] = col[3]; // Inside outline
 
 font = obj_editor_gui.font;
-alarm[0] = 10;
-obj_trigger_region_parent.canDeSelect = false;

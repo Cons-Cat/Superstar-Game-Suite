@@ -1,5 +1,5 @@
 /// @description 
-if !activated {
+if !activeInScene {
 	for (i = 0; i < ds_list_size(polygon); i += 6) {
 		if rectangle_in_triangle(obj_player_overworld.bbox_left,obj_player_overworld.bbox_top,obj_player_overworld.bbox_right,obj_player_overworld.bbox_bottom,ds_list_find_value(polygon,i),ds_list_find_value(polygon,i+1),ds_list_find_value(polygon,i+2),ds_list_find_value(polygon,i+3),ds_list_find_value(polygon,i+4),ds_list_find_value(polygon,i+5)) {
 			// Activate interactive cutscene
@@ -22,12 +22,12 @@ if !activated {
 				}
 			}
 			
-			activated = true;
+			activeInScene = true;
 		}
 	}
 }
 
-if activated {
+if activeInScene {
 	if timeIndexCalc < longestRowLength {
 		if timeIndexCalc*6 = timeIndex {
 			for (i = 0; i < rows; i += 1) {
@@ -37,13 +37,13 @@ if activated {
 					actor[timeIndexCalc,i].xNode[timeIndexCalc] = self.xNode[timeIndexCalc,i];
 					actor[timeIndexCalc,i].yNode[timeIndexCalc] = self.yNode[timeIndexCalc,i];
 					actor[timeIndexCalc,i].endWalk[timeIndexCalc] = self.endWalk[timeIndexCalc,i];
-					actor[timeIndexCalc,i].activated = true;
+					actor[timeIndexCalc,i].activeInScene = true;
 				}
 				
 				// Rotation action
 				if actionInd[timeIndexCalc,i] = 1 {
 					actor[timeIndexCalc,i].angleRot[timeIndexCalc] = self.angleRot[timeIndexCalc,i];
-					actor[timeIndexCalc,i].activated = true;
+					actor[timeIndexCalc,i].activeInScene = true;
 				}
 				
 				// Dialogue action
@@ -71,7 +71,7 @@ if activated {
 						}
 					}
 					
-					actor[timeIndexCalc,i].activated = true;
+					actor[timeIndexCalc,i].activeInScene = true;
 				}
 				
 				// Camera pan action
@@ -107,12 +107,17 @@ if activated {
 					show_message(arbitraryInd[timeIndexCalc,i]);
 					// Expresses intent to the actor. The actual execution is handled by that instance.
 					actor[timeIndexCalc,i].arbitraryInd[timeIndexCalc] = self.arbitraryInd[timeIndexCalc,i];
-					actor[timeIndexCalc,i].activated = true;
+					actor[timeIndexCalc,i].activeInScene = true;
 				}
 			}
 		}
 		
 		timeIndex += 1; // Increment time each game tick
 		timeIndexCalc = floor(timeIndex/6); // 1/10'th second increments
+	} else {
+		// End the scene
+		if !instance_exists(obj_chat_bubble) {
+			obj_actor_parent.activeInScene = false;
+		}
 	}
 }
