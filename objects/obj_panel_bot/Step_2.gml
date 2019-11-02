@@ -235,7 +235,7 @@ if addClick != -1 {
 			actionColor[totalActions] = make_color_rgb(113,84,45); // Gold
 			
 			if !instance_exists(obj_cutscene_dialogue) {
-				with instance_create_layer(actorId[i].x+18,actorId[i].y-42,"Instances",obj_cutscene_dialogue) {
+				with instance_create_layer(actorId[i].x+28,actorId[i].y-42,"Instances",obj_cutscene_dialogue) {
 					timeIndex = other.totalActions;
 					rowIndex = other.i;
 					trg = other.actorId[other.i];

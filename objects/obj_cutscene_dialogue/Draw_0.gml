@@ -66,36 +66,68 @@ if surface_exists(diaSurface) {
 	surface_set_target(diaSurface);
 	draw_clear_alpha(c_white,0);
 	
-	// Draw sliders
-	#region
-	
 	for ( i = 0; i <= bubbleCount; i += 1 ) {
+		// Draw sliders
+		#region
+		
 		// Left slider
-		if canSelectBubState[i] = 0 {
-			draw_sprite_ext(spr_dia_slider,0,bubbleX[i] + 2 - ( 7 * sliderMagnitude ),bubbleY[i]+3,-1,1,0,c_white,1);
-			draw_sprite_ext(spr_dia_slider,2,bubbleX[i] + 2 - ( 7 * sliderMagnitude ),bubbleY[i]+2+(lineCount[i] + 1)*10,-1,1,0,c_white,1);
-			draw_sprite_ext(spr_dia_slider,1,bubbleX[i] + 2 - ( 7 * sliderMagnitude ),bubbleY[i]+4,-1,(lineCount[i] + 1)*10-2,0,c_white,1);
+		if sliderMagnitude[i,0] > 0 {
+			draw_sprite_ext(spr_dia_slider_top,selectBubSlider[i,0],bubbleX[i] + 9 - ( 7 * sliderMagnitude[i,0] ),bubbleY[i]+3,-1,1,0,c_white,1);
+			draw_sprite_ext(spr_dia_slider_mid,selectBubSlider[i,0],bubbleX[i] + 9 - ( 7 * sliderMagnitude[i,0] ),bubbleY[i]+5,-1,(lineCount[i] + 1)*10-3,0,c_white,1);
+			
+			if lineCount[i] > 0 {
+				draw_sprite_ext(spr_dia_slider_bot,selectBubSlider[i,0],bubbleX[i] + 9 - ( 7 * sliderMagnitude[i,0] ),bubbleY[i]+1+(lineCount[i] + 1)*10,-1,1,0,c_white,1);
+			} else {
+				draw_sprite_ext(spr_dia_slider_bot,selectBubSlider[i,0],bubbleX[i] + 9 - ( 7 * sliderMagnitude[i,0] ),bubbleY[i]+2+(lineCount[i] + 1)*10,-1,1,0,c_white,1);
+			}
+			
+			draw_sprite_ext(spr_dia_slider_icon,selectBubSlider[i,0],bubbleX[i] + 9 - ( 7 * sliderMagnitude[i,0] ),bubbleY[i]+2+(lineCount[i] + 1)*5,-1,1,0,c_white,1);
 		}
+		
 		// Right slider
-		if canSelectBubState[i] = 1 {
-			draw_sprite_ext(spr_dia_slider,0,bubbleX[i] + 3 - 7 + ( 7 * sliderMagnitude )+longestLine[i],bubbleY[i]+3,1,1,0,c_white,1);
-			draw_sprite_ext(spr_dia_slider,2,bubbleX[i] + 3 - 7 + ( 7 * sliderMagnitude )+longestLine[i],bubbleY[i]+2+(lineCount[i] + 1)*10,1,1,0,c_white,1);
-			draw_sprite_ext(spr_dia_slider,1,bubbleX[i] + 3 - 7 + ( 7 * sliderMagnitude )+longestLine[i],bubbleY[i]+4,1,(lineCount[i] + 1)*10-2,0,c_white,1);
+		if sliderMagnitude[i,1] > 0 {
+			draw_sprite_ext(spr_dia_slider_top,selectBubSlider[i,1],bubbleX[i] + 4 - 7 + ( 7 * sliderMagnitude[i,1] )+longestLine[i],bubbleY[i]+3,1,1,0,c_white,1);
+			draw_sprite_ext(spr_dia_slider_mid,selectBubSlider[i,1],bubbleX[i] + 4 - 7 + ( 7 * sliderMagnitude[i,1] )+longestLine[i],bubbleY[i]+5,1,(lineCount[i] + 1)*10-3,0,c_white,1);
+			
+			if lineCount[i] > 0 {
+				draw_sprite_ext(spr_dia_slider_bot,selectBubSlider[i,1],bubbleX[i] + 4 - 7 + ( 7 * sliderMagnitude[i,1] )+longestLine[i],bubbleY[i]+1+(lineCount[i] + 1)*10,1,1,0,c_white,1);
+			} else {
+				draw_sprite_ext(spr_dia_slider_bot,selectBubSlider[i,1],bubbleX[i] + 4 - 7 + ( 7 * sliderMagnitude[i,1] )+longestLine[i],bubbleY[i]+2+(lineCount[i] + 1)*10,1,1,0,c_white,1);
+			}
+			
+			draw_sprite_ext(spr_dia_slider_icon,selectBubSlider[i,0],bubbleX[i] + 4 - 7 + ( 7 * sliderMagnitude[i,1] )+longestLine[i],bubbleY[i]+2+(lineCount[i] + 1)*5,1,1,0,c_white,1);
 		}
-	}
-	
-	#endregion
-	
-	for ( i = 0; i <= bubbleCount; i += 1 ) {
+		
+		// Top slider
+		if sliderMagnitude[i,2] > 0 {
+			draw_sprite_ext(spr_dia_slider_top,selectBubSlider[i,2],bubbleX[i] + 2, bubbleY[i] + 9 - (7 * sliderMagnitude[i,2]),1,1,90,c_white,1);
+			draw_sprite_ext(spr_dia_slider_bot,selectBubSlider[i,2],bubbleX[i]+longestLine[i] + 2, bubbleY[i] + 9 - (7 * sliderMagnitude[i,2]),1,1,90,c_white,1);
+			draw_sprite_ext(spr_dia_slider_mid,selectBubSlider[i,2],bubbleX[i] + 4, bubbleY[i] + 9 - (7 * sliderMagnitude[i,2]),1,longestLine[i] - 3,90,c_white,1);
+			
+			draw_sprite_ext(spr_dia_slider_icon,selectBubSlider[i,0],bubbleX[i]+floor(longestLine[i]/2) + 3,bubbleY[i] + 9 - (7 * sliderMagnitude[i,2]),1,1,90,c_white,1);
+		}
+		
+		// Bottom slider
+		if sliderMagnitude[i,3] > 0 {
+			draw_sprite_ext(spr_dia_slider_bot,selectBubSlider[i,3],bubbleX[i] + 4, bubbleY[i] + 7 + lineCount[i]*10 + (7 * sliderMagnitude[i,3]),1,1,270,c_white,1);
+			draw_sprite_ext(spr_dia_slider_top,selectBubSlider[i,3],bubbleX[i]+longestLine[i] + 3, bubbleY[i] + 7 + lineCount[i]*10 + (7 * sliderMagnitude[i,3]),1,1,270,c_white,1);
+			draw_sprite_ext(spr_dia_slider_mid,selectBubSlider[i,3],bubbleX[i]+longestLine[i] + 1, bubbleY[i] + 7 + lineCount[i]*10 + (7 * sliderMagnitude[i,3]),1,longestLine[i] - 4,270,c_white,1);
+			
+			draw_sprite_ext(spr_dia_slider_icon,selectBubSlider[i,0],bubbleX[i]+floor(longestLine[i]/2) + 4,bubbleY[i] + 7 + lineCount[i]*10 + (7 * sliderMagnitude[i,3]),1,1,270,c_white,1);
+		}
+		
+		#endregion
+		
+		// Draw bubbles
 		#region
 		
 		if lineCount[i] = 0 {
-			// Draw log box
+			// Draw log bubble
 			draw_sprite_ext(spr_dia_log_center,0,13+bubbleX[i],bubbleY[i],(-6+bubbleX[i]+longestLine[i]) - (14+bubbleX[i]),1,0,c_white,1);
 			draw_sprite(spr_dia_log_left,0,bubbleX[i],bubbleY[i]);
 			draw_sprite(spr_dia_log_right,0,2+bubbleX[i]+longestLine[i]-9,bubbleY[i]);
 		} else {
-			// Draw rectangular box
+			// Draw rectangular bubble
 			draw_set_color(make_color_rgb(20,22,33));
 			draw_rectangle(13+bubbleX[i],13+bubbleY[i],bubbleX[i]+longestLine[i],bubbleY[i]+lineCount[i]*10,false);
 			
@@ -111,10 +143,13 @@ if surface_exists(diaSurface) {
 			draw_sprite_ext(spr_dia_box_right,0,2+bubbleX[i]+longestLine[i]-9,13+bubbleY[i],1,-12+lineCount[i]*10,0,c_white,1);
 		}
 		
+		#endregion
+		
 		draw_set_font(font);
 		draw_set_color(col[2]); // Font color
 		
 		for ( j = 0; j <= lineCount[i]; j += 1 ) {
+			// Draw text
 			if lineCount[i] = 0 {
 				draw_text(3+bubbleX[i],3+bubbleY[i]+1+j*10,lineStr[i,j]);
 			} else {
@@ -123,6 +158,8 @@ if surface_exists(diaSurface) {
 			
 			// Draw cursor
 			if cursorBubble = i {
+				#region
+				
 				// Idle cursor
 				if cursorState = 0 {
 					if cursorPlaceLine = j {
@@ -166,10 +203,10 @@ if surface_exists(diaSurface) {
 					draw_set_color(col[2]); // Reset color
 					draw_set_font(obj_editor_gui.font); // Reset font
 				}
+				
+				#endregion
 			}
 		}
-		
-		#endregion
 	}
 	
 	surface_reset_target();

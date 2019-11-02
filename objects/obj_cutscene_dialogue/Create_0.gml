@@ -24,8 +24,15 @@ bubbleY[bubbleCount] = 0;
 lineCount[bubbleCount] = 0; // 0 is a single line
 lineStr[bubbleCount,0] = "Test!";
 longestLine[bubbleCount] = 0;
-canSelectBubState[bubbleCount] = -1; // -1 is inert state
-sliderMagnitude = 0;
+selectBubSlider[0,0] = false;
+selectBubSlider[0,1] = false;
+selectBubSlider[0,2] = false;
+selectBubSlider[0,3] = false;
+sliderMagnitude[0,0] = 0;
+sliderMagnitude[0,1] = 0;
+sliderMagnitude[0,2] = 0;
+sliderMagnitude[0,3] = 0;
+someSliderSelected = false;
 waviesCount[bubbleCount] = 0; // No wavies initially
 
 // Box Values

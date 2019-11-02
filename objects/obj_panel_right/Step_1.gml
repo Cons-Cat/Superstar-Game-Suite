@@ -2,6 +2,8 @@
 event_inherited();
 
 relativeX = x - room_width;
+relativeMouseX = window_mouse_get_x();
+
 baseX = window_get_width() + room_width*2 - obj_panel_left.baseX;
 
 y = 242/576 * view_hport[1];

@@ -69,7 +69,7 @@ if onBase != 2 {
 		draw_set_color(make_color_rgb(24,24,25));
 		draw_rectangle(scrollVerLeftBound,scrollVerY,scrollVerLeftBound,scrollVerY,false); // Top left corner
 		draw_rectangle(scrollVerRightBound,scrollVerY,scrollVerRightBound,scrollVerY,false); // Top right corner
-		draw_rectangle(scrollVerLeftBound,scrollVerY + scrollVerHeight,scrollVerRightBound,scrollVerY + scrollVerHeight,false); // Bottom left corner
+		draw_rectangle(scrollVerLeftBound,scrollVerY + scrollVerHeight,scrollVerLeftBound,scrollVerY + scrollVerHeight,false); // Bottom left corner
 		draw_rectangle(scrollVerRightBound,scrollVerY + scrollVerHeight,scrollVerRightBound,scrollVerY + scrollVerHeight,false); // Bottom right corner
 	}
 }
