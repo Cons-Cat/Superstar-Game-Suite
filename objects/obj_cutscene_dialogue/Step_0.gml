@@ -57,10 +57,23 @@ if keyboard_check_pressed(ord("X")) {
 // Selecting the box
 #region
 
-if ( relativeMouseX >= x - 3 && relativeMouseX <= x ) ||
-( relativeMouseX > scrollVerRightBound && relativeMouseX <= scrollVerRightBound + 3 ) ||
-( relativeMouseY >= y - 3 && relativeMouseY <= y ) ||
-( relativeMouseY >= y + boxHeight && relativeMouseY <= y + boxHeight + 3 ) {
+if
+// Dialogue box
+(
+	( relativeMouseX >= x - 4 && relativeMouseX <= x ) ||
+	( relativeMouseX > scrollVerRightBound && relativeMouseX <= scrollVerRightBound + 4 ) ||
+	( relativeMouseY >= y - 4 && relativeMouseY <= y ) ||
+	( relativeMouseY >= y + boxHeight && relativeMouseY <= y + boxHeight + 4 )
+) &&
+(relativeMouseX >= x - 4 && relativeMouseX <= scrollVerRightBound + 4 && relativeMouseY >= y - 4 && relativeMouseY <= y + boxHeight + 4)
+// Buttons box
+|| (
+	( relativeMouseX >= buttonsBoundRight - 2 && relativeMouseX <= buttonsBoundRight + 2 ) ||
+	( relativeMouseX >= buttonsBoundLeft - 2 && relativeMouseX <= buttonsBoundLeft + 2 ) ||
+	( relativeMouseY >= y - 4 && relativeMouseY <= y ) ||
+	( relativeMouseY >= buttonsBoundBot - 2 && relativeMouseY <= buttonsBoundBot + 2 )
+)
+{
 	canSelectBox = true;
 } else {
 	if !select {
@@ -376,37 +389,138 @@ if cursorState = 0 {
 #endregion
 
 // Type text
-if cursorState = 0 {
+if keyboard_check_pressed(vk_anykey) {
 	#region
-	if keyboard_check_pressed(vk_anykey) {
+	
+	if cursorState != -1 {
 		k = cursorBubble;
 		j = cursorPlaceLine;
+		j2 = cursorPlaceSelectionLine;
+		i = cursorPlaceChar;
+		i2 = cursorPlaceSelectionChar;
 		tempStr = lineStr[k,j];
+		remakeSurface = true;
 		
-		// Custom script which adds keyboard characters to a string argument
-		lineStr[k,j] = typeText(string_copy(lineStr[k,j],1,cursorPlaceChar)) + string_copy(lineStr[k,j],cursorPlaceChar+1,string_length(lineStr[k,j]));
-		
-		if lineStr[k,j] != tempStr {
-			if keyboard_check_pressed(vk_backspace) {
-				if cursorPlaceChar > 0 {
-					cursorPlaceChar -= 1;
+		if cursorState = 0 {
+			// Custom script which adds keyboard characters to a string argument
+			lineStr[k,j] = typeText(string_copy(lineStr[k,j],1,cursorPlaceChar), true) + string_copy(lineStr[k,j],cursorPlaceChar+1,string_length(lineStr[k,j]));
+			
+			if lineStr[k,j] != tempStr {
+				if keyboard_check_pressed(vk_backspace) {
+					if cursorPlaceChar > 0 {
+						cursorPlaceChar -= 1;
+					}
+				} else {
+					cursorPlaceChar += 1;
 				}
-			} else {
-				cursorPlaceChar += 1;
+				
+				cursorPlacePix = string_width( string_copy(lineStr[cursorBubble,cursorPlaceLine],1,cursorPlaceChar) ); // Pixel position of cursor
+			}
+		}
+		
+		if cursorState = 1 {
+			cursorState = 0;
+			show_debug_message(cursorState);
+			
+			while !(j = j2 && i = i2) {
+				if i < string_length(lineStr[k,j]) {
+					// Fams
+					if j = j2 {
+						i2 -= 1;
+					}
+				} else {
+					i = 1;
+					j += 1;
+				}
+				
+				lineStr[k,j] = string_delete(lineStr[k,j],i+1,1);
+				show_debug_message(lineStr[k,j]);
 			}
 			
-			cursorPlacePix = string_width( string_copy(lineStr[cursorBubble,cursorPlaceLine],1,cursorPlaceChar) ); // Pixel position of cursor
-			remakeSurface = true;
+			lineStr[k,cursorPlaceLine] = typeText(string_copy(lineStr[k,cursorPlaceLine],1,cursorPlaceChar), false) + string_copy(lineStr[k,cursorPlaceLine],cursorPlaceChar+1,string_length(lineStr[k,cursorPlaceLine]));
+			cursorPlaceChar += 1;
 		}
 	}
 	
 	#endregion
 }
 
+// Anchor buttons box
+if x - 2 + boxWidth/2 >= trg.x {
+	buttonsAnchorRight = true;
+} else {
+	buttonsAnchorRight = false;
+}
+
+// Select buttons
+#region
+
+if buttonsAnchorRight {
+	buttonsBoundLeft = scrollVerRightBound + 3;
+	buttonsBoundRight = scrollVerRightBound + 1 + sprite_get_width(spr_dia_buttons_box);
+} else {
+	buttonsBoundLeft = x - 2 - sprite_get_width(spr_dia_buttons_box);
+	buttonsBoundRight = x - 2;
+}
+
+buttonsBoundBot = y - 5 + sprite_get_height(spr_dia_buttons_box);
+
+for (i = 0; i <= 1; i += 1) {
+	for (j = 0; j <= 3; j += 1) {
+		if buttonSelected != i * 4 + j {
+			canSelectButtonState[i,j] = 0; // Default to de-selected
+		} else {
+			canSelectButtonState[i,j] = 1;
+		}
+		
+		if relativeMouseY >= y + 1 + j*16 && relativeMouseY <= y + 16 + j*16 {
+			if buttonsAnchorRight {
+				// Right-anchored buttons box
+				if relativeMouseX >= scrollVerRightBound + 6 + i*16 && relativeMouseX <= scrollVerRightBound + 21 + i*16 {
+					if buttonSelected = -1 {
+						canSelectButtonState[i,j] = 1;
+					}
+					if buttonSelected = i * 4 + j {
+						canSelectButtonState[i,j] = 2;
+					}
+				}
+			} else {
+				// Left-anchored buttons box
+				if relativeMouseX >= x - 37 + i*16 && relativeMouseX <= x - 22 + i*16 {
+					if buttonSelected = -1 {
+						canSelectButtonState[i,j] = 1;
+					}
+					if buttonSelected = i * 4 + j {
+						canSelectButtonState[i,j] = 2;
+					}
+				}
+			}
+		}
+		
+		if mouse_check_button_pressed(mb_left) {
+			if canSelectButtonState[i,j] = 1 {
+				buttonSelected = i * 4 + j;
+			}
+		}
+		
+		if mouse_check_button_released(mb_left) {
+			buttonSelected = -1;
+			
+			if canSelectButtonState[i,j] = 2 {
+				// Click on button
+			}
+		}
+	}
+}
+
+#endregion
+
 // Close interface
 #region
 
-if relativeMouseX < x - 4 || relativeMouseX > scrollVerRightBound + 4 || relativeMouseY < y - 4 || relativeMouseY > y + boxHeight + 4 {
+if !( relativeMouseX >= x - 4 && relativeMouseX <= scrollVerRightBound + 4 && relativeMouseY >= y - 4 && relativeMouseY <= y + boxHeight + 4 )
+&& !( relativeMouseX >= buttonsBoundLeft - 2 && relativeMouseX <= buttonsBoundRight + 2 && relativeMouseY <= buttonsBoundBot + 2 )
+{
 	if mouse_check_button_pressed(mb_left) {
 		if cursorState = -1 {
 			canDelete = true;
@@ -496,6 +610,12 @@ if scrollVerSelect {
 		
 		for (j = 0; j <= bubbleCount; j += 1) {
 			sliderMagnitude[j,i] = 0;
+		}
+	}
+	
+	for (i = 0; i <= 1; i += 1) {
+		for (j = 0; j <= 3; j += 1) {
+			canSelectButtonState[i,j] = 0;
 		}
 	}
 }

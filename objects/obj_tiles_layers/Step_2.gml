@@ -244,7 +244,7 @@ for (i = 0; i <= tileLayerCount; i += 2) {
 		// Name
 		if select[i] {
 			if keyboard_check_pressed(vk_anykey) {
-				layerName[i] = typeText(layerName[i]);
+				layerName[i] = typeText(layerName[i], true);
 				passIn = true;
 			}
 			
@@ -289,7 +289,7 @@ for (i = 0; i <= tileLayerCount; i += 2) {
 		// Name sub-layer
 		if select[i+1] {
 			if keyboard_check_pressed(vk_anykey) {
-				layerName[i+1] = typeText(layerName[i+1]);
+				layerName[i+1] = typeText(layerName[i+1], true);
 				passIn = true;
 			}
 			
@@ -375,7 +375,7 @@ if mouse_check_button_pressed(mb_left) {
 
 if resourceSelect {
 	if keyboard_check_pressed(vk_anykey) {
-		tileDefaultSpr = typeText(tileDefaultSpr);
+		tileDefaultSpr = typeText(tileDefaultSpr, true);
 		
 		// Pass in tileset resource
 		if asset_get_index(tileDefaultSpr) != -1 {

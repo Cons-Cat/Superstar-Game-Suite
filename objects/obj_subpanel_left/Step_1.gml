@@ -1,8 +1,9 @@
 /// @description 
 event_inherited();
 relativeX = x - room_width;
+//relativeMouseX = window_mouse_get_x();
 
-if relativeMouseX <= relativeX + 60 && relativeMouseX >= relativeX - 60 {
+if window_mouse_get_x() <= relativeX + 60 && window_mouse_get_x() >= relativeX - 60 {
 	if relativeMouseY >= y - 21 && relativeMouseY <= y {
 		if mouse_check_button_pressed(mb_left) {
 			// Dragging

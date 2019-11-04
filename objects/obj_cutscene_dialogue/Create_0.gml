@@ -62,3 +62,27 @@ outlineCol[0] = col[1]; // Outside outline
 outlineCol[1] = col[3]; // Inside outline
 
 font = obj_editor_gui.font;
+
+// Buttons
+buttonsAnchorRight = true;
+
+buttonsBoundBot = 0;
+buttonsBoundLeft = 0;
+buttonsBoundRight = 0;
+
+buttonSelected = -1; // No button has been selected
+
+buttonSprite[0,0] = spr_dia_button_bubble;
+buttonSprite[1,0] = spr_dia_button_color;
+buttonSprite[0,1] = spr_dia_button_pause;
+buttonSprite[1,1] = spr_dia_button_speed;
+buttonSprite[0,2] = spr_dia_button_wavy;
+buttonSprite[1,2] = spr_dia_button_shake;
+buttonSprite[0,3] = spr_dia_button_impact;
+buttonSprite[1,3] = spr_dia_button_wave;
+
+for (i = 0; i <= 1; i += 1) {
+	for (j = 0; j <= 3; j += 1) {
+		canSelectButtonState[i,j] = 0;
+	}
+}

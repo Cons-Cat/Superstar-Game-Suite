@@ -34,7 +34,7 @@ if select {
 	// Input numbers
 	if string_length(arbitraryInd) < 3 || keyboard_check_pressed(vk_backspace) {
 		if keyboard_check_pressed(vk_anykey) {
-			arbitraryInd = string_digits(typeText(arbitraryInd)); // Custom script which adds integers to a string argument
+			arbitraryInd = string_digits(typeText(arbitraryInd, true)); // Custom script which adds integers to a string argument
 		}
 	}
 }

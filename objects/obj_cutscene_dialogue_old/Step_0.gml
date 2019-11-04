@@ -32,7 +32,7 @@ for (i = 0; i <= textRows; i += 1) {
 		select[4] = true;
 		
 		if keyboard_check_pressed(vk_anykey) && !keyboard_check_pressed(vk_control) && !keyboard_check_pressed(vk_shift) && !keyboard_check_pressed(vk_alt) && !keyboard_check_pressed(vk_enter) {
-			str[i] = typeText(str[i]); // Custom script which adds keyboard characters to a string argument
+			str[i] = typeText(str[i], true); // Custom script which adds keyboard characters to a string argument
 		}
 		if keyboard_check_pressed(vk_enter) {
 			// New line

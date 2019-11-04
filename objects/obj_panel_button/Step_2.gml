@@ -75,7 +75,7 @@ if select {
 	// String input behavior
 	if buttonType = 3 {
 		if keyboard_check_pressed(vk_anykey) {
-			arbitraryVal = typeText(arbitraryVal);
+			arbitraryVal = typeText(arbitraryVal, true);
 		}
 		
 		valueLength = string_width(arbitraryVal)*2 + 4;

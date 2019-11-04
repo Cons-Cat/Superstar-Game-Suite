@@ -1,10 +1,7 @@
 /// @description 
 
 // Draw backdrop
-draw_sprite_tiled_area(spr_editor_gui_streaks,0,x,y,x,y,x+boxWidth,y+boxHeight);
-
-if surface_exists(diaSurface) {
-}
+draw_sprite_tiled_area(spr_editor_gui_streaks,0,0,0,x,y,x+boxWidth,y+boxHeight);
 
 // Draw outline
 draw_set_color(col[0]); // Dark
@@ -30,7 +27,7 @@ draw_set_color(outlineCol[1]); // Bright outline
 
 	// Bright verticals
 	draw_rectangle(x-2,y,x-2,y+boxHeight,false);
-	draw_rectangle(x+boxWidth+scrollVerRightBound-scrollVerLeftBound+1,y-1,x+boxWidth+scrollVerRightBound-scrollVerLeftBound+1,y+1+boxHeight,false);
+	draw_rectangle(scrollVerRightBound+1,y-1,scrollVerRightBound+1,y+1+boxHeight,false);
 	
 	// Bright horizontals
 	draw_rectangle(x-1,y-2,scrollVerRightBound,y-2,false);
@@ -47,7 +44,7 @@ draw_set_color(outlineCol[0]); // Dark outline
 
 	// Medium verticals
 	draw_rectangle(x-3,y-1,x-3,y+boxHeight+1,false);
-	draw_rectangle(x+boxWidth+scrollVerRightBound-scrollVerLeftBound+2,y-2,x+boxWidth+scrollVerRightBound-scrollVerLeftBound+2,y+2+boxHeight,false);
+	draw_rectangle(scrollVerRightBound+2,y-2,scrollVerRightBound+2,y+2+boxHeight,false);
 	
 	// Medium horizontals
 	draw_rectangle(x-2,y-3,scrollVerRightBound+1,y-3,false);
@@ -56,12 +53,12 @@ draw_set_color(outlineCol[0]); // Dark outline
 	// Medium corners
 	draw_rectangle(x-2,y-2,x-2,y-1,false);
 	draw_rectangle(x-2,y+2+boxHeight,x-2,y+1+boxHeight,false);
-	draw_rectangle(x+boxWidth+scrollVerRightBound-scrollVerLeftBound+1,y-2,x+boxWidth+scrollVerRightBound-scrollVerLeftBound+1,y-2,false);
-	draw_rectangle(x+boxWidth+scrollVerRightBound-scrollVerLeftBound+1,y+2+boxHeight,x+boxWidth+scrollVerRightBound-scrollVerLeftBound+1,y+2+boxHeight,false);
+	draw_rectangle(scrollVerRightBound+1,y-2,scrollVerRightBound+1,y-2,false);
+	draw_rectangle(scrollVerRightBound+1,y+2+boxHeight,scrollVerRightBound+1,y+2+boxHeight,false);
 	
 #endregion
 
-// Draw dialogue bubbles
+// Draw dialogue surface
 if surface_exists(diaSurface) {
 	surface_set_target(diaSurface);
 	draw_clear_alpha(c_white,0);
@@ -216,3 +213,27 @@ if surface_exists(diaSurface) {
 
 // Draw scrollbars
 event_inherited();
+
+// Draw buttons box
+#region
+
+if buttonsAnchorRight {
+	draw_sprite_tiled_area(spr_editor_gui_streaks,0,0,0,scrollVerRightBound+5,y,scrollVerRightBound+sprite_get_width(spr_dia_buttons_box)-2,y+sprite_get_height(spr_dia_buttons_box)-4);
+	draw_sprite(spr_dia_buttons_box,canSelectBox,scrollVerRightBound+3,y-3);
+} else {
+	draw_sprite_tiled_area(spr_editor_gui_streaks,0,0,0,x-38,y,x-45+sprite_get_width(spr_dia_buttons_box),y+sprite_get_height(spr_dia_buttons_box)-4);
+	draw_sprite(spr_dia_buttons_box,canSelectBox,x-40,y-3);
+}
+
+#endregion
+
+// Draw buttons
+for (i = 0; i <= 1; i += 1) {
+	for (j = 0; j <= 3; j += 1) {
+		if buttonsAnchorRight {
+			draw_sprite(buttonSprite[i,j],canSelectButtonState[i,j], scrollVerRightBound + 6 + i*16, y + 1 + j*16);
+		} else {
+			draw_sprite(buttonSprite[i,j],canSelectButtonState[i,j], x - 37 + i*16, y + 1 + j*16);
+		}
+	}
+}
