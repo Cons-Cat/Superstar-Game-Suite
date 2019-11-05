@@ -12,48 +12,6 @@ if !mouse_check_button(mb_left) {
 	}
 }
 
-// Debug tools
-#region
-
-// Create new dialogue bubble
-if keyboard_check_pressed(ord("Z")) {
-	bubbleCount += 1;
-	bubbleX[bubbleCount] = 0;
-	
-	if lineCount[bubbleCount - 1] = 0 {
-		bubbleY[bubbleCount] = bubbleY[bubbleCount - 1] + lineCount[bubbleCount - 1]*10 + 18;
-	} else {
-		bubbleY[bubbleCount] = bubbleY[bubbleCount - 1] + lineCount[bubbleCount - 1]*10 + 16;
-	}
-	
-	lineCount[bubbleCount] = 0;
-	lineStr[bubbleCount,lineCount[bubbleCount]] = "New.";
-	longestLine[bubbleCount] = string_width(lineStr[bubbleCount,lineCount[bubbleCount]]);
-	remakeSurface = true;
-	
-	for (j = 0; j <= 3; j += 1) {
-		selectBubSlider[bubbleCount,j] = false;
-		canSelectBubSlider[bubbleCount,j] = false;
-		sliderMagnitude[bubbleCount,j] = 0;
-	}
-	
-	scrollVerPartition = 100;
-	
-	exit;
-}
-
-// Create new dialogue line
-if keyboard_check_pressed(ord("X")) {
-	lineCount[bubbleCount] += 1;
-	lineStr[bubbleCount,lineCount[bubbleCount]] = "TEXT";
-	
-	remakeSurface = true;
-	
-	exit;
-}
-
-#endregion
-
 // Selecting the box
 #region
 
@@ -313,14 +271,17 @@ if cursorBubble != -1 && cursorState != -1 {
 				if relativeMouseY >= self.y + 4 + bubbleY[k] - surfaceScrollOff + j*10 && relativeMouseY < self.y + 14 + bubbleY[k] - surfaceScrollOff + j*10 {
 					if relativeMouseX - self.x - 4 - bubbleX[k] > string_width( string_copy(lineStr[k,j],1,string_length(lineStr[k,j]))) - ( string_width( string_char_at(lineStr[k,j],string_length(lineStr[k,j])) ) / 2 ) {
 						cursorPlaceSelectionChar = string_length(lineStr[k,j]); // Go to end of line
+						show_debug_message(cursorPlaceSelectionChar);
 						
 						break;
 					} else {
 						for (i = 1; i <= string_length(lineStr[k,j]); i += 1) {
 							if string_width( string_copy(lineStr[k,j],1,i) ) - ( string_width( string_char_at(lineStr[k,j],i) ) / 2 ) >= relativeMouseX - self.x - 4 - bubbleX[k] {
-								cursorPlaceSelectionChar = i-1; // Place to the left of this character
-								
-								break;
+								if cursorPlaceLine >= tempCursorPlaceLine {
+									cursorPlaceSelectionChar = i-1; // Place to the left of this character
+									
+									break;
+								}
 							}
 						}
 						
@@ -331,7 +292,7 @@ if cursorBubble != -1 && cursorState != -1 {
 		}
 		
 		// Highlight backwards
-		if cursorPlaceSelectionChar <= tempCursorPlaceChar {
+		if cursorPlaceSelectionChar <= tempCursorPlaceChar && cursorPlaceSelectionLine <= tempCursorPlaceLine {
 			cursorPlaceChar = cursorPlaceSelectionChar;
 			cursorPlaceSelectionChar = tempCursorPlaceChar;
 		}
@@ -346,6 +307,8 @@ if cursorBubble != -1 && cursorState != -1 {
 		} else {
 			cursorState = 0; // Cancel highlight
 		}
+		
+		//show_debug_message(cursorPlaceLine);
 	}
 	
 	#endregion
@@ -402,12 +365,27 @@ if keyboard_check_pressed(vk_anykey) {
 		remakeSurface = true;
 		
 		if cursorState = 0 {
-			// Custom script which adds keyboard characters to a string argument
-			lineStr[k,j] = typeText(string_copy(lineStr[k,j],1,cursorPlaceChar), true) + string_copy(lineStr[k,j],cursorPlaceChar+1,string_length(lineStr[k,j]));
+			if lineStr[k,j] != "" || !keyboard_check(vk_backspace) {
+				// Custom script which adds keyboard characters to a string argument
+				lineStr[k,j] = typeText(string_copy(lineStr[k,j],1,cursorPlaceChar), true) + string_copy(lineStr[k,j],cursorPlaceChar+1,string_length(lineStr[k,j]));
+			} else {
+				// If the line is blank and backspace is pressed
+				
+				// Move lower lines upward
+				for (var jj = j; jj <= lineCount[k] - 1; jj += 1) {
+					lineStr[k,jj] = lineStr[k,jj+1];
+				}
+				
+				// Delete a line
+				lineCount[k] -= 1;
+				cursorPlaceChar = string_length(lineStr[k,j-1]) + 1;
+				cursorPlaceLine = j-1;
+			}
 			
 			if lineStr[k,j] != tempStr {
 				if keyboard_check_pressed(vk_backspace) {
 					if cursorPlaceChar > 0 {
+						// Subtract a character
 						cursorPlaceChar -= 1;
 					}
 				} else {
@@ -420,7 +398,6 @@ if keyboard_check_pressed(vk_anykey) {
 		
 		if cursorState = 1 {
 			cursorState = 0;
-			show_debug_message(cursorState);
 			
 			while !(j = j2 && i = i2) {
 				if i < string_length(lineStr[k,j]) {
@@ -434,11 +411,30 @@ if keyboard_check_pressed(vk_anykey) {
 				}
 				
 				lineStr[k,j] = string_delete(lineStr[k,j],i+1,1);
-				show_debug_message(lineStr[k,j]);
 			}
 			
 			lineStr[k,cursorPlaceLine] = typeText(string_copy(lineStr[k,cursorPlaceLine],1,cursorPlaceChar), false) + string_copy(lineStr[k,cursorPlaceLine],cursorPlaceChar+1,string_length(lineStr[k,cursorPlaceLine]));
 			cursorPlaceChar += 1;
+		}
+		
+		// Create a new line
+		if keyboard_check_pressed(vk_enter) {
+			lineCount[k] += 1;
+			
+			// Move lines below to make space
+			for (var jj = lineCount[k]; jj > j; jj -= 1) {
+				lineStr[k,jj] = lineStr[k,jj-1];
+			}
+			for (var jj = k + 1; jj <= bubbleCount; jj += 1) {
+				bubbleY[jj] += 10;
+			}
+			
+			lineStr[k,j+1] = "";
+			
+			cursorPlaceChar = 0;
+			cursorPlaceLine = j+1;
+			
+			remakeSurface = true;
 		}
 	}
 	
@@ -455,6 +451,7 @@ if x - 2 + boxWidth/2 >= trg.x {
 // Select buttons
 #region
 
+// Anchor buttons box
 if buttonsAnchorRight {
 	buttonsBoundLeft = scrollVerRightBound + 3;
 	buttonsBoundRight = scrollVerRightBound + 1 + sprite_get_width(spr_dia_buttons_box);
@@ -497,6 +494,12 @@ for (i = 0; i <= 1; i += 1) {
 			}
 		}
 		
+		// Make buttons inert when the box is dragging
+		if select {
+			canSelectButtonState[i,j] = 0;
+		}
+		
+		// Click on a button
 		if mouse_check_button_pressed(mb_left) {
 			if canSelectButtonState[i,j] = 1 {
 				buttonSelected = i * 4 + j;
@@ -507,7 +510,32 @@ for (i = 0; i <= 1; i += 1) {
 			buttonSelected = -1;
 			
 			if canSelectButtonState[i,j] = 2 {
-				// Click on button
+				// Activate button
+				if i = 0 && j = 0 {
+					// Create a new dialogue bubble
+					bubbleCount += 1;
+					bubbleX[bubbleCount] = 0;
+					
+					if lineCount[bubbleCount - 1] = 0 {
+						bubbleY[bubbleCount] = bubbleY[bubbleCount - 1] + lineCount[bubbleCount - 1]*10 + 18;
+					} else {
+						bubbleY[bubbleCount] = bubbleY[bubbleCount - 1] + lineCount[bubbleCount - 1]*10 + 16;
+					}
+					
+					lineCount[bubbleCount] = 0;
+					lineStr[bubbleCount,lineCount[bubbleCount]] = "New.";
+					longestLine[bubbleCount] = string_width(lineStr[bubbleCount,lineCount[bubbleCount]]);
+					
+					for (j = 0; j <= 3; j += 1) {
+						selectBubSlider[bubbleCount,j] = false;
+						canSelectBubSlider[bubbleCount,j] = false;
+						sliderMagnitude[bubbleCount,j] = 0;
+					}
+					
+					scrollVerPartition = 100;
+					
+					remakeSurface = true;
+				}
 			}
 		}
 	}

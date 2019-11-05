@@ -60,6 +60,8 @@ draw_set_color(outlineCol[0]); // Dark outline
 
 // Draw dialogue surface
 if surface_exists(diaSurface) {
+	#region
+	
 	surface_set_target(diaSurface);
 	draw_clear_alpha(c_white,0);
 	
@@ -184,6 +186,12 @@ if surface_exists(diaSurface) {
 						} else {
 							ii = 0;
 							jj += 1;
+							
+							if lineStr[ii,jj] = "" {
+								jj += 1;
+								
+								continue;
+							}
 						}
 						
 						iiXPix = string_width(string_copy(lineStr[i,jj],1,ii-1));
@@ -209,6 +217,8 @@ if surface_exists(diaSurface) {
 	surface_reset_target();
 	
 	draw_surface_part(diaSurface,0,surfaceScrollOff,surface_get_width(diaSurface),boxHeight-1,x+1,y+1);
+	
+	#endregion
 }
 
 // Draw scrollbars
