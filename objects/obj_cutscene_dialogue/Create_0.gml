@@ -14,17 +14,22 @@ cursorState = -1;
 0 is an idle state
 1 is a multi-select state
 */
-tempCursorPlaceChar = -1;
+cursorPlaceSelectionChar = -1;
 cursorPlaceSelectionLine = -1;
+tempCursorPlaceChar = cursorPlaceSelectionChar;
+tempCursorPlaceLine = cursorPlaceSelectionLine;
 deleteLines = false;
+deleteLine[0,0] = false;
 
 // Dialogue bubble values
-bubbleCount = 0; // 0 is a single bubble
-bubbleX[bubbleCount] = 0;
-bubbleY[bubbleCount] = 0;
-lineCount[bubbleCount] = 0; // 0 is a single line
-lineStr[bubbleCount,0] = "Text";
-longestLine[bubbleCount] = 0;
+//bubbleCount = 0; // 0 is a single bubble
+//bubbleX[bubbleCount] = 0;
+//bubbleY[bubbleCount] = 0;
+//lineCount[bubbleCount] = 0; // 0 is a single line
+//lineStr[bubbleCount,0] = "";
+//longestLine[bubbleCount] = 0;
+//hasText[bubbleCount] = false;
+
 selectBubSlider[0,0] = false;
 selectBubSlider[0,1] = false;
 selectBubSlider[0,2] = false;
@@ -34,7 +39,7 @@ sliderMagnitude[0,1] = 0;
 sliderMagnitude[0,2] = 0;
 sliderMagnitude[0,3] = 0;
 someSliderSelected = false;
-waviesCount[bubbleCount] = 0; // No wavies initially
+waviesCount[0] = 0; // No wavies initially
 
 // Box Values
 boxWidth = 70;

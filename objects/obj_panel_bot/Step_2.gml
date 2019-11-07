@@ -242,6 +242,14 @@ if addClick != -1 {
 					
 					placeX = xstart;
 					placeY = ystart;
+					
+					bubbleCount = 0; // 0 is a single bubble
+					bubbleX[bubbleCount] = 0;
+					bubbleY[bubbleCount] = 0;
+					lineCount[bubbleCount] = 0; // 0 is a single line
+					lineStr[bubbleCount,0] = "";
+					longestLine[bubbleCount] = 0;
+					hasText[bubbleCount] = false;
 				}
 			}
 		}
@@ -465,16 +473,26 @@ for (i = 1; i <= totalActions; i += 1) {
 												rowIndex = other.j;
 												trg = other.actorId[other.j];
 												zfloor = trg.zfloor;
-												width = other.dialogueWidth[other.i];
-												height = other.dialogueHeight[other.i];
-												textRows = other.textRows[other.i];
 												placex = xstart;
 												placey = ystart;
 												
-												for (i = 0; i < textRows; i += 1) {
-													str[i] = other.str[other.i,self.i];
-													selectTextRow[i] = false;
-													canSelectTextRow[i] = false;
+												bubbleCount = other.bubbleCount[other.i];
+												
+												for (i = 0; i <= bubbleCount; i += 1) {
+													lineCount[i] = other.lineCount[other.i,i];
+													longestLine[i] = other.longestLine[other.i,i];
+													bubbleX[i] = other.bubbleX[other.i,i];
+													bubbleY[i] = other.bubbleY[other.i,i];
+													hasText[i] = other.hasText[other.i,i];
+													
+													for (j = 0; j <= 3; j += 1) {
+														selectBubSlider[i,j] = false;
+														sliderMagnitude[i,j] = 0;
+													}
+													
+													for (j = 0; j <= lineCount[i]; j += 1) {
+														lineStr[i,j] = other.lineStr[scr_array_xy(i,j,bubbleCount),j];
+													}
 												}
 											}
 										}
@@ -631,17 +649,23 @@ if cutsceneInstanceId != -1 {
 					cutsceneInstanceId.angleRotExport[j] = self.angleRotExport[j];
 				}
 				
-				/*if actionInd[j] = 2 { // Dialogue action
-					cutsceneInstanceId.dialogueWidth[j] = self.dialogueWidth[j];
-					cutsceneInstanceId.dialogueHeight[j] = self.dialogueHeight[j];
-					cutsceneInstanceId.textRows[j] = self.textRows[j];
+				if actionInd[j] = 2 { // Dialogue action
 					cutsceneInstanceId.xOffDialogue[j] = self.xOffDialogue[j];
 					cutsceneInstanceId.yOffDialogue[j] = self.yOffDialogue[j];
+					cutsceneInstanceId.bubbleCount[j] = self.bubbleCount[j];
 					
-					for (i = 0; i < textRows[j]; i += 1) {
-						cutsceneInstanceId.dialogueStr[j,i] = other.str[j,i];
+					for (i = 0; i <= bubbleCount[j]; i += 1) {
+						cutsceneInstanceId.lineCount[j,i] = self.lineCount[j,i];
+						cutsceneInstanceId.longestLine[j,i] = self.longestLine[j,i];
+						cutsceneInstanceId.bubbleX[j,i] = self.bubbleX[j,i];
+						cutsceneInstanceId.bubbleY[j,i] = self.bubbleY[j,i];
+						cutsceneInstanceId.hasText[j,i] = self.hasText[j,i];
+						
+						for (k = 0; k <= lineCount[j,i]; k += 1) {
+							cutsceneInstanceId.lineStr[scr_array_xy(i,k,bubbleCount[j]),k] = self.lineStr[scr_array_xy(i,k,bubbleCount[j]),k];
+						}
 					}
-				}*/
+				}
 				
 				if actionInd[j] = 3 { // Camera action
 					cutsceneInstanceId.xNode[j] = self.xNode[j];

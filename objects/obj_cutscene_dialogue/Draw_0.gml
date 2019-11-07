@@ -148,11 +148,21 @@ if surface_exists(diaSurface) {
 		draw_set_color(col[2]); // Font color
 		
 		for ( j = 0; j <= lineCount[i]; j += 1 ) {
-			// Draw text
-			if lineCount[i] = 0 {
-				draw_text(3+bubbleX[i],3+bubbleY[i]+1+j*10,lineStr[i,j]);
+			if hasText[i] {
+				// Draw text
+				if lineCount[i] = 0 {
+					draw_text(3+bubbleX[i],3+bubbleY[i]+1+j*10,lineStr[i,j]);
+				} else {
+					draw_text(3+bubbleX[i],3+bubbleY[i]+j*10,lineStr[i,j]);
+				}
 			} else {
-				draw_text(3+bubbleX[i],3+bubbleY[i]+j*10,lineStr[i,j]);
+				// Draw placeholder text
+				draw_set_alpha(0.65);
+				//draw_set_color(c_gray);
+				
+				draw_text(3+bubbleX[i], 3+bubbleY[i], "Text.");
+				
+				draw_set_alpha(1);
 			}
 			
 			// Draw cursor

@@ -24,17 +24,23 @@ for (j = 1; j <= trgFrom.totalActions; j += 1) {
 		trgTo.angleRotExport[j] = trgFrom.angleRotExport[j];
 	}
 	
-	/*if trgFrom.actionInd[j] = 2 { // Dialogue action
-		trgTo.dialogueWidth[j] = trgFrom.dialogueWidth[j];
-		trgTo.dialogueHeight[j] = trgFrom.dialogueHeight[j];
-		trgTo.textRows[j] = trgFrom.textRows[j];
+	if trgFrom.actionInd[j] = 2 { // Dialogue action
 		trgTo.xOffDialogue[j] = trgFrom.xOffDialogue[j];
-		trgTo.yOffDialogue[j] = trgFrom.yOffDialogue[j] + 10;
+		trgTo.yOffDialogue[j] = trgFrom.yOffDialogue[j];
+		trgTo.bubbleCount[j] = trgFrom.bubbleCount[j];
 		
-		for (i = 0; i < trgFrom.textRows[j]; i += 1) {
-			trgTo.str[j,i] = trgFrom.dialogueStr[j,i];
+		for (i = 0; i <= trgFrom.bubbleCount[j]; i += 1) {
+			trgTo.lineCount[j,i] = trgFrom.lineCount[j,i];
+			trgTo.longestLine[j,i] = trgFrom.longestLine[j,i];
+			trgTo.bubbleX[j,i] = trgFrom.bubbleX[j,i];
+			trgTo.bubbleY[j,i] = trgFrom.bubbleY[j,i];
+			trgTo.hasText[j,i] = trgFrom.hasText[j,i];
+			
+			for (k = 0; k <= lineCount[j,i]; k += 1) {
+				trgTo.lineStr[scr_array_xy(i,k,trgFrom.bubbleCount[j]),k] = trgFrom.lineStr[scr_array_xy(i,k,trgFrom.bubbleCount[j]),k];
+			}
 		}
-	}*/
+	}
 	
 	if trgFrom.actionInd[j] = 3 { // Camera pan action
 		trgTo.xNode[j] = trgFrom.xNode[j];
