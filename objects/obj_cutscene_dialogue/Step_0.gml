@@ -204,7 +204,6 @@ if select {
 #endregion
 
 // Transform cursor
-#region
 
 // Place cursor at position
 if mouse_check_button_pressed(mb_left) {
@@ -264,35 +263,48 @@ if cursorBubble != -1 && cursorState != -1 {
 			tempCursorPlaceLine = cursorPlaceLine;
 		}
 		
+		// If the mouse is within every line's boundaries
 		if relativeMouseX >= self.x + 3 + bubbleX[k] && relativeMouseX <= self.x + 4 + bubbleX[k] + longestLine[k] && relativeMouseY >= self.y + bubbleY[k] - surfaceScrollOff && relativeMouseY <= self.y + 4 + bubbleY[k] - surfaceScrollOff + (lineCount[k]+1)*10 {
+			// Iterate through each line
 			for (j = 0; j <= lineCount[k]; j += 1) {
+				// Update cursor line
 				cursorPlaceSelectionLine = j;
-				
-				if relativeMouseY >= self.y + 4 + bubbleY[k] - surfaceScrollOff + j*10 && relativeMouseY < self.y + 14 + bubbleY[k] - surfaceScrollOff + j*10 {
-					if relativeMouseX - self.x - 4 - bubbleX[k] > string_width( string_copy(lineStr[k,j],1,string_length(lineStr[k,j]))) - ( string_width( string_char_at(lineStr[k,j],string_length(lineStr[k,j])) ) / 2 ) {
-						cursorPlaceSelectionChar = string_length(lineStr[k,j]); // Go to end of line
-						show_debug_message(cursorPlaceSelectionChar);
-						
-						break;
-					} else {
-						for (i = 1; i <= string_length(lineStr[k,j]); i += 1) {
-							if string_width( string_copy(lineStr[k,j],1,i) ) - ( string_width( string_char_at(lineStr[k,j],i) ) / 2 ) >= relativeMouseX - self.x - 4 - bubbleX[k] {
-								if cursorPlaceLine >= tempCursorPlaceLine {
-									cursorPlaceSelectionChar = i-1; // Place to the left of this character
-									
-									break;
-								}
-							}
+					
+				// If the mouse is one character beyond the x bound of this line
+				if relativeMouseX - self.x - 4 - bubbleX[k] > string_width( string_copy(lineStr[k,j],1,string_length(lineStr[k,j]))) - ( string_width( string_char_at(lineStr[k,j],string_length(lineStr[k,j])) ) / 2 ) {
+					cursorPlaceSelectionChar = string_length(lineStr[k,j]); // Go to end of line
+					
+				// If the mouse is within the line's character bounds
+				} else {
+					// Iterate through each character of this line
+					for (i = 1; i <= string_length(lineStr[k,j]); i += 1) {
+						// If the mouse is within this character's bounds
+						if string_width( string_copy(lineStr[k,j],1,i) ) - ( string_width( string_char_at(lineStr[k,j],i) ) / 2 ) >= relativeMouseX - self.x - 4 - bubbleX[k] {
+							cursorPlaceSelectionChar = i-1; // Place to the left of this character
+							
+							// Break out of this line's characters
+							break;
 						}
-						
-						break;
 					}
+				}
+				
+				// If the mouse is above this line's bottom boundary
+				if relativeMouseY <= self.y + 14 + bubbleY[k] - surfaceScrollOff + j*10 {
+					// Break out of this line loop
+					break;
 				}
 			}
 		}
 		
+		/* Prevent cursor from starting in the wrong place when the direction
+		of the selection box changes due to the cursor moving vertically, rather
+		than horizontally. */
+		if cursorPlaceSelectionLine = tempCursorPlaceLine && cursorPlaceSelectionChar >= tempCursorPlaceChar {
+			cursorPlaceChar = tempCursorPlaceChar;
+		}
+		
 		// Highlight backwards
-		if cursorPlaceSelectionChar <= tempCursorPlaceChar && cursorPlaceSelectionLine <= tempCursorPlaceLine {
+		if ( (cursorPlaceSelectionChar <= tempCursorPlaceChar && cursorPlaceSelectionLine = tempCursorPlaceLine) ) || ( cursorPlaceSelectionLine < tempCursorPlaceLine )  {
 			cursorPlaceChar = cursorPlaceSelectionChar;
 			cursorPlaceSelectionChar = tempCursorPlaceChar;
 		}
@@ -307,14 +319,12 @@ if cursorBubble != -1 && cursorState != -1 {
 		} else {
 			cursorState = 0; // Cancel highlight
 		}
-		
-		//show_debug_message(cursorPlaceLine);
 	}
 	
 	#endregion
 }
 
-// Navigate cursor
+// Navigate cursor with arrow keys
 if cursorState = 0 {
 	#region
 	
@@ -329,6 +339,9 @@ if cursorState = 0 {
 				cursorPlaceLine += 1;
 			}
 		}
+		
+		cursorPlacePix = string_width( string_copy(lineStr[cursorBubble,cursorPlaceLine],1,cursorPlaceChar) ); // Pixel position of cursor
+		tempCursorPlacePix = cursorPlacePix; // Pixel position of cursor
 	}
 	
 	if keyboard_check_pressed(vk_left) {
@@ -342,14 +355,47 @@ if cursorState = 0 {
 				cursorPlaceChar = string_length(lineStr[cursorBubble,cursorPlaceLine]);
 			}
 		}
+		
+		cursorPlacePix = string_width( string_copy(lineStr[cursorBubble,cursorPlaceLine],1,cursorPlaceChar) ); // Pixel position of cursor
+		tempCursorPlacePix = cursorPlacePix; // Pixel position of cursor
 	}
 	
-	cursorPlacePix = string_width( string_copy(lineStr[cursorBubble,cursorPlaceLine],1,cursorPlaceChar) ); // Pixel position of cursor
+	if keyboard_check_pressed(vk_down) {
+		if cursorPlaceLine < lineCount[cursorBubble] {
+			// Move cursor downward
+			cursorPlaceLine += 1;
+			
+			for (i = 0; i <= string_length(lineStr[cursorBubble,cursorPlaceLine]); i += 1) {
+				if string_width(string_copy(lineStr[cursorBubble,cursorPlaceLine],1,i)) <= tempCursorPlacePix + ( string_width( string_char_at(lineStr[cursorBubble,cursorPlaceLine],i) ) / 2 ) {
+					cursorPlaceChar = i;
+				} else {
+					break;
+				}
+			}
+			
+			cursorPlacePix = string_width( string_copy(lineStr[cursorBubble,cursorPlaceLine],1,cursorPlaceChar) ); // Pixel position of cursor
+		}
+	}
+	
+	if keyboard_check_pressed(vk_up) {
+		if cursorPlaceLine > 0 {
+			// Move cursor upward
+			cursorPlaceLine -= 1;
+			
+			for (i = 0; i <= string_length(lineStr[cursorBubble,cursorPlaceLine]); i += 1) {
+				if string_width(string_copy(lineStr[cursorBubble,cursorPlaceLine],1,i)) <= tempCursorPlacePix + ( string_width( string_char_at(lineStr[cursorBubble,cursorPlaceLine],i) ) / 2 ) {
+					cursorPlaceChar = i;
+				} else {
+					break;
+				}
+			}
+			
+			cursorPlacePix = string_width( string_copy(lineStr[cursorBubble,cursorPlaceLine],1,cursorPlaceChar) ); // Pixel position of cursor
+		}
+	}
 	
 	#endregion
 }
-
-#endregion
 
 // Type text
 if keyboard_check_pressed(vk_anykey) {
@@ -359,25 +405,33 @@ if keyboard_check_pressed(vk_anykey) {
 		k = cursorBubble;
 		j = cursorPlaceLine;
 		j2 = cursorPlaceSelectionLine;
-		i = cursorPlaceChar;
-		i2 = cursorPlaceSelectionChar;
+		i = cursorPlaceChar + 1;
+		
+		// Idk
+		if j = j2 {
+			multiLines = false;
+			i2 = cursorPlaceSelectionChar + 1;
+		} else {
+			multiLines = true;
+			i2 = cursorPlaceSelectionChar;
+		}
+		
 		tempStr = lineStr[k,j];
 		remakeSurface = true;
 		
 		if cursorState = 0 {
+			#region
+			
 			if lineStr[k,j] != "" || !keyboard_check(vk_backspace) {
 				// Custom script which adds keyboard characters to a string argument
 				lineStr[k,j] = typeText(string_copy(lineStr[k,j],1,cursorPlaceChar), true) + string_copy(lineStr[k,j],cursorPlaceChar+1,string_length(lineStr[k,j]));
 			} else {
 				// If the line is blank and backspace is pressed
 				
-				// Move lower lines upward
-				for (var jj = j; jj <= lineCount[k] - 1; jj += 1) {
-					lineStr[k,jj] = lineStr[k,jj+1];
-				}
-				
 				// Delete a line
-				lineCount[k] -= 1;
+				deleteLines = true;
+				deleteLine[k,j] = true;
+				
 				cursorPlaceChar = string_length(lineStr[k,j-1]) + 1;
 				cursorPlaceLine = j-1;
 			}
@@ -393,15 +447,23 @@ if keyboard_check_pressed(vk_anykey) {
 				}
 				
 				cursorPlacePix = string_width( string_copy(lineStr[cursorBubble,cursorPlaceLine],1,cursorPlaceChar) ); // Pixel position of cursor
+				tempCursorPlacePix = cursorPlacePix; // Pixel position of cursor
 			}
+			
+			#endregion
 		}
 		
 		if cursorState = 1 {
-			cursorState = 0;
+			#region
 			
 			while !(j = j2 && i = i2) {
-				if i < string_length(lineStr[k,j]) {
-					// Fams
+				if j = j2 && string_length(lineStr[k,j]) = 0 {
+					// Necessary break for blank line at the end of selection
+					break;
+				}
+				
+				if i <= string_length(lineStr[k,j]) {
+					// If on the last line
 					if j = j2 {
 						i2 -= 1;
 					}
@@ -410,16 +472,38 @@ if keyboard_check_pressed(vk_anykey) {
 					j += 1;
 				}
 				
-				lineStr[k,j] = string_delete(lineStr[k,j],i+1,1);
+				// Delete a character from the string
+				lineStr[k,j] = string_delete(lineStr[k,j],i,1);
+				
+				// Delete this line afterwards
+				if lineStr[k,j] = "" {
+					deleteLines = true;
+					deleteLine[k,j] = true;
+				}
 			}
 			
-			lineStr[k,cursorPlaceLine] = typeText(string_copy(lineStr[k,cursorPlaceLine],1,cursorPlaceChar), false) + string_copy(lineStr[k,cursorPlaceLine],cursorPlaceChar+1,string_length(lineStr[k,cursorPlaceLine]));
+			// Change cursor state to 0
+			if multiLines {
+				lineStr[k,cursorPlaceLine] = typeText(string_copy(lineStr[k,cursorPlaceLine],1,cursorPlaceChar), false) + string_copy(lineStr[k,cursorPlaceLine], cursorPlaceChar+1, string_length(lineStr[k,cursorPlaceLine]) - cursorPlaceChar) + string_copy(lineStr[k,cursorPlaceLine+1], 1, string_length((lineStr[k,cursorPlaceLine+1])));
+				
+				deleteLines = true;
+				deleteLine[k,j] = true;
+			} else {
+				lineStr[k,cursorPlaceLine] = typeText(string_copy(lineStr[k,cursorPlaceLine],1,cursorPlaceChar), false) + string_copy(lineStr[k,cursorPlaceLine], cursorPlaceChar+1, string_length(lineStr[k,cursorPlaceLine]) - cursorPlaceChar);
+			}
+			
+			cursorState = 0;
 			cursorPlaceChar += 1;
+			
+			#endregion
 		}
 		
 		// Create a new line
 		if keyboard_check_pressed(vk_enter) {
+			#region
+			
 			lineCount[k] += 1;
+			deleteLine[k,lineCount[k]] = false;
 			
 			// Move lines below to make space
 			for (var jj = lineCount[k]; jj > j; jj -= 1) {
@@ -434,7 +518,46 @@ if keyboard_check_pressed(vk_anykey) {
 			cursorPlaceChar = 0;
 			cursorPlaceLine = j+1;
 			
+			cursorPlacePix = 0;
+			tempCursorPlacePix = cursorPlacePix; // Pixel position of cursor
+			
 			remakeSurface = true;
+			
+			#endregion
+		}
+	}
+	
+	#endregion
+}
+
+if deleteLines {
+	#region
+	
+	deleteLines = false;
+	deletionStart = -1;
+	linesToDelete = 0;
+	
+	for (k = 0; k <= bubbleCount; k += 1) {
+		for (j = 0; j <= lineCount[k]; j += 1) {
+			if deleteLine[k,j] {
+				if deletionStart = -1 {
+					// Find first line to delete
+					deletionStart = j;
+				}
+				
+				// Count lines of deletion
+				linesToDelete += 1;
+			}
+		}
+		
+		// Delete lines
+		for (var i = 0; i < linesToDelete; i += 1) {
+			// Move lower lines upward
+			for (var jj = deletionStart; jj < lineCount[k]; jj += 1) {
+				lineStr[k,jj] = lineStr[k,jj+1];
+			}
+			
+			lineCount[k] -= 1;
 		}
 	}
 	
@@ -515,6 +638,7 @@ for (i = 0; i <= 1; i += 1) {
 					// Create a new dialogue bubble
 					bubbleCount += 1;
 					bubbleX[bubbleCount] = 0;
+					deleteLine[bubbleCount,0] = false;
 					
 					if lineCount[bubbleCount - 1] = 0 {
 						bubbleY[bubbleCount] = bubbleY[bubbleCount - 1] + lineCount[bubbleCount - 1]*10 + 18;
@@ -523,7 +647,7 @@ for (i = 0; i <= 1; i += 1) {
 					}
 					
 					lineCount[bubbleCount] = 0;
-					lineStr[bubbleCount,lineCount[bubbleCount]] = "New.";
+					lineStr[bubbleCount,lineCount[bubbleCount]] = "";
 					longestLine[bubbleCount] = string_width(lineStr[bubbleCount,lineCount[bubbleCount]]);
 					
 					for (j = 0; j <= 3; j += 1) {
@@ -563,7 +687,7 @@ if !( relativeMouseX >= x - 4 && relativeMouseX <= scrollVerRightBound + 4 && re
 			instance_destroy();
 		} else {
 			cursorState = -1;
-			cursorPlace = -1; // Lose cursor
+			cursorPlaceChar = -1; // Lose cursor
 			canDelete = true;
 		}
 	}
@@ -575,6 +699,8 @@ if !( relativeMouseX >= x - 4 && relativeMouseX <= scrollVerRightBound + 4 && re
 
 // Longest line for each bubble
 for ( j = 0; j <= bubbleCount; j += 1) {
+	#region
+	
 	var tempLength = 20; // Minimum bubble width
 	
 	for ( i = 0; i <= lineCount[j]; i += 1) {
@@ -584,6 +710,8 @@ for ( j = 0; j <= bubbleCount; j += 1) {
 			longestLine[j] = tempLength;
 		}
 	}
+	
+	#endregion
 }
 
 // Update surface and box

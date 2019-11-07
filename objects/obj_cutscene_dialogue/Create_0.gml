@@ -16,13 +16,14 @@ cursorState = -1;
 */
 tempCursorPlaceChar = -1;
 cursorPlaceSelectionLine = -1;
+deleteLines = false;
 
 // Dialogue bubble values
 bubbleCount = 0; // 0 is a single bubble
 bubbleX[bubbleCount] = 0;
 bubbleY[bubbleCount] = 0;
 lineCount[bubbleCount] = 0; // 0 is a single line
-lineStr[bubbleCount,0] = "Test!";
+lineStr[bubbleCount,0] = "Text";
 longestLine[bubbleCount] = 0;
 selectBubSlider[0,0] = false;
 selectBubSlider[0,1] = false;

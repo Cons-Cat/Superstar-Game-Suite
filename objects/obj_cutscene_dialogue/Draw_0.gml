@@ -187,13 +187,17 @@ if surface_exists(diaSurface) {
 							ii = 0;
 							jj += 1;
 							
-							if lineStr[ii,jj] = "" {
-								jj += 1;
-								
-								continue;
+							// Skip blank lines
+							if lineStr[i,jj] = "" {
+								if jj < lineCount[i] {
+									continue;
+								} else {
+									break;
+								}
 							}
 						}
 						
+						// Highlight the width of each selected character
 						iiXPix = string_width(string_copy(lineStr[i,jj],1,ii-1));
 						iiWPix = string_width(string_char_at(lineStr[i,jj],ii))-1;
 						
