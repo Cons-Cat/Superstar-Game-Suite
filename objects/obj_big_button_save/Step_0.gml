@@ -14,8 +14,9 @@ if select {
 		// Top data
 		str += string(instance_number(obj_editor_terrain_par));
 		
-		for (i = 0; i < instance_number(obj_editor_terrain_par); i += 1) {
+		for (var i = 0; i < instance_number(obj_editor_terrain_par); i += 1) {
 			trg = instance_find(obj_editor_terrain_par,i);
+			writeVertices = false;
 			
 			// Write generic data
 			str += string_hash_to_newline("#" + string(trg.str));
@@ -88,6 +89,7 @@ if select {
 			if trg.str = "moveScene" {
 				#region
 				
+				str += string_hash_to_newline("#" + string(trg.instId1[0]));
 				str += string_hash_to_newline("#" + string(trg.totalActions));
 				str += string_hash_to_newline("#" + string(obj_panel_bot.rows));
 				
@@ -96,6 +98,8 @@ if select {
 				}
 				
 				for (var j = 0; j <= trg.totalActions; j += 1) {
+					#region
+					
 					str += string_hash_to_newline("#" + string(trg.actionInd[j]));
 					str += string_hash_to_newline("#" + string(trg.actionTime[j]));
 					str += string_hash_to_newline("#" + string(trg.actionRowInd[j]));
@@ -111,6 +115,8 @@ if select {
 					}
 					
 					if trg.actionInd[j] = 2 { // Dialogue action
+						#region
+						
 						str += string_hash_to_newline("#" + string(trg.xOffDialogue[j]));
 						str += string_hash_to_newline("#" + string(trg.yOffDialogue[j]));
 						str += string_hash_to_newline("#" + string(trg.bubbleCount[j]));
@@ -125,6 +131,8 @@ if select {
 								show_debug_message("k: " + string(k) + ", z: " + string(z));
 							}
 						}
+						
+						#endregion
 					}
 					
 					if trg.actionInd[j] = 3 { // Camera pan action
@@ -140,7 +148,11 @@ if select {
 					if trg.actionInd[j] = 6 { // Arbitrary action
 						str += string_hash_to_newline("#" + string(trg.arbitraryInd[j]));
 					}
+					
+					#endregion
 				}
+				
+				writeVertices = true;
 				
 				#endregion
 			}
@@ -150,6 +162,68 @@ if select {
 				
 				str += string_hash_to_newline("#" + string(trg.actorTxt));
 				str += string_hash_to_newline("#" + string(trg.angle));
+				
+				#endregion
+			}
+			
+			if trg.str = "panScene" {
+				#region
+				
+				str += string_hash_to_newline("#" + string(trg.instId1[0]));
+				str += string_hash_to_newline("#" + string(trg.angle));
+				str += string_hash_to_newline("#" + string(trg.magnitude));
+				str += string_hash_to_newline("#" + string(trg.zoomVal));
+				
+				writeVertices = true;
+				
+				#endregion
+			}
+			
+			if trg.str = "anchorScene" {
+				#region
+				
+				str += string_hash_to_newline("#" + string(trg.majorRadius));
+				str += string_hash_to_newline("#" + string(trg.minorRadius));
+				str += string_hash_to_newline("#" + string(trg.thresholdRadius));
+				str += string_hash_to_newline("#" + string(trg.zoomVal));
+				
+				#endregion
+			}
+			
+			if writeVertices {
+				#region
+				
+				writeVertices = false;
+				vertexCount = 0;
+				
+				for (var j = 0; j < instance_number(obj_trigger_vertex); j+= 1) {
+					if instance_find(obj_trigger_vertex,j).trg = trg.id {
+						vertexCount += 1;
+					}
+				}
+				
+				str += string_hash_to_newline("#" + string(vertexCount));
+				
+				for (var j = 0; j < instance_number(obj_trigger_vertex); j += 1) {
+					vertId = instance_find(obj_trigger_vertex,j).id;
+					
+					if vertId.trg = trg.id {
+						str += string_hash_to_newline("#" + string(vertId.hasThreshold));
+						str += string_hash_to_newline("#" + string(vertId.trgXOff));
+						str += string_hash_to_newline("#" + string(vertId.trgYOff));
+						str += string_hash_to_newline("#" + string(vertId.vertexInd));
+						str += string_hash_to_newline("#" + string(vertId.vertexToInd));
+						
+						if vertId.hasThreshold {
+							str += string_hash_to_newline("#" + string(vertId.w));
+							str += string_hash_to_newline("#" + string(vertId.girth));
+							str += string_hash_to_newline("#" + string(vertId.thresholdX));
+							str += string_hash_to_newline("#" + string(vertId.thresholdY));
+							str += string_hash_to_newline("#" + string(vertId.edgeMidPointX));
+							str += string_hash_to_newline("#" + string(vertId.edgeMidPointY));
+						}
+					}
+				}
 				
 				#endregion
 			}

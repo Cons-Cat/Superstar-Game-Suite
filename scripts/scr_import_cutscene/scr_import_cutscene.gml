@@ -8,7 +8,6 @@ for (j = 1; j <= trgFrom.totalActions; j += 1) {
 	trgTo.actionInd[j] = trgFrom.actionInd[j];
 	trgTo.actionTime[j] = trgFrom.actionTime[j];
 	trgTo.actionRowInd[j] = trgFrom.actionRowInd[j];
-	//trgTo.actionRowId[j] = trgFrom.actionRowId[j];
 	
 	trgTo.actionSelect[j] = false;
 	trgTo.actionDelete[j] = false;

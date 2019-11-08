@@ -34,9 +34,9 @@ instId2 = "";
 instId3 = "XXXXXXXXXX"; // Object id
 instId4[0] = "XXXXXXXXXX";
 
-//for (i = 0; i < 8; i += 1) {
-	instId1[0] = instId1[0] + string_upper(choose("a","b","c","d","e","f","0","1","2","3","4","5","6","7","8","9"));
-//}
+for (i = 0; i < 8; i += 1) {
+	instId1[0] += string_upper(choose("a","b","c","d","e","f","0","1","2","3","4","5","6","7","8","9"));
+}
 for (i = 0; i < 36; i += 1) {
 	if i = 8 || i = 13 || i = 18 || i = 23 {
 		instId2 = instId2 + "-";

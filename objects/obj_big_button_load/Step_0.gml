@@ -11,6 +11,9 @@ if select {
 		with obj_editor_terrain_par {
 			instance_destroy();
 		}
+		with obj_trigger_vertex {
+			instance_destroy();
+		}
 		
 		export = file_text_open_read(saveFile);
 		
@@ -45,6 +48,10 @@ if select {
 				case "actor":
 					obj = obj_npc_position;
 					break;
+				case "panScene":
+					obj = obj_trigger_pan_region_editor;
+				case "anchorScene":
+					obj = obj_trigger_anchor_region_editor;
 				default:
 					break;
 			}
@@ -52,6 +59,7 @@ if select {
 			with instance_create_layer(objX,objY,"Instances",obj) { // asset_get_index() ?
 				export = other.export;
 				resetArray = false;
+				writeVertices = false;
 				placed = 1;
 				
 				// Read generic data
@@ -149,6 +157,11 @@ if select {
 				if other.objStr = "moveScene" {
 					#region
 					
+					recalculate = true;
+					placed = 2;
+					
+					instId1[0] = file_text_read_string(export);
+					file_text_readln(export);
 					totalActions = file_text_read_real(export);
 					file_text_readln(export)
 					obj_panel_bot.rows = file_text_read_real(export);
@@ -168,20 +181,30 @@ if select {
 						file_text_readln(export)
 						
 						if actionInd[j] = 0 { // Walk action
+							#region
+							
 							xNode[j] = file_text_read_real(export);
 							file_text_readln(export)
 							yNode[j] = file_text_read_real(export);
 							file_text_readln(export)
+							
+							#endregion
 						}
 						
 						if actionInd[j] = 1 { // Rotation action
+							#region
+							
 							angleRot[j] = file_text_read_real(export);
 							file_text_readln(export)
 							angleRotExport[j] = file_text_read_real(export);
 							file_text_readln(export)
+							
+							#endregion
 						}
 						
 						if actionInd[j] = 2 { // Dialogue action
+							#region
+							
 							xOffDialogue[j] = file_text_read_real(export);
 							file_text_readln(export)
 							yOffDialogue[j] = file_text_read_real(export);
@@ -202,27 +225,43 @@ if select {
 									file_text_readln(export)
 								}
 							}
+							
+							#endregion
 						}
 						
 						if actionInd[j] = 3 { // Camera pan action
+							#region
+							
 							xNode[j] = file_text_read_real(export);
 							file_text_readln(export)
 							yNode[j] = file_text_read_real(export);
 							file_text_readln(export)
 							zoomVal[j] = file_text_read_real(export);
 							file_text_readln(export)
+							
+							#endregion
 						}
 						
 						if actionInd[j] = 5 { // Walk speed action
+							#region
+							
 							slowSpd[j] = file_text_read_real(export);
 							file_text_readln(export)
+							
+							#endregion
 						}
 						
 						if actionInd[j] = 6 { // Arbitrary action
+							#region
+							
 							arbitraryInd[j] = file_text_read_real(export);
 							file_text_readln(export)
+							
+							#endregion
 						}
 					}
+					
+					writeVertices = true;
 					
 					#endregion
 				}
@@ -237,6 +276,89 @@ if select {
 					angle = file_text_read_real(export);
 					file_text_readln(export)
 					trg.dirIsoDef = self.angle;
+					
+					#endregion
+				}
+				
+				// Load camera panning region data
+				if other.objStr = "panScene" {
+					#region
+					
+					recalculate = true;
+					writeVertices = true;
+					placed = 2;
+					
+					instId1[0] = file_text_read_string(export);
+					file_text_readln(export);
+					angle = file_text_read_real(export);
+					file_text_readln(export);
+					magnitude = file_text_read_real(export);
+					file_text_readln(export);
+					zoomVal = file_text_read_real(export);
+					file_text_readln(export);
+					
+					#endregion
+				}
+				
+				// Load camera anchor region data
+				if other.objStr = "anchorScene" {
+					#region
+					
+					majorRadius = file_text_read_string(export);
+					file_text_readln(export);
+					minorRadius = file_text_read_string(export);
+					file_text_readln(export);
+					thresholdRadius = file_text_read_string(export);
+					file_text_readln(export);
+					zoomVal = file_text_read_string(export);
+					file_text_readln(export);
+					
+					#endregion
+				}
+				
+				if writeVertices {
+					#region
+					
+					writeVertices = false;
+					
+					vertexCount = file_text_read_real(export);
+					file_text_readln(export);
+					
+					for (j = 0; j < vertexCount; j += 1) {
+						with instance_create_layer(x,y,"Instances",obj_trigger_vertex) {
+							hasThreshold = bool(file_text_read_real(other.export));
+							file_text_readln(other.export);
+							trgXOff = file_text_read_real(other.export);
+							file_text_readln(other.export);
+							trgYOff = file_text_read_real(other.export);
+							file_text_readln(other.export);
+							vertexInd = file_text_read_real(other.export);
+							file_text_readln(other.export);
+							vertexToInd = file_text_read_real(other.export);
+							file_text_readln(other.export);
+							
+							if hasThreshold {
+								recalculate2 = true;
+								
+								w = file_text_read_real(other.export);
+								file_text_readln(other.export);
+								girth = file_text_read_real(other.export);
+								tempGirth = girth;
+								file_text_readln(other.export);
+								thresholdX = file_text_read_real(other.export);
+								file_text_readln(other.export);
+								thresholdY = file_text_read_real(other.export);
+								file_text_readln(other.export);
+								edgeMidPointX = file_text_read_real(other.export);
+								file_text_readln(other.export);
+								edgeMidPointY = file_text_read_real(other.export);
+								file_text_readln(other.export);
+							}
+							
+							trgStr = other.instId1[0];
+							findTrg = true;
+						}
+					}
 					
 					#endregion
 				}

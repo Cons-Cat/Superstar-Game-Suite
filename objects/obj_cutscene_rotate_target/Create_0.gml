@@ -2,6 +2,7 @@
 relativeMouseX = 0;
 relativeMouseY = 0;
 timeIndex = 0;
+mouseYOff = 0;
 
 angleCalc = 0;
 radius = 20;

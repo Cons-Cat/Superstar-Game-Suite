@@ -37,7 +37,7 @@ while tempActionTime < obj_panel_bot.longestRowLength {
 
 // Point angle at mouse
 if gone {
-	angle = point_direction(originX[j-1],originY[j-1] - (zfloor * 20),relativeMouseX,relativeMouseY - (zfloor * 20));
+	angle = point_direction(originX[j-1],originY[j-1],relativeMouseX,relativeMouseY - mouseYOff);
 }
 
 // Update angle for calculation

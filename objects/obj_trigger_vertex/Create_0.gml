@@ -8,8 +8,6 @@ canPlace = false;
 canDrag = false;
 canDragDelayed = false;
 deleting = false;
-vertexToInd = -1;
-vertexToId = -1;
 mouseXOff = 0;
 mouseYOff = 0;
 tempX = x;
@@ -18,6 +16,11 @@ tempXDrag = x;
 tempYDrag = y;
 
 vertexInd = instance_number(obj_trigger_vertex);
+vertexToInd = -1;
+vertexToId = -1;
+trg = -1;
+findTrg = false;
+
 edgeCol = c_white;
 edgeColTemp = edgeCol;
 edgeDeleteState = 0;

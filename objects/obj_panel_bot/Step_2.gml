@@ -1,12 +1,12 @@
 /// @description Insert description here
 baseY = ( 9 * 20 * obj_editor_gui.realPortScaleVer ) + ( 60 / 576 * window_get_height() );
 x = room_width + view_wport[1]/2;
-relativeMouseX = window_mouse_get_x();
+//relativeMouseX - room_width = window_mouse_get_x();
 relativeX = x - room_width;
 
 canSelect = false;
 
-if relativeMouseX <= relativeX + 60 && relativeMouseX >= relativeX - 60 {
+if relativeMouseX - room_width <= relativeX + 60 && relativeMouseX - room_width >= relativeX - 60 {
 	if relativeMouseY >= y - 21 && relativeMouseY <= y {
 		canSelect = true;
 	}
@@ -320,7 +320,7 @@ for (i = 0; i < rows; i += 1) {
 	}
 	
 	if mouse_check_button_pressed(mb_left) {
-		if !(relativeMouseX >= 0 && relativeMouseX <= obj_panel_left.x && relativeMouseY >= obj_subpanel_left.y && relativeMouseY <= obj_subpanel_left.scrollVerBotBound) && !obj_subpanel_left.select && !obj_panel_left.select {
+		if !(relativeMouseX - room_width >= 0 && relativeMouseX - room_width <= obj_panel_left.x && relativeMouseY >= obj_subpanel_left.y && relativeMouseY <= obj_subpanel_left.scrollVerBotBound) && !obj_subpanel_left.select && !obj_panel_left.select {
 			if !canSelectRow[i] {
 				selectRow[i] = false;
 				hasRowSelected = false;
@@ -329,7 +329,7 @@ for (i = 0; i < rows; i += 1) {
 					actorId[i].orangeAnyways = false;
 				}
 				
-				if relativeMouseX <= 189 && relativeMouseY >= y+5 {
+				if relativeMouseX - room_width <= 189 && relativeMouseY >= y+5 {
 					with obj_editor_button_parent {
 						if fromTxt != "moveScene" {
 							instance_destroy();
@@ -342,7 +342,7 @@ for (i = 0; i < rows; i += 1) {
 	
 	canSelectRow[i] = false;
 	
-	if relativeMouseX >= 21 && relativeMouseX <= obj_panel_left.baseX - room_width - 1 {
+	if relativeMouseX - room_width >= 21 && relativeMouseX - room_width <= obj_panel_left.baseX - room_width - 1 {
 		if relativeMouseY >= y+35 + i*14 && relativeMouseY <= y+46 + i*14 {
 			canSelectRow[i] = true;
 			
@@ -395,16 +395,16 @@ if panelWidth < view_wport[1] - (obj_panel_right.baseX - obj_panel_left.baseX + 
 
 // Drag actions
 cameraNetX = camera_get_view_x(obj_editor_gui.cameraBotPanel) - (camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) ) - view_wport[5] - obj_subpanel_left.longestPanelRightButton;
-potentialActionTime = floor( (relativeMouseX - (obj_panel_left.baseX - room_width + 1) + cameraNetX) / 6);
+potentialActionTime = floor( (relativeMouseX - room_width - (obj_panel_left.baseX - room_width + 1) + cameraNetX) / 6);
 
 ax = ( ((scrollHorX - ( obj_panel_left.baseX + 1 - room_width ) - room_width ) / (scrollHorRightBound - scrollHorLeftBound)) * panelWidth ) + 1;
 
 // Edit action
 for (i = 1; i <= totalActions; i += 1) {
 	for (j = 0; j < rows; j += 1) {
-		if relativeMouseX > (obj_panel_left.baseX - room_width + 2) - ax + actionTime[i]*6 && relativeMouseX <= (obj_panel_left.baseX - room_width + 1) - ax + actionTime[i]*6 + 6 {
+		if relativeMouseX - room_width > (obj_panel_left.baseX - room_width + 2) - ax + actionTime[i]*6 && relativeMouseX - room_width <= (obj_panel_left.baseX - room_width + 1) - ax + actionTime[i]*6 + 6 {
 			if relativeMouseY >= y + 34 + j*14 && relativeMouseY <= y + 44 + j*14 {
-				if relativeMouseX >= obj_panel_left.baseX - room_width {
+				if relativeMouseX - room_width >= obj_panel_left.baseX - room_width {
 					if actionInd[i] != -1 {
 						#region
 						

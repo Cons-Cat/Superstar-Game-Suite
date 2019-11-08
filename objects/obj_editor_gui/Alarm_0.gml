@@ -4,6 +4,8 @@ instance_create_layer(obj_camera_editor.placeX,obj_camera_editor.placeY,"Instanc
 with obj_trigger_cutscene_region_editor {
 	// Region collision
 	with instance_create_layer(x,y+zfloor*20,"Instances",obj_trigger_cutscene_region_level) {
+		#region
+		
 		x = other.x;
 		y = other.y+other.zfloor*20;
 		image_xscale = other.width;
@@ -84,14 +86,18 @@ with obj_trigger_cutscene_region_editor {
 				arbitraryInd[other.actionTime[i],other.actionRowInd[i]] = other.arbitraryInd[i];
 			}
 		}
+		
+		#endregion
 	}
 }
 
 with obj_trigger_pan_region_editor {
 	// Region collision
-	with instance_create_layer(x,y,"Instances",obj_trigger_pan_region_level) {
+	with instance_create_layer(x,y+zfloor*20,"Instances",obj_trigger_pan_region_level) {
+		#region
+		
 		x = other.x;
-		y = other.y;
+		y = other.y+other.zfloor*20;
 		image_xscale = other.width;
 		image_yscale = other.height;
 		zfloor = other.zfloor;
@@ -117,14 +123,18 @@ with obj_trigger_pan_region_editor {
 				}
 			}
 		}
+		
+		#endregion
 	}
 }
 
 with obj_trigger_anchor_region_editor {
 	// Region collision
-	with instance_create_layer(x,y,"Instances",obj_trigger_anchor_region_level) {
+	with instance_create_layer(x,y + zfloor*20,"Instances",obj_trigger_anchor_region_level) {
+		#region
+		
 		x = other.x;
-		y = other.y;
+		y = other.y + other.zfloor*20;
 		image_xscale = other.width;
 		image_yscale = other.height;
 		depth = other.depth;
@@ -133,12 +143,14 @@ with obj_trigger_anchor_region_editor {
 		minorRadius = other.minorRadius;
 		thresholdRadius = other.thresholdRadius;
 		x1 = other.x1;
-		y1 = other.y1;
+		y1 = other.y1 + zfloor*20;
 		x2 = other.x2;
-		y2 = other.y2;
+		y2 = other.y2 + zfloor*20;
 		anchorId = other.anchorId;
 		trgX = other.trgX;
 		trgY = other.trgY;
 		maxZoom = 1 - (other.zoomVal / 100);
+		
+		#endregion
 	}
 }

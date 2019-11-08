@@ -1,7 +1,7 @@
 /// @description Initialize values
 event_inherited();
 
-str = "panScene";
+str = "anchorScene";
 blankCol = make_color_rgb(226,99,144);
 modeForSelectVal = 4;
 

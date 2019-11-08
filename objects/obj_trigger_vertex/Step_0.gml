@@ -1,4 +1,14 @@
 ///@description Manipulate placement
+if findTrg {
+	findTrg = false;
+	
+	with obj_trigger_region_parent {
+		if instId1[0] = other.trgStr {
+			other.trg = self.id;
+		}
+	}
+}
+
 if canDragDelayed {
 	if trg != -1 {
 		if instance_exists(trg) {
@@ -240,8 +250,8 @@ if recalculate || recalculate2 {
 		normal = (point_direction(x,y,vertexToId.x,vertexToId.y) - 90);
 		
 		if edgeSelect {
-			relativeMouseX = floor(obj_editor_gui.mouseCheckX/5)*5;
-			relativeMouseY = floor(obj_editor_gui.mouseCheckY/5)*5;
+			relativeMouseX = (obj_editor_gui.mouseCheckX div 5) * 5;
+			relativeMouseY = (obj_editor_gui.mouseCheckY div 5) * 5;
 			girth = tempGirth;
 			theta = normal - (point_direction(edgeMidPointX,edgeMidPointY,relativeMouseX,relativeMouseY) );
 			
@@ -256,7 +266,7 @@ if recalculate || recalculate2 {
 				w = 0;
 			}
 			
-			girth = point_distance(edgeMidPointX + thresholdX, edgeMidPointY + thresholdY,relativeMouseX,relativeMouseY);
+			girth = point_distance(edgeMidPointX + thresholdX, edgeMidPointY + thresholdY,relativeMouseX,relativeMouseY+zfloor*20);
 			
 			if girth < point_distance(x,y,vertexToId.x,vertexToId.y)/2 {
 				girth = point_distance(x,y,vertexToId.x,vertexToId.y)/2;

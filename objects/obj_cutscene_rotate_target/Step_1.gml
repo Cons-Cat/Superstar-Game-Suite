@@ -10,6 +10,8 @@ if relativeMouseX >= self.x-5 && relativeMouseX <= self.x+5 && ((relativeMouseY 
 			canDel = false;
 			canPlace = true;
 			calcAngleVals = true;
+			mouseYOff = relativeMouseY - yTo;
+			show_debug_message(mouseYOff);
 		}
 	}
 } else {

@@ -141,6 +141,10 @@ if spawnTriggers {
 }
 
 if select {
+	// Make all vertices pink
+	obj_trigger_vertex.sprite_index = spr_vector_marker_pink;
+	obj_trigger_vertex.edgeColTemp = make_color_rgb(66,5,39);
+	
 	if width != widthTemp {
 		// Recalculate polygons when width is changed
 		widthTemp = width;
@@ -149,10 +153,6 @@ if select {
 	
 	// Create ds_list from ordered pairs of vertex coordinates
 	if recalculate {
-		// Make all vertices pink
-		obj_trigger_vertex.sprite_index = spr_vector_marker_pink;
-		obj_trigger_vertex.edgeColTemp = make_color_rgb(66,5,39);
-		
 		recalculate = false;
 		vertexCountTemp = 0;
 		
