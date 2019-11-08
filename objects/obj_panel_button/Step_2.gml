@@ -53,7 +53,7 @@ if select {
 					decimalPlace = string_length(arbitraryVal);
 				} else {
 					// Add an integer
-					arbitraryVal = string_digits(typeText(arbitraryVal));
+					arbitraryVal = string_digits(typeText(arbitraryVal,true));
 					
 					if decimalPlace != -1 {
 						arbitraryVal = string_insert(".",arbitraryVal,decimalPlace);

@@ -1,55 +1,58 @@
 /// @description 
-if !activeInScene {
+if activeState = 0 {
 	for (i = 0; i < ds_list_size(polygon); i += 6) {
 		if rectangle_in_triangle(obj_player_overworld.bbox_left,obj_player_overworld.bbox_top,obj_player_overworld.bbox_right,obj_player_overworld.bbox_bottom,ds_list_find_value(polygon,i),ds_list_find_value(polygon,i+1),ds_list_find_value(polygon,i+2),ds_list_find_value(polygon,i+3),ds_list_find_value(polygon,i+4),ds_list_find_value(polygon,i+5)) {
 			// Activate interactive cutscene
-			for (b = 1; b <= totalActions; b += 1) {
-				for (j = 0; j < rows; j += 1) {
-					if j = 0 {
-						actor[actionTime[b],0] = obj_player_overworld.id; // 1/10'th second, 0'th Row
-					} else {
-						actor[actionTime[b],j] = instance_find(obj_npc_position,j-1).trg; // 1/10'th second, Row
+			actor[0] = obj_player_overworld.id; // 1/10'th second, 0'th row
+			
+			for (j = 0; j < rows; j += 1) {
+				if j >= 1 {
+					with obj_npc_position {
+						if actorTxt = other.actorTxt[other.j] {
+							other.actor[other.j] = instance_find(obj_npc_position,other.j-1).trg; // 1/10'th second, j'th row
+						}
 					}
-					
-					actor[actionTime[b],j].trgRegion = self.id;
-					
-					for (a = j; a <= longestRowLength; a += 1) {
-						actor[actionTime[b],j].xNode[a] = -1; // Initialize xNode
-						actor[actionTime[b],j].yNode[a] = -1; // Initialize yNode
-						actor[actionTime[b],j].angleRot[a] = -1; // Initialize angleRot
-						actor[actionTime[b],j].arbitraryInd[a] = -1; // Initialize arbitraryInd
-					}
+				}
+				
+				actor[j].trgRegion = self.id;
+				actor[j].sceneLength = self.longestRowLength;
+				
+				for (a = 0; a <= longestRowLength; a += 1) {
+					actor[j].xNode[a] = -1; // Initialize xNode
+					actor[j].yNode[a] = -1; // Initialize yNode
+					actor[j].angleRot[a] = -1; // Initialize angleRot
+					actor[j].arbitraryInd[a] = -1; // Initialize arbitraryInd
 				}
 			}
 			
-			activeInScene = true;
+			activeState = 1;
 		}
 	}
 }
 
-if activeInScene {
-	if timeIndexCalc < longestRowLength {
-		if timeIndexCalc*6 = timeIndex {
+if activeState = 1 {
+	if timeIndexCalc <= longestRowLength {
+		if timeIndexCalc*6 = timeIndex { // If the tick is aligned with a multiple of 1/10th seconds
 			for (i = 0; i < rows; i += 1) {
 				// Walk action
 				if actionInd[timeIndexCalc,i] = 0 {
 					// Expresses intent to the actor. The actual movement is handled by that instance.
-					actor[timeIndexCalc,i].xNode[timeIndexCalc] = self.xNode[timeIndexCalc,i];
-					actor[timeIndexCalc,i].yNode[timeIndexCalc] = self.yNode[timeIndexCalc,i];
-					actor[timeIndexCalc,i].endWalk[timeIndexCalc] = self.endWalk[timeIndexCalc,i];
-					actor[timeIndexCalc,i].activeInScene = true;
+					actor[i].xNode[timeIndexCalc] = self.xNode[timeIndexCalc,i];
+					actor[i].yNode[timeIndexCalc] = self.yNode[timeIndexCalc,i];
+					actor[i].endWalk[timeIndexCalc] = self.endWalk[timeIndexCalc,i];
+					actor[i].activeInScene = true;
 				}
 				
 				// Rotation action
 				if actionInd[timeIndexCalc,i] = 1 {
-					actor[timeIndexCalc,i].angleRot[timeIndexCalc] = self.angleRot[timeIndexCalc,i];
-					actor[timeIndexCalc,i].activeInScene = true;
+					actor[i].angleRot[timeIndexCalc] = self.angleRot[timeIndexCalc,i];
+					actor[i].activeInScene = true;
 				}
 				
 				// Dialogue action
 				if actionInd[timeIndexCalc,i] = 2 {
 					// Create text box with expressed intent.
-					with instance_create_layer(actor[timeIndexCalc,i].x-xOffDialogue[timeIndexCalc,i],actor[timeIndexCalc,i].y-yOffDialogue[timeIndexCalc,i],"Instances",obj_chat_bubble) {
+					with instance_create_layer(actor[i].x-xOffDialogue[timeIndexCalc,i],actor[i].y-yOffDialogue[timeIndexCalc,i],"Instances",obj_chat_bubble) {
 						canMove = false;
 						message_end = 0;
 						textRows = other.textRows[other.timeIndexCalc,other.i];
@@ -71,7 +74,7 @@ if activeInScene {
 						}
 					}
 					
-					actor[timeIndexCalc,i].activeInScene = true;
+					actor[i].activeInScene = true;
 				}
 				
 				// Camera pan action
@@ -99,25 +102,36 @@ if activeInScene {
 				// Walk speed action
 				if actionInd[timeIndexCalc,i] = 5 {
 					// Expresses intent to the actor. The actual movement is handled by that instance.
-					actor[timeIndexCalc,i].slowSpd = self.slowSpd[timeIndexCalc,i];
+					actor[i].slowSpd = self.slowSpd[timeIndexCalc,i];
 				}
 				
 				// Arbitrary action
 				if actionInd[timeIndexCalc,i] = 6 {
 					show_message(arbitraryInd[timeIndexCalc,i]);
 					// Expresses intent to the actor. The actual execution is handled by that instance.
-					actor[timeIndexCalc,i].arbitraryInd[timeIndexCalc] = self.arbitraryInd[timeIndexCalc,i];
-					actor[timeIndexCalc,i].activeInScene = true;
+					actor[i].arbitraryInd[timeIndexCalc] = self.arbitraryInd[timeIndexCalc,i];
+					actor[i].activeInScene = true;
 				}
 			}
 		}
 		
 		timeIndex += 1; // Increment time each game tick
-		timeIndexCalc = floor(timeIndex/6); // 1/10'th second increments
+		timeIndexCalc = timeIndex div 6; // 1/10'th second increments
 	} else {
-		// End the scene
+		// If not in dialogue
 		if !instance_exists(obj_chat_bubble) {
-			obj_actor_parent.activeInScene = false;
+			// Iterate through all actors
+			for (i = 0; i < instance_number(obj_actor_parent); i += 1) {
+				// If any actors are walking
+				if instance_find(obj_actor_parent,i).activeInScene {
+					break;
+				}
+				
+				// End the scene
+				if i = instance_number(obj_actor_parent) - 1 {
+					activeState = 2;
+				}
+			}
 		}
 	}
 }

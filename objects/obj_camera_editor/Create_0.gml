@@ -43,7 +43,7 @@ trgRegion = -1;
 anchored = false;
 
 zoomLevel = 1;
-zoomSpd = 0.055;
+zoomSpd = 0.065;
 tempZoomLevel = zoomLevel;
 baseZoomWidth = 512;
 baseZoomHeight = 288;

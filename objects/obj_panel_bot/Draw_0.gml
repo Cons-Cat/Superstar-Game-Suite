@@ -33,7 +33,11 @@ for (i = 0; i < rows; i += 1) {
 // Draw actions
 for (i = 1; i <= totalActions; i += 1) {
 	if actionInd[i] != -1 {
-		draw_sprite_ext(spr_cutscene_action_second, 0, camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) + view_wport[5] + actionTime[i]*6 + obj_subpanel_left.longestPanelRightButton, 1 + actionRowInd[i]*14, 1, 1, 0, actionColorDraw[i], 1);
+		if actionSelect[i] || actionDelete[i] {
+			draw_sprite_ext(spr_cutscene_action_second, 0, camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) + view_wport[5] + actionTime[i]*6 + obj_subpanel_left.longestPanelRightButton, 1 + actionRowInd[i]*14, 1, 1, 0, c_orange, 1);
+		} else {
+			draw_sprite_ext(spr_cutscene_action_second, 0, camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) + view_wport[5] + actionTime[i]*6 + obj_subpanel_left.longestPanelRightButton, 1 + actionRowInd[i]*14, 1, 1, 0, actionColInd[actionInd[i]], 1);
+		}
 	}
 }
 

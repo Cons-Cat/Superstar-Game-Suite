@@ -3,9 +3,9 @@ instance_create_layer(obj_camera_editor.placeX,obj_camera_editor.placeY,"Instanc
 
 with obj_trigger_cutscene_region_editor {
 	// Region collision
-	with instance_create_layer(x,y,"Instances",obj_trigger_cutscene_region_level) {
+	with instance_create_layer(x,y+zfloor*20,"Instances",obj_trigger_cutscene_region_level) {
 		x = other.x;
-		y = other.y;
+		y = other.y+other.zfloor*20;
 		image_xscale = other.width;
 		image_yscale = other.height;
 		zfloor = other.zfloor;
@@ -32,7 +32,7 @@ with obj_trigger_cutscene_region_editor {
 				yNode[other.actionTime[i],other.actionRowInd[i]] = other.yNode[i];
 				
 				// Whether the actor continues walking afterwards
-				endWalk[other.actionTime[i],other.actionRowInd[i]] = true;
+				endWalk[other.actionTime[i],other.actionRowInd[i]] = true; // Default to true
 				
 				for (j = 0; j <= totalActions; j += 1) {
 					if other.actionRowInd[j] = other.actionRowInd[i] {

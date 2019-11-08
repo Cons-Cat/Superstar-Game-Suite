@@ -39,11 +39,17 @@ if select {
 				case "slope3":
 					obj = obj_editor_slope3;
 					break;
+				case "moveScene":
+					obj = obj_trigger_cutscene_region_editor;
+					break;
+				case "actor":
+					obj = obj_npc_position;
+					break;
 				default:
 					break;
 			}
 			
-			with instance_create_layer(objX,objY,"Instances",obj) {
+			with instance_create_layer(objX,objY,"Instances",obj) { // asset_get_index() ?
 				export = other.export;
 				resetArray = false;
 				placed = 1;
@@ -135,6 +141,102 @@ if select {
 							}
 						}
 					}
+					
+					#endregion
+				}
+				
+				// Load cutscene region data
+				if other.objStr = "moveScene" {
+					#region
+					
+					totalActions = file_text_read_real(export);
+					file_text_readln(export)
+					obj_panel_bot.rows = file_text_read_real(export);
+					file_text_readln(export)
+					
+					for (var j = 0; j < obj_panel_bot.rows; j += 1) {
+						actorTxt[j] = file_text_read_string(export);
+						file_text_readln(export)
+					}
+					
+					for (var j = 0; j <= totalActions; j += 1) {
+						actionInd[j] = file_text_read_real(export);
+						file_text_readln(export)
+						actionTime[j] = file_text_read_real(export);
+						file_text_readln(export)
+						actionRowInd[j] = file_text_read_real(export);
+						file_text_readln(export)
+						
+						if actionInd[j] = 0 { // Walk action
+							xNode[j] = file_text_read_real(export);
+							file_text_readln(export)
+							yNode[j] = file_text_read_real(export);
+							file_text_readln(export)
+						}
+						
+						if actionInd[j] = 1 { // Rotation action
+							angleRot[j] = file_text_read_real(export);
+							file_text_readln(export)
+							angleRotExport[j] = file_text_read_real(export);
+							file_text_readln(export)
+						}
+						
+						if actionInd[j] = 2 { // Dialogue action
+							xOffDialogue[j] = file_text_read_real(export);
+							file_text_readln(export)
+							yOffDialogue[j] = file_text_read_real(export);
+							file_text_readln(export)
+							bubbleCount[j] = file_text_read_real(export);
+							file_text_readln(export)
+							
+							for (var k = 0; k <= bubbleCount[j]; k += 1) {
+								lineCount[j,k] = file_text_read_real(export);
+								file_text_readln(export)
+								bubbleX[j,k] = file_text_read_real(export);
+								file_text_readln(export)
+								bubbleY[j,k] = file_text_read_real(export);
+								file_text_readln(export)
+								
+								for (var z = 0; z <= lineCount[j,k]; z += 1) {
+									lineStr[scr_array_xy(k,z,bubbleCount[j]),z] = file_text_read_string(export);
+									file_text_readln(export)
+								}
+							}
+						}
+						
+						if actionInd[j] = 3 { // Camera pan action
+							xNode[j] = file_text_read_real(export);
+							file_text_readln(export)
+							yNode[j] = file_text_read_real(export);
+							file_text_readln(export)
+							zoomVal[j] = file_text_read_real(export);
+							file_text_readln(export)
+						}
+						
+						if actionInd[j] = 5 { // Walk speed action
+							slowSpd[j] = file_text_read_real(export);
+							file_text_readln(export)
+						}
+						
+						if actionInd[j] = 6 { // Arbitrary action
+							arbitraryInd[j] = file_text_read_real(export);
+							file_text_readln(export)
+						}
+					}
+					
+					#endregion
+				}
+				
+				// Load actor data
+				if other.objStr = "actor" {
+					#region
+					
+					placed = 2;
+					actorTxt = file_text_read_string(export);
+					file_text_readln(export)
+					angle = file_text_read_real(export);
+					file_text_readln(export)
+					trg.dirIsoDef = self.angle;
 					
 					#endregion
 				}

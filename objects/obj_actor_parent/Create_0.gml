@@ -3,10 +3,12 @@ str = "actor";
 
 trgRegion = -1;
 sceneStep = 0;
+sceneLength = sceneStep;
 dir = -1;
 activeInScene = false;
 
 spd = 0;
+max_speed = 1.25;
 dirIso = 6;
 dirIsoDef = dirIso;
 zfloor = 0;

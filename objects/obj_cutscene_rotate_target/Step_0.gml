@@ -167,6 +167,7 @@ if (mouse_check_button_released(mb_left)) {
 				obj_panel_bot.angleRotExport[timeIndex] = self.angleExport;
 			} else {
 				with trg {
+					angle = other.angleExport;
 					trg.dirIsoDef = other.angleExport;
 				}
 			}

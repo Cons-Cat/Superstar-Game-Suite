@@ -13,30 +13,34 @@ if instance_exists(obj_editor_gui) {
 }
 
 if !activeInScene {
-	// Not in play mode
-	if object_index != obj_player_overworld {
-		if instance_exists(trg) {
-			zfloor = trg.zfloor;
-			x = trg.x + 10;
-			y = trg.y + 10 + trg.zfloor*20;
-			depth = trg.depth - 1;
-		} else {
-			instance_destroy();
+	// Inactive
+	if obj_editor_gui.mode != 2 {
+		// Not in play mode
+		if object_index != obj_player_overworld {
+			// Not the player object
+			if instance_exists(trg) {
+				zfloor = trg.zfloor;
+				x = trg.x + 10;
+				y = trg.y + 10 + trg.zfloor*20;
+				depth = trg.depth - 1;
+			} else {
+				instance_destroy();
+			}
+			
+			direction = 270;
+			speed = 0;
+			spd = 0;
+			
+			sceneStep = 0;
+			moving = false;
+			slowSpd = false;
+			trgRegion = -1;
+			dirIso = dirIsoDef;
+			spr = scr_spriteDir(dirIso);
 		}
-		
-		direction = 270;
-		speed = 0;
-		spd = 0;
-		
-		sceneStep = 0;
-		moving = false;
-		slowSpd = false;
-		trgRegion = -1;
-		dirIso = dirIsoDef;
-		spr = scr_spriteDir(dirIso);
 	}
 } else {
-	// In play mode
+	// Active
 	
 	// Walking
 	if xNode[sceneStep] != -1 && yNode[sceneStep] != -1 {
@@ -128,8 +132,13 @@ if !activeInScene {
 	
 	// Increment along timeline
 	if trgRegion != -1 {
-		while (xNode[sceneStep] = -1 && yNode[sceneStep] = -1 && angleRot[sceneStep] = -1 && arbitraryInd[sceneStep] = -1 && sceneStep < trgRegion.timeIndexCalc) {
-			sceneStep += 1; // Increment 1/10'th second for walking
+		while (xNode[sceneStep] = -1 && yNode[sceneStep] = -1 && angleRot[sceneStep] = -1 && arbitraryInd[sceneStep] = -1) {
+			if sceneStep < sceneLength {
+				sceneStep += 1; // Increment 1/10'th second for walking
+			} else {
+				activeInScene = false;
+				break; // End scene
+			}
 		}
 		
 		if spd = 0 || point_distance(tempX,tempY,xNode[sceneStep],yNode[sceneStep]) <= 10 {

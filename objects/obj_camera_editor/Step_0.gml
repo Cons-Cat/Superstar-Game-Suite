@@ -289,22 +289,8 @@ if obj_editor_gui.mode != 2 {
 			new_w = lerp(view_w, baseZoomWidth / zoomLevel, zoomSpd);
 			new_h = lerp(view_h, baseZoomHeight / zoomLevel, zoomSpd);
 			
-			// Prevent zooming out of the world
-			if new_w > room_width {
-				new_w = room_width;
-				new_h = room_width/16 * 9;
-				
-				zoomLevel = baseZoomWidth / new_w;
-			}
-			if new_h > room_height {
-				new_h = room_height;
-				new_w = room_height/9 * 16;
-				
-				zoomLevel = baseZoomHeight / new_h;
-			}
-			
 			// Apply the new size
-			//camera_set_view_size(view_camera[0], new_w, new_h);
+			camera_set_view_size(view_camera[0], new_w, new_h);
 			
 			// Update temp value once the zooming finishes interpolation
 			if abs(new_w - view_w) < 0.5 && abs(new_h - view_h) < 0.5 {

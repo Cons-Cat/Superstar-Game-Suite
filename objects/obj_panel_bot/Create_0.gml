@@ -51,6 +51,13 @@ actionRowInd[0] = 0;
 addClick = -1;
 actionDoubleClick = 0;
 
+actionColInd[0] = make_color_rgb(113,45,95); // Violet
+actionColInd[1] = make_color_rgb(57,113,43); // Green
+actionColInd[2] = make_color_rgb(113,84,45); // Gold
+actionColInd[3] = make_color_rgb(65,160,160); // Cyan
+actionColInd[5] = make_color_rgb(163,178,0); // Light green
+actionColInd[6] = make_color_rgb(194,94,152); // Cute magenta
+
 mapCenterX = 0;
 mapCenterY = 0;
 mapYOff = 0;

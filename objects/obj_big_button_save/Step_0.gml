@@ -84,6 +84,75 @@ if select {
 				
 				#endregion
 			}
+			
+			if trg.str = "moveScene" {
+				#region
+				
+				str += string_hash_to_newline("#" + string(trg.totalActions));
+				str += string_hash_to_newline("#" + string(obj_panel_bot.rows));
+				
+				for (var j = 0; j < obj_panel_bot.rows; j += 1) {
+					str += string_hash_to_newline("#" + string(trg.actorTxt[j]));
+				}
+				
+				for (var j = 0; j <= trg.totalActions; j += 1) {
+					str += string_hash_to_newline("#" + string(trg.actionInd[j]));
+					str += string_hash_to_newline("#" + string(trg.actionTime[j]));
+					str += string_hash_to_newline("#" + string(trg.actionRowInd[j]));
+					
+					if trg.actionInd[j] = 0 { // Walk action
+						str += string_hash_to_newline("#" + string(trg.xNode[j]));
+						str += string_hash_to_newline("#" + string(trg.yNode[j]));
+					}
+					
+					if trg.actionInd[j] = 1 { // Rotation action
+						str += string_hash_to_newline("#" + string(trg.angleRot[j]));
+						str += string_hash_to_newline("#" + string(trg.angleRotExport[j]));
+					}
+					
+					if trg.actionInd[j] = 2 { // Dialogue action
+						str += string_hash_to_newline("#" + string(trg.xOffDialogue[j]));
+						str += string_hash_to_newline("#" + string(trg.yOffDialogue[j]));
+						str += string_hash_to_newline("#" + string(trg.bubbleCount[j]));
+						
+						for (var k = 0; k <= trg.bubbleCount[j]; k += 1) {
+							str += string_hash_to_newline("#" + string(trg.lineCount[j,k]));
+							str += string_hash_to_newline("#" + string(trg.bubbleX[j,k]));
+							str += string_hash_to_newline("#" + string(trg.bubbleY[j,k]));
+							
+							for (var z = 0; z <= trg.lineCount[j,k]; z += 1) {
+								str += string_hash_to_newline("#" + trg.lineStr[scr_array_xy(k,z,trg.bubbleCount[j]),z]);
+								show_debug_message("k: " + string(k) + ", z: " + string(z));
+							}
+						}
+					}
+					
+					if trg.actionInd[j] = 3 { // Camera pan action
+						str += string_hash_to_newline("#" + string(trg.xNode[j]));
+						str += string_hash_to_newline("#" + string(trg.yNode[j]));
+						str += string_hash_to_newline("#" + string(trg.zoomVal[j]));
+					}
+					
+					if trg.actionInd[j] = 5 { // Walk speed action
+						str += string_hash_to_newline("#" + string(trg.slowSpd[j]));
+					}
+					
+					if trg.actionInd[j] = 6 { // Arbitrary action
+						str += string_hash_to_newline("#" + string(trg.arbitraryInd[j]));
+					}
+				}
+				
+				#endregion
+			}
+			
+			if trg.str = "actor" {
+				#region
+				
+				str += string_hash_to_newline("#" + string(trg.actorTxt));
+				str += string_hash_to_newline("#" + string(trg.angle));
+				
+				#endregion
+			}
 		}
 		
 		str += string_hash_to_newline("#");

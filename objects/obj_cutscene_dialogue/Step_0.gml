@@ -650,6 +650,7 @@ for (i = 0; i <= 1; i += 1) {
 		if mouse_check_button_pressed(mb_left) {
 			if canSelectButtonState[i,j] = 1 {
 				buttonSelected = i * 4 + j;
+				cursorState = -1; // De-activate cursor
 			}
 		}
 		
@@ -662,6 +663,11 @@ for (i = 0; i <= 1; i += 1) {
 					// Create a new dialogue bubble
 					bubbleCount += 1;
 					bubbleX[bubbleCount] = 0;
+					
+					lineCount[bubbleCount] = 0;
+					lineStr[bubbleCount,lineCount[bubbleCount]] = "";
+					longestLine[bubbleCount] = 0; // This value is arbitrary
+					
 					hasText[bubbleCount] = false;
 					deleteLine[bubbleCount,0] = false;
 					
@@ -671,16 +677,13 @@ for (i = 0; i <= 1; i += 1) {
 						bubbleY[bubbleCount] = bubbleY[bubbleCount - 1] + lineCount[bubbleCount - 1]*10 + 16;
 					}
 					
-					lineCount[bubbleCount] = 0;
-					lineStr[bubbleCount,lineCount[bubbleCount]] = "";
-					longestLine[bubbleCount] = string_width(lineStr[bubbleCount,lineCount[bubbleCount]]);
-					
 					for (j = 0; j <= 3; j += 1) {
 						selectBubSlider[bubbleCount,j] = false;
 						canSelectBubSlider[bubbleCount,j] = false;
 						sliderMagnitude[bubbleCount,j] = 0;
 					}
 					
+					// Select new bubble
 					scrollVerPartition = 100;
 					cursorBubble = bubbleCount;
 					cursorPlaceLine = 0;

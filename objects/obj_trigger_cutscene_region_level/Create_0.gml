@@ -2,4 +2,9 @@
 timeIndex = 0;
 timeIndexCalc = timeIndex;
 
-activeInScene = false;
+activeState = 0;
+/*
+0 - Inactive
+1 - Active
+2 - Inert
+*/

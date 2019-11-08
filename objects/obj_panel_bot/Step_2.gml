@@ -172,7 +172,6 @@ if addClick != -1 {
 			if selectRow[i] {
 				actionTime[totalActions] = rowLength[i]; // Number of 1/10'th seconds on timeline
 				actionRowInd[totalActions] = i; // Which row it's placed on
-				actionRowId[totalActions] = actorTxt[i]; // The corresponding instance_id as a string
 				
 				break;
 			}
@@ -185,7 +184,6 @@ if addClick != -1 {
 		
 		if addClick = 0 {
 			actionInd[totalActions] = 0; // Walk action
-			actionColor[totalActions] = make_color_rgb(113,45,95); // Violet
 			
 			if !instance_exists(obj_cutscene_walk_target) {
 				with instance_create_layer(0,0,"Instances",obj_cutscene_walk_target) {
@@ -205,7 +203,6 @@ if addClick != -1 {
 		
 		if addClick = 1 {
 			actionInd[totalActions] = 1; // Rotate action
-			actionColor[totalActions] = make_color_rgb(57,113,43); // Green
 			
 			if !instance_exists(obj_cutscene_rotate_target) {
 				with instance_create_layer(0,0,"Instances",obj_cutscene_rotate_target) {
@@ -232,7 +229,6 @@ if addClick != -1 {
 		
 		if addClick = 2 {
 			actionInd[totalActions] = 2; // Dialogue action
-			actionColor[totalActions] = make_color_rgb(113,84,45); // Gold
 			
 			if !instance_exists(obj_cutscene_dialogue) {
 				with instance_create_layer(actorId[i].x+28,actorId[i].y-42,"Instances",obj_cutscene_dialogue) {
@@ -256,7 +252,6 @@ if addClick != -1 {
 		
 		if addClick = 3 {
 			actionInd[totalActions] = 3; // Camera pan action
-			actionColor[totalActions] = make_color_rgb(65,160,160); // Cyan
 			
 			if !instance_exists(obj_cutscene_pan) {
 				with instance_create_layer(cutsceneInstanceId.x+10,cutsceneInstanceId.y+10,"Instances",obj_cutscene_pan) {
@@ -269,7 +264,6 @@ if addClick != -1 {
 		
 		if addClick = 5 {
 			actionInd[totalActions] = 5; // Walk speed action
-			actionColor[totalActions] = make_color_rgb(163,178,0); // Light green
 			
 			if !instance_exists(obj_cutscene_speed) {
 				with instance_create_layer(actorId[i].x+10,actorId[i].y-35,"Instances",obj_cutscene_speed) {
@@ -287,7 +281,6 @@ if addClick != -1 {
 		
 		if addClick = 6 {
 			actionInd[totalActions] = 6; // Arbitrary action
-			actionColor[totalActions] = make_color_rgb(194,94,152); // Cute magenta
 			
 			if !instance_exists(obj_cutscene_arbitrary) {
 				with instance_create_layer(actorId[i].x+10,actorId[i].y-35,"Instances",obj_cutscene_arbitrary) {
@@ -322,7 +315,7 @@ for (i = 0; i < rows; i += 1) {
 	} else {
 		if instance_number(obj_npc_position) = rows - 1 {
 			actorId[i] = instance_find(obj_npc_position,i - 1);
-			actorTxt[i] = actorId[i].instId1[0];
+			actorTxt[i] = actorId[i].actorTxt;
 		}
 	}
 	
@@ -480,10 +473,9 @@ for (i = 1; i <= totalActions; i += 1) {
 												
 												for (i = 0; i <= bubbleCount; i += 1) {
 													lineCount[i] = other.lineCount[other.i,i];
-													longestLine[i] = other.longestLine[other.i,i];
+													longestLine[i] = 0; // This value is arbitrary
 													bubbleX[i] = other.bubbleX[other.i,i];
 													bubbleY[i] = other.bubbleY[other.i,i];
-													hasText[i] = other.hasText[other.i,i];
 													
 													for (j = 0; j <= 3; j += 1) {
 														selectBubSlider[i,j] = false;
@@ -492,6 +484,12 @@ for (i = 1; i <= totalActions; i += 1) {
 													
 													for (j = 0; j <= lineCount[i]; j += 1) {
 														lineStr[i,j] = other.lineStr[scr_array_xy(i,j,bubbleCount),j];
+													}
+													
+													if lineCount[i] = 0 && lineStr[i,0] = "" {
+														hasText[i] = false;
+													} else {
+														hasText[i] = true;
 													}
 												}
 											}
@@ -554,13 +552,10 @@ for (i = 1; i <= totalActions; i += 1) {
 			actionDelete[i] = false;
 		}
 		
-		actionColorDraw[i] = actionColor[i]; // Default color
-		
 		// Dragging actions
 		if actionSelect[i] {
 			#region
 			
-			actionColorDraw[i] = c_orange;
 			actionTimeTemp = actionTime[i];
 			
 			for (a = 1; a <= totalActions; a += 1) {
@@ -597,8 +592,6 @@ for (i = 1; i <= totalActions; i += 1) {
 		}
 		
 		if actionDelete[i] {
-			actionColorDraw[i] = c_orange;
-			
 			// Delete the action
 			if mouse_check_button_released(mb_right) {
 				if actionDelete[i] {
@@ -617,11 +610,11 @@ for (i = 1; i <= totalActions; i += 1) {
 if cutsceneInstanceId != -1 {
 	if instance_exists(cutsceneInstanceId) {
 		if !cutsceneInstanceId.select {
-			#region
-			
+			// Export data
 			// Importing handled by the script scr_import_cutscene
 			
-			// Export data
+			#region
+			
 			for (i = 0; i < rows; i += 1) {
 				cutsceneInstanceId.rowLength[i] = self.rowLength[i];
 				cutsceneInstanceId.actorTxt[i] = self.actorTxt[i];
@@ -631,12 +624,8 @@ if cutsceneInstanceId != -1 {
 			for (j = 1; j <= self.totalActions; j += 1) {
 				cutsceneInstanceId.totalActions = self.totalActions;
 				cutsceneInstanceId.actionInd[j] = self.actionInd[j];
-				cutsceneInstanceId.actionColor[j] = self.actionColor[j];
-				cutsceneInstanceId.actionSelect[j] = false;
-				cutsceneInstanceId.actionDelete[j] = false;
 				cutsceneInstanceId.actionTime[j] = self.actionTime[j];
 				cutsceneInstanceId.actionRowInd[j] = self.actionRowInd[j];
-				cutsceneInstanceId.actionRowId[j] = self.actionRowId[j];
 				cutsceneInstanceId.longestRowLength = self.longestRowLength;
 				
 				if actionInd[j] = 0 { // Walk action
@@ -656,10 +645,8 @@ if cutsceneInstanceId != -1 {
 					
 					for (i = 0; i <= bubbleCount[j]; i += 1) {
 						cutsceneInstanceId.lineCount[j,i] = self.lineCount[j,i];
-						cutsceneInstanceId.longestLine[j,i] = self.longestLine[j,i];
 						cutsceneInstanceId.bubbleX[j,i] = self.bubbleX[j,i];
 						cutsceneInstanceId.bubbleY[j,i] = self.bubbleY[j,i];
-						cutsceneInstanceId.hasText[j,i] = self.hasText[j,i];
 						
 						for (k = 0; k <= lineCount[j,i]; k += 1) {
 							cutsceneInstanceId.lineStr[scr_array_xy(i,k,bubbleCount[j]),k] = self.lineStr[scr_array_xy(i,k,bubbleCount[j]),k];

@@ -6,13 +6,12 @@ trgTo.totalActions = trgFrom.totalActions;
 
 for (j = 1; j <= trgFrom.totalActions; j += 1) {
 	trgTo.actionInd[j] = trgFrom.actionInd[j];
-	trgTo.actionColor[j] = trgFrom.actionColor[j];
-	trgTo.actionSelect[j] = trgFrom.actionSelect[j];
-	trgTo.actionDelete[j] = trgFrom.actionDelete[j];
 	trgTo.actionTime[j] = trgFrom.actionTime[j];
 	trgTo.actionRowInd[j] = trgFrom.actionRowInd[j];
-	trgTo.actionRowId[j] = trgFrom.actionRowId[j];
-	trgTo.longestRowLength = trgFrom.longestRowLength;
+	//trgTo.actionRowId[j] = trgFrom.actionRowId[j];
+	
+	trgTo.actionSelect[j] = false;
+	trgTo.actionDelete[j] = false;
 	
 	if trgFrom.actionInd[j] = 0 { // Walk action
 		trgTo.xNode[j] = trgFrom.xNode[j];
@@ -31,10 +30,8 @@ for (j = 1; j <= trgFrom.totalActions; j += 1) {
 		
 		for (i = 0; i <= trgFrom.bubbleCount[j]; i += 1) {
 			trgTo.lineCount[j,i] = trgFrom.lineCount[j,i];
-			trgTo.longestLine[j,i] = trgFrom.longestLine[j,i];
 			trgTo.bubbleX[j,i] = trgFrom.bubbleX[j,i];
 			trgTo.bubbleY[j,i] = trgFrom.bubbleY[j,i];
-			trgTo.hasText[j,i] = trgFrom.hasText[j,i];
 			
 			for (k = 0; k <= lineCount[j,i]; k += 1) {
 				trgTo.lineStr[scr_array_xy(i,k,trgFrom.bubbleCount[j]),k] = trgFrom.lineStr[scr_array_xy(i,k,trgFrom.bubbleCount[j]),k];

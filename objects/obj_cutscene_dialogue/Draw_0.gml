@@ -158,10 +158,7 @@ if surface_exists(diaSurface) {
 			} else {
 				// Draw placeholder text
 				draw_set_alpha(0.65);
-				//draw_set_color(c_gray);
-				
 				draw_text(3+bubbleX[i], 3+bubbleY[i], "Text.");
-				
 				draw_set_alpha(1);
 			}
 			
@@ -186,41 +183,44 @@ if surface_exists(diaSurface) {
 				
 				// Highlight cursor
 				if cursorState = 1 {
-					var ii = cursorPlaceChar;
-					var jj = cursorPlaceLine;
-					
-					// Iterate through highlighted characters in lines
-					while !( ii = cursorPlaceSelectionChar && jj = cursorPlaceSelectionLine ) {
-						if ii < string_length(lineStr[i,jj]) {
-							ii += 1;
-						} else {
-							ii = 0;
-							jj += 1;
-							
-							// Skip blank lines
-							if lineStr[i,jj] = "" {
-								if jj < lineCount[i] {
-									continue;
-								} else {
-									break;
+					if i = cursorBubble {
+						var ii = cursorPlaceChar;
+						var jj = cursorPlaceLine;
+						
+						// Iterate through highlighted characters in lines
+						while !( ii = cursorPlaceSelectionChar && jj = cursorPlaceSelectionLine ) {
+							if ii < string_length(lineStr[i,jj]) {
+								ii += 1;
+							} else {
+								ii = 0;
+								jj += 1;
+								
+								// Skip blank lines
+								show_debug_message(cursorBubble);
+								if lineStr[i,jj] = "" {
+									if jj < lineCount[i] {
+										continue;
+									} else {
+										break;
+									}
 								}
 							}
+							
+							// Highlight the width of each selected character
+							iiXPix = string_width(string_copy(lineStr[i,jj],1,ii-1));
+							iiWPix = string_width(string_char_at(lineStr[i,jj],ii))-1;
+							
+							// Highlight character
+							draw_set_color(col[4]); // Yellow
+							draw_set_font(obj_editor_gui.fontDark);
+							draw_rectangle(3+bubbleX[i]+iiXPix,2+bubbleY[i]+1+jj*10,bubbleX[i]+3+iiXPix+iiWPix,11+bubbleY[i]+1+jj*10,false);
+							
+							draw_text(3+bubbleX[i]+iiXPix,3+bubbleY[i]+jj*10,string_char_at(lineStr[i,jj],ii));
 						}
 						
-						// Highlight the width of each selected character
-						iiXPix = string_width(string_copy(lineStr[i,jj],1,ii-1));
-						iiWPix = string_width(string_char_at(lineStr[i,jj],ii))-1;
-						
-						// Highlight character
-						draw_set_color(col[4]); // Yellow
-						draw_set_font(obj_editor_gui.fontDark);
-						draw_rectangle(3+bubbleX[i]+iiXPix,2+bubbleY[i]+1+jj*10,bubbleX[i]+3+iiXPix+iiWPix,11+bubbleY[i]+1+jj*10,false);
-						
-						draw_text(3+bubbleX[i]+iiXPix,3+bubbleY[i]+jj*10,string_char_at(lineStr[i,jj],ii));
+						draw_set_color(col[2]); // Reset color
+						draw_set_font(obj_editor_gui.font); // Reset font
 					}
-					
-					draw_set_color(col[2]); // Reset color
-					draw_set_font(obj_editor_gui.font); // Reset font
 				}
 				
 				#endregion

@@ -33,6 +33,7 @@ if spawnTriggers {
 		panelId = obj_subpanel_left.id;
 		sprWidth = (string_width(label) + 5) * 2;
 		angle = other.angle;
+		calcAngleVals = true;
 	}
 	
 	event_user(0);
