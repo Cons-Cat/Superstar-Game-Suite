@@ -2,6 +2,7 @@
 event_inherited();
 
 relativeX = x - room_width;
+relativeMouseX2 = window_mouse_get_x();
 baseX = round( (window_get_width() - (16 * 20 * obj_editor_gui.realPortScaleHor) ) / 2 ) + room_width;
 y = 242/576 * view_hport[1];
 
@@ -17,7 +18,7 @@ if exitInterface {
 
 canSelect = false;
 
-if relativeMouseX >= relativeX && relativeMouseX <= relativeX + 21 {
+if relativeMouseX2 >= relativeX && relativeMouseX2 <= relativeX + 21 {
 	if relativeMouseY >= y - 62 && relativeMouseY <= y + 58 {
 		canSelect = true;
 	}
@@ -27,7 +28,7 @@ if canSelect {
 	if mouse_check_button_pressed(mb_left) {
 		// Dragging
 		select = true;
-		mouseClickOff = relativeMouseX - relativeX;
+		mouseClickOff = relativeMouseX2 - relativeX;
 		
 		// Double clicking
 		doubleClickCounter += 1;
@@ -40,7 +41,7 @@ if select {
 	if !mouse_check_button(mb_left) {
 		select = false;
 		
-		moveToX = round((relativeMouseX - mouseClickOff - 1) / 10) * 10 - 1 + room_width;
+		moveToX = round((relativeMouseX2 - mouseClickOff - 1) / 10) * 10 - 1 + room_width;
 		
 		if moveToX <= baseX - (baseX - room_width) / 3 {
 			// Fold away
@@ -115,7 +116,7 @@ if select {
 }
 
 if select {
-	dragX = relativeMouseX - mouseClickOff + room_width;
+	dragX = relativeMouseX2 - mouseClickOff + room_width;
 	dragXTemp = dragX;
 	
 	x = dragX;

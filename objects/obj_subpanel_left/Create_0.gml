@@ -18,10 +18,12 @@ calculateHeight = false;
 tempY = -1;
 longestPanelRightButton = 0;
 longestSprWidth = 0;
+anchored = false;
 
 scrollPanelSquish = 0;
 panelWidth = 0;
 panelHeight = 0;
+
 scrollHorX = 0;
 scrollVerY = 0;
 scrollHorPartition = 0;

@@ -64,13 +64,13 @@ if select {
 				
 				// Read generic data
 				width = file_text_read_real(export);
-				file_text_readln(export)
+				file_text_readln(export);
 				height = file_text_read_real(export);
-				file_text_readln(export)
+				file_text_readln(export);
 				zfloor = file_text_read_real(export);
-				file_text_readln(export)
+				file_text_readln(export);
 				zcieling = file_text_read_real(export);
-				file_text_readln(export)
+				file_text_readln(export);
 				
 				// Load rectangle data
 				if other.objStr = "rectangle" || other.objStr = "slope1" || other.objStr = "slope2" || other.objStr = "slope3" {
@@ -172,7 +172,7 @@ if select {
 						file_text_readln(export)
 					}
 					
-					for (var j = 0; j <= totalActions; j += 1) {
+					for (var j = 1; j <= totalActions; j += 1) {
 						actionInd[j] = file_text_read_real(export);
 						file_text_readln(export)
 						actionTime[j] = file_text_read_real(export);

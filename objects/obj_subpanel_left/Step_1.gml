@@ -1,7 +1,7 @@
 /// @description 
 event_inherited();
 relativeX = x - room_width;
-//relativeMouseX = window_mouse_get_x();
+relativeMouseX2 = window_mouse_get_x();
 
 if window_mouse_get_x() <= relativeX + 60 && window_mouse_get_x() >= relativeX - 60 {
 	if relativeMouseY >= y - 21 && relativeMouseY <= y {
@@ -19,7 +19,15 @@ if window_mouse_get_x() <= relativeX + 60 && window_mouse_get_x() >= relativeX -
 }
 
 if select {
+	dragY = relativeMouseY - mouseClickOff;
+	dragYTemp = dragY;
+	
+	y = dragY;
+	anchored = false;
+	
 	if !mouse_check_button(mb_left) {
+		#region
+		
 		select = false;
 		
 		moveToY = round((relativeMouseY - mouseClickOff + 1) / 5) * 5 + 1;
@@ -37,19 +45,24 @@ if select {
 		moveToSpd = abs(moveToY - y) / 2;
 		
 		image_index = 0;
+		
+		#endregion
 	}
 } else {
+	#region
+	
 	// Double clicking
 	alarm[0] = 12;
 	
 	if doubleClickCounter >= 2 {
 		doubleClickCounter = 0;
 		
-		if y != obj_panel_bot.y + 6 {
+		if y != obj_panel_bot.y + 5 {
 			baseY = y;
-			moveToY = obj_panel_bot.y + 6;
+			moveToY = obj_panel_bot.y + 5;
 		} else {
 			moveToY = baseY;
+			anchored = false;
 		}
 		
 		moveToSpd = abs(moveToY - y) / 11.5;
@@ -87,16 +100,14 @@ if select {
 			}
 		}
 	}
-}
-
-if select {
-	dragY = relativeMouseY - mouseClickOff;
-	dragYTemp = dragY;
 	
-	y = dragY;
+	#endregion
 }
 
 if calculateHeight {
+	#region
+	
+	calculateHeight = false;
 	tempHeight = 3;
 	
 	for (i = 0; i < instance_number(obj_panel_button); i += 1) {
@@ -108,29 +119,46 @@ if calculateHeight {
 	}
 	
 	panelHeight = tempHeight - 4;
-	calculateHeight = false;
+	
+	#endregion
 }
 
-// Dragging boundaries
-if y > obj_panel_bot.y + 6 {
-	y = obj_panel_bot.y + 6;
+if !mouse_check_button(mb_left) {
+	if y >= obj_panel_bot.y {
+		if moveToSpd = 0 {
+			anchored = true;
+		}
+	}
 }
-if y < obj_panel_left.scrollHorBotBound + 22 {
-	y = obj_panel_left.scrollHorBotBound + 22;
+
+if anchored {
+	// Anchor Y
+	y = obj_panel_bot.y + 5;
+} else {
+	// Dragging boundaries
+	if moveToSpd = 0 {
+		if y >= obj_panel_bot.y + 5 {
+			y = obj_panel_bot.y + 5;
+		}
+	}
+	
+	if y < obj_panel_left.scrollHorBotBound + 22 {
+		y = obj_panel_left.scrollHorBotBound + 22;
+	}
+	
+	if obj_panel_left.scrollVerBotBound > window_get_height() - 1 {
+		obj_panel_left.scrollVerBotBound = window_get_height() - 1;
+	}
 }
 
 obj_panel_left.scrollVerBotBound = y - 2;
 
-if obj_panel_left.scrollVerBotBound > window_get_height() - 1 {
-	obj_panel_left.scrollVerBotBound = window_get_height() - 1;
-}
-
 // Hide slider when the panel is folded
 if !obj_panel_bot.select && !self.select {
 	if tempY = -1 { // If the panel will not slide back up automatically
-		if scrollVerBotBound - scrollVerTopBound <= 0 {
+		if anchored {
 			if obj_panel_left.x - room_width > 16 {
-				if relativeMouseX >= relativeX - sprite_height/2 && relativeMouseX <= relativeX + sprite_height/2 && relativeMouseY >= self.y - sprite_width && relativeMouseY <= self.y {
+				if relativeMouseX2 >= relativeX - sprite_height/2 && relativeMouseX2 <= relativeX + sprite_height/2 && relativeMouseY >= self.y - sprite_width && relativeMouseY <= self.y {
 					if mousePeek > 0 {
 						mousePeek -= 2.75;
 						
@@ -143,12 +171,14 @@ if !obj_panel_bot.select && !self.select {
 						mousePeek += 2.25;
 					} else {
 						mousePeek = sprite_width;
-						
-						visible = false;
 					}
 				}
+			}
+		} else {
+			if mousePeek > 0 {
+				mousePeek -= 2.25;
 			} else {
-				visible = false;
+				mousePeek = 0;
 			}
 		}
 	}

@@ -196,7 +196,6 @@ if surface_exists(diaSurface) {
 								jj += 1;
 								
 								// Skip blank lines
-								show_debug_message(cursorBubble);
 								if lineStr[i,jj] = "" {
 									if jj < lineCount[i] {
 										continue;

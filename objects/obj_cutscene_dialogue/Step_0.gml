@@ -445,7 +445,6 @@ if keyboard_check_pressed(vk_anykey) {
 					// Delete a line
 					deleteLines = true;
 					deleteLine[k,j] = true;
-					show_debug_message(string(k) + ", " + string(j));
 					
 					cursorPlaceChar = string_length(lineStr[k,j-1]) + 1;
 					cursorPlaceLine = j-1;

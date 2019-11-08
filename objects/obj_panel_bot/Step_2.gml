@@ -64,22 +64,26 @@ if select {
 	}
 	
 	// Preventing displacement of the subpanel
-	if y < obj_subpanel_left.y {
-		obj_subpanel_left.y = self.y;
-	} else {
-		obj_subpanel_left.visible = true;
-		
-		if obj_subpanel_left.mousePeek > 0 {
-			obj_subpanel_left.mousePeek -= 3.75;
-		} else {
-			obj_subpanel_left.mousePeek = 0;
-		}
-		
-		if obj_subpanel_left.y < tempSubPanelLeftY {
+	if !obj_subpanel_left.anchored {
+		if y < obj_subpanel_left.y {
 			obj_subpanel_left.y = self.y;
 		} else {
-			obj_subpanel_left.y = tempSubPanelLeftY;
+			obj_subpanel_left.visible = true;
+			
+			if obj_subpanel_left.mousePeek > 0 {
+				obj_subpanel_left.mousePeek -= 3.75;
+			} else {
+				obj_subpanel_left.mousePeek = 0;
+			}
+	
+			if obj_subpanel_left.y < tempSubPanelLeftY {
+				obj_subpanel_left.y = self.y;
+			} else {
+				obj_subpanel_left.y = tempSubPanelLeftY;
+			}
 		}
+	} else {
+		obj_subpanel_left.y = self.y + 5;
 	}
 } else {
 	// Double clicking

@@ -34,6 +34,17 @@ if placed = 1 {
 		#endregion
 	}
 	
+	if !surface_exists(tileSurfaceDraw) {
+		calculateSub = true;
+		tileSurfaceDraw = surface_create(20,20);
+	}
+	
+	if !surface_exists(marbleSurfaceSide) {
+		bakeMarble = true;
+		calculateSub = true;
+		marbleSurfaceSide = surface_create(20,20);
+	}
+	
 	// Generate marble streaks
 	if genMarble {
 		#region
@@ -101,14 +112,12 @@ if placed = 1 {
 					}
 				}
 				
-				
 				// Transfuse upward streaks
 				if tempInst.y = self.y + self.height*20 {
 					if tempInst.x + tempInst.width*20 >= self.x + self.width*20 {
 						if tempInst.x <= self.x {
 							if tempInst.zfloor = self.zfloor {
 								hasAdjacentDown = true;
-								show_message(i);
 							}
 						}
 					}
@@ -417,7 +426,12 @@ if placed = 1 {
 		bakeMarble = false;
 		calculateSub = true;
 		
-		surface_resize(marbleSurfaceSide,width*20,(height + zfloor - zcieling)*20);
+		if surface_exists(marbleSurfaceSide) {
+			surface_resize(marbleSurfaceSide,width*20,(height + zfloor - zcieling)*20);
+		} else {
+			marbleSurfaceSide = surface_create(width*20,(height + zfloor - zcieling)*20);
+		}
+		
 		surface_set_target(marbleSurfaceSide);
 		draw_clear_alpha(c_white,0);
 		

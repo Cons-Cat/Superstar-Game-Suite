@@ -97,7 +97,7 @@ if select {
 					str += string_hash_to_newline("#" + string(trg.actorTxt[j]));
 				}
 				
-				for (var j = 0; j <= trg.totalActions; j += 1) {
+				for (var j = 1; j <= trg.totalActions; j += 1) {
 					#region
 					
 					str += string_hash_to_newline("#" + string(trg.actionInd[j]));
@@ -128,7 +128,6 @@ if select {
 							
 							for (var z = 0; z <= trg.lineCount[j,k]; z += 1) {
 								str += string_hash_to_newline("#" + trg.lineStr[scr_array_xy(k,z,trg.bubbleCount[j]),z]);
-								show_debug_message("k: " + string(k) + ", z: " + string(z));
 							}
 						}
 						

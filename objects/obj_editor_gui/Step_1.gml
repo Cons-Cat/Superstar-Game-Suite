@@ -18,6 +18,7 @@ if window_has_focus() {
 		// Replace surfaces
 		with obj_editor_terrain_par {
 			surfaceResize = true;
+			calculateSub = true;
 		}
 		with obj_panel_bot {
 			remakeMap = true;

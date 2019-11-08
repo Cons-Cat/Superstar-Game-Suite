@@ -15,8 +15,7 @@
         "720feee8-8a11-484c-9f31-231d591d0d75",
         "cf8b1deb-1c5b-467c-ad98-5847ca81fdae",
         "6f3f2e42-2919-4264-8749-9adba12c05b8",
-        "fbc9a22d-d748-4fd4-868b-d4e1402041bb",
-        "427c8516-f9b3-4344-b7ad-d29c8d037de9"
+        "fbc9a22d-d748-4fd4-868b-d4e1402041bb"
     ],
     "filterType": "GMObject",
     "folderName": "Editor Buttons",
