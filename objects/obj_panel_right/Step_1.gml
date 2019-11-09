@@ -2,7 +2,7 @@
 event_inherited();
 
 relativeX = x - room_width;
-relativeMouseX2 = window_mouse_get_x() + room_width;
+relativeMouseX2 = window_mouse_get_x();
 
 baseX = window_get_width() + room_width*2 - obj_panel_left.baseX;
 

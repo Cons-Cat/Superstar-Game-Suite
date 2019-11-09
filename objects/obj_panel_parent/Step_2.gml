@@ -1,5 +1,19 @@
 /// @description Perform most scrollbar operations
 
+// Set scroll region
+if scrollRegionDefault {
+	if scrollHorLeftBound < scrollVerLeftBound {
+		scrollRegionX1 = scrollHorLeftBound;
+		scrollRegionX2 = scrollVerRightBound;
+	} else {
+		scrollRegionX1 = scrollVerLeftBound;
+		scrollRegionX2 = scrollHorRightBound;
+	}
+	
+	scrollRegionY1 = scrollVerTopBound;
+	scrollRegionY2 = scrollVerBotBound;
+}
+
 // Scrollbars
 scrollHorFactor = (scrollHorRightBound - scrollHorLeftBound) / panelWidth;
 scrollVerFactor = (scrollVerBotBound - scrollVerTopBound) / panelHeight;
@@ -12,8 +26,8 @@ if scrollVerFactor > 1 {
 }
 
 // Scrolling
-if (relativeMouseX >= scrollHorLeftBound && relativeMouseX <= scrollHorRightBound) || (relativeMouseX >= scrollVerLeftBound && relativeMouseX <= scrollVerRightBound) {
-	if (relativeMouseY >= scrollVerTopBound && relativeMouseY <= scrollVerBotBound) || (relativeMouseY >= scrollHorTopBound && relativeMouseY <= scrollHorBotBound) {
+if (relativeMouseX >= scrollRegionX1 && relativeMouseX <= scrollRegionX2) {
+	if (relativeMouseY >= scrollRegionY1 && relativeMouseY <= scrollRegionY2) {
 		if mouse_wheel_up() {
 			if keyboard_check(vk_shift) || panelHeight <= (scrollVerBotBound - scrollVerTopBound) {
 				if scrollHorPartition < 100 - 100 / (panelWidth / (scrollHorRightBound - scrollHorLeftBound) * 2) {

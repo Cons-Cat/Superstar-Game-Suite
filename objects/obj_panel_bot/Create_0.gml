@@ -16,9 +16,10 @@ trgXOrigin = 0;
 cameraViewOn = 4;
 longestPanelRightButton = 0;
 
-scrollPanelSquish = 0;
 panelWidth = 0;
 panelHeight = 0;
+
+scrollRegionDefault = false;
 scrollHorX = 0;
 scrollVerY = 0;
 scrollHorPartition = 0;

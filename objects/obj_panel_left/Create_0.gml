@@ -15,7 +15,6 @@ cameraViewOn = 3;
 longestPanelRightButton = 0;
 x = baseX;
 
-scrollPanelSquish = 0;
 panelWidth = 0;
 panelHeight = 0;
 scrollHorX = 0;

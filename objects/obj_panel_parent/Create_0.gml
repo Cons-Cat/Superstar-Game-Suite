@@ -17,6 +17,12 @@ panelHeight = 0;
 scrollHorWidth = panelWidth;
 scrollVerHeight = panelHeight;
 
+scrollRegionDefault = true;
+scrollRegionX1 = 0;
+scrollRegionX2 = 0;
+scrollRegionY1 = 0;
+scrollRegionY2 = 0;
+
 scrollHorX = 0;
 scrollVerY = 0;
 scrollHorPartition = 0;
