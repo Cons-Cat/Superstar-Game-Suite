@@ -23,6 +23,8 @@ if !mouse_check_button(mb_left) && instance_exists(trg) {
 
 // Deselect terrain
 if mouse_check_button_pressed(mb_left) {
+	#region
+	
 	if !select {
 		if window_view_mouse_get_x(1) > obj_panel_left.x && window_view_mouse_get_x(1) < obj_panel_right.x && window_view_mouse_get_y(1) > obj_panel_top.y && window_view_mouse_get_y(1) < obj_panel_bot.y {
 			selfCanDeSelect = true;
@@ -69,6 +71,8 @@ if mouse_check_button_pressed(mb_left) {
 			}
 		}
 	}
+	
+	#endregion
 }
 
 if select {

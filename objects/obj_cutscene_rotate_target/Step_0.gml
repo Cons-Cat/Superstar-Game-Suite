@@ -12,7 +12,7 @@ while tempActionTime < obj_panel_bot.longestRowLength {
 			if obj_panel_bot.actionTime[i] = tempActionTime {
 				if obj_panel_bot.actionInd[i] = 0 {
 					originX[j] = obj_panel_bot.xNode[i];
-					originY[j] = obj_panel_bot.yNode[i];
+					originY[j] = obj_panel_bot.yNode[i] - zfloor*20;
 					
 					j += 1;
 					

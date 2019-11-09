@@ -130,6 +130,8 @@ zcieling = zfloor;
 
 // Create ds_list from ordered pairs of vertex coordinates
 if recalculate {
+	#region
+	
 	recalculate = false;
 	vertexCountTemp = 0;
 	
@@ -180,6 +182,8 @@ if recalculate {
 		// Generate list of triangles
 		polygon = scr_polygon_to_triangles(list);
 	}
+	
+	#endregion
 }
 
 if select {

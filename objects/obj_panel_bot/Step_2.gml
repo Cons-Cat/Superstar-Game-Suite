@@ -195,7 +195,13 @@ if addClick != -1 {
 					timeIndex = other.totalActions;
 					rowIndex = other.i;
 					canPlace = true;
-					canRelease = false;
+					
+					// Fix continuous placements
+					if mouse_check_button(mb_left) {
+						canRelease = false;
+					} else {
+						canRelease = true;
+					}
 					
 					with other.actorId[other.i] {
 						other.zfloor = self.zfloor;
@@ -214,7 +220,6 @@ if addClick != -1 {
 					timeIndex = other.totalActions;
 					rowIndex = other.i;
 					canPlace = true;
-					canRelease = false;
 					placed = false;
 					calcAngleVals = true;
 					angle = 0;
@@ -222,6 +227,13 @@ if addClick != -1 {
 					rise = 0;
 					mirror = 0;
 					flip = 0;
+					
+					// Fix continuous placements
+					if mouse_check_button(mb_left) {
+						canRelease = false;
+					} else {
+						canRelease = true;
+					}
 					
 					with other.actorId[other.i] {
 						other.zfloor = self.zfloor;
@@ -307,8 +319,10 @@ if addClick != -1 {
 	#endregion
 }
 
-// Managing selection
+// Selecting / De-selecting rows
 for (i = 0; i < rows; i += 1) {
+	#region
+	
 	if i = 0 {
 		if instance_exists(obj_trigger_cutscene_region_editor) {
 			actorId[i] = obj_trigger_cutscene_region_editor.id;
@@ -324,20 +338,23 @@ for (i = 0; i < rows; i += 1) {
 		}
 	}
 	
+	// De-select row
 	if mouse_check_button_pressed(mb_left) {
-		if !(relativeMouseX - room_width >= 0 && relativeMouseX - room_width <= obj_panel_left.x && relativeMouseY >= obj_subpanel_left.y && relativeMouseY <= obj_subpanel_left.scrollVerBotBound) && !obj_subpanel_left.select && !obj_panel_left.select {
-			if !canSelectRow[i] {
-				selectRow[i] = false;
-				hasRowSelected = false;
-				
-				if !instance_exists(obj_cutscene_target_parent) {
-					actorId[i].orangeAnyways = false;
-				}
-				
-				if relativeMouseX - room_width <= 189 && relativeMouseY >= y+5 {
-					with obj_editor_button_parent {
-						if fromTxt != "moveScene" {
-							instance_destroy();
+		if relativeMouseX > obj_panel_left.x && relativeMouseY < obj_panel_bot.y {
+			if !instance_exists(obj_cutscene_target_parent) {
+				if !canSelectRow[i] {
+					selectRow[i] = false;
+					hasRowSelected = false;
+					
+					if !instance_exists(obj_cutscene_target_parent) {
+						actorId[i].orangeAnyways = false;
+					}
+					
+					if relativeMouseX - room_width <= 189 && relativeMouseY >= y+5 {
+						with obj_editor_button_parent {
+							if fromTxt != "moveScene" {
+								instance_destroy();
+							}
 						}
 					}
 				}
@@ -347,10 +364,12 @@ for (i = 0; i < rows; i += 1) {
 	
 	canSelectRow[i] = false;
 	
-	if relativeMouseX - room_width >= 21 && relativeMouseX - room_width <= obj_panel_left.baseX - room_width - 1 {
+	// Hover over row
+	if relativeMouseX - room_width >= 21 && relativeMouseX <= obj_panel_left.baseX - 1 {
 		if relativeMouseY >= y+35 + i*14 - rowsDrawY && relativeMouseY <= y+46 + i*14 - rowsDrawY {
 			canSelectRow[i] = true;
 			
+			// Select row
 			if mouse_check_button_pressed(mb_left) {
 				selectRow[i] = !selectRow[i];
 				actorId[i].orangeAnyways = true;
@@ -364,6 +383,8 @@ for (i = 0; i < rows; i += 1) {
 			}
 		}
 	}
+	
+	#endregion
 }
 
 // Calculating length of timeline
@@ -407,7 +428,6 @@ ax = ( ((scrollHorX - ( obj_panel_left.baseX + 1 - room_width ) - room_width ) /
 
 // Edit action
 for (i = 1; i <= totalActions; i += 1) {
-	
 	for (j = 0; j < rows; j += 1) {
 		if y + 33 - rowsDrawY + i*14 > scrollHorBotBound {
 			if relativeMouseX - room_width > (obj_panel_left.baseX - room_width + 2) - ax + actionTime[i]*6 && relativeMouseX - room_width <= (obj_panel_left.baseX - room_width + 1) - ax + actionTime[i]*6 + 6 {
@@ -680,10 +700,10 @@ if cutsceneInstanceId != -1 {
 				actionInd[j] = -1;
 			}
 			
+			#endregion
+			
 			totalActions = 0;
 			cutsceneInstanceId = -1; // Reset target instance
-			
-			#endregion
 		}
 	} else {
 		// Clear interface when trigger instance is deleted while selected

@@ -27,7 +27,8 @@
         "f6095289-4648-469a-a6e5-8cd9d3b8f5ab",
         "8ac32365-abd5-453e-bea5-2a59094ca8bc",
         "aab9f808-01c1-42ff-ad4b-dddda95b5803",
-        "ad562ff1-edd1-4d74-84e2-a7a5de63a1f6"
+        "ad562ff1-edd1-4d74-84e2-a7a5de63a1f6",
+        "9214832b-588b-497c-a11a-5c26809ae959"
     ],
     "filterType": "GMObject",
     "folderName": "Deprecated Editor",
