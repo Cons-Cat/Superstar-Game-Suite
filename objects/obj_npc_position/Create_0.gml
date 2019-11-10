@@ -42,7 +42,7 @@ instId3 = "4294967295";
 instId4[0] = "XXXXXXXXXX"; // Object id
 
 for (i = 0; i < 8; i += 1) {
-	instId1[0] = instId1[0] + string_upper(choose("a","b","c","d","e","f","0","1","2","3","4","5","6","7","8","9"));
+	instId1[0] += string_upper(choose("a","b","c","d","e","f","0","1","2","3","4","5","6","7","8","9"));
 }
 for (i = 0; i < 36; i += 1) {
 	if i = 8 || i = 13 || i = 18 || i = 23 {
@@ -56,3 +56,11 @@ trg = instance_create_layer(x+10,y+10,"Instances",obj_npc_level);
 trg.trg = self.id;
 
 actorTxt = instId1[0];
+show_debug_message(actorTxt);
+
+if instance_exists(obj_trigger_cutscene_region_editor) {
+	obj_trigger_cutscene_region_editor.actorId[instance_number(obj_npc_position)] = self.id;
+	obj_trigger_cutscene_region_editor.actorTxt[instance_number(obj_npc_position)] = actorTxt;
+}
+
+show_debug_message(actorTxt);

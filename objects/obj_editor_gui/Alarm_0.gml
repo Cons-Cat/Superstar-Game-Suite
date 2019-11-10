@@ -15,10 +15,13 @@ with obj_trigger_cutscene_region_editor {
 		totalActions = other.totalActions;
 		longestRowLength = other.longestRowLength;
 		polygon = other.polygon;
+		trg = other.id;
 		
-		// Initialize ticks
-		for (i = 0; i <= longestRowLength; i += 1) {
-			for (j = 0; j < rows; j += 1) {
+		for (j = 0; j < rows; j += 1) {
+			obj_panel_bot.currentAction[j] = -1; // Initialize currentAction[]
+			
+			// Initialize ticks
+			for (i = 0; i <= longestRowLength; i += 1) {
 				actionInd[i,j] = -1; // Null action
 				actorTxt[j] = other.actorTxt[j];
 			}

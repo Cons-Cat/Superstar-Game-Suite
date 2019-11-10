@@ -323,6 +323,7 @@ if addClick != -1 {
 for (i = 0; i < rows; i += 1) {
 	#region
 	
+	// Initialize actorId[]'s
 	if i = 0 {
 		if instance_exists(obj_trigger_cutscene_region_editor) {
 			actorId[i] = obj_trigger_cutscene_region_editor.id;
@@ -332,10 +333,8 @@ for (i = 0; i < rows; i += 1) {
 		
 		actorTxt[i] = "obj_player";
 	} else {
-		if instance_number(obj_npc_position) = rows - 1 {
-			actorId[i] = instance_find(obj_npc_position,i - 1);
-			actorTxt[i] = actorId[i].actorTxt;
-		}
+		actorId[i] = instance_find(obj_npc_position,i - 1);
+		actorTxt[i] = actorId[i].actorTxt;
 	}
 	
 	// De-select row
@@ -345,10 +344,7 @@ for (i = 0; i < rows; i += 1) {
 				if !canSelectRow[i] {
 					selectRow[i] = false;
 					hasRowSelected = false;
-					
-					if !instance_exists(obj_cutscene_target_parent) {
-						actorId[i].orangeAnyways = false;
-					}
+					actorId[i].orangeAnyways = false;
 					
 					if relativeMouseX - room_width <= 189 && relativeMouseY >= y+5 {
 						with obj_editor_button_parent {
@@ -427,294 +423,339 @@ potentialActionTime = floor( (relativeMouseX - room_width - (obj_panel_left.base
 ax = ( ((scrollHorX - ( obj_panel_left.baseX + 1 - room_width ) - room_width ) / (scrollHorRightBound - scrollHorLeftBound)) * panelWidth ) + 1;
 
 // Edit action
-for (i = 1; i <= totalActions; i += 1) {
-	for (j = 0; j < rows; j += 1) {
-		if y + 33 - rowsDrawY + i*14 > scrollHorBotBound {
-			if relativeMouseX - room_width > (obj_panel_left.baseX - room_width + 2) - ax + actionTime[i]*6 && relativeMouseX - room_width <= (obj_panel_left.baseX - room_width + 1) - ax + actionTime[i]*6 + 6 {
-				if relativeMouseY >= y + 34 + j*14 - rowsDrawY && relativeMouseY <= y + 44 + j*14 - rowsDrawY {
-					if relativeMouseX - room_width >= obj_panel_left.baseX - room_width {
-						if actionInd[i] != -1 {
-							#region
-							
-							if actionRowInd[i] = j {
-								if mouse_check_button_pressed(mb_left) {
-									actionSelect[i] = true;
-									actorId[j].orangeAnyways = true;
-									selectRow[j] = true;
-									
-									actionDoubleClick += 1;
-									alarm[1] = 12;
-									
-									if actionDoubleClick = 2 {
-										// Open action's interface
-										if actionInd[i] = 0 {
+if obj_editor_gui.mode = 4 {
+	#region
+	
+	for (i = 1; i <= totalActions; i += 1) {
+		for (j = 0; j < rows; j += 1) {
+			if y + 33 - rowsDrawY + i*14 > scrollHorBotBound {
+				if relativeMouseX - room_width > (obj_panel_left.baseX - room_width + 2) - ax + actionTime[i]*6 && relativeMouseX - room_width <= (obj_panel_left.baseX - room_width + 1) - ax + actionTime[i]*6 + 6 {
+					if relativeMouseY >= y + 34 + j*14 - rowsDrawY && relativeMouseY <= y + 44 + j*14 - rowsDrawY {
+						if relativeMouseX - room_width >= obj_panel_left.baseX - room_width {
+							if actionInd[i] != -1 {
+								if actionRowInd[i] = j {
+									// Open action's interface
+									if mouse_check_button_pressed(mb_left) {
+										#region
+										
+										actionSelect[i] = true;
+										actorId[j].orangeAnyways = true;
+										selectRow[j] = true;
+										
+										actionDoubleClick += 1;
+										alarm[1] = 12;
+										
+										if actionDoubleClick = 2 {
+											actionDoubleClick = 0;
+											
 											// Walk action
-											if !instance_exists(obj_cutscene_walk_target) {
-												with instance_create_layer(xNode[i],yNode[i],"Instances",obj_cutscene_walk_target) {
-													timeIndex = other.i
-													rowIndex = other.j;
-													canDrag = true;
-													canPlace = false;
+											if actionInd[i] = 0 {
+												#region
 												
-													with other.actorId[other.j] {
-														other.zfloor = self.zfloor;
-														other.originX[0] = self.x + 10;
-														other.originY[0] = self.y + 10 + zfloor*20;
+												if !instance_exists(obj_cutscene_walk_target) {
+													with instance_create_layer(xNode[i],yNode[i],"Instances",obj_cutscene_walk_target) {
+														timeIndex = other.i
+														rowIndex = other.j;
+														canDrag = true;
+														canPlace = false;
+												
+														with other.actorId[other.j] {
+															other.zfloor = self.zfloor;
+															other.originX[0] = self.x + 10;
+															other.originY[0] = self.y + 10 + zfloor*20;
+														}
 													}
 												}
+												
+												#endregion
 											}
-										}
-										
-										if actionInd[i] = 1 {
+											
 											// Rotate action
-											if !instance_exists(obj_cutscene_rotate_target) {
-												with instance_create_layer(actorId[j].x+10,actorId[j].y+10,"Instances",obj_cutscene_rotate_target) {
-													timeIndex = other.i;
-													rowIndex = other.j;
-													canDrag = true;
-													canPlace = false;
-													canDel = true;
-													calcAngleVals = true;
-													angle = other.angleRot[other.i];
-													
-													with other.actorId[other.j] {
-														other.zfloor = self.zfloor;
-														other.originX[0] = self.x+10;
-														other.originY[0] = self.y+10;
+											if actionInd[i] = 1 {
+												#region
+												
+												if !instance_exists(obj_cutscene_rotate_target) {
+													with instance_create_layer(actorId[j].x+10,actorId[j].y+10,"Instances",obj_cutscene_rotate_target) {
+														timeIndex = other.i;
+														rowIndex = other.j;
+														canDrag = true;
+														canPlace = false;
+														canDel = true;
+														calcAngleVals = true;
+														angle = other.angleRot[other.i];
+														
+														with other.actorId[other.j] {
+															other.zfloor = self.zfloor;
+															other.originX[0] = self.x+10;
+															other.originY[0] = self.y+10;
+														}
 													}
 												}
+												
+												#endregion
 											}
-										}
-										
-										if actionInd[i] = 2 {
+											
 											// Dialogue action
-											if !instance_exists(obj_cutscene_dialogue) {
-												with instance_create_layer(actorId[j].x-xOffDialogue[i],actorId[j].y-yOffDialogue[i],"Instances",obj_cutscene_dialogue) {
-													timeIndex = other.i;
-													rowIndex = other.j;
-													trg = other.actorId[other.j];
-													zfloor = trg.zfloor;
-													placex = xstart;
-													placey = ystart;
-													
-													bubbleCount = other.bubbleCount[other.i];
-													
-													for (i = 0; i <= bubbleCount; i += 1) {
-														lineCount[i] = other.lineCount[other.i,i];
-														longestLine[i] = 0; // This value is arbitrary
-														bubbleX[i] = other.bubbleX[other.i,i];
-														bubbleY[i] = other.bubbleY[other.i,i];
+											if actionInd[i] = 2 {
+												#region
+												
+												if !instance_exists(obj_cutscene_dialogue) {
+													with instance_create_layer(actorId[j].x-xOffDialogue[i],actorId[j].y-yOffDialogue[i],"Instances",obj_cutscene_dialogue) {
+														timeIndex = other.i;
+														rowIndex = other.j;
+														trg = other.actorId[other.j];
+														zfloor = trg.zfloor;
+														placex = xstart;
+														placey = ystart;
 														
-														for (j = 0; j <= 3; j += 1) {
-															selectBubSlider[i,j] = false;
-															sliderMagnitude[i,j] = 0;
-														}
+														bubbleCount = other.bubbleCount[other.i];
 														
-														for (j = 0; j <= lineCount[i]; j += 1) {
-															lineStr[i,j] = other.lineStr[scr_array_xy(i,j,bubbleCount),j];
-														}
-														
-														if lineCount[i] = 0 && lineStr[i,0] = "" {
-															hasText[i] = false;
-														} else {
-															hasText[i] = true;
+														for (i = 0; i <= bubbleCount; i += 1) {
+															lineCount[i] = other.lineCount[other.i,i];
+															longestLine[i] = 0; // This value is arbitrary
+															bubbleX[i] = other.bubbleX[other.i,i];
+															bubbleY[i] = other.bubbleY[other.i,i];
+															
+															for (j = 0; j <= 3; j += 1) {
+																selectBubSlider[i,j] = false;
+																sliderMagnitude[i,j] = 0;
+															}
+															
+															for (j = 0; j <= lineCount[i]; j += 1) {
+																lineStr[i,j] = other.lineStr[scr_array_xy(i,j,bubbleCount),j];
+															}
+															
+															if lineCount[i] = 0 && lineStr[i,0] = "" {
+																hasText[i] = false;
+															} else {
+																hasText[i] = true;
+															}
 														}
 													}
 												}
+												
+												#endregion
 											}
-										}
-										
-										if actionInd[i] = 3 {
+											
 											// Camera pan action
-											if !instance_exists(obj_cutscene_pan) {
-												with instance_create_layer(xNode[i],yNode[i],"Instances",obj_cutscene_pan) {
+											if actionInd[i] = 3 {
+												#region
+												
+												if !instance_exists(obj_cutscene_pan) {
+													with instance_create_layer(xNode[i],yNode[i],"Instances",obj_cutscene_pan) {
+														timeIndex = other.i;
+														trg = other.cutsceneInstanceId;
+														zoomVal = string(other.zoomVal[timeIndex]);
+													}
+												}
+												
+												#endregion
+											}
+											
+											// Actor speed action
+											if actionInd[i] = 5 {
+												#region
+												
+												with instance_create_layer(actorId[j].x+10,actorId[j].y-35,"Instances",obj_cutscene_speed) {
 													timeIndex = other.i;
+													slowSpd = other.slowSpd[timeIndex];
+													
 													trg = other.cutsceneInstanceId;
-													zoomVal = string(other.zoomVal[timeIndex]);
+													zfloor = trg.zfloor;
+												}
+												
+												#endregion
+											}
+											
+											// Arbitrary action
+											if actionInd[i] = 6 {
+												#region
+												
+												with instance_create_layer(actorId[j].x+10,actorId[j].y-35,"Instances",obj_cutscene_arbitrary) {
+													timeIndex = other.i;
+													arbitraryInd = other.arbitraryInd[timeIndex];
+													
+													trg = other.cutsceneInstanceId;
+													zfloor = trg.zfloor;
+													
+													selected = true;
 												}
 											}
+											
+											#endregion
 										}
 										
-										if actionInd[i] = 5 {
-											// Actor speed action
-											with instance_create_layer(actorId[j].x+10,actorId[j].y-35,"Instances",obj_cutscene_speed) {
-												timeIndex = other.i;
-												slowSpd = other.slowSpd[timeIndex];
-												
-												trg = other.cutsceneInstanceId;
-												zfloor = trg.zfloor;
-											}
-										}
-										
-										actionDoubleClick = 0;
-										
-										if actionInd[i] = 6 {
-											// Arbitrary action
-											with instance_create_layer(actorId[j].x+10,actorId[j].y-35,"Instances",obj_cutscene_arbitrary) {
-												timeIndex = other.i;
-												arbitraryInd = other.arbitraryInd[timeIndex];
-												
-												trg = other.cutsceneInstanceId;
-												zfloor = trg.zfloor;
-												
-												selected = true;
-											}
-										}
+										#endregion
+									}
+									
+									if mouse_check_button(mb_right) {
+										actionDelete[i] = true;
 									}
 								}
-								
-								if mouse_check_button(mb_right) {
-									actionDelete[i] = true;
-								}
 							}
-							
-							#endregion
+						}
+					} else {
+						if actionRowInd[i] = j {
+							actionDelete[i] = false;
 						}
 					}
 				} else {
-					if actionRowInd[i] = j {
-						actionDelete[i] = false;
-					}
+					actionDelete[i] = false;
 				}
-			} else {
-				actionDelete[i] = false;
-			}
-			
-			// Dragging actions
-			if actionSelect[i] {
-				#region
 				
-				actionTimeTemp = actionTime[i];
-				
-				for (a = 1; a <= totalActions; a += 1) {
-					if actionRowInd[a] = actionRowInd[i] {
-						if actionInd[a] != -1 {
-							if actionTime[a] = potentialActionTime {
-								actionTime[i] = actionTimeTemp; // Prevent the actions from overlapping
-								
-								break;
+				// Dragging actions
+				if actionSelect[i] {
+					#region
+					
+					actionTimeTemp = actionTime[i];
+					
+					for (a = 1; a <= totalActions; a += 1) {
+						if actionRowInd[a] = actionRowInd[i] {
+							if actionInd[a] != -1 {
+								if actionTime[a] = potentialActionTime {
+									actionTime[i] = actionTimeTemp; // Prevent the actions from overlapping
+									
+									break;
+								}
+							}
+						}
+						
+						if a = totalActions {
+							actionTime[i] = potentialActionTime; // Drag action snapped to 1/5 second ticks
+							
+							if actionTime[i] < 0 {
+								for (b = 1; b <= totalActions; b += 1) {
+									if actionTime[b] = 0 {
+										actionTime[i] = actionTimeTemp; // Dragging boundary
+										
+										break;
+									}
+									
+									if b = totalActions {
+										actionTime[i] = 0;
+									}
+								}
 							}
 						}
 					}
 					
-					if a = totalActions {
-						actionTime[i] = potentialActionTime; // Drag action snapped to 1/5 second ticks
-						
-						if actionTime[i] < 0 {
-							for (b = 1; b <= totalActions; b += 1) {
-								if actionTime[b] = 0 {
-									actionTime[i] = actionTimeTemp; // Dragging boundary
-									
-									break;
-								}
-								
-								if b = totalActions {
-									actionTime[i] = 0;
-								}
-							}
+					#endregion
+				}
+				
+				if actionDelete[i] {
+					// Delete the action
+					if mouse_check_button_released(mb_right) {
+						if actionDelete[i] {
+							actionInd[i] = -1; // Null action
 						}
 					}
 				}
 				
-				#endregion
-			}
-			
-			if actionDelete[i] {
-				// Delete the action
-				if mouse_check_button_released(mb_right) {
-					if actionDelete[i] {
-						actionInd[i] = -1; // Null action
-					}
+				if mouse_check_button_released(mb_left) {
+					actionSelect[i] = false; // Deselect
 				}
-			}
-			
-			if mouse_check_button_released(mb_left) {
-				actionSelect[i] = false; // Deselect
 			}
 		}
 	}
+	
+	#endregion
 }
 
 // Target cutscene
 if cutsceneInstanceId != -1 {
 	if instance_exists(cutsceneInstanceId) {
-		if !cutsceneInstanceId.select {
-			// Export data
-			// Importing handled by the script scr_import_cutscene
-			
-			#region
-			
-			for (i = 0; i < rows; i += 1) {
-				cutsceneInstanceId.rowLength[i] = self.rowLength[i];
-				cutsceneInstanceId.actorTxt[i] = self.actorTxt[i];
-				rowLength[i] = 0;
-			}
-			
-			for (j = 1; j <= self.totalActions; j += 1) {
-				cutsceneInstanceId.totalActions = self.totalActions;
-				cutsceneInstanceId.actionInd[j] = self.actionInd[j];
-				cutsceneInstanceId.actionTime[j] = self.actionTime[j];
-				cutsceneInstanceId.actionRowInd[j] = self.actionRowInd[j];
-				cutsceneInstanceId.longestRowLength = self.longestRowLength;
+		if obj_editor_gui.mode = 4 {
+			if !cutsceneInstanceId.select {
+				// Export data
+				// Importing handled by the script scr_import_cutscene()
 				
-				if actionInd[j] = 0 { // Walk action
-					cutsceneInstanceId.xNode[j] = self.xNode[j];
-					cutsceneInstanceId.yNode[j] = self.yNode[j];
+				#region
+				
+				for (i = 0; i < rows; i += 1) {
+					cutsceneInstanceId.rowLength[i] = self.rowLength[i];
+					cutsceneInstanceId.actorTxt[i] = self.actorTxt[i];
+					rowLength[i] = 0;
 				}
 				
-				if actionInd[j] = 1 { // Rotation action
-					cutsceneInstanceId.angleRot[j] = self.angleRot[j];
-					cutsceneInstanceId.angleRotExport[j] = self.angleRotExport[j];
-				}
-				
-				if actionInd[j] = 2 { // Dialogue action
-					cutsceneInstanceId.xOffDialogue[j] = self.xOffDialogue[j];
-					cutsceneInstanceId.yOffDialogue[j] = self.yOffDialogue[j];
-					cutsceneInstanceId.bubbleCount[j] = self.bubbleCount[j];
+				for (j = 1; j <= self.totalActions; j += 1) {
+					cutsceneInstanceId.totalActions = self.totalActions;
+					cutsceneInstanceId.actionInd[j] = self.actionInd[j];
+					cutsceneInstanceId.actionTime[j] = self.actionTime[j];
+					cutsceneInstanceId.actionRowInd[j] = self.actionRowInd[j];
+					cutsceneInstanceId.longestRowLength = self.longestRowLength;
 					
-					for (i = 0; i <= bubbleCount[j]; i += 1) {
-						cutsceneInstanceId.lineCount[j,i] = self.lineCount[j,i];
-						cutsceneInstanceId.bubbleX[j,i] = self.bubbleX[j,i];
-						cutsceneInstanceId.bubbleY[j,i] = self.bubbleY[j,i];
+					if actionInd[j] = 0 { // Walk action
+						cutsceneInstanceId.xNode[j] = self.xNode[j];
+						cutsceneInstanceId.yNode[j] = self.yNode[j];
+					}
+					
+					if actionInd[j] = 1 { // Rotation action
+						cutsceneInstanceId.angleRot[j] = self.angleRot[j];
+						cutsceneInstanceId.angleRotExport[j] = self.angleRotExport[j];
+					}
+					
+					if actionInd[j] = 2 { // Dialogue action
+						cutsceneInstanceId.xOffDialogue[j] = self.xOffDialogue[j];
+						cutsceneInstanceId.yOffDialogue[j] = self.yOffDialogue[j];
+						cutsceneInstanceId.bubbleCount[j] = self.bubbleCount[j];
 						
-						for (k = 0; k <= lineCount[j,i]; k += 1) {
-							cutsceneInstanceId.lineStr[scr_array_xy(i,k,bubbleCount[j]),k] = self.lineStr[scr_array_xy(i,k,bubbleCount[j]),k];
+						for (i = 0; i <= bubbleCount[j]; i += 1) {
+							cutsceneInstanceId.lineCount[j,i] = self.lineCount[j,i];
+							cutsceneInstanceId.bubbleX[j,i] = self.bubbleX[j,i];
+							cutsceneInstanceId.bubbleY[j,i] = self.bubbleY[j,i];
+						
+							for (k = 0; k <= lineCount[j,i]; k += 1) {
+								cutsceneInstanceId.lineStr[scr_array_xy(i,k,bubbleCount[j]),k] = self.lineStr[scr_array_xy(i,k,bubbleCount[j]),k];
+							}
 						}
 					}
+					
+					if actionInd[j] = 3 { // Camera action
+						cutsceneInstanceId.xNode[j] = self.xNode[j];
+						cutsceneInstanceId.yNode[j] = self.yNode[j];
+						cutsceneInstanceId.zoomVal[j] = self.zoomVal[j];
+					}
+					
+					if actionInd[j] = 5 { // Walk speed action
+						cutsceneInstanceId.slowSpd[j] = self.slowSpd[j];
+					}
+					
+					if actionInd[j] = 6 { // Arbitrary action
+						cutsceneInstanceId.arbitraryInd[j] = self.arbitraryInd[j];
+					}
+					
+					actionInd[j] = -1;
 				}
 				
-				if actionInd[j] = 3 { // Camera action
-					cutsceneInstanceId.xNode[j] = self.xNode[j];
-					cutsceneInstanceId.yNode[j] = self.yNode[j];
-					cutsceneInstanceId.zoomVal[j] = self.zoomVal[j];
-				}
+				#endregion
 				
-				if actionInd[j] = 5 { // Walk speed action
-					cutsceneInstanceId.slowSpd[j] = self.slowSpd[j];
-				}
-				
-				if actionInd[j] = 6 { // Arbitrary action
-					cutsceneInstanceId.arbitraryInd[j] = self.arbitraryInd[j];
-				}
-				
-				actionInd[j] = -1;
+				totalActions = 0;
+				cutsceneInstanceId = -1; // Reset target instance
 			}
-			
-			#endregion
-			
-			totalActions = 0;
-			cutsceneInstanceId = -1; // Reset target instance
 		}
 	} else {
 		// Clear interface when trigger instance is deleted while selected
+		cutsceneInstanceId = -1;
+	}
+}
+
+// End scenes interrupted by a mode change
+if isPlayingScene {
+	if obj_editor_gui.mode != 2 {
+		isPlayingScene = false;
+		cutsceneInstanceId = -1;
+	}
+}
+
+// Clear the cutscene interface
+if !isPlayingScene {
+	if cutsceneInstanceId = -1 {
 		for (i = 0; i <= self.rows; i += 1) {
 			rowLength[i] = 0;
 		}
 		for (j = 1; j <= self.totalActions; j += 1) {
 			actionInd[j] = -1;
 		}
-		
-		cutsceneInstanceId = -1;
 	}
 }
 

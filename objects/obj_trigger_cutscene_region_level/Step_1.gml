@@ -8,9 +8,7 @@ if activeState = 0 {
 			for (j = 0; j < rows; j += 1) {
 				if j >= 1 {
 					with obj_npc_position {
-						if actorTxt = other.actorTxt[other.j] {
-							other.actor[other.j] = instance_find(obj_npc_position,other.j-1).trg; // 1/10'th second, j'th row
-						}
+						other.actor[other.j] = instance_find(obj_npc_position,other.j-1).trg; // 1/10'th second, j'th row
 					}
 				}
 				
@@ -31,26 +29,54 @@ if activeState = 0 {
 }
 
 if activeState = 1 {
+	if !obj_panel_bot.isPlayingScene {
+		obj_panel_bot.isPlayingScene = true;
+		
+		// Import data
+		with trg { // Editor region instance
+			scr_import_cutscene(obj_panel_bot,self.id);
+		}
+		
+		obj_panel_bot.cutsceneInstanceId = self.id; // Overwrite cutsceneInstanceId from scr_import_cutscene() with this instance's ID
+	}
+	
 	if timeIndexCalc <= longestRowLength {
 		if timeIndexCalc*6 = timeIndex { // If the tick is aligned with a multiple of 1/10th seconds
 			for (i = 0; i < rows; i += 1) {
+				actor[i].rowOn = i;
+				
 				// Walk action
 				if actionInd[timeIndexCalc,i] = 0 {
+					#region
+					
 					// Expresses intent to the actor. The actual movement is handled by that instance.
 					actor[i].xNode[timeIndexCalc] = self.xNode[timeIndexCalc,i];
 					actor[i].yNode[timeIndexCalc] = self.yNode[timeIndexCalc,i];
 					actor[i].endWalk[timeIndexCalc] = self.endWalk[timeIndexCalc,i];
 					actor[i].activeInScene = true;
+					
+					if actor[i].object_index = obj_player_overworld {
+						actor[i].canMove = false;
+					}
+					
+					#endregion
 				}
 				
 				// Rotation action
 				if actionInd[timeIndexCalc,i] = 1 {
+					#region
+					
 					actor[i].angleRot[timeIndexCalc] = self.angleRot[timeIndexCalc,i];
 					actor[i].activeInScene = true;
+					actor[i].actionInd[timeIndexCalc] = self.timeIndexCalc;
+					
+					#endregion
 				}
 				
 				// Dialogue action
 				if actionInd[timeIndexCalc,i] = 2 {
+					#region
+					
 					// Create text box with expressed intent.
 					with instance_create_layer(actor[i].x-xOffDialogue[timeIndexCalc,i],actor[i].y-yOffDialogue[timeIndexCalc,i],"Instances",obj_chat_bubble) {
 						canMove = false;
@@ -75,10 +101,14 @@ if activeState = 1 {
 					}
 					
 					actor[i].activeInScene = true;
+					
+					#endregion
 				}
 				
 				// Camera pan action
 				if actionInd[timeIndexCalc,i] = 3 {
+					#region
+					
 					// Expresses intent to the camera. The actual movement is handled by that instance.
 					if instance_exists(obj_camera_editor) {
 						obj_camera_editor.anchored = true;
@@ -97,26 +127,41 @@ if activeState = 1 {
 					
 					if instance_exists(obj_camera) {
 					}
+					
+					#endregion
 				}
 				
 				// Walk speed action
 				if actionInd[timeIndexCalc,i] = 5 {
+					#region
+					
 					// Expresses intent to the actor. The actual movement is handled by that instance.
 					actor[i].slowSpd = self.slowSpd[timeIndexCalc,i];
+					
+					#endregion
 				}
 				
 				// Arbitrary action
 				if actionInd[timeIndexCalc,i] = 6 {
+					#region
+					
 					show_message(arbitraryInd[timeIndexCalc,i]);
 					// Expresses intent to the actor. The actual execution is handled by that instance.
 					actor[i].arbitraryInd[timeIndexCalc] = self.arbitraryInd[timeIndexCalc,i];
 					actor[i].activeInScene = true;
+					
+					#endregion
 				}
 			}
 		}
 		
-		timeIndex += 1; // Increment time each game tick
-		timeIndexCalc = timeIndex div 6; // 1/10'th second increments
+		if timeIndex < longestRowLength * 6 + 1 { // Limit timeIndex for the Play mode display
+			timeIndex += 1; // Increment time each game tick
+			timeIndexCalc = timeIndex div 6; // 1/10'th second increments
+		} else {
+			timeIndexCalc = longestRowLength + 1; // Escape this loop
+		}
+		
 	} else {
 		// If not in dialogue
 		if !instance_exists(obj_chat_bubble) {
@@ -130,6 +175,11 @@ if activeState = 1 {
 				// End the scene
 				if i = instance_number(obj_actor_parent) - 1 {
 					activeState = 2;
+					obj_player_overworld.canMove = true;
+					
+					// Close panel scene
+					obj_panel_bot.cutsceneInstanceId = -1;
+					obj_panel_bot.isPlayingScene = false;
 				}
 			}
 		}

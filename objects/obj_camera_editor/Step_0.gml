@@ -2,6 +2,8 @@
 camera_set_view_target(view_camera[0],-1);
 
 if obj_editor_gui.mode != 2 {
+	#region
+	
 	placeX = gridAtX*20 + 16*20/2;
 	placeY = gridAtY*20 + 9*20/2 + 20;
 	panX = 0;
@@ -156,6 +158,8 @@ if obj_editor_gui.mode != 2 {
 	
 	// Move camera view
 	camera_set_view_pos(view_camera[0],barrierHor + floor(curAtX) * 20 + (gridGravX * 20), barrierVer + floor(curAtY) * 20 + (gridGravY * 20));
+	
+	#endregion
 } else {
 	// In play mode
 	
@@ -308,6 +312,10 @@ if obj_editor_gui.mode != 2 {
 			}
 			
 			anchorId.magnitude = ( dsin( magnitudeTemp / 1  * 180 - 90) + 1 ) / 2;
+			
+			if anchorId.magnitude = 1 {
+				//obj_panel_bot.isCurr entAction[sceneStep] = false;
+			}
 		}
 		
 		// Play mode boundaries

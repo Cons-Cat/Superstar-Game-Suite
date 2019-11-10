@@ -51,6 +51,18 @@ actionInd[0] = -1; // Null action
 actionRowInd[0] = 0;
 addClick = -1;
 actionDoubleClick = 0;
+cutsceneInstanceId = -1;
+isPlayingScene = false;
+
+col[0] = make_color_rgb(63,70,87); // Light
+col[1] = make_color_rgb(35,38,45); // Medium
+col[2] = make_color_rgb(29,32,38); // Dark
+
+col[3] = make_color_rgb(38,43,50); // Medium bar
+col[4] = make_color_rgb(30,32,37); // Dark bar
+
+col[5] = make_color_rgb(29,32,38); // Medium outline
+col[6] = make_color_rgb(28,30,36); // Dark outline
 
 actionColInd[0] = make_color_rgb(113,45,95); // Violet
 actionColInd[1] = make_color_rgb(57,113,43); // Green

@@ -188,7 +188,7 @@ if recalculate {
 
 if select {
 	if !trgGone {
-		// Import metadata
+		// Import data
 		scr_import_cutscene(obj_panel_bot,self.id);
 		
 		if !instance_exists(obj_cutscene_actor_dummy_lucy) {

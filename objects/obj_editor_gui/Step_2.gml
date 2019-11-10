@@ -17,6 +17,8 @@ for (i = 0; i < instance_number(obj_editor_terrain_par); i += 1) {
 
 // Selecting and de-selecting instances
 if canChangeSelect {
+	#region
+	
 	tempDepth = 0;
 	selectInstance = -1;
 	
@@ -57,6 +59,8 @@ if canChangeSelect {
 			}
 		}
 	}
+	
+	#endregion
 }
 
 if !instance_exists(obj_editor_terrain_par) {

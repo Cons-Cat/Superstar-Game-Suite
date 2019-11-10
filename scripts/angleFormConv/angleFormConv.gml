@@ -1,4 +1,4 @@
-// This script converts an angle in degrees to a form fed into scr_spriteDir
+// This script converts an angle in degrees to a form fed into scr_spriteDir()
 var angle = argument[0];
 var mirror = argument[1];
 var flip = argument[2];

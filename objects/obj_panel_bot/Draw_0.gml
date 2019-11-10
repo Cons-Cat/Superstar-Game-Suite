@@ -3,52 +3,17 @@ if y < window_get_height() {
 
 draw_sprite_tiled_area(spr_editor_gui_streaks,0,0,0,obj_panel_left.baseX + 1,y,obj_panel_right.baseX - 1,view_get_hport(1));
 
-// Timeline rows
-for (i = 0; i < rows; i += 1) {
-	#region
-	
-	if y + 33 - rowsDrawY + i*14 > scrollHorBotBound {
-		draw_set_color(make_color_rgb(35,38,45));
-		draw_rectangle(obj_panel_left.baseX,y+33-rowsDrawY+i*14,obj_panel_right.baseX,y+45-rowsDrawY+i*14,false);
-		draw_rectangle(obj_panel_right.baseX,y+20,obj_panel_right.baseX,view_hport[1]-2,false);
-		
-		// Light gray
-		draw_set_color(make_color_rgb(63,70,87));
-		draw_rectangle(obj_panel_left.baseX,y+46-rowsDrawY+i*14,obj_panel_right.baseX,y+46-rowsDrawY+i*14,false); // Timeline segment top outline
-		draw_rectangle(obj_panel_left.baseX,y+32-rowsDrawY+i*14,obj_panel_right.baseX,y+32-rowsDrawY+i*14,false); // Timeline segment bot outline
-		
-		// Dark gray
-		draw_set_color(make_color_rgb(31,34,40));
-		draw_rectangle(obj_panel_left.baseX,y+33-rowsDrawY+i*14,obj_panel_right.baseX,y+33-rowsDrawY+i*14,false); // Timeline segment
-	}
-	
-	#endregion
-}
-
-// Draw actions
-for (i = 1; i <= totalActions; i += 1) {
-	if y + 33 - rowsDrawY + i*14 > scrollHorBotBound {
-		if actionInd[i] != -1 {
-			if actionSelect[i] || actionDelete[i] {
-				draw_sprite_ext(spr_cutscene_action_second, 0, camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) + view_wport[5] + actionTime[i]*6 + obj_subpanel_left.longestPanelRightButton, 1 + actionRowInd[i]*14 - rowsDrawY, 1, 1, 0, c_orange, 1);
-			} else {
-				draw_sprite_ext(spr_cutscene_action_second, 0, camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) + view_wport[5] + actionTime[i]*6 + obj_subpanel_left.longestPanelRightButton, 1 + actionRowInd[i]*14 - rowsDrawY, 1, 1, 0, actionColInd[actionInd[i]], 1);
-			}
-		}
-	}
-}
-
 // Actor rows
 if rows > 0 {
 	#region
 	
 	for (i = 0; i < rows; i += 1) {
 		// Light gray
-		draw_set_color(make_color_rgb(63,70,87));
+		draw_set_color(col[0]);
 		draw_rectangle(actorDrawX,12-rowsDrawY+i*14,actorDrawX + view_wport[6]-2,12-rowsDrawY+i*14,false); // Actor segment
 		
 		// Dark gray
-		draw_set_color(make_color_rgb(31,34,40));
+		draw_set_color(col[2]);
 		draw_rectangle(actorDrawX,13-rowsDrawY+i*14,actorDrawX + view_wport[6],13-rowsDrawY+i*14,false); // Actor segment
 		
 		// Text
@@ -69,6 +34,66 @@ if rows > 0 {
 	#endregion
 }
 
+// Timeline rows
+for (i = 0; i < rows; i += 1) {
+	#region
+	
+	if y + 33 - rowsDrawY + i*14 > scrollHorBotBound {
+		draw_set_color(col[1]);
+		draw_rectangle(obj_panel_left.baseX,y+33-rowsDrawY+i*14,obj_panel_right.baseX,y+45-rowsDrawY+i*14,false);
+		draw_rectangle(obj_panel_right.baseX,y+20,obj_panel_right.baseX,view_hport[1]-2,false);
+		
+		// Light gray
+		draw_set_color(col[0]);
+		draw_rectangle(obj_panel_left.baseX,y+46-rowsDrawY+i*14,obj_panel_right.baseX,y+46-rowsDrawY+i*14,false); // Timeline segment top outline
+		draw_rectangle(obj_panel_left.baseX,y+32-rowsDrawY+i*14,obj_panel_right.baseX,y+32-rowsDrawY+i*14,false); // Timeline segment bot outline
+		
+		// Dark gray
+		draw_set_color(col[2]);
+		draw_rectangle(obj_panel_left.baseX,y+33-rowsDrawY+(i)*14,obj_panel_right.baseX,y+33-rowsDrawY+(i)*14,false); // Timeline segment
+		
+		if i = rows - 1 {
+			// Cast a shadow onto streaks below the last row
+			draw_rectangle(obj_panel_left.baseX+1,y+33-rowsDrawY+(i+1)*14,obj_panel_right.baseX,y+33-rowsDrawY+(i+1)*14,false); // Timeline segment
+		}
+	}
+	
+	#endregion
+}
+
+// Draw actions
+for (i = 1; i <= totalActions; i += 1) {
+	#region
+	
+	if y + 33 - rowsDrawY + i*14 > scrollHorBotBound {
+		if actionInd[i] != -1 {
+			if actionSelect[i] || actionDelete[i] || ( isPlayingScene && currentAction[actionRowInd[i]] = actionTime[i] ) {
+				// Orange highlight
+				draw_sprite_ext(spr_cutscene_action_second, 0, camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) + view_wport[5] + actionTime[i]*6 + obj_subpanel_left.longestPanelRightButton, 1 + actionRowInd[i]*14 - rowsDrawY, 1, 1, 0, c_orange, 1);
+			} else {
+				// Typical
+				draw_sprite_ext(spr_cutscene_action_second, 0, camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) + view_wport[5] + actionTime[i]*6 + obj_subpanel_left.longestPanelRightButton, 1 + actionRowInd[i]*14 - rowsDrawY, 1, 1, 0, actionColInd[actionInd[i]], 1);
+			}
+		}
+	}
+	
+	#endregion
+}
+
+// Draw time measure in play mode
+if obj_editor_gui.mode = 2 {
+	#region
+	
+	if isPlayingScene {
+		if cutsceneInstanceId != -1 {
+			draw_set_color(make_color_rgb(255,160,64)); // Orange
+			draw_rectangle(obj_panel_left.baseX + cutsceneInstanceId.timeIndex, y+32, obj_panel_left.baseX + cutsceneInstanceId.timeIndex, y+32 + (rows)*14, false);
+		}
+	}
+	
+	#endregion
+}
+
 // Timeline ticks
 draw_sprite_tiled_area(spr_editor_gui_streaks,0,0,0,obj_panel_left.baseX + 1,y + 18,obj_panel_right.baseX - 1,y + 31);
 scrollOffDraw = ( ((scrollHorX - obj_panel_left.baseX - 1) / (scrollHorRightBound - scrollHorLeftBound)) * panelWidth ) % 60;
@@ -77,28 +102,28 @@ for (i = 0; i <= (view_get_wport(1) - 390) div 28; i += 1) {
 	draw_sprite_ext(spr_timeline_tick,0,obj_panel_left.baseX + 3 + i*60 - scrollOffDraw,y + 21,2,1,0,c_white,1);
 }
 
-draw_set_color(make_color_rgb(63,70,87));
+draw_set_color(col[0]);
 draw_rectangle(obj_panel_left.baseX,scrollHorBotBound,obj_panel_left.baseX,scrollHorBotBound+12,false);
 draw_rectangle(obj_panel_right.baseX,scrollHorBotBound,obj_panel_right.baseX,scrollHorBotBound+12,false);
 draw_rectangle(obj_panel_left.baseX,scrollHorBotBound+13,obj_panel_right.baseX,scrollHorBotBound+13,false);
 
 // Corners
-draw_set_color(make_color_rgb(35,38,45));
+draw_set_color(col[1]);
 draw_rectangle(room_width + 3,y+4,obj_panel_left.baseX - 2,view_hport[1],false);
 draw_rectangle(obj_panel_right.baseX + 2,y+4,room_width + view_wport[1]-3,view_hport[1],false);
 
 // Outlines
 if y < view_hport[1] {
-	draw_set_color(make_color_rgb(63,70,87));
+	draw_set_color(col[0]);
 	draw_rectangle(room_width,y,room_width + view_wport[1],y,false);
 	draw_rectangle(room_width,y,room_width,y+view_hport[1]-1,false);
 	draw_rectangle(room_width + view_wport[1]-1,y,room_width + view_wport[1],y+view_hport[1]-1,false);
 	
-	draw_set_color(make_color_rgb(28,30,36));
+	draw_set_color(col[6]);
 	draw_rectangle(room_width, y+1,room_width + view_wport[1]-1,view_hport[1] - 1,true);
 	draw_rectangle(room_width + 1, y+2,room_width + view_wport[1] - 2,view_hport[1] - 2,true);
 	
-	draw_set_color(make_color_rgb(31,34,40));
+	draw_set_color(col[2]);
 	draw_rectangle(room_width + 2,y+3,room_width + view_wport[1]-3,view_hport[1]-3,true);
 	draw_rectangle(obj_panel_left.baseX - 1,y+3,obj_panel_right.baseX + 1,view_hport[1]-3,true);
 	
@@ -168,7 +193,7 @@ draw_sprite_ext(spr_minimap_corner,0,mapCenterX - floor(mapWidth/2) + 8,mapCente
 draw_sprite_ext(spr_minimap_corner,0,mapCenterX + floor(mapWidth/2) - 8,mapCenterY - floor(mapHeight/2),-1,1,0,c_white,1); // Top right corner
 
 // Minimap bottom edge
-draw_set_color(make_color_rgb(31,34,40));
+draw_set_color(col[2]);
 draw_rectangle(mapCenterX - floor((mapWidth-10)/2),mapCenterY + floor(mapHeight/2) - 6,mapCenterX + floor((mapWidth-10)/2),mapCenterY + floor(mapHeight/2) - 6,false);
 draw_rectangle(mapCenterX + floor((mapWidth)/2) - 7,mapCenterY + floor(mapHeight/2) - 7,mapCenterX + floor((mapWidth)/2) - 7,mapCenterY + floor(mapHeight/2) - 7,false);
 draw_rectangle(mapCenterX - floor((mapWidth)/2) + 6,mapCenterY + floor(mapHeight/2) - 7,mapCenterX - floor((mapWidth)/2) + 6,mapCenterY + floor(mapHeight/2) - 7,false);
@@ -189,23 +214,23 @@ cursorY2 = mapCenterY - floor(mapHeight/2) + 5 + mapCursorHeight + mapCursorY;
 
 // Darks
 	// Top
-	draw_set_color(make_color_rgb(28,30,36));
+	draw_set_color(col[6]);
 	draw_rectangle(cursorX1+2,cursorY1+1,cursorX2-2,cursorY1+1,false);
 	draw_rectangle(cursorX1+1,cursorY1+2,cursorX1+1,cursorY1+2,false);
 	draw_rectangle(cursorX2-1,cursorY1+2,cursorX2-1,cursorY1+2,false);
 	
-	draw_set_color(make_color_rgb(31,34,40));
+	draw_set_color(col[2]);
 	draw_rectangle(cursorX1+2,cursorY1+2,cursorX2-2,cursorY1+2,false);
 	draw_rectangle(cursorX1+1,cursorY1+3,cursorX1+1,cursorY1+3,false);
 	draw_rectangle(cursorX2-1,cursorY1+3,cursorX2-1,cursorY1+3,false);
 	
 	// Bottom
-	draw_set_color(make_color_rgb(28,30,36));
+	draw_set_color(col[6]);
 	draw_rectangle(cursorX1+1,cursorY2+1,cursorX2-1,cursorY2+1,false);
 	draw_rectangle(cursorX1,cursorY2,cursorX1,cursorY2,false);
 	draw_rectangle(cursorX2,cursorY2,cursorX2,cursorY2,false);
 	
-	draw_set_color(make_color_rgb(31,34,40));
+	draw_set_color(col[2]);
 	draw_rectangle(cursorX1+1,cursorY2+2,cursorX2-1,cursorY2+2,false);
 	draw_rectangle(cursorX1,cursorY2+1,cursorX1,cursorY2+1,false);
 	draw_rectangle(cursorX2,cursorY2+1,cursorX2,cursorY2+1,false);
