@@ -40,5 +40,6 @@ hasScrollHor = true;
 onBase = 1;
 
 exitInterface = false;
+updateView = true;
 
 image_speed = 0;

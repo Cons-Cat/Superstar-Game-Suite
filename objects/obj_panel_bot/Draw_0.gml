@@ -1,5 +1,5 @@
 /// @description Insert description here
-if y < window_get_height() {
+//if y < obj_editor_gui.calcWindowHeight {
 
 draw_sprite_tiled_area(spr_editor_gui_streaks,0,0,0,obj_panel_left.baseX + 1,y,obj_panel_right.baseX - 1,view_get_hport(1));
 
@@ -113,25 +113,23 @@ draw_rectangle(room_width + 3,y+4,obj_panel_left.baseX - 2,view_hport[1],false);
 draw_rectangle(obj_panel_right.baseX + 2,y+4,room_width + view_wport[1]-3,view_hport[1],false);
 
 // Outlines
-if y < view_hport[1] {
-	draw_set_color(col[0]);
-	draw_rectangle(room_width,y,room_width + view_wport[1],y,false);
-	draw_rectangle(room_width,y,room_width,y+view_hport[1]-1,false);
-	draw_rectangle(room_width + view_wport[1]-1,y,room_width + view_wport[1],y+view_hport[1]-1,false);
-	
-	draw_set_color(col[6]);
-	draw_rectangle(room_width, y+1,room_width + view_wport[1]-1,view_hport[1] - 1,true);
-	draw_rectangle(room_width + 1, y+2,room_width + view_wport[1] - 2,view_hport[1] - 2,true);
-	
-	draw_set_color(col[2]);
-	draw_rectangle(room_width + 2,y+3,room_width + view_wport[1]-3,view_hport[1]-3,true);
-	draw_rectangle(obj_panel_left.baseX - 1,y+3,obj_panel_right.baseX + 1,view_hport[1]-3,true);
-	
-	draw_set_color(make_color_rgb(38,43,50));
-	draw_rectangle(room_width + 6,y+29,obj_panel_left.baseX - 5,y+31,false);
-	draw_set_color(make_color_rgb(30,32,37));
-	draw_rectangle(room_width + 6,y+32,obj_panel_left.baseX - 5,y+33,false);
-}
+draw_set_color(col[0]);
+draw_rectangle(room_width,y,room_width + view_wport[1],y,false);
+draw_rectangle(room_width,y,room_width,y+view_hport[1]-1,false);
+draw_rectangle(room_width + view_wport[1]-1,y,room_width + view_wport[1],y+view_hport[1]-1,false);
+
+draw_set_color(col[6]);
+draw_rectangle(room_width, y+1,room_width + view_wport[1]-1,view_hport[1] - 1,true);
+draw_rectangle(room_width + 1, y+2,room_width + view_wport[1] - 2,view_hport[1] - 2,true);
+
+draw_set_color(col[2]);
+draw_rectangle(room_width + 2,y+3,room_width + view_wport[1]-3,view_hport[1]-3,true);
+draw_rectangle(obj_panel_left.baseX - 1,y+3,obj_panel_right.baseX + 1,view_hport[1]-3,true);
+
+draw_set_color(make_color_rgb(38,43,50));
+draw_rectangle(room_width + 6,y+29,obj_panel_left.baseX - 5,y+31,false);
+draw_set_color(make_color_rgb(30,32,37));
+draw_rectangle(room_width + 6,y+32,obj_panel_left.baseX - 5,y+33,false);
 
 // Minimap
 #region
@@ -140,52 +138,9 @@ gradientY[0] = 1; // Portion for dark
 gradientY[1] = 0.88; // Portion for medium
 gradientY[2] = 0.5; // Portion for light
 
-// Keep width proportional to the height, or vice versa, depending on which is larger
-if room_width >= room_height {
-	mapRatio = room_height / room_width;
-	
-	mapWidth = (room_width + view_wport[1] - 37) - (obj_panel_right.baseX + 34);
-	mapHeight = mapWidth * mapRatio;
-} else {
-	mapRatio = room_width / room_height;
-	
-	mapHeight = (view_hport[1] - 26) - (y + 5);
-	mapWidth = mapHeight * mapRatio;
-}
-
-// Make map drag with the bottom panel
-
-if y > baseY {
-	mapYOff = floor( (y - baseY) / 2 );
-} else {
-	mapYOff = 0;
-}
-
-mapCenterX = floor( room_width + (view_wport[1]) - (room_width + (view_wport[1]) - obj_panel_right.baseX) / 2 );
-mapCenterY = floor( y + 5 + ( (view_hport[1] - 31) - y ) / 2 ) + mapYOff;
-
 // Draw map backdrop
-if surface_exists(mapSurface) {
-	draw_surface_stretched(mapSurface, mapCenterX - floor(mapWidth/2), mapCenterY - floor(mapHeight/2), mapWidth, mapHeight);
-}
-
-// 16:9 ratio cursor
-mapCursorWidth = 16 * (mapWidth - 10) / (room_width / 20 - 16) / obj_editor_gui.realPortScaleHor;
-mapCursorHeight = mapCursorWidth * 9/16;
-
-// Conversion ratios: Room units to map units
-mapCursorIncrementX = (mapWidth - 10) / (room_width / 20 - 16) - ( 16 / (room_width / 20) * obj_editor_gui.realPortScaleHor);
-mapCursorIncrementY = (mapWidth - 9) / (room_height / 20 - 9) - ( 9 / (room_height / 20) * obj_editor_gui.realPortScaleVer);
-
-if obj_camera_editor.gridAtX = room_width / 20 - 16 {
-	// Snap cursor to right edge
-	mapCursorX = mapWidth - 11 - round(mapCursorWidth);
-} else {
-	// Increment the cursor horizontally
-	mapCursorX = obj_camera_editor.gridAtX * mapCursorIncrementX;
-}
-
-mapCursorY = obj_camera_editor.gridAtY * mapCursorIncrementY;
+draw_set_color(mapBackCol);
+draw_rectangle(mapCenterX - floor(mapWidth/2) + 1,mapCenterY - floor(mapHeight/2) + 1,mapCenterX + floor(mapWidth/2) - 1,mapCenterY + floor(mapHeight/2) - 1,false);
 
 // Minimap top edge
 draw_sprite_ext(spr_minimap_vert,0,mapCenterX - floor((mapWidth-14)/2),mapCenterY - floor(mapHeight/2),mapWidth-14,1,0,c_white,1); // Top edge
@@ -206,11 +161,16 @@ for (i = 0; i <= 2; i += 1) {
 	draw_sprite_ext(spr_minimap_side,i,mapCenterX + floor((mapWidth-12)/2),mapCenterY - floor(mapHeight/2) + 8 + 1/(mapHeight*gradientY[i]),-1,(mapHeight*gradientY[i]) - 15,0,c_white,1); // Right light edge
 }
 
+// Draw minimap contents
+if surface_exists(mapSurface) {
+	draw_surface_stretched(mapSurface, mapCenterX - floor(mapWidth/2) + 5, mapCenterY - floor(mapHeight/2) + 5, mapWidth - 10, mapHeight - 10);
+}
+
 // Draw map cursor
 cursorX1 = mapCenterX - floor(mapWidth/2) + 5 + mapCursorX;
-cursorX2 = mapCenterX - floor(mapWidth/2) + 5 + mapCursorWidth + mapCursorX;
+cursorX2 = mapCenterX - floor(mapWidth/2) + 5 + mapCursorX + mapCursorWidth;
 cursorY1 = mapCenterY - floor(mapHeight/2) + 5 + mapCursorY;
-cursorY2 = mapCenterY - floor(mapHeight/2) + 5 + mapCursorHeight + mapCursorY;
+cursorY2 = mapCenterY - floor(mapHeight/2) + 5 + mapCursorY + mapCursorHeight;
 
 // Darks
 	// Top
@@ -262,6 +222,6 @@ draw_sprite_ext(spr_minimap_corner,1,mapCenterX + floor(mapWidth/2) - 8,mapCente
 // Draw scrollbars and slider
 event_inherited();
 
-}
+//}
 
 draw_sprite_ext(sprite_index,image_index,x,y+1,image_xscale,image_yscale,image_angle,c_white,1);

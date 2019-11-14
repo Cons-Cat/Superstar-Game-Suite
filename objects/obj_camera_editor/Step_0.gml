@@ -161,6 +161,8 @@ if obj_editor_gui.mode != 2 {
 	
 	#endregion
 } else {
+	#region
+	
 	// In play mode
 	
 	// Follow player
@@ -343,6 +345,8 @@ if obj_editor_gui.mode != 2 {
 			camera_set_view_pos(view_camera[0],( (x + panX) * (1 - anchorId.magnitude) ) + (anchorId.trgX * anchorId.magnitude) - camera_get_view_width(view_camera[0])/2, ( (y + panY) * (1 - anchorId.magnitude) ) + (anchorId.trgY * anchorId.magnitude) - placeZ - camera_get_view_height(view_camera[0])/2);
 		}
 	}
+	
+	#endregion
 }
 
 // Camera boundaries

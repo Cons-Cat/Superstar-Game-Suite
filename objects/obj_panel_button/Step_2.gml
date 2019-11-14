@@ -17,7 +17,7 @@ if select {
 						if !(mouse_x > obj_panel_right.x - 21 && mouse_x <= obj_panel_right.x + 1 && mouse_y >= obj_panel_right.y - 60 && mouse_y <= obj_panel_right.y + 60) && obj_panel_right.select = 0 {
 							if !(mouse_x > obj_panel_top.x - 60 && mouse_x < obj_panel_top.x + 60 && mouse_y >= obj_panel_top.y && mouse_y <= obj_panel_top.y + 21) && obj_panel_top.select = 0 {
 								if mouse_check_button_pressed(mb_left) {
-									instance_create_layer(floor(mouse_x / 20) * 20 * obj_editor_gui.realPortScaleHor + camera_get_view_x(obj_editor_gui.cameraRealGame), floor(mouse_y / 20) * 20 * obj_editor_gui.realPortScaleVer + camera_get_view_y(obj_editor_gui.cameraRealGame), "Instances",objIndex);
+									instance_create_layer( (obj_editor_gui.mouseCheckX div 20) * 20, (obj_editor_gui.mouseCheckY div 20) * 20, "Instances",objIndex);
 									obj_editor_gui.canChangeSelect = false;
 								}
 							}

@@ -4,7 +4,7 @@ event_inherited();
 relativeX = x - room_width;
 relativeMouseX2 = window_mouse_get_x();
 
-baseX = window_get_width() + room_width*2 - obj_panel_left.baseX;
+baseX = obj_editor_gui.calcWindowWidth + room_width*2 - obj_panel_left.baseX;
 
 y = 242/576 * view_hport[1];
 
@@ -198,17 +198,19 @@ if obj_editor_gui.sidePanelCtrl = 1 {
 }*/
 
 // Viewports
-camera_set_view_pos(obj_editor_gui.cameraRightPanel,room_width + view_wport[1] + 1,0);
-camera_set_view_size(view_camera[3], view_wport[1] - 16 - relativeX, scrollVerBotBound - scrollVerTopBound);
-
-view_set_wport(3,view_wport[1] - 16 - relativeX);
-if view_wport[3] < 0 {
-	view_set_wport(3,0);
+if updateView {
+	camera_set_view_pos(obj_editor_gui.cameraRightPanel,room_width + view_wport[1] + 1,0);
+	camera_set_view_size(view_camera[3], view_wport[1] - 16 - relativeX, scrollVerBotBound - scrollVerTopBound);
+	
+	view_set_wport(3,view_wport[1] - 16 - relativeX);
+	if view_wport[3] < 0 {
+		view_set_wport(3,0);
+	}
+	
+	view_set_hport(3,scrollVerBotBound - scrollVerTopBound);
+	view_set_xport(3,relativeX);
+	view_set_yport(3,scrollVerTopBound);
 }
-
-view_set_hport(3,scrollVerBotBound - scrollVerTopBound);
-view_set_xport(3,relativeX);
-view_set_yport(3,scrollVerTopBound);
 
 switch obj_editor_gui.mode {
 	// Collision mode

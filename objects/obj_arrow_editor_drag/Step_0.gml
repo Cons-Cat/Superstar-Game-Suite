@@ -27,16 +27,5 @@ if instance_exists(trg) {
 		
 		trg.x = self.x;
 		trg.y = self.y;
-		
-		// Update minimap
-		if trg.lastX != trg.x || trg.lastY != trg.y {
-			with trg {
-				scr_editor_map(lastX,lastY,lastX+width*20,lastY+(height+zfloor-zcieling)*20);
-				scr_editor_map(x,y,x+width*20,y+(height+zfloor-zcieling)*20);
-			}
-			
-			trg.lastX = x;
-			trg.lastY = y;
-		}
 	}
 }

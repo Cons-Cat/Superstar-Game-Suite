@@ -3,7 +3,7 @@ event_inherited();
 
 relativeX = x - room_width;
 relativeMouseX2 = window_mouse_get_x();
-baseX = round( (window_get_width() - (16 * 20 * obj_editor_gui.realPortScaleHor) ) / 2 ) + room_width;
+baseX = round( (obj_editor_gui.calcWindowWidth - (16 * 20 * obj_editor_gui.realPortScaleHor) ) / 2 ) + room_width;
 y = 242/576 * view_hport[1];
 
 if exitInterface {
@@ -176,18 +176,20 @@ if panelOffset < obj_panel_right.panelWidth {
 	panelOffset = obj_panel_right.panelWidth;
 }
 
-camera_set_view_pos(obj_editor_gui.cameraLeftPanel, camera_get_view_x(obj_editor_gui.cameraRightPanel) + longestPanelRightButton + panelOffset, 0);
-camera_set_view_size(view_camera[2], relativeX - 15, scrollVerBotBound - scrollVerTopBound - 10);
-
-view_set_wport(2, relativeX - 15);
-if view_wport[2] < 0 {
-	view_set_wport(2,0);
+if updateView {
+	camera_set_view_pos(obj_editor_gui.cameraLeftPanel, camera_get_view_x(obj_editor_gui.cameraRightPanel) + longestPanelRightButton + panelOffset, 0);
+	camera_set_view_size(view_camera[2], relativeX - 15, scrollVerBotBound - scrollVerTopBound - 10);
+	
+	view_set_wport(2, relativeX - 15);
+	if view_wport[2] < 0 {
+		view_set_wport(2,0);
+	}
+	
+	view_set_hport(2,scrollVerBotBound - scrollVerTopBound - 10)
+	view_set_yport(2,scrollVerTopBound);
+	
+	view_set_visible(2,self.visible);
 }
-
-view_set_hport(2,scrollVerBotBound - scrollVerTopBound - 10)
-view_set_yport(2,scrollVerTopBound);
-
-view_set_visible(2,true);
 
 /*switch obj_editor_gui.mode {
 	// Tiling mode
@@ -212,10 +214,6 @@ view_set_visible(2,true);
 		
 		break;
 }*/
-
-if !visible {
-	view_set_visible(2,false);
-}
 
 scrollHorRightBound = x - 1;
 scrollHorLeftBound = room_width + 16;

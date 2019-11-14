@@ -11,8 +11,13 @@ layerName[0,1] = "sublayer_0";
 surfaceResize = false;
 tileDefaultSpr = "spr_tls_rectangle_default";
 tileDrawSpr = asset_get_index(tileDefaultSpr)
-lastX = x;
-lastY = y;
+lastX = -1;
+lastY = -1;
+lastWidth = -1;
+lastCieling = -1;
+
+marbleSurface = surface_create(20,20);
+tileSurfaceDraw = surface_create(20,20);
 
 mirror = false;
 flip = false;

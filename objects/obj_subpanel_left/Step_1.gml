@@ -146,8 +146,8 @@ if anchored {
 		y = obj_panel_left.scrollHorBotBound + 22;
 	}
 	
-	if obj_panel_left.scrollVerBotBound > window_get_height() - 1 {
-		obj_panel_left.scrollVerBotBound = window_get_height() - 1;
+	if obj_panel_left.scrollVerBotBound > obj_editor_gui.calcWindowHeight - 1 {
+		obj_panel_left.scrollVerBotBound = obj_editor_gui.calcWindowHeight - 1;
 	}
 }
 
@@ -185,21 +185,23 @@ if !obj_panel_bot.select && !self.select {
 }
 
 // Viewports
-if visible && tempY = -1 {
-	view_set_visible(5,true);
-	view_set_yport(5,y + 5);
+if updateView {
+	if visible && tempY = -1 {
+		view_set_visible(5,true);
+		view_set_yport(5,y + 5);
+		
+		camera_set_view_pos(obj_editor_gui.cameraLeftSubPanel,longestPanelRightButton + room_width + view_wport[1] + 1 + view_wport[2] + view_wport[3],0);
+		camera_set_view_size(view_camera[5], obj_panel_left.x - 15 - room_width,scrollVerBotBound - y - 5);
 	
-	camera_set_view_pos(obj_editor_gui.cameraLeftSubPanel,longestPanelRightButton + room_width + view_wport[1] + 1 + view_wport[2] + view_wport[3],0);
-	camera_set_view_size(view_camera[5], obj_panel_left.x - 15 - room_width,scrollVerBotBound - y - 5);
+		view_set_wport(5,obj_panel_left.x - 15 - room_width);
 	
-	view_set_wport(5,obj_panel_left.x - 15 - room_width);
-	
-	if view_wport[5] < 0 {
-		view_set_wport(5,0);
+		if view_wport[5] < 0 {
+			view_set_wport(5,0);
+		}
+		
+		view_set_hport(5,scrollVerBotBound - y - 5);
+	} else {
+		// Save expense when not needed
+		view_set_visible(5,false);
 	}
-	
-	view_set_hport(5,scrollVerBotBound - y - 5);
-} else {
-	// Save expense when not needed
-	view_set_visible(5,false);
 }

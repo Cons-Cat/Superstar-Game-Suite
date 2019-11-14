@@ -27,6 +27,9 @@ view_set_yport(4,453);
 view_set_xport(5,15);
 view_set_yport(5,362);
 
+calcWindowWidth = window_get_width();
+calcWindowHeight = window_get_height();
+
 tempResWidth = 0;
 tempResHeight = 0;
 
@@ -45,12 +48,12 @@ sidePanelCtrl = -1;
 spawnedCollisions = false;
 rows = 0;
 
-materialsImported = 0;
+/*materialsImported = 0;
 sprMaterialDirectoryList[0] = "";
 sprMaterialDirectoryList[1] = "";
 materialDirectorySprite[0] = "";
 materialDirectorySprite[1] = "";
-hasMaterials = false;
+hasMaterials = false;*/
 
 selectInstance = -1;
 canChangeSelect = true;

@@ -1,5 +1,5 @@
 /// @description Insert description here
-baseY = ( 9 * 20 * obj_editor_gui.realPortScaleVer ) + ( 60 / 576 * window_get_height() );
+baseY = ( 9 * 20 * obj_editor_gui.realPortScaleVer ) + ( 60 / 576 * obj_editor_gui.calcWindowHeight );
 x = room_width + view_wport[1]/2;
 //relativeMouseX - room_width = window_mouse_get_x();
 relativeX = x - room_width;
@@ -759,15 +759,14 @@ if !isPlayingScene {
 	}
 }
 
-// Minimap surface
 /*if remakeMap {
-	mapSurface = surface_create(room_width,room_height);
+	surface_free(mapSurface);
+	mapSurface = surface_create(mapWidth,mapHeight);
 	updateMap = true;
-}
+}*/
 
-if updateMap {
+/*if updateMap {
 	updateMap = false;
-	// var trg;
 	
 	// Clear the surface
 	surface_set_target(mapSurface);
@@ -775,11 +774,11 @@ if updateMap {
 	surface_reset_target();
 	
 	for (var k = 0; k < instance_number(obj_editor_terrain_par); k +=1) {
-		var trg = instance_find(obj_editor_terrain_par,k);
+		var trgSurf = instance_find(obj_editor_terrain_par,k);
 		
-		if surface_exists( trg.tileSurfaceDraw ) {
+		if surface_exists( trgSurf.tileSurfaceDraw ) {
 			// Add collision tiles to the map
-			surface_copy( mapSurface, trg.x, trg.y, trg.tileSurfaceDraw );
+			surface_copy( mapSurface, trgSurf.x, trgSurf.y, trgSurf.tileSurfaceDraw );
 		} else {
 			// Skip a tick to make sure the surface exists before drawing to map
 			// I suspect that this may not be working
@@ -791,34 +790,128 @@ if updateMap {
 }*/
 
 // Views
-view_xport[4] = obj_panel_left.baseX - room_width + 1;
-view_yport[4] = y + 34;
-view_wport[4] = view_wport[1] - ( ( obj_panel_left.baseX - room_width ) * 2 );
-view_hport[4] = view_hport[1] - y - 37;
+if updateView {
+	view_xport[4] = obj_panel_left.baseX - room_width + 1;
+	view_yport[4] = y + 34;
+	view_wport[4] = view_wport[1] - ( ( obj_panel_left.baseX - room_width ) * 2 );
+	view_hport[4] = view_hport[1] - y - 37;
 
-view_xport[6] = 17;
-view_yport[6] = view_yport[4];
-view_wport[6] = obj_panel_left.baseX - room_width - 17;
-view_hport[6] = view_hport[4];
+	view_xport[6] = 17;
+	view_yport[6] = view_yport[4];
+	view_wport[6] = obj_panel_left.baseX - room_width - 17;
+	view_hport[6] = view_hport[4];
 
-camera_set_view_pos(obj_editor_gui.cameraBotPanel,camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) + view_wport[5] + ( ((scrollHorX - (obj_panel_left.baseX - room_width + 1) - room_width) / (scrollHorRightBound - scrollHorLeftBound)) * panelWidth + longestPanelRightButton),0);
-camera_set_view_size(obj_editor_gui.cameraBotPanel,view_wport[4],view_hport[4]);
+	camera_set_view_pos(obj_editor_gui.cameraBotPanel,camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) + view_wport[5] + ( ((scrollHorX - (obj_panel_left.baseX - room_width + 1) - room_width) / (scrollHorRightBound - scrollHorLeftBound)) * panelWidth + longestPanelRightButton),0);
+	camera_set_view_size(obj_editor_gui.cameraBotPanel,view_wport[4],view_hport[4]);
 
-camera_set_view_pos(obj_editor_gui.cameraBotPanelActors,camera_get_view_x(obj_editor_gui.cameraBotPanel) + view_wport[4],camera_get_view_y(obj_editor_gui.cameraBotPanel) );
-camera_set_view_size(obj_editor_gui.cameraBotPanelActors,view_wport[6],view_hport[6]);
+	camera_set_view_pos(obj_editor_gui.cameraBotPanelActors,camera_get_view_x(obj_editor_gui.cameraBotPanel) + view_wport[4],camera_get_view_y(obj_editor_gui.cameraBotPanel) );
+	camera_set_view_size(obj_editor_gui.cameraBotPanelActors,view_wport[6],view_hport[6]);
 
-if y >= view_hport[1] {
-	y = view_hport[1];
-	view_visible[4] = false;
-} else {
-	view_visible[4] = true;
+	if y >= view_hport[1] {
+		y = view_hport[1];
+		view_visible[4] = false;
+	} else {
+		view_visible[4] = true;
+	}
+
+	if !visible {
+		view_set_visible(4,false);
+	}
+
+	view_visible[6] = view_visible[4];
+	
+	// Minimap
+	
+	#region
+	
+	// Keep width proportional to the height, or vice versa, depending on which is larger
+	if room_width >= room_height {
+		mapRatio = room_height / room_width;
+		
+		mapWidth = (room_width + view_wport[1] - 37) - (obj_panel_right.baseX + 34);
+		mapHeight = mapWidth * mapRatio;
+	} else {
+		mapRatio = room_width / room_height;
+		
+		mapHeight = (view_hport[1] - 26) - (baseY + 5);
+		mapWidth = mapHeight * mapRatio;
+	}
+	
+	// Map size limits
+	if mapHeight > (view_hport[1] - 26) - (baseY + 5) {
+		mapHeight =  (view_hport[1] - 26) - (baseY + 5);
+		mapWidth = mapHeight * mapRatio;
+	}
+	
+	if mapWidth != tempMapWidth && mapHeight != tempMapHeight {
+		tempMapWidth = mapWidth;
+		tempMapHeight = mapHeight;
+		
+		if surface_exists(mapSurface) {
+			surface_resize(mapSurface,mapWidth,mapHeight);
+		}
+	}
+	
+	// Make map drag with the bottom panel
+	if y > baseY {
+		mapFoldOff = floor( (y - baseY) / 2 );
+	} else {
+		mapFoldOff = 0;
+	}
+	
+	mapCenterX = floor( room_width + (view_wport[1]) - (room_width + (view_wport[1]) - obj_panel_right.baseX) / 2 );
+	mapCenterY = floor( y + 5 + ( (view_hport[1] - 26) - (y + 5) ) / 2 ) + mapFoldOff;
+	
+	// 16:9 ratio cursor
+	mapCursorWidth = (320) * (mapWidth - 10) / ( (room_width) );
+	mapCursorHeight = mapCursorWidth * 9/16;
+	
+	// Conversion ratios: Room units to map units
+	mapCursorIncrementX = (mapWidth - 12) / ( (room_width - 320) / 20 ) - ( mapCursorWidth / ( (room_width - 320) / 20 ));
+	mapCursorIncrementY = (mapHeight - 12) / ( (room_height - 180) / 20 )  - ( mapCursorHeight /  ( (room_height - 180) / 20 ));
+	
+	// Click on the map
+	if mouse_check_button_pressed(mb_left) {
+		if relativeMouseX >= mapCenterX - floor((mapWidth-10)/2) && relativeMouseX <= mapCenterX + floor((mapWidth-10)/2) {
+			if relativeMouseY >= mapCenterY - floor((mapHeight-10)/2) && relativeMouseY <= mapCenterY + floor((mapHeight-10)/2) {
+				mapSelect = true;
+			}
+		}
+	}
+	
+	// Release map
+	if !mouse_check_button(mb_left) {
+		mapSelect = false;
+	}
+	
+	if mapSelect {
+		obj_camera_editor.gridAtX = round( ( (relativeMouseX - (mapCenterX - floor((mapWidth-10)/2)) ) * room_width/mapWidth ) / 20 )
+		obj_camera_editor.gridAtY = round( ( (relativeMouseY - (mapCenterY - floor((mapHeight-10)/2)) ) * room_height/mapHeight ) / 20 )
+		
+		// Limits
+		if obj_camera_editor.gridAtX > room_width div 20 - 16 {
+			obj_camera_editor.gridAtX = room_width div 20 - 16;
+		}
+		if obj_camera_editor.gridAtX < 0 {
+			obj_camera_editor.gridAtX = 0;
+		}
+		if obj_camera_editor.gridAtY > room_height div 20 - 9 {
+			obj_camera_editor.gridAtY = room_height div 20 - 9;
+		}
+		if obj_camera_editor.gridAtY < 0 {
+			obj_camera_editor.gridAtY = 0;
+		}
+		
+		obj_camera_editor.curAtX = obj_camera_editor.gridAtX;
+		obj_camera_editor.curAtY = obj_camera_editor.gridAtY;
+	}
+	
+	// Increment the cursor
+	mapCursorX = obj_camera_editor.gridAtX * mapCursorIncrementX;
+	mapCursorY = obj_camera_editor.gridAtY * mapCursorIncrementY;
+	
+	#endregion
 }
-
-if !visible {
-	view_set_visible(4,false);
-}
-
-view_visible[6] = view_visible[4];
 
 // Scroll bars
 scrollHorLeftBound = obj_panel_left.baseX;

@@ -1,7 +1,31 @@
 /// @description Depth and Baking
-depth = obj_editor_gui.depth -(y + zfloor*20 + 20) - zfloor - depthOffset;
+// Position has changed
+if lastX != x || lastY != y || lastWidth != width || lastCieling != zcieling {
+	// Update depth
+	depth = obj_editor_gui.depth -(y + zfloor*20 + 20) - zfloor - depthOffset;
+	
+	// Update minimap
+	scr_editor_map(lastX-20,lastY-20,lastX-20+(lastWidth+2)*20,lastY-20+(height+zfloor-lastCieling+1)*20,self.id);
+	scr_editor_map(x-20,y-20,x-20+(width+2)*20,y-20+(height+zfloor-zcieling+1)*20,-1);
+	
+	lastX = x;
+	lastY = y;
+	lastWidth = width;
+	lastCieling = zcieling;
+}
 
 if placed = 1 {
+	if !surface_exists(tileSurfaceDraw) {
+		calculateSub = true;
+		tileSurfaceDraw = surface_create(20,20);
+	}
+	
+	if !surface_exists(marbleSurface) {
+		calculateSub = true;
+		surfaceResize = true;
+		marbleSurface = surface_create(20,20);
+	}
+	
 	// Resizing the game window
 	if surfaceResize {
 		#region
@@ -26,23 +50,12 @@ if placed = 1 {
 		tileSurfaceDraw = surface_create((width + 2) * 20,(height + zfloor - zcieling + 1) * 20);
 		
 		if zfloor - zcieling > 0 {
-			marbleSurfaceSide = surface_create(width * 20,(height + zfloor - zcieling) * 20);
+			marbleSurface = surface_create(width * 20,(height + zfloor - zcieling) * 20);
 		} else {
-			marbleSurfaceSide = surface_create(width * 20,20);
+			marbleSurface = surface_create(width * 20,20);
 		}
 		
 		#endregion
-	}
-	
-	if !surface_exists(tileSurfaceDraw) {
-		calculateSub = true;
-		tileSurfaceDraw = surface_create(20,20);
-	}
-	
-	if !surface_exists(marbleSurfaceSide) {
-		bakeMarble = true;
-		calculateSub = true;
-		marbleSurfaceSide = surface_create(20,20);
 	}
 	
 	// Generate marble streaks
@@ -426,13 +439,13 @@ if placed = 1 {
 		bakeMarble = false;
 		calculateSub = true;
 		
-		if surface_exists(marbleSurfaceSide) {
-			surface_resize(marbleSurfaceSide,width*20,(height + zfloor - zcieling)*20);
+		if surface_exists(marbleSurface) {
+			surface_resize(marbleSurface,width*20,(height + zfloor - zcieling)*20);
 		} else {
-			marbleSurfaceSide = surface_create(width*20,(height + zfloor - zcieling)*20);
+			marbleSurface = surface_create(width*20,(height + zfloor - zcieling)*20);
 		}
 		
-		surface_set_target(marbleSurfaceSide);
+		surface_set_target(marbleSurface);
 		draw_clear_alpha(c_white,0);
 		
 		for (i = 0; i < width * 20; i += 1) {
@@ -503,7 +516,7 @@ if placed = 1 {
 				if layerType[k] = 1 { // Marble layer
 					#region
 					
-					draw_surface(marbleSurfaceSide,20,20);
+					draw_surface(marbleSurface,20,20);
 					
 					for (i = 1; i < width + 1; i += 1) {
 						for (j = 1; j < height + zfloor - zcieling + 1; j += 1) {
@@ -515,7 +528,7 @@ if placed = 1 {
 										if surface_exists(marbleSurface) {
 											surface_set_target(marbleSurface);
 											draw_clear_alpha(c_white,0);
-											draw_surface_part(other.marbleSurfaceSide,(i-1)*20,(j-1)*20,20,20,0,0);
+											draw_surface_part(other.marbleSurface,(i-1)*20,(j-1)*20,20,20,0,0);
 											surface_reset_target();
 										}
 									}

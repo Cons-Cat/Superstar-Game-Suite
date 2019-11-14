@@ -7,6 +7,8 @@ if obj_editor_gui.mode = 0 || obj_editor_gui.mode = 1 || obj_editor_gui.mode = 3
 
 // Merge like instances
 if canMerge {
+	#region
+	
 	if collision_point(bbox_right+10,y+10,obj_editor_terrain,false,true) { // Merge rightward
 		for (i = 0; i < instance_number(obj_editor_terrain); i += 1) {
 			tempInst = instance_find(obj_editor_terrain,i);
@@ -43,6 +45,8 @@ if canMerge {
 	}
 	
 	canMerge = false;
+	
+	#endregion
 }
 
 // Dimensional manipulation
@@ -256,6 +260,6 @@ if resetArray && obj_editor_gui.mode != 3 {
 	
 	// Update the minimap
 	with obj_panel_bot {
-		//scr_editor_map(other.x, other.y, other.x + other.width * 20, other.y + (other.zfloor - other.zcieling + other.height) * 20);
+		//scr_editor_map(other.x-20, other.y-20, other.x + other.width * 20 + 20, other.y + (other.zfloor - other.zcieling + other.height) * 20 + 20);
 	}
 }

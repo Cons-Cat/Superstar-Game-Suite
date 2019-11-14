@@ -142,7 +142,6 @@ if !activeInScene {
 		}
 		
 		obj_panel_bot.currentAction[rowOn] = sceneStep;
-		//show_debug_message("rowOn: " + string(rowOn) + ", state: " + string(obj_panel_bot.currentAction[rowOn]));
 		
 		if spd = 0 || point_distance(tempX,tempY,xNode[sceneStep],yNode[sceneStep]) <= 10 {
 			dir = -1;

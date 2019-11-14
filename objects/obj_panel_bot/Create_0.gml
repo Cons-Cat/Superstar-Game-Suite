@@ -71,12 +71,19 @@ actionColInd[3] = make_color_rgb(65,160,160); // Cyan
 actionColInd[5] = make_color_rgb(163,178,0); // Light green
 actionColInd[6] = make_color_rgb(194,94,152); // Cute magenta
 
+mapBackCol = make_color_rgb(54,70,128);
+
 mapCenterX = 0;
 mapCenterY = 0;
-mapYOff = 0;
+mapWidth = 20;
+mapHeight = 20;
+tempMapWidth = mapWidth;
+tempMapHeight = mapHeight;
+mapFoldOff = 0;
 remakeMap = false;
 updateMap = true;
-mapSurface = surface_create(room_width,room_height);
+mapSurface = surface_create(mapWidth,mapHeight);
+mapSelect = false;
 
 depth = obj_editor_gui.depth - 4;
 image_angle = 90;
