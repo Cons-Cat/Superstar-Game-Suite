@@ -1,5 +1,5 @@
 /// @description Insert description here
-//if y < obj_editor_gui.calcWindowHeight {
+if y < obj_editor_gui.calcWindowHeight {
 
 draw_sprite_tiled_area(spr_editor_gui_streaks,0,0,0,obj_panel_left.baseX + 1,y,obj_panel_right.baseX - 1,view_get_hport(1));
 
@@ -222,6 +222,6 @@ draw_sprite_ext(spr_minimap_corner,1,mapCenterX + floor(mapWidth/2) - 8,mapCente
 // Draw scrollbars and slider
 event_inherited();
 
-//}
+}
 
 draw_sprite_ext(sprite_index,image_index,x,y+1,image_xscale,image_yscale,image_angle,c_white,1);

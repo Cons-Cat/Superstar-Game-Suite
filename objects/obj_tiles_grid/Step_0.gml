@@ -14,15 +14,19 @@ if tileLayerSelect != -1 {
 			if mouse_check_button(mb_left) {
 				for (a = 0; a < obj_tiles_sheet.selectWidthOffset/20; a += 1) {
 					for (b = 0; b < obj_tiles_sheet.selectHeightOffset/20; b += 1) {
-						with collision_point(x+a+a*20, y+b+b*20,obj_tiles_grid,false,false) {
-							xVal[tileLayerSelect] = obj_tiles_sheet.xVal[other.a,other.b];
-							yVal[tileLayerSelect] = obj_tiles_sheet.yVal[other.a,other.b];
-							hasTile[tileLayerSelect] = true;
-							passIn = true;
-						}
-						
-						if tileLayerSelect % 2 = 1 { // If a sub-layer is selected
-							calculateSub = true;
+						with obj_tiles_grid {
+							if i = other.i + other.a {
+								if j = other.j + other.b {
+									xVal[tileLayerSelect] = obj_tiles_sheet.xVal[other.a,other.b];
+									yVal[tileLayerSelect] = obj_tiles_sheet.yVal[other.a,other.b];
+									hasTile[tileLayerSelect] = true;
+									passIn = true;
+									
+									if tileLayerSelect % 2 = 1 { // If a sub-layer is selected
+										calculateSub = true;
+									}
+								}
+							}
 						}
 					}
 				}

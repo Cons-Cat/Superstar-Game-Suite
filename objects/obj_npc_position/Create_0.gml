@@ -56,11 +56,8 @@ trg = instance_create_layer(x+10,y+10,"Instances",obj_npc_level);
 trg.trg = self.id;
 
 actorTxt = instId1[0];
-show_debug_message(actorTxt);
 
 if instance_exists(obj_trigger_cutscene_region_editor) {
 	obj_trigger_cutscene_region_editor.actorId[instance_number(obj_npc_position)] = self.id;
 	obj_trigger_cutscene_region_editor.actorTxt[instance_number(obj_npc_position)] = actorTxt;
 }
-
-show_debug_message(actorTxt);

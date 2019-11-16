@@ -6,6 +6,9 @@ relativeX = x - room_width;
 
 canSelect = false;
 
+// Panel dragging behavior
+#region
+
 if relativeMouseX - room_width <= relativeX + 60 && relativeMouseX - room_width >= relativeX - 60 {
 	if relativeMouseY >= y - 21 && relativeMouseY <= y {
 		canSelect = true;
@@ -66,6 +69,8 @@ if select {
 	
 	// Preventing displacement of the subpanel
 	if !obj_subpanel_left.anchored {
+		#region
+		
 		if y < obj_subpanel_left.y {
 			obj_subpanel_left.y = self.y;
 		} else {
@@ -85,6 +90,8 @@ if select {
 		}
 	} else {
 		obj_subpanel_left.y = self.y + 5;
+		
+		#endregion
 	}
 } else {
 	// Double clicking
@@ -152,6 +159,8 @@ if y = view_hport[1] {
 	onBase = 2;
 }
 
+#endregion
+
 // Timeline view
 if obj_editor_gui.mode = 4 {
 	view_visible[4] = false;
@@ -168,148 +177,146 @@ if instance_number(obj_npc_level) + 1 != rows {
 if addClick != -1 {
 	#region
 	
-	if hasRowSelected {
-		totalActions += 1;
-		actionSelect[totalActions] = false;
-		actionDelete[totalActions] = false;
+	totalActions += 1;
+	actionSelect[totalActions] = false;
+	actionDelete[totalActions] = false;
+	
+	for (i = 0; i < rows; i += 1) {
+		if selectRow[i] {
+			actionTime[totalActions] = rowLength[i]; // Number of 1/10'th seconds on timeline
+			actionRowInd[totalActions] = i; // Which row it's placed on
+			
+			break;
+		}
 		
-		for (i = 0; i < rows; i += 1) {
-			if selectRow[i] {
-				actionTime[totalActions] = rowLength[i]; // Number of 1/10'th seconds on timeline
-				actionRowInd[totalActions] = i; // Which row it's placed on
+		if i = rows - 1 {
+			// Cancel button input if no row is selected
+			totalActions -= 1;
+		}
+	}
+	
+	if addClick = 0 {
+		actionInd[totalActions] = 0; // Walk action
+		
+		if !instance_exists(obj_cutscene_walk_target) {
+			with instance_create_layer(0,0,"Instances",obj_cutscene_walk_target) {
+				timeIndex = other.totalActions;
+				rowIndex = other.i;
+				canPlace = true;
 				
-				break;
-			}
-			
-			if i = rows - 1 {
-				// Cancel button input if no row is selected
-				totalActions -= 1;
-			}
-		}
-		
-		if addClick = 0 {
-			actionInd[totalActions] = 0; // Walk action
-			
-			if !instance_exists(obj_cutscene_walk_target) {
-				with instance_create_layer(0,0,"Instances",obj_cutscene_walk_target) {
-					timeIndex = other.totalActions;
-					rowIndex = other.i;
-					canPlace = true;
-					
-					// Fix continuous placements
-					if mouse_check_button(mb_left) {
-						canRelease = false;
-					} else {
-						canRelease = true;
-					}
-					
-					with other.actorId[other.i] {
-						other.zfloor = self.zfloor;
-						other.originX[0] = self.x + 10;
-						other.originY[0] = self.y + 10 + zfloor * 20;
-					}
+				// Fix continuous placements
+				if mouse_check_button(mb_left) {
+					canRelease = false;
+				} else {
+					canRelease = true;
+				}
+				
+				with other.actorId[other.i] {
+					other.zfloor = self.zfloor;
+					other.originX[0] = self.x + 10;
+					other.originY[0] = self.y + 10 + zfloor * 20;
 				}
 			}
 		}
+	}
+	
+	if addClick = 1 {
+		actionInd[totalActions] = 1; // Rotate action
 		
-		if addClick = 1 {
-			actionInd[totalActions] = 1; // Rotate action
-			
-			if !instance_exists(obj_cutscene_rotate_target) {
-				with instance_create_layer(0,0,"Instances",obj_cutscene_rotate_target) {
-					timeIndex = other.totalActions;
-					rowIndex = other.i;
-					canPlace = true;
-					placed = false;
-					calcAngleVals = true;
-					angle = 0;
-					run = 0;
-					rise = 0;
-					mirror = 0;
-					flip = 0;
-					
-					// Fix continuous placements
-					if mouse_check_button(mb_left) {
-						canRelease = false;
-					} else {
-						canRelease = true;
-					}
-					
-					with other.actorId[other.i] {
-						other.zfloor = self.zfloor;
-						other.originX[0] = self.x + 10;
-						other.originY[0] = self.y + 10;
-					}
+		if !instance_exists(obj_cutscene_rotate_target) {
+			with instance_create_layer(0,0,"Instances",obj_cutscene_rotate_target) {
+				timeIndex = other.totalActions;
+				rowIndex = other.i;
+				canPlace = true;
+				placed = false;
+				calcAngleVals = true;
+				angle = 0;
+				run = 0;
+				rise = 0;
+				mirror = 0;
+				flip = 0;
+				
+				// Fix continuous placements
+				if mouse_check_button(mb_left) {
+					canRelease = false;
+				} else {
+					canRelease = true;
+				}
+				
+				with other.actorId[other.i] {
+					other.zfloor = self.zfloor;
+					other.originX[0] = self.x + 10;
+					other.originY[0] = self.y + 10;
 				}
 			}
 		}
+	}
+	
+	if addClick = 2 {
+		actionInd[totalActions] = 2; // Dialogue action
 		
-		if addClick = 2 {
-			actionInd[totalActions] = 2; // Dialogue action
-			
-			if !instance_exists(obj_cutscene_dialogue) {
-				with instance_create_layer(actorId[i].x+28,actorId[i].y-42,"Instances",obj_cutscene_dialogue) {
-					timeIndex = other.totalActions;
-					rowIndex = other.i;
-					trg = other.actorId[other.i];
-					
-					placeX = xstart;
-					placeY = ystart;
-					
-					bubbleCount = 0; // 0 is a single bubble
-					bubbleX[bubbleCount] = 0;
-					bubbleY[bubbleCount] = 0;
-					lineCount[bubbleCount] = 0; // 0 is a single line
-					lineStr[bubbleCount,0] = "";
-					longestLine[bubbleCount] = 0;
-					hasText[bubbleCount] = false;
-				}
+		if !instance_exists(obj_cutscene_dialogue) {
+			with instance_create_layer(actorId[i].x+28,actorId[i].y-42,"Instances",obj_cutscene_dialogue) {
+				timeIndex = other.totalActions;
+				rowIndex = other.i;
+				trg = other.actorId[other.i];
+				
+				placeX = xstart;
+				placeY = ystart;
+				
+				bubbleCount = 0; // 0 is a single bubble
+				bubbleX[bubbleCount] = 0;
+				bubbleY[bubbleCount] = 0;
+				lineCount[bubbleCount] = 0; // 0 is a single line
+				lineStr[bubbleCount,0] = "";
+				longestLine[bubbleCount] = 0;
+				hasText[bubbleCount] = false;
 			}
 		}
+	}
+	
+	if addClick = 3 {
+		actionInd[totalActions] = 3; // Camera pan action
 		
-		if addClick = 3 {
-			actionInd[totalActions] = 3; // Camera pan action
-			
-			if !instance_exists(obj_cutscene_pan) {
-				with instance_create_layer(cutsceneInstanceId.x+10,cutsceneInstanceId.y+10,"Instances",obj_cutscene_pan) {
-					timeIndex = other.totalActions;
-					trg = other.cutsceneInstanceId;
-					zoomVal = "100";
-				}
+		if !instance_exists(obj_cutscene_pan) {
+			with instance_create_layer(cutsceneInstanceId.x+10,cutsceneInstanceId.y+10,"Instances",obj_cutscene_pan) {
+				timeIndex = other.totalActions;
+				trg = other.cutsceneInstanceId;
+				zoomVal = "100";
 			}
 		}
+	}
+	
+	if addClick = 5 {
+		actionInd[totalActions] = 5; // Walk speed action
 		
-		if addClick = 5 {
-			actionInd[totalActions] = 5; // Walk speed action
-			
-			if !instance_exists(obj_cutscene_speed) {
-				with instance_create_layer(actorId[i].x+10,actorId[i].y-35,"Instances",obj_cutscene_speed) {
-					timeIndex = other.totalActions;
-					rowIndex = other.i;
-					canPlace = true;
-					
-					trg = other.cutsceneInstanceId;
-					zfloor = trg.zfloor;
-					
-					slowSpd = true; // Default to slow speed
-				}
+		if !instance_exists(obj_cutscene_speed) {
+			with instance_create_layer(actorId[i].x+10,actorId[i].y-35,"Instances",obj_cutscene_speed) {
+				timeIndex = other.totalActions;
+				rowIndex = other.i;
+				canPlace = true;
+				
+				trg = other.cutsceneInstanceId;
+				zfloor = trg.zfloor;
+				
+				slowSpd = true; // Default to slow speed
 			}
 		}
+	}
+	
+	if addClick = 6 {
+		actionInd[totalActions] = 6; // Arbitrary action
 		
-		if addClick = 6 {
-			actionInd[totalActions] = 6; // Arbitrary action
-			
-			if !instance_exists(obj_cutscene_arbitrary) {
-				with instance_create_layer(actorId[i].x+10,actorId[i].y-35,"Instances",obj_cutscene_arbitrary) {
-					timeIndex = other.totalActions;
-					rowIndex = other.i;
-					
-					trg = other.cutsceneInstanceId;
-					zfloor = trg.zfloor;
-					
-					arbitraryInd = 0;
-					selected = false;
-				}
+		if !instance_exists(obj_cutscene_arbitrary) {
+			with instance_create_layer(actorId[i].x+10,actorId[i].y-35,"Instances",obj_cutscene_arbitrary) {
+				timeIndex = other.totalActions;
+				rowIndex = other.i;
+				
+				trg = other.cutsceneInstanceId;
+				zfloor = trg.zfloor;
+				
+				arbitraryInd = 0;
+				selected = false;
 			}
 		}
 	}
@@ -320,6 +327,8 @@ if addClick != -1 {
 }
 
 // Selecting / De-selecting rows
+hasRowSelected = false;
+
 for (i = 0; i < rows; i += 1) {
 	#region
 	
@@ -337,13 +346,40 @@ for (i = 0; i < rows; i += 1) {
 		actorTxt[i] = actorId[i].actorTxt;
 	}
 	
-	// De-select row
+	canSelectRow[i] = false;
+	
+	// Hover over row
+	if relativeMouseX - room_width >= 21 && relativeMouseX <= obj_panel_left.baseX - 1 {
+		if relativeMouseY >= y+35 + i*14 - rowsDrawY && relativeMouseY <= y+46 + i*14 - rowsDrawY {
+			#region
+			
+			canSelectRow[i] = true;
+			
+			if mouse_check_button_pressed(mb_left) {
+				if !selectRow[i] {
+					// Select row
+					changeRowSelectTo = i;
+				} else {
+					// De-select row
+					selectRow[i] = false;
+					actorId[i].orangeAnyways = false;
+				}
+			}
+			
+			#endregion
+		}
+	}
+	
+	// De-select all other rows
 	if mouse_check_button_pressed(mb_left) {
-		if relativeMouseX > obj_panel_left.x && relativeMouseY < obj_panel_bot.y {
+		#region
+		
+		if (relativeMouseX > obj_panel_left.x && relativeMouseY < obj_panel_bot.y) ||
+		(relativeMouseX <= obj_panel_left.x && relativeMouseY >= obj_panel_bot.y)
+		{
 			if !instance_exists(obj_cutscene_target_parent) {
 				if !canSelectRow[i] {
 					selectRow[i] = false;
-					hasRowSelected = false;
 					actorId[i].orangeAnyways = false;
 					
 					if relativeMouseX - room_width <= 189 && relativeMouseY >= y+5 {
@@ -356,28 +392,38 @@ for (i = 0; i < rows; i += 1) {
 				}
 			}
 		}
+		
+		#endregion
 	}
 	
-	canSelectRow[i] = false;
-	
-	// Hover over row
-	if relativeMouseX - room_width >= 21 && relativeMouseX <= obj_panel_left.baseX - 1 {
-		if relativeMouseY >= y+35 + i*14 - rowsDrawY && relativeMouseY <= y+46 + i*14 - rowsDrawY {
-			canSelectRow[i] = true;
+	// Select row once 
+	if changeRowSelectTo = i {
+		#region
+		
+		if !instance_exists(obj_cutscene_target_parent) {
+			changeRowSelectTo = -1; // Out of the for loop's domain
 			
-			// Select row
-			if mouse_check_button_pressed(mb_left) {
-				selectRow[i] = !selectRow[i];
-				actorId[i].orangeAnyways = true;
-				hasRowSelected = true;
+			// Select previously selected row
+			for (j = 0; j < rows; j += 1) {
+				selectRow[j] = false;
+			}
+			
+			selectRow[i] = true;
+			actorId[i].orangeAnyways = true;
 				
-				if cutsceneInstanceId = -1 {
-					if actorId[i].select {
-						actorId[i].spawnButtons = true;
-					}
+			if cutsceneInstanceId = -1 {
+				if actorId[i].select {
+					actorId[i].spawnButtons = true;
 				}
 			}
 		}
+		
+		#endregion
+	}
+	
+	// hasRowSelected
+	if selectRow[i] {
+		hasRowSelected = true;
 	}
 	
 	#endregion
@@ -440,6 +486,11 @@ if obj_editor_gui.mode = 4 {
 										
 										actionSelect[i] = true;
 										actorId[j].orangeAnyways = true;
+										
+										for ( var jj = 0; jj < rows; jj += 1) {
+											selectRow[jj] = false;
+										}
+										
 										selectRow[j] = true;
 										
 										actionDoubleClick += 1;

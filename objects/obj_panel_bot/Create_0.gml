@@ -45,6 +45,7 @@ selectRow[0] = false;
 cutsceneInstanceId = -1;
 rowLength[0] = 0;
 hasRowSelected = false;
+changeRowSelectTo = -1;
 
 totalActions = 0;
 actionInd[0] = -1; // Null action

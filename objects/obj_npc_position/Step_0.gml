@@ -102,6 +102,7 @@ if instance_exists(trgFinal) {
 
 zcieling = zfloor;
 
+// Overwrite inherited layerColor behavior
 if orangeAnyways {
 	layerColor = c_orange;
 }
