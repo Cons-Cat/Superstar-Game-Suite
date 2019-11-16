@@ -208,10 +208,6 @@ if updateView {
 	default:
 		view_set_visible(2,false);
 		
-		with obj_tiles_grid {
-			instance_destroy();
-		}
-		
 		break;
 }*/
 

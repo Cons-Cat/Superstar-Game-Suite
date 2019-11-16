@@ -37,6 +37,7 @@ scrollPanelVerDefined = false;
 scrollHorWidth = panelWidth;
 scrollVerHeight = panelHeight;
 tilesSheetPlacement = 1024;
+panelOffset = 0; // Displacement from scrolling tile sheet
 
 scrollHorLeftBound = x;
 scrollHorRightBound = 1007;

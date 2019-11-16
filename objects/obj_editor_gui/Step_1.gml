@@ -20,9 +20,6 @@ if window_has_focus() {
 			surfaceResize = true;
 			calculateSub = true;
 		}
-		with obj_panel_bot {
-			remakeMap = true;
-		}
 		with obj_cutscene_dialogue {
 			remakeSurface = true;
 		}

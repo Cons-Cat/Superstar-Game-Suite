@@ -199,7 +199,7 @@ if obj_editor_gui.sidePanelCtrl = 1 {
 
 // Viewports
 if updateView {
-	camera_set_view_pos(obj_editor_gui.cameraRightPanel,room_width + view_wport[1] + 1,0);
+	camera_set_view_pos(obj_editor_gui.cameraRightPanel,room_width + view_wport[1] + 1 + panelOffset,0);
 	camera_set_view_size(view_camera[3], view_wport[1] - 16 - relativeX, scrollVerBotBound - scrollVerTopBound);
 	
 	view_set_wport(3,view_wport[1] - 16 - relativeX);
@@ -263,7 +263,6 @@ switch obj_editor_gui.mode {
 if !visible {
 	view_set_visible(3,false);
 }
-
 
 // Scrollbars
 scrollHorLeftBound = x;

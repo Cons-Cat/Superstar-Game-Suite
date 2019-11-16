@@ -1,8 +1,12 @@
 /// @description 
-x = camera_get_view_x(obj_editor_gui.cameraLeftPanel) + 2 + i*21;
-y = 1 + j*21;
-
 calculateSub = false;
+
+// Scrolling
+xOff = camera_get_view_x(obj_editor_gui.cameraLeftPanel) - (obj_panel_left.panelWidth - (obj_panel_left.scrollHorRightBound - obj_panel_left.scrollHorLeftBound)) * obj_panel_left.scrollHorPartition / 100;
+yOff = camera_get_view_y(obj_editor_gui.cameraLeftPanel) - (obj_panel_left.panelHeight - (obj_panel_left.scrollVerBotBound - obj_panel_left.scrollVerTopBound)) * obj_panel_left.scrollVerPartition / 100;
+
+x = xOff /*+ camera_get_view_x(obj_editor_gui.cameraLeftPanel)*/ + 2 + i*21;
+y = yOff + 1 + j*21;
 
 if tileLayerSelect != -1 {
 	if mouse_x >= self.x && mouse_x < self.x+20 {
@@ -19,16 +23,6 @@ if tileLayerSelect != -1 {
 						
 						if tileLayerSelect % 2 = 1 { // If a sub-layer is selected
 							calculateSub = true;
-							
-							if surfaceSubtract[(tileLayerSelect div 2)*2] != -1 {
-								// Clear the surface layer
-								surface_set_target(surfaceSubtract[(tileLayerSelect div 2)*2]);
-								draw_clear_alpha(c_white,0);
-								surface_reset_target();
-							} else {
-								// Create surface
-								surfaceSubtract[(tileLayerSelect div 2)*2] = surface_create(20,20);
-							}
 						}
 					}
 				}

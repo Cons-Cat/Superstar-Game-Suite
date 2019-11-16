@@ -257,9 +257,4 @@ if resetArray && obj_editor_gui.mode != 3 {
 	}
 	
 	#endregion
-	
-	// Update the minimap
-	with obj_panel_bot {
-		//scr_editor_map(other.x-20, other.y-20, other.x + other.width * 20 + 20, other.y + (other.zfloor - other.zcieling + other.height) * 20 + 20);
-	}
 }

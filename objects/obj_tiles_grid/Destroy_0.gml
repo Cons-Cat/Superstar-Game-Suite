@@ -6,8 +6,5 @@ if surface_exists(marbleSurface) {
 	surface_free(marbleSurface);
 }
 
-for (k = 0; k <= tileLayerCount; k += 2) { // Iterate through absolute
-	if surface_exists(surfaceSubtract[k]) {
-		surface_free(surfaceSubtract[k]);
-	}
-}
+// Reset panel left width
+obj_panel_left.panelWidth = 0;

@@ -185,12 +185,19 @@ if !obj_panel_bot.select && !self.select {
 }
 
 // Viewports
+panelOffset = camera_get_view_width(obj_editor_gui.cameraLeftPanel);
+
+// Prevent left panel buttons from ever clipping into the sub-left panel
+if panelOffset < obj_panel_left.panelWidth {
+	panelOffset = obj_panel_left.panelWidth;
+}
+
 if updateView {
 	if visible && tempY = -1 {
 		view_set_visible(5,true);
 		view_set_yport(5,y + 5);
 		
-		camera_set_view_pos(obj_editor_gui.cameraLeftSubPanel,longestPanelRightButton + room_width + view_wport[1] + 1 + view_wport[2] + view_wport[3],0);
+		camera_set_view_pos(obj_editor_gui.cameraLeftSubPanel,camera_get_view_x(obj_editor_gui.cameraLeftPanel) + panelOffset + 1,0);
 		camera_set_view_size(view_camera[5], obj_panel_left.x - 15 - room_width,scrollVerBotBound - y - 5);
 	
 		view_set_wport(5,obj_panel_left.x - 15 - room_width);

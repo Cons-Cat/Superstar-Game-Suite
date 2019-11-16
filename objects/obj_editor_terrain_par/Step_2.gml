@@ -1,6 +1,9 @@
 /// @description Depth and Baking
+
 // Position has changed
 if lastX != x || lastY != y || lastWidth != width || lastCieling != zcieling {
+	#region
+	
 	// Update depth
 	depth = obj_editor_gui.depth -(y + zfloor*20 + 20) - zfloor - depthOffset;
 	
@@ -12,11 +15,14 @@ if lastX != x || lastY != y || lastWidth != width || lastCieling != zcieling {
 	lastY = y;
 	lastWidth = width;
 	lastCieling = zcieling;
+	
+	#endregion
 }
 
 if placed = 1 {
 	if !surface_exists(tileSurfaceDraw) {
 		calculateSub = true;
+		surfaceResize = true;
 		tileSurfaceDraw = surface_create(20,20);
 	}
 	
@@ -554,6 +560,9 @@ if placed = 1 {
 		
 		surface_reset_target();
 		surface_free(tileSurfaceCalc);
+		
+		// Update minimap
+		scr_editor_map(x-20,y-20,x-20+(width+2)*20,y-20+(height+zfloor-zcieling+1)*20,-1);
 		
 		#endregion
 	}

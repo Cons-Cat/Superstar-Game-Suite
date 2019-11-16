@@ -1,4 +1,6 @@
 /// @description 
+
+// Draw sheet
 draw_sprite(tileDefaultSpr,0,xOff,yOff);
 
 // Select box horizontal edges

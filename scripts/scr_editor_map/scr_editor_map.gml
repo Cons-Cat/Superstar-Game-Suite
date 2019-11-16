@@ -56,7 +56,7 @@ for (var k = 0; k < instance_number(obj_editor_terrain_par); k += 1) {
 // Iterate through each tile in the domain
 for (var i = 0; i <= (x2-x1) div 20; i += 1) {
 	for (var j = 0; j <= (y2-y1) div 20; j += 1) {
-		// Initialize values for depth sorting each tile
+		// Initialize values for depth sorting by each i,j pair
 		depthsCounted = 0;
 		
 		for (k = 0; k < instCountSize; k += 1) {
@@ -71,7 +71,7 @@ for (var i = 0; i <= (x2-x1) div 20; i += 1) {
 			for (k = 0; k < instCountSize; k += 1) {
 				// If this instCountId has not been sorted yet
 				if !instCounted[k] {
-					// If instCountId[k] has the largest depth in this pass
+					// If instCountId[k] has the largest depth in this pass of the loop
 					if instCountId[k].depth >= tempDepth || tempDepth = 1 {
 						instSortedId[depthsCounted] = instCountId[k];
 						
@@ -81,6 +81,7 @@ for (var i = 0; i <= (x2-x1) div 20; i += 1) {
 				}
 			}
 			
+			// Count this instance for being depth sorted
 			instCounted[tempInstInd] = true;
 			depthsCounted += 1;
 		}

@@ -75,11 +75,6 @@ if mouse_check_button_pressed(mb_left) {
 		obj_tiles_grid.layerVisible[tileLayerCount] = true;
 		obj_tiles_grid.layerVisibleAbsolute[tileLayerCount] = true;
 		
-		//obj_tiles_grid.layerTypeAbsolute[tileLayerCount] = self.layerType[tileLayerCount];
-		//show_message(obj_tiles_grid.layerTypeAbsolute[tileLayerCount]);
-		
-		obj_tiles_grid.surfaceSubtract[tileLayerCount] = -1;
-		
 		for (k = 0; k <= tileLayerCount; k += 1) {
 			// De-select all layers
 			select[k] = false;

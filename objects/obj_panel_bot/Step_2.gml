@@ -759,65 +759,35 @@ if !isPlayingScene {
 	}
 }
 
-/*if remakeMap {
-	surface_free(mapSurface);
-	mapSurface = surface_create(mapWidth,mapHeight);
-	updateMap = true;
-}*/
-
-/*if updateMap {
-	updateMap = false;
-	
-	// Clear the surface
-	surface_set_target(mapSurface);
-	draw_clear_alpha(c_white, 0);
-	surface_reset_target();
-	
-	for (var k = 0; k < instance_number(obj_editor_terrain_par); k +=1) {
-		var trgSurf = instance_find(obj_editor_terrain_par,k);
-		
-		if surface_exists( trgSurf.tileSurfaceDraw ) {
-			// Add collision tiles to the map
-			surface_copy( mapSurface, trgSurf.x, trgSurf.y, trgSurf.tileSurfaceDraw );
-		} else {
-			// Skip a tick to make sure the surface exists before drawing to map
-			// I suspect that this may not be working
-			updateMap = true;
-			
-			break;
-		}
-	}
-}*/
-
 // Views
 if updateView {
 	view_xport[4] = obj_panel_left.baseX - room_width + 1;
 	view_yport[4] = y + 34;
 	view_wport[4] = view_wport[1] - ( ( obj_panel_left.baseX - room_width ) * 2 );
 	view_hport[4] = view_hport[1] - y - 37;
-
+	
 	view_xport[6] = 17;
 	view_yport[6] = view_yport[4];
 	view_wport[6] = obj_panel_left.baseX - room_width - 17;
 	view_hport[6] = view_hport[4];
-
+	
 	camera_set_view_pos(obj_editor_gui.cameraBotPanel,camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) + view_wport[5] + ( ((scrollHorX - (obj_panel_left.baseX - room_width + 1) - room_width) / (scrollHorRightBound - scrollHorLeftBound)) * panelWidth + longestPanelRightButton),0);
 	camera_set_view_size(obj_editor_gui.cameraBotPanel,view_wport[4],view_hport[4]);
-
+	
 	camera_set_view_pos(obj_editor_gui.cameraBotPanelActors,camera_get_view_x(obj_editor_gui.cameraBotPanel) + view_wport[4],camera_get_view_y(obj_editor_gui.cameraBotPanel) );
 	camera_set_view_size(obj_editor_gui.cameraBotPanelActors,view_wport[6],view_hport[6]);
-
+	
 	if y >= view_hport[1] {
 		y = view_hport[1];
 		view_visible[4] = false;
 	} else {
 		view_visible[4] = true;
 	}
-
+	
 	if !visible {
 		view_set_visible(4,false);
 	}
-
+	
 	view_visible[6] = view_visible[4];
 	
 	// Minimap

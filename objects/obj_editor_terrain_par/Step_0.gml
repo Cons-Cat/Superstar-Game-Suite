@@ -151,14 +151,14 @@ if spawnTiles {
 							xValDraw[k] = xVal[k];
 							yValDraw[k] = yVal[k];
 						}
+					}
+					
+					if hasTile[k+1] {
+						xVal[k+1] = other.tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k+1];
+						yVal[k+1] = other.tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k+1];
 						
-						if hasTile[k+1] {
-							xVal[k+1] = other.tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k+1];
-							yVal[k+1] = other.tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k+1];
-							
-							xValDraw[k+1] = xVal[k+1];
-							yValDraw[k+1] = yVal[k+1];
-						}
+						xValDraw[k+1] = xVal[k+1];
+						yValDraw[k+1] = yVal[k+1];
 					}
 					
 					// Pass in layer names
@@ -199,8 +199,15 @@ if spawnTiles {
 				layerName[i] = other.layerName[i];
 				layerName[i+1] = other.layerName[i+1];
 				
-				eyeState[i] = 0;
 				eyeCol[i] = col;
+				
+				if layerVisible[i] {
+					eyeState[i] = 0;
+					layerAlpha[i] = 1;
+				} else {
+					eyeState[i] = 1;
+					layerAlpha[i] = 0.5;
+				}
 				
 				select[i] = false;
 				canSelect[i] = false;
@@ -208,7 +215,6 @@ if spawnTiles {
 				select[i+1] = false;
 				canSelect[i+1] = false;
 				
-				layerAlpha[i] = 1;
 				layerType[i] = other.layerType[i];
 			}
 		}

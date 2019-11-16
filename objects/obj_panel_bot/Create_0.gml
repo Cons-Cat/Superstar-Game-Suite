@@ -80,8 +80,6 @@ mapHeight = 20;
 tempMapWidth = mapWidth;
 tempMapHeight = mapHeight;
 mapFoldOff = 0;
-remakeMap = false;
-updateMap = true;
 mapSurface = surface_create(mapWidth,mapHeight);
 mapSelect = false;
 
