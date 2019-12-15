@@ -88,14 +88,17 @@ canSpawnTiles = false;
 spawnTiles = canSpawnTiles;
 
 // Marble values
-marbleNetPixels = 0;
-marbleSampleGirth[marbleNetPixels] = 0;
+streakNetIterations = 0;
+marbleSampleGirth[streakNetIterations] = 0;
 edgeStreakCountRead = 0;
 transfusedDistributionX[edgeStreakCountRead] = -1;
 transfusedDistributionY[edgeStreakCountRead] = -1;
 genMarble = false;
 bakeMarble = false;
 marbleLostResize = false; // If the marble is deleted when resizing the window
+hasMarble = false;
+
+marbleDebugPixelCount = 0;
 
 hasAdjacentLeft = false;
 hasAdjacentRight = false;
@@ -109,5 +112,6 @@ marbleCol[4] = make_color_rgb(140,141,145);
 marbleCol[5] = make_color_rgb(128,130,132);
 marbleCol[6] = make_color_rgb(114,114,117);
 marbleCol[7] = c_red;
+marbleCol[8] = c_blue;
 
 alarm[0] = 2;

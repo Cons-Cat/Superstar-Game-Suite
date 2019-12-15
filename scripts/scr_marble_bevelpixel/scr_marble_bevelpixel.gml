@@ -2,7 +2,7 @@
 var argX = argument[0];
 var argY = argument[1];
 
-if marblePixelCol[argX,argY] <= 3 {
+if marblePixelColInd[argX,argY] <= 3 {
 	// Bevel light pixel thoroughly
 	return 0;
 } else {

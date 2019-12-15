@@ -77,7 +77,7 @@ if select {
 					if trg.layerType[k] = 1 {
 						for (a = 0; a < trg.width * 20; a += 1) { // Iterate horizontally
 							for (b = 0; b < (trg.height + trg.zfloor - trg.zcieling) * 20; b += 1) { // Iterate vertically
-								str += string_hash_to_newline("#" + string(trg.marblePixelCol[a,b]));
+								str += string_hash_to_newline("#" + string(trg.marblePixelColInd[a,b]));
 							}
 						}
 					}

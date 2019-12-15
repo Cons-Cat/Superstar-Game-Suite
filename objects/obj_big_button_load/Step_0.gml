@@ -141,7 +141,7 @@ if select {
 								if layerType[k2] = 1 {
 									for (a = 0; a < width * 20; a += 1) { // Iterate horizontally
 										for (b = 0; b < (height + zfloor - zcieling) * 20; b += 1) { // Iterate vertically
-											marblePixelCol[a,b] = file_text_read_real(export);
+											marblePixelColInd[a,b] = file_text_read_real(export);
 											file_text_readln(export)
 										}
 									}

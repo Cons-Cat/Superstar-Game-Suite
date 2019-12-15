@@ -17,11 +17,11 @@ if j > height * 20 + ( lengthdir_y(i,argDirOff) / lengthdir_x(i,argDirOff) * i )
 
 for (var ii = 0; ii < shortRadius; ii += 1) {
 	if argX - lengthdir_x(ii,argDir + dirOff - 90) >= 0 && argY - lengthdir_y(ii,argDir + dirOff - 90) >= 0 {
-		marblePixelCol[argX - lengthdir_x(ii,argDir + dirOff - 90), argY - lengthdir_y(ii,argDir + dirOff - 90)] = argCol;
+		marblePixelColInd[argX - lengthdir_x(ii,argDir + dirOff - 90), argY - lengthdir_y(ii,argDir + dirOff - 90)] = argCol;
 	}
 }
 for (var ii = 0; ii < wideRadius; ii += 1) {
 	if argX + lengthdir_x(ii,argDir + dirOff + 90) >= 0 && argY + lengthdir_y(ii,argDir + dirOff + 90) >= 0 {
-		marblePixelCol[argX + lengthdir_x(ii,argDir + dirOff + 90), argY + lengthdir_y(ii,argDir + dirOff + 90)] = argCol;
+		marblePixelColInd[argX + lengthdir_x(ii,argDir + dirOff + 90), argY + lengthdir_y(ii,argDir + dirOff + 90)] = argCol;
 	}
 }

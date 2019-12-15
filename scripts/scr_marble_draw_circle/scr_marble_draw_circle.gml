@@ -12,6 +12,6 @@ if floor(random(4)) = 0 {
 // Iterate around circle
 for (var i = 0; i < 360; i += 5) {
 	if argX + ( argR * dcos(i) ) >= 0 && argY + ( argR * dsin(i) ) >= 0 {
-		marblePixelCol[argX + ( argR * dcos(i) ), argY + ( argR * dsin(i) )] = argCol;
+		marblePixelColInd[argX + ( argR * dcos(i) ), argY + ( argR * dsin(i) )] = argCol;
 	}
 }
