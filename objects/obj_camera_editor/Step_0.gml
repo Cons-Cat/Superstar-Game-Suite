@@ -36,7 +36,7 @@ if obj_editor_gui.mode != 2 {
 				consecutiveMovesVer += 1;
 			}
 		}
-	
+		
 		if keyboard_check(vk_up) && !keyboard_check(vk_down) {
 			if curAtY = gridAtY {
 				gridAtY -= 1;

@@ -15,6 +15,7 @@ lastX = -1;
 lastY = -1;
 lastWidth = -1;
 lastCieling = -1;
+marbleRecursionI = 0;
 
 marbleSurface = surface_create(20,20);
 tileSurfaceDraw = surface_create(20,20);
@@ -97,11 +98,14 @@ genMarble = false;
 bakeMarble = false;
 marbleLostResize = false; // If the marble is deleted when resizing the window
 hasMarble = false;
+marbleHasBeenWiped = false;
 
 marbleDebugPixelCount = 0;
 
 hasAdjacentLeft = false;
 hasAdjacentRight = false;
+hasAdjacentLeftAbove = false;
+hasAdjacentRightAbove = false;
 
 // Marble colors ( lightest to darkest )
 marbleCol[0] = make_color_rgb(242,242,242);

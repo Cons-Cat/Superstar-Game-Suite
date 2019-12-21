@@ -1,8 +1,8 @@
 {
-    "id": "6cee756a-8862-4df0-ad1d-cb846ee7a5c4",
+    "id": "a94572fa-2c9d-46c2-abfc-a82ec1b953cd",
     "modelName": "GMScript",
     "mvc": "1.0",
-    "name": "scr_marble_draw_streak",
+    "name": "scr_marble_draw_aa",
     "IsCompatibility": false,
     "IsDnD": false
 }

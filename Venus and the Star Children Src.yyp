@@ -351,6 +351,14 @@
             }
         },
         {
+            "Key": "1d54c639-3a1c-42aa-aca4-554673955cd7",
+            "Value": {
+                "id": "5b49e562-f2f1-4cc6-b82c-ad6f718f2472",
+                "resourcePath": "scripts\\scr_marble_draw_texture\\scr_marble_draw_texture.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "1d8d30f0-95c5-4cf3-a188-28f28eb1c40e",
             "Value": {
                 "id": "cc503860-b355-4689-bcc2-f6c012a97c52",
@@ -564,6 +572,14 @@
                 "id": "f0b711a8-e084-4a11-ba08-94aaf85274c2",
                 "resourcePath": "sprites\\spr_slopeL_2x\\spr_slopeL_2x.yy",
                 "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "2d421404-a494-4a71-bd8e-2816577eb11d",
+            "Value": {
+                "id": "6a773ccb-4ac0-40f7-b161-e2251ebe172d",
+                "resourcePath": "scripts\\scr_marble_reset_recursion\\scr_marble_reset_recursion.yy",
+                "resourceType": "GMScript"
             }
         },
         {
@@ -1578,7 +1594,7 @@
             "Key": "6cee756a-8862-4df0-ad1d-cb846ee7a5c4",
             "Value": {
                 "id": "0dac2c16-ab38-4a5f-8c3d-ea99bf3c99a7",
-                "resourcePath": "scripts\\scr_marble_draw_streak\\scr_marble_draw_streak.yy",
+                "resourcePath": "scripts\\scr_marble_draw_streaks\\scr_marble_draw_streaks.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -2231,6 +2247,14 @@
             }
         },
         {
+            "Key": "9ba09f56-de79-4144-9ba0-34de1f3caae5",
+            "Value": {
+                "id": "c54f4771-5002-4efb-8d01-d149c4ba81a2",
+                "resourcePath": "scripts\\scr_marble_wipe\\scr_marble_wipe.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "9bac4a22-50ef-4c67-be0b-cea6a8feb087",
             "Value": {
                 "id": "955dd679-0220-4744-9f37-d6e2f610ef35",
@@ -2415,6 +2439,14 @@
             }
         },
         {
+            "Key": "a94572fa-2c9d-46c2-abfc-a82ec1b953cd",
+            "Value": {
+                "id": "90ed5be9-786b-4ee0-8145-bd8407501391",
+                "resourcePath": "scripts\\scr_marble_draw_aa\\scr_marble_draw_aa.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "a9672ce8-0f2f-4e6a-99bb-a619f7817683",
             "Value": {
                 "id": "c47c39bf-676a-44e5-bf78-15e6d1707787",
@@ -2532,6 +2564,14 @@
                 "id": "44f8b1ab-ec31-439d-aa9c-3803dc902412",
                 "resourcePath": "sprites\\spr_dia_box_tl\\spr_dia_box_tl.yy",
                 "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "ae3df1dd-24c6-40b9-a96f-4d96cd2338a2",
+            "Value": {
+                "id": "20dce42d-0e9b-4397-816b-09cfb7d20b02",
+                "resourcePath": "scripts\\scr_marble_genstreaks\\scr_marble_genstreaks.yy",
+                "resourceType": "GMScript"
             }
         },
         {
@@ -3455,6 +3495,14 @@
             }
         },
         {
+            "Key": "e6121880-6620-44bc-b6bb-ec4445633dc4",
+            "Value": {
+                "id": "90ee5870-fe46-46cc-b142-4351503de079",
+                "resourcePath": "scripts\\scr_marble_draw_details\\scr_marble_draw_details.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "e6992d06-145d-455c-89f8-8a3681d56e79",
             "Value": {
                 "id": "f5bc5e6c-1c38-4683-8fcd-f7b1c4eb486c",
@@ -3878,6 +3926,12 @@
         "6cee756a-8862-4df0-ad1d-cb846ee7a5c4",
         "ecf1d05d-bd70-4c37-a140-76fb45a208fd",
         "43bc7992-c353-4ff2-833a-11a23d8b8830",
+        "9ba09f56-de79-4144-9ba0-34de1f3caae5",
+        "2d421404-a494-4a71-bd8e-2816577eb11d",
+        "ae3df1dd-24c6-40b9-a96f-4d96cd2338a2",
+        "1d54c639-3a1c-42aa-aca4-554673955cd7",
+        "a94572fa-2c9d-46c2-abfc-a82ec1b953cd",
+        "e6121880-6620-44bc-b6bb-ec4445633dc4",
         "1b254f41-b5b7-4063-ab01-c1f02ed3b1ac",
         "0e0e322f-380e-448f-9530-42154abd02ad",
         "2bb57222-41cb-44de-9101-e2a546ff6ce1",
