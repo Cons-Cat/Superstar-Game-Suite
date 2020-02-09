@@ -23,3 +23,23 @@ if hasAdjacentRight {
 		}
 	}
 }
+
+if hasAdjacentUp {
+	with adjacentUpId {
+		if hasMarble {
+			if !hasRecursed {
+				scr_marble_reset_recursion();
+			}
+		}
+	}
+}
+
+if hasAdjacentDown {
+	with adjacentDownId {
+		if hasMarble {
+			if !hasRecursed {
+				scr_marble_reset_recursion();
+			}
+		}
+	}
+}

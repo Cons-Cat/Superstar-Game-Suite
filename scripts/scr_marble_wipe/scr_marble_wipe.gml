@@ -15,8 +15,15 @@ edgeStreakCountWrite = 0;
 edgeStreakCount[5] = 0;
 edgeStreakCount[6] = 0;
 
+adjacentUpCount = 0;
+adjacentDownCount = 0;
+
 adjacentLeftId = 0;
 adjacentRightId = 0;
+adjacentUpId = 0;
+adjacentDownId = 0;
+adjacentTop1Id = 0;
+adjacentTop2Id = 0;
 var tempInst;
 
 // Make all virtual pixels blank
@@ -41,8 +48,11 @@ for (i = 0; i < instance_number(obj_editor_terrain_par); i += 1) {
 	tempInst = instance_find(obj_editor_terrain_par,i);
 	
 	if tempInst.id != self.id { // Exclude itself from the set
+		// Find laterally adjacent terrain
 		if tempInst.y + (tempInst.height + tempInst.zfloor) * 20 = self.y + (self.height + self.zfloor) * 20 {
-			// Find adjacent terrain
+			#region
+			
+			// Find leftward adjacent terrain
 			if tempInst.x + tempInst.width * 20 = self.x {
 				hasAdjacentLeft = true;
 				adjacentLeftId = tempInst;
@@ -61,6 +71,7 @@ for (i = 0; i < instance_number(obj_editor_terrain_par); i += 1) {
 				}
 			}
 			
+			// Find rightward adjacent terrain
 			if tempInst.x = self.x + self.width * 20 {
 				hasAdjacentRight = true;
 				adjacentRightId = tempInst;
@@ -78,17 +89,75 @@ for (i = 0; i < instance_number(obj_editor_terrain_par); i += 1) {
 					}
 				}
 			}
+			
+			#endregion
 		}
 		
-		/*if tempInst.y = self.y + self.height*20 {
-			if tempInst.x + tempInst.width*20 >= self.x + self.width*20 {
-				if tempInst.x <= self.x {
-					if tempInst.zfloor = self.zfloor {
-						hasAdjacentDown = true;
+		// Find vertically adjacent terrain
+		if ( (tempInst.x <= self.x && tempInst.x + tempInst.width * 20 >= self.x)
+		|| (tempInst.x >= self.x && tempInst.x <= self.x + self.width * 20) )
+		&& (tempInst.zcieling <= self.zfloor) {
+			#region
+			
+			// Find upward adjacent terrain
+			if tempInst.y + (tempInst.height + tempInst.zfloor) * 20 = self.y + self.zfloor * 20 {
+				hasAdjacentUp = true;
+				adjacentUpId = tempInst;
+				
+				if tempInst.zfloor <= self.zfloor {
+					hasAdjacentUpAbove = true;
+				}
+				
+				// Add to array
+				adjacentUpArrayId[adjacentUpCount] = tempInst.id;
+				adjacentUpArrayTrans[adjacentUpCount] = false;
+				
+				adjacentUpCount++;
+				
+				// Wipe upward terrain
+				with adjacentUpId {
+					if hasMarble {
+						if !marbleHasBeenWiped {
+							scr_marble_wipe();
+						}
 					}
 				}
 			}
-		}*/
+			
+			// Find downward adjacent terrain
+			if tempInst.y + tempInst.zfloor * 20 = self.y + (self.height + self.zfloor) * 20 {
+				hasAdjacentDown = true;
+				adjacentDownId = tempInst;
+				
+				if tempInst.zfloor >= self.zfloor {
+					hasAdjacentDownAbove = true;
+				}
+				
+				// Add to array
+				adjacentDownArrayId[adjacentDownCount] = tempInst.id;
+				adjacentDownArrayTrans[adjacentDownCount] = false;
+				
+				adjacentDownCount++;
+				
+				hasAdjacentDown = true;
+				adjacentDownId = tempInst;
+				
+				if tempInst.zfloor <= self.zfloor {
+					hasAdjacentDownAbove = true;
+				}
+				
+				// Wipe downward terrain
+				with adjacentDownId {
+					if hasMarble {
+						if !marbleHasBeenWiped {
+							scr_marble_wipe();
+						}
+					}
+				}
+			}
+			
+			#endregion
+		}
 	}
 	
 	#endregion

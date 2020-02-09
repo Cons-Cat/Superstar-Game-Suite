@@ -58,3 +58,23 @@ if hasAdjacentRight {
 		}
 	}
 }
+
+if hasAdjacentUp {
+	with adjacentUpId {
+		if hasMarble {
+			if !hasGeneratedTextureStreaks[argCol] {
+				scr_marble_draw_texture(argCol);
+			}
+		}
+	}
+}
+
+if hasAdjacentDown {
+	with adjacentDownId {
+		if hasMarble {
+			if !hasGeneratedTextureStreaks[argCol] {
+				scr_marble_draw_texture(argCol);
+			}
+		}
+	}
+}

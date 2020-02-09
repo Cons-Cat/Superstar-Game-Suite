@@ -138,3 +138,23 @@ if hasAdjacentRight {
 		}
 	}
 }
+
+if hasAdjacentUp {
+	with adjacentUpId {
+		if hasMarble {
+			if !hasGeneratedTextureAA {
+				scr_marble_draw_aa();
+			}
+		}
+	}
+}
+
+if hasAdjacentDown {
+	with adjacentDownId {
+		if hasMarble {
+			if !hasGeneratedTextureAA {
+				scr_marble_draw_aa();
+			}
+		}
+	}
+}

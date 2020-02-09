@@ -106,6 +106,10 @@ hasAdjacentLeft = false;
 hasAdjacentRight = false;
 hasAdjacentLeftAbove = false;
 hasAdjacentRightAbove = false;
+hasAdjacentUp = false;
+hasAdjacentDown = false;
+hasAdjacentUpAbove = false;
+hasAdjacentDownAbove = false;
 
 // Marble colors ( lightest to darkest )
 marbleCol[0] = make_color_rgb(242,242,242);

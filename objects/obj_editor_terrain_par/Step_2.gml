@@ -5,7 +5,7 @@ if lastX != x || lastY != y || lastWidth != width || lastCieling != zcieling {
 	#region
 	
 	// Update depth
-	depth = obj_editor_gui.depth -(y + zfloor*20 + 20) - zfloor - depthOffset;
+	depth = obj_editor_gui.depth - (y + zfloor*20 + 20) - zfloor - depthOffset;
 	
 	// Update minimap
 	scr_editor_map(lastX-20,lastY-20,lastX-20+(lastWidth+2)*20,lastY-20+(height+zfloor-lastCieling+1)*20,self.id);
@@ -24,7 +24,7 @@ if placed = 1 {
 		calculateSub = true;
 		surfaceResize = true;
 		tileSurfaceDraw = surface_create(20,20);
-	}
+   }
 	
 	if !surface_exists(marbleSurface) {
 		calculateSub = true;
@@ -148,10 +148,10 @@ if placed = 1 {
 		// Debug transfuse
 		draw_set_alpha(0.75);
 		
-		/*for (i = 0; i < marbleDebugPixelCount; i += 1) {
+		for (i = 0; i < marbleDebugPixelCount; i += 1) {
 			draw_set_color(marbleCol[marbleDebugPixelColInd[i]]);
 			draw_rectangle(marbleDebugPixelX[i],marbleDebugPixelY[i],marbleDebugPixelX[i],marbleDebugPixelY[i],false);
-		}*/
+		}
 		
 		draw_set_alpha(1);
 		

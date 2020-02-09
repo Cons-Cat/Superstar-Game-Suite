@@ -21,6 +21,7 @@ for (var ii = 0; ii < shortRadius; ii += 1) {
 		marblePixelColInd[argX - lengthdir_x(ii,argDir + dirOff - 90), argY - lengthdir_y(ii,argDir + dirOff - 90)] = argCol;
 	}
 }
+
 for (var ii = 0; ii < wideRadius; ii += 1) {
 	if argX + lengthdir_x(ii,argDir + dirOff + 90) >= 0 && argY + lengthdir_y(ii,argDir + dirOff + 90) >= 0 {
 		marblePixelColInd[argX + lengthdir_x(ii,argDir + dirOff + 90), argY + lengthdir_y(ii,argDir + dirOff + 90)] = argCol;
