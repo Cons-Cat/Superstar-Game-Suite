@@ -33,7 +33,7 @@ with obj_editor_terrain_par {
 				&& (
 					// If the x coordinates are adjacent
 					x = other.x + other.width*20
-               || x + width*20 = other.x
+	               || x + width*20 = other.x
 				)
 			)
 			|| (
@@ -55,17 +55,14 @@ with obj_editor_terrain_par {
 				tempEdgeStreakCountRead = 0;
 				
 				for (i = 0; i < edgeStreakCountWrite; i += 1) {
-					if
+					/*if
 					(
 						(
 							// Adjacent rightward and transfusing leftward
 							( x = other.x + other.width*20 && edgeStreakTransX[i] <= 2 )
 							// Adjacent leftward and transfusing rightward
 							xor ( x + width * 20 = other.x && edgeStreakTransX[i] >= width * 20 - 2 )
-						)/* && (
-							// If the y dimensions and y transfuse overlap
-							( zfloor = other.zfloor ) || ( y + edgeStreakTransY[i] > other.y + other.height*20 )
-						)*/
+						)
 					)
 					|| (
 						(
@@ -73,23 +70,29 @@ with obj_editor_terrain_par {
 							( y + (height + zfloor) * 20 = other.y + other.zfloor * 20 && edgeStreakTransY[i] >= y + (height + zfloor) * 20 - 2 )
 							// Adjacent downward and transfusing upward
 							xor ( y + zfloor * 20 = other.y + (other.height + other.zfloor) * 20 && edgeStreakTransY[i] <= 2 )
-						)/* && (
-							// If the x dimensions and x transfuse overlap
-							true
-							( x = other.x ) || ( x + edgeStreakTransX[i] > other.x )
-						)*/
-					)
+						)
+					)*/
 					{
-						if ( edgeStreakTransY[i] = height*20 || edgeStreakTransY[i] = 0 )
+						if ( y < other.y || y >= other.y + other.height*20 )
 						&& other.zfloor = self.zfloor
-						&& edgeStreakTransX[i] + x >= other.x && edgeStreakTransX[i] + self.x <= other.x + other.width*20 {
+						&& edgeStreakTransX[i] + x >= other.x && edgeStreakTransX[i] + x <= other.x + other.width*20
+						{
+							show_debug_message(string(edgeStreakTransY[i]) + ", " + string(i));
+							
 							// Transfuse across top face's camera-facing edge
-							if y > other.y {
+							if edgeStreakTransY[i] = 0 {
+								show_debug_message("Transfused from bot.");
 								other.edgeStreakReadY[other.edgeStreakCountRead + tempEdgeStreakCountRead] = 0;
-							} else {
+							} else if edgeStreakTransY[i] = height*20  {
+								show_debug_message("Transfused from top.");
 								other.edgeStreakReadY[other.edgeStreakCountRead + tempEdgeStreakCountRead] = 0; //height*20;
+							} else {
+								continue;
 							}
+							
+							//show_message(other.edgeStreakReadY[other.edgeStreakCountRead + tempEdgeStreakCountRead]);
 						} else {
+							show_debug_message("Transfused from hor.");
 							other.edgeStreakReadY[other.edgeStreakCountRead + tempEdgeStreakCountRead] = edgeStreakTransY[i] - ( other.y - self.y );
 						}
                   
@@ -112,6 +115,8 @@ with obj_editor_terrain_par {
 	}
 }
 
+show_debug_message("");
+
 #endregion
 
 // Calculate streak values
@@ -119,7 +124,7 @@ with obj_editor_terrain_par {
 
 randomize();
 
-show_debug_message("Read: " + string(id) +", " + string(edgeStreakCountRead) + ", Recursion: " + string(marbleRecursionI));
+//show_debug_message("Read: " + string(id) +", " + string(edgeStreakCountRead) + ", Recursion: " + string(marbleRecursionI));
 
 if marbleRecursionI = 0 {
 	argStreaks += edgeStreakCountRead;
@@ -162,6 +167,7 @@ for (i = 0; i < argStreaks; i += 1) {
 		streakSampleX = random_range(5 + distributionX * 20, 15 + distributionX * 20);
 		streakSampleY = random_range(5 + distributionY * 20, 15 + distributionY * 20);
 		
+		// Skip generating streaks that are obscured by other terrain.
 		var streakBreak = false;
 		
 		for (k = 0; k < adjacentDownCount; k++) {
@@ -445,9 +451,11 @@ for (i = 0; i < argStreaks; i += 1) {
 				} else if transDownTop2 {
 					//show_message("TOP 2");
 					edgeStreakTransY[edgeStreakCountWrite] = streakSampleY; // streakSampleY + (zfloor - zcieling) * 20;
+					show_debug_message("Transfusing. " + string(edgeStreakTransY[edgeStreakCountWrite]));
 					marbleDebugPixelY[marbleDebugPixelCount] = edgeStreakTransY[edgeStreakCountWrite] - 1;
 				} else {
 					edgeStreakTransY[edgeStreakCountWrite] = streakSampleY;
+					show_debug_message("Transfusing2. " + string(edgeStreakTransY[edgeStreakCountWrite]));
 					marbleDebugPixelY[marbleDebugPixelCount] = edgeStreakTransY[edgeStreakCountWrite];
 				}
 				
@@ -541,6 +549,7 @@ if streaksTransfusedTop2 > 0 {
 		for (k = 0; k < adjacentDownCount; k++) {
 			with adjacentDownArrayId[k] {
 				if hasMarble {
+					show_debug_message("TRANSFUSED SCRIPT");
 					scr_marble_genstreaks(argCol,streaksCol[argCol]);
 				}
 			}
