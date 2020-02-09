@@ -14,7 +14,8 @@
         "ae3df1dd-24c6-40b9-a96f-4d96cd2338a2",
         "1d54c639-3a1c-42aa-aca4-554673955cd7",
         "a94572fa-2c9d-46c2-abfc-a82ec1b953cd",
-        "e6121880-6620-44bc-b6bb-ec4445633dc4"
+        "e6121880-6620-44bc-b6bb-ec4445633dc4",
+        "d5ecd1ee-0a01-4c49-a8d0-8c0d4d5c790c"
     ],
     "filterType": "GMScript",
     "folderName": "Marble Scripts",

@@ -121,5 +121,6 @@ marbleCol[5] = make_color_rgb(128,130,132);
 marbleCol[6] = make_color_rgb(114,114,117);
 marbleCol[7] = c_red;
 marbleCol[8] = c_blue;
+marbleCol[9] = c_purple;
 
 alarm[0] = 2;

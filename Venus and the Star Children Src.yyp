@@ -3215,6 +3215,14 @@
             }
         },
         {
+            "Key": "d5ecd1ee-0a01-4c49-a8d0-8c0d4d5c790c",
+            "Value": {
+                "id": "b7bd31c5-2ded-47cd-80a5-0b2cecac1115",
+                "resourcePath": "scripts\\scr_marble_recursion\\scr_marble_recursion.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "d7366b67-a533-48c9-b22e-6d9793f06d99",
             "Value": {
                 "id": "742bfb96-0a71-4a5b-843b-c8c218392308",
@@ -3932,6 +3940,7 @@
         "1d54c639-3a1c-42aa-aca4-554673955cd7",
         "a94572fa-2c9d-46c2-abfc-a82ec1b953cd",
         "e6121880-6620-44bc-b6bb-ec4445633dc4",
+        "d5ecd1ee-0a01-4c49-a8d0-8c0d4d5c790c",
         "1b254f41-b5b7-4063-ab01-c1f02ed3b1ac",
         "0e0e322f-380e-448f-9530-42154abd02ad",
         "2bb57222-41cb-44de-9101-e2a546ff6ce1",

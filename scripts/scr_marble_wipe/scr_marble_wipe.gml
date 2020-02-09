@@ -17,13 +17,14 @@ edgeStreakCount[6] = 0;
 
 adjacentUpCount = 0;
 adjacentDownCount = 0;
+adjacentLeftCount = 0;
+adjacentRightCount = 0;
 
 adjacentLeftId = 0;
 adjacentRightId = 0;
 adjacentUpId = 0;
 adjacentDownId = 0;
-adjacentTop1Id = 0;
-adjacentTop2Id = 0;
+
 var tempInst;
 
 // Make all virtual pixels blank
@@ -61,6 +62,12 @@ for (i = 0; i < instance_number(obj_editor_terrain_par); i += 1) {
 					hasAdjacentLeftAbove = true;
 				}
 				
+				// Add to array
+				adjacentLeftArrayId[adjacentLeftCount] = tempInst.id;
+				adjacentLeftArrayTrans[adjacentLeftCount] = false;
+				
+				adjacentLeftCount++;
+				
 				// Wipe leftward terrain
 				with adjacentLeftId {
 					if hasMarble {
@@ -79,13 +86,19 @@ for (i = 0; i < instance_number(obj_editor_terrain_par); i += 1) {
 				if tempInst.y <= self.y {
 					hasAdjacentRightAbove = true;
 				}
-			}
+				
+				// Add to array
+				adjacentRightArrayId[adjacentRightCount] = tempInst.id;
+				adjacentRightArrayTrans[adjacentRightCount] = false;
+				
+				adjacentRightCount++;
 			
-			// Wipe rightward terrain
-			with adjacentRightId {
-				if hasMarble {
-					if !marbleHasBeenWiped {
-						scr_marble_wipe();
+				// Wipe rightward terrain
+				with adjacentRightId {
+					if hasMarble {
+						if !marbleHasBeenWiped {
+							scr_marble_wipe();
+						}
 					}
 				}
 			}

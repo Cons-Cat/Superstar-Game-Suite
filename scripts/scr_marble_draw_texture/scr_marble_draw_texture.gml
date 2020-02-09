@@ -70,10 +70,12 @@ if hasAdjacentUp {
 }
 
 if hasAdjacentDown {
-	with adjacentDownId {
-		if hasMarble {
-			if !hasGeneratedTextureStreaks[argCol] {
-				scr_marble_draw_texture(argCol);
+	for (k = 0; k < adjacentDownCount; k++) {
+		with adjacentDownArrayId[k] {
+			if hasMarble {
+				if !hasGeneratedTextureStreaks[argCol] {
+					scr_marble_draw_texture(argCol);
+				}
 			}
 		}
 	}

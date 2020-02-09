@@ -6,8 +6,8 @@ var streaksTransfusedLeft = 0;
 var streaksTransfusedRight = 0;
 var streaksTransfusedUp = 0;
 var streaksTransfusedDown = 0;
-var streaksTransfusedTop1 = 0;
-var streaksTransfusedTop2 = 0;
+var streaksTransfusedTopUp = 0;
+var streaksTransfusedTopDown = 0;
 
 var tempEdgeStreakCountRead = 0;
 edgeStreakCountRead = 0;
@@ -81,18 +81,16 @@ with obj_editor_terrain_par {
 							
 							// Transfuse across top face's camera-facing edge
 							if edgeStreakTransY[i] = 0 {
-								show_debug_message("Transfused from bot.");
-								other.edgeStreakReadY[other.edgeStreakCountRead + tempEdgeStreakCountRead] = 0;
+								// Transfuse from top, upward.
+								other.edgeStreakReadY[other.edgeStreakCountRead + tempEdgeStreakCountRead] = other.height * 20;
 							} else if edgeStreakTransY[i] = height*20  {
-								show_debug_message("Transfused from top.");
-								other.edgeStreakReadY[other.edgeStreakCountRead + tempEdgeStreakCountRead] = 0; //height*20;
+								// Transfuse from top, downward.
+								other.edgeStreakReadY[other.edgeStreakCountRead + tempEdgeStreakCountRead] = 0;
 							} else {
 								continue;
 							}
-							
-							//show_message(other.edgeStreakReadY[other.edgeStreakCountRead + tempEdgeStreakCountRead]);
 						} else {
-							show_debug_message("Transfused from hor.");
+							// Transfuse horizontally.
 							other.edgeStreakReadY[other.edgeStreakCountRead + tempEdgeStreakCountRead] = edgeStreakTransY[i] - ( other.y - self.y );
 						}
                   
@@ -100,7 +98,7 @@ with obj_editor_terrain_par {
 						
 						other.edgeStreakReadDir[other.edgeStreakCountRead + tempEdgeStreakCountRead] = edgeStreakTransDir[i];
 						other.edgeStreakReadGirth[other.edgeStreakCountRead + tempEdgeStreakCountRead] = edgeStreakTransGirth[i];
-						other.edgeStreakReadLength[other.edgeStreakCountRead + tempEdgeStreakCountRead] = edgeStreakTransLength[i] + 2;
+						other.edgeStreakReadLength[other.edgeStreakCountRead + tempEdgeStreakCountRead] = edgeStreakTransLength[i] + 1;
 						other.edgeStreakReadJ[other.edgeStreakCountRead + tempEdgeStreakCountRead] = edgeStreakTransJ[i];
 						
 						tempEdgeStreakCountRead += 1;
@@ -152,8 +150,8 @@ for (i = 0; i < argStreaks; i += 1) {
 	var transRight = false;
 	var transLeft = false;
 	var transUp = false;
-	var transDownTop1 = false; // y = 0
-	var transDownTop2 = false; // y = height*20
+	var transDownTopUp = false; // y = 0
+	var transDownTopDown = false; // y = height*20
 	var streakHasBeenAbove = false;
 	var transDownSide = false;
 	
@@ -335,28 +333,21 @@ for (i = 0; i < argStreaks; i += 1) {
 			
 			// Transfuse across side face's top edge
 			if !streakHasBeenAbove {
-				if (streakSampleY) <= height*20 {
-					//if collision_point(x+streakSampleX,y+height*20+2+streakSampleY,obj_editor_terrain_par,false,true) {
-					//for (k = 0; k < adjacentDownCount; k++) {
-						//if adjacentDownArrayId[k].x <= streakSampleX && adjacentDownArrayId[k].x + adjacentDownArrayId[k].width*20 >= streakSampleX {
-							//hasAdjacentTop2 = true;
-							streakHasBeenAbove = true;
-						//}
-					//}
+				if (streakSampleY) < height*20 {
+					streakHasBeenAbove = true;
 				}
 			}
 			
 			if streakHasBeenAbove {
-		   		if floor(streakSampleY) >= height*20-1 && floor(streakSampleY) <= height*20+2 { // Streak passes from upper to lower half
+		   		if floor(streakSampleY) >= height*20 { // Streak passes from upper to lower half
 					if streakSampleDir > 180 && streakSampleDir < 360 { // Angling downward
 						for (k = 0; k < adjacentDownCount; k++) {
 							if adjacentDownArrayId[k].x - self.x <= streakSampleX && adjacentDownArrayId[k].x + adjacentDownArrayId[k].width*20 - self.x >= streakSampleX {
-								hasAdjacentTop2 = true;
 								adjacentDownArrayTrans[k] = true;
 								streakSampleY = height*20;
 								
-								transDownTop2 = true;
-								streaksTransfusedTop2 += 1;
+								transDownTopDown = true;
+								streaksTransfusedTopDown += 1;
 								transEdgesPassed = 2;
 								
 								break;
@@ -366,36 +357,37 @@ for (i = 0; i < argStreaks; i += 1) {
 				}
 			}
 			
+			if streakSampleY < 0 {
+				streakSampleY = 0;
+				
+				if !transUp {
+					transUp = true;
+					streakAnglePassing = streakSampleDir;
+					transEdgesPassed += 1;
+					streaksTransfusedUp += 1;
+					
+					// Break streaks that pass upward (outward)
+					if ( streakAnglePassing < 180 || streakAnglePassing > 0 ) {
+						transEdgesPassed = 2;
+					}
+				} else if (
+					transUp
+					&& (
+						// Pass downward, and back in upward
+						( streakAnglePassing > 180 && streakAnglePassing < 360 )
+						&& (
+							( streakSampleDir <= 360 )
+							|| ( streakSampleDir >= 180 )
+						)
+					)
+				) {
+					transEdgesPassed += 1;
+					streaksTransfusedUp += 1;
+				}
+			}
+			
 			// Commented out for now
 			#region
-			/*if !transUp {
-				streakSampleY = 0;
-					
-				transUp = true;
-				streakAnglePassing = streakSampleDir;
-				transEdgesPassed += 1;
-				streaksTransfusedUp += 1;
-					
-				// Break streaks that pass upward (outward)
-				if ( streakAnglePassing < 180 || streakAnglePassing > 0 ) {
-					//transEdgesPassed = 2;
-				}
-			} else if (
-				transUp
-				&& (
-					// Pass downward, and back in upward
-					( streakAnglePassing > 180 && streakAnglePassing < 360 )
-					&& (
-						( streakSampleDir <= 360 )
-						|| ( streakSampleDir >= 180 )
-					)
-				)
-			) {
-				streakSampleY = 0;
-				//transEdgesPassed += 1;
-				streaksTransfusedUp += 1;
-			}*/
-			
 			// Transfuse across side face's down edge
 			/*if floor(streakSampleY) >= ( height + zfloor - zcieling ) * 20 - 1 {
 				if !transDownSide {
@@ -441,23 +433,8 @@ for (i = 0; i < argStreaks; i += 1) {
 			#endregion
 			
 			if transEdgesPassed = 2 {
-				tempEdgesPassed = transEdgesPassed;
-				
 				edgeStreakTransX[edgeStreakCountWrite] = streakSampleX;
-				marbleDebugPixelX[marbleDebugPixelCount] = edgeStreakTransX[edgeStreakCountWrite];
-				
-				if transDownTop1 {
-					
-				} else if transDownTop2 {
-					//show_message("TOP 2");
-					edgeStreakTransY[edgeStreakCountWrite] = streakSampleY; // streakSampleY + (zfloor - zcieling) * 20;
-					show_debug_message("Transfusing. " + string(edgeStreakTransY[edgeStreakCountWrite]));
-					marbleDebugPixelY[marbleDebugPixelCount] = edgeStreakTransY[edgeStreakCountWrite] - 1;
-				} else {
-					edgeStreakTransY[edgeStreakCountWrite] = streakSampleY;
-					show_debug_message("Transfusing2. " + string(edgeStreakTransY[edgeStreakCountWrite]));
-					marbleDebugPixelY[marbleDebugPixelCount] = edgeStreakTransY[edgeStreakCountWrite];
-				}
+				edgeStreakTransY[edgeStreakCountWrite] = streakSampleY;
 				
 				edgeStreakTransDir[edgeStreakCountWrite] = streakSampleDir;
 				edgeStreakTransGirth[edgeStreakCountWrite] = marbleSampleGirth[streakNetIterations];
@@ -468,23 +445,43 @@ for (i = 0; i < argStreaks; i += 1) {
 				edgeStreakCount[argCol] += 1;
 				
 				// Debugging transfusion
-				if transRight || transDownTop2 {
+				if transRight || transDownTopDown {
 					marbleDebugPixelColInd[marbleDebugPixelCount] = 7; // Red
 				}
-				if transLeft {
+				if transLeft || transUp {
 					marbleDebugPixelColInd[marbleDebugPixelCount] = 8; // Blue
+				}
+				
+				marbleDebugPixelX[marbleDebugPixelCount] = edgeStreakTransX[edgeStreakCountWrite];
+				
+				if transDownTopDown {
+					marbleDebugPixelY[marbleDebugPixelCount] = edgeStreakTransY[edgeStreakCountWrite] - 1;
+				} else {
+					marbleDebugPixelY[marbleDebugPixelCount] = edgeStreakTransY[edgeStreakCountWrite];
 				}
 				
 				marbleDebugPixelCount += 1;
 				
+				// End the streak
 				edgeStreakCountWrite += 1;
+				streakSampleLength = 0;
+			
+				break;
 			}
 			
-			// End the streak
-			if tempEdgesPassed = 2 {
-				streakSampleLength = 0;
-				
-				break;
+			// If streak clips into obstructed space.
+			if hasAdjacentDown {
+				for (k = 0; k < adjacentDownCount; k++) {
+					if streakSampleY > height*20 {
+						if self.x + streakSampleX >= adjacentDownArrayId[k].x
+						&& self.x + streakSampleX <= adjacentDownArrayId[k].x + adjacentDownArrayId[k].width * 20
+						{
+							streakSampleLength = 0;
+							
+							break;
+						}
+					}
+				}
 			}
 		}
 	}
@@ -503,8 +500,6 @@ if streaksTransfusedLeft > 0 {
 				scr_marble_genstreaks(argCol,streaksCol[argCol]);
 			}
 		}
-		
-		//show_debug_message("Left. Write: " + string(id) + ", " + string(streaksTransfusedLeft) + ", Recursion: " + string(marbleRecursionI));
 	}
 }
 
@@ -515,46 +510,27 @@ if streaksTransfusedRight > 0 {
 				scr_marble_genstreaks(argCol,streaksCol[argCol]);
 			}
 		}
-		
-		//show_debug_message("Right. Write: " + string(id) + ", " + string(streaksTransfusedRight) + ", Recursion: " + string(marbleRecursionI));
 	}
 }
 
-if streaksTransfusedUp > 0 {
-	if hasAdjacentUp {
-		with adjacentUpId {
+if streaksTransfusedUp > 0 || streaksTransfusedTopUp > 0 {
+	for (k = 0; k < adjacentUpCount; k++) {
+		with adjacentUpArrayId[k] {
 			if hasMarble {
+				show_debug_message("TRANSFUSED SCRIPT");
 				scr_marble_genstreaks(argCol,streaksCol[argCol]);
 			}
 		}
-		
-		//show_debug_message("Right. Write: " + string(id) + ", " + string(streaksTransfusedRight) + ", Recursion: " + string(marbleRecursionI));
 	}
 }
 
-if streaksTransfusedDown > 0 {
-	if hasAdjacentDown {
-		with adjacentDownId {
+if streaksTransfusedDown > 0 || streaksTransfusedTopDown > 0 {
+	for (k = 0; k < adjacentDownCount; k++) {
+		with adjacentDownArrayId[k] {
 			if hasMarble {
+				show_debug_message("TRANSFUSED SCRIPT");
 				scr_marble_genstreaks(argCol,streaksCol[argCol]);
 			}
 		}
-		
-		//show_debug_message("Right. Write: " + string(id) + ", " + string(streaksTransfusedRight) + ", Recursion: " + string(marbleRecursionI));
-	}
-}
-
-if streaksTransfusedTop2 > 0 {
-	if hasAdjacentTop2 {
-		for (k = 0; k < adjacentDownCount; k++) {
-			with adjacentDownArrayId[k] {
-				if hasMarble {
-					show_debug_message("TRANSFUSED SCRIPT");
-					scr_marble_genstreaks(argCol,streaksCol[argCol]);
-				}
-			}
-		}
-		
-		//show_debug_message("Right. Write: " + string(id) + ", " + string(streaksTransfusedRight) + ", Recursion: " + string(marbleRecursionI));
 	}
 }

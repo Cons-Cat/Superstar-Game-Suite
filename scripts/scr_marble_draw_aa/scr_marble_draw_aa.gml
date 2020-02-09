@@ -150,10 +150,12 @@ if hasAdjacentUp {
 }
 
 if hasAdjacentDown {
-	with adjacentDownId {
-		if hasMarble {
-			if !hasGeneratedTextureAA {
-				scr_marble_draw_aa();
+	for (k = 0; k < adjacentDownCount; k++) {
+		with adjacentDownArrayId[k] {
+			if hasMarble {
+				if !hasGeneratedTextureAA {
+					scr_marble_draw_aa();
+				}
 			}
 		}
 	}
