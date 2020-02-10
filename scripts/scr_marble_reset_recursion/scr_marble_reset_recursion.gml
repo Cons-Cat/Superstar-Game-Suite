@@ -2,6 +2,7 @@
 
 hasRecursed = true;
 marbleRecursionI = 0;
+edgeStreakCountRead = 0;
 
 // Recursing this script
 if hasAdjacentLeft {
