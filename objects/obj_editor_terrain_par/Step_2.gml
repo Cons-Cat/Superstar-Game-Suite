@@ -92,10 +92,10 @@ if placed = 1 {
 		
 		// Calculate streaks recursively
 		scr_marble_reset_recursion();
-		scr_marble_genstreaks(5,streaksCol[5],0); // Light streaks
+		scr_marble_genstreaks(5,streaksCol[5]); // Light streaks
 		
 		scr_marble_reset_recursion();
-		scr_marble_genstreaks(6,streaksCol[6],0); // Dark streaks
+		scr_marble_genstreaks(6,streaksCol[6]); // Dark streaks
 		
 		// Draw marble texture recursively
 		scr_marble_draw_texture(5);

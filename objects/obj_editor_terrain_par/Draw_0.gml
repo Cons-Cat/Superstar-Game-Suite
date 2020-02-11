@@ -18,5 +18,8 @@ if obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4
 	}
 }
 
+/*draw_set_alpha(0.55);
 draw_set_color(c_black);
 draw_text(x,y,id);
+draw_set_alpha(1);
+*/

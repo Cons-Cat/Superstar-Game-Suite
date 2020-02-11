@@ -1,7 +1,16 @@
 /// scr_marble_genstreaks( argCol, argStreaks )
 var argCol = argument[0];
 var argStreaks = argument[1];
-var argStreaksReadIn = argument[2]
+
+var argStreaksReadIn = 0;
+
+if argument_count >= 3 {
+	argStreaksReadIn = argument[2];
+	
+	if argument_count >= 4 {
+		var argId = argument[3];
+	}
+}
 
 var streaksTransfusedLeft = 0;
 var streaksTransfusedRight = 0;
@@ -16,105 +25,108 @@ var edgeStreakCountWrite = 0;
 #region
 
 // Transfer streaks
-with obj_editor_terrain_par {
-	if self.id != other.id { // Exclude itself from the set
-		if hasMarble {
-			#region
-			
-			// If this instance is adjacent
-			if (
-				// If y coordinate is the same
-				y + (height + zfloor)*20 = other.y + (other.height + other.zfloor)*20
-				&& (
-					// If the z dimensions overlap
-					(y >= other.y && y <= other.y + (other.height + other.zfloor - other.zcieling)*20)
-					|| (y <= other.y && y + (height + zfloor - zcieling)*20 >= other.y)
-				)
-				&& (
-					// If the x coordinates are adjacent
-					x = other.x + other.width*20
-		               || x + width*20 = other.x
-				)
-			)
-			|| (
-				// If y coordinate is adjacent
-				( y + (height + zfloor)*20 = other.y + other.zfloor*20
-				|| y + zfloor*20 = other.y + (other.height + other.zfloor)*20 )
-				&& (
-					// If the x dimensions overlap
-					(x >= other.x && x < other.x + other.width*20)
-					|| (x <= other.x && x + width*20 >= other.x)
-				)
-				&& (
-					// If the z dimensions overlap
-					(zfloor >= other.zfloor && zcieling <= other.zfloor)
-					|| (zfloor <= other.zfloor && zfloor > other.zcieling)
-				)
-			)
-			{
-				for (i = 0; i < argStreaksReadIn; i += 1) {
-					var tempTransX = self.x + edgeStreakTransX[i];
-					var tempTransY = self.y + edgeStreakTransY[i];
-					
-					// Ensure this streak was meant to transfuse to this instance
-					if
-					tempTransX >= other.x && tempTransX <= other.x + other.width * 20
+if argStreaksReadIn > 0 {
+	// REPLACE THIS ITERATION WITH ONLY THE OBJECT CALLING THIS SCRIPT
+	with obj_editor_terrain_par {
+		if self.id != other.id { // Exclude itself from the set
+			if hasMarble {
+				#region
+				
+				// If this instance is adjacent
+				if (
+					// If y coordinate is the same
+					y + (height + zfloor)*20 = other.y + (other.height + other.zfloor)*20
 					&& (
-						(
-							// Adjacent upward and transfusing downward
-							edgeStreakTransDir[i] > 180 && edgeStreakTransDir[i] < 360
-							&& edgeStreakTransY[i] = height*20 - 1
-						)
-						xor (
-							// Adjacent downward and transfusing upward
-							edgeStreakTransDir[i] < 180 && edgeStreakTransDir[i] > 0
-							&& edgeStreakTransY[i] = 0
-						) 
+						// If the z dimensions overlap
+						(y >= other.y && y <= other.y + (other.height + other.zfloor - other.zcieling)*20)
+						|| (y <= other.y && y + (height + zfloor - zcieling)*20 >= other.y)
 					)
-					|| (
-						tempTransY >= other.y && tempTransY <= other.y + other.height*20
+					&& (
+						// If the x coordinates are adjacent
+						x = other.x + other.width*20
+			               || x + width*20 = other.x
+					)
+				)
+				|| (
+					// If y coordinate is adjacent
+					( y + (height + zfloor)*20 = other.y + other.zfloor*20
+					|| y + zfloor*20 = other.y + (other.height + other.zfloor)*20 )
+					&& (
+						// If the x dimensions overlap
+						(x >= other.x && x < other.x + other.width*20)
+						|| (x <= other.x && x + width*20 >= other.x)
+					)
+					&& (
+						// If the z dimensions overlap
+						(zfloor >= other.zfloor && zcieling <= other.zfloor)
+						|| (zfloor <= other.zfloor && zfloor > other.zcieling)
+					)
+				)
+				{
+					for (i = 0; i < argStreaksReadIn; i += 1) {
+						var tempTransX = self.x + edgeStreakTransX[i];
+						var tempTransY = self.y + edgeStreakTransY[i];
+						
+						// Ensure this streak was meant to transfuse to this instance
+						if
+						tempTransX >= other.x && tempTransX <= other.x + other.width * 20
 						&& (
-							// Adjacent rightward and transfusing leftward
-							edgeStreakTransDir[i] < 270 && edgeStreakTransDir[i] > 90
-							xor
-							// Adjacent leftward and transfusing rightward
-							edgeStreakTransDir[i] > 270 || edgeStreakTransDir[i] < 90
+							(
+								// Adjacent upward and transfusing downward
+								edgeStreakTransDir[i] > 180 && edgeStreakTransDir[i] < 360
+								&& edgeStreakTransY[i] = height*20 - 1
+							)
+							xor (
+								// Adjacent downward and transfusing upward
+								edgeStreakTransDir[i] < 180 && edgeStreakTransDir[i] > 0
+								&& edgeStreakTransY[i] = 0
+							) 
 						)
-					)
-					{
-						if ( y < other.y || y >= other.y + other.height*20 )
-						&& other.zfloor = self.zfloor
-						&& tempTransX >= other.x && tempTransX <= other.x + other.width*20
+						|| (
+							tempTransY >= other.y && tempTransY <= other.y + other.height*20
+							&& (
+								// Adjacent rightward and transfusing leftward
+								edgeStreakTransDir[i] < 270 && edgeStreakTransDir[i] > 90
+								xor
+								// Adjacent leftward and transfusing rightward
+								edgeStreakTransDir[i] > 270 || edgeStreakTransDir[i] < 90
+							)
+						)
 						{
-							// Transfuse across top face's camera-facing edge
-							if edgeStreakTransY[i] = 0 {
-								// Transfuse from top, upward.
-								other.edgeStreakReadY[edgeStreakCountRead] = other.height * 20;
-							} else if edgeStreakTransY[i] = height*20  {
-								// Transfuse from top, downward.
-								other.edgeStreakReadY[edgeStreakCountRead] = 0;
+							if ( y < other.y || y >= other.y + other.height*20 - 1)
+							&& other.zfloor = self.zfloor
+							&& tempTransX >= other.x && tempTransX <= other.x + other.width*20
+							{
+								// Transfuse across top face's camera-facing edge
+								if edgeStreakTransY[i] = 0 {
+									// Transfuse from top, upward.
+									other.edgeStreakReadY[edgeStreakCountRead] = other.height * 20;
+								} else if edgeStreakTransY[i] = height*20 - 1  {
+									// Transfuse from top, downward.
+									other.edgeStreakReadY[edgeStreakCountRead] = 0;
+								} else {
+									continue;
+								}
 							} else {
-								continue;
+								// Transfuse horizontally.
+								other.edgeStreakReadY[edgeStreakCountRead] = edgeStreakTransY[i] - ( other.y - self.y );
 							}
-						} else {
-							// Transfuse horizontally.
-							other.edgeStreakReadY[edgeStreakCountRead] = edgeStreakTransY[i] - ( other.y - self.y );
+							
+							other.edgeStreakReadX[edgeStreakCountRead] = edgeStreakTransX[i] + ( self.x - other.x );
+							
+							other.edgeStreakReadDir[edgeStreakCountRead] = edgeStreakTransDir[i];
+							other.edgeStreakReadGirth[edgeStreakCountRead] = edgeStreakTransGirth[i];
+							other.edgeStreakReadLength[edgeStreakCountRead] = edgeStreakTransLength[i];
+							other.edgeStreakReadJ[edgeStreakCountRead] = edgeStreakTransJ[i];
+							
+							show_debug_message(" " + string(other.id) + ": " + string(i));
+							edgeStreakCountRead += 1;
 						}
-						
-						other.edgeStreakReadX[edgeStreakCountRead] = edgeStreakTransX[i] + ( self.x - other.x );
-						
-						other.edgeStreakReadDir[edgeStreakCountRead] = edgeStreakTransDir[i];
-						other.edgeStreakReadGirth[edgeStreakCountRead] = edgeStreakTransGirth[i];
-						other.edgeStreakReadLength[edgeStreakCountRead] = edgeStreakTransLength[i];
-						other.edgeStreakReadJ[edgeStreakCountRead] = edgeStreakTransJ[i];
-						
-						show_debug_message(" " + string(id) + ": " + string(edgeStreakCountRead));
-						edgeStreakCountRead += 1;
 					}
 				}
+				
+				#endregion
 			}
-			
-			#endregion
 		}
 	}
 }
@@ -297,7 +309,7 @@ for (i = 0; i < argStreaks; i += 1) {
 						)
 					)
 				) {
-					transEdgesPassed += 1;
+					transEdgesPassed = 2;
 					streaksTransfusedRight += 1;
 				}
 			}
@@ -327,15 +339,15 @@ for (i = 0; i < argStreaks; i += 1) {
 						)
 					)
 				) {
-					transEdgesPassed += 1;
+					transEdgesPassed = 2;
 					streaksTransfusedLeft += 1;
 				}
 			}
 			
-			if streakSampleY <= height*20 - 1 {
-				if streakSampleDir < 180 && streakSampleDir > 0 { // Angling upward
+			if streakSampleY < height*20 - 1 {
+				//if streakSampleDir < 180 && streakSampleDir > 0 { // Angling upward
 					streakHasBeenAbove = true;
-				}
+				//}
 			}
 			
 			// Transfuse across side face's top edge
@@ -350,7 +362,6 @@ for (i = 0; i < argStreaks; i += 1) {
 								transDownTopDown = true;
 								streaksTransfusedTopDown += 1;
 								transEdgesPassed = 2;
-								show_debug_message("	pass top edge");
 							
 								break;
 							}
@@ -383,8 +394,8 @@ for (i = 0; i < argStreaks; i += 1) {
 						)
 					)
 				) {
-					streaksTransfusedUp = 2;
-					transEdgesPassed += 1;
+					streaksTransfusedUp += 1;
+					transEdgesPassed = 2;
 				}
 			}
 			
@@ -435,59 +446,68 @@ for (i = 0; i < argStreaks; i += 1) {
 			#endregion
 			
 			if transEdgesPassed = 2 {
+				edgeStreakTransX[edgeStreakCountWrite] = streakSampleX;
+				edgeStreakTransY[edgeStreakCountWrite] = streakSampleY;
+				
+				edgeStreakTransDir[edgeStreakCountWrite] = streakSampleDir;
+				edgeStreakTransGirth[edgeStreakCountWrite] = marbleSampleGirth[streakNetIterations];
+				edgeStreakTransLength[edgeStreakCountWrite] = streakSampleLength;
+				edgeStreakTransJ[edgeStreakCountWrite] = j;
+				
+				// Dark or light
+				edgeStreakCount[argCol] += 1;
+				
+				// Debugging transfusion
+				if transRight {
+					marbleDebugPixelColInd[marbleDebugPixelCount] = 7; // Red
+					//streaksTransfusedRight += 1;
+				} else
+				if transDownTopDown {
+					marbleDebugPixelColInd[marbleDebugPixelCount] = 7; // Red
+					//streaksTransfusedTopDown += 1;
+				} else
+				if transLeft {
+					marbleDebugPixelColInd[marbleDebugPixelCount] = 8; // Blue
+					//streaksTransfusedLeft += 1;
+				} else
+				if transUp {
+					show_debug_message("	pass top edge");
+					//streaksTransfusedUp += 1;
+					marbleDebugPixelColInd[marbleDebugPixelCount] = 8; // Blue
+				}
+				
+				// End the streak
 				if j < streakSampleLength {
-					edgeStreakTransX[edgeStreakCountWrite] = streakSampleX;
-					edgeStreakTransY[edgeStreakCountWrite] = streakSampleY;
-					
-					edgeStreakTransDir[edgeStreakCountWrite] = streakSampleDir;
-					edgeStreakTransGirth[edgeStreakCountWrite] = marbleSampleGirth[streakNetIterations];
-					edgeStreakTransLength[edgeStreakCountWrite] = streakSampleLength;
-					edgeStreakTransJ[edgeStreakCountWrite] = j;
-					
-					// Dark or light
-					edgeStreakCount[argCol] += 1;
-					
-					// Debugging transfusion
-					if transRight {
-						marbleDebugPixelColInd[marbleDebugPixelCount] = 7; // Red
-						streaksTransfusedRight += 1;
-					}
-					if transDownTopDown {
-						marbleDebugPixelColInd[marbleDebugPixelCount] = 7; // Red
-						streaksTransfusedTopDown += 1;
-					}
-					if transLeft {
-						marbleDebugPixelColInd[marbleDebugPixelCount] = 8; // Blue
-						streaksTransfusedLeft += 1;
-					}
-					if transUp {
-						streaksTransfusedUp += 1;
-						marbleDebugPixelColInd[marbleDebugPixelCount] = 8; // Blue
-					}
-					
 					marbleDebugPixelX[marbleDebugPixelCount] = edgeStreakTransX[edgeStreakCountWrite];
 					marbleDebugPixelY[marbleDebugPixelCount] = edgeStreakTransY[edgeStreakCountWrite];
 					
 					marbleDebugPixelCount += 1;
 					
-					// End the streak
 					edgeStreakCountWrite += 1;
 					streakSampleLength = 0;
-					
-					break;
 				}
+				
+				break;
 			}
 			
 			// If streak clips into obstructed space.
 			if hasAdjacentDown {
-				for (k = 0; k < adjacentDownCount; k++) {
-					if streakSampleY >= height*20 {
-						if self.x + streakSampleX >= adjacentDownArrayId[k].x
-						&& self.x + streakSampleX <= adjacentDownArrayId[k].x + adjacentDownArrayId[k].width * 20
-						{
-							streakSampleLength = 0;
-							
-							break;
+				if transEdgesPassed = 0 {
+					for (k = 0; k < adjacentDownCount; k++) {
+						if streakSampleY >= height*20 {
+							if self.x + streakSampleX >= adjacentDownArrayId[k].x
+							&& self.x + streakSampleX <= adjacentDownArrayId[k].x + adjacentDownArrayId[k].width * 20
+							{
+								if transEdgesPassed = 1 {
+									// Write streaks that already passed one edge.
+									transEdgesPassed = 2;
+								} else {
+									// End streaks that have not passed an edge.
+									streakSampleLength = 0;
+								}
+								
+								break;
+							}
 						}
 					}
 				}
@@ -524,21 +544,25 @@ if streaksTransfusedRight > 0 {
 
 if streaksTransfusedUp > 0  {
 	for (k = 0; k < adjacentUpCount; k++) {
-		with adjacentUpArrayId[k] {
-			if hasMarble {
-				show_debug_message(string(id) + ": TRANSFUSING UPWARDS, " + string(edgeStreakCountWrite));
-				scr_marble_genstreaks(argCol,streaksCol[argCol],edgeStreakCountWrite);
+		//if adjacentUpArrayTrans[k] {
+			with adjacentUpArrayId[k] {
+				if hasMarble {
+					show_debug_message(string(other.id) + ": TRANSFUSING UPWARDS, " + string(edgeStreakCountWrite));
+					scr_marble_genstreaks(argCol,streaksCol[argCol],edgeStreakCountWrite);
+				}
 			}
-		}
+		//}
 	}
 }
 
 if streaksTransfusedDown > 0 || streaksTransfusedTopDown > 0 {
 	for (k = 0; k < adjacentDownCount; k++) {
-		with adjacentDownArrayId[k] {
-			if hasMarble {
-				show_debug_message(string(id) + ": TRANSFUSING DOWNWARDS, " + string(edgeStreakCountWrite));
-				scr_marble_genstreaks(argCol,streaksCol[argCol],edgeStreakCountWrite);
+		if adjacentDownArrayTrans[k] {
+			with adjacentDownArrayId[k] {
+				if hasMarble {
+					show_debug_message(string(other.id) + ": TRANSFUSING DOWNWARDS, " + string(edgeStreakCountWrite));
+					scr_marble_genstreaks(argCol,streaksCol[argCol],edgeStreakCountWrite);
+				}
 			}
 		}
 	}
