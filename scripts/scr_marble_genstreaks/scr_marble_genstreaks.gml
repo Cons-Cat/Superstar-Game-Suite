@@ -69,21 +69,23 @@ if argStreaksReadIn > 0 {
 						
 						// Ensure this streak was meant to transfuse to this instance
 						if
-						tempTransX >= other.x && tempTransX <= other.x + other.width * 20
-						&& (
-							(
-								// Adjacent upward and transfusing downward
-								edgeStreakTransDir[i] > 180 && edgeStreakTransDir[i] < 360
-								&& edgeStreakTransY[i] = height*20 - 1
+						(
+							tempTransX >= other.x && tempTransX <= other.x + other.width * 20
+							&& (
+								(
+									// Adjacent upward and transfusing downward
+									edgeStreakTransDir[i] > 180 && edgeStreakTransDir[i] < 360
+									&& edgeStreakTransY[i] = height*20 - 1
+								)
+								xor (
+									// Adjacent downward and transfusing upward
+									edgeStreakTransDir[i] < 180 && edgeStreakTransDir[i] > 0
+									&& edgeStreakTransY[i] = 0
+								) 
 							)
-							xor (
-								// Adjacent downward and transfusing upward
-								edgeStreakTransDir[i] < 180 && edgeStreakTransDir[i] > 0
-								&& edgeStreakTransY[i] = 0
-							) 
 						)
 						|| (
-							tempTransY >= other.y && tempTransY <= other.y + other.height*20
+							tempTransY >= other.y + other.height * 20 && tempTransY <= other.y + ( other.height + other.zfloor - other.zcieling ) * 20
 							&& (
 								// Adjacent rightward and transfusing leftward
 								edgeStreakTransDir[i] < 270 && edgeStreakTransDir[i] > 90
@@ -285,7 +287,7 @@ for (i = 0; i < argStreaks; i += 1) {
 		// Transfuse this streak
 		if j < streakSampleLength - 1 {
 			// Transfuse across right edge
-			if floor(streakSampleX) >= width*20 - 1 {
+			if floor(streakSampleX) > width*20 - 1 {
 				streakSampleX = width*20 - 1;
 				
 				if !transRight {
@@ -315,7 +317,7 @@ for (i = 0; i < argStreaks; i += 1) {
 			}
 			
 			// Transfuse across left edge
-			if floor(streakSampleX) <= 0 {
+			if floor(streakSampleX) < 0 {
 				streakSampleX = 0;
 				
 				if !transLeft {
