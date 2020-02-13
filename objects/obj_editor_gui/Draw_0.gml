@@ -73,3 +73,5 @@ draw_rectangle(obj_panel_left.baseX+12,obj_panel_top.y - 1,obj_panel_left.baseX+
 
 draw_rectangle(obj_panel_right.baseX-1,obj_panel_top.y + 11,obj_panel_right.baseX,obj_panel_top.y + 11,false);
 draw_rectangle(obj_panel_right.baseX-13,obj_panel_top.y - 1,obj_panel_right.baseX-13,obj_panel_top.y,false);
+
+draw_sprite(spr_z_brace,0,obj_panel_right.baseX+4,7);

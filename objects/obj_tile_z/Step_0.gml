@@ -1,5 +1,5 @@
 /// @description Arrow buttons
-x = obj_panel_right.baseX - 11 + (view_wport[1] + 11 - obj_panel_right.baseX + room_width) / 2 - sprite_width/2;
+/*x = obj_panel_right.baseX - 11 + (view_wport[1] + 11 - obj_panel_right.baseX + room_width) / 2 - sprite_width/2;
 
 // Click arrow buttons
 if mouse_x >= self.x + 71 && mouse_x <= self.x + 95 {

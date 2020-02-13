@@ -72,3 +72,14 @@ colMid = make_color_rgb(31,34,40);
 colDark = make_color_rgb(28,30,36);
 outlineDark = make_color_rgb(63,70,87);
 outlineLight = make_color_rgb(196,196,196);
+
+// Z Layer colors
+col[0] = make_color_rgb(204,53,78); // Red
+col[1] = make_color_rgb(212,100,56); // Dark orange
+col[2] = make_color_rgb(219,164,37); // Yellow
+col[3] = make_color_rgb(162,216,44); // Light green
+col[4] = make_color_rgb(102,142,27); // Dark green
+col[5] = make_color_rgb(0,180,108); // Aqua
+col[6] = make_color_rgb(56,107,203); // Blue
+col[7] = make_color_rgb(147,71,198); // Purple
+col[8] = make_color_rgb(214,79,196); // Pink

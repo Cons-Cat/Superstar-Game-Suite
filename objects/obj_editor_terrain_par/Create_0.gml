@@ -49,15 +49,15 @@ layerColorLine = blankCol;
 layerColorShadow = blankColDark;
 
 // Base colors
-col[0] = make_color_rgb(204,53,78); // Red
-col[1] = make_color_rgb(212,100,56); // Dark orange
-col[2] = make_color_rgb(219,164,37); // Yellow
-col[3] = make_color_rgb(162,216,44); // Light green
-col[4] = make_color_rgb(102,142,27); // Dark green
-col[5] = make_color_rgb(0,180,108); // Aqua
-col[6] = make_color_rgb(56,107,203); // Blue
-col[7] = make_color_rgb(147,71,198); // Purple
-col[8] = make_color_rgb(214,79,196); // Pink
+col[0] = obj_editor_gui.col[0]; // Red
+col[1] = obj_editor_gui.col[1]; // Dark orange
+col[2] = obj_editor_gui.col[2]; // Yellow
+col[3] = obj_editor_gui.col[3]; // Light green
+col[4] = obj_editor_gui.col[4]; // Dark green
+col[5] = obj_editor_gui.col[5]; // Aqua
+col[6] = obj_editor_gui.col[6]; // Blue
+col[7] = obj_editor_gui.col[7]; // Purple
+col[8] = obj_editor_gui.col[8]; // Pink
 
 // Wireframe shadow colors
 col[9] = make_color_rgb(122,26,29); // Red

@@ -112,7 +112,7 @@ if select || canSelect {
 	
 	col[0] = insideCol; // Light orange
 	col[1] = make_color_rgb(196,196,196); // Light gray
-	col[2] = make_color_rgb(58,41,25); // Dark orange
+	col[2] = make_color_rgb(38,15,14); // Dark orange
 	col[3] = col[0];
 	font = obj_editor_gui.fontDark;
 } else {
