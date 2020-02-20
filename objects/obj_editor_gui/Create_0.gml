@@ -33,6 +33,8 @@ calcWindowHeight = window_get_height();
 tempResWidth = 0;
 tempResHeight = 0;
 
+windowWRatio = 0;
+
 depth = 0;
 
 mode = 0;
@@ -67,11 +69,22 @@ window_set_fullscreen(false);
 font = font_add_sprite_ext(spr_font_new,"abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ!?,'._-1234567890",true,0);
 fontDark = font_add_sprite_ext(spr_font_dark,"abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ!?,'._-1234567890",true,0);
 
+// Interface colors
 colLight = make_color_rgb(35,38,45);
 colMid = make_color_rgb(31,34,40);
 colDark = make_color_rgb(28,30,36);
 outlineDark = make_color_rgb(63,70,87);
 outlineLight = make_color_rgb(196,196,196);
+outlineOrange = make_color_rgb(38,15,14);
+
+colOffWhite = make_color_rgb(200,210,243);
+colOrangeBright = make_color_rgb(237,199,135);
+colOrange = make_color_rgb(232,180,89);
+colOrangeShadow = make_color_rgb(168,125,50);
+
+colBlueBright = make_color_rgb(59,77,142);
+colBlue = make_color_rgb(54,70,128);
+colBlueShadow = make_color_rgb(46,60,109);
 
 // Z Layer colors
 col[0] = make_color_rgb(204,53,78); // Red

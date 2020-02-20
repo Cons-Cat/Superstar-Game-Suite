@@ -71,3 +71,6 @@ if (z = 0) {
 } else {
 	colZ = col[ (z - 1) % 9 ]
 }
+
+buttonWidth = buttonWidthRatio * window_get_width()
+buttonHeight = buttonHeightRatio * buttonWidth;

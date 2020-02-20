@@ -11,7 +11,8 @@
         "a1e8ef8c-8963-4901-81b7-d5593b329106",
         "bd01abef-c1f0-4449-80fb-7954a88d304a",
         "bf690d6d-aff3-4e50-a326-b8d3aea5d584",
-        "6d351c25-3c03-4b0f-92c4-3dcb49fa76bf"
+        "6d351c25-3c03-4b0f-92c4-3dcb49fa76bf",
+        "af8b54b7-e0e1-4d18-b346-b1e786eeebd4"
     ],
     "filterType": "GMSprite",
     "folderName": "Tiling Interface",

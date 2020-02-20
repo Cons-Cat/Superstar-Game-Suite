@@ -33,7 +33,9 @@
         "62eb55eb-3bcc-47c7-b8a1-e85bea7c3453",
         "622b6093-99b8-46df-905b-90bb8cadfeb8",
         "1546dcf9-d8df-47c6-a796-3e57d00d7867",
-        "e46cecbb-e4fc-4bec-b414-c42bdd6e25ed"
+        "e46cecbb-e4fc-4bec-b414-c42bdd6e25ed",
+        "619454a5-ef11-402b-8385-8301248929d8",
+        "f89081a0-b3e9-45a7-b9aa-1aead914c51c"
     ],
     "filterType": "GMSprite",
     "folderName": "Deprecated",

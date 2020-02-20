@@ -128,10 +128,10 @@ if is4K {
 	mouseCheckY = floor( window_mouse_get_y() * camera_get_view_height(cameraRealGame) / calcWindowHeight ) + camera_get_view_y(cameraRealGame);
 }
 
-//show_debug_message(string(mouseCheckX) + ", " + string(mouseCheckY));
-
 if keyboard_check(vk_control) {
 	global.snapDimension = 10;
 } else {
 	global.snapDimension = 20;
 }
+
+windowWRatio = window_get_width() / 1024;

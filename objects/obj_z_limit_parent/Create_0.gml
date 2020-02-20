@@ -16,3 +16,6 @@ col[5] = obj_editor_gui.col[5]; // Aqua
 col[6] = obj_editor_gui.col[6]; // Blue
 col[7] = obj_editor_gui.col[7]; // Purple
 col[8] = obj_editor_gui.col[8]; // Pink
+
+buttonWidthRatio = 50 / 1024;
+buttonHeightRatio = 24 / 50;

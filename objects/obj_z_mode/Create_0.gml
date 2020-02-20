@@ -1,6 +1,9 @@
 /// @description Initialize variables
 image_speed = 0;
-y = 5;
+
+width = 0;
 
 mode = 0;
+canSelect = false;
 select = false;
+selState = 0;

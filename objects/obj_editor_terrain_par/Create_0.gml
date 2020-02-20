@@ -70,16 +70,6 @@ col[15] = make_color_rgb(0,65,119); // Blue
 col[16] = make_color_rgb(74,27,107); // Purple
 col[17] = make_color_rgb(119,19,93); // Pink
 
-if obj_tile_z.z >= 0 {
-	// Cube
-	zfloor = obj_tile_z.z+1;
-	zcieling = obj_tile_z.z;
-} else {
-	// Flat floor
-	zfloor = 0;
-	zcieling = 0;
-}
-
 // Tile array values
 resetArray = true;
 sprMaterial = spr_tls_rectangle_default;

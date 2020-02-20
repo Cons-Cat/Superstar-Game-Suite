@@ -263,6 +263,14 @@
             }
         },
         {
+            "Key": "15a9cd6f-ba53-4ba8-9409-b0e6599df0e2",
+            "Value": {
+                "id": "d022f382-0b91-4c9c-aeec-3df4037c35a8",
+                "resourcePath": "views\\15a9cd6f-ba53-4ba8-9409-b0e6599df0e2.yy",
+                "resourceType": "GMFolder"
+            }
+        },
+        {
             "Key": "16372974-0f9b-4b59-9fc5-3e595ca048ad",
             "Value": {
                 "id": "562db4fd-6c13-4a81-94a4-03638a185937",
@@ -812,6 +820,14 @@
                 "id": "a3cbcadf-f8da-4f5b-a977-0c31909f3009",
                 "resourcePath": "sprites\\spr_door_trigger\\spr_door_trigger.yy",
                 "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "3ec3204a-9b43-45ce-a2e4-617a98a89308",
+            "Value": {
+                "id": "7f3de890-9a15-4dac-bf51-1ddddae5496a",
+                "resourcePath": "scripts\\scr_draw_button_edit\\scr_draw_button_edit.yy",
+                "resourceType": "GMScript"
             }
         },
         {
@@ -4029,6 +4045,7 @@
         "a94572fa-2c9d-46c2-abfc-a82ec1b953cd",
         "e6121880-6620-44bc-b6bb-ec4445633dc4",
         "d5ecd1ee-0a01-4c49-a8d0-8c0d4d5c790c",
+        "3ec3204a-9b43-45ce-a2e4-617a98a89308",
         "1b254f41-b5b7-4063-ab01-c1f02ed3b1ac",
         "0e0e322f-380e-448f-9530-42154abd02ad",
         "2bb57222-41cb-44de-9101-e2a546ff6ce1",
