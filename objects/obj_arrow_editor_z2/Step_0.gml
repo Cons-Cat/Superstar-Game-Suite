@@ -33,6 +33,12 @@ if instance_exists(trg) {
 				trg.zcieling -= 1;
 			}
 		}
+		if obj_z_mode.mode = 1 {
+			if trg.zcieling < obj_z_min.z {
+				trg.zcieling = obj_z_min.z;
+				y = trg.y + trg.height*20 + (trg.zfloor - trg.zcieling)*20;
+			}
+		}
 		
 		trg.updateZRange = true;
 		trg.resetArray = true;
