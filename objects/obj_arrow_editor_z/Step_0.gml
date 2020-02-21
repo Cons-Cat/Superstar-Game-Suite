@@ -21,15 +21,24 @@ if instance_exists(trg) {
 				y = trg.y + trg.height*10 + (trg.zfloor - trg.zcieling) * 20;
 			}
 			
-			if self.y < trg.y + 20 {
+			while self.y < trg.y + 20 {
 				trg.zfloor += 1;
 				trg.y -= 20;
 			}
-			if self.y > trg.y + 20 && trg.zfloor > trg.zcieling {
+			while self.y > trg.y + 20 && trg.zfloor > trg.zcieling {
 				trg.zfloor -= 1;
 				trg.y += 20;
 			}
 			
+			if obj_z_mode.mode = 1 {
+				if trg.zfloor > obj_z_max.z {
+					trg.y += (trg.zfloor - obj_z_max.z) * 20;
+					trg.zfloor = obj_z_max.z;
+					y = trg.y + trg.height*10;
+				}
+			}
+			
+			trg.updateZRange = true;
 			trg.resetArray = true;
 		}
 	}

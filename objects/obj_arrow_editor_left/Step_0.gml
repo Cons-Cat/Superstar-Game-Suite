@@ -11,8 +11,6 @@ if mouseCheckX >= self.x - sprite_width && mouseCheckX <= self.x && mouseCheckY 
 }
 
 if instance_exists(trg) {
-	y = trg.y + trg.height*10; // Halfway down the height
-	
 	if select {
 		if floor(mouseCheckX/20)*20 + 20 >= 0 {
 			if mouseCheckX < trg.x + trg.width*20 - 20 {

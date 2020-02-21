@@ -5,9 +5,9 @@ if instance_exists(trg) {
 	if select = 0 {
 		// Bottom left corner
 		if trg.height > 1 {
-			y = trg.y + trg.height*20 - 20;
+			y = trg.floorY;
 		} else {
-			y = trg.y + 20;
+			y = trg.floorY + 20;
 		}
 		
 		if trg.width > 2 {

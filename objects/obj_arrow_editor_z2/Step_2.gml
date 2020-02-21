@@ -2,7 +2,7 @@
 event_inherited();
 
 if instance_exists(trg) {
-	if select = 0 {
+	if !select {
 		selectYOff = 0
 		
 		if trg.width = 1 {

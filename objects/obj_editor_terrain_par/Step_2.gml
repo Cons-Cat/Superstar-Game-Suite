@@ -1,5 +1,23 @@
 /// @description Depth and Baking
 
+// Update floorMax
+if updateZRange {
+	updateZRange = false;
+	
+	if obj_z_mode.mode = 0 {
+		floorY = y;
+		cielY = y + (zfloor - zcieling) * 20;
+		//show_debug_message("cielY: " + string(cielY));
+	} else {
+		var floorMax = y + (zfloor - obj_z_max.z) * 20;
+		var floorMin = y + (zfloor - obj_z_min.z) * 20;
+		
+		floorY = clamp(y, floorMax, y + (zfloor + zcieling) * 20);
+		cielY = clamp(y + (zfloor - zcieling) * 20, y, floorMin);
+		//show_debug_message("cielY: " + string(cielY));
+	}
+}
+
 // Position has changed
 if lastX != x || lastY != y || lastWidth != width || lastCieling != zcieling {
 	#region

@@ -2607,6 +2607,14 @@
             }
         },
         {
+            "Key": "abc79966-99bc-41e8-b972-0560399e664a",
+            "Value": {
+                "id": "620439f3-e2dd-4174-9339-95a92ecd6a90",
+                "resourcePath": "notes\\note_scrap.yy",
+                "resourceType": "GMNotes"
+            }
+        },
+        {
             "Key": "ac341fd6-8bb4-496a-91f8-953b1447d059",
             "Value": {
                 "id": "8ad0cf7e-72f7-4ffb-98f4-ac29f5675106",

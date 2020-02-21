@@ -27,5 +27,7 @@ if instance_exists(trg) {
 		
 		trg.x = self.x;
 		trg.y = self.y;
+		
+		trg.updateZRange = true;
 	}
 }

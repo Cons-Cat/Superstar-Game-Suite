@@ -32,5 +32,8 @@ if instance_exists(trg) {
 			trg.zfloor -= 1;
 			trg.y += 20;
 		}
+		
+		trg.updateZRange = true;
+		trg.resetArray = true;
 	}
 }

@@ -58,8 +58,10 @@ if spawnButtons {
 	with instance_create_layer(x,y,"Instances",obj_arrow_editor_drag) {
 		trg = other.id;
 	}
-	with instance_create_layer(x+width*10,y+height*10,"Instances",obj_arrow_editor_z) {
-		trg = other.id;
+	if obj_z_mode.mode = 0 ||  zfloor <= obj_z_max.z {
+		with instance_create_layer(x+width*10,y+height*10,"Instances",obj_arrow_editor_z) {
+			trg = other.id;
+		}
 	}
 	with instance_create_layer(x+width*10,y+height*10,"Instances",obj_arrow_editor_z2) {
 		trg = other.id;

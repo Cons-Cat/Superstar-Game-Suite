@@ -9,7 +9,7 @@ if mouseCheckX >= self.x - sprite_width/2 && mouseCheckX <= self.x + sprite_widt
 }
 
 if instance_exists(trg) {
-	if select = 1 {
+	if select {
 		if selectYOff = 0 {
 			selectYOff = mouseCheckY - y;
 		}
@@ -33,6 +33,8 @@ if instance_exists(trg) {
 				trg.zcieling -= 1;
 			}
 		}
+		
+		trg.updateZRange = true;
 		trg.resetArray = true;
 	}
 }

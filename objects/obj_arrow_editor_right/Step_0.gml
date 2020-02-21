@@ -11,8 +11,6 @@ if mouseCheckX >= self.x && mouseCheckX <= self.x - sprite_width && mouseCheckY 
 }
 
 if instance_exists(trg) {
-	y = trg.y + trg.height*10; // Halfway down the height
-	
 	if select {
 		if floor(mouseCheckX/20)*20 <= room_width {
 			if mouseCheckX > trg.x + 20 && trg.str != "slope2" && trg.str != "slope3" {

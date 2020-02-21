@@ -4,7 +4,11 @@
 if obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4 {
 	// Draw surface baked in the Step event
 	if surface_exists(tileSurfaceDraw) {
-		draw_surface_ext(tileSurfaceDraw,x-20,y-20,1,1,0,layerColor,1);
+		if obj_z_mode.mode = 0 {
+			draw_surface_ext(tileSurfaceDraw,x-20,y-20,1,1,0,layerColor,1);
+		} else {
+			draw_surface_part_ext(tileSurfaceDraw,0,clamp(obj_z_max.z*20,0,(height+zfloor+zcieling)*20),width*20,(height+zfloor+zcieling)*20,x-20,y-20,1,1,layerColor,1);
+		}
 	} else {
 		// Draw generic null texture
 		for (i = 0; i < width; i += 1) {
@@ -17,9 +21,3 @@ if obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4
 		}
 	}
 }
-
-/*draw_set_alpha(0.55);
-draw_set_color(c_black);
-draw_text(x,y,id);
-draw_set_alpha(1);
-*/

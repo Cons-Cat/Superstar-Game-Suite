@@ -227,6 +227,8 @@ if spawnTiles {
 if placed = 0 {
 	x = (mouseCheckX div global.snapDimension) * global.snapDimension;
 	y = (mouseCheckY div global.snapDimension) * global.snapDimension;
+	
+	updateZRange = true;
 }
 
 if mouse_check_button_released(mb_left) {

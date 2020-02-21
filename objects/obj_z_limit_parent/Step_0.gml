@@ -58,10 +58,15 @@ if mouse_x >= self.x + sprite_width + 2 && mouse_x <= self.x + sprite_width + 2 
 if (mouse_x >= x && mouse_x <= x + sprite_width && mouse_y >= y && mouse_y <= y+sprite_height)
 || arrowLeftSub > 0 || arrowRightSub > 0
 {
-	if mouse_wheel_up() { z++;}
+	if mouse_wheel_up() {
+		z++;
+		with obj_editor_terrain_par { updateZRange = true; }
+	}
+	
 	if mouse_wheel_down() {
 		if z > 0 {
 			z--;
+			with obj_editor_terrain_par { updateZRange = true; }
 		}
 	}
 }
