@@ -1,6 +1,6 @@
 /// scr_draw_terrain ( sprTop, subTop, sprMid, subMid, sprBot, subBot)
 var argX = argument[0];
-var jTop = (y - floorY)/20 + zfloor - zcieling - 1;
+var jTop = (y - floorY)/20 + zfloor - zcieling;
 var jBot = zfloor - abs(y - cielY)/20 - zcieling;
 
 var sprTop = argument[1];
@@ -15,24 +15,54 @@ var subBot = argument[6];
 var sprHole = argument[7];
 var subHole = argument[8];
 
-for (j = 0; j < zfloor-zcieling; j += 1) {
-	if canSelect = false {
-		layerColor = col[ (j + zcieling) % 9 ];
-	} else {
-		layerColor = c_orange;
-	}
+
+// Draw Below Shadow
+#region
+		
+/*if (obj_z_mode.mode = 0 && zcieling > 0) || (obj_z_mode.mode = 1 && zfloor >= obj_z_min.z && zcieling <= obj_z_max.z) {
+	gpu_set_blendmode(bm_inv_src_color);
 	
-	// Draw walls
-	if ( ( j <= jTop ) && (j + zcieling >= obj_z_min.z && j + zcieling < obj_z_max.z) )|| obj_z_mode.mode = 0 {
-		if j = jBot {
-			draw_sprite_ext(sprBot,subBot,argX,cielY,1,1,0,layerColor,alpha);
-		} else {
-			draw_sprite_ext(sprMid,subMid,argX,y+(height+zfloor-zcieling-j-1)*20,1,1,0,layerColor,alpha);
+	for (i = 0; i < width; i += 1) {
+		for (j = 0; j < height; j += 1) {
+			if !collision_point(x+i*20,y+j*20+(zfloor)*20,obj_editor_terrain,false,true) {
+				draw_sprite_ext(spr_shadow_editor,0,x+i*20+10,y+j*20+10+zfloor*20,1,1,0,c_white,0.8);
+			}
 		}
 	}
 	
-	// Draw floor
-	if j = jTop {
+	gpu_set_blendmode(bm_normal);
+}*/
+
+#endregion
+
+for (j = 0; j <= zfloor - zcieling; j += 1) {
+	if j < jTop {
+		// Draw walls
+		if (j + zcieling >= obj_z_min.z && j + zcieling < obj_z_max.z )|| obj_z_mode.mode = 0 {
+			if !canSelect {
+				layerColor = col[ (j + zcieling) % 9 ];
+			} else {
+				layerColor = c_orange;
+			}
+			
+			if j = jBot {
+				draw_sprite_ext(sprBot,subBot,argX,cielY,1,1,0,layerColor,alpha);
+			} else {
+				draw_sprite_ext(sprMid,subMid,argX,y+(height+zfloor-zcieling-j-1)*20,1,1,0,layerColor,alpha);
+			}
+		}
+	} else if j = jTop {
+		// Draw floor
+		if !canSelect {
+			if j > 0 || zcieling > 0 {
+				layerColor = col[ (j + zcieling - 1) % 9 ];
+			} else {
+				layerColor = c_white;
+			}
+		} else {
+			layerColor = c_orange;
+		}
+		
 		if floorY = y || obj_z_mode.mode = 0 {
 			draw_sprite_ext(sprTop,subTop,argX,floorY,1,1,0,layerColor,alpha);
 		} else {
@@ -46,7 +76,7 @@ for (j = 0; j < zfloor-zcieling; j += 1) {
 			}
 		}
 		
-		// Draw Shadow
+		// Draw Above Shadow
 		if zcieling >= 0 {
 			var trgShad;
 			

@@ -5,25 +5,6 @@ if obj_editor_gui.mode = 0 {
 	#region
 	
 	if obj_z_mode.mode = 0 || obj_z_min.z <= zfloor {
-		// Draw Shadow
-		#region
-		
-		if (obj_z_mode.mode = 0 && zcieling > 0) || (obj_z_mode.mode = 1 && zfloor >= obj_z_min.z && zcieling <= obj_z_max.z) {
-			gpu_set_blendmode(bm_inv_src_color);
-		
-			for (i = 0; i < width; i += 1) {
-				for (j = 0; j < height; j += 1) {
-					if !collision_point(x+i*20,y+j*20+(zfloor)*20,obj_editor_terrain,false,true) {
-						draw_sprite_ext(spr_shadow_editor,0,x+i*20+10,y+j*20+10+zfloor*20,1,1,0,c_white,0.8);
-					}
-				}
-			}
-			
-			gpu_set_blendmode(bm_normal);
-		}
-		
-		#endregion
-		
 		if width = 1 {
 			scr_draw_terrain(x,spr_terrain_editor,9,spr_walls_editor,6,spr_walls_editor,7,spr_terrain_editor,16);
 		} else {
