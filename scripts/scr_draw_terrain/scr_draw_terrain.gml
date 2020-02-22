@@ -1,7 +1,7 @@
 /// scr_draw_terrain ( sprTop, subTop, sprMid, subMid, sprBot, subBot)
 var argX = argument[0];
 var jTop = (y - floorY)/20 + zfloor - zcieling;
-var jBot = zfloor - abs(y - cielY)/20 - zcieling;
+var jBot = zfloor - abs(y - cielY)/20 - zcieling + height - 1;
 
 var sprTop = argument[1];
 var subTop = argument[2];
@@ -14,7 +14,6 @@ var subBot = argument[6];
 
 var sprHole = argument[7];
 var subHole = argument[8];
-
 
 // Draw Below Shadow
 #region
@@ -47,6 +46,7 @@ for (j = 0; j <= zfloor - zcieling; j += 1) {
 			
 			if j = jBot {
 				draw_sprite_ext(sprBot,subBot,argX,cielY,1,1,0,layerColor,alpha);
+				show_debug_message(random(10));
 			} else {
 				draw_sprite_ext(sprMid,subMid,argX,y+(height+zfloor-zcieling-j-1)*20,1,1,0,layerColor,alpha);
 			}

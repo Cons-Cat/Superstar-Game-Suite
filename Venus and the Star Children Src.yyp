@@ -3919,6 +3919,14 @@
             }
         },
         {
+            "Key": "f99feb41-1dce-4407-900f-5f81caa08f80",
+            "Value": {
+                "id": "dcb0d661-e364-4bd2-ba27-2676795f1f73",
+                "resourcePath": "sprites\\spr_walls_slope2_editor_flip\\spr_walls_slope2_editor_flip.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "f9a3a2b6-d012-4fe0-9b0c-56c41fe591ca",
             "Value": {
                 "id": "a249feb6-9328-41c6-b9c7-d2294b02cbe1",
