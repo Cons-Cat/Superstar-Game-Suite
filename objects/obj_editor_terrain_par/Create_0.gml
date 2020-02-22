@@ -1,6 +1,7 @@
 /// @description Generic variable initialization
 width = 1;
 height = 1;
+
 tileLayerCount = 0;
 tileArrayHeight = 0;
 layerVisible[0] = true;

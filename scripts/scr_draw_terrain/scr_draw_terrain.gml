@@ -46,7 +46,6 @@ for (j = 0; j <= zfloor - zcieling; j += 1) {
 			
 			if j = jBot {
 				draw_sprite_ext(sprBot,subBot,argX,cielY,1,1,0,layerColor,alpha);
-				show_debug_message(random(10));
 			} else {
 				draw_sprite_ext(sprMid,subMid,argX,y+(height+zfloor-zcieling-j-1)*20,1,1,0,layerColor,alpha);
 			}
