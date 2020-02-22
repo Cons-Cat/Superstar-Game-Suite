@@ -37,7 +37,7 @@ if canChangeSelect {
 						if (mouseCheckX >= tempSelectInstance.x && mouseCheckX < tempSelectInstance.x + tempSelectInstance.width * 20)
 						&& (
 							// Typical mouse hovering
-							( mouseCheckY >= tempSelectInstance.y && mouseCheckY < tempSelectInstance.y + (tempSelectInstance.height + tempSelectInstance.zfloor - tempSelectInstance.zcieling)*20  && (mode != 1 && tempSelectInstance.modeForSelect) )
+							( mouseCheckY >= tempSelectInstance.floorY && mouseCheckY < tempSelectInstance.cielY + tempSelectInstance.height*20  && (mode != 1 && tempSelectInstance.modeForSelect) )
 							||
 							// Wireframe mouse hovering
 							( mouseCheckY >= tempSelectInstance.y + (tempSelectInstance.zfloor- tempSelectInstance.zcieling)*20 && mouseCheckY < tempSelectInstance.y + (tempSelectInstance.height + tempSelectInstance.zfloor - tempSelectInstance.zcieling)*20 && (mode = 1 && tempSelectInstance.modeForSelect) )

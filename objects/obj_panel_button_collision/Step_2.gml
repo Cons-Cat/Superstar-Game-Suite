@@ -2,6 +2,8 @@
 mouseCheckX = obj_editor_gui.mouseCheckX;
 mouseCheckY = obj_editor_gui.mouseCheckY;
 
+var painting = false;
+
 if select {
 	// Deselect terrain
 	if instance_exists(obj_editor_terrain_par) {
@@ -10,15 +12,15 @@ if select {
 	
 	// Painting mode
 	if keyboard_check(vk_alt) {
-		objIndex = -1;
+		painting = true;
 	} else {
 		if !mouse_check_button(mb_left) {
-			objIndex = obj_editor_terrain;
+			painting = false;
 		}
 	}
 	
 	// Paint
-	if objIndex = -1 {
+	if painting {
 		placeEmpty = true;
 		
 		for (i = 0; i < instance_number(obj_editor_terrain_par); i++) {
@@ -32,10 +34,10 @@ if select {
 			{
 				if
 				// If tempInst occupies the X space
-				tempInst.x <= mouseCheckX
+				tempInst.x - ( sprite_get_width(object_get_sprite(objIndex)) - 20 ) <= mouseCheckX
 				&& tempInst.x + tempInst.width*20 >= mouseCheckX
 				// If tempInst occupies the Y space
-				&& tempInst.y + tempInst.zfloor*20 <= mouseCheckY + obj_z_max.z*20
+				&& tempInst.y + tempInst.zfloor*20 - ( sprite_get_height(object_get_sprite(objIndex)) - 20 ) <= mouseCheckY + obj_z_max.z*20
 				&& tempInst.y + tempInst.zfloor*20 + tempInst.height*20 >= mouseCheckY + obj_z_max.z*20
 				{
 					placeEmpty = false;
@@ -44,7 +46,7 @@ if select {
 				}
 			}
 		}
-		show_debug_message(string(mouseCheckX) + ", " + string(mouseCheckY));
+		
 		if placeEmpty {
 			if mouse_x > obj_panel_left.x && mouse_x < obj_panel_right.x {
 				if mouse_y > obj_panel_top.y {
@@ -52,8 +54,7 @@ if select {
 						if !(mouse_x > obj_panel_right.x - 21 && mouse_x <= obj_panel_right.x + 1 && mouse_y >= obj_panel_right.y - 60 && mouse_y <= obj_panel_right.y + 60) && obj_panel_right.select = 0 {
 							if !(mouse_x > obj_panel_top.x - 60 && mouse_x < obj_panel_top.x + 60 && mouse_y >= obj_panel_top.y && mouse_y <= obj_panel_top.y + 21) && obj_panel_top.select = 0 {
 								if mouse_check_button(mb_left) {
-									//show_debug_message("TEMPX: " + string(tempInst.x) + ", " + string(tempInst.x + tempInst.width*20) + ", CHECKX: " + string(mouseCheckX));
-									with instance_create_layer(0, 0, "Instances", obj_editor_terrain) {
+									with instance_create_layer(0, 0, "Instances", objIndex) {
 										canPlace = false;
 										canDrag = false;
 										select = false;
@@ -78,7 +79,6 @@ if select {
 	if (keyboard_check_released(vk_alt) && !mouse_check_button(mb_left)) || (!keyboard_check(vk_alt) && mouse_check_button_released(mb_left) && objIndex = -1) {
 		obj_editor_gui.canChangeSelect = true; // Override obj_editor_terrain_par's Create event
 		select = false; // Deselect button
-		objIndex = obj_editor_terrain;
 	}
 }
 

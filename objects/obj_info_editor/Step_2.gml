@@ -4,7 +4,7 @@ event_inherited();
 if instance_exists(trg) {
 	if select = 0 {
 		// Top left corner
-		y = trg.y - 20;
+		y = trg.floorY - 20;
 		
 		if str2 = "" {
 			if trg.width > 2 {

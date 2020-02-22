@@ -1,5 +1,6 @@
 /// @description Insert description here
 select = false;
+canSelect = false;
 canRelease = false;
 objIndex = -1;
 imgIndex = 0;

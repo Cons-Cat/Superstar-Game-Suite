@@ -26,7 +26,7 @@ if instance_exists(trg) {
 		}
 		
 		trg.x = self.x;
-		trg.y = self.y;
+		trg.y += self.y - trg.floorY;
 		
 		trg.updateZRange = true;
 	}

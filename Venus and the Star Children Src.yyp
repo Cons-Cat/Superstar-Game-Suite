@@ -1535,6 +1535,14 @@
             }
         },
         {
+            "Key": "663a6765-dad5-4d07-aae7-e11189bc83b7",
+            "Value": {
+                "id": "3639c818-9352-4b0f-aba2-f0e21ae6bc40",
+                "resourcePath": "objects\\obj_panel_button_collision\\obj_panel_button_collision.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "66c862f9-9866-49a5-a314-f193d494dd70",
             "Value": {
                 "id": "c31c4155-afef-4cef-b1db-34bcece2c6e1",
