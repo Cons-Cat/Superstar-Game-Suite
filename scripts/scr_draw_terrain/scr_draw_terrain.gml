@@ -15,22 +15,59 @@ var subBot = argument[6];
 var sprHole = argument[7];
 var subHole = argument[8];
 
-// Draw Below Shadow
+// Draw Shadow
 #region
-		
-/*if (obj_z_mode.mode = 0 && zcieling > 0) || (obj_z_mode.mode = 1 && zfloor >= obj_z_min.z && zcieling <= obj_z_max.z) {
-	gpu_set_blendmode(bm_inv_src_color);
+
+if (obj_z_mode.mode = 0 && zcieling > 0) || (obj_z_mode.mode = 1 && zfloor >= obj_z_min.z && zcieling <= obj_z_max.z) {
+	var castY = y + zfloor*20;
+	var inst;
+	var tempZ = -1;
+	var drawShad = true;
 	
-	for (i = 0; i < width; i += 1) {
-		for (j = 0; j < height; j += 1) {
-			if !collision_point(x+i*20,y+j*20+(zfloor)*20,obj_editor_terrain,false,true) {
-				draw_sprite_ext(spr_shadow_editor,0,x+i*20+10,y+j*20+10+zfloor*20,1,1,0,c_white,0.8);
+	// Find instances to cast a shadow on
+	for (var i = 0; i < instance_number(obj_editor_terrain_par); i ++) {
+		inst = instance_find(obj_editor_terrain_par,i);
+		
+		if inst.id != self.id {
+			if inst.zfloor > tempZ {
+				if inst.zfloor <= self.zcieling {
+					if
+					(inst.x <= argX && inst.x + inst.width*20 > argX)
+					|| (inst.x >= argX && inst.x + inst.width*20 <= argX + 20)
+					{
+						var instY = inst.y + inst.zfloor*20;
+						var selfY = self.y + self.zfloor*20;
+					
+						if
+						(instY <= selfY && instY + inst.height*20 > selfY)
+						|| (instY >= selfY && instY + inst.height*20 <= selfY + self.height*20)
+						{
+							if inst.zfloor = self.zcieling {
+								drawShad = false;
+							
+								break;
+							} else {
+								// Cast shadow on this instance
+								tempZ = inst.zfloor;
+								castY = inst.floorY + (selfY - instY);
+							}
+						}
+					}
+				}
 			}
 		}
 	}
 	
-	gpu_set_blendmode(bm_normal);
-}*/
+	if drawShad {
+		gpu_set_blendmode(bm_inv_src_color);
+		gpu_set_fog(true,c_black,0,0);
+		
+		draw_sprite_ext(sprTop,subTop,argX,castY,1,1,0,c_white,0.425);
+		
+		gpu_set_blendmode(bm_normal);
+		gpu_set_fog(false,c_black,0,0);
+	}
+}
 
 #endregion
 
@@ -67,40 +104,5 @@ for (j = 0; j <= zfloor - zcieling; j += 1) {
 		} else {
 			draw_sprite_ext(sprHole,subHole,argX,floorY,1,1,0,layerColor,alpha);
 		}
-		
-		// Initialize shadow iteration
-		/*for (i = 0; i < width; i += 1) {
-			for (j = 0; j < height; j += 1) {
-				shadowed[i,j] = 0;
-			}
-		}
-		
-		// Draw Above Shadow
-		if zcieling >= 0 {
-			var trgShad;
-			
-			gpu_set_blendmode(bm_inv_src_color);
-			
-			if j = zfloor - zcieling {
-				for (z = 0; z < y+(zfloor+height)*20; z += 20) {
-					if collision_point(x+i*20,z,obj_editor_terrain,false,true) {
-						shadowed[i,j] += 1;
-						trgShad = collision_point(x+i*20,z,obj_editor_terrain,false,true).id;
-						
-						for (v = 0; v < trgShad.height; v += 1) {
-							if zfloor < trgShad.zcieling {
-								if (self.y+self.zfloor*20+j*20) = (trgShad.y+trgShad.zfloor*20+v*20) {
-									if shadowed[i,j] = 1 {
-										draw_sprite_ext(sprTop,subTop,argX,y,1,1,0,c_white,0.75);
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-			
-			gpu_set_blendmode(bm_normal);
-		}*/
 	}
 }
