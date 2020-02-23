@@ -28,24 +28,26 @@ if obj_editor_gui.mode = 0 {
 if obj_editor_gui.mode = 1 {
 	#region
 	
-	// Bottom surface
-	draw_set_color(layerColorShadow);
-	draw_set_alpha(0.45);
-	draw_rectangle(x,y+(zfloor-zcieling)*20,x+width*20-1,y+(height+zfloor-zcieling)*20-1,false);
+	if obj_z_mode.mode = 0 || (obj_z_min.z <= zcieling && obj_z_max.z >= zcieling) {
+		// Bottom surface
+		draw_set_color(layerColorShadow);
+		draw_set_alpha(0.45);
+		draw_rectangle(x,cielY,x+width*20-1,cielY+20,false);
 	
-	draw_set_alpha(1);
-	draw_set_color(layerColorLine);
+		draw_set_alpha(1);
+		draw_set_color(layerColorLine);
 	
-	// Horizontal lines
-	draw_rectangle(x,y,x+width*20-1,y,false);
-	draw_rectangle(x,y+height*20-1,x+width*20-1,y+height*20,false);
+		// Horizontal lines
+		draw_rectangle(x,floorY,x+width*20-1,floorY,false);
+		draw_rectangle(x,floorY+19,x+width*20-1,floorY+19,false);
 	
-	draw_rectangle(x,y+(zfloor-zcieling)*20,x+width*20-1,y+(zfloor-zcieling)*20,false);
-	draw_rectangle(x,y+(height+zfloor-zcieling)*20-1,x+width*20-1,y+(height+zfloor-zcieling)*20-1,false);
+		draw_rectangle(x,cielY,x+width*20-1,cielY,false);
+		draw_rectangle(x,cielY+19,x+width*20-1,cielY+19,false);
 	
-	// Vertical lines
-	draw_rectangle(x,y,x,y+(height+zfloor-zcieling)*20-1,false);
-	draw_rectangle(x+width*20-1,y,x+width*20-1,y+(height+zfloor-zcieling)*20-1,false);
+		// Vertical lines
+		draw_rectangle(x,floorY,x,cielY+19,false);
+		draw_rectangle(x+width*20-1,floorY,x+width*20-1,cielY+19,false);
+	}
 	
 	#endregion
 }

@@ -266,10 +266,10 @@ if !canSelect {
 // Calculate wireframe colors
 if obj_editor_gui.mode = 1 {
 	if !canSelect {
-		if zfloor > 0 {
-			layerColor = col[ abs( (zfloor - 1) % 9) ];
+		if zcieling > 0 {
+			layerColor = col[ abs( (zcieling - 1) % 9) ];
 			layerColorLine = make_color_rgb(color_get_red(layerColor)+25,color_get_green(layerColor)+25,color_get_blue(layerColor)+25);
-			layerColorShadow = col[ abs( (zfloor - 1) % 9) + 9 ];
+			layerColorShadow = col[ abs( (zcieling - 1) % 9) + 9 ];
 		} else {
 			layerColorLine = c_white;
 			layerColorShadow = c_gray;

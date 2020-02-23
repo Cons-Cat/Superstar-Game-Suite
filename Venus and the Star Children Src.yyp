@@ -1663,6 +1663,14 @@
             }
         },
         {
+            "Key": "6c957c8a-8bb9-42c3-8cd8-3c505aa1a3e6",
+            "Value": {
+                "id": "a23f09ee-a74c-44f4-bac3-3c3ff7a5c18f",
+                "resourcePath": "sprites\\spr_walls_slope3_editor_flip\\spr_walls_slope3_editor_flip.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "6cee756a-8862-4df0-ad1d-cb846ee7a5c4",
             "Value": {
                 "id": "0dac2c16-ab38-4a5f-8c3d-ea99bf3c99a7",
