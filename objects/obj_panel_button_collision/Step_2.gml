@@ -60,12 +60,14 @@ if select {
 										select = false;
 										placed = 1;
 										
-										x = floor(other.mouseCheckX/20)*20;
-										y = floor((obj_editor_gui.mouseCheckY)/20)*20;
+										x = (other.mouseCheckX div 20)*20;
+										y = (other.mouseCheckY div 20)*20;
 										
 										zfloor = obj_z_max.z;
 										zcieling = obj_z_min.z;
 									}
+									
+									painted = true;
 								}
 							}
 						}
@@ -75,10 +77,13 @@ if select {
 		}
 	}
 	
-	// Stop painting
-	if (keyboard_check_released(vk_alt) && !mouse_check_button(mb_left)) || (!keyboard_check(vk_alt) && mouse_check_button_released(mb_left) && objIndex = -1) {
-		obj_editor_gui.canChangeSelect = true; // Override obj_editor_terrain_par's Create event
-		select = false; // Deselect button
+	// De-select
+	if painted && !keyboard_check(vk_alt) && !mouse_check_button(mb_left) {
+		obj_editor_gui.canChangeSelect = true;
+		
+		canRelease = false;
+		select = false;
+		painted = false;
 	}
 }
 

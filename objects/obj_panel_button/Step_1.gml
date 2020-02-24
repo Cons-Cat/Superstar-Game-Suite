@@ -20,6 +20,7 @@ if select {
 									}
 									
 									obj_editor_gui.canChangeSelect = false;
+									canRelease = true;
 								}
 							}
 						}

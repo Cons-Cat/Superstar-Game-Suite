@@ -18,8 +18,8 @@ if relativeMouseY >= 0 && relativeMouseY <= sprite_get_height(tileDefaultSpr) {
 			selecting = true;
 			draggingSelection = true;
 			
-			xInit = ( relativeMouseX + xOff ) div 20 * 20;
-			yInit = ( relativeMouseY + yOff ) div 20 * 20;
+			xInit = ( relativeMouseX ) div 20 * 20;
+			yInit = ( relativeMouseY ) div 20 * 20;
 			xInitTemp = xInit;
 			yInitTemp = yInit;
 			

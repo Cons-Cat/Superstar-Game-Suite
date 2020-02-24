@@ -17,19 +17,13 @@ if mouse_check_button_pressed(mb_left) {
 		} else {
 			select = false;
 		}
-	} else {
-		if objIndex != -1 {
-			canRelease = true;
-		}
 	}
 }
 
 if mouse_check_button_released(mb_left) {
 	if canRelease {
-		if !keyboard_check(vk_alt) {
-			select = false;
-			canRelease = false;
-		}
+		select = false;
+		canRelease = false;
 	}
 }
 
