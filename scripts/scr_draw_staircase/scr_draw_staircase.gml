@@ -10,8 +10,7 @@ var argSteps = argument[7];
 
 var stepLength = argLength / argSteps;
 var stepHeight = ( argZFloor - argZCeil ) * 20 / argSteps;
-
-var len = argLength - ( argLength / argSteps);
+var slopeDif = abs( abs(argSlopeRun) - abs(argSlopeRise) );
 var angle = point_direction( 0, 0, argSlopeRun, argSlopeRise );
 
 var x1;
@@ -35,11 +34,11 @@ for ( i  = 1; i <= argSteps; i++ ) {
 	
 	draw_set_color(c_gray);
 	
-	for ( var j = 0; j < 20 / abs(argSlopeRun); j ++ ) {
+	for ( var j = 0; j < width * 20 / abs(argSlopeRun); j ++ ) {
 		jRun = ( j * argSlopeRun );
 		jRise = ( j * argSlopeRise );
 		
-		draw_rectangle( x1 + jRun, y1 + jRise, x1 + jRun + abs( abs(argSlopeRun) - abs(argSlopeRise) ), y1 + jRise + stepHeight, false);
+		draw_rectangle( x1 + jRun, y1 + jRise, x1 + jRun + slopeDif, y1 + jRise + stepHeight, false);
 	}
 }
 
@@ -50,9 +49,9 @@ for ( i  = 1; i <= argSteps; i++ ) {
 	// Draw step floor.
 	x1 = argX + lengthdir_x(stepLength,angle + sign(argSlopeRun) * 90) * i;
 	y1 = argY + lengthdir_y(len, angle + sign(argSlopeRise) * 90) - stepHeight*i;
-	x2 = x1 + ( argSlopeRun * 10 );
-	y2 = y1 + ( argSlopeRise * 10 );
-		
+	x2 = x1 + ( argSlopeRun * width * 20 / (slopeDif+1) );
+	y2 = y1 + ( argSlopeRise * width * 20 / (slopeDif+1) );
+	
 	draw_set_color(c_white);
 	draw_line_width( x1, y1, x2, y2, stepLength );
 }
