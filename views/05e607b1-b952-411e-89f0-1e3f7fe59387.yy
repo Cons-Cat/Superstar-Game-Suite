@@ -35,7 +35,13 @@
         "1546dcf9-d8df-47c6-a796-3e57d00d7867",
         "e46cecbb-e4fc-4bec-b414-c42bdd6e25ed",
         "619454a5-ef11-402b-8385-8301248929d8",
-        "f89081a0-b3e9-45a7-b9aa-1aead914c51c"
+        "f89081a0-b3e9-45a7-b9aa-1aead914c51c",
+        "3747c239-1847-4ec6-b993-fa8c5efabc8b",
+        "6233cfa3-64de-4c25-bc92-cdb3cbe7d12b",
+        "ab3872d4-79c8-49ac-b90c-982c54c808b1",
+        "7a8f8b08-8974-405d-acb4-21c3f8576cf6",
+        "ab0ab1a7-9383-4c48-8483-16dc16f2f8d6",
+        "2c2a24d6-0a01-4192-9bb6-e298040d2c0c"
     ],
     "filterType": "GMSprite",
     "folderName": "Deprecated",

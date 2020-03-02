@@ -1,5 +1,11 @@
 /// @description Draw terrain
+scr_draw_staircase(x,y + 20,1,0,2,-1,40,5);
+
+/*
+
 // Wireframe mode
+#region
+
 if obj_editor_gui.mode = 1 {
 	if canSelect = false {
 		layerColor = col[ abs( (zfloor-1) % 9) ];
@@ -80,7 +86,11 @@ if obj_editor_gui.mode = 1 {
 	}
 }
 
+#endregion
+
 // Tile painting mode / Play testing mode
+#region
+
 if (obj_editor_gui.mode = 0 || obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4) {
 	// Draw walls
 	for (j = heightIterate; j >= zfloor; j -= 1) {
@@ -107,3 +117,7 @@ if (obj_editor_gui.mode = 0 || obj_editor_gui.mode = 2 || obj_editor_gui.mode = 
 		}
 	}
 }
+
+#endregion
+
+*/
