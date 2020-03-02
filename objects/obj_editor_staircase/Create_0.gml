@@ -4,7 +4,7 @@ event_inherited();
 str = "staircase";
 
 zfloor = 0;
-width = 2;
+width = 1;
 zIterate = 0;
 widthIterate = 0;
 heightIterate = 0;

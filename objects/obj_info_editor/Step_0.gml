@@ -29,13 +29,6 @@ if select {
 					other.col = c_white;
 				}
 				if str = "staircase" {
-					if other.str2 = "mirror" {
-						staircaseType += 1;
-						
-						if staircaseType > 2 {
-							staircaseType = 0;
-						}
-					}
 					if other.str2 = "flip" {
 						staircaseRotation += 1;
 						
