@@ -1,8 +1,9 @@
 /// @description Draw terrain
-scr_draw_staircase(x,y + 20,1,0,2,-1,40,5);
+//scr_draw_staircase(x,y + 20,1,0,2,-1,40,5);
+show_debug_message(string(zfloor) + ", " + string(zcieling));
+scr_draw_staircase(x, y + 20, zfloor, zcieling, 2, -1, 40, 5);
 
 /*
-
 // Wireframe mode
 #region
 

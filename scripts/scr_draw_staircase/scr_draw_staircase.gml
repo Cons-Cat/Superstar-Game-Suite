@@ -8,14 +8,9 @@ var argSlopeRise = argument[5];
 var argLength = argument[6];
 var argSteps = argument[7];
 
-var i;
-var j;
 var stepLength = argLength / argSteps;
 var stepHeight = ( argZFloor - argZCeil ) * 20 / argSteps;
-//var angle = sqrt(power(argSlopeRun,2) + power(argSlopeRise,2));
-//var angle = arctan( argSlopeRise / argSlopeRun );
 
-//var angle = (-26.57 + 360) % 360;
 var len = argLength - ( argLength / argSteps);
 var angle = point_direction( 0, 0, argSlopeRun, argSlopeRise );
 
@@ -24,7 +19,11 @@ var x2;
 var y1;
 var y2;
 
-show_debug_message(argX);
+var i;
+var j;
+
+var jRun;
+var jRise;
 
 // Draw walls in ascending order.
 for ( i  = 1; i <= argSteps; i++ ) {
@@ -32,12 +31,15 @@ for ( i  = 1; i <= argSteps; i++ ) {
 	
 	// Draw step wall.
 	x1 = argX + lengthdir_x(stepLength,angle + sign(argSlopeRun) * 90) * (i-1) - 1;
-	y1 = argY + lengthdir_y(len, angle + sign(argSlopeRise) * 90) - stepHeight * (i-1);
+	y1 = argY + lengthdir_y(len, angle + sign(argSlopeRise) * 90) - stepHeight * i + 4;
 	
 	draw_set_color(c_gray);
 	
 	for ( var j = 0; j < 20 / abs(argSlopeRun); j ++ ) {
-		draw_rectangle( x1 + ( j * argSlopeRun ), y1 + ( j * argSlopeRise ), x1 + ( j * argSlopeRun ) + abs( abs(argSlopeRun) - abs(argSlopeRise) ), y1 + ( j * argSlopeRise ) + stepHeight, false);
+		jRun = ( j * argSlopeRun );
+		jRise = ( j * argSlopeRise );
+		
+		draw_rectangle( x1 + jRun, y1 + jRise, x1 + jRun + abs( abs(argSlopeRun) - abs(argSlopeRise) ), y1 + jRise + stepHeight, false);
 	}
 }
 

@@ -60,13 +60,13 @@ if (mouse_x >= x && mouse_x <= x + sprite_width && mouse_y >= y && mouse_y <= y+
 {
 	if mouse_wheel_up() {
 		z++;
-		with obj_editor_terrain_par { updateZRange = true; }
+		with obj_editor_terrain_par { scr_terrain_update_z(); }
 	}
 	
 	if mouse_wheel_down() {
 		if z > 0 {
 			z--;
-			with obj_editor_terrain_par { updateZRange = true; }
+			with obj_editor_terrain_par { scr_terrain_update_z(); }
 		}
 	}
 }

@@ -6,7 +6,8 @@
     "children": [
         "3ec3204a-9b43-45ce-a2e4-617a98a89308",
         "6269b094-9864-44f1-96b1-de0ec7d64e55",
-        "8c9a9f86-f67a-488a-aa83-d2b3d92f1c97"
+        "8c9a9f86-f67a-488a-aa83-d2b3d92f1c97",
+        "5c828904-1fb4-48c0-b047-45ada11c0287"
     ],
     "filterType": "GMScript",
     "folderName": "Editor Scripts",

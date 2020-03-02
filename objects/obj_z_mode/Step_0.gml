@@ -35,7 +35,7 @@ if canSelect {
 				mode = 0;
 			}
 			
-			with obj_editor_terrain_par { updateZRange = true;}
+			with obj_editor_terrain_par { scr_terrain_update_z(); }
 			select = false;
 		}
 	}

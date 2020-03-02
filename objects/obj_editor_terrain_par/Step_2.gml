@@ -1,23 +1,5 @@
 /// @description Depth and Baking
 
-// Update floorMax
-if updateZRange {
-	updateZRange = false;
-	
-	var cielDefault = y + (zfloor - zcieling) * 20;
-	
-	if obj_z_mode.mode = 0 {
-		floorY = y;
-		cielY = cielDefault;
-	} else {
-		var floorMax = y + (zfloor - obj_z_max.z) * 20;
-		var floorMin = y + (zfloor - obj_z_min.z) * 20;
-		
-		floorY = clamp(y, floorMax, y + (zfloor + zcieling) * 20);
-		cielY = clamp(cielDefault, y, floorMin);
-	}
-}
-
 // Position has changed
 if lastX != x || lastY != y || lastWidth != width || lastCieling != zcieling {
 	#region
@@ -43,8 +25,8 @@ if placed = 1 {
 		surfaceResize = true;
 		tileSurfaceDraw = surface_create(20,20);
    }
-	
-	if !surface_exists(marbleSurface) {
+   
+   if !surface_exists(marbleSurface) {
 		calculateSub = true;
 		surfaceResize = true;
 		marbleSurface = surface_create(20,20);
@@ -103,7 +85,7 @@ if placed = 1 {
 		
 		#endregion
 		
-		show_debug_message("");
+		//show_debug_message("");
 		
 		// Wipe marble recursively
 		scr_marble_wipe();

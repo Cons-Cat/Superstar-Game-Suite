@@ -121,7 +121,7 @@ if argStreaksReadIn > 0 {
 							other.edgeStreakReadLength[edgeStreakCountRead] = edgeStreakTransLength[i];
 							other.edgeStreakReadJ[edgeStreakCountRead] = edgeStreakTransJ[i];
 							
-							show_debug_message(" " + string(other.id) + ": " + string(i));
+							//show_debug_message(" " + string(other.id) + ": " + string(i));
 							edgeStreakCountRead += 1;
 						}
 					}
@@ -133,7 +133,7 @@ if argStreaksReadIn > 0 {
 	}
 }
 
-show_debug_message("");
+//show_debug_message("");
 
 #endregion
 
@@ -473,7 +473,7 @@ for (i = 0; i < argStreaks; i += 1) {
 					//streaksTransfusedLeft += 1;
 				} else
 				if transUp {
-					show_debug_message("	pass top edge");
+					//show_debug_message("	pass top edge");
 					//streaksTransfusedUp += 1;
 					marbleDebugPixelColInd[marbleDebugPixelCount] = 8; // Blue
 				}
@@ -549,7 +549,7 @@ if streaksTransfusedUp > 0  {
 		//if adjacentUpArrayTrans[k] {
 			with adjacentUpArrayId[k] {
 				if hasMarble {
-					show_debug_message(string(other.id) + ": TRANSFUSING UPWARDS, " + string(edgeStreakCountWrite));
+					//show_debug_message(string(other.id) + ": TRANSFUSING UPWARDS, " + string(edgeStreakCountWrite));
 					scr_marble_genstreaks(argCol,streaksCol[argCol],edgeStreakCountWrite);
 				}
 			}
@@ -562,7 +562,7 @@ if streaksTransfusedDown > 0 || streaksTransfusedTopDown > 0 {
 		if adjacentDownArrayTrans[k] {
 			with adjacentDownArrayId[k] {
 				if hasMarble {
-					show_debug_message(string(other.id) + ": TRANSFUSING DOWNWARDS, " + string(edgeStreakCountWrite));
+					//show_debug_message(string(other.id) + ": TRANSFUSING DOWNWARDS, " + string(edgeStreakCountWrite));
 					scr_marble_genstreaks(argCol,streaksCol[argCol],edgeStreakCountWrite);
 				}
 			}

@@ -1335,6 +1335,14 @@
             }
         },
         {
+            "Key": "5c828904-1fb4-48c0-b047-45ada11c0287",
+            "Value": {
+                "id": "56780301-2668-4db6-9aa3-4a7a20a8cc2c",
+                "resourcePath": "scripts\\scr_terrain_update_z\\scr_terrain_update_z.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "5cddbd7e-6b23-40b5-b63a-f5fc48fab828",
             "Value": {
                 "id": "f44c5faa-f0c4-4ef5-9745-c9016a9e8c60",
@@ -4112,6 +4120,7 @@
         "3ec3204a-9b43-45ce-a2e4-617a98a89308",
         "6269b094-9864-44f1-96b1-de0ec7d64e55",
         "8c9a9f86-f67a-488a-aa83-d2b3d92f1c97",
+        "5c828904-1fb4-48c0-b047-45ada11c0287",
         "1b254f41-b5b7-4063-ab01-c1f02ed3b1ac",
         "0e0e322f-380e-448f-9530-42154abd02ad",
         "2bb57222-41cb-44de-9101-e2a546ff6ce1",

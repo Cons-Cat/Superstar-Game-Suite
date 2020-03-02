@@ -31,7 +31,6 @@ modeForSelectVal = 0;
 longestPanelRightButton = 0;
 floorY = 0;
 cielY = 0;
-updateZRange = true;
 
 select = true;
 canSelect = true;

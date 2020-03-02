@@ -1372,5 +1372,3 @@ if resetArray {
 		}
 	}
 }*/
-
-zcieling = zfloor;

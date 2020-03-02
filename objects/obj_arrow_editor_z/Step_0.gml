@@ -38,8 +38,10 @@ if instance_exists(trg) {
 				}
 			}
 			
-			trg.updateZRange = true;
-			trg.resetArray = true;
+			with trg {
+				scr_terrain_update_z();
+				resetArray = true;
+			}
 		}
 	}
 }

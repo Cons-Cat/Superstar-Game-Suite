@@ -33,7 +33,9 @@ if instance_exists(trg) {
 			trg.y += 20;
 		}
 		
-		trg.updateZRange = true;
-		trg.resetArray = true;
+		with trg {
+			scr_terrain_update_z();
+			resetArray = true;
+		}
 	}
 }
