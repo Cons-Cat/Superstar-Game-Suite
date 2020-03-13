@@ -2679,6 +2679,14 @@
             }
         },
         {
+            "Key": "ac762b59-501a-4d0e-a618-72e4a308e925",
+            "Value": {
+                "id": "758966be-c995-40ad-9d5c-2e64c2cf65c4",
+                "resourcePath": "scripts\\scr_draw_staircase_alt\\scr_draw_staircase_alt.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "acf2e049-1d81-40c6-846c-81e658e6bf34",
             "Value": {
                 "id": "3c7208b6-1ccb-4be6-a784-9e702587a43a",
@@ -4120,6 +4128,7 @@
         "3ec3204a-9b43-45ce-a2e4-617a98a89308",
         "6269b094-9864-44f1-96b1-de0ec7d64e55",
         "8c9a9f86-f67a-488a-aa83-d2b3d92f1c97",
+        "ac762b59-501a-4d0e-a618-72e4a308e925",
         "5c828904-1fb4-48c0-b047-45ada11c0287",
         "1b254f41-b5b7-4063-ab01-c1f02ed3b1ac",
         "0e0e322f-380e-448f-9530-42154abd02ad",
