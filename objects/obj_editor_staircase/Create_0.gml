@@ -9,6 +9,9 @@ zIterate = 0;
 widthIterate = 0;
 heightIterate = 0;
 
+angleRise = 1;
+angleRun = -1;
+
 staircaseType = 1;
 /*
 0 = 1x1x1 staircase
