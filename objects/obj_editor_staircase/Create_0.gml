@@ -10,7 +10,7 @@ widthIterate = 0;
 heightIterate = 0;
 
 angleRise = 1;
-angleRun = -1;
+angleRun = 1;
 
 staircaseType = 1;
 /*

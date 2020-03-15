@@ -1371,3 +1371,34 @@ if resetArray {
 		}
 	}
 }*/
+
+if mouse_check_button(mb_right) {
+	/*while(abs(angleRun)) < abs(mouseCheckX - x) {
+		if mouseCheckX < x {
+			angleRun--;
+		} else {
+			angleRun++;
+		}
+	}
+	
+	
+	while(abs(angleRise)) < abs(mouseCheckY - y) {
+		if mouseCheckY < y {
+			angleRise--;
+		} else {
+			angleRise++;
+		}
+	}*/
+	
+	angleRun = x - mouseCheckX;
+	angleRise = y - mouseCheckY;
+	
+	if angleRun != 0 {
+		//angleRise = floor(angleRise / angleRun);
+		angleRise /= angleRun;
+		angleRun = 1;
+	} else {
+		angleRun = 1;
+		angleRise = 1;
+	}
+}
