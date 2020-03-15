@@ -11,11 +11,21 @@ var sy = (y1 < y2) ? 1 : -1;
 var err = dx + dy;
 var e2;
 
+var xPol = x1 > x2; // Leftward line if true.
+var yPol = y1 > y2; // Downward line if true.
+
+var inc = 0;
+
 while (true) {
+	inc++;
+	if inc > 40 { break; }
+	
 	draw_rectangle(x1, y1, x1, y1, false);
 	
-	if x1 = x2
-	&& y1 = y2 {
+	if
+	( ( x1 >= x2 && !xPol ) || ( x1 < x2 && xPol ) )
+	&& ( ( y1 >= y2 && yPol ) || ( y1 < y2 && !yPol ) )
+	{
 		break;
 	}
 	

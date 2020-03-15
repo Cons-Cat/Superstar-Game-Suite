@@ -1373,32 +1373,14 @@ if resetArray {
 }*/
 
 if mouse_check_button(mb_right) {
-	/*while(abs(angleRun)) < abs(mouseCheckX - x) {
-		if mouseCheckX < x {
-			angleRun--;
-		} else {
-			angleRun++;
-		}
-	}
-	
-	
-	while(abs(angleRise)) < abs(mouseCheckY - y) {
-		if mouseCheckY < y {
-			angleRise--;
-		} else {
-			angleRise++;
-		}
-	}*/
-	
-	angleRun = x - mouseCheckX;
-	angleRise = y - mouseCheckY;
+	angleRun = mouseCheckX - x;
+	angleRise = mouseCheckY - y; 
 	
 	if angleRun != 0 {
-		//angleRise = floor(angleRise / angleRun);
-		angleRise /= angleRun;
-		angleRun = 1;
+		angleRise /= abs(angleRun);
+		angleRun /= abs(angleRun);
 	} else {
-		angleRun = 1;
-		angleRise = 1;
+		angleRun = 20;
+		angleRise = 0;
 	}
 }

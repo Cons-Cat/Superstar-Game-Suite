@@ -1,5 +1,5 @@
 /// @description Draw terrain
-scr_draw_staircase_alt(x, y, zfloor, zcieling, angleRun, angleRise, 40, 5);
+scr_draw_staircase_alt(x, y, zfloor, zcieling, angleRun, angleRise, 20, 3);
 
 /*
 // Wireframe mode
