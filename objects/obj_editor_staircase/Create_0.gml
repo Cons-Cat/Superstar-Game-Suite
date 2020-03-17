@@ -11,6 +11,7 @@ heightIterate = 0;
 
 angleRise = 1;
 angleRun = 1;
+normAng2 = 0;
 
 staircaseType = 1;
 /*

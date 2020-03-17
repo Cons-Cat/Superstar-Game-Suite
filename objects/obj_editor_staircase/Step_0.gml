@@ -1373,8 +1373,8 @@ if resetArray {
 }*/
 
 if mouse_check_button(mb_right) {
-	angleRun = mouseCheckX - x;
-	angleRise = mouseCheckY - y; 
+	angleRun = mouseCheckX - (x + 10);
+	angleRise = mouseCheckY - (y + (zfloor - zcieling)*20 + 10); 
 	
 	if angleRun != 0 {
 		angleRise /= abs(angleRun);
@@ -1383,4 +1383,5 @@ if mouse_check_button(mb_right) {
 		angleRun = 20;
 		angleRise = 0;
 	}
+	normAng2 = point_direction(x+10, y + (zfloor - zcieling)*20 + 10,mouseCheckX,mouseCheckY);
 }
