@@ -3791,6 +3791,14 @@
             }
         },
         {
+            "Key": "ed2d9347-f2d9-44ea-a9d0-ecdbf8881258",
+            "Value": {
+                "id": "6c7c4101-0bdb-48ff-9461-8987c8008cab",
+                "resourcePath": "scripts\\scr_draw_staircase_parallelogram\\scr_draw_staircase_parallelogram.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "edfa94da-0ded-4768-8424-62a767dbffad",
             "Value": {
                 "id": "e861ed08-3e5a-444f-9c65-20b08b232c88",
@@ -4139,6 +4147,7 @@
         "ac762b59-501a-4d0e-a618-72e4a308e925",
         "5c828904-1fb4-48c0-b047-45ada11c0287",
         "f2e61555-e78b-420f-848b-a6db14dd5fd3",
+        "ed2d9347-f2d9-44ea-a9d0-ecdbf8881258",
         "1b254f41-b5b7-4063-ab01-c1f02ed3b1ac",
         "0e0e322f-380e-448f-9530-42154abd02ad",
         "2bb57222-41cb-44de-9101-e2a546ff6ce1",

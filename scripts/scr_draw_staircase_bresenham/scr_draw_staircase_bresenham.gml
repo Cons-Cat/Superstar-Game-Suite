@@ -11,18 +11,25 @@ var sy = (y1 < y2) ? 1 : -1;
 var err = dx + dy;
 var e2;
 
+var leftward;
+if x1 > x2 { leftward = 1; }
+else if x1 < x2 { leftward = 0; }
+else { leftward = 2; }
+
+var upward;
+if y1 > y2 { upward = 1; }
+else if y1 < y2 { upward = 0; }
+else { upward = 2; }
+
 var leftward = x1 > x2;
 var upward = y1 > y2;
 
 while (true) {
-	//inc++;
-	//if inc > 40 { break; }
-	
 	draw_rectangle(x1, y1, x1, y1, false);
 	
 	if
-	( ( x1 >= x2 && !leftward ) || ( x1 <= x2 && leftward ) )
-	|| ( ( y1 >= y2 && !upward) || ( y1 <= y2 && upward ) )
+	( ( x1 > x2 && leftward = 0) || ( x1 < x2 && leftward = 1 ) || ( x1 = x2 && leftward = 2) )
+	|| ( ( y1 > y2 && upward = 0) || ( y1 < y2 && upward = 1 ) || (y1 = y2 && upward = 2) )
 	{
 		break;
 	}
