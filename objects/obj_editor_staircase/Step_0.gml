@@ -1372,16 +1372,17 @@ if resetArray {
 	}
 }*/
 
-if mouse_check_button(mb_right) {
-	angleRun = mouseCheckX - (x + 10);
-	angleRise = mouseCheckY - (y + (zfloor - zcieling)*20 + 10); 
-	
-	if angleRun != 0 {
-		angleRise /= abs(angleRun);
-		angleRun /= abs(angleRun);
-	} else {
-		angleRun = 20;
-		angleRise = 0;
+if select {
+	if mouse_check_button(mb_right) {
+		angleRun = mouseCheckX - (x + 10);
+		angleRise = mouseCheckY - (y + (zfloor - zcieling)*20 + 10); 
+		
+		if angleRun != 0 {
+			angleRise /= abs(angleRun);
+			angleRun /= abs(angleRun);
+		} else {
+			angleRun = 20;
+			angleRise = 0;
+		}
 	}
-	normAng2 = point_direction(x+10, y + (zfloor - zcieling)*20 + 10,mouseCheckX,mouseCheckY);
 }

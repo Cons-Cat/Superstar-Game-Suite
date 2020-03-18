@@ -9,9 +9,8 @@ zIterate = 0;
 widthIterate = 0;
 heightIterate = 0;
 
-angleRise = 1;
+angleRise = 2;
 angleRun = 1;
-normAng2 = 0;
 
 staircaseType = 1;
 /*

@@ -14,18 +14,16 @@ var e2;
 var leftward = x1 > x2;
 var upward = y1 > y2;
 
-var inc = 0;
-
 while (true) {
-	inc++;
-	if inc > 40 { break; }
+	//inc++;
+	//if inc > 40 { break; }
 	
 	draw_rectangle(x1, y1, x1, y1, false);
 	
 	if
 	( ( x1 >= x2 && !leftward ) || ( x1 <= x2 && leftward ) )
-	&& ( ( y1 >= y2 && !upward) || ( y1 <= y2 && upward ) )
-		{
+	|| ( ( y1 >= y2 && !upward) || ( y1 <= y2 && upward ) )
+	{
 		break;
 	}
 	
