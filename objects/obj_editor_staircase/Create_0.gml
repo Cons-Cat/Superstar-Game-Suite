@@ -15,8 +15,8 @@ staircaseL = width * 20 + width*2;
 staircaseN = 40;
 staircaseW = 0;
 staircaseH = 0;
-x0 = x;
-y0 = y;
+staircaseRasterX0 = x;
+staircaseRasterY0 = y;
 
 x1 = 0;
 y1 = 0;

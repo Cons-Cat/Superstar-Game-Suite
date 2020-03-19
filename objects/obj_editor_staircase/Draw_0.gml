@@ -1,28 +1,37 @@
 /// @description Draw terrain
 draw_set_color(c_green);
-draw_rectangle(x0,y0,x0+staircaseW,y0+staircaseH,true);
+draw_rectangle(staircaseRasterX0,staircaseRasterY0,staircaseRasterX0+staircaseW,staircaseRasterY0+staircaseH,true);
+/*
 draw_set_color(c_black);
 draw_text(x1,y1,"1");
 draw_text(x2,y2,"2");
 draw_text(x3,y3,"3");
 draw_text(x4,y4,"4");
+*/
 
 if staircaseW != 0 || staircaseH != 0 {
 	scr_draw_staircase_alt(x, y, zfloor, zcieling, angleRun, angleRise, staircaseL, 5);
 }
 
+draw_set_color(c_white);
+
 for ( var i = 0; i < staircaseW; i++ ) {
 	for ( var j = 0; j < staircaseH; j++ ) {
-		if staircaseRasterInd[i,j] != 0 {
-			if staircaseRasterInd[i,j] = 1 {
+		if staircaseRasterInd[i,j] != -1 {
+			/*if staircaseRasterInd[i,j] = 1 {
 				// Step pixel.
 				draw_set_color(c_white);
 			} else {
 				// Wall pixel.
 				draw_set_color(c_dkgray);
+			}*/
+			if staircaseRasterInd[i,j] % 2 = 0 {
+				draw_set_color(c_white);
+			} else {
+				draw_set_color(c_dkgray);
 			}
 			
-			draw_rectangle(x0 + i, y0 + j, x0 + i, y0 + j, false);
+			draw_rectangle(staircaseRasterX0 + i, staircaseRasterY0 + j, staircaseRasterX0 + i, staircaseRasterY0 + j, false);
 		}
 	}
 }

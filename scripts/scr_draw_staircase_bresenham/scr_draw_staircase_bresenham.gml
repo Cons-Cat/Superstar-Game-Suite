@@ -3,6 +3,7 @@ var x1 = argument[0];
 var y1 = argument[1];
 var x2 = argument[2];
 var y2 = argument[3];
+var colInd = argument[4];
 
 var dx = abs(x2 - x1);
  var sx = (x1 < x2) ? 1 : -1;
@@ -22,8 +23,8 @@ else if y1 < y2 { upward = 0; }
 else { upward = 2; }
 
 while (true) {
-	if x1-x0 >= 0 && y1-y0 >= 0 {
-		staircaseRasterInd[x1-x0,y1-y0] = 1;
+	if x1 >= 0 && y1 >= 0 {
+		staircaseRasterInd[x1,y1] = colInd;
 	}
 	
 	if

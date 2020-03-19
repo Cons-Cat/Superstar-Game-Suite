@@ -1404,16 +1404,16 @@ if resetArray {
 		y4 = y2 + lengthdir_y( staircaseN, normalAng ) + (zfloor-zcieling)*20;
 		yy4 = y4 + altH;
 		
-		x0 = floor(min(x1, x2, x3, x4));
-		y0 = floor(min(y1, y2, y3, y4, yy1, yy2, yy3, yy4));
-
-		staircaseW = ceil(max(x1, x2, x3, x4)) - x0;
-		staircaseH = ceil(max(y1, y2, y3, y4, yy1, yy2, yy3, yy4)) - y0;
+		 staircaseRasterX0 = floor(min(x1, x2, x3, x4)) - 1;
+		 staircaseRasterY0 = floor(min(y1, y2, y3, y4, yy1, yy2, yy3, yy4));
+		
+		staircaseW = ceil(max(x1, x2, x3, x4)) - staircaseRasterX0 + 2;
+		staircaseH = ceil(max(y1, y2, y3, y4, yy1, yy2, yy3, yy4)) - staircaseRasterY0 + 1;
 		
 		// Clear staircase raster.
 		for ( var i = 0; i < staircaseW; i++ ) {
 			for ( var j = 0; j < staircaseH; j++ ) {
-				staircaseRasterInd[i,j] = 0; // Empty pixel
+				staircaseRasterInd[i,j] = -1; // Empty pixel
 			}
 		}
 	}
