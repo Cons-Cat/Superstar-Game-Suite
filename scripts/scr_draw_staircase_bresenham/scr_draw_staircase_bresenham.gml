@@ -21,15 +21,14 @@ if y1 > y2 { upward = 1; }
 else if y1 < y2 { upward = 0; }
 else { upward = 2; }
 
-var leftward = x1 > x2;
-var upward = y1 > y2;
-
 while (true) {
-	draw_rectangle(x1, y1, x1, y1, false);
+	if x1-x0 >= 0 && y1-y0 >= 0 {
+		staircaseRasterInd[x1-x0,y1-y0] = 1;
+	}
 	
 	if
-	( ( x1 > x2 && leftward = 0) || ( x1 < x2 && leftward = 1 ) || ( x1 = x2 && leftward = 2) )
-	|| ( ( y1 > y2 && upward = 0) || ( y1 < y2 && upward = 1 ) || (y1 = y2 && upward = 2) )
+	( ( x1 >= x2 && leftward = 0) || ( x1 <= x2 && leftward = 1 ) || ( x1 = x2 && leftward = 2) )
+	&& ( ( y1 >= y2 && upward = 0) || ( y1 <= y2 && upward = 1 ) || (y1 = y2 && upward = 2) )
 	{
 		break;
 	}

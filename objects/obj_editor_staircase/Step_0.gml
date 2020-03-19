@@ -1372,7 +1372,7 @@ if resetArray {
 	}
 }*/
 
-if select {
+//if select {
 	if mouse_check_button(mb_right) {
 		angleRun = mouseCheckX - (x + 10);
 		angleRise = mouseCheckY - (y + (zfloor - zcieling)*20 + 10); 
@@ -1381,8 +1381,40 @@ if select {
 			angleRise /= abs(angleRun);
 			angleRun /= abs(angleRun);
 		} else {
-			angleRun = 20;
-			angleRise = 0;
+			angleRise /= abs(angleRise);
+		}
+		
+		staircaseL = width * 20 + width*2;
+		normalAng = point_direction( 0, 0, angleRun, angleRise );
+		ang = (normalAng + 90 + 360) % 360;
+		stepLength = staircaseN / 5;
+		altW = lengthdir_x( stepLength, normalAng );
+		altH = lengthdir_y( stepLength, normalAng );
+		
+		x1 = x;
+		y1 = y;
+		yy1 = y1 + altH;
+		x2 = x1 + lengthdir_x( staircaseL, ang );
+		y2 = y1 + lengthdir_y( staircaseL, ang );
+		yy2 = y2 + altH;
+		x3 = x1 + lengthdir_x( staircaseN, normalAng );
+		y3 = y1 + lengthdir_y( staircaseN, normalAng ) + (zfloor-zcieling)*20;
+		yy3 = y3 + altH;
+		x4 = x2 + lengthdir_x( staircaseN, normalAng );
+		y4 = y2 + lengthdir_y( staircaseN, normalAng ) + (zfloor-zcieling)*20;
+		yy4 = y4 + altH;
+		
+		x0 = floor(min(x1, x2, x3, x4));
+		y0 = floor(min(y1, y2, y3, y4, yy1, yy2, yy3, yy4));
+
+		staircaseW = ceil(max(x1, x2, x3, x4)) - x0;
+		staircaseH = ceil(max(y1, y2, y3, y4, yy1, yy2, yy3, yy4)) - y0;
+		
+		// Clear staircase raster.
+		for ( var i = 0; i < staircaseW; i++ ) {
+			for ( var j = 0; j < staircaseH; j++ ) {
+				staircaseRasterInd[i,j] = 0; // Empty pixel
+			}
 		}
 	}
-}
+//}

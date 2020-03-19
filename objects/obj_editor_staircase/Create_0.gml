@@ -11,6 +11,21 @@ heightIterate = 0;
 
 angleRise = 2;
 angleRun = 1;
+staircaseL = width * 20 + width*2;
+staircaseN = 40;
+staircaseW = 0;
+staircaseH = 0;
+x0 = x;
+y0 = y;
+
+x1 = 0;
+y1 = 0;
+x2 = 0;
+y2 = 0;
+x3 = 0;
+y3 = 0;
+x4 = 0;
+y4 = 0;
 
 staircaseType = 1;
 /*

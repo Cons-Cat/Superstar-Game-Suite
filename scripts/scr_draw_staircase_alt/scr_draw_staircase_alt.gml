@@ -1,6 +1,6 @@
 /// scr_draw_staircase_alt( argX, argY, argZFloor, argZCeil, argSlopeRun, argSlopeRise, argNormalMag, argSteps )
 var argX = argument[0];
-var argY = argument[1] - 1;
+var argY = argument[1];
 var argZFloor = argument[2];
 var argZCeil = argument[3];
 var argNormalRun = argument[4];
@@ -8,7 +8,7 @@ var argNormalRise = argument[5];
 var argNormalMag = argument[6];
 var argSteps = argument[7];
 
-var stepLength = argNormalMag / argSteps;
+var stepLength = staircaseN / argSteps;
 var stepHeight = ( argZFloor - argZCeil ) * 20 / argSteps;
 
 var argSlopeRun = -argNormalRise;
@@ -31,54 +31,43 @@ draw_set_color(c_blue);
 draw_line(argX,argY+(argZFloor-argZCeil)*20,argX+lengthdir_x(argNormalMag,angle),argY+(argZFloor-argZCeil)*20+lengthdir_y(argNormalMag,angle));
 
 var x1;var y1;var x2; var y2; var x3; var y3; var x4; var y4;var x0;var xF, var y0, var yF;
-var xInc;
-var yInc;
-var cWidth = width * 20 + width*2;
+var cWidth = staircaseL;
 
 draw_set_color(c_white);
 
 for (var k = 0; k < argSteps; k++) {
 	// RENDER STEP
 	x1 = argX + lengthdir_x( k * stepLength, normalAngle );
-	y1 = argY + lengthdir_y( k * stepLength, stepsAngleY ) + k*stepHeight;
+	y1 = argY + lengthdir_y( k * stepLength, normalAngle ) + k*stepHeight;
 	
-	x2 = x1 - ceil(lengthdir_x( cWidth, angle ));
-	y2 = y1 - ceil(lengthdir_y( cWidth, angle ));
+	x2 = x1 - floor(lengthdir_x( cWidth, angle ));
+	y2 = y1 - floor(lengthdir_y( cWidth, angle ));
 	
-	x3 = x1;
+	var w = ceil(lengthdir_x( stepLength, normalAngle ) - 0.5);
+	var h = ceil(lengthdir_y( stepLength, normalAngle ) - 0.5);
 	
-	draw_set_color(c_white);
+	x3 = x1 + w;
+	y3 = y1 + h;
 	
-	// Draw a parallelogram line-by-line.
-	for( var i = 0; i < stepLength; i += 1) {
-		xInc = floor(lengthdir_x( i, normalAngle ) + 0.5);
-		yInc = ceil(lengthdir_y( i, normalAngle ) + 0.5);
-		
-		draw_set_color(c_white);
-		scr_draw_staircase_bresenham(x1 + xInc, y1 + yInc, x2 + xInc, y2 + yInc);
-		
-		
-		if i < stepLength - 1 {
-			// Hacky solution to fill in gaps
-			xInc = floor(lengthdir_x( i, normalAngle ) - 0.5);
-			yInc = floor(lengthdir_y( i, normalAngle ) - 0.5);
-			scr_draw_staircase_bresenham(x1 + xInc, y1 + yInc, x2 + xInc, y2 + yInc);
-		}
-	}
+	x4 = x2 + w;
+	y4 = y2 + h;
+	
+	scr_draw_staircase_bresenham(x1, y1, x2, y2);
+	scr_draw_staircase_bresenham(x1, y1, x3, y3);
+	scr_draw_staircase_bresenham(x3, y3, x4, y4);
+	scr_draw_staircase_bresenham(x2, y2, x4, y4);
 	
 	// RENDER WALL
-	x1 += floor(lengthdir_x(stepLength, normalAngle) - 0.5);
-	y1 += floor(lengthdir_y(stepLength, normalAngle) - 0.5);
+	x1 = x3;
+	y1 = y3 + 1;
+	x2 = x4;
+	y2 = y4 + 1;
 	
-	x2 = x1 - ceil(lengthdir_x( cWidth, angle ));
-	y2 = y1 - ceil(lengthdir_y( cWidth, angle ));
+	y3 = y3 + stepHeight;
+	y4 = y4 + stepHeight;
 	
-	draw_set_color(c_gray);
-	// var limit = lengthdir_y( ( ( k * stepLength, stepsAngleY ) + k*stepHeight) - ( ( (k+1) * stepLength, stepsAngleY ) + (k+1)*stepHeight) );
-	
-	//for(i = 0; i < lengthdir_y( (k+1) * stepLength, stepsAngleY ) + (k+1)*stepHeight; i++)
-	for( var i = 0; i < stepHeight; i++)
-	{
-		scr_draw_staircase_bresenham(x1,y1+i,x2,y2+i);
-	}
+	scr_draw_staircase_bresenham(x1, y1, x2, y2);
+	scr_draw_staircase_bresenham(x1, y1, x3, y3);
+	scr_draw_staircase_bresenham(x3, y3, x4, y4);
+	scr_draw_staircase_bresenham(x2, y2, x4, y4);
 }
