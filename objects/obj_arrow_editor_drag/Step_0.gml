@@ -28,6 +28,12 @@ if instance_exists(trg) {
 		trg.x = self.x;
 		trg.y += self.y - trg.floorY;
 		
+		if trg.str = "staircase" {
+			with trg {
+				event_user(0);
+			}
+		}
+		
 		with trg { scr_terrain_update_z();	}
 	}
 }

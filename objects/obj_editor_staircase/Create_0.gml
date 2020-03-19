@@ -12,6 +12,7 @@ heightIterate = 0;
 stepPriority = false;
 angleRise = 2;
 angleRun = 1;
+stepCount = 5;
 staircaseL = width * 20 + width*2;
 staircaseN = 40;
 staircaseW = 0;
@@ -57,6 +58,18 @@ staircaseRotation = 4;
 8 = face down-left
 9 = face down-left-left
 */
+
+// Staircase shaded colors
+colDark[0] = make_color_rgb(132, 7, 32); // Red
+colDark[1] = make_color_rgb(150, 39, 9); // Dark orange
+colDark[2] = make_color_rgb(155, 79, 0); // Yellow
+colDark[3] = make_color_rgb(88, 104, 0); // Light green
+colDark[4] = make_color_rgb(51, 81, 0); // Dark green
+colDark[5] = make_color_rgb(0, 86, 60); // Aqua
+colDark[6] = make_color_rgb(32, 62, 117); // Blue
+colDark[7] = make_color_rgb(87, 39, 122); // Purple
+colDark[8] = make_color_rgb(127, 46, 116); // Pink
+
 xOrigin = 0;
 yOrigin = 0;
 sprCreate[0] = spr_slopeL_1x_bot;

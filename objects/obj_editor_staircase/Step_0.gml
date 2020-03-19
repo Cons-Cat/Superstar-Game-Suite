@@ -423,21 +423,7 @@ if resetArray {
 	
 	staircaseL = width * 20 + width*2;
 	
-	x1 = x;
-	y1 = y;
-	yy1 = y1 + altH;
-	x2 = x1 + lengthdir_x( staircaseL, ang );
-	y2 = y1 + lengthdir_y( staircaseL, ang );
-	yy2 = y2 + altH;
-	x3 = x1 + lengthdir_x( staircaseN, normalAng );
-	y3 = y1 + lengthdir_y( staircaseN, normalAng ) + (zfloor-zcieling)*20;
-	yy3 = y3 + altH;
-	x4 = x2 + lengthdir_x( staircaseN, normalAng );
-	y4 = y2 + lengthdir_y( staircaseN, normalAng ) + (zfloor-zcieling)*20;
-	yy4 = y4 + altH;
-	
-	staircaseRasterX0 = floor(min(x1, x2, x3, x4)) - 1;
-	staircaseRasterY0 = floor(min(y1, y2, y3, y4, yy1, yy2, yy3, yy4));
+	event_user(0); // Calculate coordinates
 	
 	staircaseW = ceil(max(x1, x2, x3, x4)) - staircaseRasterX0 + 2;
 	staircaseH = ceil(max(y1, y2, y3, y4, yy1, yy2, yy3, yy4)) - staircaseRasterY0 + 1;
@@ -453,19 +439,54 @@ if resetArray {
 	surface_resize(bakedStaircase, staircaseW, staircaseH);
 	surface_set_target(bakedStaircase);
 	
-	scr_draw_staircase_alt(x - staircaseRasterX0, y - staircaseRasterY0, zfloor, zcieling, angleRun, angleRise, staircaseL, 5);
+	scr_draw_staircase_alt(x - staircaseRasterX0, y - staircaseRasterY0, zfloor, zcieling, angleRun, angleRise, staircaseL, stepCount);
 	
 	draw_set_color(c_white);
+	for( var i = zfloor; i >= zcieling; i-- ) {
+		if i > 0 {
+			staircaseLayerColor[i] = col[ (i - 1) % 9 ];
+			staircaseLayerColorWall[i] = colDark[ (i - 1) % 9 ];
+		} else {
+			staircaseLayerColor[i] = c_white;
+			staircaseLayerColorWall[i] = c_dkgray;
+		}
+	}
 	
 	for ( var i = 0; i < staircaseW; i++ ) {
 		for ( var j = 0; j < staircaseH; j++ ) {
 			if staircaseRasterInd[i,j] != -1 {
+				var lerpVal = staircaseRasterInd[i, j] / 9;
+				var stepHeight = ( zfloor - zcieling) * 20 / stepCount;
+				
+				var k = floor(staircaseRasterInd[i, j]/2)*2 / (stepCount - 1)*2;
+				var ezfloor = ( (zfloor)*20 - k*stepHeight ) / 20;
+				ezfloor = ceil ( ezfloor );
+				
+				var stepCol;
+				
 				if staircaseRasterInd[i,j] % 2 = 0 {
-					draw_set_color(c_white);
+					if zfloor - zcieling > 0 {
+						stepCol = make_color_rgb(
+							lerp( color_get_red(staircaseLayerColor[ezfloor]), color_get_red(staircaseLayerColor[ezfloor - 1]), lerpVal ),
+							lerp( color_get_green(staircaseLayerColor[ezfloor]), color_get_green(staircaseLayerColor[ezfloor - 1]), lerpVal ),
+							lerp( color_get_blue(staircaseLayerColor[ezfloor]), color_get_blue(staircaseLayerColor[ezfloor - 1]), lerpVal ),
+						);
+					} else {
+						stepCol = staircaseLayerColor[zcieling];
+					}
 				} else {
-					draw_set_color(c_dkgray);
+					if zfloor - zcieling > 0 {
+						stepCol = make_color_rgb(
+							lerp( color_get_red(staircaseLayerColorWall[ezfloor]), color_get_red(staircaseLayerColorWall[ezfloor - 1]), lerpVal ),
+							lerp( color_get_green(staircaseLayerColorWall[ezfloor]), color_get_green(staircaseLayerColorWall[ezfloor - 1]), lerpVal ),
+							lerp( color_get_blue(staircaseLayerColorWall[ezfloor]), color_get_blue(staircaseLayerColorWall[ezfloor - 1]), lerpVal ),
+						);
+					} else {
+						stepCol = staircaseLayerColorWall[zcieling];
+					}
 				}
 				
+				draw_set_color(stepCol);
 				draw_point(i, j);
 			}
 		}
@@ -473,6 +494,7 @@ if resetArray {
 	
 	surface_reset_target();
 }
+
 //if select {
 	if mouse_check_button(mb_right) {
 		angleRun = mouseCheckX - (x + 10);
@@ -487,7 +509,9 @@ if resetArray {
 		
 		normalAng = point_direction( 0, 0, angleRun, angleRise );
 		ang = (normalAng + 90 + 360) % 360;
-		stepLength = staircaseN / 5;
+		
+		stepCount = 5;
+		stepLength = staircaseN / stepCount;
 		altW = lengthdir_x( stepLength, normalAng );
 		altH = lengthdir_y( stepLength, normalAng );
 		

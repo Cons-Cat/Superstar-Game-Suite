@@ -36,7 +36,7 @@ if obj_editor_gui.mode = 1 {
 	
 		draw_set_alpha(1);
 		draw_set_color(layerColorLine);
-	
+		
 		// Horizontal lines
 		draw_rectangle(x,floorY,x+width*20-1,floorY,false);
 		draw_rectangle(x,floorY+19,x+width*20-1,floorY+19,false);
