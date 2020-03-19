@@ -1391,6 +1391,8 @@ if resetArray {
 		altW = lengthdir_x( stepLength, normalAng );
 		altH = lengthdir_y( stepLength, normalAng );
 		
+		stepPriority = normalAng > 180 && normalAng < 360;
+		
 		x1 = x;
 		y1 = y;
 		yy1 = y1 + altH;
@@ -1414,6 +1416,7 @@ if resetArray {
 		for ( var i = 0; i < staircaseW; i++ ) {
 			for ( var j = 0; j < staircaseH; j++ ) {
 				staircaseRasterInd[i,j] = -1; // Empty pixel
+				staircaseRasterTempInd[i,j] = -1;
 			}
 		}
 	}

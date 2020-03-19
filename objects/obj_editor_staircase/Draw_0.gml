@@ -18,13 +18,6 @@ draw_set_color(c_white);
 for ( var i = 0; i < staircaseW; i++ ) {
 	for ( var j = 0; j < staircaseH; j++ ) {
 		if staircaseRasterInd[i,j] != -1 {
-			/*if staircaseRasterInd[i,j] = 1 {
-				// Step pixel.
-				draw_set_color(c_white);
-			} else {
-				// Wall pixel.
-				draw_set_color(c_dkgray);
-			}*/
 			if staircaseRasterInd[i,j] % 2 = 0 {
 				draw_set_color(c_white);
 			} else {

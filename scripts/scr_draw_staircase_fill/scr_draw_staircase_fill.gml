@@ -23,7 +23,7 @@ for (var j = 1; j < yF - y0; j++) {
 	
 	// Scan left-to-right
 	for (var i = 0; i <= xF - x0; i++) {
-		if staircaseRasterInd[x0+i, y0+j] = colInd {
+		if staircaseRasterTempInd[x0+i, y0+j] = colInd {
 			if !inQuad {
 				inQuad = true;
 				prevIn = true;
@@ -49,7 +49,11 @@ for (var j = 1; j < yF - y0; j++) {
 	if drawLine {
 		for (var i = 0; i < xF - x0; i++) {
 			if tempRaster[i] {
-				staircaseRasterInd[x0+i, y0+j] = colInd;
+				staircaseRasterTempInd[x0+i,y0+j] = colInd;
+				
+				if staircaseRasterInd[x0+i, y0+j] = -1 || (stepPriority && colInd % 2 = 0) {
+					staircaseRasterInd[x0+i, y0+j] = colInd;
+				}
 			}
 		}
 	}

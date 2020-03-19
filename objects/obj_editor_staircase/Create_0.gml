@@ -9,6 +9,7 @@ zIterate = 0;
 widthIterate = 0;
 heightIterate = 0;
 
+stepPriority = false;
 angleRise = 2;
 angleRun = 1;
 staircaseL = width * 20 + width*2;

@@ -24,7 +24,11 @@ else { upward = 2; }
 
 while (true) {
 	if x1 >= 0 && y1 >= 0 {
-		staircaseRasterInd[x1,y1] = colInd;
+		staircaseRasterTempInd[x1,y1] = colInd;
+		
+		if staircaseRasterInd[x1, y1] = -1 || (stepPriority && colInd % 2 = 0) {
+			staircaseRasterInd[x1,y1] = colInd;
+		}
 	}
 	
 	if
