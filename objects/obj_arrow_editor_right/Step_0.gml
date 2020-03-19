@@ -25,6 +25,7 @@ if instance_exists(trg) {
 				
 				trg.resetArray = true;
 			}
+			
 			if mouseCheckX > trg.x + 40 && trg.str = "slope2" && trg.str != "slope3" {
 				x = floor(mouseCheckX/40)*40 + x % 40;
 				if self.x > trg.x + trg.width*20 {

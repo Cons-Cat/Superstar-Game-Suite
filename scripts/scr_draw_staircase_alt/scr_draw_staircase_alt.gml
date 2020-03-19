@@ -1,6 +1,6 @@
 /// scr_draw_staircase_alt( argX, argY, argZFloor, argZCeil, argSlopeRun, argSlopeRise, argNormalMag, argSteps )
-var argX = argument[0] - staircaseRasterX0;
-var argY = argument[1] - staircaseRasterY0;
+var argX = argument[0];
+var argY = argument[1];
 var argZFloor = argument[2];
 var argZCeil = argument[3];
 var argNormalRun = argument[4];

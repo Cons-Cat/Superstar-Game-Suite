@@ -28,6 +28,16 @@ y3 = 0;
 x4 = 0;
 y4 = 0;
 
+bakedStaircase = surface_create(20,20);
+		
+		normalAng = point_direction( 0, 0, angleRun, angleRise );
+		ang = (normalAng + 90 + 360) % 360;
+		stepLength = staircaseN / 5;
+		altW = lengthdir_x( stepLength, normalAng );
+		altH = lengthdir_y( stepLength, normalAng );
+		
+		stepPriority = normalAng > 180 && normalAng < 360;
+
 staircaseType = 1;
 /*
 0 = 1x1x1 staircase
