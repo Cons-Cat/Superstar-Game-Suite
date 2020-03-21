@@ -27,6 +27,7 @@ if instance_exists(trg) {
 				trg.y = self.y;
 				trg.height = (tempHeight - trg.y)/20;
 			}
+			
 			trg.resetArray = true;
 		}
 	}

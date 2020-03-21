@@ -1887,6 +1887,14 @@
             }
         },
         {
+            "Key": "798b31ff-0dd6-4cc9-a6b3-c085c0d10521",
+            "Value": {
+                "id": "5f6ff3fb-c2df-4145-a404-2e62396a7b25",
+                "resourcePath": "objects\\obj_arrow_editor_staircase\\obj_arrow_editor_staircase.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "799fcf71-2800-4834-bae3-3e77b2658955",
             "Value": {
                 "id": "00d6f6ae-dd97-408c-bf79-7e11c7a72cc7",

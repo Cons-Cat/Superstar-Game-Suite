@@ -18,6 +18,10 @@ if spawnButtons {
 	with instance_create_layer(x,y,"Instances",obj_arrow_editor_right) {
 		trg = other.id;
 	}
+	with instance_create_layer(x,y,"Instances",obj_arrow_editor_staircase) {
+		trg = other.id;
+		image_angle = other.normalAng;
+	}
 	with instance_create_layer(x+width*10,y+height*10,"Instances",obj_arrow_editor_z) {
 		trg = other.id;
 	}
@@ -416,7 +420,11 @@ if obj_editor_gui.mode != 2 {
 	}
 }
 
-// Assign default tile array
+if placed < 2 {
+	event_user(0);
+}
+
+// Bake staircase
 if resetArray {
 	resetArray = false;
 	sprMaterial = spr_tls_staircase_default // Reset material
@@ -495,7 +503,7 @@ if resetArray {
 	surface_reset_target();
 }
 
-//if select {
+if select {
 	if mouse_check_button(mb_right) {
 		angleRun = mouseCheckX - (x + 10);
 		angleRise = mouseCheckY - (y + (zfloor - zcieling)*20 + 10); 
@@ -509,6 +517,7 @@ if resetArray {
 		
 		normalAng = point_direction( 0, 0, angleRun, angleRise );
 		ang = (normalAng + 90 + 360) % 360;
+		obj_arrow_editor_staircase.image_angle = self.normalAng;
 		
 		stepCount = 5;
 		stepLength = staircaseN / stepCount;
@@ -519,4 +528,4 @@ if resetArray {
 		
 		resetArray = true;
 	}
-//}
+}
