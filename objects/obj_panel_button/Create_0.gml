@@ -20,7 +20,7 @@ width = -1;
 
 // Data
 label = "";
-buttonType = 0; // 0 is a generic button, 1 is a wheel button, 2 is a value input button
+buttonType = 0; // 0 is a generic button, 1 is a wheel button, 2 is a value input button, -1 does not inherit behavior.
 angle = -1;
 decimalPlace = -1;
 

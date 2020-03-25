@@ -6,7 +6,7 @@ for (i = 0; i < instance_number(obj_panel_button); i += 1) {
 		}
 	}
 }
-	
+
 with obj_panel_button {
 	if panelId = obj_panel_right.id {
 		longestSprWidth = obj_panel_right.longestSprWidth;

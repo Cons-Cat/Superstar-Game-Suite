@@ -822,7 +822,7 @@ if updateView {
 	view_wport[6] = obj_panel_left.baseX - room_width - 17;
 	view_hport[6] = view_hport[4];
 	
-	camera_set_view_pos(obj_editor_gui.cameraBotPanel,camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) + view_wport[5] + ( ((scrollHorX - (obj_panel_left.baseX - room_width + 1) - room_width) / (scrollHorRightBound - scrollHorLeftBound)) * panelWidth + longestPanelRightButton),0);
+	camera_set_view_pos(obj_editor_gui.cameraBotPanel,camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) + camera_get_view_width(obj_editor_gui.cameraLeftSubPanel)  + ( ((scrollHorX - (obj_panel_left.baseX - room_width + 1) - room_width) / (scrollHorRightBound - scrollHorLeftBound)) * panelWidth + longestPanelRightButton),0);
 	camera_set_view_size(obj_editor_gui.cameraBotPanel,view_wport[4],view_hport[4]);
 	
 	camera_set_view_pos(obj_editor_gui.cameraBotPanelActors,camera_get_view_x(obj_editor_gui.cameraBotPanel) + view_wport[4],camera_get_view_y(obj_editor_gui.cameraBotPanel) );

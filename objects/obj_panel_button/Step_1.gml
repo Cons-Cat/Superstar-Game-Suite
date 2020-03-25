@@ -28,7 +28,7 @@ if select {
 				}
 			}
 		}
-	}
+	} else
 	
 	// Wheel behavior
 	if buttonType = 1 {
@@ -43,7 +43,7 @@ if select {
 		
 		trg.angle = self.angle;
 		canSelect = true;
-	}
+	} else
 	
 	// Value input behavior
 	if buttonType = 2 {
@@ -72,7 +72,7 @@ if select {
 				valueLength = string_width(arbitraryVal)*2 + 4;
 			}
 		}
-	}
+	} else
 	
 	// String input behavior
 	if buttonType = 3 {

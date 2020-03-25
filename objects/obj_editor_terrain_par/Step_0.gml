@@ -187,10 +187,15 @@ if spawnTiles {
 			tileDefaultSpr = other.tileDrawSpr;
 		}
 		
+		obj_panel_right.longestSprWidth = sprite_get_width(obj_tiles_sheet.tileDefaultSpr);
+		
 		with instance_create_layer(room_width,0,"Instances",obj_tiles_layers) {
 			trgId = other.id;
 			tileLayerCount = other.tileLayerCount;
 			tileDefaultSpr = other.tileDefaultSpr;
+			panelId = obj_subpanel_left.id;
+			sortIndex = 0;
+			viewOn = 5;
 			
 			for (i = 0; i <= tileLayerCount; i += 2) {
 				layerOrder[i] = other.layerOrder[i];
@@ -199,7 +204,7 @@ if spawnTiles {
 				layerName[i] = other.layerName[i];
 				layerName[i+1] = other.layerName[i+1];
 				
-				eyeCol[i] = col;
+				eyeCol[i] = c_white;
 				
 				if layerVisible[i] {
 					eyeState[i] = 0;
@@ -209,11 +214,11 @@ if spawnTiles {
 					layerAlpha[i] = 0.5;
 				}
 				
-				select[i] = false;
-				canSelect[i] = false;
+				selectLayer[i] = false;
+				canSelectLayer[i] = false;
 				
-				select[i+1] = false;
-				canSelect[i+1] = false;
+				selectLayer[i+1] = false;
+				canSelectLayer[i+1] = false;
 				
 				layerType[i] = other.layerType[i];
 			}

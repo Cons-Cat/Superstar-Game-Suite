@@ -1,21 +1,19 @@
 /// @description 
-scrollOff = (obj_subpanel_left.panelHeight - (obj_subpanel_left.scrollVerBotBound - obj_subpanel_left.scrollVerTopBound + 9)) * obj_subpanel_left.scrollVerPartition / 100;
-y = 12 - scrollOff;
-x = camera_get_view_x(obj_editor_gui.cameraLeftSubPanel);
+event_inherited();
 
 // Hover mouse over new layer buttons
-plusCol = col;
-dieCol = col;
+plusCol = graphicCol1;
+dieCol = graphicCol1;
 
-if mouse_y >= y + (tileLayerCount + 2) * 11 && mouse_y <= y + (tileLayerCount + 3) * 11 {
+if mouse_y >= y + 11 + (tileLayerCount + 2) * 11 && mouse_y <= y + 11 + (tileLayerCount + 3) * 11 {
 	#region
 	
 	if mouse_x >= x + 28 && mouse_x <= x + 34 {
-		plusCol = orange;
+		plusCol = insideCol;
 	}
 	
 	if mouse_x >= x + 37 && mouse_x <= x + 45 {
-		dieCol = orange;
+		dieCol = insideCol;
 		
 		// Prevent duplicate marble layers
 		for (i = 0; i <= tileLayerCount; i += 2) {
@@ -35,7 +33,7 @@ if mouse_y >= y + (tileLayerCount + 2) * 11 && mouse_y <= y + (tileLayerCount + 
 
 // Initialize a new tile layer
 if mouse_check_button_pressed(mb_left) {
-	if plusCol = orange || dieCol = orange {
+	if plusCol = insideCol || dieCol = insideCol {
 		#region
 		
 		passIn = true;
@@ -52,13 +50,13 @@ if mouse_check_button_pressed(mb_left) {
 		// Relative layer values
 		
 		// Tile layer
-		if plusCol = orange {
+		if plusCol = insideCol {
 			layerType[tileLayerCount] = 0;
 			trgId.layerType[tileLayerCount] = 0;
 		}
 		
 		// Marble layer
-		if dieCol = orange {
+		if dieCol = insideCol {
 			layerType[tileLayerCount] = 1;
 			trgId.layerType[tileLayerCount] = 1;
 			
@@ -76,20 +74,20 @@ if mouse_check_button_pressed(mb_left) {
 		obj_tiles_grid.layerVisibleAbsolute[tileLayerCount] = true;
 		
 		for (k = 0; k <= tileLayerCount; k += 1) {
-			// De-select all layers
-			select[k] = false;
+			// De-selectLayer all layers
+			selectLayer[k] = false;
 		}
 		
-		// Select new layer
+		// selectLayer new layer
 		obj_tiles_grid.tileLayerSelect = tileLayerCount;
 		
-		select[tileLayerCount] = true;
-		canSelect[tileLayerCount] = true;
-		select[tileLayerCount+1] = false;
-		canSelect[tileLayerCount+1] = false;
+		selectLayer[tileLayerCount] = true;
+		canSelectLayer[tileLayerCount] = true;
+		selectLayer[tileLayerCount+1] = false;
+		canSelectLayer[tileLayerCount+1] = false;
 		
 		eyeState[tileLayerCount] = 0;
-		eyeCol[tileLayerCount] = col;
+		eyeCol[tileLayerCount] = graphicCol1;
 		
 		layerName[tileLayerCount] = "layer_" + string(tileLayerCount div 2);
 		trgId.layerName[tileLayerCount] = self.layerName[tileLayerCount];
@@ -153,15 +151,15 @@ obj_subpanel_left.panelHeight = (tileLayerCount + 2) * 11 + 33;
 
 // Manipulate layers
 for (i = 0; i <= tileLayerCount; i += 2) {
-	canSelect[i] = false;
+	canSelectLayer[i] = false;
 	
 	// Toggle layer eye
-	eyeCol[i] = col;
+	eyeCol[i] = graphicCol1;
 	
-	if mouse_x >= x + 18 && mouse_x <= x + 27 && mouse_y >= y + 2 + layerOrder[i] * 11 && mouse_y < y + 12 + layerOrder[i] * 11 {
+	if mouse_x >= x + 18 && mouse_x <= x + 27 && mouse_y >= y + 11 + 2 + layerOrder[i] * 11 && mouse_y < y + 11 + 12 + layerOrder[i] * 11 {
 		#region
 		
-		eyeCol[i] = orange;
+		eyeCol[i] = insideCol;
 		
 		if mouse_check_button_pressed(mb_left) {
 			if eyeState[i] = 0 {
@@ -196,21 +194,21 @@ for (i = 0; i <= tileLayerCount; i += 2) {
 	}
 	
 	if !draggingMouseInit {
-		// Select layer
-		if mouse_x >= x + 30 && ( mouse_x <= x + 36 + string_width(layerName[i]) || (mouse_x <= x + 75 && layerName[i] = "") ) && mouse_y >= y + 2 + layerOrder[i] * 11 && mouse_y < y + 12 + layerOrder[i] * 11 {
-			canSelect[i] = true;
+		// selectLayer layer
+		if mouse_x >= x + 30 && ( mouse_x <= x + 36 + string_width(layerName[i]) || (mouse_x <= x + 75 && layerName[i] = "") ) && mouse_y >= y + 11 + 2 + layerOrder[i] * 11 && mouse_y < y + 11 + 12 + layerOrder[i] * 11 {
+			canSelectLayer[i] = true;
 			
 			if mouse_check_button_pressed(mb_left) {
-				if select[i] {
-					select[i] = false;
+				if selectLayer[i] {
+					selectLayer[i] = false;
 					obj_tiles_grid.tileLayerSelect = -1;
 				} else {
 					for (k = 0; k <= tileLayerCount + 1; k += 1) {
-						// De-select all other layers
-						select[k] = false;
+						// De-selectLayer all other layers
+						selectLayer[k] = false;
 					}
 					
-					select[i] = true;
+					selectLayer[i] = true;
 					obj_tiles_grid.tileLayerSelect = i;
 					
 					tempMouseX = window_mouse_get_x();
@@ -225,11 +223,11 @@ for (i = 0; i <= tileLayerCount; i += 2) {
 				break;
 			}
 		} else {
-			// De-select layer
-			if !(window_mouse_get_x() < obj_panel_left.x - room_width && window_mouse_get_y() < obj_subpanel_left.y) {
-				if !(window_mouse_get_x() > obj_panel_right.x - room_width && window_mouse_get_y() < obj_panel_bot.y) {
+			// De-selectLayer layer
+			if !(window_mouse_get_x() < obj_panel_left.x - room_width && window_mouse_get_y() < obj_subpanel_left.y + 11) {
+				if !(window_mouse_get_x() > obj_panel_right.x - room_width && window_mouse_get_y() < obj_panel_bot.y + 11) {
 					if mouse_check_button_pressed(mb_left) {
-						select[i] = false;
+						selectLayer[i] = false;
 						obj_tiles_grid.tileLayerSelect = -1;
 					}
 				}
@@ -237,7 +235,7 @@ for (i = 0; i <= tileLayerCount; i += 2) {
 		}
 		
 		// Name
-		if select[i] {
+		if selectLayer[i] {
 			if keyboard_check_pressed(vk_anykey) {
 				layerName[i] = typeText(layerName[i], true);
 				passIn = true;
@@ -247,34 +245,34 @@ for (i = 0; i <= tileLayerCount; i += 2) {
 		}
 		
 		// Sub-layers
-		canSelect[i+1] = false;
+		canSelectLayer[i+1] = false;
 		
-		// Select sub-layer
-		if mouse_x >= x + 34 && ( mouse_x <= x + 44 + string_width(layerName[i+1]) || (mouse_x <= x + 85 && layerName[i+1] = "") ) && mouse_y >= y + 2 + (layerOrder[i] + 1) * 11 && mouse_y < y + 12 + (layerOrder[i] + 1) * 11 {
-			canSelect[i+1] = true;
+		// selectLayer sub-layer
+		if mouse_x >= x + 34 && ( mouse_x <= x + 44 + string_width(layerName[i+1]) || (mouse_x <= x + 85 && layerName[i+1] = "") ) && mouse_y >= y + 11 + 2 + (layerOrder[i] + 1) * 11 && mouse_y < y + 11 + 12 + (layerOrder[i] + 1) * 11 {
+			canSelectLayer[i+1] = true;
 			
 			if mouse_check_button_pressed(mb_left) {
-				if select[i+1] {
-					select[i+1] = false;
+				if selectLayer[i+1] {
+					selectLayer[i+1] = false;
 					obj_tiles_grid.tileLayerSelect = -1;
 				} else {
 					for (k = 0; k <= tileLayerCount + 1; k += 1) {
-						// De-select all other layers
-						select[k] = false;
+						// De-selectLayer all other layers
+						selectLayer[k] = false;
 					}
 					
-					select[i+1] = true;
+					selectLayer[i+1] = true;
 					obj_tiles_grid.tileLayerSelect = i + 1;
 				}
 				
 				break;
 			}
 		} else {
-			// De-select sub-layer
-			if !(window_mouse_get_x() < obj_panel_left.x - room_width && window_mouse_get_y() < obj_subpanel_left.y) {
-				if !(window_mouse_get_x() > obj_panel_right.x - room_width && window_mouse_get_y() < obj_panel_bot.y) {
+			// De-selectLayer sub-layer
+			if !(window_mouse_get_x() < obj_panel_left.x - room_width && window_mouse_get_y() < obj_subpanel_left.y + 11) {
+				if !(window_mouse_get_x() > obj_panel_right.x - room_width && window_mouse_get_y() < obj_panel_bot.y + 11) {
 					if mouse_check_button_pressed(mb_left) {
-						select[i+1] = false;
+						selectLayer[i+1] = false;
 						obj_tiles_grid.tileLayerSelect = -1;
 					}
 				}
@@ -282,7 +280,7 @@ for (i = 0; i <= tileLayerCount; i += 2) {
 		}
 		
 		// Name sub-layer
-		if select[i+1] {
+		if selectLayer[i+1] {
 			if keyboard_check_pressed(vk_anykey) {
 				layerName[i+1] = typeText(layerName[i+1], true);
 				passIn = true;
@@ -296,7 +294,7 @@ for (i = 0; i <= tileLayerCount; i += 2) {
 // Dragging layers
 if (point_distance(window_mouse_get_x(),window_mouse_get_y(),tempMouseX,tempMouseY) > 6 && draggingMouseInit) || draggingMouse {
 	draggingMouse = true;
-	select[dragLayer] = true;
+	selectLayer[dragLayer] = true;
 	layerAlpha[dragLayer] = 0.5;
 	
 	layerOrder[dragLayer] = (window_mouse_get_y() - obj_subpanel_left.y - y + 1 + mouseOffY) / 11;
@@ -335,7 +333,7 @@ if (point_distance(window_mouse_get_x(),window_mouse_get_y(),tempMouseX,tempMous
 	// Release dragging layer
 	if !mouse_check_button(mb_left) {
 		draggingMouse = false;
-		select[dragLayer] = false;
+		selectLayer[dragLayer] = false;
 		
 		layerOrder[dragLayer] = tempOrder;
 		
@@ -353,8 +351,8 @@ if !draggingMouse {
 	}
 }
 
-// Select resource name
-if mouse_x >= x + 2 && mouse_x <= x + 1 + string_width(tileDefaultSpr) && mouse_y >= y - 11 && mouse_y <= y - 2 {
+// select resource name
+if mouse_x >= x + 2 && mouse_x <= x + 1 + string_width(tileDefaultSpr) && mouse_y >= y && mouse_y <= y + 11 - 2 {
 	resourceCanSelect = true;
 } else {
 	resourceCanSelect = false;

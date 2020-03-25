@@ -177,7 +177,15 @@ if panelOffset < obj_panel_right.panelWidth {
 }
 
 if updateView {
-	camera_set_view_pos(obj_editor_gui.cameraLeftPanel, camera_get_view_x(obj_editor_gui.cameraRightPanel) + longestPanelRightButton + panelOffset, 0);
+	camera_set_view_pos(obj_editor_gui.cameraLeftPanel,
+		camera_get_view_x(obj_editor_gui.cameraRightPanel)
+		//+ camera_get_view_width(obj_editor_gui.cameraRightPanel)
+		+ obj_panel_right.longestSprWidth
+		+ 20
+		+ panelOffset,
+		0
+	);
+show_debug_message(string(camera_get_view_x(obj_editor_gui.cameraRightPanel)) + ", " +string(camera_get_view_x(obj_editor_gui.cameraLeftPanel)) + ", " + string(camera_get_view_x(obj_editor_gui.cameraLeftSubPanel)));
 	camera_set_view_size(view_camera[2], relativeX - 15, scrollVerBotBound - scrollVerTopBound - 10);
 	
 	view_set_wport(2, relativeX - 15);

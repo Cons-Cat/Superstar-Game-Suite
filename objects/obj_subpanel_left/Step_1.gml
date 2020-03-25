@@ -197,7 +197,7 @@ if updateView {
 		view_set_visible(5,true);
 		view_set_yport(5,y + 5);
 		
-		camera_set_view_pos(obj_editor_gui.cameraLeftSubPanel,camera_get_view_x(obj_editor_gui.cameraLeftPanel) + panelOffset + 1,0);
+		camera_set_view_pos(obj_editor_gui.cameraLeftSubPanel,camera_get_view_x(obj_editor_gui.cameraLeftPanel) + camera_get_view_width(obj_editor_gui.cameraLeftPanel) + panelOffset + 1,0);
 		camera_set_view_size(view_camera[5], obj_panel_left.x - 15 - room_width,scrollVerBotBound - y - 5);
 	
 		view_set_wport(5,obj_panel_left.x - 15 - room_width);
