@@ -44,7 +44,6 @@ tempAngle = angle;
 angleTrg = -1;
 stepLength = staircaseN / 5;
 
-
 altW = lengthdir_x( stepLength, angle );
 altH = lengthdir_y( stepLength, angle );
 
@@ -55,6 +54,8 @@ hovered = false;
 
 bakedStaircase = surface_create(20,20);
 bakedStaircaseSelect = surface_create(20,20);
+bakedStaircaseWireframe = surface_create(20,20);
+bakedStaircaseWireframeSelect = surface_create(20,20);
 
 staircaseType = 1;
 /*

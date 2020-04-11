@@ -1,74 +1,90 @@
-/// scr_draw_staircase( argX, argY, argZFloor, argZCeil, argSlopeRun, argSlopeRise, argLength, argSteps )
+/// scr_draw_staircase_alt( argX, argY, argZFloor, argZCeil, argSlopeRun, argSlopeRise, argNormalMag, argSteps, argFill )
 var argX = argument[0];
 var argY = argument[1];
 var argZFloor = argument[2];
 var argZCeil = argument[3];
-var argSlopeRun = argument[4];
-var argSlopeRise = argument[5];
-var argLength = argument[6];
+var argNormalRun = argument[4];
+var argNormalRise = argument[5];
+var argNormalMag = argument[6];
 var argSteps = argument[7];
+var argFill = argument[8];
 
-var stepLength = argLength / argSteps;
+var stepLength = staircaseN / argSteps;
 var stepHeight = ( argZFloor - argZCeil ) * 20 / argSteps;
+
+var argSlopeRun = -argNormalRise;
+var argSlopeRise = argNormalRun;
+
+if argSlopeRun != 0 {
+	argSlopeRise /= abs(argSlopeRun);
+	argSlopeRun /= abs(argSlopeRun);
+}
+
+var normalAngle = point_direction( 0, 0, argNormalRun, argNormalRise );
 var angle = point_direction( 0, 0, argSlopeRun, argSlopeRise );
+angle = (normalAngle - 90 + 360) % 360;
 
-var x1;
-var x2;
-var y1;
-var y2;
+var x1;var y1;var x2; var y2; var x3; var y3; var x4; var y4;var x0;var xF, var y0, var yF;
+var cWidth = staircaseL;
+var colInd;
 
-var i;
-var j;
+draw_set_color(c_white);
 
-var jRun;
-var jRise;
-
-var runSign = sign(argSlopeRun);
-if runSign = 0 { runSign = 1; }
-
-var riseSign = sign(argSlopeRise);
-if riseSign = 0 { riseSign = 1; }
-
-// Prevent 0 denominator
-var wallWidth;
-var slopeDif;
-
-if argSlopeRun = 0 {
-	wallWidth = 1;
-	slopeDif = 0;
-} else {
-	wallWidth =  width * 20 / abs(argSlopeRun);
-	slopeDif = abs( abs(argSlopeRun) - abs(argSlopeRise) );
-}
-
-// Draw walls in ascending order.
-for ( i  = 1; i <= argSteps; i++ ) {
-	len = argLength - ( argLength * i / argSteps);
+for (var k = 0; k < argSteps; k++) {
+	colInd = k*2;
 	
-	// Draw step wall.
-	x1 = argX + lengthdir_x(stepLength,angle + runSign * 90) * (i-1) - 1;
-	y1 = argY + lengthdir_y(len, angle + riseSign * 90) - stepHeight * i + 4;
+	// RENDER STEP
+	x1 = argX + lengthdir_x( k * stepLength, normalAngle );
+	y1 = argY + lengthdir_y( k * stepLength, normalAngle ) + k*stepHeight;
 	
-	draw_set_color(c_gray);
+	x2 = x1 - floor(lengthdir_x( cWidth, angle ));
+	y2 = y1 - floor(lengthdir_y( cWidth, angle ));
 	
-	for ( var j = 0; j < wallWidth; j ++ ) {
-		jRun = ( j * argSlopeRun );
-		jRise = ( j * argSlopeRise );
-		
-		draw_rectangle( x1 + jRun, y1 + jRise, x1 + jRun + slopeDif, y1 + jRise + stepHeight, false);
+	var w = ceil(lengthdir_x( stepLength, normalAngle ) - 0.5);
+	var h = ceil(lengthdir_y( stepLength, normalAngle ) - 0.5);
+	
+	x3 = x1 + w;
+	y3 = y1 + h;
+	
+	x4 = x2 + w;
+	y4 = y2 + h;
+	
+	scr_draw_staircase_bresenham(x1, y1, x2, y2, colInd);
+	scr_draw_staircase_bresenham(x1, y1, x3, y3, colInd);
+	scr_draw_staircase_bresenham(x3, y3, x4, y4, colInd);
+	scr_draw_staircase_bresenham(x2, y2, x4, y4, colInd);
+	
+	x0 = min(x1, x2, x3, x4);
+	y0 = min(y1, y2, y3, y4);
+	xF = max(x1, x2, x3, x4);
+	yF = max(y1, y2, y3, y4);
+	
+	if argFill {
+		scr_draw_staircase_fill(x0, y0, xF, yF, colInd);
 	}
-}
-
-// Draw steps in ascending order.
-for ( i  = 1; i <= argSteps; i++ ) {
-	len = argLength - ( argLength * i / argSteps);
 	
-	// Draw step floor.
-	x1 = argX + lengthdir_x(stepLength,angle + runSign * 90) * i;
-	y1 = argY + lengthdir_y(len, angle + riseSign * 90) - stepHeight*i;
-	x2 = x1 + ( argSlopeRun * width * 20 / (slopeDif+1) );
-	y2 = y1 + ( argSlopeRise * width * 20 / (slopeDif+1) );
+	// RENDER WALL
+	colInd = k*2 + 1;
 	
-	draw_set_color(c_white);
-	draw_line_width( x1, y1, x2, y2, stepLength );
+	x1 = x3;
+	y1 = y3 + 1;
+	x2 = x4;
+	y2 = y4 + 1;
+	
+	y3 = y3 + stepHeight;
+	y4 = y4 + stepHeight;
+	
+	scr_draw_staircase_bresenham(x1, y1, x2, y2, colInd);
+	scr_draw_staircase_bresenham(x1, y1, x3, y3, colInd);
+	scr_draw_staircase_bresenham(x3, y3, x4, y4, colInd);
+	scr_draw_staircase_bresenham(x2, y2, x4, y4, colInd);
+	
+	x0 = min(x1, x2, x3, x4);
+	y0 = min(y1, y2, y3, y4);
+	xF = max(x1, x2, x3, x4);
+	yF = max(y1, y2, y3, y4);
+	
+	if argFill {
+		scr_draw_staircase_fill(x0, y0, xF, yF, colInd);
+	}
 }

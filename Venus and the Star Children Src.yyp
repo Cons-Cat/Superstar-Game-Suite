@@ -2143,14 +2143,6 @@
             }
         },
         {
-            "Key": "8c9a9f86-f67a-488a-aa83-d2b3d92f1c97",
-            "Value": {
-                "id": "e443832d-1e20-45af-869d-462da2fd2736",
-                "resourcePath": "scripts\\scr_draw_staircase\\scr_draw_staircase.yy",
-                "resourceType": "GMScript"
-            }
-        },
-        {
             "Key": "8cf5273b-e13f-48d3-9fa9-586360b42221",
             "Value": {
                 "id": "855ad9db-8a1f-428e-b5da-51e6f5a2b19d",
@@ -2698,7 +2690,7 @@
             "Key": "ac762b59-501a-4d0e-a618-72e4a308e925",
             "Value": {
                 "id": "758966be-c995-40ad-9d5c-2e64c2cf65c4",
-                "resourcePath": "scripts\\scr_draw_staircase_alt\\scr_draw_staircase_alt.yy",
+                "resourcePath": "scripts\\scr_draw_staircase\\scr_draw_staircase.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -4167,7 +4159,6 @@
         "d5ecd1ee-0a01-4c49-a8d0-8c0d4d5c790c",
         "3ec3204a-9b43-45ce-a2e4-617a98a89308",
         "6269b094-9864-44f1-96b1-de0ec7d64e55",
-        "8c9a9f86-f67a-488a-aa83-d2b3d92f1c97",
         "ac762b59-501a-4d0e-a618-72e4a308e925",
         "5c828904-1fb4-48c0-b047-45ada11c0287",
         "f2e61555-e78b-420f-848b-a6db14dd5fd3",

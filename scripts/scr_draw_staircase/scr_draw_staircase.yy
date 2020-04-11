@@ -1,5 +1,5 @@
 {
-    "id": "8c9a9f86-f67a-488a-aa83-d2b3d92f1c97",
+    "id": "ac762b59-501a-4d0e-a618-72e4a308e925",
     "modelName": "GMScript",
     "mvc": "1.0",
     "name": "scr_draw_staircase",

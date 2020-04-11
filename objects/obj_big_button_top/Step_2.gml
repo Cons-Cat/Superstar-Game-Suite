@@ -20,6 +20,9 @@ if select {
 	if instance_exists(obj_editor_terrain_par) {
 		obj_editor_terrain_par.select = false; // De-select all terrain instances
 	}
+	if instance_exists(obj_editor_staircase) {
+		obj_editor_terrain_par.resetArray = true; // Re-bake staircase graphics
+	}
 	with obj_editor_button_parent {
 		instance_destroy(); // Destroy any terrain interface remnants
 	}
