@@ -2,6 +2,12 @@
 draw_surface(canSelect ? bakedStaircaseSelect : bakedStaircase, staircaseRasterX0, staircaseRasterY0);
 
 /*
+var zOff =  (zfloor - zcieling) * 20;
+draw_triangle(x1,y1+zOff,x2,y2+zOff,x3,y3,false);
+draw_triangle(x3,y3,x2,y2+zOff,x4,y4,false);
+*/
+
+/*
 // Wireframe mode
 #region
 

@@ -1,6 +1,8 @@
 /// @description Generic variable initialization
 width = 1;
 height = 1;
+zfloor = obj_z_max.z;
+zcieling = obj_z_min.z;
 
 tileLayerCount = 0;
 tileArrayHeight = 0;

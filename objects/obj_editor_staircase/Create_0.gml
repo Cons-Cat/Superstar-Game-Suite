@@ -10,8 +10,6 @@ widthIterate = 0;
 heightIterate = 0;
 
 stepPriority = false;
-angleRise = 2;
-angleRun = 1;
 stepCount = 5;
 staircaseL = width * 20 + width*2;
 staircaseN = 40;
@@ -19,11 +17,6 @@ staircaseW = 0;
 staircaseH = 0;
 staircaseRasterX0 = x;
 staircaseRasterY0 = y;
-
-angle = 315;
-normalAngle = 45;
-tempAngle = angle;
-angleTrg = -1;
 
 x1 = 0;
 y1 = 0;
@@ -34,16 +27,34 @@ y3 = 0;
 x4 = 0;
 y4 = 0;
 
+angle = 315;
+angleRun = lengthdir_x(staircaseL,angle);
+angleRise = lengthdir_y(staircaseL,angle);
+				
+if angleRun != 0 {
+	angleRise /= abs(angleRun);
+	angleRun /= abs(angleRun);
+} else {
+	angleRise /= abs(angleRise);
+}
+				
+normalAngle = (angle + 90 + 360) % 360;
+
+tempAngle = angle;
+angleTrg = -1;
+stepLength = staircaseN / 5;
+
+
+altW = lengthdir_x( stepLength, angle );
+altH = lengthdir_y( stepLength, angle );
+
+stepPriority = angle > 180 && angle < 360;
+event_user(0);
+
+hovered = false;
+
 bakedStaircase = surface_create(20,20);
 bakedStaircaseSelect = surface_create(20,20);
-		
-		normalAng = point_direction( 0, 0, angleRun, angleRise );
-		ang = (normalAng + 90 + 360) % 360;
-		stepLength = staircaseN / 5;
-		altW = lengthdir_x( stepLength, normalAng );
-		altH = lengthdir_y( stepLength, normalAng );
-		
-		stepPriority = normalAng > 180 && normalAng < 360;
 
 staircaseType = 1;
 /*

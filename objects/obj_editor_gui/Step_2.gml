@@ -34,14 +34,17 @@ if canChangeSelect {
 							other.tempSelectInstance = self.id;
 						}
 						
-						if (mouseCheckX >= tempSelectInstance.x && mouseCheckX < tempSelectInstance.x + tempSelectInstance.width * 20)
+						if ( tempSelectInstance.object_index != obj_editor_staircase )
 						&& (
-							// Typical mouse hovering
-							( mouseCheckY >= tempSelectInstance.floorY && mouseCheckY < tempSelectInstance.cielY + tempSelectInstance.height*20  && (mode != 1 && tempSelectInstance.modeForSelect) )
-							||
-							// Wireframe mouse hovering
-							( mouseCheckY >= tempSelectInstance.y + (tempSelectInstance.zfloor- tempSelectInstance.zcieling)*20 && mouseCheckY < tempSelectInstance.y + (tempSelectInstance.height + tempSelectInstance.zfloor - tempSelectInstance.zcieling)*20 && (mode = 1 && tempSelectInstance.modeForSelect) )
-						)
+							(mouseCheckX >= tempSelectInstance.x && mouseCheckX < tempSelectInstance.x + tempSelectInstance.width * 20)
+							&& (
+								// Typical mouse hovering
+								( mouseCheckY >= tempSelectInstance.floorY && mouseCheckY < tempSelectInstance.cielY + tempSelectInstance.height*20  && (mode != 1 && tempSelectInstance.modeForSelect) )
+								||
+								// Wireframe mouse hovering
+								( mouseCheckY >= tempSelectInstance.y + (tempSelectInstance.zfloor- tempSelectInstance.zcieling)*20 && mouseCheckY < tempSelectInstance.y + (tempSelectInstance.height + tempSelectInstance.zfloor - tempSelectInstance.zcieling)*20 && (mode = 1 && tempSelectInstance.modeForSelect) )
+							)
+						) || ( tempSelectInstance.object_index = obj_editor_staircase && tempSelectInstance.hovered )
 						{
 							if tempSelectInstance.modeForSelect {
 								if tempSelectInstance.depth <= tempDepth {

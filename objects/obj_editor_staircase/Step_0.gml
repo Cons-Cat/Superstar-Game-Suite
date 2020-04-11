@@ -494,6 +494,7 @@ if resetArray {
 	surface_set_target(bakedStaircase);
 	
 	scr_draw_staircase_alt(x - staircaseRasterX0, y - staircaseRasterY0, zfloor, zcieling, angleRun, angleRise, staircaseL, stepCount);
+	draw_clear_alpha(c_white, 0);
 	
 	draw_set_color(c_white);
 	for( var i = zfloor; i >= zcieling; i-- ) {
@@ -551,6 +552,7 @@ if resetArray {
 	#endregion
 	
 	surface_set_target(bakedStaircaseSelect);
+	draw_clear_alpha(c_white, 0);
 	
 	for ( var i = 0; i < staircaseW; i++ ) {
 		for ( var j = 0; j < staircaseH; j++ ) {
