@@ -2,14 +2,14 @@
 x1 = x;
 y1 = y;
 yy1 = y1 + altH;
-x2 = x1 + lengthdir_x( staircaseL, ang );
-y2 = y1 + lengthdir_y( staircaseL, ang );
+x2 = x1 + lengthdir_x( staircaseL, normalAngle );
+y2 = y1 + lengthdir_y( staircaseL, normalAngle );
 yy2 = y2 + altH;
-x3 = x1 + lengthdir_x( staircaseN, normalAng );
-y3 = y1 + lengthdir_y( staircaseN, normalAng ) + (zfloor-zcieling)*20;
+x3 = x1 + lengthdir_x( staircaseN, angle );
+y3 = y1 + lengthdir_y( staircaseN, angle ) + (zfloor-zcieling)*20;
 yy3 = y3 + altH;
-x4 = x2 + lengthdir_x( staircaseN, normalAng );
-y4 = y2 + lengthdir_y( staircaseN, normalAng ) + (zfloor-zcieling)*20;
+x4 = x2 + lengthdir_x( staircaseN, angle );
+y4 = y2 + lengthdir_y( staircaseN, angle ) + (zfloor-zcieling)*20;
 yy4 = y4 + altH;
 
 staircaseRasterX0 = floor(min(x1, x2, x3, x4)) - 1;

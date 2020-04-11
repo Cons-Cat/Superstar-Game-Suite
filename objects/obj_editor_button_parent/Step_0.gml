@@ -14,14 +14,14 @@ if canSelect {
 	image_alpha = 0.5;
 }
 
-// Release mouse to deselect
+// Release mouse to de-select
 if !mouse_check_button(mb_left) && instance_exists(trg) {
 	select = false;
 	trg.buttonSelected = 0;
 	col = c_white;
 }
 
-// Deselect terrain
+// De-select terrain
 if mouse_check_button_pressed(mb_left) {
 	#region
 	
@@ -62,6 +62,16 @@ if mouse_check_button_pressed(mb_left) {
 				if instance_exists(obj_region_button_target) {
 					if obj_region_button_target.select {
 						selfCanDeSelect = false;
+					}
+				}
+			}
+			
+			if instance_exists(obj_subpanel_button) {
+				for (i = 0; i < instance_number(obj_subpanel_button); i++) {
+					if instance_find(obj_subpanel_button,i).select {
+						selfCanDeSelect = false;
+						
+						break;
 					}
 				}
 			}

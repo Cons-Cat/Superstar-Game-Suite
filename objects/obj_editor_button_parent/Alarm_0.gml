@@ -1,4 +1,4 @@
-/// @description Deselect terrain
+/// @description De-select terrain
 if trg.buttonSelected = 0 {
 	if trg.canDeSelect {
 		if !obj_panel_left.select && !obj_panel_right.select && !obj_panel_top.select && !obj_panel_bot.select {

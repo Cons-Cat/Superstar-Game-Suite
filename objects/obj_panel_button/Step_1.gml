@@ -28,10 +28,9 @@ if select {
 				}
 			}
 		}
-	} else
-	
+		
 	// Wheel behavior
-	if buttonType = 1 {
+	} else if buttonType = 1 {
 		relativeMouseX = window_mouse_get_x();
 		relativeMouseY = window_mouse_get_y();
 		angle = floor(point_direction(x+sprWidth+2+sprite_width/2 - camera_get_view_x(view_camera[viewOn]) + view_xport[viewOn], y-1+sprite_height/2 + view_yport[viewOn],relativeMouseX,relativeMouseY) / 22.5) * 22.5;
@@ -43,10 +42,9 @@ if select {
 		
 		trg.angle = self.angle;
 		canSelect = true;
-	} else
-	
+		
 	// Value input behavior
-	if buttonType = 2 {
+	} else if buttonType = 2 {
 		if keyboard_check_pressed(vk_anykey) {
 			if !keyboard_check_direct(20) { // Caps Lock
 				if keyboard_check_pressed(vk_decimal) || keyboard_check_pressed(190) {
@@ -72,10 +70,9 @@ if select {
 				valueLength = string_width(arbitraryVal)*2 + 4;
 			}
 		}
-	} else
-	
+		
 	// String input behavior
-	if buttonType = 3 {
+	} else if buttonType = 3 {
 		if keyboard_check_pressed(vk_anykey) {
 			arbitraryVal = typeText(arbitraryVal, true);
 		}

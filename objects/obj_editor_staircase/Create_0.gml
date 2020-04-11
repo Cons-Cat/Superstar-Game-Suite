@@ -20,6 +20,11 @@ staircaseH = 0;
 staircaseRasterX0 = x;
 staircaseRasterY0 = y;
 
+angle = 315;
+normalAngle = 45;
+tempAngle = angle;
+angleTrg = -1;
+
 x1 = 0;
 y1 = 0;
 x2 = 0;
@@ -30,6 +35,7 @@ x4 = 0;
 y4 = 0;
 
 bakedStaircase = surface_create(20,20);
+bakedStaircaseSelect = surface_create(20,20);
 		
 		normalAng = point_direction( 0, 0, angleRun, angleRise );
 		ang = (normalAng + 90 + 360) % 360;

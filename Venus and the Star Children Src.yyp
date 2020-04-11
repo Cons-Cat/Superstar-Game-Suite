@@ -1039,6 +1039,14 @@
             }
         },
         {
+            "Key": "49017ba5-918a-4c17-aa43-f243d8e60e25",
+            "Value": {
+                "id": "817b9d1e-acfe-4da6-8843-42166719e7e5",
+                "resourcePath": "objects\\obj_staircase_button_angle\\obj_staircase_button_angle.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "491c32fb-1474-4d00-9688-fc92c035e791",
             "Value": {
                 "id": "4bf79b47-b42b-4d94-b47d-30d52c22808e",

@@ -91,7 +91,7 @@ if mouse_check_button_pressed(mb_left) && !select {
 	}
 }
 
-// Deselect scroll bars
+// De-select scroll bars
 if mouse_check_button_released(mb_left) {
 	scrollHorSelect = false;
 	scrollVerSelect = false;

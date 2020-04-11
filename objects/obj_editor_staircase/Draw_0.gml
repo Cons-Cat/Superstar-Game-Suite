@@ -1,5 +1,5 @@
 /// @description Draw terrain
-draw_surface(bakedStaircase, staircaseRasterX0, staircaseRasterY0);
+draw_surface(canSelect ? bakedStaircaseSelect : bakedStaircase, staircaseRasterX0, staircaseRasterY0);
 
 /*
 // Wireframe mode

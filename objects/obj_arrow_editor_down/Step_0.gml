@@ -10,7 +10,7 @@ if mouseCheckX >= self.x - sprite_width/2 && mouseCheckX <= self.x + sprite_widt
 
 if instance_exists(trg) {
 	x = trg.x + trg.width*10; // Halfway down the width
-
+	
 	if select {
 		if mouseCheckY - 4 <= trg.y + 20 {
 			self.y = trg.y + 20;

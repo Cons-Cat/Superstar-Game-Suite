@@ -5,7 +5,7 @@ mouseCheckY = obj_editor_gui.mouseCheckY;
 var painting = false;
 
 if select {
-	// Deselect terrain
+	// De-select terrain
 	if instance_exists(obj_editor_terrain_par) {
 		obj_editor_terrain_par.canSelect = false;
 	}

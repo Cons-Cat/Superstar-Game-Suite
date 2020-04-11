@@ -9,12 +9,14 @@ if ((mouse_x >= x && mouse_x <= x + sprWidth) || (mouse_x >= x + sprWidth + 3 &&
 }
 
 if mouse_check_button_pressed(mb_left) {
-	if canSelect {
-		if !select {
+	if !select {
+		if canSelect {
 			obj_panel_button.select = false;
 			obj_editor_gui.canChangeSelect = false;
 			select = true;
-		} else {
+		}
+	} else {
+		if !( !canSelect && (object_index = obj_region_button_edge || object_index = obj_region_button_threshold) ) {
 			select = false;
 		}
 	}

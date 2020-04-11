@@ -20,7 +20,7 @@ if spawnButtons {
 	}
 	with instance_create_layer(x,y,"Instances",obj_arrow_editor_staircase) {
 		trg = other.id;
-		image_angle = other.normalAng;
+		image_angle = other.angle;
 	}
 	with instance_create_layer(x+width*10,y+height*10,"Instances",obj_arrow_editor_z) {
 		trg = other.id;
@@ -34,6 +34,17 @@ if spawnButtons {
 	with instance_create_layer(x,y+20,"Instances",obj_info_editor) {
 		trg = other.id;
 		str2 = "flip";
+	}
+	
+	with instance_create_layer(x,y,"Instances",obj_staircase_button_angle) {
+		sortIndex = 0;
+		viewOn = 5;
+		
+		panelId = obj_subpanel_left.id;
+		other.angleTrg = self.id;
+		trg = other.id;
+		angle = other.angle;
+		sprWidth = (string_width(label) + 5) * 2;
 	}
 }
 
@@ -424,6 +435,37 @@ if placed < 2 {
 	event_user(0);
 }
 
+if select {
+	if instance_exists(angleTrg) {
+		if angleTrg.select {
+			if tempAngle != angle {
+				angleRun = lengthdir_x(staircaseL,angle);
+				angleRise = lengthdir_y(staircaseL,angle);
+				
+				if angleRun != 0 {
+					angleRise /= abs(angleRun);
+					angleRun /= abs(angleRun);
+				} else {
+					angleRise /= abs(angleRise);
+				}
+				
+				normalAngle = (angle + 90 + 360) % 360;
+				obj_arrow_editor_staircase.image_angle = self.angle;
+				
+				stepCount = 5;
+				stepLength = staircaseN / stepCount;
+				altW = lengthdir_x( stepLength, angle );
+				altH = lengthdir_y( stepLength, angle );
+				
+				stepPriority = angle > 180 && angle < 360;
+				
+				resetArray = true;
+				tempAngle = angle;
+			}
+		}
+	}
+}
+
 // Bake staircase
 if resetArray {
 	resetArray = false;
@@ -445,6 +487,10 @@ if resetArray {
 	}
 	
 	surface_resize(bakedStaircase, staircaseW, staircaseH);
+	surface_resize(bakedStaircaseSelect, staircaseW, staircaseH);
+	
+	// Bake colored staircase
+	#region
 	surface_set_target(bakedStaircase);
 	
 	scr_draw_staircase_alt(x - staircaseRasterX0, y - staircaseRasterY0, zfloor, zcieling, angleRun, angleRise, staircaseL, stepCount);
@@ -501,31 +547,24 @@ if resetArray {
 	}
 	
 	surface_reset_target();
-}
-
-if select {
-	if mouse_check_button(mb_right) {
-		angleRun = mouseCheckX - (x + 10);
-		angleRise = mouseCheckY - (y + (zfloor - zcieling)*20 + 10); 
-		
-		if angleRun != 0 {
-			angleRise /= abs(angleRun);
-			angleRun /= abs(angleRun);
-		} else {
-			angleRise /= abs(angleRise);
+	
+	#endregion
+	
+	surface_set_target(bakedStaircaseSelect);
+	
+	for ( var i = 0; i < staircaseW; i++ ) {
+		for ( var j = 0; j < staircaseH; j++ ) {
+			if staircaseRasterInd[i,j] != -1 {
+				if staircaseRasterInd[i,j] % 2 = 0 {
+					draw_set_color(obj_editor_gui.colOrange);
+				} else {
+					draw_set_color(obj_editor_gui.colOrangeShadow);
+				}
+				
+				draw_point(i, j);
+			}
 		}
-		
-		normalAng = point_direction( 0, 0, angleRun, angleRise );
-		ang = (normalAng + 90 + 360) % 360;
-		obj_arrow_editor_staircase.image_angle = self.normalAng;
-		
-		stepCount = 5;
-		stepLength = staircaseN / stepCount;
-		altW = lengthdir_x( stepLength, normalAng );
-		altH = lengthdir_y( stepLength, normalAng );
-		
-		stepPriority = normalAng > 180 && normalAng < 360;
-		
-		resetArray = true;
 	}
+	
+	surface_reset_target();
 }

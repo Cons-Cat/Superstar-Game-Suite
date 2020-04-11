@@ -703,7 +703,7 @@ if obj_editor_gui.mode = 4 {
 				}
 				
 				if mouse_check_button_released(mb_left) {
-					actionSelect[i] = false; // Deselect
+					actionSelect[i] = false; // De-select
 				}
 			}
 		}
