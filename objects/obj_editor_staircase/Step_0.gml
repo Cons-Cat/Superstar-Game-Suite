@@ -439,13 +439,18 @@ if select {
 	if instance_exists(angleTrg) {
 		if angleTrg.select {
 			if tempAngle != angle {
-				angleRun = lengthdir_x(staircaseL,angle);
-				angleRise = lengthdir_y(staircaseL,angle);
+				angleRun = lengthdir_x(staircaseN,angle);
+				angleRise = lengthdir_y(staircaseN,angle);
 				
 				if angleRun != 0 {
 					angleRise /= abs(angleRun);
 					angleRun /= abs(angleRun);
 				} else {
+					angleRise /= abs(angleRise);
+				}
+				
+				if abs(angleRise) > 1 {
+					angleRun /= abs(angleRise);
 					angleRise /= abs(angleRise);
 				}
 				
@@ -471,12 +476,7 @@ if resetArray {
 	resetArray = false;
 	sprMaterial = spr_tls_staircase_default // Reset material
 	
-	staircaseL = width * 20 + width*2;
-	
 	event_user(0); // Calculate coordinates
-	
-	staircaseW = ceil(max(x1, x2, x3, x4)) - staircaseRasterX0 + 2;
-	staircaseH = ceil(max(y1, y2, y3, y4, yy1, yy2, yy3, yy4)) - staircaseRasterY0 + 1;
 	
 	// Clear staircase raster.
 	for ( var i = 0; i < staircaseW; i++ ) {
@@ -497,7 +497,7 @@ if resetArray {
 	if obj_editor_gui.mode = 0 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4 {
 		surface_set_target(bakedStaircase);
 		
-		scr_draw_staircase(x - staircaseRasterX0, y - staircaseRasterY0, zfloor, zcieling, angleRun, angleRise, staircaseL, stepCount, true);
+		scr_draw_staircase(x - staircaseRasterX0, y - staircaseRasterY0, zfloor, zcieling, angleRun, angleRise, staircaseN, stepCount, true);
 		draw_clear_alpha(c_white, 0);
 		
 		draw_set_color(c_white);
@@ -561,7 +561,7 @@ if resetArray {
 	
 	if obj_editor_gui.mode = 0 || obj_editor_gui.mode = 3 {
 		surface_set_target(bakedStaircaseSelect);
-		scr_draw_staircase(x - staircaseRasterX0, y - staircaseRasterY0, zfloor, zcieling, angleRun, angleRise, staircaseL, stepCount, true);
+		scr_draw_staircase(x - staircaseRasterX0, y - staircaseRasterY0, zfloor, zcieling, angleRun, angleRise, staircaseN, stepCount, true);
 		draw_clear_alpha(c_white, 0);
 	
 		for ( var i = 0; i < staircaseW; i++ ) {
@@ -588,7 +588,7 @@ if resetArray {
 	
 	if obj_editor_gui.mode = 1 {
 		surface_set_target(bakedStaircaseWireframe);
-		scr_draw_staircase(x - staircaseRasterX0, y - staircaseRasterY0, zfloor, zcieling, angleRun, angleRise, staircaseL, stepCount, false);
+		scr_draw_staircase(x - staircaseRasterX0, y - staircaseRasterY0, zfloor, zcieling, angleRun, angleRise, staircaseN, stepCount, false);
 		draw_clear_alpha(c_white, 0);
 		
 		if zcieling > 0 {
@@ -623,7 +623,7 @@ if resetArray {
 	
 	if obj_editor_gui.mode = 1 {
 		surface_set_target(bakedStaircaseWireframeSelect);
-		scr_draw_staircase(x - staircaseRasterX0, y - staircaseRasterY0, zfloor, zcieling, angleRun, angleRise, staircaseL, stepCount, false);
+		scr_draw_staircase(x - staircaseRasterX0, y - staircaseRasterY0, zfloor, zcieling, angleRun, angleRise, staircaseN, stepCount, false);
 		draw_clear_alpha(c_white, 0);
 		
 		staircaseLayerColor[0] = obj_editor_gui.colOrange;

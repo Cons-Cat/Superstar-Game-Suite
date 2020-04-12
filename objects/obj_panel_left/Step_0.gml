@@ -185,7 +185,6 @@ if updateView {
 		+ panelOffset,
 		0
 	);
-show_debug_message(string(camera_get_view_x(obj_editor_gui.cameraRightPanel)) + ", " +string(camera_get_view_x(obj_editor_gui.cameraLeftPanel)) + ", " + string(camera_get_view_x(obj_editor_gui.cameraLeftSubPanel)));
 	camera_set_view_size(view_camera[2], relativeX - 15, scrollVerBotBound - scrollVerTopBound - 10);
 	
 	view_set_wport(2, relativeX - 15);

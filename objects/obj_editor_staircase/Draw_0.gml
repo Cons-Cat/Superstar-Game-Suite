@@ -25,6 +25,15 @@ if obj_editor_gui.mode = 0 {
 	draw_surface(canSelect ? bakedStaircaseWireframeSelect : bakedStaircaseWireframe, staircaseRasterX0, staircaseRasterY0);
 }
 
+	draw_set_color(c_green);
+	draw_rectangle(staircaseRasterX0,staircaseRasterY0,staircaseRasterX0+staircaseW,staircaseRasterY0+staircaseH,true);
+	
+	draw_set_color(c_black);
+	draw_text(x1,y1,"1");
+	draw_text(x2,y2,"2");
+	draw_text(x3,y3,"3");
+	draw_text(x4,y4,"4");
+
 /*
 // Wireframe mode
 #region

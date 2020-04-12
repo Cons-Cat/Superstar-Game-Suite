@@ -5,43 +5,45 @@ var argZFloor = argument[2];
 var argZCeil = argument[3];
 var argNormalRun = argument[4];
 var argNormalRise = argument[5];
-var argNormalMag = argument[6];
+var argMagnitude = argument[6];
 var argSteps = argument[7];
 var argFill = argument[8];
 
-var stepLength = staircaseN / argSteps;
+var stepLength = argMagnitude / argSteps;
 var stepHeight = ( argZFloor - argZCeil ) * 20 / argSteps;
 
-var argSlopeRun = -argNormalRise;
-var argSlopeRise = argNormalRun;
+var argSlopeRun = argNormalRise;
+var argSlopeRise = -argNormalRun;
 
 if argSlopeRun != 0 {
 	argSlopeRise /= abs(argSlopeRun);
 	argSlopeRun /= abs(argSlopeRun);
 }
 
-var normalAngle = point_direction( 0, 0, argNormalRun, argNormalRise );
-var angle = point_direction( 0, 0, argSlopeRun, argSlopeRise );
-angle = (normalAngle - 90 + 360) % 360;
+//var normalAngle = point_direction( 0, 0, argNormalRun, argNormalRise );
+//var angle = point_direction( 0, 0, argSlopeRun, argSlopeRise );
+//angle = (normalAngle - 90 + 360) % 360;
 
 var x1;var y1;var x2; var y2; var x3; var y3; var x4; var y4;var x0;var xF, var y0, var yF;
-var cWidth = staircaseL;
+//var cWidth = staircaseL;
+var cWidth = width*20;
 var colInd;
-
-draw_set_color(c_white);
 
 for (var k = 0; k < argSteps; k++) {
 	colInd = k*2;
 	
 	// RENDER STEP
-	x1 = argX + lengthdir_x( k * stepLength, normalAngle );
-	y1 = argY + lengthdir_y( k * stepLength, normalAngle ) + k*stepHeight;
+	x1 = argX + ( k * stepLength * argNormalRun );
+	y1 = argY + ( k * stepLength * argNormalRise ) + k * stepHeight;
 	
-	x2 = x1 - floor(lengthdir_x( cWidth, angle ));
-	y2 = y1 - floor(lengthdir_y( cWidth, angle ));
+	var xComp = cWidth * argSlopeRun;
+	var yComp = cWidth * argSlopeRise;
 	
-	var w = ceil(lengthdir_x( stepLength, normalAngle ) - 0.5);
-	var h = ceil(lengthdir_y( stepLength, normalAngle ) - 0.5);
+	x2 = x1 + xComp;
+	y2 = y1 + yComp;
+	
+	var w = ceil( stepLength * argNormalRun - 0.5 );
+	var h = ceil( stepLength * argNormalRise - 0.5 );
 	
 	x3 = x1 + w;
 	y3 = y1 + h;
