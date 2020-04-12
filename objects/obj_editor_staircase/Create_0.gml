@@ -37,7 +37,7 @@ if angleRun != 0 {
 } else {
 	angleRise /= abs(angleRise);
 }
-				
+
 normalAngle = (angle + 90 + 360) % 360;
 
 tempAngle = angle;

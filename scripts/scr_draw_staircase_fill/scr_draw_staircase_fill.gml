@@ -25,8 +25,8 @@ for (var j = 1; j < yF - y0; j++) {
 	for (var i = 0; i <= xF - x0; i++) {
 		if(x0 + i < 0) { continue; }
 		if(y0 + j < 0) { continue; }
-		if(x0 + i >= staircaseW) { continue; }
-		if(y0 + j >= staircaseH) { continue; }
+		//if(x0 + i >= staircaseW) { continue; }
+		//if(y0 + j >= staircaseH) { continue; }
 		//if(x0 + i >= array_height_2d( staircaseRasterTempInd) - 1) { continue; }
 		//if(y0 + j >= array_length_2d( staircaseRasterTempInd, 1) - 1) { continue; }
 		
@@ -63,5 +63,10 @@ for (var j = 1; j < yF - y0; j++) {
 				}
 			}
 		}
-	}
+	}/* else {
+		for (var i = 0; i < xF - x0; i++) {
+			staircaseRasterTempInd[x0+i, y0+j] = colInd;
+			staircaseRasterInd[x0+i, y0+j] = colInd;
+		}
+	}*/
 }

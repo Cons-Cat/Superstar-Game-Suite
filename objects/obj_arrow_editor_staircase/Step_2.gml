@@ -2,7 +2,8 @@
 event_inherited();
 
 if instance_exists(trg) {
-	x = trg.x + lengthdir_x(trg.staircaseN, trg.angle) + lengthdir_x(trg.staircaseL, trg.normalAngle) / 2;
-	y = trg.y + lengthdir_y(trg.staircaseN, trg.angle) + lengthdir_y(trg.staircaseL, trg.normalAngle) / 2
-	+ ( trg.zfloor - trg.zcieling ) * 20;
+	x = trg.x + ( (magnitude) * 20 * trg.angleRun)
+	+ ( trg.width * 20 * trg.angleRise / 2 );
+	y = trg.y + ( (magnitude) * 20 * trg.angleRise) + ( trg.zfloor - trg.zcieling ) * 20
+	+ ( trg.width * 20 * -trg.angleRun / 2 );
 }

@@ -1,16 +1,14 @@
-/// scr_draw_staircase_alt( argX, argY, argZFloor, argZCeil, argSlopeRun, argSlopeRise, argNormalMag, argSteps, argFill )
+/// scr_draw_staircase( argX, argY, argNormalRun, argNormalRise, argMagnitude, argSteps, argFill )
 var argX = argument[0];
 var argY = argument[1];
-var argZFloor = argument[2];
-var argZCeil = argument[3];
-var argNormalRun = argument[4];
-var argNormalRise = argument[5];
-var argMagnitude = argument[6];
-var argSteps = argument[7];
-var argFill = argument[8];
+var argNormalRun = argument[2];
+var argNormalRise = argument[3];
+var argMagnitude = argument[4];
+var argSteps = argument[5];
+var argFill = argument[6];
 
 var stepLength = argMagnitude / argSteps;
-var stepHeight = ( argZFloor - argZCeil ) * 20 / argSteps;
+var stepHeight = ( zfloor - zcieling ) * 20 / argSteps;
 
 var argSlopeRun = argNormalRise;
 var argSlopeRise = -argNormalRun;
@@ -19,15 +17,15 @@ if argSlopeRun != 0 {
 	argSlopeRise /= abs(argSlopeRun);
 	argSlopeRun /= abs(argSlopeRun);
 }
-
-//var normalAngle = point_direction( 0, 0, argNormalRun, argNormalRise );
-//var angle = point_direction( 0, 0, argSlopeRun, argSlopeRise );
-//angle = (normalAngle - 90 + 360) % 360;
+if abs(argSlopeRise) > 1 {
+	argSlopeRun /= abs(argSlopeRise);
+	argSlopeRise /= abs(argSlopeRise);
+}
 
 var x1;var y1;var x2; var y2; var x3; var y3; var x4; var y4;var x0;var xF, var y0, var yF;
-//var cWidth = staircaseL;
 var cWidth = width*20;
 var colInd;
+var xComp;var yComp;
 
 for (var k = 0; k < argSteps; k++) {
 	colInd = k*2;
@@ -36,20 +34,20 @@ for (var k = 0; k < argSteps; k++) {
 	x1 = argX + ( k * stepLength * argNormalRun );
 	y1 = argY + ( k * stepLength * argNormalRise ) + k * stepHeight;
 	
-	var xComp = cWidth * argSlopeRun;
-	var yComp = cWidth * argSlopeRise;
+	xComp = ceil(cWidth * argSlopeRun - 0.5);
+	yComp = ceil(cWidth * argSlopeRise - 0.5);
 	
 	x2 = x1 + xComp;
 	y2 = y1 + yComp;
 	
-	var w = ceil( stepLength * argNormalRun - 0.5 );
-	var h = ceil( stepLength * argNormalRise - 0.5 );
+	xComp = ceil(argNormalRun * stepLength - 0.5);
+	yComp = ceil(argNormalRise * stepLength - 0.5);
 	
-	x3 = x1 + w;
-	y3 = y1 + h;
+	x3 = x1 + xComp;
+	y3 = y1 + yComp;
 	
-	x4 = x2 + w;
-	y4 = y2 + h;
+	x4 = x2 + xComp;
+	y4 = y2 + yComp;
 	
 	scr_draw_staircase_bresenham(x1, y1, x2, y2, colInd);
 	scr_draw_staircase_bresenham(x1, y1, x3, y3, colInd);

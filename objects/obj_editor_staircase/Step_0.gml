@@ -486,6 +486,8 @@ if resetArray {
 		}
 	}
 	
+	scr_draw_staircase(x - staircaseRasterX0, y - staircaseRasterY0, angleRun, angleRise, staircaseN, stepCount, obj_editor_gui.mode == 1 ? false : true);
+	
 	surface_resize(bakedStaircase, staircaseW, staircaseH);
 	surface_resize(bakedStaircaseSelect, staircaseW, staircaseH);
 	surface_resize(bakedStaircaseWireframe, staircaseW, staircaseH);
@@ -496,11 +498,8 @@ if resetArray {
 	
 	if obj_editor_gui.mode = 0 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4 {
 		surface_set_target(bakedStaircase);
-		
-		scr_draw_staircase(x - staircaseRasterX0, y - staircaseRasterY0, zfloor, zcieling, angleRun, angleRise, staircaseN, stepCount, true);
 		draw_clear_alpha(c_white, 0);
 		
-		draw_set_color(c_white);
 		for( var i = zfloor; i >= zcieling; i-- ) {
 			if i > 0 && obj_editor_gui.mode = 0 {
 				staircaseLayerColor[i] = col[ (i - 1) % 9 ];
@@ -561,7 +560,6 @@ if resetArray {
 	
 	if obj_editor_gui.mode = 0 || obj_editor_gui.mode = 3 {
 		surface_set_target(bakedStaircaseSelect);
-		scr_draw_staircase(x - staircaseRasterX0, y - staircaseRasterY0, zfloor, zcieling, angleRun, angleRise, staircaseN, stepCount, true);
 		draw_clear_alpha(c_white, 0);
 	
 		for ( var i = 0; i < staircaseW; i++ ) {
@@ -588,7 +586,6 @@ if resetArray {
 	
 	if obj_editor_gui.mode = 1 {
 		surface_set_target(bakedStaircaseWireframe);
-		scr_draw_staircase(x - staircaseRasterX0, y - staircaseRasterY0, zfloor, zcieling, angleRun, angleRise, staircaseN, stepCount, false);
 		draw_clear_alpha(c_white, 0);
 		
 		if zcieling > 0 {
@@ -623,7 +620,6 @@ if resetArray {
 	
 	if obj_editor_gui.mode = 1 {
 		surface_set_target(bakedStaircaseWireframeSelect);
-		scr_draw_staircase(x - staircaseRasterX0, y - staircaseRasterY0, zfloor, zcieling, angleRun, angleRise, staircaseN, stepCount, false);
 		draw_clear_alpha(c_white, 0);
 		
 		staircaseLayerColor[0] = obj_editor_gui.colOrange;
