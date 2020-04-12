@@ -36,8 +36,10 @@ if spawnButtons {
 		str2 = "flip";
 	}
 	
-	with instance_create_layer(x,y,"Instances",obj_staircase_button_angle) {
+	with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
 		sortIndex = 0;
+		buttonType = 1;
+		label = "Angle";
 		viewOn = 5;
 		
 		panelId = obj_subpanel_left.id;
@@ -46,6 +48,30 @@ if spawnButtons {
 		angle = other.angle;
 		sprWidth = (string_width(label) + 5) * 2;
 	}
+	/*with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
+		sortIndex = 1;
+		viewOn = 5;
+		label = "Minor Radius";
+		buttonType = 2;
+		arbitraryVal = string(other.minorRadius / 20);
+		valueLength = string_width(arbitraryVal)*2 + 4;
+		other.minorId = self.id;
+		panelId = obj_subpanel_left.id;
+		trg = other.id;
+		sprWidth = (string_width(label) + 5) * 2;
+	}
+	with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
+		sortIndex = 2;
+		viewOn = 5;
+		label = "Major Radius";
+		buttonType = 2;
+		arbitraryVal = string(other.majorRadius / 20);
+		valueLength = string_width(arbitraryVal)*2 + 4;
+		other.majorId = self.id;
+		panelId = obj_subpanel_left.id;
+		trg = other.id;
+		sprWidth = (string_width(label) + 5) * 2;
+	}*/
 }
 
 // Initialize and update dimensional variables
@@ -438,9 +464,12 @@ if placed < 2 {
 if select {
 	if instance_exists(angleTrg) {
 		if angleTrg.select {
+			angle = angleTrg.angle;
+			show_debug_message(angle);
+			
 			if tempAngle != angle {
-				angleRun = lengthdir_x(staircaseN,angle);
-				angleRise = lengthdir_y(staircaseN,angle);
+				angleRun = lengthdir_x(20,angle);
+				angleRise = lengthdir_y(20,angle);
 				
 				if angleRun != 0 {
 					angleRise /= abs(angleRun);

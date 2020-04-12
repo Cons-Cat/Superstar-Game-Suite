@@ -102,8 +102,10 @@ if spawnTriggers {
 		panelId = obj_subpanel_left.id;
 		sprWidth = (string_width(label) + 5) * 2;
 	}
-	with instance_create_layer(x,y,"Instances",obj_region_button_angle) {
+	with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
 		sortIndex = 3;
+		buttonType = 1;
+		label = "Angle";
 		viewOn = 5;
 		panelId = obj_subpanel_left.id;
 		angle = other.angle;

@@ -22,6 +22,9 @@ width = -1;
 label = "";
 buttonType = 0; // 0 is a generic button, 1 is a wheel button, 2 is a value input button, -1 does not inherit behavior.
 angle = -1;
+w = sprite_get_width(spr_editor_region_wheel);
+h = sprite_get_height(spr_editor_region_wheel);
+
 decimalPlace = -1;
 
 // Colors

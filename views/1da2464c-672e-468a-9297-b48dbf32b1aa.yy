@@ -9,8 +9,7 @@
         "3e8a5a75-9aca-41de-96e7-594168059ec1",
         "c1e77aaa-b85b-41a3-81c1-1b2dabb779d8",
         "b268518b-5d1d-44f0-a1a7-948305d261c0",
-        "41b6206c-15f4-4164-996b-bc18a8ee9930",
-        "49017ba5-918a-4c17-aa43-f243d8e60e25"
+        "41b6206c-15f4-4164-996b-bc18a8ee9930"
     ],
     "filterType": "GMObject",
     "folderName": "Collision Buttons",
