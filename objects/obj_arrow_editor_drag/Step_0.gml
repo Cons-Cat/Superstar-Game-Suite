@@ -28,7 +28,7 @@ if instance_exists(trg) {
 		trg.x = self.x;
 		trg.y += self.y - trg.floorY;
 		
-		if trg.str = "staircase" {
+		if trg.object_index = obj_editor_staircase {
 			with trg {
 				event_user(0);
 			}
