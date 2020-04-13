@@ -8,73 +8,48 @@ var slopeOffset;
 var j;
 var run;
 var rise;
+var actorXOrigin;
+var actorYOrigin;
 
 repeat(2) {
 	// Staircase collision
-	if collision_rectangle(floor(x),floor(y),floor(x+1),floor(y+1),obj_staircase_collision,true,false) {
+	onStaircase = false;
+	show_debug_message(" ");
+	
+	if collision_rectangle(floor(x),floor(y),floor(x+1),floor(y+1),obj_staircase_collision,false,false) {
 		if !onStaircase {
-			onStaircase = true; // Used to over ride depth algorithm
-			staircaseId = collision_rectangle(floor(x),floor(y),floor(x+1),floor(y+1),obj_staircase_collision,true,false);
-			slopeOriginOffsetX = staircaseId.slopeOriginOffsetX;
-			slopeOriginOffsetY = staircaseId.slopeOriginOffsetY;
+			staircaseId = collision_rectangle(floor(x),floor(y),floor(x+1),floor(y+1),obj_staircase_collision,false,false);
 			
-			if staircaseId.staircaseRotation = 0 || staircaseId.staircaseRotation = 2 {
-				// Sideways staircase exception
-				iterateLengthTemp = staircaseId.iterateLength - staircaseId.widthIterateCollisionOff + 1;
-			} else if staircaseId.staircaseRotation = 1 || staircaseId.staircaseRotation = 6 {
-				// Vertical staircase exception
-				iterateLengthTemp = staircaseId.iterateLength - staircaseId.widthIterateCollisionOff + 2;
-			} else if staircaseId.staircaseRotation = 5 || staircaseId.staircaseRotation = 7 {
-				iterateLengthTemp = staircaseId.iterateLength - staircaseId.widthIterateCollisionOff - 1;
-			} else {
-				iterateLengthTemp = staircaseId.iterateLength - staircaseId.widthIterateCollisionOff;
-			}
+			run  = staircaseId.angleRise;
+			rise = -staircaseId.angleRun;
 			
-			for (var i = -1; i <= iterateLengthTemp * 20; i += 1) {
-				run  = staircaseId.collisionMaskRun;
-				rise = staircaseId.collisionMaskRise;
+			for (var i = 0; i <= staircaseId.width * 20; i++) {
+				staircaseId.lineX1[i] = staircaseId.xStairs + i*run;
+				staircaseId.lineY1[i] = staircaseId.yStairs + i*rise;
+				staircaseId.lineX2[i] = staircaseId.xStairs + i*run + staircaseId.angleRun*staircaseId.staircaseN;
+				staircaseId.lineY2[i] = staircaseId.yStairs + i*rise + staircaseId.angleRise*staircaseId.staircaseN + (staircaseId.zfloor - staircaseId.zcieling)*20;
 				
-				if staircaseId.staircaseRotation = 0 || staircaseId.staircaseRotation = 2 {
-					// Sideways staircase
-					var j = 1;
-				} else if staircaseId.staircaseRotation = 1 || staircaseId.staircaseRotation = 6 {
-					// Vertical staircase
-					var j = 0;
-				} else {
-					var j = i*rise + 3;
-				}
-				
-				for (var ii = 0; ii <= 1; ii += 1) {
-					for (var jj = 0; jj <= 1; jj += 1) {
-						// There must be four horizontally and/or vertically adjacent rays to precisely encompass the entire area
-						if staircaseId.staircaseRotation = 0 || staircaseId.staircaseRotation = 2 {
-							// Sideways staircase
-							if collision_line(slopeOriginOffsetX - ii,slopeOriginOffsetY - j - i*rise + jj,slopeOriginOffsetX + 1 + staircaseId.rayXComponent - ii,slopeOriginOffsetY - j - i*rise + jj,obj_staircasecollision_mask,true,false) {
-								// Iterating, across the tall edge of the staircase, a raycast aiming down the staircase
-								actorXOrigin = staircaseId.slopeOriginOffsetX + staircaseId.rayXComponent - ii;
-								actorYOrigin = self.y;
-								
-								break;
-							}
-						} else {
-							if collision_line(slopeOriginOffsetX + i*run - ii,slopeOriginOffsetY - j + jj,slopeOriginOffsetX + i*run + 1 + staircaseId.rayXComponent - ii,slopeOriginOffsetY - j + staircaseId.rayYComponent + jj,obj_staircasecollision_mask,true,false) {
-								// Iterating, across the tall edge of the staircase, a raycast aiming down the staircase
-								actorXOrigin = staircaseId.slopeOriginOffsetX + i*run  + staircaseId.rayXComponent - ii;
-								actorYOrigin = staircaseId.slopeOriginOffsetY - i*rise + staircaseId.rayYComponent - jj;
-								
-								break;
-							}
-						}
-					}
+				//if collision_line(staircaseId.x + i*run, staircaseId.y + i*rise, staircaseId.x + i*run + staircaseId.angleRun*staircaseId.staircaseN, staircaseId.y + i*rise + staircaseId.angleRise*staircaseId.staircaseN,obj_staircasecollision_mask,true,false) {
+				if collision_line(staircaseId.lineX1[i], staircaseId.lineY1[i], staircaseId.lineX2[i], staircaseId.lineY2[i],obj_actor_parent,true,false) {
+					// Iterating across the tall and wide edge of the staircase, and casting a ray down the steps.
+					actorXOrigin = staircaseId.xStairs + i*run  + staircaseId.angleRun*staircaseId.staircaseN;
+					actorYOrigin = staircaseId.yStairs + i*rise + staircaseId.angleRise*staircaseId.staircaseN;
+					onStaircase = true; // Used to over ride depth algorithm
+					show_debug_message("Collision");
+					
+					break;
 				}
 			}
+			
+			staircaseId.lineX1[i] = -1;
 		}
 	} else {
 		onStaircase = false;
 	}
 	
 	if onStaircase {
-		jumpHeight = staircaseId.zfloor*20 + (actorXOrigin - self.x)*staircaseId.staircaseRun + (actorYOrigin - self.y)*staircaseId.staircaseRise;
+		show_debug_message("Z");
+		jumpHeight = staircaseId.zfloor*20 + (actorXOrigin - self.x)*(staircaseId.angleRise) + (actorYOrigin - self.y)*(-staircaseId.angleRun);
 	} else {
 		for (var i = 0; i < instance_number(obj_solid); i += 1) {
 			trgScr = instance_find(obj_solid,i).id;
