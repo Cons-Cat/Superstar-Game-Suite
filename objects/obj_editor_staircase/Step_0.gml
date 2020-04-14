@@ -40,24 +40,25 @@ if spawnButtons {
 	
 	with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
 		sortIndex = 0;
-		buttonType = 1;
-		label = "Angle";
 		viewOn = 5;
-		
-		panelId = obj_subpanel_left.id;
-		other.angleTrg = self.id;
-		trg = other.id;
+		label = "Angle";
+		buttonType = 1;
 		angle = other.angle;
+		
+		other.angleTrg = self.id;
+		panelId = obj_subpanel_left.id;
+		trg = other.id;
 		sprWidth = (string_width(label) + 5) * 2;
 	}
-	/*with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
+	with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
 		sortIndex = 1;
 		viewOn = 5;
-		label = "Minor Radius";
+		label = "Rise";
 		buttonType = 2;
-		arbitraryVal = string(other.minorRadius / 20);
+		arbitraryVal = string(other.angleRise);
 		valueLength = string_width(arbitraryVal)*2 + 4;
-		other.minorId = self.id;
+		
+		other.riseId = self.id;
 		panelId = obj_subpanel_left.id;
 		trg = other.id;
 		sprWidth = (string_width(label) + 5) * 2;
@@ -65,15 +66,16 @@ if spawnButtons {
 	with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
 		sortIndex = 2;
 		viewOn = 5;
-		label = "Major Radius";
+		label = "Run";
 		buttonType = 2;
-		arbitraryVal = string(other.majorRadius / 20);
+		arbitraryVal = string(other.angleRun);
 		valueLength = string_width(arbitraryVal)*2 + 4;
-		other.majorId = self.id;
+		
+		other.runId = self.id;
 		panelId = obj_subpanel_left.id;
 		trg = other.id;
 		sprWidth = (string_width(label) + 5) * 2;
-	}*/
+	}
 	
 	#endregion
 }
@@ -83,10 +85,57 @@ if placed < 2 {
 }
 
 if select {
+	if instance_exists(riseId) {
+		if riseId != -1 {
+			if riseId.select {
+				if riseId.arbitraryVal != "" {
+					angleTrg.angle = point_direction(0, 0, real(runId.arbitraryVal), real(riseId.arbitraryVal));
+					recalcAngle = true;
+				}
+			}
+		}
+	}
+	
+	if instance_exists(runId) {
+		if runId != -1 {
+			if runId.select {
+				if runId.arbitraryVal != "" {
+					angleTrg.angle = point_direction(0, 0, real(runId.arbitraryVal), real(riseId.arbitraryVal));
+					recalcAngle = true;
+				}
+			}
+		}
+	}
+	
 	if instance_exists(angleTrg) {
 		if angleTrg.select {
-			angle = angleTrg.angle;
+			angleRun = lengthdir_x(20,angle);
+			angleRise = lengthdir_y(20,angle);
 			
+			if angleRun != 0 {
+				angleRise /= abs(angleRun);
+				angleRun /= abs(angleRun);
+			} else {
+				angleRise /= abs(angleRise);
+			}
+			
+			if abs(angleRise) > 1 {
+				angleRun /= abs(angleRise);
+				angleRise /= abs(angleRise);
+			}
+			
+			riseId.arbitraryVal = string(angleRise);
+			runId.arbitraryVal = string(angleRun);
+			
+			recalcAngle = true;
+		}
+	}
+	
+	if recalcAngle {
+		recalcAngle = false;
+		angle = angleTrg.angle;
+		
+		if !angleTrg.select {
 			if tempAngle != angle {
 				angleRun = lengthdir_x(20,angle);
 				angleRise = lengthdir_y(20,angle);
@@ -102,20 +151,20 @@ if select {
 					angleRun /= abs(angleRise);
 					angleRise /= abs(angleRise);
 				}
-				
-				normalAngle = (angle + 90 + 360) % 360;
-				obj_arrow_editor_staircase.image_angle = self.angle;
-				
-				stepCount = 5;
-				stepLength = staircaseN / stepCount;
-				altW = lengthdir_x( stepLength, angle );
-				altH = lengthdir_y( stepLength, angle );
-				
-				stepPriority = angle > 180 && angle < 360;
-				
-				resetArray = true;
-				tempAngle = angle;
 			}
+			
+			normalAngle = (angle + 90 + 360) % 360;
+			obj_arrow_editor_staircase.image_angle = self.angle;
+			
+			stepCount = 5;
+			stepLength = staircaseN / stepCount;
+			altW = lengthdir_x( stepLength, angle );
+			altH = lengthdir_y( stepLength, angle );
+			
+			stepPriority = angle > 180 && angle < 360;
+			
+			resetArray = true;
+			tempAngle = angle;
 		}
 	}
 }

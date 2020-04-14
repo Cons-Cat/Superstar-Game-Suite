@@ -24,6 +24,7 @@ buttonType = 0; // 0 is a generic button, 1 is a wheel button, 2 is a value inpu
 angle = -1;
 w = sprite_get_width(spr_editor_region_wheel);
 h = sprite_get_height(spr_editor_region_wheel);
+arbitraryVal = "0";
 
 decimalPlace = -1;
 
