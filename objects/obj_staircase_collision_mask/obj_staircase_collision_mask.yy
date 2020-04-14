@@ -2,7 +2,7 @@
     "id": "035dadd8-2031-4f65-b019-9e04f2b76437",
     "modelName": "GMObject",
     "mvc": "1.0",
-    "name": "obj_staircasecollision_mask",
+    "name": "obj_staircase_collision_mask",
     "eventList": [
         {
             "id": "dc2c7b62-7929-4bc0-a2d3-a2dcf9a204e3",

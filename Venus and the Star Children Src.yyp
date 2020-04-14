@@ -50,7 +50,7 @@
             "Key": "035dadd8-2031-4f65-b019-9e04f2b76437",
             "Value": {
                 "id": "28484726-3bf2-454a-82ab-ea22ce41260c",
-                "resourcePath": "objects\\obj_staircasecollision_mask\\obj_staircasecollision_mask.yy",
+                "resourcePath": "objects\\obj_staircase_collision_mask\\obj_staircase_collision_mask.yy",
                 "resourceType": "GMObject"
             }
         },
