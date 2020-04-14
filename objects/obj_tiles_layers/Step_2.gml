@@ -95,9 +95,10 @@ if mouse_check_button_pressed(mb_left) {
 		trgId.layerName[tileLayerCount+1] = self.layerName[tileLayerCount+1];
 		
 		// Initialize new tiles
-		for (i = 0; i < trgId.width + 2; i += 1) {
-			for (j = 0; j < trgId.height + trgId.zfloor - trgId.zcieling + 1; j += 1) {
-				if layerType[tileLayerCount] = 0 { // Tiles layer
+		for (i = 0; i < trgId.tilingWidth; i++) {
+			for (j = 0; j < trgId.tilingHeight; j++) {
+				// Tiles layer
+				if layerType[tileLayerCount] = 0 {
 					trgId.hasTile[ scr_array_xy( i,j,trgId.tileArrayHeight ), tileLayerCount ] = false;
 					trgId.hasTile[ scr_array_xy( i,j,trgId.tileArrayHeight ), tileLayerCount + 1 ] = false;
 					
@@ -109,7 +110,8 @@ if mouse_check_button_pressed(mb_left) {
 					}
 				}
 				
-				if layerType[tileLayerCount] = 1 { // Marble layer
+				// Marble layer
+				if layerType[tileLayerCount] = 1 {
 					if i = 0 || i >= trgId.width + 1 || j = 0 {
 						// Perimeter is empty
 						trgId.hasTile[ scr_array_xy( i,j,trgId.tileArrayHeight ), tileLayerCount ] = false;

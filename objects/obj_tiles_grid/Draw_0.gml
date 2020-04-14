@@ -1,6 +1,10 @@
 /// @description
 draw_self();
 
+if (backdropSpr != -1) {
+	draw_sprite_part_ext(backdropSpr, 0, i*20, j*20, 20, 20, x, y, 1, 1, c_white,tilesCount > 0 ? 0.5 : 1);
+}
+
 for (k = 0; k <= tileLayerCount; k += 2) { // Iterate through absolute
 	if layerVisibleAbsolute[k] || tileLayerSelect = k {
 		if hasTileAbsolute[k] {

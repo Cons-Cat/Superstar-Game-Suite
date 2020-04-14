@@ -21,6 +21,7 @@ lastY = -1;
 lastWidth = -1;
 lastCieling = -1;
 marbleRecursionI = 0;
+backdropSpr = -1;
 
 marbleSurface = surface_create(20,20);
 tileSurfaceDraw = surface_create(20,20);

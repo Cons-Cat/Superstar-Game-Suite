@@ -168,20 +168,20 @@ if placed = 1 {
 		surface_resize(tileSurfaceDraw, tilingWidth * 20, tilingHeight * 20);
 		
 		surface_set_target(tileSurfaceDraw);
-		draw_clear_alpha(c_white,0);
+		draw_clear_alpha(c_white, 0);
 		surface_reset_target();
 		
 		tileSurfaceCalc = surface_create(tilingWidth * 20, tilingHeight * 20);
 		surface_set_target(tileSurfaceCalc);
-		draw_clear_alpha(c_white,0);
+		draw_clear_alpha(c_white, 0);
 		
 		for (k = 0; k <= tileLayerCount; k += 2) { // Absolute
 			if layerVisible[k] {
 				if layerType[k] = 0 { // Tiles layer
 					#region
 					
-					for (i = 0; i < tilingWidth; i += 1) {
-						for (j = 0; j < tilingHeight; j += 1) {
+					for (i = 0; i < tilingWidth; i++) {
+						for (j = 0; j < tilingHeight; j++) {
 							if hasTile[scr_array_xy(i,j,tileArrayHeight),k] {
 								draw_sprite_part(tileDrawSpr,0,tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k],tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k],20,20,i*20,j*20);
 								

@@ -1,6 +1,4 @@
 /// @description Draw terrain
-event_inherited();
-
 if obj_editor_gui.mode = 0 {
 	draw_surface(canSelect ? bakedStaircaseSelect : bakedStaircase, staircaseRasterX0, staircaseRasterY0);
 } else if obj_editor_gui.mode = 1 {
@@ -25,4 +23,21 @@ if obj_editor_gui.mode = 0 {
 	draw_set_alpha(1);
 	
 	draw_surface(canSelect ? bakedStaircaseWireframeSelect : bakedStaircaseWireframe, staircaseRasterX0, staircaseRasterY0);
+} else if obj_editor_gui.mode = 3 {
+	for (i = 0; i < tilingWidth; i++) {
+		for (j = 0; j < tilingHeight; j++) {
+			for (k = 0; k <= tileLayerCount; k += 2) {
+				//show_debug_message(string(k) + ", " + string(tileLayerCount));
+				
+				if hasTile[scr_array_xy(i,j,tileArrayHeight),0] && layerVisible[k] {
+					show_debug_message("HIT");
+					break;
+				} else if k = tileLayerCount {
+					draw_sprite_part(backdropSpr, 0, i*20, j*20, 20, 20, staircaseRasterX0 + i*20 - 20, staircaseRasterY0 + j*20 - 20);
+				}
+			}
+		}
+	}
 }
+
+event_inherited();

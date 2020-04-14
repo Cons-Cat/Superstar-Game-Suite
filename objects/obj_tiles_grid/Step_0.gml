@@ -19,8 +19,12 @@ if tileLayerSelect != -1 {
 								if j = other.j + other.b {
 									xVal[tileLayerSelect] = obj_tiles_sheet.xVal[other.a,other.b];
 									yVal[tileLayerSelect] = obj_tiles_sheet.yVal[other.a,other.b];
-									hasTile[tileLayerSelect] = true;
 									passIn = true;
+									
+									if !hasTile[tileLayerSelect] {
+										hasTile[tileLayerSelect] = true;
+										tilesCount++;
+									}
 									
 									if tileLayerSelect % 2 = 1 { // If a sub-layer is selected
 										calculateSub = true;
@@ -33,7 +37,11 @@ if tileLayerSelect != -1 {
 			}
 			
 			if mouse_check_button(mb_right) {
-				hasTile[tileLayerSelect] = false;
+				if hasTile[tileLayerSelect] {
+					hasTile[tileLayerSelect] = false;
+					tilesCount--;
+				}
+				
 				passIn = true;
 			}
 		}

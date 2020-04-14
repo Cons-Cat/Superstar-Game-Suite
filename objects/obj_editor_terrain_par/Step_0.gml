@@ -127,6 +127,7 @@ if spawnTiles {
 				tileDrawSpr = other.tileDrawSpr;
 				tileArrayHeight = other.tileArrayHeight;
 				tileLayerCount = other.tileLayerCount;
+				backdropSpr = other.backdropSpr;
 				
 				for (k = 0; k <= tileLayerCount; k += 2) { // Arbitrary
 					hasTile[k] = other.hasTile[scr_array_xy(i,j,tileArrayHeight),k];

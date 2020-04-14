@@ -57,10 +57,10 @@ if resetArray {
 	
 	resetArray = false;
 	calculateSub = true;
-	sprMaterial = spr_tls_rectangle_default; // Reset 
 	tileArrayHeight = height + zfloor - zcieling + 1;
 	tilingWidth = width + 2;
 	tilingHeight = height + zfloor - zcieling + 1;
+	tileDefaultSpr = "spr_tls_rectangle_default";
 	
 	if zfloor > zcieling {
 		// Pillar

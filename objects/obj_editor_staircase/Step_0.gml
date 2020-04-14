@@ -124,10 +124,12 @@ if select {
 if resetArray {
 	resetArray = false;
 	calculateSub = true;
+	
 	tilingWidth = ceil(staircaseW / 20) + 2;
 	tilingHeight = ceil(staircaseH / 20) + 1;
 	tileArrayHeight = tilingHeight;
 	tileLayerCount = 0;
+	tileDefaultSpr = "spr_tls_rectangle_default";
 	
 	event_user(0); // Calculate coordinates
 	
@@ -297,16 +299,16 @@ if resetArray {
 	
 	#endregion
 	
-	//sprMaterial = sprite_create_from_surface(bakedStaircase, 20, 20, (tilingWidth-2)*20, (tilingHeight-2)*20, false, false, 0, 0);
-	tileDrawSpr = sprite_create_from_surface(bakedStaircase, -20, -20, tilingWidth*20, tilingHeight*20, false, false, 0, 0);
+	backdropSpr = sprite_create_from_surface(bakedStaircase, -20, -20, tilingWidth*20, tilingHeight*20, false, false, 0, 0);
 	
 	for (i = 0; i < tilingWidth; i += 1) {
 		for (j = 0; j < tilingHeight; j += 1) {
-			hasTile[scr_array_xy(i,j,tileArrayHeight),0] = true;
+			hasTile[scr_array_xy(i,j,tileArrayHeight),0] = false;
 			hasTile[scr_array_xy(i,j,tileArrayHeight),1] = false;
 			
-			tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),0] = i*20;
-			tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),0] = j*20;
+			// Default to the designated coordinates of an empty tile
+			tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k] = 0;
+			tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k] = 120;
 		}
 	}
 }
