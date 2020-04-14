@@ -2,10 +2,12 @@
 event_inherited();
 
 str = "staircase";
+tileLayer[0,0] = "layer_0";
+tileLayer[0,1] = "";
+layerType[0] = 0;
 
 zfloor = 0;
 width = 1;
-zIterate = 0;
 widthIterate = 0;
 heightIterate = 0;
 

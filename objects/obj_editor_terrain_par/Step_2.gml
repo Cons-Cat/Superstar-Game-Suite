@@ -53,7 +53,7 @@ if placed = 1 {
 			}
 		}
 		
-		tileSurfaceDraw = surface_create((width + 2) * 20,(height + zfloor - zcieling + 1) * 20);
+		tileSurfaceDraw = surface_create(tilingWidth * 20,tilingHeight * 20);
 		
 		if zfloor - zcieling > 0 {
 			marbleSurface = surface_create(width * 20,(height + zfloor - zcieling) * 20);
@@ -165,13 +165,13 @@ if placed = 1 {
 		#region
 		
 		calculateSub = false; // Recalculating the surface
-		surface_resize(tileSurfaceDraw, (width + 2) * 20, (height + zfloor - zcieling + 1) * 20);
+		surface_resize(tileSurfaceDraw, tilingWidth * 20, tilingHeight * 20);
 		
 		surface_set_target(tileSurfaceDraw);
 		draw_clear_alpha(c_white,0);
 		surface_reset_target();
 		
-		tileSurfaceCalc = surface_create((width + 2) * 20,(height + zfloor - zcieling + 1) * 20);
+		tileSurfaceCalc = surface_create(tilingWidth * 20, tilingHeight * 20);
 		surface_set_target(tileSurfaceCalc);
 		draw_clear_alpha(c_white,0);
 		
@@ -180,8 +180,8 @@ if placed = 1 {
 				if layerType[k] = 0 { // Tiles layer
 					#region
 					
-					for (i = 0; i < width + 2; i += 1) {
-						for (j = 0; j < height + zfloor - zcieling + 1; j += 1) {
+					for (i = 0; i < tilingWidth; i += 1) {
+						for (j = 0; j < tilingHeight; j += 1) {
 							if hasTile[scr_array_xy(i,j,tileArrayHeight),k] {
 								draw_sprite_part(tileDrawSpr,0,tileArrayDrawX[scr_array_xy(i,j,tileArrayHeight),k],tileArrayDrawY[scr_array_xy(i,j,tileArrayHeight),k],20,20,i*20,j*20);
 								
@@ -203,8 +203,8 @@ if placed = 1 {
 					
 					draw_surface(marbleSurface,20,20);
 					
-					for (i = 1; i < width + 1; i += 1) {
-						for (j = 1; j < height + zfloor - zcieling + 1; j += 1) {
+					for (i = 1; i < tilingWidth - 1; i += 1) { // Not sure atm why I wrote -1.
+						for (j = 1; j < tilingHeight; j += 1) {
 							// Pass in marble
 							if hasTile[scr_array_xy(i,j,tileArrayHeight),k] {
 								with obj_tiles_grid {
@@ -241,7 +241,7 @@ if placed = 1 {
 		surface_free(tileSurfaceCalc);
 		
 		// Update minimap
-		scr_editor_map(x-20,y-20,x-20+(width+2)*20,y-20+(height+zfloor-zcieling+1)*20,-1);
+		scr_editor_map(x - 20, y - 20, x - 20 + tilingWidth*20, y - 20 + tilingHeight*20, -1);
 		
 		#endregion
 	}

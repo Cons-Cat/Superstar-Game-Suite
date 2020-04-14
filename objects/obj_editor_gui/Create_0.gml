@@ -50,13 +50,6 @@ sidePanelCtrl = -1;
 spawnedCollisions = false;
 rows = 0;
 
-/*materialsImported = 0;
-sprMaterialDirectoryList[0] = "";
-sprMaterialDirectoryList[1] = "";
-materialDirectorySprite[0] = "";
-materialDirectorySprite[1] = "";
-hasMaterials = false;*/
-
 selectInstance = -1;
 canChangeSelect = true;
 tempDepth = 0;

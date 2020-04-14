@@ -23,7 +23,8 @@ yy4 = y4 + altH;
 
 staircaseRasterX0 = floor(min(x1, x2, x3, x4)) - 1;
 staircaseRasterY0 = floor(min(y1, y2, y3, y4, yy1, yy2, yy3, yy4));
+staircaseRasterXF = ceil(max(x1, x2, x3, x4));
+staircaseRasterYF = ceil(max(y1, y2, y3, y4));
 
-staircaseW = ceil(max(x1, x2, x3, x4)) - staircaseRasterX0 + 2;
-//staircaseH = ceil(max(y1, y2, y3, y4, yy1, yy2, yy3, yy4)) - staircaseRasterY0 + 1;
-staircaseH = ceil(max(y1, y2, y3, y4)) - staircaseRasterY0 + 1;
+staircaseW = staircaseRasterXF - staircaseRasterX0 + 2;
+staircaseH = staircaseRasterYF - staircaseRasterY0 + 1;

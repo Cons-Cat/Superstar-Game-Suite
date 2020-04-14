@@ -4,6 +4,8 @@ height = 1;
 zfloor = obj_z_max.z;
 zcieling = obj_z_min.z;
 
+tilingWidth = 0;
+tilingHeight = 0;
 tileLayerCount = 0;
 tileArrayHeight = 0;
 layerVisible[0] = true;
@@ -77,7 +79,6 @@ col[17] = make_color_rgb(119,19,93); // Pink
 
 // Tile array values
 resetArray = true;
-sprMaterial = spr_tls_rectangle_default;
 tileArrayDrawX[0,0] = 0;
 tileArrayDrawY[0,0] = 0;
 canSpawnTiles = false;

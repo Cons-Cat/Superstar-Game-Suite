@@ -395,8 +395,8 @@ if mode = 2 {
 				stairstepRise /= largerVal;
 				show_message(string(stairstepRun) + ", " + string(stairstepRise));
 				
-				image_xscale = ceil((ceil(max(other.x1, other.x2, other.x3, other.x4)) - other.staircaseRasterX0) / sprite_width);
-				image_yscale = ceil((ceil(max(other.y1, other.y2, other.y3, other.y4)) - other.staircaseRasterY0 - other.zfloor*20 + other.zcieling*20) / sprite_height);
+				image_xscale = ceil((other.staircaseRasterXF - other.staircaseRasterX0) / sprite_width);
+				image_yscale = ceil((other.staircaseRasterYF - other.staircaseRasterY0 - other.zfloor*20 + other.zcieling*20) / sprite_height);
 				y += (other.zfloor - other.zcieling) * 20;
 				depth = other.depth - 100;
 			}

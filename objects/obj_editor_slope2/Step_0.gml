@@ -57,8 +57,9 @@ if resetArray {
 	
 	resetArray = false;
 	calculateSub = true;
-	sprMaterial = spr_tls_rectangle_default // Reset material
 	tileArrayHeight = height + zfloor - zcieling + 1;
+	tilingWidth = width + 2;
+	tilingHeight = height + zfloor - zcieling + 1;
 	
 	if zfloor > zcieling {
 		// Pillar
@@ -76,9 +77,9 @@ if resetArray {
 		layerName[k+1] = "sublayer_" + string((k div 2) + 1);
 		
 		// Iterate across the width diagonally
-		for (i = 0; i < width + 2; i += 1) {
+		for (i = 0; i < tilingWidth; i += 1) {
 			// Iterate across the z height
-			for (j = 0; j < height + zfloor - zcieling + 1; j += 1) {
+			for (j = 0; j < tilingHeight; j += 1) {
 				hasTile[scr_array_xy(i,j,tileArrayHeight),k] = true;
 				hasTile[scr_array_xy(i,j,tileArrayHeight),k+1] = false;
 				

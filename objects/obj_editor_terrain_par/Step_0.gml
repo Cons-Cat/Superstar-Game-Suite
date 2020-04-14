@@ -116,8 +116,8 @@ if spawnTiles {
 	// Spawn tiles GUI
 	#region
 	
-	for (i = 0; i < width + 2; i += 1) {
-		for (j = 0; j < height + zfloor - zcieling + 1; j += 1) {
+	for (i = 0; i < tilingWidth; i += 1) {
+		for (j = 0; j < tilingHeight; j += 1) {
 			with instance_create_layer(camera_get_view_x(obj_editor_gui.cameraLeftPanel) + 2 + i*21,j*21,"Instances",obj_tiles_grid) {
 				trgId = other.id;
 				i = other.i;

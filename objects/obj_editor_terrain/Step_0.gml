@@ -90,12 +90,13 @@ if resetArray && obj_editor_gui.mode != 3 {
 	
 	resetArray = false;
 	calculateSub = true;
-	sprMaterial = spr_tls_rectangle_default // Reset material
 	tileArrayHeight = height + zfloor - zcieling + 1;
+	tilingWidth = width + 2;
+	tilingHeight = height + zfloor - zcieling + 1;
 	tileLayerCount = 0;
 	
-	for (i = 0; i < width + 2; i += 1) {
-		for (j = 0; j < height + zfloor - zcieling + 1; j += 1) {
+	for (i = 0; i < tilingWidth; i += 1) {
+		for (j = 0; j < tilingHeight; j += 1) {
 			hasTile[scr_array_xy(i,j,tileArrayHeight),0] = true;
 			hasTile[scr_array_xy(i,j,tileArrayHeight),1] = false;
 			
