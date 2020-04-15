@@ -5,7 +5,7 @@ if obj_editor_gui.mode = 2 || obj_editor_gui.mode = 3 || obj_editor_gui.mode = 4
 	// Draw surface baked in the Step event
 	if surface_exists(tileSurfaceDraw) {
 		if obj_z_mode.mode = 0 {
-			draw_surface_ext(tileSurfaceDraw,x-20,y-20,1,1,0,layerColor,1);
+			draw_surface_ext(tileSurfaceDraw,tilingX,tilingY,1,1,0,layerColor,1);
 		} else {
 			draw_surface_part_ext(tileSurfaceDraw,0,clamp(obj_z_max.z*20,0,(height+zfloor+zcieling)*20),width*20,(height+zfloor+zcieling)*20,x-20,y-20,1,1,layerColor,1);
 		}

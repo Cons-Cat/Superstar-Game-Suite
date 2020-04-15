@@ -251,6 +251,8 @@ if spawnTiles {
 if placed = 0 {
 	x = (mouseCheckX div global.snapDimension) * global.snapDimension;
 	y = (mouseCheckY div global.snapDimension) * global.snapDimension;
+	tilingX = x - 20;
+	tilingY = y - 20;
 	
 	scr_terrain_update_z();
 }

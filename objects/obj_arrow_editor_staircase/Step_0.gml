@@ -23,6 +23,13 @@ if instance_exists(trg) {
 		) div 30;
 		
 		trg.staircaseN = magnitude*20;
+		
+		if trg.object_index = obj_editor_staircase {
+			with trg {
+				event_user(1);
+				bakeRaster = true;
+			}
+		}
 		trg.resetArray = true;
 	}
 }

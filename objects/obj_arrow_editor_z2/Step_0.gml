@@ -42,6 +42,12 @@ if instance_exists(trg) {
 		
 		with trg {
 			scr_terrain_update_z();
+			
+			if object_index = obj_editor_staircase {
+				event_user(1);
+				bakeRaster = true;
+			}
+				
 			resetArray = true;
 		}
 	}

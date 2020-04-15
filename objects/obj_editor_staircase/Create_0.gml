@@ -20,6 +20,7 @@ staircaseH = 0;
 staircaseRasterX0 = x;
 staircaseRasterY0 = y;
 stepLength = staircaseN / stepCount;
+bakeRaster = true;
 
 x1 = 0;
 y1 = 0;
@@ -57,8 +58,6 @@ hovered = false;
 
 bakedStaircase = surface_create(20,20);
 bakedStaircaseSelect = surface_create(20,20);
-bakedStaircaseWireframe = surface_create(20,20);
-bakedStaircaseWireframeSelect = surface_create(20,20);
 
 staircaseType = 1;
 /*
@@ -90,6 +89,7 @@ colDark[5] = make_color_rgb(0, 86, 60); // Aqua
 colDark[6] = make_color_rgb(32, 62, 117); // Blue
 colDark[7] = make_color_rgb(87, 39, 122); // Purple
 colDark[8] = make_color_rgb(127, 46, 116); // Pink
+colDarkSel = make_color_rgb(132, 132, 132); // Dark gray
 
 xOrigin = 0;
 yOrigin = 0;

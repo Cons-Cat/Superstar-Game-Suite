@@ -28,3 +28,6 @@ staircaseRasterYF = ceil(max(y1, y2, y3, y4));
 
 staircaseW = staircaseRasterXF - staircaseRasterX0 + 2;
 staircaseH = staircaseRasterYF - staircaseRasterY0 + 1;
+
+tilingX = staircaseRasterX0 - 20;
+tilingY = staircaseRasterY0 - 20;

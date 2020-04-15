@@ -27,10 +27,13 @@ if instance_exists(trg) {
 		
 		trg.x = self.x;
 		trg.y += self.y - trg.floorY;
+		trg.tilingX = trg.x - 20;
+		trg.tilingY = trg.y - 20;
 		
 		if trg.object_index = obj_editor_staircase {
 			with trg {
-				event_user(0);
+				event_user(1);
+				bakeRaster = true;
 			}
 		}
 		

@@ -23,6 +23,12 @@ if instance_exists(trg) {
 					trg.width -= 1;
 				}
 				
+				if trg.object_index = obj_editor_staircase {
+					with trg {
+						event_user(1);
+						bakeRaster = true;
+					}
+				}
 				trg.resetArray = true;
 			}
 			
@@ -35,6 +41,12 @@ if instance_exists(trg) {
 					trg.width -= 2;
 				}
 				
+				if trg.object_index = obj_editor_staircase {
+					with trg {
+						event_user(1);
+						bakeRaster = true;
+					}
+				}
 				trg.resetArray = true;
 			}
 		}

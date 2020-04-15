@@ -4,6 +4,8 @@ height = 1;
 zfloor = obj_z_max.z;
 zcieling = obj_z_min.z;
 
+tilingX = x - 20;
+tilingY = y - 20;
 tilingWidth = 0;
 tilingHeight = 0;
 tileLayerCount = 0;

@@ -38,8 +38,16 @@ if instance_exists(trg) {
 				}
 			}
 			
+			trg.tilingY = trg.y - 20;
+			
 			with trg {
 				scr_terrain_update_z();
+				
+				if object_index = obj_editor_staircase {
+					event_user(1);
+					bakeRaster = true;
+				}
+				
 				resetArray = true;
 			}
 		}

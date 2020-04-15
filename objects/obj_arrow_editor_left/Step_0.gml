@@ -44,6 +44,15 @@ if instance_exists(trg) {
 					}
 				}
 				
+				trg.tilingX = trg.x - 20;
+				
+				if trg.object_index = obj_editor_staircase {
+					with trg {
+						event_user(1);
+						bakeRaster = true;
+					}
+				}
+				
 				trg.resetArray = true;
 			}
 		}
