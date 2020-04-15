@@ -23,7 +23,6 @@ select = 0;
 placed = 0;
 buttonSelected = 0;
 depthIterate = 0;
-canSpawnButtons = false;
 anchorId = -1;
 zoomId = -1;
 valueButtonsExist = false;

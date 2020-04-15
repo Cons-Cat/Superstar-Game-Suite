@@ -19,6 +19,7 @@ staircaseW = 0;
 staircaseH = 0;
 staircaseRasterX0 = x;
 staircaseRasterY0 = y;
+stepLength = staircaseN / stepCount;
 
 x1 = 0;
 y1 = 0;
@@ -32,8 +33,6 @@ y4 = 0;
 angle = 315;
 angleRun = lengthdir_x(staircaseL,angle);
 angleRise = lengthdir_y(staircaseL,angle);
-tempRun = angleRun;
-tempRise = angleRise;
 
 if angleRun != 0 {
 	angleRise /= abs(angleRun);
@@ -42,13 +41,11 @@ if angleRun != 0 {
 	angleRise /= abs(angleRise);
 }
 
-normalAngle = (angle + 90 + 360) % 360;
-
 tempAngle = angle;
 angleTrg = -1;
 runId = -1;
 riseId = -1;
-stepLength = staircaseN / 5;
+stepsId = -1;
 
 altW = lengthdir_x( stepLength, angle );
 altH = lengthdir_y( stepLength, angle );

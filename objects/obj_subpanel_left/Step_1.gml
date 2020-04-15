@@ -110,8 +110,8 @@ if calculateHeight {
 	calculateHeight = false;
 	tempHeight = 3;
 	
-	for (i = 0; i < instance_number(obj_panel_button); i += 1) {
-		tempTrg = instance_find(obj_panel_button,i);
+	for (i = 0; i < instance_number(obj_subpanel_button); i += 1) {
+		tempTrg = instance_find(obj_subpanel_button,i);
 		
 		if tempTrg.viewOn = 5 { // If this button draws to the sub-left panel
 			tempHeight += 45;

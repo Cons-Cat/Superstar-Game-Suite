@@ -55,7 +55,6 @@ if placed != 0 {
 							global.tempXRight = obj_panel_right.x;
 						}
 						
-						
 						obj_panel_right.exitInterface = true;
 						obj_panel_left.exitInterface = true;
 										
@@ -66,10 +65,29 @@ if placed != 0 {
 				// Collision instances
 				if mouse_check_button_pressed(mb_left) && !instance_exists(obj_editor_button_parent) {
 					spawnButtons = true; // Button instances are spawned by child objects
+					canSpawnTriggers = true;
 					
 					select = true;
 					buttonSelected = 1;
 					obj_editor_gui.canChangeSelect = false;
+					
+					// Slide sub-panel in
+					if obj_subpanel_left.anchored {
+						obj_subpanel_left.tempY = round( (obj_panel_bot.y - obj_panel_top.y + 10) * 3/5);
+						obj_subpanel_left.moveToSpd = 1;
+					} else {
+						obj_subpanel_left.tempY = obj_subpanel_left.y;
+						obj_subpanel_left.moveToSpd = (obj_panel_bot.y - obj_subpanel_left.y)/6.5;
+					}
+					
+					obj_subpanel_left.moveDirection = 1;
+					obj_subpanel_left.moveToY = obj_panel_bot.y;
+					
+					// Standard formula to solve for time, given speed and distance
+					// +5 is a pause to dramatize the motion
+					obj_subpanel_left.alarm[1] = abs(obj_panel_bot.y - obj_subpanel_left.y) / obj_subpanel_left.moveToSpd + 5;
+					
+					alarm[1] = obj_subpanel_left.alarm[1];
 				}
 			}
 		}

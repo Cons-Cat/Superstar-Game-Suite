@@ -38,6 +38,15 @@ if spawnButtons {
 		str2 = "flip";
 	}
 	
+	#endregion
+}
+
+// Trigger manipulation
+if spawnTriggers {
+	#region
+	
+	spawnTriggers = false;
+	
 	with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
 		sortIndex = 0;
 		viewOn = 5;
@@ -76,12 +85,25 @@ if spawnButtons {
 		trg = other.id;
 		sprWidth = (string_width(label) + 5) * 2;
 	}
+	with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
+		sortIndex = 3;
+		viewOn = 5;
+		label = "Steps";
+		buttonType = 2;
+		arbitraryVal = string(other.stepCount);
+		valueLength = string_width(arbitraryVal)*2 + 4;
+		
+		other.stepsId = self.id;
+		panelId = obj_subpanel_left.id;
+		trg = other.id;
+		sprWidth = (string_width(label) + 5) * 2;
+	}
 	
 	#endregion
 }
 
-if placed < 2 {
-	event_user(0);
+if placed < 1 {
+	event_user(1);
 }
 
 if select {
@@ -126,8 +148,25 @@ if select {
 			
 			riseId.arbitraryVal = string(angleRise);
 			runId.arbitraryVal = string(angleRun);
+		
+			riseId.valueLength = string_width(riseId.arbitraryVal)*2 + 4;
+			runId.valueLength = string_width(runId.arbitraryVal)*2 + 4;
 			
 			recalcAngle = true;
+		}
+	}
+	
+	if instance_exists(stepsId) {
+		// This is some random object with index 104 when the staircase is first placed.
+		if stepsId.object_index = obj_subpanel_button {
+			if stepsId.select {
+				if stepsId.arbitraryVal != "" {
+					if stepsId.arbitraryVal > 0 {
+						stepCount = floor(real(stepsId.arbitraryVal));
+						resetArray = true;
+					}
+				}
+			}
 		}
 	}
 	
@@ -135,7 +174,7 @@ if select {
 		recalcAngle = false;
 		angle = angleTrg.angle;
 		
-		if !angleTrg.select {
+		//if !angleTrg.select {
 			if tempAngle != angle {
 				angleRun = lengthdir_x(20,angle);
 				angleRise = lengthdir_y(20,angle);
@@ -151,12 +190,10 @@ if select {
 					angleRun /= abs(angleRise);
 					angleRise /= abs(angleRise);
 				}
-			}
+			//}
 			
-			normalAngle = (angle + 90 + 360) % 360;
 			obj_arrow_editor_staircase.image_angle = self.angle;
 			
-			stepCount = 5;
 			stepLength = staircaseN / stepCount;
 			altW = lengthdir_x( stepLength, angle );
 			altH = lengthdir_y( stepLength, angle );
@@ -180,7 +217,7 @@ if resetArray {
 	tileLayerCount = 0;
 	tileDefaultSpr = "spr_tls_rectangle_default";
 	
-	event_user(0); // Calculate coordinates
+	event_user(1); // Calculate coordinates
 	
 	// Clear staircase raster.
 	for ( var i = 0; i < staircaseW; i++ ) {
@@ -214,35 +251,34 @@ if resetArray {
 			}
 		}
 		
+		var stepHeight = (zfloor - zcieling) * 20 / stepCount;
+		var stepCol;
+		
 		for ( var i = 0; i < staircaseW; i++ ) {
 			for ( var j = 0; j < staircaseH; j++ ) {
 				if staircaseRasterInd[i,j] != -1 {
-					var lerpVal = staircaseRasterInd[i, j] / 9;
-					var stepHeight = ( zfloor - zcieling) * 20 / stepCount;
-					
-					var k = floor(staircaseRasterInd[i, j]/2)*2 / (stepCount - 1)*2;
-					var ezfloor = ( (zfloor)*20 - k*stepHeight ) / 20;
-					ezfloor = ceil ( ezfloor );
-					
-					var stepCol;
+					var k = stepCount - (staircaseRasterInd[i, j] div 2);
+					var colSpan = zfloor - zcieling;
+					var colX = colSpan * (stepHeight * k) / ( (zfloor - zcieling) * 20 ) + zcieling;
+					var lerpVal = colX % 1;
 					
 					if staircaseRasterInd[i,j] % 2 = 0 {
 						if zfloor - zcieling > 0 {
 							stepCol = make_color_rgb(
-								lerp( color_get_red(staircaseLayerColor[ezfloor]), color_get_red(staircaseLayerColor[ezfloor - 1]), lerpVal ),
-								lerp( color_get_green(staircaseLayerColor[ezfloor]), color_get_green(staircaseLayerColor[ezfloor - 1]), lerpVal ),
-								lerp( color_get_blue(staircaseLayerColor[ezfloor]), color_get_blue(staircaseLayerColor[ezfloor - 1]), lerpVal ),
-							);
+								lerp( color_get_red(staircaseLayerColor[floor(colX)]), color_get_red(staircaseLayerColor[ceil(colX)]), lerpVal ),
+								lerp( color_get_green(staircaseLayerColor[floor(colX)]), color_get_green(staircaseLayerColor[ceil(colX)]), lerpVal ),
+								lerp( color_get_blue(staircaseLayerColor[floor(colX)]), color_get_blue(staircaseLayerColor[ceil(colX)]), lerpVal ),
+							)
 						} else {
 							stepCol = staircaseLayerColor[zcieling];
 						}
 					} else {
 						if zfloor - zcieling > 0 {
 							stepCol = make_color_rgb(
-								lerp( color_get_red(staircaseLayerColorWall[ezfloor]), color_get_red(staircaseLayerColorWall[ezfloor - 1]), lerpVal ),
-								lerp( color_get_green(staircaseLayerColorWall[ezfloor]), color_get_green(staircaseLayerColorWall[ezfloor - 1]), lerpVal ),
-								lerp( color_get_blue(staircaseLayerColorWall[ezfloor]), color_get_blue(staircaseLayerColorWall[ezfloor - 1]), lerpVal ),
-							);
+								lerp( color_get_red(staircaseLayerColorWall[floor(colX)]), color_get_red(staircaseLayerColorWall[ceil(colX)]), lerpVal ),
+								lerp( color_get_green(staircaseLayerColorWall[floor(colX)]), color_get_green(staircaseLayerColorWall[ceil(colX)]), lerpVal ),
+								lerp( color_get_blue(staircaseLayerColorWall[floor(colX)]), color_get_blue(staircaseLayerColorWall[ceil(colX)]), lerpVal ),
+							)
 						} else {
 							stepCol = staircaseLayerColorWall[zcieling];
 						}
