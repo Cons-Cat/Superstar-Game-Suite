@@ -83,15 +83,84 @@ if mode = 2 {
 			
 			if zfloor > 0 || !finite {
 				// Right collision
+				#region
+				
 				with instance_create_layer(x,y,"Instances",obj_solid_parent) {
 					y = other.y+other.zfloor*20;
 					x = other.x;
+					collX1 = x + other.width*20;
+					collY1 = y;
+					collX2 = x + other.width*20;
+					collY2 = collY1 + other.height*20;
 					image_xscale = other.width;
 					image_yscale = other.height;
 					zplace = other.zplace;
 					zcieling = other.zcieling;
 					finite = other.finite;
+					depth = other.depth - 1;
 				}
+				
+				#endregion
+				
+				// Left collision
+				#region
+				
+				with instance_create_layer(x,y,"Instances",obj_solid_parent) {
+					y = other.y+other.zfloor*20;
+					x = other.x;
+					collX1 = x;
+					collY1 = y;
+					collX2 = x;
+					collY2 = collY1 + other.height*20;
+					image_xscale = other.width;
+					image_yscale = other.height;
+					zplace = other.zplace;
+					zcieling = other.zcieling;
+					finite = other.finite;
+					depth = other.depth - 1;
+				}
+				
+				#endregion
+				
+				// Top collision
+				#region
+				
+				with instance_create_layer(x,y,"Instances",obj_solid_parent) {
+					y = other.y+other.zfloor*20;
+					x = other.x;
+					collX1 = x + 1;
+					collY1 = y;
+					collX2 = collX1 + other.width*20 - 1;
+					collY2 = y;
+					image_xscale = other.width;
+					image_yscale = other.height;
+					zplace = other.zplace;
+					zcieling = other.zcieling;
+					finite = other.finite;
+					depth = other.depth - 1;
+				}
+				
+				#endregion
+				
+				// Bottom collision
+				#region
+				
+				with instance_create_layer(x,y,"Instances",obj_solid_parent) {
+					y = other.y+other.zfloor*20;
+					x = other.x;
+					collX1 = x + 1;
+					collY1 = y + other.height*20;
+					collX2 = collX1 + other.width*20 - 1;
+					collY2 = y;
+					image_xscale = other.width;
+					image_yscale = other.height;
+					zplace = other.zplace;
+					zcieling = other.zcieling;
+					finite = other.finite;
+					depth = other.depth - 1;
+				}
+				
+				#endregion
 			}
 			
 			if finite {

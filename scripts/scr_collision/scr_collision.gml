@@ -57,6 +57,7 @@ if collision_rectangle(ax, ay, ax + 1, ay + 1, obj_staircase_collision, false, f
 
 for (var i = 0; i < instance_number(obj_solid_parent); i++) {
 	trgColl = instance_find(obj_solid_parent, i).id;
+	trgColl.DRAWC = 0;
 	
 	if place_meeting(x, y, trgColl) {
 		// Bresnham line inteprolation across the collision vector.
@@ -66,7 +67,7 @@ for (var i = 0; i < instance_number(obj_solid_parent); i++) {
 		var y2 = trgColl.collY2;
 		
 		var dx = abs(x2 - x1);
-		 var sx = (x1 < x2) ? 1 : -1;
+		var sx = (x1 < x2) ? 1 : -1;
 		var dy = -abs(y2 - y1);
 		var sy = (y1 < y2) ? 1 : -1;
 		var err = dx + dy;
@@ -82,20 +83,42 @@ for (var i = 0; i < instance_number(obj_solid_parent); i++) {
 		else if y1 < y2 { upward = 0; }
 		else { upward = 2; }
 		
+		var ang = point_direction(x1, y1, x2, y2);
+		var normalAng;
+		var breakBool;
+		
 		while (true) {
-			// Collision is right here.
+			breakBool = false;
+			
+			// Collision.
 			with trgColl {
-				if position_meeting(x1, y1, other.id ) {
-					// Push out rightward
-					if other.x > x1 {
-						while (place_meeting(other.x, other.y, self.id)) {
-							other.x++;
+				DRAWC++;
+				DRAWX[DRAWC] = x1;
+				DRAWY[DRAWC] = y1;
+				
+				if position_meeting(x1, y1, other.id) {
+					if other.y > y1 {
+						// Actor is below collision.
+						normalAng = ang - 90;
+					} else {
+						// Actor is above collision.
+						normalAng = ang + 90;
+					}
+					
+					normalAng = (normalAng + 360) % 360;
+					
+					if (other.c_hspeed != 0 || other.c_vspeed != 0) {
+						while position_meeting(x1, y1, other.id) {
+							other.x += lengthdir_x(other.c_hspeed, normalAng);
+							other.y += lengthdir_y(other.c_vspeed, normalAng);
 						}
 					}
 					
-					break;
+					breakBool = true;
 				}
 			}
+			
+			if breakBool { break; }
 			
 			if
 			(  ( x1 >= x2 && leftward = 0) || ( x1 <= x2 && leftward = 1 ) || ( x1 = x2 && leftward = 2)  )
