@@ -47,6 +47,7 @@ if instance_exists(trg) {
 						bakeRaster = true;
 					}
 				}
+				
 				trg.resetArray = true;
 			}
 		}
