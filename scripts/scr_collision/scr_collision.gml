@@ -14,6 +14,8 @@ var ax = floor(x);
 var ay = floor(y);
 
 // Staircase collision
+#region
+
 onStaircase = false;
 
 if collision_rectangle(ax, ay, ax + 1, ay + 1, obj_staircase_collision, false, false) {
@@ -55,16 +57,30 @@ if collision_rectangle(ax, ay, ax + 1, ay + 1, obj_staircase_collision, false, f
 	}
 }
 
+#endregion
+
 for (var i = 0; i < instance_number(obj_solid_parent); i++) {
 	trgColl = instance_find(obj_solid_parent, i).id;
 	trgColl.DRAWC = 0;
 	
-	if place_meeting(x, y, trgColl) {
+	//if place_meeting(x, y, trgColl) {
+	//if collision_point(x, y, trgColl, false, true) {
+	//if point_distance(x, y, trgColl.x + trgColl.width / 2 *20, trgColl.y + trgColl.height / 2 * 20) < max(trgColl.width, trgColl.height) * 20 + max(collisionCoeffX, collisionCoeffY)*2 {
+	if point_distance(x, y, trgColl.collX1 + (trgColl.collX2 - trgColl.collX1)/2, trgColl.collY1 + (trgColl.collY1 - trgColl.collY2)/2) < point_distance(trgColl.collX1,trgColl.collY1,trgColl.collX2,trgColl.collY2) + max(collisionCoeffX, collisionCoeffY) {
 		// Bresnham line inteprolation across the collision vector.
 		var x1 = trgColl.collX1;
 		var y1 = trgColl.collY1;
 		var x2 = trgColl.collX2;
 		var y2 = trgColl.collY2;
+		
+		var ang = point_direction(x1, y1, x2, y2);
+		var normalAng = (ang - 90 + 360) % 360;
+		
+		x1 -= lengthdir_x(collisionCoeffX, normalAng + 45);
+		y1 -= lengthdir_y(collisionCoeffY, normalAng + 45);
+		x2 -= lengthdir_x(collisionCoeffX, normalAng - 45);
+		y2 -= lengthdir_y(collisionCoeffY, normalAng - 45);
+		
 		var x0 = x1;
 		var y0 = y1;
 		
@@ -84,66 +100,55 @@ for (var i = 0; i < instance_number(obj_solid_parent); i++) {
 		if y1 > y2 { upward = 1; }
 		else if y1 < y2 { upward = 0; }
 		else { upward = 2; }
-		
-		var ang = point_direction(x1, y1, x2, y2);
-		var actorAngle = point_direction(0, 0, other.c_hspeed, other.c_vspeed);
-		var normalAng = ang - 90;
-		var actorAngleReflect;
-		var actorReflectX;
-		var actorReflectY;
-		var quadrant;
+		//var actorAngle = point_direction(0, 0, other.c_hspeed, other.c_vspeed);
+		//var actorAngleReflect;
+		//var actorReflectX;
+		//var actorReflectY;
+		//var quadrant;
 		var breakBool;
+		//var collidedState;
 		
 		while (true) {
 			breakBool = false;
 			
 			// Collision.
 			with trgColl {
+				//collidedState = 0;
 				DRAWC++;
 				DRAWX[DRAWC] = x1;
 				DRAWY[DRAWC] = y1;
 				
-				if position_meeting(x1, y1, other.id) {
-					/*
-					// Find the point of intersection.
-					var breakBool2 = false;
-					
-					for(var i = 0; i < sprite_get_width(other.mask_index); i++) {
-						for(var j = 0; j < sprite_get_height(other.mask_index); j++) {
-							if round(other.bbox_left) + i = x1 && round(other.bbox_top) + j = y1 {
-								// Find the quadrant of intersection.
-								show_debug_message("I, J: " + string(i) + ", " + string(j));
-								actorVector = point_direction(x1, y1, other.bbox_left + i - other.c_hspeed*2, other.bbox_top + j - other.c_vspeed*2 );
-								show_debug_message("DIRECT: " + string(actorVector));
-								quadrant = actorVector div 90;
-								show_debug_message("QUAD: " + string(quadrant));
-								show_debug_message("SPEED: " + string(other.c_hspeed) + ", " + string(other.c_vspeed));
-								
-								breakBool2 = true;
-								break;
-							}
-						}
-						
-						if breakBool2 {
-							break;
-						}
-					}
-					
-					while normalAng div 90 != quadrant {
-						normalAng = (normalAng + 90 + 360) % 360;
-					}
-					show_debug_message(string(normalAng) + ", " + string(quadrant));
-					*/
-					
+				/*
+				if position_meeting(x1 + lengthdir_x(other.collisionCoeffX, normalAng), y1 - lengthdir_y(other.collisionCoeffY, normalAng), other.id) {
+				collidedState = 1;
+					show_debug_message("A");
+				}
+				if position_meeting(x1 - lengthdir_x(other.collisionCoeffX, normalAng), y1 + lengthdir_y(other.collisionCoeffY, normalAng), other.id) {
+				collidedState = 2;
+					show_debug_message("B");
+				}
+				*/
+				
+				//if collidedState != 0 {
+				if true {
 					if (other.c_hspeed != 0 || other.c_vspeed != 0) {
 						var VAx = other.c_hspeed;
 						var VAy = other.c_vspeed;
 						var VNx = y2 - y0;
 						var VNy = x0 - x2;
 						
-						var vDist = point_distance(0, 0, VNx, VNy);
+						/*
+						// Prevent walking directly into a vector.
+						var testAngle = ( actorAngle - normalAng + 360 ) % 360;
+						//if (testAngle > 170 && testAngle < 190) || (testAngle > 350 || testAngle < 10) {
+						if (testAngle = 180) || (testAngle = 0) {
+							break;
+						}
+						*/
 						
 						// Normalize VN
+						var vDist = point_distance(0, 0, VNx, VNy);
+						
 						var VNHatx = VNx / vDist;
 						var VNHaty = VNy / vDist;
 						
@@ -156,14 +161,21 @@ for (var i = 0; i < instance_number(obj_solid_parent); i++) {
 						var yOff = VAy - VXy
 						show_debug_message("OFF: " + string(xOff) + ", " + string(yOff) + " ... " + string(id));
 						
-						while position_meeting(x1, y1, other.id) {
+						//while position_meeting(x1, y1, other.id)
+ 						//while (collision_point(x1 + lengthdir_x(other.collisionCoeffX, normalAng), y1 - lengthdir_y(other.collisionCoeffY, normalAng), other.id, false, true) && collidedState = 1)
+						//|| (collision_point(x1 - lengthdir_x(other.collisionCoeffX, normalAng), y1 + lengthdir_y(other.collisionCoeffY, normalAng), other.id, false, true) && collidedState = 2)
+						while collision_point(x1, y1, other.id, false, true)
+						{
 							other.x += xOff;
 							other.y += yOff;
+							breakBool = true;
 						}
 					}
-					
-					breakBool = true;
 				}
+			}
+			
+			if breakBool {
+				break;
 			}
 			
 			if

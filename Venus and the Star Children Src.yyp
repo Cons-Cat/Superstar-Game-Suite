@@ -399,6 +399,14 @@
             }
         },
         {
+            "Key": "20611b12-5730-4852-801c-c8e38c82d342",
+            "Value": {
+                "id": "90fe5f87-8aa5-4f6d-a0e2-eed1d5ed2e96",
+                "resourcePath": "sprites\\spr_mask_point\\spr_mask_point.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "21137ea2-0e5c-4cbd-a374-9d72f971baa5",
             "Value": {
                 "id": "c0396f5c-fa9a-4f7a-b5a1-a7bef9f4a165",

@@ -19,6 +19,9 @@ rotationInputDirection = 90;
 moving = false;
 jumping = false;
 
+collisionCoeffY = sprite_get_height(spr_mask_small) /2;
+collisionCoeffX = sprite_get_width(spr_mask_small) / 2;
+
 sprD = spr_ph_down;
 sprDDR = spr_ph_ddownright;
 sprDR = spr_ph_downright;
