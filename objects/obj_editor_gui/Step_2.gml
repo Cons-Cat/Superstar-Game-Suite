@@ -82,6 +82,7 @@ if mode = 2 {
 			#region
 			
 			if zfloor > 0 || !finite {
+				/*
 				// Right collision
 				#region
 				
@@ -120,7 +121,7 @@ if mode = 2 {
 					depth = other.depth - 1;
 				}
 				
-				#endregion
+				#endregion*/
 				
 				// Top collision
 				#region
@@ -151,7 +152,7 @@ if mode = 2 {
 					collX1 = x + 1;
 					collY1 = y + other.height*20;
 					collX2 = collX1 + other.width*20 - 1;
-					collY2 = y;
+					collY2 = collY1;
 					image_xscale = other.width;
 					image_yscale = other.height;
 					zplace = other.zplace;
@@ -161,6 +162,7 @@ if mode = 2 {
 				}
 				
 				#endregion
+				
 			}
 			
 			if finite {

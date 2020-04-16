@@ -65,6 +65,8 @@ for (var i = 0; i < instance_number(obj_solid_parent); i++) {
 		var y1 = trgColl.collY1;
 		var x2 = trgColl.collX2;
 		var y2 = trgColl.collY2;
+		var x0 = x1;
+		var y0 = y1;
 		
 		var dx = abs(x2 - x1);
 		var sx = (x1 < x2) ? 1 : -1;
@@ -84,7 +86,12 @@ for (var i = 0; i < instance_number(obj_solid_parent); i++) {
 		else { upward = 2; }
 		
 		var ang = point_direction(x1, y1, x2, y2);
-		var normalAng;
+		var actorAngle = point_direction(0, 0, other.c_hspeed, other.c_vspeed);
+		var normalAng = ang - 90;
+		var actorAngleReflect;
+		var actorReflectX;
+		var actorReflectY;
+		var quadrant;
 		var breakBool;
 		
 		while (true) {
@@ -97,20 +104,61 @@ for (var i = 0; i < instance_number(obj_solid_parent); i++) {
 				DRAWY[DRAWC] = y1;
 				
 				if position_meeting(x1, y1, other.id) {
-					if other.y > y1 {
-						// Actor is below collision.
-						normalAng = ang - 90;
-					} else {
-						// Actor is above collision.
-						normalAng = ang + 90;
+					/*
+					// Find the point of intersection.
+					var breakBool2 = false;
+					
+					for(var i = 0; i < sprite_get_width(other.mask_index); i++) {
+						for(var j = 0; j < sprite_get_height(other.mask_index); j++) {
+							if round(other.bbox_left) + i = x1 && round(other.bbox_top) + j = y1 {
+								// Find the quadrant of intersection.
+								show_debug_message("I, J: " + string(i) + ", " + string(j));
+								actorVector = point_direction(x1, y1, other.bbox_left + i - other.c_hspeed*2, other.bbox_top + j - other.c_vspeed*2 );
+								show_debug_message("DIRECT: " + string(actorVector));
+								quadrant = actorVector div 90;
+								show_debug_message("QUAD: " + string(quadrant));
+								show_debug_message("SPEED: " + string(other.c_hspeed) + ", " + string(other.c_vspeed));
+								
+								breakBool2 = true;
+								break;
+							}
+						}
+						
+						if breakBool2 {
+							break;
+						}
 					}
 					
-					normalAng = (normalAng + 360) % 360;
+					while normalAng div 90 != quadrant {
+						normalAng = (normalAng + 90 + 360) % 360;
+					}
+					show_debug_message(string(normalAng) + ", " + string(quadrant));
+					*/
 					
 					if (other.c_hspeed != 0 || other.c_vspeed != 0) {
+						var VAx = other.c_hspeed;
+						var VAy = other.c_vspeed;
+						var VNx = y2 - y0;
+						var VNy = x0 - x2;
+						
+						var vDist = point_distance(0, 0, VNx, VNy);
+						
+						// Normalize VN
+						var VNHatx = VNx / vDist;
+						var VNHaty = VNy / vDist;
+						
+						// Find dot product
+						var dotProduct = (other.c_hspeed * VNHatx) + (other.c_vspeed * VNHaty);
+						var VXx =  dotProduct * VNHatx * 2;
+						var VXy =  dotProduct * VNHaty * 2;
+						
+						var xOff = VAx - VXx;
+						var yOff = VAy - VXy
+						show_debug_message("OFF: " + string(xOff) + ", " + string(yOff) + " ... " + string(id));
+						
 						while position_meeting(x1, y1, other.id) {
-							other.x += lengthdir_x(other.c_hspeed, normalAng);
-							other.y += lengthdir_y(other.c_vspeed, normalAng);
+							other.x += xOff;
+							other.y += yOff;
 						}
 					}
 					
@@ -118,11 +166,9 @@ for (var i = 0; i < instance_number(obj_solid_parent); i++) {
 				}
 			}
 			
-			if breakBool { break; }
-			
 			if
-			(  ( x1 >= x2 && leftward = 0) || ( x1 <= x2 && leftward = 1 ) || ( x1 = x2 && leftward = 2)  )
-			&& (  ( y1 >= y2 && upward = 0) || ( y1 <= y2 && upward = 1 ) || (y1 = y2 && upward = 2)  )
+			(  ( x1 >= x2 && leftward = 0) || ( x1 <= x2 && leftward = 1 ) || ( x1 = x2 && leftward = 2 )  )
+			&& (  ( y1 >= y2 && upward = 0) || ( y1 <= y2 && upward = 1 ) || (y1 = y2 && upward = 2 )  )
 			{
 				break;
 			}
