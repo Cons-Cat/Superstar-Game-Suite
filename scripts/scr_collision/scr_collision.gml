@@ -12,6 +12,7 @@ var actorXOrigin;
 var actorYOrigin;
 var ax = floor(x);
 var ay = floor(y);
+var projectDir;
 
 // Staircase collision
 #region
@@ -63,138 +64,135 @@ for (var i = 0; i < instance_number(obj_solid_parent); i++) {
 	trgColl = instance_find(obj_solid_parent, i).id;
 	trgColl.DRAWC = 0;
 	
-	//if place_meeting(x, y, trgColl) {
-	//if collision_point(x, y, trgColl, false, true) {
-	//if point_distance(x, y, trgColl.x + trgColl.width / 2 *20, trgColl.y + trgColl.height / 2 * 20) < max(trgColl.width, trgColl.height) * 20 + max(collisionCoeffX, collisionCoeffY)*2 {
 	if point_distance(x, y, trgColl.collX1 + (trgColl.collX2 - trgColl.collX1)/2, trgColl.collY1 + (trgColl.collY1 - trgColl.collY2)/2) < point_distance(trgColl.collX1,trgColl.collY1,trgColl.collX2,trgColl.collY2) + max(collisionCoeffX, collisionCoeffY) {
-		// Bresnham line inteprolation across the collision vector.
-		var x1 = trgColl.collX1;
-		var y1 = trgColl.collY1;
-		var x2 = trgColl.collX2;
-		var y2 = trgColl.collY2;
-		
-		var ang = point_direction(x1, y1, x2, y2);
-		var normalAng = (ang - 90 + 360) % 360;
-		
-		x1 -= lengthdir_x(collisionCoeffX, normalAng + 45);
-		y1 -= lengthdir_y(collisionCoeffY, normalAng + 45);
-		x2 -= lengthdir_x(collisionCoeffX, normalAng - 45);
-		y2 -= lengthdir_y(collisionCoeffY, normalAng - 45);
-		
-		var x0 = x1;
-		var y0 = y1;
-		
-		var dx = abs(x2 - x1);
-		var sx = (x1 < x2) ? 1 : -1;
-		var dy = -abs(y2 - y1);
-		var sy = (y1 < y2) ? 1 : -1;
-		var err = dx + dy;
-		var e2;
-		
-		var leftward;
-		if x1 > x2 { leftward = 1; }
-		else if x1 < x2 { leftward = 0; }
-		else { leftward = 2; }
-		
-		var upward;
-		if y1 > y2 { upward = 1; }
-		else if y1 < y2 { upward = 0; }
-		else { upward = 2; }
-		//var actorAngle = point_direction(0, 0, other.c_hspeed, other.c_vspeed);
-		//var actorAngleReflect;
-		//var actorReflectX;
-		//var actorReflectY;
-		//var quadrant;
-		var breakBool;
-		//var collidedState;
-		
-		while (true) {
-			breakBool = false;
+		for (var j = 0; j <= 1; j++) {
+			if trgColl.projectState != 2 {
+				if j = 1 { break; }
+				projectDir = trgColl.projectState;
+			} else {
+				projectDir = j;
+			}
 			
-			// Collision.
-			with trgColl {
-				//collidedState = 0;
-				DRAWC++;
-				DRAWX[DRAWC] = x1;
-				DRAWY[DRAWC] = y1;
-				
-				/*
-				if position_meeting(x1 + lengthdir_x(other.collisionCoeffX, normalAng), y1 - lengthdir_y(other.collisionCoeffY, normalAng), other.id) {
-				collidedState = 1;
-					show_debug_message("A");
-				}
-				if position_meeting(x1 - lengthdir_x(other.collisionCoeffX, normalAng), y1 + lengthdir_y(other.collisionCoeffY, normalAng), other.id) {
-				collidedState = 2;
-					show_debug_message("B");
-				}
-				*/
-				
-				//if collidedState != 0 {
-				if true {
-					if (other.c_hspeed != 0 || other.c_vspeed != 0) {
-						var VAx = other.c_hspeed;
-						var VAy = other.c_vspeed;
-						var VNx = y2 - y0;
-						var VNy = x0 - x2;
+			// Bresnham line inteprolation across the collision vector.
+			var x1 = trgColl.collX1;
+			var y1 = trgColl.collY1;
+			var x2 = trgColl.collX2;
+			var y2 = trgColl.collY2;
+			
+			var ang = point_direction(x1, y1, x2, y2);
+			var normalAng = (ang - 90 + 360) % 360;
+			
+			if projectDir = 0 {
+				x1 -= ceil(lengthdir_x(collisionCoeffX, normalAng + 45));
+				y1 -= ceil(lengthdir_y(collisionCoeffY, normalAng + 45));
+				x2 -= ceil(lengthdir_x(collisionCoeffX, normalAng - 45));
+				y2 -= ceil(lengthdir_y(collisionCoeffY, normalAng - 45));
+			} else if projectDir = 1 {
+				x1 += ceil(lengthdir_x(collisionCoeffX, normalAng - 45));
+				y1 += ceil(lengthdir_y(collisionCoeffY, normalAng - 45));
+				x2 += ceil(lengthdir_x(collisionCoeffX, normalAng + 45));
+				y2 += ceil(lengthdir_y(collisionCoeffY, normalAng + 45));
+				//x1 -= lengthdir_x(collisionCoeffX, normalAng - 45)
+				//y1 -= lengthdir_y(collisionCoeffY, normalAng - 45);
+				//x2 -= lengthdir_x(collisionCoeffX, normalAng + 45);
+				//y2 -= lengthdir_y(collisionCoeffY, normalAng + 45);
+			}
+			
+			var x0 = x1;
+			var y0 = y1;
+			
+			var dx = abs(x2 - x1);
+			var sx = (x1 < x2) ? 1 : -1;
+			var dy = -abs(y2 - y1);
+			var sy = (y1 < y2) ? 1 : -1;
+			var err = dx + dy;
+			var e2;
+			
+			var leftward;
+			if x1 > x2 { leftward = 1; }
+			else if x1 < x2 { leftward = 0; }
+			else { leftward = 2; }
+			
+			var upward;
+			if y1 > y2 { upward = 1; }
+			else if y1 < y2 { upward = 0; }
+			else { upward = 2; }
+			
+			var breakBool = false;
+			
+			// Loop across line.
+			while (true) {
+				// Collision.
+				with trgColl {
+					DRAWC++;
+					DRAWX[DRAWC] = x1;
+					DRAWY[DRAWC] = y1;
+					
+					//if collision_point(x1, y1, other.id, false, true) {
+						if (other.c_hspeed != 0 || other.c_vspeed != 0) {
+							var VAx = other.c_hspeed;
+							var VAy = other.c_vspeed;
+							var VNx = y2 - y0;
+							var VNy = x0 - x2;
 						
-						/*
-						// Prevent walking directly into a vector.
-						var testAngle = ( actorAngle - normalAng + 360 ) % 360;
-						//if (testAngle > 170 && testAngle < 190) || (testAngle > 350 || testAngle < 10) {
-						if (testAngle = 180) || (testAngle = 0) {
-							break;
-						}
-						*/
+							/*
+							// Prevent walking directly into a vector.
+							var testAngle = ( actorAngle - normalAng + 360 ) % 360;
+							//if (testAngle > 170 && testAngle < 190) || (testAngle > 350 || testAngle < 10) {
+							if (testAngle = 180) || (testAngle = 0) {
+								break;
+							}
+							*/
 						
-						// Normalize VN
-						var vDist = point_distance(0, 0, VNx, VNy);
+							// Normalize VN
+							var vDist = point_distance(0, 0, VNx, VNy);
 						
-						var VNHatx = VNx / vDist;
-						var VNHaty = VNy / vDist;
+							var VNHatx = VNx / vDist;
+							var VNHaty = VNy / vDist;
 						
-						// Find dot product
-						var dotProduct = (other.c_hspeed * VNHatx) + (other.c_vspeed * VNHaty);
-						var VXx =  dotProduct * VNHatx * 2;
-						var VXy =  dotProduct * VNHaty * 2;
+							// Find dot product
+							var dotProduct = (other.c_hspeed * VNHatx) + (other.c_vspeed * VNHaty);
+							var VXx =  dotProduct * VNHatx * 2;
+							var VXy =  dotProduct * VNHaty * 2;
 						
-						var xOff = VAx - VXx;
-						var yOff = VAy - VXy
-						show_debug_message("OFF: " + string(xOff) + ", " + string(yOff) + " ... " + string(id));
+							var xOff = VAx - VXx;
+							var yOff = VAy - VXy
+							show_debug_message("OFF: " + string(xOff) + ", " + string(yOff) + " ... " + string(id));
 						
-						//while position_meeting(x1, y1, other.id)
- 						//while (collision_point(x1 + lengthdir_x(other.collisionCoeffX, normalAng), y1 - lengthdir_y(other.collisionCoeffY, normalAng), other.id, false, true) && collidedState = 1)
-						//|| (collision_point(x1 - lengthdir_x(other.collisionCoeffX, normalAng), y1 + lengthdir_y(other.collisionCoeffY, normalAng), other.id, false, true) && collidedState = 2)
-						while collision_point(x1, y1, other.id, false, true)
-						{
-							other.x += xOff;
-							other.y += yOff;
-							breakBool = true;
+							while collision_point(x1, y1, other.id, false, true)
+							{
+								other.x += xOff;
+								other.y += yOff;
+								
+								breakBool = true;
+							}
 						}
 					}
+				
+				if breakBool {
+					break;
 				}
-			}
+				
+				// Break at the end of the line.
+				if
+				(  ( x1 >= x2 && leftward = 0) || ( x1 <= x2 && leftward = 1 ) || ( x1 = x2 && leftward = 2 )  )
+				&& (  ( y1 >= y2 && upward = 0) || ( y1 <= y2 && upward = 1 ) || (y1 = y2 && upward = 2 )  )
+				{
+					break;
+				}
+				
+				// Iterate across the line.
+				e2 = 2 * err;
 			
-			if breakBool {
-				break;
-			}
-			
-			if
-			(  ( x1 >= x2 && leftward = 0) || ( x1 <= x2 && leftward = 1 ) || ( x1 = x2 && leftward = 2 )  )
-			&& (  ( y1 >= y2 && upward = 0) || ( y1 <= y2 && upward = 1 ) || (y1 = y2 && upward = 2 )  )
-			{
-				break;
-			}
-			
-			e2 = 2 * err;
-			
-			if e2 >= dy {
-				err += dy;
-				x1 += sx;
-			}
-			
-			if e2 <= dx {
-				err += dx;
-				y1 += sy;
+				if e2 >= dy {
+					err += dy;
+					x1 += sx;
+				}
+				
+				if e2 <= dx {
+					err += dx;
+					y1 += sy;
+				}
 			}
 		}
 	}
