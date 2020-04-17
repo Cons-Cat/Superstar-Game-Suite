@@ -14,6 +14,12 @@ var ax = floor(x);
 var ay = floor(y);
 var projectDir;
 
+var reflectionAngleListX;
+var reflectionAngleListY;
+var intersectionCount = 0;
+var summedAngleX = 0;
+var summedAngleY = 0;
+
 // Staircase collision
 #region
 
@@ -60,11 +66,14 @@ if collision_rectangle(ax, ay, ax + 1, ay + 1, obj_staircase_collision, false, f
 
 #endregion
 
+// Loop through collision vectors
+#region
+
 for (var i = 0; i < instance_number(obj_solid_parent); i++) {
 	trgColl = instance_find(obj_solid_parent, i).id;
 	trgColl.DRAWC = 0;
 	
-	if point_distance(x, y, trgColl.collX1 + (trgColl.collX2 - trgColl.collX1)/2, trgColl.collY1 + (trgColl.collY1 - trgColl.collY2)/2) < point_distance(trgColl.collX1,trgColl.collY1,trgColl.collX2,trgColl.collY2) + max(collisionCoeffX, collisionCoeffY) {
+	if point_distance(x, y, trgColl.collX1 + (trgColl.collX2 - trgColl.collX1)/2, trgColl.collY1 + (trgColl.collY2 - trgColl.collY1)/2) < point_distance(trgColl.collX1,trgColl.collY1,trgColl.collX2,trgColl.collY2) + max(collisionCoeffX, collisionCoeffY) {
 		for (var j = 0; j <= 1; j++) {
 			if trgColl.projectState != 2 {
 				if j = 1 { break; }
@@ -81,6 +90,7 @@ for (var i = 0; i < instance_number(obj_solid_parent); i++) {
 			
 			var ang = point_direction(x1, y1, x2, y2);
 			var normalAng = (ang - 90 + 360) % 360;
+			//var actorAngle = point_direction(0, 0, other.c_hspeed, other.c_vspeed);
 			
 			if projectDir = 0 {
 				x1 -= ceil(lengthdir_x(collisionCoeffX, normalAng + 45));
@@ -128,46 +138,47 @@ for (var i = 0; i < instance_number(obj_solid_parent); i++) {
 					DRAWX[DRAWC] = x1;
 					DRAWY[DRAWC] = y1;
 					
-					//if collision_point(x1, y1, other.id, false, true) {
+					if collision_point(x1, y1, other.id, false, true) { // Comment out?
 						if (other.c_hspeed != 0 || other.c_vspeed != 0) {
 							var VAx = other.c_hspeed;
 							var VAy = other.c_vspeed;
 							var VNx = y2 - y0;
 							var VNy = x0 - x2;
-						
-							/*
+							
 							// Prevent walking directly into a vector.
-							var testAngle = ( actorAngle - normalAng + 360 ) % 360;
-							//if (testAngle > 170 && testAngle < 190) || (testAngle > 350 || testAngle < 10) {
-							if (testAngle = 180) || (testAngle = 0) {
+							/*var testAngle = ( actorAngle - normalAng + 360 ) % 360;
+							if (testAngle = 270) || (testAngle = 90) {
 								break;
-							}
-							*/
-						
+							}*/
+							
 							// Normalize VN
 							var vDist = point_distance(0, 0, VNx, VNy);
-						
+							
 							var VNHatx = VNx / vDist;
 							var VNHaty = VNy / vDist;
-						
+							
 							// Find dot product
 							var dotProduct = (other.c_hspeed * VNHatx) + (other.c_vspeed * VNHaty);
 							var VXx =  dotProduct * VNHatx * 2;
 							var VXy =  dotProduct * VNHaty * 2;
-						
+							
 							var xOff = VAx - VXx;
 							var yOff = VAy - VXy
 							show_debug_message("OFF: " + string(xOff) + ", " + string(yOff) + " ... " + string(id));
-						
-							while collision_point(x1, y1, other.id, false, true)
-							{
-								other.x += xOff;
-								other.y += yOff;
-								
-								breakBool = true;
-							}
+							show_debug_message("");
+							reflectionAngleListX[intersectionCount] = VXx;
+							reflectionAngleListY[intersectionCount] = VXy;
+							intersectionCount++;
+							breakBool = true;
+							//while collision_point(x1, y1, other.id, false, true)
+							//{
+							//	other.x += xOff;
+							//	other.y += yOff;
+							
+							//	breakBool = true;
 						}
 					}
+				}
 				
 				if breakBool {
 					break;
@@ -197,3 +208,24 @@ for (var i = 0; i < instance_number(obj_solid_parent); i++) {
 		}
 	}
 }
+
+#endregion
+
+// Sum angles
+if intersectionCount > 0 {
+	show_debug_message("COUNT: " + string(intersectionCount));
+	for (i = 0; i < intersectionCount; i++) {
+		summedAngleX += reflectionAngleListX[i];
+		summedAngleY += reflectionAngleListY[i];
+	}
+	
+	var xOff = c_hspeed - summedAngleX;
+	var yOff = c_vspeed - summedAngleY;
+	
+	//while collision_point(x1, y1, other.id, false, true)
+	{
+		other.x += xOff;
+		other.y += yOff;
+	}
+}
+	
