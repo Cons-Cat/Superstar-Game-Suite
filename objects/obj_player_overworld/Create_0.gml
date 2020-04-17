@@ -11,9 +11,6 @@ slowSpd = false;
 max_speed = phy_runspeed;
 
 c_gravity = 0;
-dir1 = 1;
-raise_pixels = 0;
-slopeVOff = 0;
 dir = 0;
 zplace = 0;
 canMove = true;
@@ -86,11 +83,6 @@ rotFin = 0; // South
 rotDir = 1;
 rotationInputDirection = 270;
 
-curLayerCol = -1;
-
-check0 = 0;
-check1 = 0;
-
 jumpHeight = 0;
 maxJumpHeight = 20;
 jumpSpeed = 2.1;
@@ -102,17 +94,13 @@ platOn = 0;
 platOnTemp = platOn;
 jumpBoost = 0;
 onGround = true;
+onStaircase = false;
 
 jumpDelayMax = 14;
 jumpDelay = jumpDelayMax;
 jumpTempHspd = 0;
 jumpTempVspd = 0;
 jumpPrepDecel = 2;
-
-staircaseHeight = 0;
-staircaseXOrigin = 0;
-staircaseYOrigin = 0;
-onStaircase = false;
 
 glideDelayMax = 12.5;
 glideDelay = glideDelayMax;

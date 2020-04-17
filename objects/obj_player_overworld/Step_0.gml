@@ -310,6 +310,8 @@ if fallSearch = true {
 }
 
 // Update x,y coordinates
-scr_cmove_step(1,0);
+//scr_cmove_step(1,0);
+x += c_hspeed;
+y += c_vspeed;
 
 }

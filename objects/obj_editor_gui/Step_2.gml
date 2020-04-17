@@ -88,15 +88,17 @@ if mode = 2 {
 				with instance_create_layer(x,y,"Instances",obj_solid_parent) {
 					y = other.y+other.zfloor*20;
 					x = other.x;
-					collX1 = x + other.width*20;
+					collX1 = x + other.width*20 - 1;
 					collY1 = y;
-					collX2 = x + other.width*20;
-					collY2 = collY1 + other.height*20;
+					collX2 = collX1;
+					collY2 = collY1 + other.height*20 + 1;
 					projectState = 0;
 					
 					zplace = other.zplace;
 					zcieling = other.zcieling;
 					finite = other.finite;
+					
+					col = c_green;
 					depth = other.depth - 1;
 				}
 				
@@ -110,13 +112,15 @@ if mode = 2 {
 					x = other.x;
 					collX1 = x;
 					collY1 = y;
-					collX2 = x;
-					collY2 = collY1 + other.height*20;
+					collX2 = collX1;
+					collY2 = collY1 + other.height*20 + 1;
 					projectState = 1;
 					
 					zplace = other.zplace;
 					zcieling = other.zcieling;
 					finite = other.finite;
+					
+					col = c_teal;
 					depth = other.depth - 1;
 				}
 				
@@ -128,15 +132,17 @@ if mode = 2 {
 				with instance_create_layer(x,y,"Instances",obj_solid_parent) {
 					y = other.y+other.zfloor*20;
 					x = other.x;
-					collX1 = x + 1;
+					collX1 = x;
 					collY1 = y;
-					collX2 = collX1 + other.width*20 - 1;
+					collX2 = collX1 + other.width*20;
 					collY2 = y;
 					projectState = 0;
 					
 					zplace = other.zplace;
 					zcieling = other.zcieling;
 					finite = other.finite;
+					
+					col = c_blue;
 					depth = other.depth - 1;
 				}
 				
@@ -148,15 +154,17 @@ if mode = 2 {
 				with instance_create_layer(x,y,"Instances",obj_solid_parent) {
 					y = other.y+other.zfloor*20;
 					x = other.x;
-					collX1 = x + 1;
+					collX1 = x;
 					collY1 = y + other.height*20;
-					collX2 = collX1 + other.width*20 - 1;
+					collX2 = collX1 + other.width*20;
 					collY2 = collY1;
 					projectState = 1;
 					
 					zplace = other.zplace;
 					zcieling = other.zcieling;
 					finite = other.finite;
+					
+					col = c_aqua;
 					depth = other.depth - 1;
 				}
 				
@@ -174,6 +182,129 @@ if mode = 2 {
 					zcieling = other.zcieling;
 					depthOffset = other.depthOffset;
 					finite = other.finite;
+				}
+			}
+			
+			#endregion
+		}
+		
+		with obj_editor_slope1 {
+			#region
+			
+			if zfloor > 0 || !finite {
+				// Right collision
+				#region
+				
+				with instance_create_layer(x,y,"Instances",obj_solid_parent) {
+					y = other.y+other.zfloor*20;
+					x = other.x;
+					collX1 = x + other.width*20 - 2;
+					collY1 = y;
+					collX2 = x - 1;
+					collY2 = collY1 + other.height*20 + 2;
+					projectState = 0;
+					
+					zplace = other.zplace;
+					zcieling = other.zcieling;
+					finite = other.finite;
+					
+					col = c_green;
+					depth = other.depth - 1;
+				}
+				
+				#endregion
+				
+				// Left collision
+				#region
+				
+				with instance_create_layer(x,y,"Instances",obj_solid_parent) {
+					y = other.y+other.zfloor*20;
+					x = other.x;
+					collX1 = x;
+					collY1 = y;
+					collX2 = collX1;
+					collY2 = collY1 + other.height*20 + 1;
+					projectState = 1;
+					
+					zplace = other.zplace;
+					zcieling = other.zcieling;
+					finite = other.finite;
+					
+					col = c_teal;
+					depth = other.depth - 1;
+				}
+				
+				#endregion
+				
+				// Top collision
+				#region
+				
+				with instance_create_layer(x,y,"Instances",obj_solid_parent) {
+					y = other.y+other.zfloor*20;
+					x = other.x;
+					collX1 = x;
+					collY1 = y;
+					collX2 = collX1 + other.width*20;
+					collY2 = y;
+					projectState = 0;
+					
+					zplace = other.zplace;
+					zcieling = other.zcieling;
+					finite = other.finite;
+					
+					col = c_blue;
+					depth = other.depth - 1;
+				}
+				
+				#endregion
+				
+				// Bottom collision
+				#region
+				
+				/*
+				with instance_create_layer(x,y,"Instances",obj_solid_parent) {
+					y = other.y+other.zfloor*20;
+					x = other.x;
+					collX1 = x;
+					collY1 = y + other.height*20;
+					collX2 = collX1 + other.width*20;
+					collY2 = collY1;
+					projectState = 1;
+					
+					zplace = other.zplace;
+					zcieling = other.zcieling;
+					finite = other.finite;
+					
+					col = c_aqua;
+					depth = other.depth - 1;
+				}
+				*/
+				
+				#endregion
+			}
+			
+			if finite {
+				// Floor collision
+				with instance_create_layer(x,y,"Instances",obj_floor) {
+					zfloor = other.zfloor;
+					zcieling = other.zcieling;
+					depthOffset = other.depthOffset;
+					finite = other.finite;
+					sprite_index = spr_solid;
+					
+					/*if other.mirror {
+						if other.flip {
+							sprite_index = spr_slopeL_1x;
+						} else {
+							sprite_index = spr_slopeR_1x_bot;
+						}
+					} else {
+						if other.flip {
+							sprite_index = spr_slopeR_1x;
+						} else {
+							sprite_index = spr_slopeL_1x_bot;
+						}
+					}*/
 				}
 			}
 			

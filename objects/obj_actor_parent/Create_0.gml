@@ -44,6 +44,4 @@ sprUWalk = spr_ph_up;
 
 spr = sprD;
 
-with instance_create_layer(x,y,"Instances",obj_staircase_collision_mask) {
-	trg = other.id;
-}
+collMaskTrg = instance_create_layer(x,y,"Instances",obj_collision_handler);

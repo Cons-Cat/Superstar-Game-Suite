@@ -1,10 +1,3 @@
-var colNorth = false;
-var colSouth = false;
-var colWest = false;
-var colEast = false;
-var trgColl;
-
-var slopeOffset;
 var j;
 var run;
 var rise;
@@ -12,8 +5,8 @@ var actorXOrigin;
 var actorYOrigin;
 var ax = floor(x);
 var ay = floor(y);
-var projectDir;
 
+var trgColl;
 var normalAngleListX;
 var normalAngleListY;
 var intersectionCount = 0;
@@ -21,6 +14,7 @@ var intersectionX;
 var intersectionY;
 var summedAngleX = 0;
 var summedAngleY = 0;
+var projectDir;
 
 // Staircase collision
 #region
@@ -40,7 +34,7 @@ if collision_rectangle(ax, ay, ax + 1, ay + 1, obj_staircase_collision, false, f
 			staircaseId.lineX2[i] = staircaseId.xStairs + i*run + staircaseId.angleRun*staircaseId.staircaseN;
 			staircaseId.lineY2[i] = staircaseId.yStairs + i*rise + staircaseId.angleRise*staircaseId.staircaseN + (staircaseId.zfloor - staircaseId.zcieling)*20 + self.zfloor*20;
 			
-			if collision_line(staircaseId.lineX1[i], staircaseId.lineY1[i], staircaseId.lineX2[i], staircaseId.lineY2[i],obj_staircase_collision_mask, false, false) {
+			if collision_line(staircaseId.lineX1[i], staircaseId.lineY1[i], staircaseId.lineX2[i], staircaseId.lineY2[i],obj_collision_handler, false, false) {
 				// Iterating across the tall and wide edge of the staircase, and casting a ray down the steps.
 				if !onStaircase {
 					actorXOrigin = staircaseId.xStairs + i*run + staircaseId.angleRun*staircaseId.staircaseN;
@@ -92,22 +86,17 @@ for (var i = 0; i < instance_number(obj_solid_parent); i++) {
 			
 			var ang = point_direction(x1, y1, x2, y2);
 			var normalAng = (ang - 90 + 360) % 360;
-			//var actorAngle = point_direction(0, 0, other.c_hspeed, other.c_vspeed);
 			
 			if projectDir = 0 {
-				x1 -= ceil(lengthdir_x(collisionCoeffX, normalAng + 45));
-				y1 -= ceil(lengthdir_y(collisionCoeffY, normalAng + 45));
-				x2 -= ceil(lengthdir_x(collisionCoeffX, normalAng - 45));
-				y2 -= ceil(lengthdir_y(collisionCoeffY, normalAng - 45));
+				x1 -= round(lengthdir_x(collisionCoeffX, normalAng + 45));
+				y1 -= round(lengthdir_y(collisionCoeffY, normalAng + 45));
+				x2 -= round(lengthdir_x(collisionCoeffX, normalAng - 45));
+				y2 -= round(lengthdir_y(collisionCoeffY, normalAng - 45));
 			} else if projectDir = 1 {
-				x1 += ceil(lengthdir_x(collisionCoeffX, normalAng - 45));
-				y1 += ceil(lengthdir_y(collisionCoeffY, normalAng - 45));
-				x2 += ceil(lengthdir_x(collisionCoeffX, normalAng + 45));
-				y2 += ceil(lengthdir_y(collisionCoeffY, normalAng + 45));
-				//x1 -= lengthdir_x(collisionCoeffX, normalAng - 45)
-				//y1 -= lengthdir_y(collisionCoeffY, normalAng - 45);
-				//x2 -= lengthdir_x(collisionCoeffX, normalAng + 45);
-				//y2 -= lengthdir_y(collisionCoeffY, normalAng + 45);
+				x1 += round(lengthdir_x(collisionCoeffX, normalAng - 45));
+				y1 += round(lengthdir_y(collisionCoeffY, normalAng - 45));
+				x2 += round(lengthdir_x(collisionCoeffX, normalAng + 45));
+				y2 += round(lengthdir_y(collisionCoeffY, normalAng + 45));
 			}
 			
 			var x0 = x1;
@@ -154,40 +143,24 @@ for (var i = 0; i < instance_number(obj_solid_parent); i++) {
 							var VNy = x0 - x2;
 							
 							// Prevent walking directly into a vector.
-							/*var testAngle = ( actorAngle - normalAng + 360 ) % 360;
-							if (testAngle = 270) || (testAngle = 90) {
+							var testAngle = ( point_direction(0, 0, other.c_hspeed, other.c_vspeed) - point_direction(x0, y0, x2, y2) + 360 ) % 360;
+							if (testAngle = 0) || (testAngle = 180) {
+								normalAngleListX[intersectionCount] = lengthdir_x(10, testAngle);
+								normalAngleListY[intersectionCount] = lengthdir_y(10, testAngle);
+								
 								break;
-							}*/
+							}
 							
 							// Normalize VN
-							var vDist = point_distance(0, 0, VNx, VNy);
+							/*var vDist = point_distance(0, 0, VNx, VNy);
 							
 							var VNHatx = VNx / vDist;
 							var VNHaty = VNy / vDist;
 							
 							normalAngleListX[intersectionCount] = VNHatx;
-							normalAngleListY[intersectionCount] = VNHaty;
-							
-							/*
-							// Find dot product
-							var dotProduct = (other.c_hspeed * VNHatx) + (other.c_vspeed * VNHaty);
-							var VXx =  dotProduct * VNHatx * 2;
-							var VXy =  dotProduct * VNHaty * 2;
-							
-							var xOff = VAx - VXx;
-							var yOff = VAy - VXy
-							show_debug_message("OFF: " + string(xOff) + ", " + string(yOff) + " ... " + string(id));
-							show_debug_message("");
-							reflectionAngleListX[intersectionCount] = VXx;
-							reflectionAngleListY[intersectionCount] = VXy;
-							intersectionCount++;
-							breakBool = true;
-							*/
-							
-							//while collision_point(x1, y1, other.id, false, true)
-							//{
-							//	other.x += xOff;
-							//	other.y += yOff;
+							normalAngleListY[intersectionCount] = VNHaty;*/
+							normalAngleListX[intersectionCount] = VNx;
+							normalAngleListY[intersectionCount] = VNy;
 							
 							intersectionCount++;
 							breakBool = true;
@@ -246,15 +219,14 @@ if intersectionCount > 0 {
 	var VXx =  dotProduct * VNHatx * 2;
 	var VXy =  dotProduct * VNHaty * 2;
 	
-	//var xOff = VAx - VXx;
-	//var yOff = VAy - VXy
-	//reflectionAngleListX[intersectionCount] = VXx;
-	//reflectionAngleListY[intersectionCount] = VXy;
-	//intersectionCount++;
-	//breakBool = true;
-	
 	var xOff = c_hspeed - VXx;
 	var yOff = c_vspeed - VXy;
+	
+	// Normalize actor displacement.
+	/*vDist = point_distance(0, 0, xOff, yOff);
+	xOff /= vDist;
+	yOff /= vDist;*/
+	
 	show_debug_message("OFF: " + string(xOff) + ", " + string(yOff) + " ... " + string(id));
 	show_debug_message("");
 	
@@ -264,8 +236,8 @@ if intersectionCount > 0 {
 		x += xOff;
 		y += yOff;
 	}
-	
-	//x = round(x);
-	//y = round(y);
+	x = round(x);
+	y = round(y);
+	DRAWANGLE = point_direction(0, 0, VXx, VXy);
+	show_debug_message("X/Y: " + string(x) + ", " + string(y));
 }
-	
