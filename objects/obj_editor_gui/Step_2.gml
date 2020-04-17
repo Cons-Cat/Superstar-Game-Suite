@@ -92,6 +92,7 @@ if mode = 2 {
 					collY1 = y;
 					collX2 = x + other.width*20;
 					collY2 = collY1 + other.height*20;
+					projectState = 0;
 					
 					zplace = other.zplace;
 					zcieling = other.zcieling;
@@ -111,6 +112,7 @@ if mode = 2 {
 					collY1 = y;
 					collX2 = x;
 					collY2 = collY1 + other.height*20;
+					projectState = 1;
 					
 					zplace = other.zplace;
 					zcieling = other.zcieling;
@@ -130,6 +132,7 @@ if mode = 2 {
 					collY1 = y;
 					collX2 = collX1 + other.width*20 - 1;
 					collY2 = y;
+					projectState = 0;
 					
 					zplace = other.zplace;
 					zcieling = other.zcieling;
@@ -149,6 +152,7 @@ if mode = 2 {
 					collY1 = y + other.height*20;
 					collX2 = collX1 + other.width*20 - 1;
 					collY2 = collY1;
+					projectState = 1;
 					
 					zplace = other.zplace;
 					zcieling = other.zcieling;

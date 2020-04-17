@@ -14,9 +14,11 @@ var ax = floor(x);
 var ay = floor(y);
 var projectDir;
 
-var reflectionAngleListX;
-var reflectionAngleListY;
+var normalAngleListX;
+var normalAngleListY;
 var intersectionCount = 0;
+var intersectionX;
+var intersectionY;
 var summedAngleX = 0;
 var summedAngleY = 0;
 
@@ -138,10 +140,16 @@ for (var i = 0; i < instance_number(obj_solid_parent); i++) {
 					DRAWX[DRAWC] = x1;
 					DRAWY[DRAWC] = y1;
 					
-					if collision_point(x1, y1, other.id, false, true) { // Comment out?
+					if collision_point(x1, y1, other.id, false, true)
+					//if floor(x) = x1 && floor(y) = y1
+					{
+						// Assigned here, because this is more precise than the actor's X or Y.
+						intersectionX = x1;
+						intersectionY = y1;
+						
 						if (other.c_hspeed != 0 || other.c_vspeed != 0) {
-							var VAx = other.c_hspeed;
-							var VAy = other.c_vspeed;
+							//var VAx = other.c_hspeed;
+							//var VAy = other.c_vspeed;
 							var VNx = y2 - y0;
 							var VNy = x0 - x2;
 							
@@ -157,6 +165,10 @@ for (var i = 0; i < instance_number(obj_solid_parent); i++) {
 							var VNHatx = VNx / vDist;
 							var VNHaty = VNy / vDist;
 							
+							normalAngleListX[intersectionCount] = VNHatx;
+							normalAngleListY[intersectionCount] = VNHaty;
+							
+							/*
 							// Find dot product
 							var dotProduct = (other.c_hspeed * VNHatx) + (other.c_vspeed * VNHaty);
 							var VXx =  dotProduct * VNHatx * 2;
@@ -170,12 +182,15 @@ for (var i = 0; i < instance_number(obj_solid_parent); i++) {
 							reflectionAngleListY[intersectionCount] = VXy;
 							intersectionCount++;
 							breakBool = true;
+							*/
+							
 							//while collision_point(x1, y1, other.id, false, true)
 							//{
 							//	other.x += xOff;
 							//	other.y += yOff;
 							
-							//	breakBool = true;
+							intersectionCount++;
+							breakBool = true;
 						}
 					}
 				}
@@ -214,18 +229,43 @@ for (var i = 0; i < instance_number(obj_solid_parent); i++) {
 // Sum angles
 if intersectionCount > 0 {
 	show_debug_message("COUNT: " + string(intersectionCount));
+	// Sum normal angles.
 	for (i = 0; i < intersectionCount; i++) {
-		summedAngleX += reflectionAngleListX[i];
-		summedAngleY += reflectionAngleListY[i];
+		summedAngleX += normalAngleListX[i];
+		summedAngleY += normalAngleListY[i];
 	}
 	
-	var xOff = c_hspeed - summedAngleX;
-	var yOff = c_vspeed - summedAngleY;
+	// Normalize summed angle.
+	var vDist = point_distance(0, 0, summedAngleX, summedAngleY);
 	
-	//while collision_point(x1, y1, other.id, false, true)
+	var VNHatx = summedAngleX / vDist;
+	var VNHaty = summedAngleY / vDist;
+	
+	// Find dot product
+	var dotProduct = (c_hspeed * VNHatx) + (c_vspeed * VNHaty);
+	var VXx =  dotProduct * VNHatx * 2;
+	var VXy =  dotProduct * VNHaty * 2;
+	
+	//var xOff = VAx - VXx;
+	//var yOff = VAy - VXy
+	//reflectionAngleListX[intersectionCount] = VXx;
+	//reflectionAngleListY[intersectionCount] = VXy;
+	//intersectionCount++;
+	//breakBool = true;
+	
+	var xOff = c_hspeed - VXx;
+	var yOff = c_vspeed - VXy;
+	show_debug_message("OFF: " + string(xOff) + ", " + string(yOff) + " ... " + string(id));
+	show_debug_message("");
+	
+	while collision_point(intersectionX, intersectionY, self, false, false)
+	//while floor(x) = intersectionX && floor(y) = intersectionY
 	{
-		other.x += xOff;
-		other.y += yOff;
+		x += xOff;
+		y += yOff;
 	}
+	
+	//x = round(x);
+	//y = round(y);
 }
 	
