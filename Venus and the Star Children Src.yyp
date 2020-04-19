@@ -186,7 +186,7 @@
             "Key": "104268da-a0b0-48bd-b315-6505f85d1839",
             "Value": {
                 "id": "b9725653-3b97-4001-abf7-01df59c07773",
-                "resourcePath": "objects\\obj_solid_parent\\obj_solid_parent.yy",
+                "resourcePath": "objects\\obj_solid_vector\\obj_solid_vector.yy",
                 "resourceType": "GMObject"
             }
         },
@@ -308,6 +308,14 @@
                 "id": "949de110-98f6-4d35-a054-5bdafe3d0a64",
                 "resourcePath": "objects\\obj_tile_slope3\\obj_tile_slope3.yy",
                 "resourceType": "GMObject"
+            }
+        },
+        {
+            "Key": "1a156f04-5eb3-4891-8c78-e0630c7b05ac",
+            "Value": {
+                "id": "a76759e8-01f4-41a2-8630-357f723abb17",
+                "resourcePath": "sprites\\spr_mask_small_circle\\spr_mask_small_circle.yy",
+                "resourceType": "GMSprite"
             }
         },
         {
@@ -562,7 +570,7 @@
             "Key": "2bb57222-41cb-44de-9101-e2a546ff6ce1",
             "Value": {
                 "id": "1138464b-71ec-43d7-935a-7c34fc72c7e4",
-                "resourcePath": "scripts\\scr_collision\\scr_collision.yy",
+                "resourcePath": "scripts\\scr_collision_vector\\scr_collision_vector.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -747,6 +755,14 @@
             "Value": {
                 "id": "4be3ee0b-0920-4f2d-b452-e818cbbc38f6",
                 "resourcePath": "scripts\\angleFormConv\\angleFormConv.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
+            "Key": "3a554d2d-d3eb-42bc-bec9-9aaba1a454e8",
+            "Value": {
+                "id": "1b431627-7e9f-4d5f-a85c-43cc93434300",
+                "resourcePath": "scripts\\scr_collision_mask\\scr_collision_mask.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -978,7 +994,7 @@
             "Key": "47ca681c-c759-4d50-bf49-f4bd3ea40f88",
             "Value": {
                 "id": "26bf6cd4-f652-416c-b5b1-3a6382c75095",
-                "resourcePath": "scripts\\draw_sprite_tiled_area\\draw_sprite_tiled_area.yy",
+                "resourcePath": "scripts\\scr_draw_sprite_tiled_area\\scr_draw_sprite_tiled_area.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -1564,6 +1580,14 @@
                 "id": "4d3f3611-7f24-4c9f-8f8d-4a83a66f4197",
                 "resourcePath": "sprites\\spr_editor_big_tiling\\spr_editor_big_tiling.yy",
                 "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "6bae3f6b-7f54-480a-a7ec-d7e473574f19",
+            "Value": {
+                "id": "e6288fcf-7bf4-4e7d-b9fb-6597956d6cfb",
+                "resourcePath": "scripts\\scr_collision_normal\\scr_collision_normal.yy",
+                "resourceType": "GMScript"
             }
         },
         {
@@ -2508,6 +2532,14 @@
                 "id": "3c7208b6-1ccb-4be6-a784-9e702587a43a",
                 "resourcePath": "sprites\\spr_tile_check\\spr_tile_check.yy",
                 "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "ad25cf36-6f19-4a95-b262-3620b8d77cc9",
+            "Value": {
+                "id": "a142b4ac-c3dd-4f07-a2bc-dfc9a3ffd3bc",
+                "resourcePath": "objects\\obj_solid_mask\\obj_solid_mask.yy",
+                "resourceType": "GMObject"
             }
         },
         {
@@ -3862,12 +3894,14 @@
         "1b254f41-b5b7-4063-ab01-c1f02ed3b1ac",
         "0e0e322f-380e-448f-9530-42154abd02ad",
         "2bb57222-41cb-44de-9101-e2a546ff6ce1",
+        "3a554d2d-d3eb-42bc-bec9-9aaba1a454e8",
         "5320c2db-13b6-41fa-8bb2-b71fdc15eaed",
         "58a1fc8c-6c5a-4b04-93e1-a6c6da34fefa",
         "8aaa3825-af75-4a0f-bf5a-1331f44329d6",
         "31edb5ad-10ff-4ded-ad62-601c39428570",
         "3cf38aa2-fcdc-49fc-a8c4-8b499b2eef70",
-        "47ca681c-c759-4d50-bf49-f4bd3ea40f88"
+        "47ca681c-c759-4d50-bf49-f4bd3ea40f88",
+        "6bae3f6b-7f54-480a-a7ec-d7e473574f19"
     ],
     "tutorial": ""
 }

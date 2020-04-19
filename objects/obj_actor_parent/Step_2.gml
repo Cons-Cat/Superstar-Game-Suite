@@ -8,10 +8,10 @@ collMaskTrg.c_vspeed = c_vspeed;
 collMaskTrg.collisionCoeffX = collisionCoeffX;
 collMaskTrg.collisionCoeffY = collisionCoeffY;
 
-with collMaskTrg {
+/*with collMaskTrg {
 	depth = obj_editor_gui.depth - 100;
-	scr_collision();
-}
+	scr_collision_mask();
+}*/
 
 if collMaskTrg.x != tmpX || collMaskTrg.y != tmpY {
 	x = collMaskTrg.x;

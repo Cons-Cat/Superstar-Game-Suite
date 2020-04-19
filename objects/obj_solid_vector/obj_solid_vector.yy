@@ -2,7 +2,7 @@
     "id": "104268da-a0b0-48bd-b315-6505f85d1839",
     "modelName": "GMObject",
     "mvc": "1.0",
-    "name": "obj_solid_parent",
+    "name": "obj_solid_vector",
     "eventList": [
         {
             "id": "fea3dcbb-4456-4ad3-a0f3-7968282047c4",

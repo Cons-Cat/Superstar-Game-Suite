@@ -1,7 +1,7 @@
 /// @description Insert description here
 if y < obj_editor_gui.calcWindowHeight {
 
-draw_sprite_tiled_area(spr_editor_gui_streaks,0,0,0,obj_panel_left.baseX + 1,y,obj_panel_right.baseX - 1,view_get_hport(1));
+scr_draw_sprite_tiled_area(spr_editor_gui_streaks,0,0,0,obj_panel_left.baseX + 1,y,obj_panel_right.baseX - 1,view_get_hport(1));
 
 // Actor rows
 if rows > 0 {
@@ -95,7 +95,7 @@ if obj_editor_gui.mode = 2 {
 }
 
 // Timeline ticks
-draw_sprite_tiled_area(spr_editor_gui_streaks,0,0,0,obj_panel_left.baseX + 1,y + 18,obj_panel_right.baseX - 1,y + 31);
+scr_draw_sprite_tiled_area(spr_editor_gui_streaks,0,0,0,obj_panel_left.baseX + 1,y + 18,obj_panel_right.baseX - 1,y + 31);
 scrollOffDraw = ( ((scrollHorX - obj_panel_left.baseX - 1) / (scrollHorRightBound - scrollHorLeftBound)) * panelWidth ) % 60;
 
 for (i = 0; i <= (view_get_wport(1) - 390) div 28; i += 1) {

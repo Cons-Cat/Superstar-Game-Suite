@@ -311,7 +311,12 @@ if fallSearch = true {
 
 // Update x,y coordinates
 //scr_cmove_step(1,0);
-x += c_hspeed;
-y += c_vspeed;
+for (i = 0; i < 10; i++) {
+	x += c_hspeed / 10;
+	y += c_vspeed / 10;
+	scr_collision_mask();
+}
+//x += c_hspeed;
+//y += c_vspeed;
 
 }

@@ -1,7 +1,7 @@
 /// @description 
 
 // Draw backdrop
-draw_sprite_tiled_area(spr_editor_gui_streaks,0,0,0,x,y,x+boxWidth,y+boxHeight);
+scr_draw_sprite_tiled_area(spr_editor_gui_streaks,0,0,0,x,y,x+boxWidth,y+boxHeight);
 
 // Draw outline
 draw_set_color(col[0]); // Dark
@@ -241,10 +241,10 @@ event_inherited();
 #region
 
 if buttonsAnchorRight {
-	draw_sprite_tiled_area(spr_editor_gui_streaks,0,0,0,scrollVerRightBound+5,y,scrollVerRightBound+sprite_get_width(spr_dia_buttons_box)-2,y+sprite_get_height(spr_dia_buttons_box)-4);
+	scr_draw_sprite_tiled_area(spr_editor_gui_streaks,0,0,0,scrollVerRightBound+5,y,scrollVerRightBound+sprite_get_width(spr_dia_buttons_box)-2,y+sprite_get_height(spr_dia_buttons_box)-4);
 	draw_sprite(spr_dia_buttons_box,canSelectBox,scrollVerRightBound+3,y-3);
 } else {
-	draw_sprite_tiled_area(spr_editor_gui_streaks,0,0,0,x-38,y,x-45+sprite_get_width(spr_dia_buttons_box),y+sprite_get_height(spr_dia_buttons_box)-4);
+	scr_draw_sprite_tiled_area(spr_editor_gui_streaks,0,0,0,x-38,y,x-45+sprite_get_width(spr_dia_buttons_box),y+sprite_get_height(spr_dia_buttons_box)-4);
 	draw_sprite(spr_dia_buttons_box,canSelectBox,x-40,y-3);
 }
 

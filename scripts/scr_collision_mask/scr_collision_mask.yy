@@ -1,8 +1,8 @@
 {
-    "id": "47ca681c-c759-4d50-bf49-f4bd3ea40f88",
+    "id": "3a554d2d-d3eb-42bc-bec9-9aaba1a454e8",
     "modelName": "GMScript",
     "mvc": "1.0",
-    "name": "draw_sprite_tiled_area",
+    "name": "scr_collision_mask",
     "IsCompatibility": false,
     "IsDnD": false
 }

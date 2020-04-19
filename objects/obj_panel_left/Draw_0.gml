@@ -1,5 +1,5 @@
 /// @description Insert description here
-draw_sprite_tiled_area(spr_editor_gui_streaks,0,0,0,room_width,obj_panel_top.y + 11,x,obj_panel_bot.y + 1);
+scr_draw_sprite_tiled_area(spr_editor_gui_streaks,0,0,0,room_width,obj_panel_top.y + 11,x,obj_panel_bot.y + 1);
 
 event_inherited();
 
