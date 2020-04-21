@@ -27,7 +27,7 @@ var edgeStreakCountWrite = 0;
 // Transfer streaks
 if argStreaksReadIn > 0 {
 	// REPLACE THIS ITERATION WITH ONLY THE OBJECT CALLING THIS SCRIPT
-	with obj_editor_terrain_par {
+	with obj_editor_placeable_parent {
 		if self.id != other.id { // Exclude itself from the set
 			if hasMarble {
 				#region

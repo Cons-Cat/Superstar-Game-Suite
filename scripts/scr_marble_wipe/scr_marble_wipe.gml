@@ -43,10 +43,10 @@ hasGeneratedTextureAA = false;
 hasRecursed = false;
 
 // Find adjacent terrain
-for (i = 0; i < instance_number(obj_editor_terrain_par); i += 1) {
+for (i = 0; i < instance_number(obj_editor_placeable_parent); i += 1) {
 	#region
 	
-	tempInst = instance_find(obj_editor_terrain_par,i);
+	tempInst = instance_find(obj_editor_placeable_parent,i);
 	
 	if tempInst.id != self.id { // Exclude itself from the set
 		// Find laterally adjacent terrain

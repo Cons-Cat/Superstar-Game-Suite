@@ -12,7 +12,7 @@ if select = 1 {
 		obj_room_editor.str = file_text_read_string(export);
 		file_text_readln(export);
 		
-		with obj_editor_terrain_par {
+		with obj_editor_placeable_parent {
 			instance_destroy();
 		}
 		

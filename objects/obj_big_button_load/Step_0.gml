@@ -8,7 +8,7 @@ if select {
 	
 	if saveFile != "" {
 		// Wipe the field
-		with obj_editor_terrain_par {
+		with obj_editor_placeable_parent {
 			instance_destroy();
 		}
 		with obj_trigger_vertex {

@@ -8,8 +8,7 @@
         "1a156f04-5eb3-4891-8c78-e0630c7b05ac",
         "20611b12-5730-4852-801c-c8e38c82d342",
         "dda2c594-032e-4491-ac47-a225f99059f3",
-        "d7366b67-a533-48c9-b22e-6d9793f06d99",
-        "a80d461b-9a6e-4c07-b798-e33ea6dd9604"
+        "d7366b67-a533-48c9-b22e-6d9793f06d99"
     ],
     "filterType": "GMSprite",
     "folderName": "Collision Masks",

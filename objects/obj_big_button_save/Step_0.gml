@@ -12,10 +12,10 @@ if select {
 		export = file_text_open_write(saveFile);
 		
 		// Top data
-		str += string(instance_number(obj_editor_terrain_par));
+		str += string(instance_number(obj_editor_placeable_parent));
 		
-		for (var i = 0; i < instance_number(obj_editor_terrain_par); i += 1) {
-			trg = instance_find(obj_editor_terrain_par,i);
+		for (var i = 0; i < instance_number(obj_editor_placeable_parent); i += 1) {
+			trg = instance_find(obj_editor_placeable_parent,i);
 			writeVertices = false;
 			
 			// Write generic data

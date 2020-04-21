@@ -1,4 +1,9 @@
-/// @description 
+/// @description Initialize important fields.
+depth = 0;
+
+// Camera views.
+#region
+
 cameraRealGame = camera_create_view(room_width,room_height,512,288,0,obj_camera_editor,-1,-1,512/2+20,288/2+20);
 camera = camera_create_view(1024,576,1024,576,0,-1,-1,-1,1024/2+20,576/2+20);
 cameraLeftPanel = camera_create_view(1024,0,200,576,0,-1,-1,-1,-1,-1);
@@ -27,6 +32,11 @@ view_set_yport(4,453);
 view_set_xport(5,15);
 view_set_yport(5,362);
 
+#endregion
+
+// Window.
+#region
+
 calcWindowWidth = window_get_width();
 calcWindowHeight = window_get_height();
 
@@ -35,7 +45,13 @@ tempResHeight = 0;
 
 windowWRatio = 0;
 
-depth = 0;
+is4K = false;
+window_set_fullscreen(false);
+
+#endregion
+
+// Editor state.
+#region
 
 mode = 0;
 /*
@@ -53,12 +69,15 @@ rows = 0;
 selectInstance = -1;
 canChangeSelect = true;
 tempDepth = 0;
-is4K = false;
 
 global.pieceSelected = -1;
 global.snapDimension = 20;
 
-window_set_fullscreen(false);
+#endregion
+
+// Aesthetics values.
+#region
+
 font = font_add_sprite_ext(spr_font_new,"abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ!?,'._-1234567890",true,0);
 fontDark = font_add_sprite_ext(spr_font_dark,"abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ!?,'._-1234567890",true,0);
 
@@ -89,3 +108,13 @@ col[5] = make_color_rgb(0,180,108); // Aqua
 col[6] = make_color_rgb(56,107,203); // Blue
 col[7] = make_color_rgb(147,71,198); // Purple
 col[8] = make_color_rgb(214,79,196); // Pink
+
+#endregion
+
+// Collision bakes.
+#region
+
+collMaskDict = ds_map_create();
+collMaskDict[?"spr_coll_rect"] = spr_coll_rect;
+
+#endregion

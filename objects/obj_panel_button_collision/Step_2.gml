@@ -6,8 +6,8 @@ var painting = false;
 
 if select {
 	// De-select terrain
-	if instance_exists(obj_editor_terrain_par) {
-		obj_editor_terrain_par.canSelect = false;
+	if instance_exists(obj_editor_placeable_parent) {
+		obj_editor_placeable_parent.canSelect = false;
 	}
 	
 	// Painting mode
@@ -23,8 +23,8 @@ if select {
 	if painting {
 		placeEmpty = true;
 		
-		for (i = 0; i < instance_number(obj_editor_terrain_par); i++) {
-			tempInst = instance_find(obj_editor_terrain_par,i);
+		for (i = 0; i < instance_number(obj_editor_placeable_parent); i++) {
+			tempInst = instance_find(obj_editor_placeable_parent,i);
 			
 			if
 			// If tempInst occupies the Z space

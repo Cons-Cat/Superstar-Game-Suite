@@ -25,8 +25,8 @@ if (obj_z_mode.mode = 0 && zcieling > 0) || (obj_z_mode.mode = 1 && zfloor >= ob
 	var drawShad = true;
 	
 	// Find instances to cast a shadow on
-	for (var i = 0; i < instance_number(obj_editor_terrain_par); i ++) {
-		inst = instance_find(obj_editor_terrain_par,i);
+	for (var i = 0; i < instance_number(obj_editor_placeable_parent); i ++) {
+		inst = instance_find(obj_editor_placeable_parent,i);
 		
 		if inst.id != self.id {
 			if inst.zfloor > tempZ {

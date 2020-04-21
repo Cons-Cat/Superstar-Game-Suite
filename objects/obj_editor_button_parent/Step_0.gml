@@ -90,6 +90,7 @@ if select {
 	
 	if instance_exists(trg) {
 		trg.buttonSelected = 1;
+		trg.collMask = -1;
 	}
 }
 

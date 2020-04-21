@@ -17,8 +17,8 @@ if select {
 	obj_panel_right.exitInterface = true;
 	obj_panel_left.exitInterface = true;
 	
-	if instance_exists(obj_editor_terrain_par) {
-		obj_editor_terrain_par.select = false; // De-select all terrain instances
+	if instance_exists(obj_editor_placeable_parent) {
+		obj_editor_placeable_parent.select = false; // De-select all terrain instances
 	}
 	if instance_exists(obj_editor_staircase) {
 		obj_editor_staircase.bakeRaster = true; // Re-bake staircase graphics

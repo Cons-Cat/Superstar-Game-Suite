@@ -81,7 +81,7 @@ if placed = 1 {
 		hasAdjacentRight = false;
 		
 		hasAdjacentDown = false;
-		obj_editor_terrain_par.marbleHasBeenWiped = false;
+		obj_editor_placeable_parent.marbleHasBeenWiped = false;
 		
 		#endregion
 		

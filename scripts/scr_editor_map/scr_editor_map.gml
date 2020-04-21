@@ -37,8 +37,8 @@ draw_rectangle( x1 *  (obj_panel_bot.mapWidth/room_width),y1 * (obj_panel_bot.ma
 gpu_set_blendmode(bm_normal);
 
 // Iterate through instances
-for (var k = 0; k < instance_number(obj_editor_terrain_par); k += 1) {
-	trg = instance_find(obj_editor_terrain_par,k);
+for (var k = 0; k < instance_number(obj_editor_placeable_parent); k += 1) {
+	trg = instance_find(obj_editor_placeable_parent,k);
 	
 	if surface_exists(trg.tileSurfaceDraw) {
 		if trg.id != wipeId {

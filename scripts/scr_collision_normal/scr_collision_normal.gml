@@ -23,6 +23,7 @@
     if (res <= 0) res = 1;
     var nx = 0;
     var ny = 0;
+	var tempDir;
 	
     if (collision_circle(xx, yy, rad, obj, true, true)) {
         for (var j=res; j<=rad; j+=res) {
@@ -36,8 +37,11 @@
             }
         }
 		
-        if (nx == 0 && ny == 0) return (-1);
-        return point_direction(0, 0, nx, ny);
+        if (nx == 0 && ny == 0) {
+			return (-1);
+		}
+		
+		return point_direction(0, 0, nx, ny);
     } else {
         return (-1);
     }

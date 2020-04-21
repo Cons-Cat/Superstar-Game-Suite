@@ -5,11 +5,11 @@ if select = 1 {
 		str = "";
 		export = file_text_open_write(saveFile);
 		
-		str = str + string(instance_number(obj_editor_terrain_par));
+		str = str + string(instance_number(obj_editor_placeable_parent));
 		str = str + string_hash_to_newline("#"+string(obj_editor_gui.hasMaterials));
 		str = str + string_hash_to_newline("#"+string(obj_room_editor.str));
-		for (i = 0; i < instance_number(obj_editor_terrain_par); i += 1) {
-			trg = instance_find(obj_editor_terrain_par,i).id;
+		for (i = 0; i < instance_number(obj_editor_placeable_parent); i += 1) {
+			trg = instance_find(obj_editor_placeable_parent,i).id;
 			
 			str = str + string_hash_to_newline("#obj_editor_terrain");
 			str = str + string_hash_to_newline("#"+string(trg.width));
