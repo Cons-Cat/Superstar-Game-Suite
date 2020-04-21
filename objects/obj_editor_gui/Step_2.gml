@@ -129,17 +129,25 @@ if mode = 2 {
 									
 									for (i = 0; i < other.width * 20; i++) {
 										for (j = 0; j < other.height * 20; j++) {
-											if j <= other.angleStartY - other.angleSlope*i {
-												draw_point(i, j);
+											if !other.flip {
+												if j <= other.angleStartY - ( other.angleSlope * i ) {
+													draw_point(i, j);
+												}
+											} else {
+												if j >= other.angleStartY - ( other.angleSlope * i ) {
+													draw_point(i, j);
+												}
 											}
 										}
 									}
 									
-									surface_reset_target();
 									other.collMask = sprite_create_from_surface(collSurf, 0, 0, surface_get_width(collSurf), surface_get_height(collSurf), false, false, 0, 0);
 									sprite_collision_mask(other.collMask, false, 1, 0, 0, sprite_get_width(other.collMask), sprite_get_height(other.collMask), bboxkind_precise, 0);
 									obj_editor_gui.collMaskDict[?collKey] = other.collMask;
 									
+									
+									draw_clear_alpha(c_white,0);
+									surface_reset_target();
 									surface_free(collSurf);
 								}
 							}

@@ -64,7 +64,7 @@ if placed = 1 {
 		#endregion
 	}
 	
-	// Generate marble streaks
+	// Generate marble texture
 	if genMarble {
 		#region
 		
@@ -84,8 +84,6 @@ if placed = 1 {
 		obj_editor_placeable_parent.marbleHasBeenWiped = false;
 		
 		#endregion
-		
-		//show_debug_message("");
 		
 		// Wipe marble recursively
 		scr_marble_wipe();

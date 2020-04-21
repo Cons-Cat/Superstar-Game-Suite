@@ -42,15 +42,6 @@ if spawnButtons {
 	#endregion
 }
 
-// Update angle
-if mirror {
-	angleSlope = -2;
-	angleStartY = 0;
-} else {
-	angleSlope = 2;
-	angleStartY = height * 20 - 1;
-}
-
 // Tile array
 if resetArray {
 	#region
@@ -61,6 +52,15 @@ if resetArray {
 	tilingWidth = width + 2;
 	tilingHeight = height + zfloor - zcieling + 1;
 	tileDefaultSpr = "spr_tls_rectangle_default";
+	
+	// Update angle
+	if mirror {
+		angleSlope = -2;
+		angleStartY = 0;
+	} else {
+		angleSlope = 2;
+		angleStartY = height * 20 - 1;
+	}
 	
 	if zfloor > zcieling {
 		// Pillar
