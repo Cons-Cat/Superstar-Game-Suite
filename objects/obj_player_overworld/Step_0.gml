@@ -100,6 +100,8 @@ if c_vspeed < -max_speed {
 }
 
 // Point towards input direction
+#region
+
 if moving {
 	if keyboard_check(_up) && !keyboard_check(_right) && !keyboard_check(_down) && !keyboard_check(_left) {
 		jumpTempHspd = 0;
@@ -143,7 +145,11 @@ if moving {
 	}
 }
 
-// Select the sprite
+#endregion
+
+// Select a sprite and animate.
+#region
+
 rotFin = scr_rotateAngle(rotationInputDirection);
 rotDir = scr_rotateDirection(rotationInputDirection,dirIso,rotFin);
 
@@ -180,7 +186,11 @@ if (abs(c_hspeed) + abs(c_vspeed))/2 != 0 && !jumping {
 	imgIndex = 0;
 }
 
-// Jumping
+#endregion
+
+// Jumping.
+#region
+
 if canMove {
 	if keyboard_check_pressed(_A) {
 		// Initiating jump
@@ -234,6 +244,11 @@ if canMove {
 	}
 }
 
+#endregion
+
+// Falling.
+#region
+
 if !jumping {
 	if !onStaircase {
 		jumpDelay = jumpDelayMax;
@@ -257,7 +272,7 @@ if !jumping {
 	}
 }
 
-zplace = floor((jumpHeight/20));
+#endregion
 
 // Checking to fall off of platforms
 fallSearch = true; // Fall down by default
@@ -271,7 +286,8 @@ for (i = 0; i < instance_number(obj_floor); i += 1) {
 	trgScr[i] = instance_find(obj_floor,i).id;
 	
 	if trgScr[i].zfloor*20 <= self.jumpHeight {
-		if collision_rectangle(bbox_left,bbox_top,bbox_right,bbox_bottom,trgScr[i].id,true,false) {
+		if collision_circle(x, y, maskRadius, trgScr[i].id, true, false) {
+		//if collision_rectangle(bbox_left,bbox_top,bbox_right,bbox_bottom,trgScr[i].id,true,false) {
 			trgLayer[i] = trgScr[i].zfloor; // Spot is viable
 		}
 	}
@@ -310,13 +326,12 @@ if fallSearch = true {
 }
 
 // Update x,y coordinates
-//scr_cmove_step(1,0);
-for (i = 0; i < 10; i++) {
-	x += c_hspeed / 10;
-	y += c_vspeed / 10;
-	scr_collision_mask();
+subSteps = 4;
+
+for (i = 0; i < subSteps; i++) {
+	x += c_hspeed / subSteps;
+	y += c_vspeed / subSteps;
+	scr_collision_mask(maskRadius);
 }
-//x += c_hspeed;
-//y += c_vspeed;
 
 }

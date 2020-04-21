@@ -269,12 +269,10 @@ if mouse_check_button_released(mb_left) {
 image_xscale = width;
 image_yscale = height + zfloor - zcieling;
 
-// Terrain collision height and alpha
+// Terrain alpha
 if finite {
-	zplace = zfloor;
 	alpha = 1;
 } else {
-	zplace = 20000;
 	alpha = 0.25;
 }
 

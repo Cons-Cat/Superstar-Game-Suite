@@ -12,7 +12,6 @@ max_speed = phy_runspeed;
 
 c_gravity = 0;
 dir = 0;
-zplace = 0;
 canMove = true;
 floorTrg = 0;
 trgFinal = obj_floor;

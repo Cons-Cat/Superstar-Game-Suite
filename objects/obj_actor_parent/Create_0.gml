@@ -45,3 +45,4 @@ sprUWalk = spr_ph_up;
 spr = sprD;
 
 collMaskTrg = instance_create_layer(x,y,"Instances",obj_collision_handler);
+maskRadius = 8;

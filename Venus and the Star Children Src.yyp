@@ -2119,6 +2119,14 @@
             }
         },
         {
+            "Key": "90b4c967-3933-478a-b155-8347ea72f427",
+            "Value": {
+                "id": "ef3e4657-473c-4d06-aed0-2e53154a1323",
+                "resourcePath": "scripts\\scr_collision_staircase\\scr_collision_staircase.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "90ccdc17-c0a0-4013-a112-4e97addca217",
             "Value": {
                 "id": "f0066b4c-14ef-4256-89bd-17757af28534",
@@ -3863,6 +3871,9 @@
         "f76c05e7-297c-4a71-8c09-f8d198e6c41e",
         "256c5c90-4cb5-40c7-9458-7e754bc003c5",
         "9ae93a8c-0a29-4d66-9f93-272b3f197924",
+        "3a554d2d-d3eb-42bc-bec9-9aaba1a454e8",
+        "2bb57222-41cb-44de-9101-e2a546ff6ce1",
+        "90b4c967-3933-478a-b155-8347ea72f427",
         "8a1d7b97-e673-44cd-8577-abb678899c65",
         "8ac73c4b-cd9d-4a64-aa7c-77fbddee6889",
         "c7f5cc64-679c-4d6e-9594-f8558906d58d",
@@ -3893,8 +3904,6 @@
         "b68c0048-1eba-45e0-a844-b825c3dce0ea",
         "1b254f41-b5b7-4063-ab01-c1f02ed3b1ac",
         "0e0e322f-380e-448f-9530-42154abd02ad",
-        "2bb57222-41cb-44de-9101-e2a546ff6ce1",
-        "3a554d2d-d3eb-42bc-bec9-9aaba1a454e8",
         "5320c2db-13b6-41fa-8bb2-b71fdc15eaed",
         "58a1fc8c-6c5a-4b04-93e1-a6c6da34fefa",
         "8aaa3825-af75-4a0f-bf5a-1331f44329d6",

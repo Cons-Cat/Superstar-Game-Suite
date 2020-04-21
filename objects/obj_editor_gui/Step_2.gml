@@ -108,72 +108,78 @@ if mode = 2 {
 				
 				#endregion
 			} else {
+				// Wall placeable collision.
 				#region
+				
+				// Assign collision mask.
+				#region
+				
+				if collMask = -1 {
+					if angleSlope = 0 {
+						collMask = spr_coll_rect;
+					} else {
+						collKey = string(width) + string(height) + (mirror ? "1" : "0") + (flip ? "1" : "0");
+						
+						if ds_map_exists(obj_editor_gui.collMaskDict,collKey) {
+							collMask = obj_editor_gui.collMaskDict[?collKey];
+						} else {
+							// Bake unique collision mask.
+							var collSurf = surface_create(width*20, height*20);
+							draw_set_color(c_black);
+							surface_set_target(collSurf);
+							
+							for (i = 0; i < width * 20; i++) {
+								for (j = 0; j < height * 20; j++) {
+									if !flip {
+										if j <= angleStartY - ( angleSlope * i ) {
+											draw_point(i, j);
+										}
+									} else {
+										if j >= angleStartY - ( angleSlope * i ) {
+											draw_point(i, j);
+										}
+									}
+								}
+							}
+							
+							collMask = sprite_create_from_surface(collSurf, 0, 0, surface_get_width(collSurf), surface_get_height(collSurf), false, false, 0, 0);
+							sprite_collision_mask(collMask, false, 1, 0, 0, sprite_get_width(collMask), sprite_get_height(collMask), bboxkind_precise, 0);
+							obj_editor_gui.collMaskDict[?collKey] = collMask;
+							
+							draw_clear_alpha(c_white,0);
+							surface_reset_target();
+							surface_free(collSurf);
+						}
+					}
+				}
+				
+				#endregion
 				
 				if zfloor > 0 || !finite {
 					with instance_create_layer(x,y,"Instances",obj_solid_mask) {
-						if other.collMask = -1 {
-							if other.angleSlope = 0 {
-								other.collMask = spr_coll_rect;
-							} else {
-								collKey = string(other.width) + string(other.height) + (other.mirror ? "1" : "0") + (other.flip ? "1" : "0");
-								
-								if ds_map_exists(obj_editor_gui.collMaskDict,collKey) {
-									other.collMask = obj_editor_gui.collMaskDict[?collKey];
-								} else {
-									show_debug_message(collKey);
-									// Bake unique collision mask.
-									var collSurf = surface_create(other.width*20, other.height*20);
-									draw_set_color(c_black);
-									surface_set_target(collSurf);
-									
-									for (i = 0; i < other.width * 20; i++) {
-										for (j = 0; j < other.height * 20; j++) {
-											if !other.flip {
-												if j <= other.angleStartY - ( other.angleSlope * i ) {
-													draw_point(i, j);
-												}
-											} else {
-												if j >= other.angleStartY - ( other.angleSlope * i ) {
-													draw_point(i, j);
-												}
-											}
-										}
-									}
-									
-									other.collMask = sprite_create_from_surface(collSurf, 0, 0, surface_get_width(collSurf), surface_get_height(collSurf), false, false, 0, 0);
-									sprite_collision_mask(other.collMask, false, 1, 0, 0, sprite_get_width(other.collMask), sprite_get_height(other.collMask), bboxkind_precise, 0);
-									obj_editor_gui.collMaskDict[?collKey] = other.collMask;
-									
-									
-									draw_clear_alpha(c_white,0);
-									surface_reset_target();
-									surface_free(collSurf);
-								}
-							}
-						}
-						
 						sprite_index = other.collMask;
 						mask_index = other.collMask;
 						image_xscale = other.width / (sprite_get_width(sprite_index) / 20);
 						y = other.y + other.zfloor*20;
 						x = other.x;
 						
-						zplace = other.zplace;
+						zfloor = other.zfloor;
 						zcieling = other.zcieling;
 						finite = other.finite;
 						
 						depth = other.depth - 1;
 					}
 				}
-			
+				
 				if finite {
 					// Floor collision
 					with instance_create_layer(x,y,"Instances",obj_floor) {
+						sprite_index = other.collMask;
+						mask_index = other.collMask;
+						image_xscale = other.width / (sprite_get_width(sprite_index) / 20);
 						y = other.y;
 						x = other.x;
-						image_xscale = other.width;
-						image_yscale = other.height;
+						
 						zfloor = other.zfloor;
 						zcieling = other.zcieling;
 						depthOffset = other.depthOffset;
