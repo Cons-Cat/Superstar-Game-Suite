@@ -8,8 +8,6 @@ layerType[0] = 0;
 
 zfloor = 0;
 width = 1;
-widthIterate = 0;
-heightIterate = 0;
 
 stepPriority = false;
 stepCount = 5;
@@ -59,26 +57,6 @@ hovered = false;
 bakedStaircase = surface_create(20,20);
 bakedStaircaseSelect = surface_create(20,20);
 
-staircaseType = 1;
-/*
-0 = 1x1x1 staircase
-1 = 2x1x1 staircase
-2 = 1x1x2 staircase
-*/
-staircaseRotation = 4;
-/*
-0 = face left
-1 = face up
-2 = face right
-3 = face down-right-right
-4 = face down-right
-5 = face down-down-right
-6 = face down
-7 = face down-down-left
-8 = face down-left
-9 = face down-left-left
-*/
-
 // Staircase shaded colors
 colDark[0] = make_color_rgb(132, 7, 32); // Red
 colDark[1] = make_color_rgb(150, 39, 9); // Dark orange
@@ -90,16 +68,6 @@ colDark[6] = make_color_rgb(32, 62, 117); // Blue
 colDark[7] = make_color_rgb(87, 39, 122); // Purple
 colDark[8] = make_color_rgb(127, 46, 116); // Pink
 colDarkSel = make_color_rgb(132, 132, 132); // Dark gray
-
-xOrigin = 0;
-yOrigin = 0;
-sprCreate[0] = spr_slopeL_1x_bot;
-sprCreate[1] = spr_slopeR_1x_bot;
-sprCreate[2] = spr_slopeR_1x;
-sprCreate[3] = spr_slopeL_1x;
-
-slopeOriginOffsetX = 0;
-slopeOriginOffsetY = 0;
 
 /*dummyTop = instance_create_layer(x,y,layer,obj_editor_slope3_dummy_top);
 dummyBot = instance_create_layer(x,y,layer,obj_editor_slope3_dummy_bot);

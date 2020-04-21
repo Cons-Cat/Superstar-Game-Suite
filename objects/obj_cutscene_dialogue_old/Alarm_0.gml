@@ -1,2 +1,0 @@
-/// @description 
-canClose = true;

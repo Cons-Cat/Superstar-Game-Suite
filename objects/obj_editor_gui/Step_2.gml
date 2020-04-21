@@ -98,8 +98,8 @@ if mode = 2 {
 					var largerVal = max(abs(stairstepRun),abs(stairstepRise));
 					stairstepRun /= largerVal;
 					stairstepRise /= largerVal;
-					show_message(string(stairstepRun) + ", " + string(stairstepRise));
-				
+					
+					sprite_index = spr_construct_blue;
 					image_xscale = ceil((other.staircaseRasterXF - other.staircaseRasterX0) / sprite_width);
 					image_yscale = ceil((other.staircaseRasterYF - other.staircaseRasterY0 - other.zfloor*20 + other.zcieling*20) / sprite_height);
 					y += (other.zfloor - other.zcieling) * 20;

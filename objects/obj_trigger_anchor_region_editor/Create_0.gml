@@ -22,6 +22,13 @@ depthIterate = 0;
 anchorId = -1;
 valueButtonsExist = false;
 
+trgX = x;
+trgY = y;
+x1 = x;
+x2 = x;
+y1 = y;
+y2 = y;
+
 // Instance IDs
 instId1[0] = "inst_"; // Instance object
 instId2 = "";

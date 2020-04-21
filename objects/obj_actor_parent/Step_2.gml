@@ -5,8 +5,6 @@ tmpX = collMaskTrg.x;
 tmpY = collMaskTrg.y;
 collMaskTrg.c_hspeed = c_hspeed;
 collMaskTrg.c_vspeed = c_vspeed;
-collMaskTrg.collisionCoeffX = collisionCoeffX;
-collMaskTrg.collisionCoeffY = collisionCoeffY;
 
 /*with collMaskTrg {
 	depth = obj_editor_gui.depth - 100;

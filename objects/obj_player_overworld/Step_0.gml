@@ -333,5 +333,6 @@ for (i = 0; i < subSteps; i++) {
 	y += c_vspeed / subSteps;
 	scr_collision_mask(maskRadius);
 }
+scr_collision_staircase();
 
 }

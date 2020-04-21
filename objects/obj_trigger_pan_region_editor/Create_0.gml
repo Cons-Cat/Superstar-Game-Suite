@@ -25,6 +25,7 @@ buttonSelected = 0;
 depthIterate = 0;
 anchorId = -1;
 zoomId = -1;
+angleId = -1;
 valueButtonsExist = false;
 
 // Instance IDs

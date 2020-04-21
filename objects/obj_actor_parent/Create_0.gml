@@ -7,6 +7,8 @@ sceneLength = sceneStep;
 dir = -1;
 activeInScene = false;
 
+c_hspeed = 0;
+c_vspeed = 0;
 spd = 0;
 max_speed = 1.25;
 dirIso = 6;
@@ -18,9 +20,6 @@ rotationInputDirection = 90;
 
 moving = false;
 jumping = false;
-
-collisionCoeffY = sprite_get_height(spr_mask_small) /2;
-collisionCoeffX = sprite_get_width(spr_mask_small) / 2;
 
 sprD = spr_ph_down;
 sprDDR = spr_ph_ddownright;

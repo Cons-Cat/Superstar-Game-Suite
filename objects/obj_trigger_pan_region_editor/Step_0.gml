@@ -111,6 +111,8 @@ if spawnTriggers {
 		angle = other.angle;
 		trg = other.id;
 		sprWidth = (string_width(label) + 5) * 2;
+		
+		other.angleId = self.id;
 	}
 	with instance_create_layer(x,y,"Instances",obj_region_button_magnitude) {
 		sortIndex = 4;
@@ -214,8 +216,8 @@ if select {
 	if instance_exists(obj_region_button_threshold) {
 		obj_region_button_threshold.trg = self.id;
 	}
-	if instance_exists(obj_region_button_angle) {
-		self.angle = obj_region_button_angle.angle;
+	if instance_exists(angleId) {
+		self.angle = angleId.angle;
 	}
 	if instance_exists(obj_region_button_magnitude) {
 		self.magnitude = obj_region_button_magnitude.arbitraryVal;

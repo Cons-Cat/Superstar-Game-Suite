@@ -1,2 +1,0 @@
-/// @description 
-turn = 0;

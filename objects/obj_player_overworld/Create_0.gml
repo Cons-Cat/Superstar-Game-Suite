@@ -1,8 +1,6 @@
 ///@description Initialize variables
 event_inherited();
 
-scr_cmove_init();
-
 phy_walkspeed = 1;
 phy_runspeed = 1.25;
 phy_acceleration = 0.375;
@@ -10,7 +8,6 @@ phy_deceleration = 0.2825;
 slowSpd = false;
 max_speed = phy_runspeed;
 
-c_gravity = 0;
 dir = 0;
 canMove = true;
 floorTrg = 0;
@@ -31,7 +28,6 @@ if room != room_leveleditor {
 moving = false;
 jumpAnim = false;
 
-sprite_index = spr_point;
 image_speed = 0.15;
 
 sprD = spr_lucy_down;
