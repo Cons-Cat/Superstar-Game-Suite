@@ -1,4 +1,5 @@
 /// @description Debug drawing.
+/*
 draw_sprite_ext(sprite_index,0,x,y,image_xscale,image_yscale,0,c_purple,0.5);
 var i = 0;
 
@@ -19,3 +20,4 @@ if xOrigina != -1 {
 	draw_set_color(c_yellow);
 	draw_rectangle(xOrigina,yOrigina,xOrigina,yOrigina,false);
 }
+*/

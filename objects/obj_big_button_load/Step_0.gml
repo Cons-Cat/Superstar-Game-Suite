@@ -77,26 +77,29 @@ if select {
 					#region
 					
 					finite = file_text_read_real(export);
-					file_text_readln(export)
+					file_text_readln(export);
 					tileDrawSpr = file_text_read_real(export);
-					file_text_readln(export)
+					file_text_readln(export);
 					tileLayerCount = file_text_read_real(export);
-					file_text_readln(export)
+					file_text_readln(export);
 					tileArrayHeight = file_text_read_real(export);
-					file_text_readln(export)
+					file_text_readln(export);
+					
+					tilingWidth = width + 2;
+					tilingHeight = zfloor + height - zcieling + 1;
 					
 					// Generic slope data
 					if other.objStr != "rectangle" {
 						mirror = file_text_read_real(export);
-						file_text_readln(export)
+						file_text_readln(export);
 						flip = file_text_read_real(export);
-						file_text_readln(export)
+						file_text_readln(export);
 					}
 					
 					// Rectangle terrain tiles
 					for (k = 0; k <= tileLayerCount; k += 2) { // Iterate through arbitrary layers
 						layerOrder[k] = file_text_read_real(export);
-						file_text_readln(export)
+						file_text_readln(export);
 					}
 					
 					for (k = 0; k <= tileLayerCount; k += 2) { // Iterate through arbitrary layers
@@ -104,35 +107,35 @@ if select {
 							if layerOrder[k2] = k {
 								// Read layer data
 								layerVisible[k2] = file_text_read_real(export);
-								file_text_readln(export)
+								file_text_readln(export);
 								layerType[k2] = file_text_read_real(export);
-								file_text_readln(export)
+								file_text_readln(export);
 								
 								layerName[k2] = file_text_read_string(export);
-								file_text_readln(export)
+								file_text_readln(export);
 								layerName[k2+1] = file_text_read_string(export);
-								file_text_readln(export)
+								file_text_readln(export);
 								
 								// Read hasTile values
-								for (a = 0; a < width + 2; a += 1) { // Iterate horizontally
-									for (b = 0; b < height + zfloor - zcieling + 1; b += 1) { // Iterate vertically
+								for (a = 0; a < tilingWidth; a += 1) { // Iterate horizontally
+									for (b = 0; b < tilingHeight; b += 1) { // Iterate vertically
 										hasTile[scr_array_xy(a, b, tileArrayHeight), k2] = file_text_read_real(export);
-										file_text_readln(export)
+										file_text_readln(export);
 										hasTile[scr_array_xy(a, b, tileArrayHeight), k2+1] = file_text_read_real(export);
-										file_text_readln(export)
+										file_text_readln(export);
 										
 										// Define tile co-ordinates if true
 										if hasTile[scr_array_xy(a, b, tileArrayHeight), k2] {
 											tileArrayDrawX[scr_array_xy(a, b, tileArrayHeight), k2] = file_text_read_real(export);
-											file_text_readln(export)
+											file_text_readln(export);
 											tileArrayDrawY[scr_array_xy(a, b, tileArrayHeight), k2] = file_text_read_real(export);
-											file_text_readln(export)
+											file_text_readln(export);
 										}
 										if hasTile[scr_array_xy(a, b, tileArrayHeight), k2+1] {
 											tileArrayDrawX[scr_array_xy(a, b, tileArrayHeight), k2+1] = file_text_read_real(export);
-											file_text_readln(export)
+											file_text_readln(export);
 											tileArrayDrawY[scr_array_xy(a, b, tileArrayHeight), k2+1] = file_text_read_real(export);
-											file_text_readln(export)
+											file_text_readln(export);
 										}
 									}
 								}
@@ -142,7 +145,7 @@ if select {
 									for (a = 0; a < width * 20; a += 1) { // Iterate horizontally
 										for (b = 0; b < (height + zfloor - zcieling) * 20; b += 1) { // Iterate vertically
 											marblePixelColInd[a,b] = file_text_read_real(export);
-											file_text_readln(export)
+											file_text_readln(export);
 										}
 									}
 								}

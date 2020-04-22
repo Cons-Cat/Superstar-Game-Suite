@@ -37,7 +37,6 @@ for (var k = 0; k < instance_number(obj_solid_mask); k++)
 		solidArray[solidArraySize] = inst.id;
 		solidArraySize++;
 		inst.solid = true;
-		show_debug_message(jumpHeight);
 		
 	    if (collision_circle(xx, yy, rad, inst, true, true)) {
 	        for (var j = res; j <= rad; j += res) {

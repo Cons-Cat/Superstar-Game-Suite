@@ -53,7 +53,9 @@ if placed = 1 {
 			}
 		}
 		
-		tileSurfaceDraw = surface_create(tilingWidth * 20,tilingHeight * 20);
+		if tilingWidth > 0 && tilingHeight > 0 {
+			tileSurfaceDraw = surface_create(tilingWidth * 20,tilingHeight * 20);
+		}
 		
 		if zfloor - zcieling > 0 {
 			marbleSurface = surface_create(width * 20,(height + zfloor - zcieling) * 20);
@@ -163,13 +165,16 @@ if placed = 1 {
 		#region
 		
 		calculateSub = false; // Recalculating the surface
-		surface_resize(tileSurfaceDraw, tilingWidth * 20, tilingHeight * 20);
+		
+		if tilingWidth > 0 && tilingHeight > 0 {
+			surface_resize(tileSurfaceDraw, tilingWidth * 20, tilingHeight * 20);
+		}
 		
 		surface_set_target(tileSurfaceDraw);
 		draw_clear_alpha(c_white, 0);
 		surface_reset_target();
 		
-		tileSurfaceCalc = surface_create(tilingWidth * 20, tilingHeight * 20);
+		tileSurfaceCalc = surface_create(clamp(tilingWidth, 1, tilingWidth+1) * 20, clamp(tilingHeight, 1, tilingHeight+1) * 20);
 		surface_set_target(tileSurfaceCalc);
 		draw_clear_alpha(c_white, 0);
 		
