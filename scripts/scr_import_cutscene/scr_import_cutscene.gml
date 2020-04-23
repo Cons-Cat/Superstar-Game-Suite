@@ -1,7 +1,8 @@
 var trgTo = argument[0];
 var trgFrom = argument[1];
+//var eventInd = argument[2];
 
-trgTo.cutsceneInstanceId = self.id;
+trgTo.cutsceneInstanceId = trgFrom;
 trgTo.totalActions = trgFrom.totalActions;
 
 for (j = 1; j <= trgFrom.totalActions; j += 1) {

@@ -63,6 +63,14 @@
             }
         },
         {
+            "Key": "037d61bb-22b4-416f-b295-cfcd3a93dcdb",
+            "Value": {
+                "id": "e0fb986b-2217-44e7-9387-81fe5f2d89ba",
+                "resourcePath": "scripts\\scr_spawn_actions\\scr_spawn_actions.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "045af39e-82b4-484b-8bcb-34ae9bbb0a80",
             "Value": {
                 "id": "c702d59a-9190-42e2-abef-398d89a87501",
@@ -1882,7 +1890,7 @@
             "Key": "a9672ce8-0f2f-4e6a-99bb-a619f7817683",
             "Value": {
                 "id": "c47c39bf-676a-44e5-bf78-15e6d1707787",
-                "resourcePath": "objects\\obj_cutscene_actor_dummy_lucy\\obj_cutscene_actor_dummy_lucy.yy",
+                "resourcePath": "objects\\obj_cutscene_actor_dummy_player\\obj_cutscene_actor_dummy_player.yy",
                 "resourceType": "GMObject"
             }
         },
@@ -2231,6 +2239,14 @@
             }
         },
         {
+            "Key": "bf6ea837-b67a-47dd-bb15-6a2d0cbb53b8",
+            "Value": {
+                "id": "b30e52ff-a9fd-47cb-9a3b-c19542de4658",
+                "resourcePath": "scripts\\scr_panel_calc\\scr_panel_calc.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "bf989594-19ac-4ccf-b712-f18aaf8c3421",
             "Value": {
                 "id": "2d51b927-2e5e-46c1-b574-09b985cea650",
@@ -2386,7 +2402,7 @@
             "Key": "cf51da24-5d21-49bf-81e1-443487cbc0a0",
             "Value": {
                 "id": "5dfd5896-87c3-4d30-9305-32992bf6ec07",
-                "resourcePath": "objects\\obj_npc_position\\obj_npc_position.yy",
+                "resourcePath": "objects\\obj_npc_editor\\obj_npc_editor.yy",
                 "resourceType": "GMObject"
             }
         },
@@ -2799,6 +2815,14 @@
             }
         },
         {
+            "Key": "e9e42bc7-af55-4760-aad1-90aec9cc06e1",
+            "Value": {
+                "id": "212a30d2-8aa7-420c-95d2-4d8f3453b46f",
+                "resourcePath": "objects\\obj_actor_button_scene\\obj_actor_button_scene.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "ebfffcf4-15bb-46af-b8a4-7af0693b6d3d",
             "Value": {
                 "id": "2e5bcf21-8646-4d71-9453-d84f3f0fbd75",
@@ -3113,6 +3137,8 @@
         "5c828904-1fb4-48c0-b047-45ada11c0287",
         "f2e61555-e78b-420f-848b-a6db14dd5fd3",
         "b68c0048-1eba-45e0-a844-b825c3dce0ea",
+        "bf6ea837-b67a-47dd-bb15-6a2d0cbb53b8",
+        "037d61bb-22b4-416f-b295-cfcd3a93dcdb",
         "31edb5ad-10ff-4ded-ad62-601c39428570",
         "3cf38aa2-fcdc-49fc-a8c4-8b499b2eef70",
         "47ca681c-c759-4d50-bf49-f4bd3ea40f88",

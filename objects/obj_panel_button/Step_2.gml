@@ -1,5 +1,15 @@
 /// @description Insert description here
 
+if trg != -1 {
+	if instance_exists(trg) {
+		if !trg.select {
+			instance_destroy();
+		}
+	} else {
+		instance_destroy();
+	}
+}
+
 // Selecting / de-selecting
 if ((mouse_x >= x && mouse_x <= x + sprWidth) || (mouse_x >= x + sprWidth + 3 && mouse_x <= x + sprWidth + 34))
 && mouse_y >= y - 1 && mouse_y <= y + sprHeight + 1 {

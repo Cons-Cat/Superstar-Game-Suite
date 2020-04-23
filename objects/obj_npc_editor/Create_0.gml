@@ -25,13 +25,13 @@ orangeAnyways = false;
 trgGone = false;
 totalActions = 0;
 longestRowLength = 0;
-npcIdVal = instance_number(obj_npc_position);
+npcIdVal = instance_number(obj_npc_editor);
 
 with obj_trigger_region_parent {
-	rowLength[instance_number(obj_npc_position)] = 0;
+	rowLength[instance_number(obj_npc_editor)] = 0;
 }
 
-for (i = 0; i < instance_number(obj_npc_position) + 1; i += 1) {
+for (i = 0; i < instance_number(obj_npc_editor) + 1; i += 1) {
 	rowLength[i] = 0;
 }
 
@@ -58,6 +58,6 @@ trg.trg = self.id;
 actorTxt = instId1[0];
 
 if instance_exists(obj_trigger_cutscene_region_editor) {
-	obj_trigger_cutscene_region_editor.actorId[instance_number(obj_npc_position)] = self.id;
-	obj_trigger_cutscene_region_editor.actorTxt[instance_number(obj_npc_position)] = actorTxt;
+	obj_trigger_cutscene_region_editor.actorId[instance_number(obj_npc_editor)] = self.id;
+	obj_trigger_cutscene_region_editor.actorTxt[instance_number(obj_npc_editor)] = actorTxt;
 }

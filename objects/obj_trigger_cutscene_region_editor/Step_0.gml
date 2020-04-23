@@ -73,55 +73,20 @@ if spawnTriggers {
 	
 	with instance_create_layer(x,y,"Instances",obj_region_button_vertex) {
 		sortIndex = 0;
-		viewOn = 5;
-		panelId = obj_subpanel_left.id;
+		viewOn = 2;
+		panelId = obj_panel_left.id;
 		sprWidth = (string_width(label) + 5) * 2;
 	}
 	with instance_create_layer(x,y,"Instances",obj_region_button_edge) {
 		sortIndex = 1;
-		viewOn = 5;
-		panelId = obj_subpanel_left.id;
+		viewOn = 2;
+		panelId = obj_panel_left.id;
 		sprWidth = (string_width(label) + 5) * 2;
 		trg = other.id;
 	}
-	with instance_create_layer(x,y,"Instances",obj_scene_button_walk) {
-		sortIndex = 2;
-		viewOn = 5;
-		panelId = obj_subpanel_left.id;
-		sprWidth = (string_width(label) + 5) * 2;
-	}
-	with instance_create_layer(x,y,"Instances",obj_scene_button_rotate) {
-		sortIndex = 3;
-		viewOn = 5;
-		panelId = obj_subpanel_left.id;
-		sprWidth = (string_width(label) + 5) * 2;
-	}
-	with instance_create_layer(x,y,"Instances",obj_scene_button_dialogue) {
-		sortIndex = 4;
-		viewOn = 5;
-		panelId = obj_subpanel_left.id;
-		sprWidth = (string_width(label) + 5) * 2;
-	}
-	with instance_create_layer(x,y,"Instances",obj_scene_button_camera) {
-		sortIndex = 5;
-		viewOn = 5;
-		panelId = obj_subpanel_left.id;
-		sprWidth = (string_width(label) + 5) * 2;
-	}
-	with instance_create_layer(x,y,"Instances",obj_scene_button_speed) {
-		sortIndex = 6;
-		viewOn = 5;
-		panelId = obj_subpanel_left.id;
-		sprWidth = (string_width(label) + 5) * 2;
-	}
-	with instance_create_layer(x,y,"Instances",obj_scene_button_arbitrary) {
-		sortIndex = 7;
-		viewOn = 5;
-		panelId = obj_subpanel_left.id;
-		sprWidth = (string_width(label) + 5) * 2;
-	}
 	
-	event_user(0);
+	scr_panel_calc(obj_panel_left.id);
+	spawnActions = true; // Inherited behavior.
 	
 	#endregion
 }
@@ -186,14 +151,15 @@ if recalculate {
 	#endregion
 }
 
+// Load cutscene information.
 if select {
 	if !trgGone {
 		// Import data
 		scr_import_cutscene(obj_panel_bot,self.id);
 		
-		if !instance_exists(obj_cutscene_actor_dummy_lucy) {
+		if !instance_exists(obj_cutscene_actor_dummy_player) {
 			// Generate stand-in for Minerva
-			with instance_create_layer(x+10,y+10,"Instances",obj_cutscene_actor_dummy_lucy) {
+			with instance_create_layer(x+10,y+10,"Instances",obj_cutscene_actor_dummy_player) {
 				trg = other.id;
 				zfloor = other.zfloor;
 			}

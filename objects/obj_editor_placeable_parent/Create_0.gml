@@ -50,6 +50,7 @@ surfaceResize = true; // Initialize surfaces
 depthIterate = 0;
 spawnButtons = false;
 spawnTriggers = false;
+spawnActions = false;
 canSpawnTriggers = false;
 
 blankCol = c_white;

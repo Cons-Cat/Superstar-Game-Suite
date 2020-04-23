@@ -2,7 +2,7 @@
     "id": "a9672ce8-0f2f-4e6a-99bb-a619f7817683",
     "modelName": "GMObject",
     "mvc": "1.0",
-    "name": "obj_cutscene_actor_dummy_lucy",
+    "name": "obj_cutscene_actor_dummy_player",
     "eventList": [
         {
             "id": "7931a494-fd26-4d15-a6ac-95af3cf4a778",

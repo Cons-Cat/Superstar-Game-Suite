@@ -46,7 +46,7 @@ if select {
 					obj = obj_trigger_cutscene_region_editor;
 					break;
 				case "actor":
-					obj = obj_npc_position;
+					obj = obj_npc_editor;
 					break;
 				case "panScene":
 					obj = obj_trigger_pan_region_editor;

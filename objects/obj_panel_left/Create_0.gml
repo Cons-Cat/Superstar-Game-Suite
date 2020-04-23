@@ -13,6 +13,7 @@ doubleClickCounter = 0;
 trgXOrigin = 0;
 cameraViewOn = 3;
 longestPanelRightButton = 0;
+longestSprWidth = 0;
 x = baseX;
 
 panelWidth = 0;

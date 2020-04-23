@@ -2,7 +2,7 @@
     "id": "cf51da24-5d21-49bf-81e1-443487cbc0a0",
     "modelName": "GMObject",
     "mvc": "1.0",
-    "name": "obj_npc_position",
+    "name": "obj_npc_editor",
     "eventList": [
         {
             "id": "35e3f931-edc5-46ea-8f66-5c30b9b5b137",

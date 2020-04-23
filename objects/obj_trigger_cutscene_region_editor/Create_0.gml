@@ -25,7 +25,7 @@ totalActions = 0;
 longestRowLength = 0;
 actorTxt[0] = "obj_player";
 
-for (i = 0; i < instance_number(obj_npc_position) + 1; i += 1) {
+for (i = 0; i < instance_number(obj_npc_editor) + 1; i += 1) {
 	rowLength[i] = 0;
 }
 

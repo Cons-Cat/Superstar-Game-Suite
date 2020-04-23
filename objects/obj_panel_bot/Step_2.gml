@@ -1,7 +1,6 @@
 /// @description Insert description here
 baseY = ( 9 * 20 * obj_editor_gui.realPortScaleVer ) + ( 60 / 576 * obj_editor_gui.calcWindowHeight );
 x = room_width + view_wport[1]/2;
-//relativeMouseX - room_width = window_mouse_get_x();
 relativeX = x - room_width;
 
 canSelect = false;
@@ -168,7 +167,7 @@ if obj_editor_gui.mode = 4 {
 
 // Cutscene editor
 if instance_number(obj_npc_level) + 1 != rows {
-	rows = instance_number(obj_npc_level) + 1; // Every actor, including the player character
+	rows = instance_number(obj_npc_level) + 1; // Every actor, plus the player character
 	rowLength[rows] = 0;
 	selectRow[rows] = false;
 }
@@ -333,26 +332,34 @@ for (i = 0; i < rows; i += 1) {
 	#region
 	
 	// Initialize actorId[]'s
+	#region
+	
 	if i = 0 {
 		if instance_exists(obj_trigger_cutscene_region_editor) {
-			actorId[i] = obj_trigger_cutscene_region_editor.id;
+			with obj_trigger_cutscene_region_editor {
+				if select {
+					other.actorId[0] = self.id;
+				}
+			}
 		} else {
 			actorId[i] = -1;
 		}
 		
 		actorTxt[i] = "obj_player";
 	} else {
-		actorId[i] = instance_find(obj_npc_position,i - 1);
+		actorId[i] = instance_find(obj_npc_editor,i - 1);
 		actorTxt[i] = actorId[i].actorTxt;
 	}
 	
 	canSelectRow[i] = false;
 	
+	#endregion
+	
 	// Hover over row
+	#region
+	
 	if relativeMouseX - room_width >= 21 && relativeMouseX <= obj_panel_left.baseX - 1 {
 		if relativeMouseY >= y+35 + i*14 - rowsDrawY && relativeMouseY <= y+46 + i*14 - rowsDrawY {
-			#region
-			
 			canSelectRow[i] = true;
 			
 			if mouse_check_button_pressed(mb_left) {
@@ -365,15 +372,15 @@ for (i = 0; i < rows; i += 1) {
 					actorId[i].orangeAnyways = false;
 				}
 			}
-			
-			#endregion
 		}
 	}
+			
+	#endregion
 	
 	// De-select all other rows
+	#region
+	
 	if mouse_check_button_pressed(mb_left) {
-		#region
-		
 		if (relativeMouseX > obj_panel_left.x && relativeMouseY < obj_panel_bot.y) ||
 		(relativeMouseX <= obj_panel_left.x && relativeMouseY >= obj_panel_bot.y)
 		{
@@ -392,9 +399,9 @@ for (i = 0; i < rows; i += 1) {
 				}
 			}
 		}
-		
-		#endregion
 	}
+		
+	#endregion
 	
 	// Select row once 
 	if changeRowSelectTo = i {
@@ -430,6 +437,8 @@ for (i = 0; i < rows; i += 1) {
 }
 
 // Calculating length of timeline
+#region
+
 longestRowLength = 0;
 
 if totalActions > 0 {
@@ -453,6 +462,8 @@ if totalActions > 0 {
 		}
 	}
 }
+
+#endregion
 
 panelWidth = longestRowLength*6 + 2;
 panelHeight = (rows) * 14;
@@ -842,7 +853,6 @@ if updateView {
 	view_visible[6] = view_visible[4];
 	
 	// Minimap
-	
 	#region
 	
 	// Keep width proportional to the height, or vice versa, depending on which is larger

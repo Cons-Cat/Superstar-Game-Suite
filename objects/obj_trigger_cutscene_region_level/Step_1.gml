@@ -7,8 +7,8 @@ if activeState = 0 {
 			
 			for (j = 0; j < rows; j += 1) {
 				if j >= 1 {
-					with obj_npc_position {
-						other.actor[other.j] = instance_find(obj_npc_position,other.j-1).trg; // 1/10'th second, j'th row
+					with obj_npc_editor {
+						other.actor[other.j] = instance_find(obj_npc_editor,other.j-1).trg; // 1/10'th second, j'th row
 					}
 				}
 				

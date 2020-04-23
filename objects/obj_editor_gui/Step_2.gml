@@ -220,7 +220,7 @@ if mode = 2 {
 		with obj_player_overworld {
 			instance_destroy();
 		}
-		with obj_npc_position {
+		with obj_npc_editor {
 			xNode[0] = -1;
 			yNode[0] = -1;
 			i = 0;

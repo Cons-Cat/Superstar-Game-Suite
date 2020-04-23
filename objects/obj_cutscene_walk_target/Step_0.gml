@@ -21,7 +21,7 @@ if (mouse_check_button_released(mb_left)) {
 			obj_panel_bot.yNode[timeIndex] = self.y;
 			obj_trigger_region_parent.alarm[2] = 2;
 			
-			with obj_cutscene_actor_dummy_lucy {
+			with obj_cutscene_actor_dummy_player {
 				instance_destroy();
 			}
 			

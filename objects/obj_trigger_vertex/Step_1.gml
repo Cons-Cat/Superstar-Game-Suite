@@ -10,8 +10,8 @@ if visible {
 					if !select {
 						canSelect = false;
 						
-						if instance_exists(obj_cutscene_actor_dummy_lucy) {
-							obj_cutscene_actor_dummy_lucy.canSelect = false;
+						if instance_exists(obj_cutscene_actor_dummy_player) {
+							obj_cutscene_actor_dummy_player.canSelect = false;
 						}
 					}
 				}

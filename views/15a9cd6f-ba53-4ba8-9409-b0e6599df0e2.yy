@@ -9,7 +9,9 @@
         "ac762b59-501a-4d0e-a618-72e4a308e925",
         "5c828904-1fb4-48c0-b047-45ada11c0287",
         "f2e61555-e78b-420f-848b-a6db14dd5fd3",
-        "b68c0048-1eba-45e0-a844-b825c3dce0ea"
+        "b68c0048-1eba-45e0-a844-b825c3dce0ea",
+        "bf6ea837-b67a-47dd-bb15-6a2d0cbb53b8",
+        "037d61bb-22b4-416f-b295-cfcd3a93dcdb"
     ],
     "filterType": "GMScript",
     "folderName": "Editor Scripts",

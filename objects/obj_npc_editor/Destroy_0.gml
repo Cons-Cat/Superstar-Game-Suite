@@ -1,5 +1,5 @@
 /// @description Insert description here
-with obj_npc_position {
+with obj_npc_editor {
 	if npcIdVal > other.npcIdVal {
 		npcIdVal -= 1;
 	}

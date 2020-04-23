@@ -10,7 +10,7 @@ if select {
 			canDel = true;
 			calcAngleVals = true;
 			
-			trg = other.trg; // obj_npc_position
+			trg = other.trg; // obj_npc_editor
 			originX[0] = x;
 			originY[0] = y;
 			
