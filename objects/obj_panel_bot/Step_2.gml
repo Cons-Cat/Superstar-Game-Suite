@@ -474,7 +474,7 @@ if panelWidth < view_wport[1] - (obj_panel_right.baseX - obj_panel_left.baseX + 
 }
 
 // Drag actions
-cameraNetX = camera_get_view_x(obj_editor_gui.cameraBotPanel) - (camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) ) - view_wport[5] - obj_subpanel_left.longestPanelRightButton;
+cameraNetX = camera_get_view_x(obj_editor_gui.cameraBotPanel) - (camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) ) - panelOffset;
 potentialActionTime = floor( (relativeMouseX - room_width - (obj_panel_left.baseX - room_width + 1) + cameraNetX) / 6);
 
 ax = ( ((scrollHorX - ( obj_panel_left.baseX + 1 - room_width ) - room_width ) / (scrollHorRightBound - scrollHorLeftBound)) * panelWidth ) + 1;
@@ -822,6 +822,15 @@ if !isPlayingScene {
 }
 
 // Views
+#region
+
+// Prevent left sub-panel buttons from ever clipping into the bottom panel
+panelOffset = obj_subpanel_left.longestSprWidth
+
+if panelOffset < obj_subpanel_left.panelWidth {
+	panelOffset = obj_subpanel_left.panelWidth;
+}
+
 if updateView {
 	view_xport[4] = obj_panel_left.baseX - room_width + 1;
 	view_yport[4] = y + 34;
@@ -833,7 +842,7 @@ if updateView {
 	view_wport[6] = obj_panel_left.baseX - room_width - 17;
 	view_hport[6] = view_hport[4];
 	
-	camera_set_view_pos(obj_editor_gui.cameraBotPanel,camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) + camera_get_view_width(obj_editor_gui.cameraLeftSubPanel)  + ( ((scrollHorX - (obj_panel_left.baseX - room_width + 1) - room_width) / (scrollHorRightBound - scrollHorLeftBound)) * panelWidth + longestPanelRightButton),0);
+	camera_set_view_pos(obj_editor_gui.cameraBotPanel,camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) + panelOffset  + ( ((scrollHorX - (obj_panel_left.baseX - room_width + 1) - room_width) / (scrollHorRightBound - scrollHorLeftBound)) * panelWidth),0);
 	camera_set_view_size(obj_editor_gui.cameraBotPanel,view_wport[4],view_hport[4]);
 	
 	camera_set_view_pos(obj_editor_gui.cameraBotPanelActors,camera_get_view_x(obj_editor_gui.cameraBotPanel) + view_wport[4],camera_get_view_y(obj_editor_gui.cameraBotPanel) );
@@ -944,7 +953,11 @@ if updateView {
 	#endregion
 }
 
+#endregion
+
 // Scroll bars
+#region
+
 scrollHorLeftBound = obj_panel_left.baseX;
 scrollHorRightBound = obj_panel_right.baseX
 scrollHorTopBound = y+4;
@@ -960,6 +973,8 @@ scrollRegionX1 = scrollVerLeftBound;
 scrollRegionX2 = scrollHorRightBound;
 scrollRegionY1 = scrollVerTopBound;
 scrollRegionY2 = scrollVerBotBound;
+
+#endregion
 
 event_inherited();
 

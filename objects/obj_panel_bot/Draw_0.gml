@@ -69,10 +69,10 @@ for (i = 1; i <= totalActions; i += 1) {
 		if actionInd[i] != -1 {
 			if actionSelect[i] || actionDelete[i] || ( isPlayingScene && currentAction[actionRowInd[i]] = actionTime[i] ) {
 				// Orange highlight
-				draw_sprite_ext(spr_cutscene_action_second, 0, camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) + view_wport[5] + actionTime[i]*6 + obj_subpanel_left.longestPanelRightButton, 1 + actionRowInd[i]*14 - rowsDrawY, 1, 1, 0, c_orange, 1);
+				draw_sprite_ext(spr_cutscene_action_second, 0, camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) + panelOffset + actionTime[i]*6, 1 + actionRowInd[i]*14 - rowsDrawY, 1, 1, 0, c_orange, 1);
 			} else {
 				// Typical
-				draw_sprite_ext(spr_cutscene_action_second, 0, camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) + view_wport[5] + actionTime[i]*6 + obj_subpanel_left.longestPanelRightButton, 1 + actionRowInd[i]*14 - rowsDrawY, 1, 1, 0, actionColInd[actionInd[i]], 1);
+				draw_sprite_ext(spr_cutscene_action_second, 0, camera_get_view_x(obj_editor_gui.cameraLeftSubPanel) + panelOffset + actionTime[i]*6, 1 + actionRowInd[i]*14 - rowsDrawY, 1, 1, 0, actionColInd[actionInd[i]], 1);
 			}
 		}
 	}

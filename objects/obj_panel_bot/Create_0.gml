@@ -1,6 +1,7 @@
 /// @description Insert description here
 event_inherited();
 
+panelOffset = 0;
 botPanelY = 0;
 baseY = 420;
 dragY = baseY;
@@ -14,7 +15,6 @@ doubleClickCounter = 0;
 trg = -1;
 trgXOrigin = 0;
 cameraViewOn = 4;
-longestPanelRightButton = 0;
 
 panelWidth = 0;
 panelHeight = 0;

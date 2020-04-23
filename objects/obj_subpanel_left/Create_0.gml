@@ -16,7 +16,6 @@ trgXOrigin = 0;
 mousePeek = 0;
 calculateHeight = false;
 tempY = -1;
-longestPanelRightButton = 0;
 longestSprWidth = 0;
 anchored = false;
 

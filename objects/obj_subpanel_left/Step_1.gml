@@ -185,9 +185,10 @@ if !obj_panel_bot.select && !self.select {
 }
 
 // Viewports
-panelOffset = camera_get_view_width(obj_editor_gui.cameraLeftPanel);
 
 // Prevent left panel buttons from ever clipping into the sub-left panel
+panelOffset = obj_panel_left.longestSprWidth
+
 if panelOffset < obj_panel_left.panelWidth {
 	panelOffset = obj_panel_left.panelWidth;
 }

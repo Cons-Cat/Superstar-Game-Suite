@@ -12,6 +12,3 @@ with obj_panel_button {
 		longestSprWidth = obj_panel_right.longestSprWidth;
 	}
 }
-
-obj_subpanel_left.longestPanelRightButton = obj_panel_right.longestSprWidth;
-obj_panel_bot.longestPanelRightButton = obj_panel_right.longestSprWidth;
