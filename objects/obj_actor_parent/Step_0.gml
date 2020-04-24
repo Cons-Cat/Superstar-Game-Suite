@@ -23,6 +23,8 @@ if !activeInScene {
 				x = trg.x + 10;
 				y = trg.y + 10 + trg.zfloor*20;
 				depth = trg.depth - 1;
+				
+				if depthPriority { depth -= 1; }
 			} else {
 				instance_destroy();
 			}

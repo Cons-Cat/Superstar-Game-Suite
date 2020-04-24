@@ -1399,6 +1399,14 @@
             }
         },
         {
+            "Key": "795b26c9-2770-4a75-a037-b2e6079c9d07",
+            "Value": {
+                "id": "14525d31-4095-4bc1-880a-5a6190f41988",
+                "resourcePath": "objects\\obj_cutscene_rotate_target\\obj_cutscene_rotate_target.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "798b31ff-0dd6-4cc9-a6b3-c085c0d10521",
             "Value": {
                 "id": "5f6ff3fb-c2df-4145-a404-2e62396a7b25",
@@ -1628,6 +1636,14 @@
                 "id": "f0066b4c-14ef-4256-89bd-17757af28534",
                 "resourcePath": "sprites\\spr_dia_button_wave\\spr_dia_button_wave.yy",
                 "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "90ff507e-9221-44a1-9cae-6bc6064107ee",
+            "Value": {
+                "id": "d11506d1-a7d7-4b43-a0e2-d08cc8b9a32e",
+                "resourcePath": "objects\\obj_actor_rotate_target\\obj_actor_rotate_target.yy",
+                "resourceType": "GMObject"
             }
         },
         {
@@ -2850,7 +2866,7 @@
             "Key": "ef08e61b-f56f-46c8-9452-86fc307b3edf",
             "Value": {
                 "id": "49ba9ed7-1332-4e94-8f47-39b3380d6d4f",
-                "resourcePath": "objects\\obj_cutscene_rotate_target\\obj_cutscene_rotate_target.yy",
+                "resourcePath": "objects\\obj_rotate_widget\\obj_rotate_widget.yy",
                 "resourceType": "GMObject"
             }
         },

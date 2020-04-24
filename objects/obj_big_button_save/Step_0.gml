@@ -94,7 +94,7 @@ if select {
 				str += string_hash_to_newline("#" + string(obj_panel_bot.rows));
 				
 				for (var j = 0; j < obj_panel_bot.rows; j += 1) {
-					str += string_hash_to_newline("#" + string(trg.actorTxt[j]));
+					str += string_hash_to_newline("#" + string(trg.actorRowTxt[j]));
 				}
 				
 				for (var j = 1; j <= trg.totalActions; j += 1) {

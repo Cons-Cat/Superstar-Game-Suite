@@ -8,7 +8,7 @@ if trg.buttonSelected = 0 {
 			obj_subpanel_left.panelHeight = 0;
 			
 			with obj_panel_button {
-				if panelId = obj_subpanel_left.id {
+				if panelId = obj_subpanel_left.id || panelId = obj_panel_left.id {
 					instance_destroy();
 				}
 			}

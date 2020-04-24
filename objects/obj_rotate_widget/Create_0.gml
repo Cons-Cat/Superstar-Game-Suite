@@ -12,6 +12,8 @@ mirror = false;
 flip = false;
 xTo = x;
 yTo = y;
+originXNet = x;
+originYNet = y;
 calcAngleVals = true;
 initPosition = true;
 

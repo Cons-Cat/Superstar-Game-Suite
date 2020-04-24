@@ -6,6 +6,7 @@ sceneStep = 0;
 sceneLength = sceneStep;
 dir = -1;
 activeInScene = false;
+depthPriority = false;
 
 c_hspeed = 0;
 c_vspeed = 0;

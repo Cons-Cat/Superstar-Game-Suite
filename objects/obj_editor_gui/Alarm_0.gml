@@ -23,7 +23,7 @@ with obj_trigger_cutscene_region_editor {
 			// Initialize ticks
 			for (i = 0; i <= longestRowLength; i += 1) {
 				actionInd[i,j] = -1; // Null action
-				actorTxt[j] = other.actorTxt[j];
+				actorRowTxt[j] = other.actorRowTxt[j];
 			}
 		}
 		

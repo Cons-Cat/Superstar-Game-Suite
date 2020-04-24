@@ -22,12 +22,12 @@ if rows > 0 {
 			draw_rectangle(actorDrawX,-rowsDrawY+i*14,actorDrawX + view_wport[6] - 2,12-rowsDrawY+i*14 - 1,false);
 			
 			draw_set_font(fontDark);
-			draw_text(actorDrawX + 4,2-rowsDrawY+i*14,actorTxt[i]);
+			draw_text(actorDrawX + 4,2-rowsDrawY+i*14,actorRowTxt[i]);
 		} else {
 			draw_set_color(make_color_rgb(200,210,243)); // Light text
 			
 			draw_set_font(fontLight);
-			draw_text(actorDrawX + 4,2-rowsDrawY+i*14,actorTxt[i]);
+			draw_text(actorDrawX + 4,2-rowsDrawY+i*14,actorRowTxt[i]);
 		}
 	}
 	

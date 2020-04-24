@@ -335,8 +335,8 @@ for (i = 0; i < rows; i += 1) {
 	#region
 	
 	if i = 0 {
-		if instance_exists(obj_trigger_cutscene_region_editor) {
-			with obj_trigger_cutscene_region_editor {
+		if instance_exists(obj_trigger_region_parent) {
+			with obj_trigger_region_parent {
 				if select {
 					other.actorId[0] = self.id;
 				}
@@ -345,10 +345,10 @@ for (i = 0; i < rows; i += 1) {
 			actorId[i] = -1;
 		}
 		
-		actorTxt[i] = "obj_player";
+		actorRowTxt[i] = "obj_player";
 	} else {
-		actorId[i] = instance_find(obj_npc_editor,i - 1);
-		actorTxt[i] = actorId[i].actorTxt;
+		actorId[i] = instance_find(obj_npc_editor, i - 1);
+		actorRowTxt[i] = actorId[i].actorTxt;
 	}
 	
 	canSelectRow[i] = false;
@@ -404,13 +404,13 @@ for (i = 0; i < rows; i += 1) {
 	#endregion
 	
 	// Select row once 
+	#region
+	
 	if changeRowSelectTo = i {
-		#region
-		
 		if !instance_exists(obj_cutscene_target_parent) {
 			changeRowSelectTo = -1; // Out of the for loop's domain
 			
-			// Select previously selected row
+			// De-select previously selected row
 			for (j = 0; j < rows; j += 1) {
 				selectRow[j] = false;
 			}
@@ -425,10 +425,24 @@ for (i = 0; i < rows; i += 1) {
 			}
 		}
 		
-		#endregion
+		if instance_exists(obj_cutscene_actor_dummy_player) {
+			if instance_exists(obj_npc_level) {
+				if i = 0 {
+					obj_cutscene_actor_dummy_player.depthPriority = true;
+					obj_npc_level.depthPriority = false;
+				} else {
+					obj_cutscene_actor_dummy_player.depthPriority = false;
+					
+					with actorId[i] {
+						trg.depthPriority = true;
+					}
+				}
+			}
+		}
 	}
 	
-	// hasRowSelected
+	#endregion
+	
 	if selectRow[i] {
 		hasRowSelected = true;
 	}
@@ -735,7 +749,7 @@ if cutsceneInstanceId != -1 {
 				
 				for (i = 0; i < rows; i += 1) {
 					cutsceneInstanceId.rowLength[i] = self.rowLength[i];
-					cutsceneInstanceId.actorTxt[i] = self.actorTxt[i];
+					cutsceneInstanceId.actorRowTxt[i] = self.actorRowTxt[i];
 					rowLength[i] = 0;
 				}
 				

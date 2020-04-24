@@ -171,7 +171,7 @@ if select {
 					file_text_readln(export)
 					
 					for (var j = 0; j < obj_panel_bot.rows; j += 1) {
-						actorTxt[j] = file_text_read_string(export);
+						actorRowTxt[j] = file_text_read_string(export);
 						file_text_readln(export)
 					}
 					

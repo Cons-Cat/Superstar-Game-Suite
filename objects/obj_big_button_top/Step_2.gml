@@ -28,6 +28,7 @@ if select {
 	}
 	
 	obj_editor_gui.selectInstance = -1; // Reset the selected instance
+	obj_editor_gui.canChangeSelect = true;
 	
 	alarm[0] = 17;
 }

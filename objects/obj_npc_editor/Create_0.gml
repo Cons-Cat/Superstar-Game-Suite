@@ -59,5 +59,5 @@ actorTxt = instId1[0];
 
 if instance_exists(obj_trigger_cutscene_region_editor) {
 	obj_trigger_cutscene_region_editor.actorId[instance_number(obj_npc_editor)] = self.id;
-	obj_trigger_cutscene_region_editor.actorTxt[instance_number(obj_npc_editor)] = actorTxt;
+	obj_trigger_cutscene_region_editor.actorRowTxt[instance_number(obj_npc_editor)] = actorTxt;
 }
