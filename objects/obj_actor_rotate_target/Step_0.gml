@@ -5,6 +5,7 @@ if (mouse_check_button_released(mb_left)) {
 	if canRelease {
 		if canDel {
 			with trg {
+				obj_actor_button_rotate.angle = angle;
 				angle = other.angleExport;
 				trg.dirIsoDef = other.angleExport;
 			}

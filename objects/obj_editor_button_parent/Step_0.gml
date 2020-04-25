@@ -66,7 +66,7 @@ if mouse_check_button_pressed(mb_left) {
 				}
 			}
 			
-			if instance_exists(obj_subpanel_button) {
+			/*if instance_exists(obj_subpanel_button) {
 				for (i = 0; i < instance_number(obj_subpanel_button); i++) {
 					if instance_find(obj_subpanel_button,i).select {
 						selfCanDeSelect = false;
@@ -74,7 +74,7 @@ if mouse_check_button_pressed(mb_left) {
 						break;
 					}
 				}
-			}
+			}*/
 			
 			if selfCanDeSelect {
 				alarm[0] = 2;

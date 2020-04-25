@@ -102,10 +102,11 @@ if spawnTriggers {
 		panelId = obj_subpanel_left.id;
 		sprWidth = (string_width(label) + 5) * 2;
 	}
-	with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
+	with instance_create_layer(x,y,"Instances",obj_panel_button_wheel) {
+		label = "Angle";
+		
 		sortIndex = 3;
 		buttonType = 1;
-		label = "Angle";
 		viewOn = 5;
 		panelId = obj_subpanel_left.id;
 		angle = other.angle;
@@ -114,7 +115,9 @@ if spawnTriggers {
 		
 		other.angleId = self.id;
 	}
-	with instance_create_layer(x,y,"Instances",obj_region_button_magnitude) {
+	with instance_create_layer(x,y,"Instances",obj_panel_buton_input_num) {
+		label = "Magnitude";
+		
 		sortIndex = 4;
 		viewOn = 5;
 		panelId = obj_subpanel_left.id;
@@ -122,11 +125,14 @@ if spawnTriggers {
 		valueLength = string_width(arbitraryVal)*2 + 4;
 		trg = other.id;
 		sprWidth = (string_width(label) + 5) * 2;
+		
+		other.magnitudeId = self.id;
 	}
-	with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
+	with instance_create_layer(x,y,"Instances",obj_panel_buton_input_num) {
+		label = "Zoom Percent";
+		
 		sortIndex = 5;
 		viewOn = 5;
-		label = "Zoom Percent";
 		buttonType = 2;
 		arbitraryVal = string(other.zoomVal);
 		valueLength = string_width(arbitraryVal)*2 + 4;
@@ -217,10 +223,14 @@ if select {
 		obj_region_button_threshold.trg = self.id;
 	}
 	if instance_exists(angleId) {
-		self.angle = angleId.angle;
+		if angleId != - 1 {
+			self.angle = angleId.angle;
+		}
 	}
-	if instance_exists(obj_region_button_magnitude) {
-		self.magnitude = obj_region_button_magnitude.arbitraryVal;
+	if instance_exists(magnitudeId) {
+		if magnitudeId != -1 {
+			self.magnitude = magnitudeId.arbitraryVal;
+		}
 	}
 	
 	if valueButtonsExist {

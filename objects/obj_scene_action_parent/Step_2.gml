@@ -7,6 +7,7 @@ if select {
 			obj_cutscene_target_parent.canDel = true;
 		} else {
 			obj_panel_bot.addClick = value;
+			
 			select = false;
 		}
 	} else {

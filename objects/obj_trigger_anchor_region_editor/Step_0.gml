@@ -17,60 +17,69 @@ if spawnButtons {
 		trg = other.id;
 	}
 	
-	with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
+	with instance_create_layer(x,y,"Instances",obj_panel_buton_input_num) {
+		label = "Minor Radius";
+		
 		sortIndex = 0;
 		viewOn = 5;
-		label = "Minor Radius";
 		buttonType = 2;
 		arbitraryVal = string(other.minorRadius / 20);
 		valueLength = string_width(arbitraryVal)*2 + 4;
-		other.minorId = self.id;
 		panelId = obj_subpanel_left.id;
 		trg = other.id;
 		sprWidth = (string_width(label) + 5) * 2;
+		
+		other.minorId = self.id;
 	}
-	with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
+	with instance_create_layer(x,y,"Instances",obj_panel_buton_input_num) {
+		label = "Major Radius";
+		
 		sortIndex = 1;
 		viewOn = 5;
-		label = "Major Radius";
 		buttonType = 2;
 		arbitraryVal = string(other.majorRadius / 20);
 		valueLength = string_width(arbitraryVal)*2 + 4;
-		other.majorId = self.id;
 		panelId = obj_subpanel_left.id;
 		trg = other.id;
 		sprWidth = (string_width(label) + 5) * 2;
+		
+		other.majorId = self.id;
 	}
-	with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
+	with instance_create_layer(x,y,"Instances",obj_panel_buton_input_num) {
 		sortIndex = 2;
 		viewOn = 5;
-		label = "Threshold Radius";
+		label = "Threshold";
 		buttonType = 2;
 		arbitraryVal = string(other.thresholdRadius);
 		valueLength = string_width(arbitraryVal)*2 + 4;
-		other.thresholdId = self.id;
 		panelId = obj_subpanel_left.id;
 		trg = other.id;
 		sprWidth = (string_width(label) + 5) * 2;
+		
+		other.thresholdId = self.id;
 	}
 	with instance_create_layer(x,y,"Instances",obj_region_button_target) {
+		label = "Target";
+		
 		sortIndex = 3;
 		viewOn = 5;
 		panelId = obj_subpanel_left.id;
 		trg = other.id;
 		sprWidth = (string_width(label) + 5) * 2;
 	}
-	with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
+	with instance_create_layer(x,y,"Instances",obj_panel_buton_input_num) {
+		label = "Zoom Percent";
+		
 		sortIndex = 4;
 		viewOn = 5;
-		label = "Zoom Percent";
 		buttonType = 2;
 		arbitraryVal = string(other.zoomVal);
 		valueLength = string_width(arbitraryVal)*2 + 4;
-		other.zoomId = self.id;
 		panelId = obj_subpanel_left.id;
 		trg = other.id;
 		sprWidth = (string_width(label) + 5) * 2;
+		
+		other.zoomId = self.id;
 	}
 	
 	valueButtonsExist = true;

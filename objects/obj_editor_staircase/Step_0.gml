@@ -47,7 +47,7 @@ if spawnTriggers {
 	
 	spawnTriggers = false;
 	
-	with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
+	with instance_create_layer(x,y,"Instances",obj_panel_button_wheel) {
 		sortIndex = 0;
 		viewOn = 5;
 		label = "Angle";
@@ -59,7 +59,7 @@ if spawnTriggers {
 		trg = other.id;
 		sprWidth = (string_width(label) + 5) * 2;
 	}
-	with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
+	with instance_create_layer(x,y,"Instances",obj_panel_buton_input_num) {
 		sortIndex = 1;
 		viewOn = 5;
 		label = "Rise";
@@ -72,7 +72,7 @@ if spawnTriggers {
 		trg = other.id;
 		sprWidth = (string_width(label) + 5) * 2;
 	}
-	with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
+	with instance_create_layer(x,y,"Instances",obj_panel_buton_input_num) {
 		sortIndex = 2;
 		viewOn = 5;
 		label = "Run";
@@ -85,7 +85,7 @@ if spawnTriggers {
 		trg = other.id;
 		sprWidth = (string_width(label) + 5) * 2;
 	}
-	with instance_create_layer(x,y,"Instances",obj_subpanel_button) {
+	with instance_create_layer(x,y,"Instances",obj_panel_buton_input_num) {
 		sortIndex = 3;
 		viewOn = 5;
 		label = "Steps";
@@ -157,8 +157,7 @@ if select {
 	}
 	
 	if instance_exists(stepsId) {
-		// This is some random object with index 104 when the staircase is first placed.
-		if stepsId.object_index = obj_subpanel_button {
+		if stepsId != -1 {
 			if stepsId.select {
 				if stepsId.arbitraryVal != "" {
 					if stepsId.arbitraryVal > 0 {

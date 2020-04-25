@@ -78,6 +78,9 @@ if spawnTriggers {
 		sprWidth = (string_width(label) + 5) * 2;
 	}
 	with instance_create_layer(x,y,"Instances",obj_region_button_edge) {
+		label = "Edge";
+		sprite_index = spr_editor_region_edge;
+		
 		sortIndex = 1;
 		viewOn = 2;
 		panelId = obj_panel_left.id;

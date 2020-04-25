@@ -5,16 +5,6 @@
     "name": "obj_region_button_target",
     "eventList": [
         {
-            "id": "3de110b9-2431-4552-a65a-f1ac4c7fc440",
-            "modelName": "GMEvent",
-            "mvc": "1.0",
-            "IsDnD": false,
-            "collisionObjectId": "00000000-0000-0000-0000-000000000000",
-            "enumb": 0,
-            "eventtype": 0,
-            "m_owner": "a1643fff-d5cf-48be-9579-9ec1c24713c4"
-        },
-        {
             "id": "c8cef7e8-fae8-43b6-8fa2-2897a3224825",
             "modelName": "GMEvent",
             "mvc": "1.0",
@@ -23,11 +13,21 @@
             "enumb": 2,
             "eventtype": 3,
             "m_owner": "a1643fff-d5cf-48be-9579-9ec1c24713c4"
+        },
+        {
+            "id": "46384faa-e400-45e8-9f9f-6978d641b54a",
+            "modelName": "GMEvent",
+            "mvc": "1.0",
+            "IsDnD": false,
+            "collisionObjectId": "00000000-0000-0000-0000-000000000000",
+            "enumb": 0,
+            "eventtype": 8,
+            "m_owner": "a1643fff-d5cf-48be-9579-9ec1c24713c4"
         }
     ],
     "maskSpriteId": "00000000-0000-0000-0000-000000000000",
     "overriddenProperties": null,
-    "parentObjectId": "b0cf9ea0-ffd6-4000-a99a-b0685573eda3",
+    "parentObjectId": "00000000-0000-0000-0000-000000000000",
     "persistent": false,
     "physicsAngularDamping": 0.1,
     "physicsDensity": 0.5,

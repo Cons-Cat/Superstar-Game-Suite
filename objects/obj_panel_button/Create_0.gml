@@ -2,10 +2,12 @@
 select = false;
 canSelect = false;
 canRelease = false;
-objIndex = -1;
 imgIndex = 0;
 gone = false;
 selectState = 0;
+
+trg = -1;
+label = "";
 
 relativeMouseX = -1;
 relativeMouseY = -1;
@@ -17,17 +19,6 @@ sprWidth = -1;
 longestSprWidth = -1;
 sprHeight = 30;
 width = -1;
-
-// Data
-label = "";
-buttonType = 0; // 0 is a generic button, 1 is a wheel button, 2 is a value input button, -1 does not inherit behavior.
-angle = -1;
-w = sprite_get_width(spr_editor_region_wheel);
-h = sprite_get_height(spr_editor_region_wheel);
-arbitraryVal = "0";
-trg = -1;
-
-decimalPlace = -1;
 
 // Colors
 insideCol = make_color_rgb(255,160,64); // Light orange

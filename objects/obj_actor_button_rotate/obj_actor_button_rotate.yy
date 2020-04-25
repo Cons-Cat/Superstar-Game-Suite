@@ -5,16 +5,6 @@
     "name": "obj_actor_button_rotate",
     "eventList": [
         {
-            "id": "00c212fb-9a3c-4345-93f1-8192c1b17ace",
-            "modelName": "GMEvent",
-            "mvc": "1.0",
-            "IsDnD": false,
-            "collisionObjectId": "00000000-0000-0000-0000-000000000000",
-            "enumb": 0,
-            "eventtype": 0,
-            "m_owner": "fd8cf224-4fd4-4ec4-873a-409910e40dc5"
-        },
-        {
             "id": "fcc5ce0d-25f3-412b-993a-2a5554b6a271",
             "modelName": "GMEvent",
             "mvc": "1.0",
@@ -22,6 +12,16 @@
             "collisionObjectId": "00000000-0000-0000-0000-000000000000",
             "enumb": 2,
             "eventtype": 3,
+            "m_owner": "fd8cf224-4fd4-4ec4-873a-409910e40dc5"
+        },
+        {
+            "id": "e8189593-cd80-4eb0-9466-e5f50dc80194",
+            "modelName": "GMEvent",
+            "mvc": "1.0",
+            "IsDnD": false,
+            "collisionObjectId": "00000000-0000-0000-0000-000000000000",
+            "enumb": 0,
+            "eventtype": 8,
             "m_owner": "fd8cf224-4fd4-4ec4-873a-409910e40dc5"
         }
     ],

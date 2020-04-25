@@ -27,15 +27,21 @@ if spawnTriggers {
 	spawnTriggers = false;
 	
 	with instance_create_layer(x,y,"Instances",obj_actor_button_rotate) {
+		label = "Rotation";
+		sprite_index = spr_scene_rotate;
+		
 		trg = other.id;
 		sortIndex = 0;
 		viewOn = 2;
 		panelId = obj_panel_left.id;
 		sprWidth = (string_width(label) + 5) * 2;
-		angle = other.angle;
+		angle = trg.angle;
 		calcAngleVals = true;
 	}
 	with instance_create_layer(x,y,"Instances",obj_actor_button_scene) {
+		label = "Event 1";
+		sprite_index = spr_editor_trigger_scene;
+		
 		trg = other.id;
 		sortIndex = 1;
 		viewOn = 2;
