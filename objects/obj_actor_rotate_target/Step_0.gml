@@ -8,6 +8,8 @@ if (mouse_check_button_released(mb_left)) {
 				obj_actor_button_rotate.angle = angle;
 				angle = other.angleExport;
 				trg.dirIsoDef = other.angleExport;
+				//alarm[2] = 2;
+				//canDeSelect = true;
 			}
 			
 			instance_destroy();

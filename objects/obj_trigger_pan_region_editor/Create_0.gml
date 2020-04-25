@@ -18,10 +18,6 @@ broken = true;
 list = ds_list_create();
 list2 = ds_list_create();
 
-canSelect = false;
-select = 0;
-placed = 0;
-buttonSelected = 0;
 depthIterate = 0;
 zoomId = -1;
 angleId = -1;

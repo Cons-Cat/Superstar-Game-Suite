@@ -13,9 +13,6 @@ recalculate = false;
 broken = true;
 list = ds_list_create();
 
-canSelect = false;
-select = 0;
-placed = 0;
 buttonSelected = 0;
 depthIterate = 0;
 

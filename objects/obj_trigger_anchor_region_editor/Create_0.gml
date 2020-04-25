@@ -14,10 +14,6 @@ thresholdRadius = 1;
 angle = 0;
 zoomVal = 100;
 
-canSelect = false;
-select = 0;
-placed = 0;
-buttonSelected = 0;
 depthIterate = 0;
 anchorId = -1;
 valueButtonsExist = false;

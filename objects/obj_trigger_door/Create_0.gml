@@ -14,10 +14,6 @@ if obj_tile_z.z >= 0 {
 	zcieling = 0;
 }
 
-select = 0;
-placed = 0;
-buttonSelected = 0;
-
 // Graphics IDs
 instId1[0] = "inst_"; // Graphics
 instId1[1] = "inst_"; // Front collision

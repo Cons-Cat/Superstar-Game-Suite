@@ -7,10 +7,6 @@ modeForSelectVal = 4;
 width = 1;
 height = 1;
 
-canSelect = false;
-select = 0;
-placed = 0;
-buttonSelected = 0;
 depthIterate = 0;
 
 floorTrg = 0;

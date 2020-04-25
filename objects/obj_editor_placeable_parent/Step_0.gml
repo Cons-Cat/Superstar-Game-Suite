@@ -22,7 +22,7 @@ if placed != 0 {
 					canSpawnTriggers = true;
 					
 					select = true;
-					buttonSelected = 1;
+					buttonSelected = true;
 					obj_editor_gui.canChangeSelect = false;
 					
 					// Slide left panel in
@@ -65,7 +65,7 @@ if placed != 0 {
 					canSpawnTriggers = true;
 					
 					select = true;
-					buttonSelected = 1;
+					buttonSelected = true;
 					obj_editor_gui.canChangeSelect = false;
 					
 					// Slide sub-panel in

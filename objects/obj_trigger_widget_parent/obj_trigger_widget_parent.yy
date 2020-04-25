@@ -2,13 +2,13 @@
     "id": "f070fbd5-53ef-496f-90e8-0a52bdcc0265",
     "modelName": "GMObject",
     "mvc": "1.0",
-    "name": "obj_cutscene_target_parent",
+    "name": "obj_trigger_widget_parent",
     "eventList": [
         
     ],
     "maskSpriteId": "00000000-0000-0000-0000-000000000000",
     "overriddenProperties": null,
-    "parentObjectId": "b5d2eec9-7816-4f84-acb2-a7b6a46c08ec",
+    "parentObjectId": "00000000-0000-0000-0000-000000000000",
     "persistent": false,
     "physicsAngularDamping": 0.1,
     "physicsDensity": 0.5,

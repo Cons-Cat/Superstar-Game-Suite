@@ -26,7 +26,7 @@ if canDragDelayed {
 					
 					// Select
 					if mouse_y < obj_panel_bot.y {
-						if !instance_exists(obj_cutscene_target_parent) {
+						if !instance_exists(obj_trigger_widget_parent) {
 							if relativeMouseX >= bbox_left && relativeMouseX <= bbox_right {
 								if (relativeMouseY >= bbox_top - (zfloor * 20) && relativeMouseY <= bbox_bottom - (zfloor * 20)) {
 									obj_region_button_edge.vertexTempHover = self.id;

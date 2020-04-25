@@ -384,7 +384,7 @@ for (i = 0; i < rows; i += 1) {
 		if (relativeMouseX > obj_panel_left.x && relativeMouseY < obj_panel_bot.y) ||
 		(relativeMouseX <= obj_panel_left.x && relativeMouseY >= obj_panel_bot.y)
 		{
-			if !instance_exists(obj_cutscene_target_parent) {
+			if !instance_exists(obj_trigger_widget_parent) {
 				if !canSelectRow[i] {
 					selectRow[i] = false;
 					actorId[i].orangeAnyways = false;
@@ -407,7 +407,7 @@ for (i = 0; i < rows; i += 1) {
 	#region
 	
 	if changeRowSelectTo = i {
-		if !instance_exists(obj_cutscene_target_parent) {
+		if !instance_exists(obj_trigger_widget_parent) {
 			changeRowSelectTo = -1; // Out of the for loop's domain
 			
 			// De-select previously selected row

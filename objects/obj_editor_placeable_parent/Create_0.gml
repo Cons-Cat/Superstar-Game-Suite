@@ -42,7 +42,6 @@ cielY = 0;
 select = true;
 canSelect = true;
 placed = 0;
-buttonSelected = 0;
 canDeSelect = true;
 calculateSub = false; // Generate surface
 surfaceResize = true; // Initialize surfaces

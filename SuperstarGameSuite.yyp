@@ -2842,7 +2842,7 @@
             "Key": "f070fbd5-53ef-496f-90e8-0a52bdcc0265",
             "Value": {
                 "id": "d34fbd33-3b39-4a3e-b5d6-a4be78991b03",
-                "resourcePath": "objects\\obj_cutscene_target_parent\\obj_cutscene_target_parent.yy",
+                "resourcePath": "objects\\obj_trigger_widget_parent\\obj_trigger_widget_parent.yy",
                 "resourceType": "GMObject"
             }
         },
