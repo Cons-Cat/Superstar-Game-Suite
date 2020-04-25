@@ -5,10 +5,6 @@ if select {
 			if mouse_check_button_released(mb_left) {
 				obj_editor_gui.canChangeSelect = true;
 				
-				/*with obj_subpanel_button {
-					instance_destroy();
-				}*/
-			
 				with trg {
 					instance_destroy();
 				}

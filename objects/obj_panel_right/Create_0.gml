@@ -17,9 +17,6 @@ trgXOrigin = 0;
 longestSprWidth = 0;
 panelId = 3;
 
-calculateHeight = false;
-calculateWidth = false;
-
 x = baseX;
 
 panelWidth = 0;

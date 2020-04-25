@@ -104,25 +104,6 @@ if select {
 	#endregion
 }
 
-if calculateHeight {
-	#region
-	
-	calculateHeight = false;
-	tempHeight = 3;
-	
-	for (i = 0; i < instance_number(obj_subpanel_button); i += 1) {
-		tempTrg = instance_find(obj_subpanel_button,i);
-		
-		if tempTrg.viewOn = 5 { // If this button draws to the sub-left panel
-			tempHeight += 45;
-		}
-	}
-	
-	panelHeight = tempHeight - 4;
-	
-	#endregion
-}
-
 if !mouse_check_button(mb_left) {
 	if y >= obj_panel_bot.y {
 		if moveToSpd = 0 {

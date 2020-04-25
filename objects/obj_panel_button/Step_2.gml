@@ -1,6 +1,8 @@
 /// @description Insert description here
 
 if trg != -1 {
+	panelId.calculateHeight = true;
+	
 	if instance_exists(trg) {
 		if !trg.select {
 			instance_destroy();
@@ -11,6 +13,8 @@ if trg != -1 {
 }
 
 // Selecting / de-selecting
+#region
+
 if ((mouse_x >= x && mouse_x <= x + sprWidth) || (mouse_x >= x + sprWidth + 3 && mouse_x <= x + sprWidth + 34))
 && mouse_y >= y - 1 && mouse_y <= y + sprHeight + 1 {
 	canSelect = true;
@@ -28,6 +32,7 @@ if mouse_check_button_pressed(mb_left) {
 	} else {
 		if !( !canSelect && (object_index = obj_region_button_edge || object_index = obj_region_button_threshold) ) {
 			select = false;
+			obj_editor_gui.canChangeSelect = true;
 		}
 	}
 }
@@ -39,7 +44,11 @@ if mouse_check_button_released(mb_left) {
 	}
 }
 
+#endregion
+
 // Colors
+#region
+
 if select {
 	selectState = 2;
 	
@@ -57,7 +66,11 @@ if select {
 	font = obj_editor_gui.font;
 }
 
+#endregion
+
 // Sorting
+#region
+
 fillHor = abs(panelId.scrollHorRightBound - panelId.scrollHorLeftBound + 1) div (longestSprWidth);
 
 if fillHor > 0 {
@@ -70,5 +83,7 @@ if fillHor > 0 {
 
 x = camera_get_view_x(view_camera[viewOn]) + 2 + sortX;
 y = camera_get_view_y(view_camera[viewOn]) + 3 + sortY - (panelId.panelHeight - (panelId.scrollVerBotBound - panelId.scrollVerTopBound + 9)) * panelId.scrollVerPartition / 100;
+
+#endregion
 
 gone = true;

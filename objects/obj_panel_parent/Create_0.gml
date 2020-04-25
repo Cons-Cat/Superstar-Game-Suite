@@ -41,5 +41,6 @@ onBase = 1;
 
 exitInterface = false;
 updateView = true;
+calculateHeight = false;
 
 image_speed = 0;

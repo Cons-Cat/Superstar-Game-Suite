@@ -116,23 +116,7 @@ if select {
 	x = dragX;
 }
 
-// Calculate dimensions based on the buttons on this panel
-if calculateHeight && obj_editor_gui.mode != 3 {
-	tempHeight = 3;
-	
-	for (i = 0; i < instance_number(obj_panel_button); i += 1) {
-		tempTrg = instance_find(obj_panel_button,i);
-		
-		if tempTrg.viewOn = 3 { // If this button draws to the right panel
-			tempHeight += 45;
-		}
-	}
-	
-	panelHeight = tempHeight;
-	calculateHeight = false;
-}
-
-if calculateWidth {
+/*if calculateWidth {
 	tempWidth = 0;
 	
 	for (i = 0; i < instance_number(obj_panel_button); i += 1) {
@@ -149,7 +133,7 @@ if calculateWidth {
 	
 	panelWidth = tempWidth;
 	calculateWidth = false;
-}
+}*/
 
 if mouse_check_button_released(mb_left) {
 	if obj_editor_gui.sidePanelCtrl = 1 {
