@@ -1,13 +1,8 @@
 /// @description Insert description here
-
 if trg != -1 {
-	panelId.calculateHeight = true;
-	
-	if instance_exists(trg) {
-		if !trg.select {
-			instance_destroy();
-		}
-	} else {
+	if !instance_exists(trg) {
+		panelId.calculateHeight = true;
+		
 		instance_destroy();
 	}
 }

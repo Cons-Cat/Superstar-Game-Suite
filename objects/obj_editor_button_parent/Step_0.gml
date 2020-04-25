@@ -32,7 +32,8 @@ if mouse_check_button_pressed(mb_left) {
 			// Every exception case
 			//if (obj_editor_gui.mode = 4 && mouse_y <= obj_panel_bot.y) {
 				if instance_exists(obj_trigger_widget_parent) {
-					if collision_rectangle(mouseCheckX-1,mouseCheckY-1+(obj_trigger_vertex.zfloor*20),mouseCheckX+1,mouseCheckY+1+(obj_trigger_vertex.zfloor*20),obj_trigger_vertex,false,false) {
+					if obj_trigger_widget_parent.mouseHover {
+					//if collision_rectangle(mouseCheckX-1,mouseCheckY-1+(obj_trigger_widget_parent.zfloor*20),mouseCheckX+1,mouseCheckY+1+(obj_trigger_widget_parent.zfloor*20),obj_trigger_widget_parent,false,false) {
 						selfCanDeSelect = false;
 					}
 				}

@@ -6,6 +6,8 @@ modeForSelectVal = 4;
 
 width = 1;
 height = 1;
+angle = 0;
+angleExport = angle;
 
 depthIterate = 0;
 

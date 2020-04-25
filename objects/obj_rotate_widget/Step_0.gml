@@ -106,7 +106,7 @@ if canPlace {
 		// Pass values out
 		with trg {
 			angle = other.angle;
-			trg.dirIsoDef = other.angleExport;
+			trg.dirIsoDefault = other.angleExport;
 		}
 	}
 } else {

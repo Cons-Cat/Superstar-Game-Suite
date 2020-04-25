@@ -59,21 +59,18 @@ if placed = 1 {
 	#region
 	
 	if instance_exists(obj_editor_gui) {
-		if !instance_exists(obj_cutscene_rotate_target) {
+		if !instance_exists(obj_actor_rotate_target) {
 			if obj_editor_gui.mode = 4 { // Trigger mode
-				with instance_create_layer(x,y,"Instances",obj_cutscene_rotate_target) {
+				with instance_create_layer(x+10,y+10,"Instances",obj_actor_rotate_target) {
 					trg = other.id;
 					zfloor = other.zfloor;
-					angle = 0;
+					angle = other.angle;
 					
 					calcAngleVals = true;
 					
-					originX[0] = x + 10;
-					originY[0] = y + 10;
-					
 					canPlace = true;
-					canDel = true;
 					canRelease = true;
+					canDel = true;
 				}
 				
 				placed = 2;

@@ -711,14 +711,6 @@
             }
         },
         {
-            "Key": "42dd1ce7-6659-4b72-8d29-4097d8277b00",
-            "Value": {
-                "id": "2bcaa8d3-3d04-4ff3-958a-afd7c68fb94e",
-                "resourcePath": "objects\\obj_trigger_button_actor\\obj_trigger_button_actor.yy",
-                "resourceType": "GMObject"
-            }
-        },
-        {
             "Key": "43bc7992-c353-4ff2-833a-11a23d8b8830",
             "Value": {
                 "id": "9a19e693-7426-4e0f-8581-87b4111e5bed",

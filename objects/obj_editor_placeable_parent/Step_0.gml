@@ -1,4 +1,5 @@
 /// @description Manipulating dimensions and place
+show_debug_message(canDeSelect);
 if obj_editor_gui.mode = modeForSelectVal {
 	modeForSelect = true;
 } else {
@@ -15,76 +16,76 @@ if placed != 0 {
 	// De-selection handled by obj_editor_button_parent
 	if canSelect { // If an instance is hovered over
 		if modeForSelect {
-			if obj_editor_gui.mode = 4 {
-				// Trigger instances
-				if mouse_check_button_pressed(mb_left) && !instance_exists(obj_editor_button_parent) {
-					spawnButtons = true;
-					canSpawnTriggers = true;
-					
-					select = true;
-					buttonSelected = true;
-					obj_editor_gui.canChangeSelect = false;
-					
-					// Slide left panel in
-					global.tempXLeft = obj_panel_left.x;
-					obj_panel_left.exitInterface = true;
-					obj_panel_left.moveToX = 0;
-					obj_panel_left.moveToSpd = (global.tempXLeft - room_width) / 6;
-					obj_panel_left.moveDirection = 1;
-					obj_panel_left.panelWidth = 0;
-					obj_panel_left.scrollPanelHorDefined = false;
-					
-					// Standard formula to solve for time, given speed and distance
-					// +5 is a pause to dramatize the motion
-					obj_panel_left.alarm[1] = (global.tempXLeft - room_width) / obj_panel_left.moveToSpd + 5;
-					
-					alarm[1] = obj_panel_left.alarm[1];
-				}
-			} else if obj_editor_gui.mode = 3 {
-				// Tiling for collisions instances
-				if mouse_check_button_pressed(mb_left) {
-					if modeForSelect = 0 || modeForSelect = 1 {
-						canSpawnTiles = true;
+			if !instance_exists(obj_editor_button_parent) {
+				if obj_editor_gui.mode = 4 {
+					// Trigger instances
+					if mouse_check_button_pressed(mb_left) {
+						spawnButtons = true;
+						canSpawnTriggers = true;
 						
-						// Slide side panels in
-						if obj_panel_left.moveToSpd = 0 && obj_panel_right.moveToSpd = 0 {
-							global.tempXLeft = obj_panel_left.x;
-							global.tempXRight = obj_panel_right.x;
+						select = true;
+						obj_editor_gui.canChangeSelect = false;
+						
+						// Slide left panel in
+						global.tempXLeft = obj_panel_left.x;
+						obj_panel_left.exitInterface = true;
+						obj_panel_left.moveToX = 0;
+						obj_panel_left.moveToSpd = (global.tempXLeft - room_width) / 6;
+						obj_panel_left.moveDirection = 1;
+						obj_panel_left.panelWidth = 0;
+						obj_panel_left.scrollPanelHorDefined = false;
+						
+						// Standard formula to solve for time, given speed and distance
+						// +5 is a pause to dramatize the motion
+						obj_panel_left.alarm[1] = (global.tempXLeft - room_width) / obj_panel_left.moveToSpd + 5;
+						
+						alarm[1] = obj_panel_left.alarm[1];
+					}
+				} else if obj_editor_gui.mode = 3 {
+					// Tiling for collisions instances
+					if mouse_check_button_pressed(mb_left) {
+						if modeForSelect = 0 || modeForSelect = 1 {
+							canSpawnTiles = true;
+							
+							// Slide side panels in
+							if obj_panel_left.moveToSpd = 0 && obj_panel_right.moveToSpd = 0 {
+								global.tempXLeft = obj_panel_left.x;
+								global.tempXRight = obj_panel_right.x;
+							}
+							
+							obj_panel_right.exitInterface = true;
+							obj_panel_left.exitInterface = true;
+							
+							alarm[1] = 18;
+						}
+					}
+				} else {
+					// Collision instances
+					if mouse_check_button_pressed(mb_left) {
+						spawnButtons = true; // Button instances are spawned by child objects
+						canSpawnTriggers = true;
+						
+						select = true;
+						obj_editor_gui.canChangeSelect = false;
+						
+						// Slide sub-panel in
+						if obj_subpanel_left.anchored {
+							obj_subpanel_left.tempY = round( (obj_panel_bot.y - obj_panel_top.y + 10) * 3/5);
+							obj_subpanel_left.moveToSpd = 1;
+						} else {
+							obj_subpanel_left.tempY = obj_subpanel_left.y;
+							obj_subpanel_left.moveToSpd = (obj_panel_bot.y - obj_subpanel_left.y)/6.5;
 						}
 						
-						obj_panel_right.exitInterface = true;
-						obj_panel_left.exitInterface = true;
-										
-						alarm[1] = 18;
+						obj_subpanel_left.moveDirection = 1;
+						obj_subpanel_left.moveToY = obj_panel_bot.y;
+						
+						// Standard formula to solve for time, given speed and distance
+						// +5 is a pause to dramatize the motion
+						obj_subpanel_left.alarm[1] = abs(obj_panel_bot.y - obj_subpanel_left.y) / obj_subpanel_left.moveToSpd + 5;
+						
+						alarm[1] = obj_subpanel_left.alarm[1];
 					}
-				}
-			} else {
-				// Collision instances
-				if mouse_check_button_pressed(mb_left) && !instance_exists(obj_editor_button_parent) {
-					spawnButtons = true; // Button instances are spawned by child objects
-					canSpawnTriggers = true;
-					
-					select = true;
-					buttonSelected = true;
-					obj_editor_gui.canChangeSelect = false;
-					
-					// Slide sub-panel in
-					if obj_subpanel_left.anchored {
-						obj_subpanel_left.tempY = round( (obj_panel_bot.y - obj_panel_top.y + 10) * 3/5);
-						obj_subpanel_left.moveToSpd = 1;
-					} else {
-						obj_subpanel_left.tempY = obj_subpanel_left.y;
-						obj_subpanel_left.moveToSpd = (obj_panel_bot.y - obj_subpanel_left.y)/6.5;
-					}
-					
-					obj_subpanel_left.moveDirection = 1;
-					obj_subpanel_left.moveToY = obj_panel_bot.y;
-					
-					// Standard formula to solve for time, given speed and distance
-					// +5 is a pause to dramatize the motion
-					obj_subpanel_left.alarm[1] = abs(obj_panel_bot.y - obj_subpanel_left.y) / obj_subpanel_left.moveToSpd + 5;
-					
-					alarm[1] = obj_subpanel_left.alarm[1];
 				}
 			}
 		}

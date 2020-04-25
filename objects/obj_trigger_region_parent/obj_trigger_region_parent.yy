@@ -5,16 +5,6 @@
     "name": "obj_trigger_region_parent",
     "eventList": [
         {
-            "id": "28a2b4e2-1a7f-4fc3-b7e1-092f2db55271",
-            "modelName": "GMEvent",
-            "mvc": "1.0",
-            "IsDnD": false,
-            "collisionObjectId": "00000000-0000-0000-0000-000000000000",
-            "enumb": 2,
-            "eventtype": 2,
-            "m_owner": "2b80eda2-ae8b-4a4c-b499-5fa62ccd9d8a"
-        },
-        {
             "id": "616d9128-3b08-48c4-a8c2-d31058c1e447",
             "modelName": "GMEvent",
             "mvc": "1.0",

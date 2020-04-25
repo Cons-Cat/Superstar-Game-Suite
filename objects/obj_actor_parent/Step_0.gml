@@ -37,7 +37,7 @@ if !activeInScene {
 			moving = false;
 			slowSpd = false;
 			trgRegion = -1;
-			dirIso = dirIsoDef;
+			dirIso = dirIsoDefault;
 			spr = scr_spriteDir(dirIso);
 		}
 	}

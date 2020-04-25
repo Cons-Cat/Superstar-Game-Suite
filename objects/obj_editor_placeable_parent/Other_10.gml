@@ -8,7 +8,7 @@ for (i = 0; i < instance_number(obj_panel_button); i += 1) {
 }
 
 with obj_panel_button {
-	if panelId = obj_subpanel_left.id {
+	if trg = other.id {
 		longestSprWidth = obj_subpanel_left.longestSprWidth;
 	}
 }

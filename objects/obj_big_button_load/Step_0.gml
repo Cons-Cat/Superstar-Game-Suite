@@ -278,7 +278,7 @@ if select {
 					file_text_readln(export)
 					angle = file_text_read_real(export);
 					file_text_readln(export)
-					trg.dirIsoDef = self.angle;
+					trg.dirIsoDefault = self.angle;
 					
 					#endregion
 				}

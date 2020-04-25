@@ -4,12 +4,14 @@ event_inherited();
 if (mouse_check_button_released(mb_left)) {
 	if canRelease {
 		if canDel {
+			if instance_exists(obj_actor_button_rotate) {
+				obj_actor_button_rotate.angle = trg.angle;
+			}
+			
 			with trg {
-				obj_actor_button_rotate.angle = angle;
 				angle = other.angleExport;
-				trg.dirIsoDef = other.angleExport;
-				//alarm[2] = 2;
-				//canDeSelect = true;
+				trg.dirIsoDefault = other.angleExport;
+				canDeSelect = true;
 			}
 			
 			instance_destroy();
