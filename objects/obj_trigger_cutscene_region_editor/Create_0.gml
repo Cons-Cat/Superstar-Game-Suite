@@ -18,7 +18,7 @@ depthIterate = 0;
 
 // Cutscene values
 trgGone = false;
-totalActions = 0;
+totalActions[0] = 0;
 longestRowLength = 0;
 actorRowTxt[0] = "obj_player";
 

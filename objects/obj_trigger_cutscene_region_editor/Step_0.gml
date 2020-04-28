@@ -76,6 +76,7 @@ if spawnTriggers {
 		viewOn = 2;
 		panelId = obj_panel_left.id;
 		sprWidth = (string_width(label) + 5) * 2;
+		trg = other.id;
 	}
 	with instance_create_layer(x,y,"Instances",obj_region_button_edge) {
 		label = "Edge";
@@ -87,9 +88,19 @@ if spawnTriggers {
 		sprWidth = (string_width(label) + 5) * 2;
 		trg = other.id;
 	}
+	with instance_create_layer(x,y,"Instances",obj_actor_button_scene) {
+		label = "Event 1";
+		sprite_index = spr_editor_trigger_scene;
+		eventIndex = 0;
+		
+		sortIndex = 2;
+		viewOn = 2;
+		panelId = obj_panel_left.id;
+		sprWidth = (string_width(label) + 5) * 2;
+		trg = other.id;
+	}
 	
 	scr_panel_calc(obj_panel_left.id);
-	spawnActions = true; // Inherited behavior.
 	
 	#endregion
 }
@@ -152,28 +163,4 @@ if recalculate {
 	}
 	
 	#endregion
-}
-
-// Load cutscene information.
-if select {
-	if !trgGone {
-		// Import data
-		scr_import_cutscene(obj_panel_bot,self.id);
-		
-		if !instance_exists(obj_cutscene_actor_dummy_player) {
-			// Generate stand-in for Minerva
-			with instance_create_layer(x+10,y+10,"Instances",obj_cutscene_actor_dummy_player) {
-				trg = other.id;
-				zfloor = other.zfloor;
-			}
-		}
-		
-		trgGone = true;
-	}
-	
-	if instance_exists(obj_region_button_edge) {
-		obj_region_button_edge.trg = self.id; // This button instance couples itself to pass some values
-	}
-} else {
-	trgGone = false;
 }

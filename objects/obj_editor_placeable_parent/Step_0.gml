@@ -1,5 +1,4 @@
 /// @description Manipulating dimensions and place
-show_debug_message(canDeSelect);
 if obj_editor_gui.mode = modeForSelectVal {
 	modeForSelect = true;
 } else {

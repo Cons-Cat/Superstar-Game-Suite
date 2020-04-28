@@ -147,7 +147,6 @@ for (var i = 0; i < instance_number(obj_solid_parent); i++) {
 
 // Sum angles
 if intersectionCount > 0 {
-	show_debug_message("COUNT: " + string(intersectionCount));
 	// Sum normal angles.
 	for (i = 0; i < intersectionCount; i++) {
 		summedAngleX += normalAngleListX[i];
@@ -173,17 +172,14 @@ if intersectionCount > 0 {
 	xOff /= vDist;
 	yOff /= vDist;*/
 	
-	show_debug_message("OFF: " + string(xOff) + ", " + string(yOff) + " ... " + string(id));
-	show_debug_message("");
-	
 	while collision_point(intersectionX, intersectionY, self, false, false)
 	//while floor(x) = intersectionX && floor(y) = intersectionY
 	{
 		x += xOff;
 		y += yOff;
 	}
+	
 	x = round(x);
 	y = round(y);
 	DRAWANGLE = point_direction(0, 0, VXx, VXy);
-	show_debug_message("X/Y: " + string(x) + ", " + string(y));
 }

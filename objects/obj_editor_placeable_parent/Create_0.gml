@@ -47,6 +47,7 @@ calculateSub = false; // Generate surface
 surfaceResize = true; // Initialize surfaces
 
 depthIterate = 0;
+buttonSelected = false;
 spawnButtons = false;
 spawnTriggers = false;
 spawnActions = false;

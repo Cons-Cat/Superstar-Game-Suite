@@ -388,14 +388,6 @@ for (i = 0; i < rows; i += 1) {
 				if !canSelectRow[i] {
 					selectRow[i] = false;
 					actorId[i].orangeAnyways = false;
-					
-					if relativeMouseX - room_width <= 189 && relativeMouseY >= y+5 {
-						with obj_editor_button_parent {
-							if fromTxt != "moveScene" {
-								instance_destroy();
-							}
-						}
-					}
 				}
 			}
 		}
@@ -748,56 +740,58 @@ if cutsceneInstanceId != -1 {
 				#region
 				
 				for (i = 0; i < rows; i += 1) {
-					cutsceneInstanceId.rowLength[i] = self.rowLength[i];
-					cutsceneInstanceId.actorRowTxt[i] = self.actorRowTxt[i];
+					cutsceneInstanceId.rowLength[i, eventIndex] = self.rowLength[i];
 					rowLength[i] = 0;
 				}
 				
 				for (j = 1; j <= self.totalActions; j += 1) {
-					cutsceneInstanceId.totalActions = self.totalActions;
-					cutsceneInstanceId.actionInd[j] = self.actionInd[j];
-					cutsceneInstanceId.actionTime[j] = self.actionTime[j];
-					cutsceneInstanceId.actionRowInd[j] = self.actionRowInd[j];
-					cutsceneInstanceId.longestRowLength = self.longestRowLength;
+					cutsceneInstanceId.totalActions[eventIndex] = self.totalActions;
+					cutsceneInstanceId.actionInd[j, eventIndex] = self.actionInd[j];
+					cutsceneInstanceId.actionTime[j, eventIndex] = self.actionTime[j];
+					cutsceneInstanceId.actionRowInd[j, eventIndex] = self.actionRowInd[j];
 					
 					if actionInd[j] = 0 { // Walk action
-						cutsceneInstanceId.xNode[j] = self.xNode[j];
-						cutsceneInstanceId.yNode[j] = self.yNode[j];
+						cutsceneInstanceId.xNode[j, eventIndex] = self.xNode[j];
+						cutsceneInstanceId.yNode[j, eventIndex] = self.yNode[j];
 					}
 					
 					if actionInd[j] = 1 { // Rotation action
-						cutsceneInstanceId.angleRot[j] = self.angleRot[j];
-						cutsceneInstanceId.angleRotExport[j] = self.angleRotExport[j];
+						cutsceneInstanceId.angleRot[j, eventIndex] = self.angleRot[j];
+						cutsceneInstanceId.angleRotExport[j, eventIndex] = self.angleRotExport[j];
 					}
 					
 					if actionInd[j] = 2 { // Dialogue action
-						cutsceneInstanceId.xOffDialogue[j] = self.xOffDialogue[j];
-						cutsceneInstanceId.yOffDialogue[j] = self.yOffDialogue[j];
-						cutsceneInstanceId.bubbleCount[j] = self.bubbleCount[j];
+						#region
+						
+						cutsceneInstanceId.xOffDialogue[j, eventIndex] = self.xOffDialogue[j];
+						cutsceneInstanceId.yOffDialogue[j, eventIndex] = self.yOffDialogue[j];
+						cutsceneInstanceId.bubbleCount[j, eventIndex] = self.bubbleCount[j];
 						
 						for (i = 0; i <= bubbleCount[j]; i += 1) {
-							cutsceneInstanceId.lineCount[j,i] = self.lineCount[j,i];
-							cutsceneInstanceId.bubbleX[j,i] = self.bubbleX[j,i];
-							cutsceneInstanceId.bubbleY[j,i] = self.bubbleY[j,i];
+							cutsceneInstanceId.lineCount[j, scr_array_xy(i,eventIndex,cutsceneInstanceId.eventsCount)] = self.lineCount[j,i];
+							cutsceneInstanceId.bubbleX[j,scr_array_xy(i,eventIndex,cutsceneInstanceId.eventsCount)] = self.bubbleX[j,i];
+							cutsceneInstanceId.bubbleY[j,scr_array_xy(i,eventIndex,cutsceneInstanceId.eventsCount)] = self.bubbleY[j,i];
 						
 							for (k = 0; k <= lineCount[j,i]; k += 1) {
-								cutsceneInstanceId.lineStr[scr_array_xy(i,k,bubbleCount[j]),k] = self.lineStr[scr_array_xy(i,k,bubbleCount[j]),k];
+								cutsceneInstanceId.lineStr[scr_array_xy(i,k,bubbleCount[j]),scr_array_xy(k,eventIndex,cutsceneInstanceId.eventsCount)] = self.lineStr[scr_array_xy(i,k,bubbleCount[j]),k];
 							}
 						}
+						
+						#endregion
 					}
 					
 					if actionInd[j] = 3 { // Camera action
-						cutsceneInstanceId.xNode[j] = self.xNode[j];
-						cutsceneInstanceId.yNode[j] = self.yNode[j];
-						cutsceneInstanceId.zoomVal[j] = self.zoomVal[j];
+						cutsceneInstanceId.xNode[j, eventIndex] = self.xNode[j];
+						cutsceneInstanceId.yNode[j, eventIndex] = self.yNode[j];
+						cutsceneInstanceId.zoomVal[j, eventIndex] = self.zoomVal[j];
 					}
 					
 					if actionInd[j] = 5 { // Walk speed action
-						cutsceneInstanceId.slowSpd[j] = self.slowSpd[j];
+						cutsceneInstanceId.slowSpd[j, eventIndex] = self.slowSpd[j];
 					}
 					
 					if actionInd[j] = 6 { // Arbitrary action
-						cutsceneInstanceId.arbitraryInd[j] = self.arbitraryInd[j];
+						cutsceneInstanceId.arbitraryInd[j, eventIndex] = self.arbitraryInd[j];
 					}
 					
 					actionInd[j] = -1;

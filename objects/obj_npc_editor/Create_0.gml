@@ -21,7 +21,7 @@ orangeAnyways = false;
 
 // Cutscene values
 trgGone = false;
-totalActions = 0;
+totalActions[0] = 0;
 longestRowLength = 0;
 npcIdVal = instance_number(obj_npc_editor);
 

@@ -41,6 +41,7 @@ if spawnTriggers {
 	with instance_create_layer(x,y,"Instances",obj_actor_button_scene) {
 		label = "Event 1";
 		sprite_index = spr_editor_trigger_scene;
+		eventIndex = 0;
 		
 		trg = other.id;
 		sortIndex = 1;
@@ -115,28 +116,4 @@ zcieling = zfloor;
 // Overwrite inherited layerColor behavior
 if orangeAnyways {
 	layerColor = c_orange;
-}
-
-// Load cutscene information.
-if select {
-	if !trgGone {
-		// Import data
-		scr_import_cutscene(obj_panel_bot,self.id);
-		
-		if !instance_exists(obj_cutscene_actor_dummy_player) {
-			// Generate stand-in for Minerva
-			with instance_create_layer(x+30,y+10,"Instances",obj_cutscene_actor_dummy_player) {
-				trg = other.id;
-				zfloor = other.zfloor;
-			}
-		}
-		
-		trgGone = true;
-	}
-	
-	if instance_exists(obj_region_button_edge) {
-		obj_region_button_edge.trg = self.id; // This button instance couples itself to pass some values
-	}
-} else {
-	trgGone = false;
 }

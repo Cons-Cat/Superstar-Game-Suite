@@ -2,10 +2,6 @@
 mouseCheckX = obj_editor_gui.mouseCheckX;
 mouseCheckY = obj_editor_gui.mouseCheckY;
 
-if instance_exists(trg) {
-	fromTxt = trg.str;
-}
-
 // Do not obstruct higher level interfaces
 if canSelect {
 	// canSelect determined by obj_trigger_vertex
@@ -30,13 +26,12 @@ if mouse_check_button_pressed(mb_left) {
 			selfCanDeSelect = true;
 			
 			// Every exception case
-			//if (obj_editor_gui.mode = 4 && mouse_y <= obj_panel_bot.y) {
-				if instance_exists(obj_trigger_widget_parent) {
-					if obj_trigger_widget_parent.mouseHover {
-					//if collision_rectangle(mouseCheckX-1,mouseCheckY-1+(obj_trigger_widget_parent.zfloor*20),mouseCheckX+1,mouseCheckY+1+(obj_trigger_widget_parent.zfloor*20),obj_trigger_widget_parent,false,false) {
-						selfCanDeSelect = false;
-					}
+			if instance_exists(obj_trigger_widget_parent) {
+				if obj_trigger_widget_parent.mouseHover {
+				//if collision_rectangle(mouseCheckX-1,mouseCheckY-1+(obj_trigger_widget_parent.zfloor*20),mouseCheckX+1,mouseCheckY+1+(obj_trigger_widget_parent.zfloor*20),obj_trigger_widget_parent,false,false) {
+					selfCanDeSelect = false;
 				}
+			}
 				
 				if instance_exists(obj_panel_button) {
 					for (i = 0; i < instance_number(obj_panel_button); i++) {

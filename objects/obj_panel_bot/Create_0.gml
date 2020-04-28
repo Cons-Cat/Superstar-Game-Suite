@@ -54,6 +54,7 @@ addClick = -1;
 actionDoubleClick = 0;
 cutsceneInstanceId = -1;
 isPlayingScene = false;
+eventIndex = 0;
 
 col[0] = make_color_rgb(63,70,87); // Light
 col[1] = make_color_rgb(35,38,45); // Medium

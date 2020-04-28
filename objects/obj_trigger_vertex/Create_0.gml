@@ -1,4 +1,6 @@
 /// @description Initialize values
+event_inherited();
+
 relativeMouseX = 0;
 relativeMouseY = 0;
 zfloor = 0;

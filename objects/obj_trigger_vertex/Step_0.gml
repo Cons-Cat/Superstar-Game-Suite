@@ -1,5 +1,5 @@
 ///@description Manipulate placement
-if findTrg {
+/*if findTrg {
 	findTrg = false;
 	
 	with obj_trigger_region_parent {
@@ -7,7 +7,7 @@ if findTrg {
 			other.trg = self.id;
 		}
 	}
-}
+}*/
 
 if canDragDelayed {
 	if trg != -1 {
@@ -30,6 +30,7 @@ if canDragDelayed {
 							if relativeMouseX >= bbox_left && relativeMouseX <= bbox_right {
 								if (relativeMouseY >= bbox_top - (zfloor * 20) && relativeMouseY <= bbox_bottom - (zfloor * 20)) {
 									obj_region_button_edge.vertexTempHover = self.id;
+									mouseHover = true;
 									
 									if mouse_check_button_pressed(mb_left) {
 										if canDrag {
