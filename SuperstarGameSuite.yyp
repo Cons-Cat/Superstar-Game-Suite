@@ -2719,6 +2719,14 @@
             }
         },
         {
+            "Key": "e70775c0-61d0-489f-821f-395eb044d9a1",
+            "Value": {
+                "id": "3e006cbc-3438-4d7c-8dad-dce1e51688dd",
+                "resourcePath": "objects\\obj_actor_button_new\\obj_actor_button_new.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "e7340c9a-d190-4e85-8a1b-07f08f1c46c7",
             "Value": {
                 "id": "b16a9a21-7aff-4653-9f8c-5949c8fc42c8",

@@ -92,7 +92,7 @@ if select {
 		if moveDirection = -1 {
 			if x > moveToX + moveToSpd {
 				x -= moveToSpd;
-				calculateHeight = true;
+				//scr_panel_calc(self.id);
 			} else {
 				x = moveToX;
 				moveToSpd = 0;
@@ -111,7 +111,7 @@ if select {
 if select {
 	dragX = relativeMouseX2 - mouseClickOff + room_width;
 	dragXTemp = dragX;
-	calculateHeight = true;
+	//calculateHeight = true;
 	
 	x = dragX;
 }

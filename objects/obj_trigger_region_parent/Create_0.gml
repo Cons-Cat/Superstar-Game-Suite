@@ -2,4 +2,4 @@
 event_inherited();
 
 eventIndex = 0;
-eventsCount = 0;
+eventsCount = 1;

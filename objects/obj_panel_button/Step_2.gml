@@ -1,7 +1,7 @@
 /// @description Insert description here
 if trg != -1 {
 	if !instance_exists(trg) {
-		panelId.calculateHeight = true;
+		scr_panel_calc(self.id);
 		
 		instance_destroy();
 	}

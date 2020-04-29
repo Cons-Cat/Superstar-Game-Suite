@@ -1,4 +1,4 @@
-/// @description Insert description here
+/// @description Initialize values.
 event_inherited();
 
 panelOffset = 0;

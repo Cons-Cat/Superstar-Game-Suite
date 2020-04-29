@@ -14,5 +14,4 @@ with obj_panel_button {
 	}
 }
 
-scr_import_cutscene(obj_panel_bot, self.id, eventIndex);
 scr_spawn_actions();

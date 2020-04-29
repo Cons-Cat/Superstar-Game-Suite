@@ -86,7 +86,7 @@ if select {
 		if moveDirection = -1 {
 			if y > moveToY + moveToSpd {
 				y -= moveToSpd;
-				calculateHeight = true;
+				//scr_panel_calc(self.id);
 			} else {
 				y = moveToY;
 				moveToSpd = 0;

@@ -6,5 +6,13 @@ if select {
 	
 	trg.eventIndex = self.eventIndex;
 	trg.spawnActions = true;
-	obj_panel_bot.cutsceneInstanceId = trg;
+	
+	with obj_panel_bot {
+		event_user(0); // Export previously stored data.
+		
+		cutsceneInstanceId = other.trg;
+		eventIndex = other.eventIndex;
+	}
+	
+	scr_import_cutscene(obj_panel_bot, trg, eventIndex);
 }

@@ -14,7 +14,6 @@ moveDirection = 1;
 doubleClickCounter = 0;
 trgXOrigin = 0;
 mousePeek = 0;
-calculateHeight = false;
 tempY = -1;
 longestSprWidth = 0;
 anchored = false;

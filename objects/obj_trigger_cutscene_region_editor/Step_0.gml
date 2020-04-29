@@ -88,16 +88,28 @@ if spawnTriggers {
 		sprWidth = (string_width(label) + 5) * 2;
 		trg = other.id;
 	}
-	with instance_create_layer(x,y,"Instances",obj_actor_button_scene) {
-		label = "Event 1";
-		sprite_index = spr_editor_trigger_scene;
-		eventIndex = 0;
+	with instance_create_layer(x,y,"Instances",obj_actor_button_new) {
+		label = "New Event";
 		
 		sortIndex = 2;
 		viewOn = 2;
 		panelId = obj_panel_left.id;
 		sprWidth = (string_width(label) + 5) * 2;
 		trg = other.id;
+	}
+	
+	for (i = 0; i < eventsCount; i++) {
+		with instance_create_layer(x,y,"Instances",obj_actor_button_scene) {
+			label = "Event " + string(other.i + 1);
+			sprite_index = spr_editor_trigger_scene;
+			eventIndex = other.i;
+			
+			sortIndex = 3 + other.i;
+			viewOn = 2;
+			panelId = obj_panel_left.id;
+			sprWidth = (string_width(label) + 5) * 2;
+			trg = other.id;
+		}
 	}
 	
 	scr_panel_calc(obj_panel_left.id);
