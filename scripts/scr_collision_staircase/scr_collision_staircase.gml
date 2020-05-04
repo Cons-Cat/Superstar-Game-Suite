@@ -9,9 +9,9 @@ var actorYOrigin;
 
 onStaircase = false;
 
-if collision_rectangle(x, y, x + 1, y + 1, obj_staircase_collision, false, false) {
+if collision_rectangle(x, y, x + 1, y + 1, obj_staircase_collision, true, false) {
 	if !onStaircase {
-		staircaseId = collision_rectangle(x, y, x + 1, y + 1, obj_staircase_collision, false, false);
+		staircaseId = collision_rectangle(x, y, x + 1, y + 1, obj_staircase_collision, true, false);
 		
 		run  = staircaseId.angleRise;
 		rise = -staircaseId.angleRun;
@@ -27,18 +27,22 @@ if collision_rectangle(x, y, x + 1, y + 1, obj_staircase_collision, false, false
 				if !onStaircase {
 					actorXOrigin = staircaseId.xStairs + i*run + staircaseId.angleRun*staircaseId.staircaseN;
 					actorYOrigin = staircaseId.yStairs + i*rise + staircaseId.zfloor*20  + staircaseId.angleRise*staircaseId.staircaseN;
+					
 					onStaircase = true; // Used to over ride depth algorithm
 				}
 				
-				jumpHeight = clamp(staircaseId.zcieling*20 + ( point_distance(actorXOrigin, actorYOrigin, x, y) / staircaseId.staircaseN * staircaseId.zfloor*20 ), staircaseId.zcieling*20, staircaseId.zfloor*20);
+				//zDisplace = clamp(staircaseId.zcieling*20 + ( point_distance(actorXOrigin, actorYOrigin, x, y) / staircaseId.staircaseN * staircaseId.zfloor*20 ), staircaseId.zcieling*20, staircaseId.zfloor*20);
+				//zDisplace = clamp(staircaseId.zcieling*20 + ceil( point_distance(actorXOrigin, actorYOrigin, x, y) / staircaseId.staircaseN * staircaseId.zfloor*20 ), staircaseId.zcieling*20, staircaseId.zfloor*20 + 1);
+				zDisplace = clamp(staircaseId.zfloor*20 - ceil( point_distance(actorXOrigin, actorYOrigin, x, y) / staircaseId.staircaseN * staircaseId.zfloor*20 ), staircaseId.zcieling*20, staircaseId.zfloor*20) - (staircaseId.zfloor * 20);
 				
 				break;
 			}
 			
 			if i = staircaseId.width*20 {
-				onStaircase = false;
 				actorXOrigin = -1;
 				actorYOrigin = -1;
+				
+				onStaircase = false;
 			}
 		}
 		

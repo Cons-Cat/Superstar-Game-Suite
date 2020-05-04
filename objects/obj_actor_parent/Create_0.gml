@@ -17,6 +17,7 @@ dirIsoDefault = dirIso;
 zfloor = 0;
 tempX = x;
 tempY = y;
+zDisplace = 0;
 rotationInputDirection = 90;
 
 moving = false;

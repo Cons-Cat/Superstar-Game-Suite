@@ -250,34 +250,38 @@ if canMove {
 #region
 
 if !jumping {
-	if !onStaircase {
-		jumpDelay = jumpDelayMax;
-		// Earth-bound gravity
-		if !keyboard_check(_A) || glideDelay = 0 {
-			if jumpHeight > platOn + jumpGrav/2 {
-				jumpHeight -= 0.25 + jumpGrav/2; // Comment out to disable gravity
-				
-				if jumpGrav < jumpGravMax {
-					jumpGrav += jumpGravVal;
-				} else {
-					jumpGrav = jumpGravMax;
-				}
+	jumpDelay = jumpDelayMax;
+	
+	// Earth-bound gravity
+	if !keyboard_check(_A) || glideDelay = 0 {
+		if jumpHeight > platOn + jumpGrav/2 {
+			falling = true;
+			jumpHeight -= 0.25 + jumpGrav/2; // Comment out to disable gravity
+			
+			if jumpGrav < jumpGravMax {
+				jumpGrav += jumpGravVal;
 			} else {
+				jumpGrav = jumpGravMax;
+			}
+		} else {
+			if falling {
+				falling = false;
 				jumpHeight = platOn;
 				jumpAnim = false;
 			}
-		} else {
-			glideDelay -= 1;
 		}
+	} else {
+		glideDelay -= 1;
 	}
 }
 
 #endregion
 
-// Checking to fall off of platforms
-fallSearch = true; // Fall down by default
+// Finding viable floor.
+#region
 
-// Find relevant floor object
+fallSearch = true; // Fall down by default
+falling = true;
 trgFinalTemp = 0;
 
 // Create array of viable landing spots
@@ -285,40 +289,60 @@ for (i = 0; i < instance_number(obj_floor); i += 1) {
 	trgLayer[i] = -1;
 	trgScr[i] = instance_find(obj_floor,i).id;
 	
-	if trgScr[i].zfloor*20 <= self.jumpHeight {
-		if collision_circle(x, y, maskRadius, trgScr[i].id, true, false) {
-		//if collision_rectangle(bbox_left,bbox_top,bbox_right,bbox_bottom,trgScr[i].id,true,false) {
-			trgLayer[i] = trgScr[i].zfloor; // Spot is viable
+	if collision_circle(x, y, maskRadius, trgScr[i], true, false) {
+		if trgScr[i].object_index = obj_staircase_collision {
+			if trgScr[i].zcieling * 20 <= self.jumpHeight {
+				if scr_collision_staircase_alt(trgScr[i]) {
+					trgLayer[i] = trgScr[i].zfloor + 0.5; // Give priority to staircases.
+				}
+			}
+		}
+		else if trgScr[i].zfloor*20 <= self.jumpHeight {
+			trgLayer[i] = trgScr[i].zfloor; // Spot is viable.
 		}
 	}
 }
 
-// Find the highest-elevated viable landing spot
+// Find the highest-elevated viable landing spot.
 for (i = 0; i < instance_number(obj_floor); i += 1) {
 	if trgLayer[i] != -1 { // Skip non-viable spots
-		if trgLayer[i] >= trgFinalTemp { // If elevation is higher than previous recursions'
+		if trgLayer[i] >= trgFinalTemp { // If elevation is higher than previous recursions'.
 			trgFinal = trgScr[i];
 			trgFinalTemp = trgLayer[i];
 		}
 	}
 }
 
+zDisplace = 0;
+
+if trgFinal.object_index = obj_staircase_collision {
+	scr_collision_staircase_alt(trgFinal); // Sets zDisplace.
+	platOn = trgFinal.zcieling*20 + zDisplace;
+	onStaircase = true;
+} else {
+	platOn = trgFinal.zfloor*20;
+	onStaircase = false;
+}
+
+#endregion
+
 onGround = false;
-platOn = trgFinal.zfloor*20;
 
 if instance_exists(trgFinal) {
 	if platOn = self.jumpHeight {
 		onGround = true;
 		isFalling = true; // Used for camera motion
 		fallSearch = false; // Cancel fall if standing on a platform
+		show_debug_message(random(10));
 		
-		depth = obj_editor_gui.depth - (trgFinal.y + 20) - trgFinal.zfloor - 3 - trgFinal.depthOffset/3;
+		//depth = obj_editor_gui.depth - (trgFinal.y + 20) - trgFinal.zfloor - 3;
+		depth = obj_editor_gui.depth - trgFinal.y - 20 - trgFinal.zfloor - 3;
 	}
 }
 
+// Override depth algorithm.
 if onStaircase {
-	// Over ride depth algorithm
-	depth = staircaseId.depth - 1;
+	depth = trgFinal.depth - 1;
 }
 
 if fallSearch = true {
@@ -326,13 +350,13 @@ if fallSearch = true {
 }
 
 // Update x,y coordinates
-subSteps = 4;
+subSteps = 2;
 
 for (i = 0; i < subSteps; i++) {
 	x += c_hspeed / subSteps;
 	y += c_vspeed / subSteps;
+	
 	scr_collision_mask(maskRadius);
 }
-scr_collision_staircase();
 
 }

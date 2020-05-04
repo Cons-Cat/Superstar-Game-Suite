@@ -14,11 +14,11 @@ xComp = angleRun * staircaseN;
 yComp = angleRise * staircaseN;
 
 x3 = x1 + xComp;
-y3 = y1 + yComp + (zfloor-zcieling)*20;
+y3 = y1 + yComp + (zfloor - zcieling)*20;
 yy3 = y3 + altH;
 
 x4 = x2 + xComp;
-y4 = y2 + yComp + (zfloor-zcieling)*20;
+y4 = y2 + yComp + (zfloor - zcieling)*20;
 yy4 = y4 + altH;
 
 staircaseRasterX0 = floor(min(x1, x2, x3, x4)) - 1;

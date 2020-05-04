@@ -16,9 +16,9 @@ for (i = 0; i < instance_number(obj_editor_placeable_parent); i += 1) {
 }
 
 // Selecting and de-selecting instances
+#region
+
 if canChangeSelect {
-	#region
-	
 	tempDepth = 0;
 	selectInstance = -1;
 	
@@ -62,9 +62,9 @@ if canChangeSelect {
 			}
 		}
 	}
-	
-	#endregion
 }
+
+#endregion
 
 if !instance_exists(obj_editor_placeable_parent) {
 	tempSelectInstance = -1;
@@ -83,6 +83,41 @@ if mode = 2 {
 				// Staircase collision.
 				#region
 				
+				// Collision mask logic.
+				#region
+				
+				if collMask = -1 {
+					collKey = "stair" + string(angleRun) + "_" + string(angleRise) + "_" + string(staircaseN);
+					
+					// Re-use existing collision masks.
+					if ds_map_exists(obj_editor_gui.collMaskDict,collKey) {
+						collMask = obj_editor_gui.collMaskDict[?collKey];
+					} else {
+						// Bake collision mask.
+						var collSurf = surface_create(staircaseW, staircaseH);
+						
+						draw_set_color(c_black);
+						surface_set_target(collSurf);
+						
+						var zOff = (zfloor - zcieling) * 20;
+						draw_triangle(x1-x,y1-y+zOff,x2-x,y2-y+zOff,x3-x,y3-y,false);
+						draw_triangle(x3-x,y3-y,x2-x,y2-y+zOff,x4-x,y4-y,false);
+						
+						collMask = sprite_create_from_surface(collSurf, 0, 0, surface_get_width(collSurf), surface_get_height(collSurf), false, false, 0, 0);
+						sprite_collision_mask(collMask, false, 1, 0, 0, sprite_get_width(collMask), sprite_get_height(collMask), bboxkind_precise, 0);
+						obj_editor_gui.collMaskDict[?collKey] = collMask;
+						
+						draw_clear_alpha(c_white,0);
+						surface_reset_target();
+						surface_free(collSurf);
+					}
+				}
+				
+				#endregion
+				
+				// Instantiate object.
+				#region
+				
 				with instance_create_layer(staircaseRasterX0,staircaseRasterY0,"Instances",obj_staircase_collision) {
 					width = other.width;
 					zfloor = other.zfloor;
@@ -92,26 +127,28 @@ if mode = 2 {
 					staircaseN = other.staircaseN;
 					xStairs = other.x;
 					yStairs = other.y;
-				
+					
 					stairstepRun = staircaseN;
 					stairstepRise = (zfloor - zcieling) * 20;
 					var largerVal = max(abs(stairstepRun),abs(stairstepRise));
 					stairstepRun /= largerVal;
 					stairstepRise /= largerVal;
 					
-					sprite_index = spr_construct_blue;
-					image_xscale = ceil((other.staircaseRasterXF - other.staircaseRasterX0) / sprite_width);
-					image_yscale = ceil((other.staircaseRasterYF - other.staircaseRasterY0 - other.zfloor*20 + other.zcieling*20) / sprite_height);
+					sprite_index = other.collMask;
+					//image_xscale = ceil((other.staircaseRasterXF - other.staircaseRasterX0) / sprite_width);
+					//image_yscale = ceil((other.staircaseRasterYF - other.staircaseRasterY0 - other.zfloor*20 + other.zcieling*20) / sprite_height);
 					y += (other.zfloor - other.zcieling) * 20;
-					depth = other.depth - 100;
+					depth = other.depth;
 				}
+				
+				#endregion
 				
 				#endregion
 			} else {
 				// Wall placeable collision.
 				#region
 				
-				// Assign collision mask.
+				// Collision mask logic.
 				#region
 				
 				if collMask = -1 {
@@ -120,6 +157,7 @@ if mode = 2 {
 					} else {
 						collKey = string(width) + string(height) + (mirror ? "1" : "0") + (flip ? "1" : "0");
 						
+						// Re-use existing collision masks.
 						if ds_map_exists(obj_editor_gui.collMaskDict,collKey) {
 							collMask = obj_editor_gui.collMaskDict[?collKey];
 						} else {
@@ -155,7 +193,10 @@ if mode = 2 {
 				
 				#endregion
 				
-				if zfloor > 0 || !finite {
+				// Instantiate collision instances.
+				#region
+				
+				if zfloor > zcieling || !finite {
 					with instance_create_layer(x,y,"Instances",obj_solid_mask) {
 						sprite_index = other.collMask;
 						mask_index = other.collMask;
@@ -177,7 +218,7 @@ if mode = 2 {
 						sprite_index = other.collMask;
 						mask_index = other.collMask;
 						image_xscale = other.width / (sprite_get_width(sprite_index) / 20);
-						y = other.y;
+						y = other.y + other.zfloor * 20;
 						x = other.x;
 						
 						zfloor = other.zfloor;
@@ -186,6 +227,8 @@ if mode = 2 {
 						finite = other.finite;
 					}
 				}
+				
+				#endregion
 				
 				#endregion
 			}

@@ -32,7 +32,7 @@ for (var k = 0; k < instance_number(obj_solid_mask); k++)
 {
 	var inst = instance_find(obj_solid_mask, k);
 	
-	if (inst.zfloor*20 > jumpHeight && inst.zcieling*20 <= jumpHeight) || !inst.finite
+	if (inst.zfloor*20 > jumpHeight + zDisplace && inst.zcieling*20 <= jumpHeight + zDisplace) || !inst.finite
 	{
 		solidArray[solidArraySize] = inst.id;
 		solidArraySize++;

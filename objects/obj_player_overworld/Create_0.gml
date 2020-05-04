@@ -25,9 +25,6 @@ if room != room_leveleditor {
 	}
 }
 
-moving = false;
-jumpAnim = false;
-
 image_speed = 0.15;
 
 sprD = spr_lucy_down;
@@ -65,11 +62,6 @@ _down = vk_down;
 _A = ord("Z");
 _B = ord("X");
 
-upKey = 0;
-rightKey = 0;
-downKey = 0;
-leftKey = 0;
-
 tempRotSpr = -1;
 keysPressed = 0;
 dirIso = 6; // South
@@ -78,15 +70,19 @@ rotFin = 0; // South
 rotDir = 1;
 rotationInputDirection = 270;
 
+moving = false;
+jumpAnim = false;
+
 jumpHeight = 0;
 maxJumpHeight = 20;
 jumpSpeed = 2.1;
 jumping = false;
+fallSearch = false;
+falling = false;
 jumpGrav = 0;
 jumpGravVal = 0.36025;
 jumpGravMax = 6;
 platOn = 0;
-platOnTemp = platOn;
 jumpBoost = 0;
 onGround = true;
 onStaircase = false;

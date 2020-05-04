@@ -4,7 +4,7 @@ if instance_exists(obj_editor_gui) {
 		activeInScene = false;
 	}
 	
-	// Adapting visible state to editor mode
+	// Trigger or play mode.
 	if obj_editor_gui.mode = 2 || obj_editor_gui.mode = 4 {
 		visible = true;
 	} else {
@@ -14,6 +14,8 @@ if instance_exists(obj_editor_gui) {
 
 if !activeInScene {
 	// Inactive
+	#region
+	
 	if obj_editor_gui.mode != 2 {
 		// Not in play mode
 		if object_index != obj_player_overworld {
@@ -41,6 +43,8 @@ if !activeInScene {
 			spr = scr_spriteDir(dirIso);
 		}
 	}
+	
+	#endregion
 } else {
 	// Active
 	
