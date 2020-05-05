@@ -87,35 +87,64 @@ if mode = 2 {
 				#region
 				
 				if collMask = -1 {
-					collKey = "stair" + string(angleRun) + "_" + string(angleRise) + "_" + string(staircaseN);
+					collKeyStairs = "stairF" + string(angleRun) + "_" + string(angleRise) + "_" + string(staircaseN);
+					collKeyWalls = "stairW" + string(angleRun) + "_" + string(angleRise) + "_" + string(staircaseN);
 					
 					// Re-use existing collision masks.
-					if ds_map_exists(obj_editor_gui.collMaskDict,collKey) {
-						collMask = obj_editor_gui.collMaskDict[?collKey];
+					if ds_map_exists(obj_editor_gui.collMaskDict,collKeyStairs) {
+						collMask = obj_editor_gui.collMaskDict[?collKeyStairs];
+						collMaskWalls = obj_editor_gui.collMaskDict[?collKeyWalls];
 					} else {
 						// Bake collision mask.
-						var collSurf = surface_create(staircaseW, staircaseH);
+						var collSurfStairs = surface_create(staircaseW, staircaseH);
+						var collSurfWalls = surface_create(abs(staircaseN * angleRun), abs(staircaseN * angleRise));
 						
 						draw_set_color(c_black);
-						surface_set_target(collSurf);
+						
+						// Bake stairs raster.
+						#region
+						
+						surface_set_target(collSurfStairs);
 						
 						var zOff = (zfloor - zcieling) * 20;
 						draw_triangle(x1-x,y1-y+zOff,x2-x,y2-y+zOff,x3-x,y3-y,false);
 						draw_triangle(x3-x,y3-y,x2-x,y2-y+zOff,x4-x,y4-y,false);
 						
-						collMask = sprite_create_from_surface(collSurf, 0, 0, surface_get_width(collSurf), surface_get_height(collSurf), false, false, 0, 0);
+						collMask = sprite_create_from_surface(collSurfStairs, 0, 0, surface_get_width(collSurfStairs), surface_get_height(collSurfStairs), false, false, 0, 0);
 						sprite_collision_mask(collMask, false, 1, 0, 0, sprite_get_width(collMask), sprite_get_height(collMask), bboxkind_precise, 0);
-						obj_editor_gui.collMaskDict[?collKey] = collMask;
+						obj_editor_gui.collMaskDict[?collKeyStairs] = collMask;
 						
 						draw_clear_alpha(c_white,0);
 						surface_reset_target();
-						surface_free(collSurf);
+						surface_free(collSurfStairs);
+						
+						#endregion
+						
+						// Bake walls raster.
+						#region
+						
+						surface_set_target(collSurfWalls);
+						
+						for (i = 0; i < staircaseN + 1; i++) {
+							draw_point(i * angleRun, i * angleRise);
+							draw_point(i * angleRun - 1, i * angleRise);
+						}
+						
+						collMaskWalls = sprite_create_from_surface(collSurfWalls, 0, 0, surface_get_width(collSurfWalls), surface_get_height(collSurfWalls), false, false, 0, 0);
+						sprite_collision_mask(collMaskWalls, false, 1, 0, 0, sprite_get_width(collMaskWalls), sprite_get_height(collMaskWalls), bboxkind_precise, 0);
+						obj_editor_gui.collMaskDict[?collKeyWalls] = collMaskWalls;
+						
+						draw_clear_alpha(c_white,0);
+						surface_reset_target();
+						surface_free(collSurfWalls);
+						
+						#endregion
 					}
 				}
 				
 				#endregion
 				
-				// Instantiate object.
+				// Instantiate collision instances.
 				#region
 				
 				with instance_create_layer(staircaseRasterX0,staircaseRasterY0,"Instances",obj_staircase_collision) {
@@ -135,10 +164,27 @@ if mode = 2 {
 					stairstepRise /= largerVal;
 					
 					sprite_index = other.collMask;
-					//image_xscale = ceil((other.staircaseRasterXF - other.staircaseRasterX0) / sprite_width);
-					//image_yscale = ceil((other.staircaseRasterYF - other.staircaseRasterY0 - other.zfloor*20 + other.zcieling*20) / sprite_height);
 					y += (other.zfloor - other.zcieling) * 20;
 					depth = other.depth;
+				}
+				
+				for (i = 0; i <= 1; i++) {
+					with instance_create_layer(x + (i*width*20*angleRise),y - (i*width*20*angleRun),"Instances",obj_solid_mask) {
+						zfloor = other.zfloor;
+						zcieling = other.zcieling;
+						finite = false;
+						
+						angleRun = other.angleRun;
+						angleRise = other.angleRise;
+						staircaseN = other.staircaseN;
+						actorXOrigin = x;
+						actorYOrigin = y;
+						
+						sprite_index = other.collMaskWalls;
+						y += (other.zfloor - other.zcieling) * 20;
+						depth = other.depth - 100;
+						collScript = scr_cancollide_stairsrail;
+					}
 				}
 				
 				#endregion
@@ -209,6 +255,7 @@ if mode = 2 {
 						finite = other.finite;
 						
 						depth = other.depth - 1;
+						collScript = scr_cancollide_simple;
 					}
 				}
 				

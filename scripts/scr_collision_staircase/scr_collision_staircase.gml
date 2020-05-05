@@ -1,8 +1,6 @@
 /// scr_collision_staircase()
 var run;
 var rise;
-var actorXOrigin;
-var actorYOrigin;
 
 // Staircase collision
 #region
@@ -31,8 +29,6 @@ if collision_rectangle(x, y, x + 1, y + 1, obj_staircase_collision, true, false)
 					onStaircase = true; // Used to over ride depth algorithm
 				}
 				
-				//zDisplace = clamp(staircaseId.zcieling*20 + ( point_distance(actorXOrigin, actorYOrigin, x, y) / staircaseId.staircaseN * staircaseId.zfloor*20 ), staircaseId.zcieling*20, staircaseId.zfloor*20);
-				//zDisplace = clamp(staircaseId.zcieling*20 + ceil( point_distance(actorXOrigin, actorYOrigin, x, y) / staircaseId.staircaseN * staircaseId.zfloor*20 ), staircaseId.zcieling*20, staircaseId.zfloor*20 + 1);
 				zDisplace = clamp(staircaseId.zfloor*20 - ceil( point_distance(actorXOrigin, actorYOrigin, x, y) / staircaseId.staircaseN * staircaseId.zfloor*20 ), staircaseId.zcieling*20, staircaseId.zfloor*20) - (staircaseId.zfloor * 20);
 				
 				break;
