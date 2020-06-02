@@ -147,6 +147,8 @@ if mode = 2 {
 				// Instantiate collision instances.
 				#region
 				
+				var stairsId;
+				
 				with instance_create_layer(staircaseRasterX0,staircaseRasterY0,"Instances",obj_staircase_collision) {
 					width = other.width;
 					zfloor = other.zfloor;
@@ -166,24 +168,26 @@ if mode = 2 {
 					sprite_index = other.collMask;
 					y += (other.zfloor - other.zcieling) * 20;
 					depth = other.depth;
+					stairsId = self.id;
 				}
 				
 				for (i = 0; i <= 1; i++) {
 					with instance_create_layer(x + (i*width*20*angleRise),y - (i*width*20*angleRun),"Instances",obj_solid_mask) {
 						zfloor = other.zfloor;
 						zcieling = other.zcieling;
-						finite = false;
+						finite = true;
 						
 						angleRun = other.angleRun;
 						angleRise = other.angleRise;
 						staircaseN = other.staircaseN;
-						actorXOrigin = x;
-						actorYOrigin = y;
+						actorXOrigin = -1;
+						actorYOrigin = -1;
 						
 						sprite_index = other.collMaskWalls;
 						y += (other.zfloor - other.zcieling) * 20;
 						depth = other.depth - 100;
 						collScript = scr_cancollide_stairsrail;
+						stairsId.wallId[other.i] = self.id;
 					}
 				}
 				

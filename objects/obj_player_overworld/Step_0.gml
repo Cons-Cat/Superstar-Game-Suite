@@ -333,7 +333,6 @@ if instance_exists(trgFinal) {
 		onGround = true;
 		isFalling = true; // Used for camera motion
 		fallSearch = false; // Cancel fall if standing on a platform
-		show_debug_message(random(10));
 		
 		//depth = obj_editor_gui.depth - (trgFinal.y + 20) - trgFinal.zfloor - 3;
 		depth = obj_editor_gui.depth - trgFinal.y - 20 - trgFinal.zfloor - 3;

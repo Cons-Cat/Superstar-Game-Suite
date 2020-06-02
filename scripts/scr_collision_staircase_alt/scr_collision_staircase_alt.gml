@@ -29,6 +29,10 @@ for (var i = 0; i < stairsId.width * 20; i += 0.5) {
 		(stairsId.zfloor - stairsId.zcieling)*20
 		)
 		
+		// Pass these into the floor collision object, which passes them into its wall collision objects.
+		stairsId.actorXOrigin = actorXOrigin;
+		stairsId.actorYOrigin = actorYOrigin;
+		
 		return true;
 	}
 }
