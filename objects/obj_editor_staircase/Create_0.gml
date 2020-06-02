@@ -56,6 +56,8 @@ hovered = false;
 
 bakedStaircase = surface_create(20,20);
 bakedStaircaseSelect = surface_create(20,20);
+bakedStairwall = surface_create(20,20);
+bakedStairwallSelect = surface_create(20,20);
 
 // Staircase shaded colors
 colDark[0] = make_color_rgb(132, 7, 32); // Red

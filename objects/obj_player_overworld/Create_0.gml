@@ -59,8 +59,8 @@ _left = vk_left;
 _right = vk_right;
 _up = vk_up;
 _down = vk_down;
-_A = ord("Z");
-_B = ord("X");
+_A = ord("A");
+_B = ord("O");
 
 tempRotSpr = -1;
 keysPressed = 0;

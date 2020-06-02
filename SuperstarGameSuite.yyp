@@ -2463,6 +2463,14 @@
             }
         },
         {
+            "Key": "d41dc86c-7b60-467c-9bbe-7cb8dbe6be83",
+            "Value": {
+                "id": "8f2c2b35-ebfc-4f50-ac0a-99be45b35158",
+                "resourcePath": "scripts\\scr_draw_stairwall\\scr_draw_stairwall.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "d551dc99-1282-4f68-938d-1c2d5336ab60",
             "Value": {
                 "id": "a64f6168-cc22-4341-8855-de7bda1fd870",
@@ -3113,6 +3121,7 @@
         "3ec3204a-9b43-45ce-a2e4-617a98a89308",
         "6269b094-9864-44f1-96b1-de0ec7d64e55",
         "ac762b59-501a-4d0e-a618-72e4a308e925",
+        "d41dc86c-7b60-467c-9bbe-7cb8dbe6be83",
         "5c828904-1fb4-48c0-b047-45ada11c0287",
         "f2e61555-e78b-420f-848b-a6db14dd5fd3",
         "b68c0048-1eba-45e0-a844-b825c3dce0ea",

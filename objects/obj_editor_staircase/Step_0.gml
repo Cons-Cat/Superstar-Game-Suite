@@ -221,20 +221,22 @@ if bakeRaster {
 		for ( var j = 0; j < staircaseH; j++ ) {
 			staircaseRasterInd[i,j] = -1; // Empty pixel
 			staircaseRasterTempInd[i,j] = -1;
+			
+			stairwallRasterInd[i,j] = -1;
+			stairwallRasterTempInd[i,j] = -1;
 		}
 	}
 	
 	scr_draw_staircase(x - staircaseRasterX0, y - staircaseRasterY0, angleRun, angleRise, staircaseN, stepCount, obj_editor_gui.mode == 1 ? false : true);
+	scr_draw_stairwall(x - staircaseRasterX0, y - staircaseRasterY0, angleRun, angleRise, staircaseN, stepCount, obj_editor_gui.mode == 1 ? false : true);
 
 	surface_resize(bakedStaircase, staircaseW, staircaseH);
 	surface_resize(bakedStaircaseSelect, staircaseW, staircaseH);
 	
-	// Bake colored staircase
-	#region
+	surface_resize(bakedStairwall, staircaseW, staircaseH);
+	surface_resize(bakedStairwallSelect, staircaseW, staircaseH);
 	
-	surface_set_target(bakedStaircase);
-	draw_clear_alpha(c_white, 0);
-	
+	// Initialize color arrays.
 	for( var i = zfloor; i >= zcieling; i-- ) {
 		if i > 0 && obj_editor_gui.mode = 0 {
 			staircaseLayerColor[i] = col[ (i - 1) % 9 ];
@@ -244,6 +246,12 @@ if bakeRaster {
 			staircaseLayerColorWall[i] = colDarkSel;
 		}
 	}
+	
+	// Bake colored staircase
+	#region
+	
+	surface_set_target(bakedStaircase);
+	draw_clear_alpha(c_white, 0);
 	
 	var stepHeight = (zfloor - zcieling) * 20 / stepCount;
 	var stepCol;
@@ -279,6 +287,33 @@ if bakeRaster {
 		}
 	}
 		
+	surface_reset_target();
+	
+	#endregion
+	
+	// Bake colored wall.
+	#region
+	
+	surface_set_target(bakedStairwall);
+	draw_clear_alpha(c_white, 0);
+	
+	var col;
+	
+	for ( var i = 0; i < staircaseW; i++ ) {
+		for ( var j = 0; j < staircaseH; j++ ) {
+			if stairwallRasterInd[i, j] != -1 {
+				if (stairwallRasterInd[i, j] % 2 == 0) {
+					col = staircaseLayerColor[i,j];
+				} else {
+					col = staircaseLayerColorWall[i,j];
+				}
+				
+				draw_set_color(col);
+				draw_point(i, j);
+			}
+		}
+	}
+	
 	surface_reset_target();
 	
 	#endregion
@@ -326,16 +361,18 @@ if resetArray && obj_editor_gui.mode != 3 {
 	tilingWidth = ceil(staircaseW / 20) + 2;
 	tilingHeight = ceil(staircaseH / 20) + 1;
 	tileArrayHeight = tilingHeight;
-	tileLayerCount = 0;
+	tileLayerCount = 4;
 	tileDefaultSpr = "spr_tls_rectangle_default";
 	
 	if sprite_exists(backdropSpr) {	sprite_delete(backdropSpr); }
 	backdropSpr = sprite_create_from_surface(bakedStaircase, -20, -20, tilingWidth*20, tilingHeight*20, false, false, 0, 0);
 	
-	for (i = 0; i < tilingWidth; i += 1) {
-		for (j = 0; j < tilingHeight; j += 1) {
-			hasTile[scr_array_xy(i,j,tileArrayHeight),0] = false;
-			hasTile[scr_array_xy(i,j,tileArrayHeight),1] = false;
+	for (k = 0; k <= tileLayerCount; k += 2) {
+		for (i = 0; i < tilingWidth; i += 1) {
+			for (j = 0; j < tilingHeight; j += 1) {
+				hasTile[scr_array_xy(i,j,tileArrayHeight),k] = false;
+				hasTile[scr_array_xy(i,j,tileArrayHeight),k+1] = false;
+			}
 		}
 	}
 	
