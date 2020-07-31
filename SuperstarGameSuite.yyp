@@ -1535,6 +1535,14 @@
             }
         },
         {
+            "Key": "881ac8f3-1600-40f1-8cc2-bc1a39c5e020",
+            "Value": {
+                "id": "b415e06a-d601-4ee7-9122-5f7c1af2d0a6",
+                "resourcePath": "datafiles_yy\\SuperstarSuiteConfig.ini.yy",
+                "resourceType": "GMIncludedFile"
+            }
+        },
+        {
             "Key": "8893d51a-1dbf-42df-b254-0635db4f40bc",
             "Value": {
                 "id": "5101d72d-89b1-423b-821e-964149efff4c",
