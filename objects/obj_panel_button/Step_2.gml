@@ -1,4 +1,4 @@
-/// @description Insert description here
+/// @description 
 if trg != -1 {
 	if !instance_exists(trg) {
 		scr_panel_calc(self.id);

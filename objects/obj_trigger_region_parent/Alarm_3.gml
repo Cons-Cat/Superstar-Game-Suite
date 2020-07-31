@@ -1,5 +1,6 @@
 /// @description Generate cutscene interface.
 obj_panel_bot.selectedRegionID = self.id;
+
 if !instance_exists(obj_cutscene_actor_dummy_player) {
 	// Generate stand-in for Minerva
 	with instance_create_layer(x+30,y+10,"Instances",obj_cutscene_actor_dummy_player) {

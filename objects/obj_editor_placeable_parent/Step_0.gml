@@ -16,33 +16,35 @@ if placed != 0 {
 	if canSelect { // If an instance is hovered over
 		if modeForSelect {
 			if !instance_exists(obj_editor_button_parent) {
-				if obj_editor_gui.mode = 4 {
-					// Trigger instances
-					if mouse_check_button_pressed(mb_left) {
-						spawnButtons = true;
-						canSpawnTriggers = true;
+				if mouse_check_button_pressed(mb_left) {
+					switch (obj_editor_gui.mode)
+					{
+						case 4:
+							// Trigger instances
+							spawnButtons = true;
+							canSpawnTriggers = true;
 						
-						select = true;
-						obj_editor_gui.canChangeSelect = false;
+							select = true;
+							obj_editor_gui.canChangeSelect = false;
 						
-						// Slide left panel in
-						global.tempXLeft = obj_panel_left.x;
-						obj_panel_left.exitInterface = true;
-						obj_panel_left.moveToX = 0;
-						obj_panel_left.moveToSpd = (global.tempXLeft - room_width) / 6;
-						obj_panel_left.moveDirection = 1;
-						obj_panel_left.panelWidth = 0;
-						obj_panel_left.scrollPanelHorDefined = false;
+							// Slide left panel in
+							global.tempXLeft = obj_panel_left.x;
+							obj_panel_left.exitInterface = true;
+							obj_panel_left.moveToX = 0;
+							obj_panel_left.moveToSpd = (global.tempXLeft - room_width) / 6;
+							obj_panel_left.moveDirection = 1;
+							obj_panel_left.panelWidth = 0;
+							obj_panel_left.scrollPanelHorDefined = false;
 						
-						// Standard formula to solve for time, given speed and distance
-						// +5 is a pause to dramatize the motion
-						obj_panel_left.alarm[1] = (global.tempXLeft - room_width) / obj_panel_left.moveToSpd + 5;
+							// Standard formula to solve for time, given speed and distance
+							// +5 is a pause to dramatize the motion
+							obj_panel_left.alarm[1] = (global.tempXLeft - room_width) / obj_panel_left.moveToSpd + 5;
 						
-						alarm[1] = obj_panel_left.alarm[1];
-					}
-				} else if obj_editor_gui.mode = 3 {
-					// Tiling for collisions instances
-					if mouse_check_button_pressed(mb_left) {
+							alarm[1] = obj_panel_left.alarm[1];
+							
+						break;
+					case 3:
+						// Tiling for collisions instances
 						if modeForSelect = 0 || modeForSelect = 1 {
 							canSpawnTiles = true;
 							
@@ -57,10 +59,10 @@ if placed != 0 {
 							
 							alarm[1] = 18;
 						}
-					}
-				} else {
-					// Collision instances
-					if mouse_check_button_pressed(mb_left) {
+					
+						break;
+					default:
+						// Collision instances
 						spawnButtons = true; // Button instances are spawned by child objects
 						canSpawnTriggers = true;
 						
@@ -84,6 +86,8 @@ if placed != 0 {
 						obj_subpanel_left.alarm[1] = abs(obj_panel_bot.y - obj_subpanel_left.y) / obj_subpanel_left.moveToSpd + 5;
 						
 						alarm[1] = obj_subpanel_left.alarm[1];
+					
+						break;
 					}
 				}
 			}

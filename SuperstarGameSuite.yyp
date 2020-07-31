@@ -87,6 +87,14 @@
             }
         },
         {
+            "Key": "07f58b30-2494-4ea2-bf83-21a63dd49483",
+            "Value": {
+                "id": "5f1ba0a9-8aee-41b8-a2cd-66e69c176705",
+                "resourcePath": "objects\\obj_trigger_widget_scene_parent\\obj_trigger_widget_scene_parent.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "0849b9b9-76bd-432e-aaf1-044c35cf8f7a",
             "Value": {
                 "id": "47a84809-6a4a-45c0-8916-f4cb067d711b",
