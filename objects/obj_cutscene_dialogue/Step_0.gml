@@ -340,7 +340,7 @@ if cursorBubble != -1 && cursorState != -1 {
 if cursorState = 0 {
 	#region
 	
-	if keyboard_check_pressed(vk_right) {
+	if keyboard_check_pressed(global.rightInput) {
 		if cursorPlaceChar < string_length(lineStr[cursorBubble,cursorPlaceLine]) {
 			// Move cursor rightward
 			cursorPlaceChar += 1;
@@ -356,7 +356,7 @@ if cursorState = 0 {
 		tempCursorPlacePix = cursorPlacePix; // Pixel position of cursor
 	}
 	
-	if keyboard_check_pressed(vk_left) {
+	if keyboard_check_pressed(global.leftInput) {
 		if cursorPlaceChar > 0 {
 			// Move cursor leftward
 			cursorPlaceChar -= 1;
@@ -372,7 +372,7 @@ if cursorState = 0 {
 		tempCursorPlacePix = cursorPlacePix; // Pixel position of cursor
 	}
 	
-	if keyboard_check_pressed(vk_down) {
+	if keyboard_check_pressed(global.downInput) {
 		if cursorPlaceLine < lineCount[cursorBubble] {
 			// Move cursor downward
 			cursorPlaceLine += 1;
@@ -389,7 +389,7 @@ if cursorState = 0 {
 		}
 	}
 	
-	if keyboard_check_pressed(vk_up) {
+	if keyboard_check_pressed(global.upInput) {
 		if cursorPlaceLine > 0 {
 			// Move cursor upward
 			cursorPlaceLine -= 1;

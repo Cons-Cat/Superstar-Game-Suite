@@ -1,5 +1,5 @@
 /// @description Increment string
-if keyboard_check_pressed(_A) {
+if keyboard_check_pressed(global.jumpInput) {
     if current < message_end {
 		//current += 1;
     }
@@ -15,7 +15,7 @@ if characters[textRows-1] < string_length(message[current,textRows-1]) { // If t
 	}
 } else {
 	//if freeDecay = 0 {
-		if keyboard_check_pressed(_A) {
+		if keyboard_check_pressed(global.jumpInput) {
 		    if message_current < message_end {
 	            message_current += 1;
 	            message_length = string_length(message[current,message_current]);

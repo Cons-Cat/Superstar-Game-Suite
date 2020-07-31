@@ -192,7 +192,7 @@ if (abs(c_hspeed) + abs(c_vspeed))/2 != 0 && !jumping {
 #region
 
 if canMove {
-	if keyboard_check_pressed(_A) {
+	if keyboard_check_pressed(global.jumpInput) {
 		// Initiating jump
 		if onGround {
 			jumpDelay = jumpDelayMax;
@@ -253,7 +253,7 @@ if !jumping {
 	jumpDelay = jumpDelayMax;
 	
 	// Earth-bound gravity
-	if !keyboard_check(_A) || glideDelay = 0 {
+	if !keyboard_check(global.jumpInput) || glideDelay = 0 {
 		if jumpHeight > platOn + jumpGrav/2 {
 			falling = true;
 			jumpHeight -= 0.25 + jumpGrav/2; // Comment out to disable gravity
@@ -334,7 +334,6 @@ if instance_exists(trgFinal) {
 		isFalling = true; // Used for camera motion
 		fallSearch = false; // Cancel fall if standing on a platform
 		
-		//depth = obj_editor_gui.depth - (trgFinal.y + 20) - trgFinal.zfloor - 3;
 		depth = obj_editor_gui.depth - trgFinal.y - 20 - trgFinal.zfloor - 3;
 	}
 }

@@ -18,26 +18,26 @@ if obj_editor_gui.mode != 2 {
 	
 	// Keyboard movement
 	if canInputMove {
-		if keyboard_check(vk_right) && !keyboard_check(vk_left) {
+		if keyboard_check(global.rightInput) && !keyboard_check(global.leftInput) {
 			if curAtX = gridAtX {
 				gridAtX += 1;
 				consecutiveMovesHor += 1;
 			}
 		}
-		if keyboard_check(vk_left) && !keyboard_check(vk_right) {
+		if keyboard_check(global.leftInput) && !keyboard_check(global.rightInput) {
 			if curAtX = gridAtX {
 				gridAtX -= 1;
 				consecutiveMovesHor += 1;
 			}
 		}
-		if keyboard_check(vk_down) && !keyboard_check(vk_up) {
+		if keyboard_check(global.downInput) && !keyboard_check(global.upInput) {
 			if curAtY = gridAtY {
 				gridAtY += 1;
 				consecutiveMovesVer += 1;
 			}
 		}
 		
-		if keyboard_check(vk_up) && !keyboard_check(vk_down) {
+		if keyboard_check(global.upInput) && !keyboard_check(global.downInput) {
 			if curAtY = gridAtY {
 				gridAtY -= 1;
 				consecutiveMovesVer += 1;
@@ -116,10 +116,10 @@ if obj_editor_gui.mode != 2 {
 	}
 	
 	// Consecutive moves
-	if ( keyboard_check(vk_left) && keyboard_check(vk_right) ) || ( !keyboard_check(vk_left) && !keyboard_check(vk_right) ) {
+	if ( keyboard_check(global.leftInput) && keyboard_check(global.rightInput) ) || ( !keyboard_check(global.leftInput) && !keyboard_check(global.rightInput) ) {
 		consecutiveMovesHor = 0;
 	}
-	if ( keyboard_check(vk_up) && keyboard_check(vk_down) ) || ( !keyboard_check(vk_up) && !keyboard_check(vk_down) ) {
+	if ( keyboard_check(global.upInput) && keyboard_check(global.downInput) ) || ( !keyboard_check(global.upInput) && !keyboard_check(global.downInput) ) {
 		consecutiveMovesVer = 0;
 	}
 	

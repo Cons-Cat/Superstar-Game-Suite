@@ -9,6 +9,6 @@ current = 0;
 rowCurrent = 0;
 characters[rowCurrent] = 0;
 
-_A = ord("Z");
+global.jumpInput = ord("Z");
 
 freeDecay = 0;

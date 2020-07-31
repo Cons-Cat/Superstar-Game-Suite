@@ -118,3 +118,16 @@ collMaskDict = ds_map_create();
 collMaskDict[?"spr_coll_rect"] = spr_coll_rect;
 
 #endregion
+
+// INI
+#region
+
+ini_open("SuperstarSuiteConfig.ini");
+global.jumpInput = ini_read_real("keyboard", "controls", ord("A"));
+global.runInput = ini_read_real("keyboard", "controls", ord("S"));
+global.leftInput = ini_read_real("keyboard", "controls", vk_left);
+global.rightInput = ini_read_real("keyboard", "controls", vk_right);
+global.upInput = ini_read_real("keyboard", "controls", vk_up);
+global.downInput = ini_read_real("keyboard", "controls", vk_down);
+
+#endregion

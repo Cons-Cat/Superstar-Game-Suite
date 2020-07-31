@@ -5,7 +5,7 @@ argument[1] declares whether backspace can be expressed
 */
 
 if !keyboard_check_pressed(vk_shift)
-&& !keyboard_check_pressed(vk_left) && !keyboard_check_pressed(vk_right) && !keyboard_check_pressed(vk_up) && !keyboard_check_pressed(vk_down)
+&& !keyboard_check_pressed(global.leftInput) && !keyboard_check_pressed(global.rightInput) && !keyboard_check_pressed(global.upInput) && !keyboard_check_pressed(global.downInput)
 && !keyboard_check_pressed(vk_control) && !keyboard_check_pressed(vk_alt) && !keyboard_check_pressed(vk_enter)
 && !keyboard_check_direct(20)
 {

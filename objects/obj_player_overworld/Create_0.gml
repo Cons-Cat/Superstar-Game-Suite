@@ -55,12 +55,10 @@ sprUWalk = spr_lucy_walk_up;
 
 spr = sprDR;
 
-_left = vk_left;
-_right = vk_right;
-_up = vk_up;
-_down = vk_down;
-_A = ord("A");
-_B = ord("O");
+_left = global.leftInput;
+_right = global.rightInput;
+_up = global.upInput;
+_down = global.downInput;
 
 tempRotSpr = -1;
 keysPressed = 0;

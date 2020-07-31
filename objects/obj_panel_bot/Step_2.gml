@@ -326,100 +326,60 @@ if addClick != -1 {
 }
 
 // Selecting / De-selecting rows
-hasRowSelected = false;
-
 for (i = 0; i < rows; i += 1) {
 	#region
 	
 	// Initialize actorId[]'s
+	// TODO: Does not need to be updated every tick.
 	#region
 	
 	if i = 0 {
 		if instance_exists(obj_trigger_region_parent) {
-			with obj_trigger_region_parent {
-				if select {
-					other.actorId[0] = self.id;
-				}
+			with selectedRegionID  {
+				other.actorId[0] = self.id;
 			}
-		} else {
-			actorId[i] = -1;
 		}
-		
-		actorRowTxt[i] = "obj_player";
 	} else {
 		actorId[i] = instance_find(obj_npc_editor, i - 1);
 		actorRowTxt[i] = actorId[i].actorTxt;
 	}
 	
-	canSelectRow[i] = false;
-	
 	#endregion
 	
 	// Hover over row
-	#region
+	canSelectRow[i] = (
+		(relativeMouseX - room_width >= 21 && relativeMouseX <= obj_panel_left.baseX - 1)
+		&& (relativeMouseY >= y+35 + (rows-1)*14 - rowsDrawY && relativeMouseY <= y+46 + (rows-1)*14 - rowsDrawY )
+	);
 	
-	if relativeMouseX - room_width >= 21 && relativeMouseX <= obj_panel_left.baseX - 1 {
-		if relativeMouseY >= y+35 + i*14 - rowsDrawY && relativeMouseY <= y+46 + i*14 - rowsDrawY {
-			canSelectRow[i] = true;
-			
-			if mouse_check_button_pressed(mb_left) {
-				if !selectRow[i] {
-					// Select row
-					changeRowSelectTo = i;
-				} else {
-					// De-select row
-					selectRow[i] = false;
-					actorId[i].orangeAnyways = false;
-				}
-			}
+	// Toggle this row's selection.
+	if (relativeMouseX - room_width >= 21 && relativeMouseX <= obj_panel_left.baseX - 1
+	&& relativeMouseY >= y+35 && relativeMouseY <= view_hport[1]
+	) {
+		if mouse_check_button_pressed(mb_left) {
+			selectRow[i] = canSelectRow[i] && !selectRow[i];
 		}
 	}
-			
-	#endregion
 	
-	// De-select all other rows
-	#region
+	actorId[i].orangeAnyways = selectRow[i];
 	
-	if mouse_check_button_pressed(mb_left) {
-		if (relativeMouseX > obj_panel_left.x && relativeMouseY < obj_panel_bot.y) ||
-		(relativeMouseX <= obj_panel_left.x && relativeMouseY >= obj_panel_bot.y)
-		{
-			if !instance_exists(obj_trigger_widget_parent) {
-				if !canSelectRow[i] {
-					selectRow[i] = false;
-					actorId[i].orangeAnyways = false;
-				}
-			}
-		}
-	}
-		
-	#endregion
+	// True if any row has been selected.
+	hasRowSelected = max(hasRowSelected, selectRow[i]);
 	
 	// Select row once 
 	#region
 	
-	if changeRowSelectTo = i {
-		if !instance_exists(obj_trigger_widget_parent) {
-			changeRowSelectTo = -1; // Out of the for loop's domain
-			
-			// De-select previously selected row
-			for (j = 0; j < rows; j += 1) {
-				selectRow[j] = false;
-			}
-			
-			selectRow[i] = true;
-			actorId[i].orangeAnyways = true;
-				
-			if cutsceneInstanceId = -1 {
-				if actorId[i].select {
-					actorId[i].spawnButtons = true;
-				}
-			}
+	if mouse_check_button_pressed(mb_left)  && selectRow[i] 
+	{	
+		if !instance_exists(obj_trigger_widget_parent) 
+		&& !instance_exists(obj_editor_button_parent)
+		{
+			actorId[i].spawnButtons  = actorId[i].select;
 		}
 		
 		if instance_exists(obj_cutscene_actor_dummy_player) {
 			if instance_exists(obj_npc_level) {
-				if i = 0 {
+				if i == 0 {
 					obj_cutscene_actor_dummy_player.depthPriority = true;
 					obj_npc_level.depthPriority = false;
 				} else {
@@ -434,11 +394,7 @@ for (i = 0; i < rows; i += 1) {
 	}
 	
 	#endregion
-	
-	if selectRow[i] {
-		hasRowSelected = true;
-	}
-	
+		
 	#endregion
 }
 

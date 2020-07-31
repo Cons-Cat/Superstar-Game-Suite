@@ -45,11 +45,18 @@ selectRow[0] = false;
 cutsceneInstanceId = -1;
 rowLength[0] = 0;
 hasRowSelected = false;
-changeRowSelectTo = -1;
+selectedRegionID = 0;
 
 totalActions = 0;
 actionInd[0] = -1; // Null action
 actionRowInd[0] = 0;
+
+// Initialize player's row.
+actorId[0] = -1;
+canSelectRow[0] = false;
+selectRow[0] = false;
+actorRowTxt[0] = "obj_player";
+
 addClick = -1;
 actionDoubleClick = 0;
 cutsceneInstanceId = -1;
