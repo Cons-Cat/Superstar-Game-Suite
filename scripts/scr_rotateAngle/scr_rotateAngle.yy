@@ -1,8 +1,12 @@
 {
-    "id": "29cc090d-d2d8-4547-98da-9e7d0f391b28",
-    "modelName": "GMScript",
-    "mvc": "1.0",
-    "name": "scr_rotateAngle",
-    "IsCompatibility": false,
-    "IsDnD": false
+  "isDnD": false,
+  "isCompatibility": false,
+  "parent": {
+    "name": "Movement Scripts",
+    "path": "folders/Scripts/Movement Scripts.yy",
+  },
+  "resourceVersion": "1.0",
+  "name": "scr_rotateAngle",
+  "tags": [],
+  "resourceType": "GMScript",
 }

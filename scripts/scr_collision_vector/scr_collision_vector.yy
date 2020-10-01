@@ -1,8 +1,12 @@
 {
-    "id": "2bb57222-41cb-44de-9101-e2a546ff6ce1",
-    "modelName": "GMScript",
-    "mvc": "1.0",
-    "name": "scr_collision_vector",
-    "IsCompatibility": false,
-    "IsDnD": false
+  "isDnD": false,
+  "isCompatibility": false,
+  "parent": {
+    "name": "Movement Scripts",
+    "path": "folders/Scripts/Movement Scripts.yy",
+  },
+  "resourceVersion": "1.0",
+  "name": "scr_collision_vector",
+  "tags": [],
+  "resourceType": "GMScript",
 }

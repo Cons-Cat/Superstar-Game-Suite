@@ -10,8 +10,9 @@ with obj_trigger_cutscene_region_editor {
 		y = other.y+other.zfloor*20;
 		image_xscale = other.width;
 		image_yscale = other.height;
+		
 		zfloor = other.zfloor;
-		rows = instance_number(obj_actor_parent);
+		rows =  other.rows;
 		totalActions = other.totalActions;
 		longestRowLength = other.longestRowLength;
 		polygon = other.polygon;
@@ -28,6 +29,9 @@ with obj_trigger_cutscene_region_editor {
 		}
 		
 		for (i = 1; i <= totalActions; i += 1) {
+			show_debug_message(other.actionTime[i]);
+			show_debug_message(other.actionRowInd[i]);
+			show_debug_message(other.actionInd[i]);
 			actionInd[other.actionTime[i],other.actionRowInd[i]] = other.actionInd[i]; // Action type
 			actionTime[i] = other.actionTime[i]; // 1/10'th second tick
 			
@@ -119,7 +123,7 @@ with obj_trigger_pan_region_editor {
 					thresholdExitX[thresholdCount] = tempVertex.edgeMidPointX;
 					thresholdExitY[thresholdCount] = tempVertex.edgeMidPointY;
 					thresholdEntryX[thresholdCount] = tempVertex.edgeMidPointX + tempVertex.thresholdX;
-					thresholdEntryY[thresholdCount] = tempVertex.edgeMidPointY + tempVertex.thresholdY
+					thresholdEntryY[thresholdCount] = tempVertex.edgeMidPointY + tempVertex.thresholdY;
 					thresholdLength[thresholdCount] = point_distance(thresholdExitX[thresholdCount],thresholdExitY[thresholdCount],thresholdEntryX[thresholdCount],thresholdEntryY[thresholdCount]);
 					
 					thresholdCount += 1;

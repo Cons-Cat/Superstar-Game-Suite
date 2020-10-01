@@ -1,8 +1,12 @@
 {
-    "id": "e6121880-6620-44bc-b6bb-ec4445633dc4",
-    "modelName": "GMScript",
-    "mvc": "1.0",
-    "name": "scr_marble_draw_details",
-    "IsCompatibility": false,
-    "IsDnD": false
+  "isDnD": false,
+  "isCompatibility": false,
+  "parent": {
+    "name": "Marble Scripts",
+    "path": "folders/Scripts/Marble Scripts.yy",
+  },
+  "resourceVersion": "1.0",
+  "name": "scr_marble_draw_details",
+  "tags": [],
+  "resourceType": "GMScript",
 }

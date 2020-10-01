@@ -1,8 +1,12 @@
 {
-    "id": "18e20324-de08-43ab-87af-04196dc78e9f",
-    "modelName": "GMScript",
-    "mvc": "1.0",
-    "name": "scr_cancollide_stairsrail",
-    "IsCompatibility": false,
-    "IsDnD": false
+  "isDnD": false,
+  "isCompatibility": false,
+  "parent": {
+    "name": "Movement Scripts",
+    "path": "folders/Scripts/Movement Scripts.yy",
+  },
+  "resourceVersion": "1.0",
+  "name": "scr_cancollide_stairsrail",
+  "tags": [],
+  "resourceType": "GMScript",
 }

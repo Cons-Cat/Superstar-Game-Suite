@@ -1,8 +1,12 @@
 {
-    "id": "037d61bb-22b4-416f-b295-cfcd3a93dcdb",
-    "modelName": "GMScript",
-    "mvc": "1.0",
-    "name": "scr_spawn_actions",
-    "IsCompatibility": false,
-    "IsDnD": false
+  "isDnD": false,
+  "isCompatibility": false,
+  "parent": {
+    "name": "Editor Scripts",
+    "path": "folders/Scripts/Editor Scripts.yy",
+  },
+  "resourceVersion": "1.0",
+  "name": "scr_spawn_actions",
+  "tags": [],
+  "resourceType": "GMScript",
 }

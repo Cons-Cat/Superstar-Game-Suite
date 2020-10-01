@@ -1,8 +1,12 @@
 {
-    "id": "9ae93a8c-0a29-4d66-9f93-272b3f197924",
-    "modelName": "GMScript",
-    "mvc": "1.0",
-    "name": "scr_spriteDir",
-    "IsCompatibility": false,
-    "IsDnD": false
+  "isDnD": false,
+  "isCompatibility": false,
+  "parent": {
+    "name": "Movement Scripts",
+    "path": "folders/Scripts/Movement Scripts.yy",
+  },
+  "resourceVersion": "1.0",
+  "name": "scr_spriteDir",
+  "tags": [],
+  "resourceType": "GMScript",
 }

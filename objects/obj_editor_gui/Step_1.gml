@@ -78,7 +78,7 @@ if window_has_focus() {
 			obj_panel_right.x = obj_panel_right.baseX;
 		}
 		if obj_panel_right.onBase = 2 { // Folded
-			obj_panel_right.x = view_wport[1] + room_width;;
+			obj_panel_right.x = view_wport[1] + room_width;
 		}
 		
 		if obj_panel_right.x > obj_panel_right.baseX {

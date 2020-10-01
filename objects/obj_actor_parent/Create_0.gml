@@ -1,27 +1,67 @@
 /// @description 
 str = "actor";
 
+subSteps = 2;
 trgRegion = -1;
 sceneStep = 0;
 sceneLength = sceneStep;
-dir = -1;
-activeInScene = false;
 depthPriority = false;
 
 c_hspeed = 0;
 c_vspeed = 0;
+
+phy_walkspeed = 1;
+phy_runspeed = 1.25;
+phy_acceleration = 0.375;
+phy_deceleration = 0.2825;
+slowSpd = false;
+max_speed = phy_runspeed;
+
+phy_acceleration_imp = 0;
+phy_deceleration_imp = 0;
+phy_acceleration = 0;
+phy_deceleration = 0;
+
 spd = 0;
 max_speed = 1.25;
+imgSpd = 4;
+imgIndex = 0;
+
 dirIso = 6;
-dirIsoDefault = dirIso;
-zfloor = 0;
+dirIsoDefault = 6;
 tempX = x;
 tempY = y;
 zDisplace = 0;
 rotationInputDirection = 90;
 
+jumpHeight = 0;
+maxJumpHeight = 20;
+jumpSpeed = 2.1;
+jumpBoost = 0;
+jumpGrav = 0;
+jumpGravVal = 0.36025;
+jumpGravMax = 6;
+
+jumpDelayMax = 14;
+jumpDelay = jumpDelayMax;
+jumpTempHspd = 0;
+jumpTempVspd = 0;
+jumpPrepDecel = 2;
+
+platOn = 0;
+floorTrg = 0;
+trgFinal = obj_floor;
+trgFinalTemp = -1;
+
+fallSearch = false;
+onGround = true;
+onStaircase = false;
+
 moving = false;
 jumping = false;
+jumpAnim = false;
+falling = false;
+isFalling = false; // Redundant?
 
 sprD = spr_ph_down;
 sprDDR = spr_ph_ddownright;

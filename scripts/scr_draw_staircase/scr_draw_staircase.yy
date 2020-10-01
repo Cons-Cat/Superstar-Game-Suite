@@ -1,8 +1,12 @@
 {
-    "id": "ac762b59-501a-4d0e-a618-72e4a308e925",
-    "modelName": "GMScript",
-    "mvc": "1.0",
-    "name": "scr_draw_staircase",
-    "IsCompatibility": false,
-    "IsDnD": false
+  "isDnD": false,
+  "isCompatibility": false,
+  "parent": {
+    "name": "Editor Scripts",
+    "path": "folders/Scripts/Editor Scripts.yy",
+  },
+  "resourceVersion": "1.0",
+  "name": "scr_draw_staircase",
+  "tags": [],
+  "resourceType": "GMScript",
 }

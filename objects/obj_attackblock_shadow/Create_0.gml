@@ -1,2 +1,0 @@
-/// @description 
-trg = 0;

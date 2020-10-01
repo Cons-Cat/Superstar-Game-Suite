@@ -22,7 +22,7 @@ draw_rectangle(obj_panel_left.baseX+1,0,obj_panel_right.baseX-1,obj_panel_top.ba
 draw_rectangle(obj_panel_left.baseX+1,obj_panel_bot.baseY,obj_panel_right.baseX-1,view_hport[1],false);
 
 draw_set_alpha(1);
-gpu_set_blendmode(bm_normal)
+gpu_set_blendmode(bm_normal);
 
 draw_set_color(colLight);
 draw_rectangle(room_width,0,obj_panel_left.baseX,obj_panel_top.y + 6,false);

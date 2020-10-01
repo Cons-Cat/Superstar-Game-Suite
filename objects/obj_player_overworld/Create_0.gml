@@ -1,23 +1,9 @@
 ///@description Initialize variables
 event_inherited();
 
-phy_walkspeed = 1;
-phy_runspeed = 1.25;
-phy_acceleration = 0.375;
-phy_deceleration = 0.2825;
-slowSpd = false;
-max_speed = phy_runspeed;
-
 dir = 0;
-canMove = true;
-floorTrg = 0;
-trgFinal = obj_floor;
-trgFinalTemp = -1;
+canMove = true; // REDUNDANT!! 
 trg = -1;
-isFalling = false;
-
-imgSpd = 4;
-imgIndex = 0;
 
 if room != room_leveleditor {
 	if !instance_exists(obj_camera) {
@@ -55,11 +41,6 @@ sprUWalk = spr_lucy_walk_up;
 
 spr = sprDR;
 
-_left = global.leftInput;
-_right = global.rightInput;
-_up = global.upInput;
-_down = global.downInput;
-
 tempRotSpr = -1;
 keysPressed = 0;
 dirIso = 6; // South
@@ -67,29 +48,6 @@ rotSpd = 0.5;
 rotFin = 0; // South
 rotDir = 1;
 rotationInputDirection = 270;
-
-moving = false;
-jumpAnim = false;
-
-jumpHeight = 0;
-maxJumpHeight = 20;
-jumpSpeed = 2.1;
-jumping = false;
-fallSearch = false;
-falling = false;
-jumpGrav = 0;
-jumpGravVal = 0.36025;
-jumpGravMax = 6;
-platOn = 0;
-jumpBoost = 0;
-onGround = true;
-onStaircase = false;
-
-jumpDelayMax = 14;
-jumpDelay = jumpDelayMax;
-jumpTempHspd = 0;
-jumpTempVspd = 0;
-jumpPrepDecel = 2;
 
 glideDelayMax = 12.5;
 glideDelay = glideDelayMax;

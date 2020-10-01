@@ -1,8 +1,12 @@
 {
-    "id": "d5ecd1ee-0a01-4c49-a8d0-8c0d4d5c790c",
-    "modelName": "GMScript",
-    "mvc": "1.0",
-    "name": "scr_marble_recursion",
-    "IsCompatibility": false,
-    "IsDnD": false
+  "isDnD": false,
+  "isCompatibility": false,
+  "parent": {
+    "name": "Marble Scripts",
+    "path": "folders/Scripts/Marble Scripts.yy",
+  },
+  "resourceVersion": "1.0",
+  "name": "scr_marble_recursion",
+  "tags": [],
+  "resourceType": "GMScript",
 }
