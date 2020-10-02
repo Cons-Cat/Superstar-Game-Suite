@@ -1,0 +1,84 @@
+@startuml "Superstar Game Suite UI"
+
+allow_mixing
+' skinparam ParticipantPadding 20
+' skinparam BoxPadding 10
+' box "Foo1"
+' participant obj_control
+' end box
+
+' control Game
+
+' [-> Game: Step Event
+' activate Game
+
+' deactivate Game
+
+' [<- Game: Done
+' deactivate Game
+' participant obj_container
+
+' control obj_control {
+' }
+
+object draw_stack << struct >> {
+	Surface[] surface
+}
+	' RenderVector()
+
+class obj_control {
+	pane_stacks : draw_stack[]
+	ui_tab_list : ds_list
+	Step()
+	Render()
+}
+
+obj_control <|-- draw_stack
+
+class obj_container {
+	docked : bool
+	Create()
+	Step()
+	CalcSurface()
+}
+
+enum PANE_TYPE {
+	VIEW
+	INSPECTOR
+	DOPE
+}
+
+object ui_tab << struct >> {
+	pane_type : PANE_TYPE
+}
+
+ui_tab <|-- PANE_TYPE
+
+object ui_verts << struct >> {
+	x
+	y
+}
+
+object ui_vector << struct >> {
+	vert_list : ui_vert[] verts
+}
+
+ui_vector <|-- ui_verts
+
+@enduml
+
+@startuml "Step Event"
+
+box "Step Event"
+	participant obj_control
+	participant obj_container
+	
+	obj_control -> obj_container : For ui_tab_list
+	activate obj_control
+	
+	obj_container --> obj_control : ds_list_add(pane_stacks[docked], surface)
+	
+	deactivate obj_control
+end box
+
+@enduml
