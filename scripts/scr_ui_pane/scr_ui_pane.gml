@@ -5,9 +5,18 @@ enum PANE_TYPE
 	dope
 }
 
+uiCompCorner = function(_x, _y, _mirror, _flip) constructor
+{
+	xPos = _x;
+	yPos = _y;
+	mirror = _mirror;
+	flip = _flip;
+}
+
 uiPane = function() constructor
 {
 	pane_type = PANE_TYPE.view;
+	components = ds_list_create();
 
 	render_surface = function(_width, _height)
 	{
@@ -16,13 +25,12 @@ uiPane = function() constructor
 
 		draw_clear(c_red);
 
-		// Draw folds
-		draw_sprite_ext(spr_ui_fold, 0, 0, 0, 1, 1, 0, c_white, 1);
-		draw_sprite_ext(spr_ui_fold, 0, _width, 0, -1, 1, 0, c_white, 1);
-		draw_sprite_ext(spr_ui_fold, 0, 0, _height, 1, -1, 0, c_white, 1);
-		draw_sprite_ext(spr_ui_fold, 0, _width, _height, -1, -1, 0, c_white, 1);
-
 		surface_reset_target();
 		return return_surface;
+	}
+	
+	recurse_coord_in_bounds = function(_x, _y)
+	{
+		// TODO: Make binary R tree to loop search for components faster.
 	}
 }

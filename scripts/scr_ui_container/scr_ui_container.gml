@@ -17,10 +17,10 @@ uiContainer = function(_width, _height) constructor
 	width = _width;
 	height = _height;
 
+	surface = 0;
 	pane_tabs = ds_list_create();
 	current_tab = 0;
 	ds_list_add(pane_tabs, new uiPane());
-	surface = pane_tabs[| 0].render_surface(width, height);
 
 	#endregion
 
@@ -37,15 +37,36 @@ uiContainer = function(_width, _height) constructor
 		update_pane_surface();
 	}
 
-	update_pane_surface = function()
+	update_pane_surface = function(_surface)
 	{
-		if (surface_exists(surface))
+		if (surface_exists(_surface))
 		{
 			// Wiping the surface first may be necessary.
-			surface_free(surface);
+			surface_free(_surface);
 		}
 
-		surface = pane_tabs[| current_tab].render_surface(width, height);
+		_surface = pane_tabs[| current_tab].render_surface(width, height);
+
+		surface_set_target(_surface)
+		{
+			// Draw folds
+			draw_sprite_ext(spr_ui_fold, 0, 0, 0, 1, 1, 0, c_white, 1);
+			draw_sprite_ext(spr_ui_fold, 0, width, 0, -1, 1, 0, c_white, 1);
+			draw_sprite_ext(spr_ui_fold, 0, 0, height, 1, -1, 0, c_white, 1);
+			draw_sprite_ext(spr_ui_fold, 0, width, height, -1, -1, 0, c_white, 1);
+		}
+
+		surface_reset_target();
+	}
+
+	recurse_coord_in_bounds = function(_x, _y)
+	{
+		if (!(_x < child.xport || _x > child.xport + child.wport || _y < child.yport || _y > child.yport + hport))
+		{
+			return child.recurse_coord_in_bounds(_x, _y);
+		} else {
+			return pane_tabs[| current_tab].recurse_coord_in_bounds(_x, _y);
+		}
 	}
 
 	#endregion
