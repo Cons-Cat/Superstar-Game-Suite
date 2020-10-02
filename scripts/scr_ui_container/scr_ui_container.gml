@@ -1,7 +1,7 @@
 uiContainer = function(_width, _height) constructor
 {
 	scr_ui_pane();
-	
+
 	/************************
 	* INITIALIZE VARIABLES *
 	************************/ 
@@ -10,6 +10,8 @@ uiContainer = function(_width, _height) constructor
 	child = undefined;
 	docked = true;
 
+	xport = 0;
+	yport = 0;
 	wport = 0;
 	hport = 0;
 	width = _width;
@@ -19,14 +21,14 @@ uiContainer = function(_width, _height) constructor
 	current_tab = 0;
 	ds_list_add(pane_tabs, new uiPane());
 	surface = pane_tabs[| 0].render_surface(width, height);
-	
+
 	#endregion
 
 	/************************
 	* FUNCTION DEFINITIONS *
 	************************/
 	#region
-	
+
 	// Transformation subroutines are non-static, for speed.
 	split_container = function(_dock_hor, _dock_ver)
 	{
