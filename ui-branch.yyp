@@ -1,6 +1,7 @@
 {
   "resources": [
     {"id":{"name":"scr_ui_pane","path":"scripts/scr_ui_pane/scr_ui_pane.yy",},"order":0,},
+    {"id":{"name":"spr_ui_fold","path":"sprites/spr_ui_fold/spr_ui_fold.yy",},"order":0,},
     {"id":{"name":"obj_ui_control","path":"objects/obj_ui_control/obj_ui_control.yy",},"order":0,},
     {"id":{"name":"room_editor","path":"rooms/room_editor/room_editor.yy",},"order":0,},
     {"id":{"name":"scr_ui_container","path":"scripts/scr_ui_container/scr_ui_container.yy",},"order":0,},
