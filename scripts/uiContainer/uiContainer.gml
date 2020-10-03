@@ -56,11 +56,8 @@ function uiContainer(_width, _height) constructor
 				folds[| i].update_surface();
 			}
 			
-			//draw_surface(folds[| i].surface, folds[| i].dock_hor * width/2 + width/2, folds[| i].dock_ver * height/2 + height/2);
-			draw_surface(folds[| i].surface, 0, 0);
+			draw_surface(folds[| i].surface, folds[| i].dock_hor * width/2 + width/2 - (folds[| i].dock_hor == 1) * 10, folds[| i].dock_ver * height/2 + height/2 - (folds[| i].dock_ver == 1) * 10);
 		}
-		
-		draw_clear(c_blue);
 
 		surface_reset_target();
 	}
