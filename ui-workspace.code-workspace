@@ -4,5 +4,8 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"fuzzy-search.border-dark-theme-color": "#423D5B",
+		"fuzzy-search.border-ruler-color": "#423D5B"
+	}
 }

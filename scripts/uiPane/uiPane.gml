@@ -5,15 +5,7 @@ enum PANE_TYPE
 	dope
 }
 
-uiCompCorner = function(_x, _y, _mirror, _flip) constructor
-{
-	xPos = _x;
-	yPos = _y;
-	mirror = _mirror;
-	flip = _flip;
-}
-
-uiPane = function() constructor
+function uiPane() constructor
 {
 	pane_type = PANE_TYPE.view;
 	components = ds_list_create();

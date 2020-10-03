@@ -1,4 +1,4 @@
-scr_ui_container();
+//scr_ui_container();
 gc_enable(false);
 
 draw_stack_docked = ds_list_create();

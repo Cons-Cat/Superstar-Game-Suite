@@ -1,7 +1,5 @@
-uiContainer = function(_width, _height) constructor
+function uiContainer(_width, _height) constructor
 {
-	scr_ui_pane();
-
 	/************************
 	* INITIALIZE VARIABLES *
 	************************/ 
@@ -17,10 +15,13 @@ uiContainer = function(_width, _height) constructor
 	width = _width;
 	height = _height;
 
-	surface = 0;
+	surface = surface_create(width, height);
 	pane_tabs = ds_list_create();
 	current_tab = 0;
 	ds_list_add(pane_tabs, new uiPane());
+
+	folds = ds_list_create();
+	ds_list_add(folds, new uiFold(1,1), new uiFold(-1,1), new uiFold(1,-1), new uiFold(-1,-1));
 
 	#endregion
 
@@ -37,24 +38,29 @@ uiContainer = function(_width, _height) constructor
 		update_pane_surface();
 	}
 
-	update_pane_surface = function(_surface)
+	update_pane_surface = function()
 	{
-		if (surface_exists(_surface))
+		if (surface_exists(surface))
 		{
 			// Wiping the surface first may be necessary.
-			surface_free(_surface);
+			surface_free(surface);
 		}
 
-		_surface = pane_tabs[| current_tab].render_surface(width, height);
+		surface = pane_tabs[| current_tab].render_surface(width, height);
+		surface_set_target(surface);
 
-		surface_set_target(_surface)
+		for (var i = 0; i < 4; i++)
 		{
-			// Draw folds
-			draw_sprite_ext(spr_ui_fold, 0, 0, 0, 1, 1, 0, c_white, 1);
-			draw_sprite_ext(spr_ui_fold, 0, width, 0, -1, 1, 0, c_white, 1);
-			draw_sprite_ext(spr_ui_fold, 0, 0, height, 1, -1, 0, c_white, 1);
-			draw_sprite_ext(spr_ui_fold, 0, width, height, -1, -1, 0, c_white, 1);
+			if (!surface_exists(folds[| i].surface))
+			{
+				folds[| i].update_surface();
+			}
+			
+			//draw_surface(folds[| i].surface, folds[| i].dock_hor * width/2 + width/2, folds[| i].dock_ver * height/2 + height/2);
+			draw_surface(folds[| i].surface, 0, 0);
 		}
+		
+		draw_clear(c_blue);
 
 		surface_reset_target();
 	}
